@@ -58,3 +58,7 @@ export function subscribe(cb: () => void): () => void {
 export function cartCount(items: CartItem[]): number {
   return items.reduce((s, i) => s + i.quantity, 0);
 }
+
+export function clearCart(): void {
+  saveCart([]);
+}

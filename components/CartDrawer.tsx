@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Trash2, ShoppingBag, ArrowRight, ShieldCheck } from "lucide-react";
 import { Product } from "./CollectionShowcase";
@@ -172,17 +173,18 @@ export default function CartDrawer({
                     </span>
                   </div>
 
-                  <p className="text-[11px] font-sans text-zinc-500 text-center">
+                  <p className="text-[11px] font-sans text-sand/70 text-center">
                     Taxes & shipping calculated at checkout. Small batch ethical guarantee.
                   </p>
 
-                  <button
-                    onClick={() => alert("Proceeding to secure Australian Shopify/Stripe Checkout mockup!")}
-                    className="w-full py-4 rounded-full bg-[#1F1E1D] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#1F1E1D] font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-[#C5A059] dark:hover:bg-[#C5A059] dark:hover:text-white transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl"
+                  <Link
+                    href="/checkout"
+                    onClick={onClose}
+                    className="w-full py-4 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl"
                   >
                     <span>Proceed to Checkout</span>
                     <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </Link>
                 </div>
               )}
             </motion.div>
