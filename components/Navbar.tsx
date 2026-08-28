@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Search, Heart, Volume2, VolumeX, Menu, X, ChevronDown } from "lucide-react";
+import SearchModal from "@/components/SearchModal";
 
 interface NavbarProps {
   isMuted: boolean;
@@ -20,6 +21,7 @@ export default function Navbar({
 }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [currency, setCurrency] = useState("AUD $");
   const [isCurrencyDropdown, setIsCurrencyDropdown] = useState(false);
 
@@ -158,6 +160,20 @@ export default function Navbar({
               )}
             </button>
 
+            {/* Search Button */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              title="Search Collection"
+              className={`p-2 rounded-full transition-all duration-300 border ${
+                isScrolled
+                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059] hover:text-[#C5A059]"
+                  : "border-white/30 text-white hover:border-[#C5A059] hover:text-[#C5A059]"
+              }`}
+              aria-label="Search"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+
             {/* Wishlist */}
             <button
               className={`p-2 rounded-full transition-all duration-300 hover:text-[#C5A059] hidden sm:block ${
@@ -205,6 +221,17 @@ export default function Navbar({
             className="fixed inset-0 z-30 bg-[#FAF7F2] dark:bg-[#151413] pt-24 px-8 pb-12 flex flex-col justify-between md:hidden"
           >
             <div className="flex flex-col space-y-6 text-center">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setIsSearchOpen(true);
+                }}
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors mb-2"
+              >
+                <Search className="w-4 h-4 text-gold" />
+                <span>Search Collection</span>
+              </button>
+
               <Link
                 href="#collection"
                 onClick={() => setMobileMenuOpen(false)}
@@ -258,6 +285,12 @@ export default function Navbar({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Global Search Modal Overlay */}
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </>
   );
 }
