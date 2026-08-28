@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles, ShoppingBag, ShieldCheck, Check } from "lucide-react";
 import { Product } from "./CollectionShowcase";
+import { setBuyNowItem } from "@/lib/cart";
+import SizeGuideModal from "@/components/SizeGuideModal";
 
 interface ProductModalProps {
   product: Product | null;
@@ -16,8 +19,10 @@ export default function ProductModal({
   onClose,
   onAddToCart,
 }: ProductModalProps) {
+  const router = useRouter();
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isAdded, setIsAdded] = useState(false);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   if (!product) return null;
 
@@ -31,6 +36,13 @@ export default function ProductModal({
       setIsAdded(false);
       onClose();
     }, 900);
+  };
+
+  const handleBuyNow = () => {
+    if (!selectedSize) return;
+    setBuyNowItem(product, selectedSize, 1);
+    onClose();
+    router.push("/checkout?mode=buynow");
   };
 
   return (
@@ -120,9 +132,15 @@ export default function ProductModal({
 
               {/* Size Selector */}
               <div className="space-y-2 pt-2">
-                <div className="flex justify-between text-xs font-sans">
+                <div className="flex justify-between text-xs font-sans items-center">
                   <span className="uppercase tracking-wider text-zinc-500">Select Australian Size:</span>
-                  <span className="text-[#C5A059] underline cursor-pointer">Size Guide</span>
+                  <button
+                    type="button"
+                    onClick={() => setShowSizeGuide(true)}
+                    className="text-gold uppercase tracking-wide text-xs hover:underline underline-offset-4 cursor-pointer"
+                  >
+                    Size Guide
+                  </button>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {sizes.map((s) => (
@@ -142,15 +160,15 @@ export default function ProductModal({
               </div>
             </div>
 
-            {/* Action Button */}
-            <div className="pt-4 border-t border-[#DCC7AF]/30">
+            {/* Action Buttons */}
+            <div className="pt-4 border-t border-sand/30 space-y-2.5">
               <button
                 onClick={handleAdd}
                 disabled={!selectedSize}
-                className={`w-full py-4 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
+                className={`w-full py-3.5 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
                   !selectedSize
-                    ? "bg-[#DCC7AF]/20 text-zinc-400 dark:text-zinc-500 border border-[#DCC7AF]/30 cursor-not-allowed"
-                    : "bg-[#1F1E1D] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#1F1E1D] hover:bg-[#C5A059] dark:hover:bg-[#C5A059] dark:hover:text-white shadow-xl cursor-pointer"
+                    ? "bg-sand/20 text-muted border border-sand/30 cursor-not-allowed"
+                    : "bg-gold hover:bg-cinnamon text-charcoal hover:text-white shadow-xl cursor-pointer"
                 }`}
               >
                 {isAdded ? (
@@ -167,10 +185,26 @@ export default function ProductModal({
                   </>
                 )}
               </button>
+
+              <button
+                onClick={handleBuyNow}
+                disabled={!selectedSize}
+                className={`w-full py-3.5 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border ${
+                  !selectedSize
+                    ? "bg-transparent text-muted/60 border-sand/30 cursor-not-allowed"
+                    : "bg-transparent border-gold text-gold hover:bg-gold hover:text-charcoal shadow-md cursor-pointer"
+                }`}
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>Buy Now • Express Checkout</span>
+              </button>
             </div>
           </div>
         </motion.div>
       </div>
+
+      {/* Size Guide Modal */}
+      <SizeGuideModal isOpen={showSizeGuide} onClose={() => setShowSizeGuide(false)} />
     </AnimatePresence>
   );
 }

@@ -62,3 +62,33 @@ export function cartCount(items: CartItem[]): number {
 export function clearCart(): void {
   saveCart([]);
 }
+
+const BUY_NOW_KEY = "bindy-buy-now-item";
+
+export function setBuyNowItem(product: Product, size: string, quantity = 1): void {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(BUY_NOW_KEY, JSON.stringify({ product, size, quantity }));
+  } catch {
+    /* ignore */
+  }
+}
+
+export function getBuyNowItem(): CartItem | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(BUY_NOW_KEY);
+    return raw ? (JSON.parse(raw) as CartItem) : null;
+  } catch {
+    return null;
+  }
+}
+
+export function clearBuyNowItem(): void {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.removeItem(BUY_NOW_KEY);
+  } catch {
+    /* ignore */
+  }
+}

@@ -21,7 +21,14 @@ import {
   Tag,
   Loader2,
 } from "lucide-react";
-import { getCart, clearCart, subscribe, type CartItem } from "@/lib/cart";
+import {
+  getCart,
+  clearCart,
+  subscribe,
+  getBuyNowItem,
+  clearBuyNowItem,
+  type CartItem,
+} from "@/lib/cart";
 
 type CheckoutStep = "shipping" | "payment" | "review" | "confirmation";
 
@@ -56,6 +63,7 @@ interface CompletedOrder {
   discountAmount: number;
   total: number;
   shippingAddress: ShippingData;
+  isBuyNow?: boolean;
 }
 
 const AUSTRALIAN_STATES = [
@@ -110,6 +118,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const [items, setItems] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isBuyNowMode, setIsBuyNowMode] = useState(false);
   const [step, setStep] = useState<CheckoutStep>("shipping");
   const [isMobileSummaryOpen, setIsMobileSummaryOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -152,11 +161,8 @@ export default function CheckoutPage() {
   // Generated Order Details for Step 4
   const [orderSummary, setOrderSummary] = useState<CompletedOrder | null>(null);
 
-  // Load and subscribe to cart + Rehydrate in-progress draft and completed order
+  // Load cart or isolated Buy Now item + Rehydrate draft state
   useEffect(() => {
-    const currentCart = getCart();
-    setItems(currentCart);
-
     if (typeof window !== "undefined") {
       try {
         // Check for completed order in this session first (Handles reload on confirmation & browser back/forward)
@@ -166,9 +172,20 @@ export default function CheckoutPage() {
           if (parsedOrder && parsedOrder.orderId) {
             setOrderSummary(parsedOrder);
             setStep("confirmation");
+            setIsBuyNowMode(Boolean(parsedOrder.isBuyNow));
             setIsLoaded(true);
             return;
           }
+        }
+
+        // Check for isolated Buy Now item
+        const buyNow = getBuyNowItem();
+        if (buyNow) {
+          setIsBuyNowMode(true);
+          setItems([buyNow]);
+        } else {
+          setIsBuyNowMode(false);
+          setItems(getCart());
         }
 
         // Otherwise, rehydrate in-progress draft values
@@ -213,8 +230,12 @@ export default function CheckoutPage() {
     }
 
     setIsLoaded(true);
+
     const unsubscribe = subscribe(() => {
-      setItems(getCart());
+      // If we are NOT in buy-now mode, reactively sync cart changes
+      if (!getBuyNowItem()) {
+        setItems(getCart());
+      }
     });
     return () => unsubscribe();
   }, []);
@@ -378,7 +399,7 @@ export default function CheckoutPage() {
     }
   };
 
-  // Step 3 -> 4 "Place Order" with double-submit synchronous guard
+  // Step 3 -> 4 "Place Order" with Buy Now awareness & double-submit protection
   const handlePlaceOrder = () => {
     if (!agreedToTerms || isSubmitting || submittingRef.current) return;
 
@@ -403,11 +424,12 @@ export default function CheckoutPage() {
         discountAmount,
         total,
         shippingAddress: { ...shipping },
+        isBuyNow: isBuyNowMode,
       };
 
       setOrderSummary(finalOrder);
 
-      // Store completed order separately in sessionStorage so refresh/back retains receipt
+      // Store completed order separately in sessionStorage
       if (typeof window !== "undefined") {
         try {
           sessionStorage.setItem("bindy_last_order", JSON.stringify(finalOrder));
@@ -419,8 +441,13 @@ export default function CheckoutPage() {
         }
       }
 
-      // Clear the live bag
-      clearCart();
+      // If in Buy Now mode: only clear the temporary buy-now item (preserves regular cart!)
+      if (isBuyNowMode) {
+        clearBuyNowItem();
+      } else {
+        clearCart();
+      }
+
       submittingRef.current = false;
       setIsSubmitting(false);
       setStep("confirmation");
@@ -446,8 +473,11 @@ export default function CheckoutPage() {
     }
   };
 
-  // Clear completed order session when explicitly returning to shop
-  const handleContinueShopping = () => {
+  // Safe return to collection (clears temporary buy-now item if abandoning)
+  const handleReturnToCollection = () => {
+    if (isBuyNowMode) {
+      clearBuyNowItem();
+    }
     if (typeof window !== "undefined") {
       try {
         sessionStorage.removeItem("bindy_last_order");
@@ -622,14 +652,22 @@ export default function CheckoutPage() {
       {/* 1. LUXURY CHECKOUT HEADER */}
       <header className="sticky top-0 z-40 bg-ink-deep/90 backdrop-blur-xl border-b border-white/10 py-3.5 sm:py-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <Link href="/" className="flex flex-col leading-none flex-shrink-0">
-            <span className="font-display text-2xl tracking-[0.12em] text-paper-light">
-              BINDY<span className="text-gold">.</span>
-            </span>
-            <span className="text-[8px] font-sans uppercase tracking-[0.45em] text-gold mt-0.5">
-              Clothing
-            </span>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/" className="flex flex-col leading-none flex-shrink-0">
+              <span className="font-display text-2xl tracking-[0.12em] text-paper-light">
+                BINDY<span className="text-gold">.</span>
+              </span>
+              <span className="text-[8px] font-sans uppercase tracking-[0.45em] text-gold mt-0.5">
+                Clothing
+              </span>
+            </Link>
+
+            {isBuyNowMode && (
+              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-gold bg-gold/10 border border-gold/30 px-2.5 py-0.5 rounded-full">
+                <Sparkles className="w-3 h-3" /> Express Buy Now
+              </span>
+            )}
+          </div>
 
           {/* Centered Encryption Badge (hidden on small mobile) */}
           <div className="hidden md:flex items-center gap-2 text-xs font-sans text-sand/70 bg-white/5 px-3.5 py-1.5 rounded-full border border-white/10">
@@ -638,14 +676,14 @@ export default function CheckoutPage() {
           </div>
 
           {step !== "confirmation" ? (
-            <Link
-              href="/#collection"
-              className="flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest text-sand/80 hover:text-gold transition-colors py-2"
+            <button
+              onClick={handleReturnToCollection}
+              className="flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest text-sand/80 hover:text-gold transition-colors py-2 cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Return to Collection</span>
               <span className="sm:hidden">Back</span>
-            </Link>
+            </button>
           ) : (
             <div className="w-8" />
           )}
@@ -745,6 +783,11 @@ export default function CheckoutPage() {
               <span className="font-medium text-paper-light">
                 {isMobileSummaryOpen ? "Hide order summary" : `Order summary (${totalItemsCount} items)`}
               </span>
+              {isBuyNowMode && (
+                <span className="text-[9px] uppercase tracking-wider text-gold bg-gold/15 px-1.5 py-0.5 rounded">
+                  Buy Now
+                </span>
+              )}
               <ChevronDown
                 className={`w-3.5 h-3.5 text-gold transition-transform duration-300 ${
                   isMobileSummaryOpen ? "rotate-180" : ""
@@ -814,9 +857,16 @@ export default function CheckoutPage() {
                   </motion.div>
                 </motion.div>
 
-                <span className="text-[10px] font-sans uppercase tracking-[0.4em] text-gold block">
-                  Order Successfully Placed
-                </span>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[10px] font-sans uppercase tracking-[0.4em] text-gold">
+                    Order Successfully Placed
+                  </span>
+                  {orderSummary.isBuyNow && (
+                    <span className="text-[9px] font-sans uppercase tracking-wider text-gold bg-gold/15 border border-gold/30 px-2 py-0.5 rounded-full">
+                      Express Buy Now
+                    </span>
+                  )}
+                </div>
 
                 <h1 className="font-serif text-2xl sm:text-5xl font-light text-paper-light">
                   Thank You, {orderSummary.shippingAddress.firstName}
@@ -945,7 +995,7 @@ export default function CheckoutPage() {
             >
               <button
                 type="button"
-                onClick={handleContinueShopping}
+                onClick={handleReturnToCollection}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-cinnamon hover:text-white transition-all shadow-xl min-h-[48px] cursor-pointer"
               >
                 <span>Continue Shopping</span>
@@ -1582,9 +1632,16 @@ export default function CheckoutPage() {
             <div className="hidden lg:block lg:col-span-5 lg:sticky lg:top-24 self-start">
               <div className="bg-ink border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
                 <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                  <h3 className="font-serif text-xl font-medium text-paper-light">
-                    Order Summary
-                  </h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-serif text-xl font-medium text-paper-light">
+                      Order Summary
+                    </h3>
+                    {isBuyNowMode && (
+                      <span className="text-[10px] font-sans uppercase tracking-widest text-gold bg-gold/10 border border-gold/30 px-2 py-0.5 rounded-full">
+                        Buy Now
+                      </span>
+                    )}
+                  </div>
                   <span className="text-xs font-sans text-sand/70">
                     {totalItemsCount} items
                   </span>

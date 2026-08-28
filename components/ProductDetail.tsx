@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Star,
@@ -16,10 +17,12 @@ import {
   ShieldCheck,
   ChevronDown,
   MapPin,
+  Sparkles,
 } from "lucide-react";
 import { PRODUCTS, getAverageRating, type Product } from "@/lib/products";
-import { addToCart } from "@/lib/cart";
+import { addToCart, setBuyNowItem } from "@/lib/cart";
 import ReviewsSection from "@/components/ReviewsSection";
+import SizeGuideModal from "@/components/SizeGuideModal";
 
 function Stars({ value, className = "" }: { value: number; className?: string }) {
   return (
@@ -39,11 +42,13 @@ function Stars({ value, className = "" }: { value: number; className?: string })
 }
 
 export default function ProductDetail({ product }: { product: Product }) {
+  const router = useRouter();
   const [activeImg, setActiveImg] = useState(0);
   const [size, setSize] = useState<string | null>(null);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [careOpen, setCareOpen] = useState(false);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   const avg = useMemo(() => getAverageRating(product), [product]);
 
@@ -65,6 +70,12 @@ export default function ProductDetail({ product }: { product: Product }) {
     addToCart(product, size, qty);
     setAdded(true);
     setTimeout(() => setAdded(false), 2200);
+  };
+
+  const handleBuyNow = () => {
+    if (!size) return;
+    setBuyNowItem(product, size, qty);
+    router.push("/checkout?mode=buynow");
   };
 
   return (
@@ -194,8 +205,17 @@ export default function ProductDetail({ product }: { product: Product }) {
           {/* size */}
           <div className="mt-6">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-zinc-500">Select Size</p>
-              <span className="text-[11px] text-zinc-400">AU sizing</span>
+              <div className="flex items-center gap-2">
+                <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-zinc-500">Select Size</p>
+                <span className="text-[11px] text-zinc-400 font-sans">• AU sizing</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowSizeGuide(true)}
+                className="text-xs font-sans uppercase tracking-wide text-gold hover:underline underline-offset-4 cursor-pointer"
+              >
+                Size Guide
+              </button>
             </div>
             <div className="flex flex-wrap gap-2">
               {product.sizes.map((s) => (
@@ -216,7 +236,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
           {/* qty + add */}
           <div className="mt-6 flex items-stretch gap-3">
-            <div className="flex items-center border border-[#DCC7AF]/60 rounded-full px-1">
+            <div className="flex items-center border border-sand/60 rounded-full px-1">
               <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="p-2 text-zinc-600 hover:text-black dark:hover:text-white" aria-label="Decrease">
                 <Minus className="w-4 h-4" />
               </button>
@@ -228,16 +248,30 @@ export default function ProductDetail({ product }: { product: Product }) {
             <button
               onClick={handleAdd}
               disabled={!size}
-              className={`flex-1 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5 transition-all ${
+              className={`flex-1 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5 transition-all py-3.5 ${
                 !size
-                  ? "bg-[#DCC7AF]/20 text-zinc-400 dark:text-zinc-500 border border-[#DCC7AF]/30 cursor-not-allowed"
-                  : "bg-[#C5A059] hover:bg-[#A46446] text-white shadow-[0_8px_30px_rgba(197,160,89,0.35)] cursor-pointer"
+                  ? "bg-sand/20 text-muted border border-sand/30 cursor-not-allowed"
+                  : "bg-gold hover:bg-cinnamon text-white shadow-[0_8px_30px_rgba(197,160,89,0.35)] cursor-pointer"
               }`}
             >
               {added ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
               {added ? "Added to Bag" : !size ? "Select a Size" : "Add to Bag"}
             </button>
           </div>
+
+          {/* Buy Now Button (Distinct Secondary Outlined Luxury Style) */}
+          <button
+            onClick={handleBuyNow}
+            disabled={!size}
+            className={`w-full mt-3 py-3.5 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5 transition-all border ${
+              !size
+                ? "bg-transparent text-muted/60 border-sand/30 cursor-not-allowed"
+                : "bg-transparent border-gold text-gold hover:bg-gold hover:text-charcoal cursor-pointer shadow-md"
+            }`}
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>Buy Now • Express Checkout</span>
+          </button>
 
           <AnimatePresence>
             {added && (
@@ -371,6 +405,9 @@ export default function ProductDetail({ product }: { product: Product }) {
           </div>
         </section>
       )}
+
+      {/* Size Guide Modal */}
+      <SizeGuideModal isOpen={showSizeGuide} onClose={() => setShowSizeGuide(false)} />
     </main>
   );
 }
