@@ -30,7 +30,7 @@ export default function ThreeWomenStory() {
     <section id="about" className="py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-20 space-y-4">
-        <span className="text-[11px] font-sans uppercase tracking-[0.4em] text-[#C5A059] font-medium">
+        <span className="text-[11px] font-sans uppercase tracking-[0.4em] text-gold font-medium">
           Our Origin • Three Women
         </span>
         <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-zinc-900 dark:text-zinc-100 font-light">
@@ -50,17 +50,17 @@ export default function ThreeWomenStory() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: idx * 0.15 }}
-            className="p-8 rounded-3xl bg-white/60 dark:bg-zinc-900/40 border border-[#DCC7AF]/40 hover:border-[#C5A059] transition-all duration-500 hover:shadow-xl flex flex-col justify-between"
+            className="p-8 rounded-3xl bg-white/60 dark:bg-zinc-900/40 border border-sand/40 hover:border-gold transition-all duration-500 hover:shadow-xl flex flex-col justify-between"
           >
             <div className="space-y-4">
-              <div className="w-10 h-10 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/30 flex items-center justify-center text-[#C5A059] text-xs font-serif">
+              <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-xs font-serif">
                 0{idx + 1}
               </div>
               <div>
                 <h3 className="font-serif text-2xl text-zinc-900 dark:text-zinc-100 font-medium">
                   {person.name}
                 </h3>
-                <p className="text-xs uppercase font-sans tracking-[0.25em] text-[#C5A059] mt-1 font-medium">
+                <p className="text-xs uppercase font-sans tracking-[0.25em] text-gold mt-1 font-medium">
                   {person.role}
                 </p>
               </div>
@@ -69,15 +69,15 @@ export default function ThreeWomenStory() {
               </p>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-[#DCC7AF]/20 space-y-2">
-              <span className="text-[10px] uppercase font-sans tracking-widest text-[#8C8477]">
+            <div className="mt-8 pt-6 border-t border-sand/20 space-y-2">
+              <span className="text-[10px] uppercase font-sans tracking-widest text-muted">
                 Key Pillar:
               </span>
               <div className="flex flex-wrap gap-1.5">
                 {person.focus.map((f, i) => (
                   <span
                     key={i}
-                    className="text-[11px] font-sans px-2.5 py-1 rounded-md bg-[#DCC7AF]/20 text-zinc-800 dark:text-zinc-200"
+                    className="text-[11px] font-sans px-2.5 py-1 rounded-md bg-sand/20 text-zinc-800 dark:text-zinc-200"
                   >
                     {f}
                   </span>

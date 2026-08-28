@@ -14,15 +14,15 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#121110] text-[#FAF7F2] border-t border-[#C5A059]/20 pt-20 pb-12">
+    <footer className="bg-ink-deep text-paper border-t border-gold/20 pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           {/* Brand Column (5 cols) */}
           <div className="md:col-span-5 space-y-4">
             <h3 className="font-serif text-3xl sm:text-4xl tracking-[0.2em] uppercase font-light text-white">
-              BINDY<span className="text-[#C5A059]">.</span>
+              BINDY<span className="text-gold">.</span>
             </h3>
-            <p className="text-xs uppercase font-sans tracking-[0.35em] text-[#C5A059]">
+            <p className="text-xs uppercase font-sans tracking-[0.35em] text-gold">
               Two Islands • One Thread
             </p>
             <p className="font-serif italic text-sm text-[#A89F91] max-w-sm leading-relaxed">

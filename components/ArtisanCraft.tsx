@@ -32,10 +32,10 @@ export default function ArtisanCraft() {
   ];
 
   return (
-    <section id="craft" className="py-24 bg-[#FAF7F2] dark:bg-[#121110] border-t border-[#DCC7AF]/30">
+    <section id="craft" className="py-24 bg-paper dark:bg-ink-deep border-t border-sand/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-[#C5A059]">
+          <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-gold">
             Fabric & Material Board
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-zinc-900 dark:text-zinc-100 font-light">
@@ -50,9 +50,9 @@ export default function ArtisanCraft() {
           {materials.map((mat, i) => (
             <div
               key={i}
-              className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-[#DCC7AF]/30 hover:border-[#C5A059] transition-all duration-300 hover:shadow-lg space-y-3"
+              className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-sand/30 hover:border-gold transition-all duration-300 hover:shadow-lg space-y-3"
             >
-              <span className="text-[10px] uppercase font-sans tracking-widest px-2.5 py-1 rounded-full bg-[#C5A059]/10 text-[#C5A059] font-medium inline-block">
+              <span className="text-[10px] uppercase font-sans tracking-widest px-2.5 py-1 rounded-full bg-gold/10 text-gold font-medium inline-block">
                 {mat.badge}
               </span>
               <h3 className="font-serif text-xl text-zinc-900 dark:text-zinc-100 font-medium">

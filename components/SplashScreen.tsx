@@ -56,7 +56,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     >
       {/* LEFT SILK CURTAIN PANEL */}
       <div
-        className={`curtain-left absolute top-0 left-0 w-1/2 h-full bg-[#181614] z-20 overflow-hidden shadow-[10px_0_50px_rgba(0,0,0,0.8)]`}
+        className={`curtain-left absolute top-0 left-0 w-1/2 h-full bg-ink z-20 overflow-hidden shadow-[10px_0_50px_rgba(0,0,0,0.8)]`}
       >
         {/* Symmetrical Fabric Shading */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#2A2420]/20 to-black/50" />
@@ -65,7 +65,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
       {/* RIGHT SILK CURTAIN PANEL */}
       <div
-        className={`curtain-right absolute top-0 right-0 w-1/2 h-full bg-[#181614] z-20 overflow-hidden shadow-[-10px_0_50px_rgba(0,0,0,0.8)]`}
+        className={`curtain-right absolute top-0 right-0 w-1/2 h-full bg-ink z-20 overflow-hidden shadow-[-10px_0_50px_rgba(0,0,0,0.8)]`}
       >
         {/* Symmetrical Fabric Shading */}
         <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#2A2420]/20 to-black/50" />

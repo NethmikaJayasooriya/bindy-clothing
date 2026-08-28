@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Eye, Check, ArrowRight, MapPin, Palmtree, Sparkle, Building2, Flower2, Sun } from "lucide-react";
+import { Plus, Eye, Check, ArrowRight, MapPin, Palmtree, Sparkle, Building2, Flower2, Sun, Star } from "lucide-react";
 import {
   PRODUCTS,
   CATEGORIES,
   DESTINATIONS,
+  getAverageRating,
   type Product,
   type Destination,
 } from "@/lib/products";
@@ -15,6 +16,39 @@ import {
 // Re-export so existing imports (page.tsx, ProductModal) keep working.
 export type { Product } from "@/lib/products";
 export { PRODUCTS } from "@/lib/products";
+
+function StarRatingBadge({ product }: { product: Product }) {
+  const count = product.reviews?.length || 0;
+  if (count === 0) {
+    return (
+      <span className="inline-block mt-1 text-[10px] font-sans uppercase tracking-widest text-gold/80 font-medium">
+        New Arrival
+      </span>
+    );
+  }
+
+  const rating = getAverageRating(product);
+
+  return (
+    <div className="inline-flex items-center gap-1.5 mt-1.5" title={`${rating.toFixed(1)} out of 5 stars (${count} reviews)`}>
+      <div className="inline-flex items-center gap-0.5">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star
+            key={star}
+            className={`w-3 h-3 ${
+              star <= Math.round(rating)
+                ? "fill-gold text-gold"
+                : "text-sand/40 fill-transparent"
+            }`}
+          />
+        ))}
+      </div>
+      <span className="text-[11px] font-sans text-muted">
+        ({count})
+      </span>
+    </div>
+  );
+}
 
 const DEST_ICON: Record<Destination, React.ElementType> = {
   Beach: Palmtree,
@@ -35,29 +69,22 @@ const DEST_IMG: Record<Destination | "All", string> = {
 };
 
 interface CollectionShowcaseProps {
-  onAddToCart: (product: Product) => void;
   onQuickView: (product: Product) => void;
+  onAddToCart?: (product: Product, size: string) => void;
 }
 
 export default function CollectionShowcase({
-  onAddToCart,
   onQuickView,
+  onAddToCart,
 }: CollectionShowcaseProps) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [activeDest, setActiveDest] = useState<Destination | "All">("All");
-  const [addedId, setAddedId] = useState<string | null>(null);
 
   const filteredProducts = PRODUCTS.filter((p) => {
     const categoryMatch = activeCategory === "All" || p.category === activeCategory;
     const destMatch = activeDest === "All" || p.destinations.includes(activeDest);
     return categoryMatch && destMatch;
   });
-
-  const handleAdd = (product: Product) => {
-    onAddToCart(product);
-    setAddedId(product.id);
-    setTimeout(() => setAddedId(null), 1500);
-  };
 
   const destTiles: (Destination | "All")[] = ["All", ...DESTINATIONS.map((d) => d.key)];
   const destMeta = (k: Destination | "All") =>
@@ -245,11 +272,11 @@ export default function CollectionShowcase({
                       <Eye className="w-4 h-4 text-[#C5A059]" />
                     </button>
                     <button
-                      onClick={(e) => { e.preventDefault(); handleAdd(product); }}
+                      onClick={(e) => { e.preventDefault(); onQuickView(product); }}
                       className="p-2 rounded-xl bg-[#C5A059] hover:bg-[#A46446] text-white shadow-lg transition-transform hover:scale-110"
-                      title="Add to bag"
+                      title="Select size & add to bag"
                     >
-                      {addedId === product.id ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                      <Plus className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -261,13 +288,14 @@ export default function CollectionShowcase({
                       {product.story}
                     </div>
                     <Link href={`/product/${product.id}`}>
-                      <h3 className="font-serif text-lg text-zinc-900 dark:text-zinc-100 font-medium group-hover:text-[#C5A059] transition-colors cursor-pointer">
+                      <h3 className="font-serif text-lg text-zinc-900 dark:text-zinc-100 font-medium group-hover:text-[#C5A059] transition-colors cursor-pointer leading-snug">
                         {product.name}
                       </h3>
                     </Link>
-                    <p className="text-xs font-sans text-zinc-500 dark:text-zinc-400 mt-1">
+                    <p className="text-xs font-sans text-zinc-500 dark:text-zinc-400 mt-0.5">
                       {product.fabric}
                     </p>
+                    <StarRatingBadge product={product} />
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-[#DCC7AF]/20 dark:border-white/10 flex items-center justify-between">

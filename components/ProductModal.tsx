@@ -16,7 +16,7 @@ export default function ProductModal({
   onClose,
   onAddToCart,
 }: ProductModalProps) {
-  const [selectedSize, setSelectedSize] = useState<string>("AU 8 (S)");
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isAdded, setIsAdded] = useState(false);
 
   if (!product) return null;
@@ -24,6 +24,7 @@ export default function ProductModal({
   const sizes = ["AU 6 (XS)", "AU 8 (S)", "AU 10 (M)", "AU 12 (L)", "AU 14 (XL)"];
 
   const handleAdd = () => {
+    if (!selectedSize) return;
     onAddToCart(product, selectedSize);
     setIsAdded(true);
     setTimeout(() => {
@@ -50,7 +51,7 @@ export default function ProductModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="relative z-10 w-full max-w-4xl bg-[#FAF7F2] dark:bg-[#181614] rounded-3xl overflow-hidden shadow-2xl border border-[#DCC7AF]/40 flex flex-col md:flex-row max-h-[90vh] overflow-y-auto"
+          className="relative z-10 w-full max-w-4xl bg-paper dark:bg-ink rounded-3xl overflow-hidden shadow-2xl border border-sand/40 flex flex-col md:flex-row max-h-[90vh] overflow-y-auto"
         >
           {/* Close button */}
           <button
@@ -61,15 +62,18 @@ export default function ProductModal({
           </button>
 
           {/* Left: Product Image */}
-          <div className="md:w-1/2 relative bg-[#EAE3D6] min-h-[350px]">
+          <div className="md:w-1/2 relative aspect-[3/4] md:aspect-auto bg-ink min-h-[350px]">
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.opacity = "0.7";
+              }}
             />
             <div className="absolute top-4 left-4 flex items-center space-x-2 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white">
               <span
-                className="w-3 h-3 rounded-full"
+                className="w-3 h-3 rounded-full border border-white/30"
                 style={{ backgroundColor: product.colorHex }}
               />
               <span className="font-sans tracking-wider uppercase text-[10px]">
@@ -142,13 +146,20 @@ export default function ProductModal({
             <div className="pt-4 border-t border-[#DCC7AF]/30">
               <button
                 onClick={handleAdd}
-                className="w-full py-4 rounded-full bg-[#1F1E1D] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#1F1E1D] font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-[#C5A059] dark:hover:bg-[#C5A059] dark:hover:text-white transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl"
+                disabled={!selectedSize}
+                className={`w-full py-4 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
+                  !selectedSize
+                    ? "bg-[#DCC7AF]/20 text-zinc-400 dark:text-zinc-500 border border-[#DCC7AF]/30 cursor-not-allowed"
+                    : "bg-[#1F1E1D] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#1F1E1D] hover:bg-[#C5A059] dark:hover:bg-[#C5A059] dark:hover:text-white shadow-xl cursor-pointer"
+                }`}
               >
                 {isAdded ? (
                   <>
                     <Check className="w-4 h-4" />
                     <span>Added to Bag</span>
                   </>
+                ) : !selectedSize ? (
+                  <span>Please Select a Size</span>
                 ) : (
                   <>
                     <ShoppingBag className="w-4 h-4" />

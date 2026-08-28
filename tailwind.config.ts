@@ -27,6 +27,10 @@ const config: Config = {
         terracotta: "var(--color-terracotta)",
         lotus: "var(--color-lotus-pink)",
         charcoal: "var(--color-charcoal)",
+        ink: {
+          DEFAULT: "var(--color-ink, #181614)",
+          deep: "var(--color-ink-deep, #121110)",
+        },
         gold: "var(--color-gold)",
         muted: "var(--color-muted)",
       },
