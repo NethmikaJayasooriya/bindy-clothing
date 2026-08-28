@@ -64,12 +64,12 @@ export default function Footer() {
           </div>
 
           {/* Newsletter (4 cols) */}
-          <div className="md:col-span-4 space-y-4">
+          <div className="md:col-span-4 space-y-3">
             <h4 className="text-[10px] text-[#C5A059] uppercase tracking-[0.35em] font-semibold">
               The Bindy Journal
             </h4>
-            <p className="text-xs font-sans text-zinc-400">
-              Receive limited edition release notices and private storytelling previews.
+            <p className="text-xs font-sans text-muted">
+              Limited edition drops & private previews
             </p>
 
             {subscribed ? (
@@ -78,7 +78,7 @@ export default function Footer() {
                 <span>Thank you for joining our journey.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex items-center space-x-2">
+              <form onSubmit={handleSubscribe} className="flex items-center space-x-2 pt-1">
                 <input
                   type="email"
                   value={email}
@@ -89,7 +89,7 @@ export default function Footer() {
                 />
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-full bg-[#C5A059] hover:bg-[#A46446] text-black hover:text-white text-xs font-sans uppercase tracking-widest transition-colors font-medium"
+                  className="px-5 py-2.5 rounded-full bg-[#C5A059] hover:bg-[#A46446] text-black hover:text-white text-xs font-sans uppercase tracking-widest transition-colors font-medium cursor-pointer"
                 >
                   Join
                 </button>

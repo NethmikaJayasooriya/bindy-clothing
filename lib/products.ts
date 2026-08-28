@@ -1087,3 +1087,13 @@ export function getAverageRating(product: Product): number {
   const sum = product.reviews.reduce((acc, r) => acc + r.rating, 0);
   return sum / product.reviews.length;
 }
+
+export function getStoreReviewsAggregate(): { averageRating: number; totalReviews: number } {
+  const allReviews = PRODUCTS.flatMap((p) => p.reviews || []);
+  const totalReviews = allReviews.length;
+  const averageRating =
+    totalReviews > 0
+      ? Number((allReviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews).toFixed(1))
+      : 4.9;
+  return { averageRating, totalReviews };
+}

@@ -6,6 +6,7 @@ import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
 import CinematicHero from "@/components/CinematicHero";
 import HeritageTicker from "@/components/HeritageTicker";
+import HeroSpotlightStrip from "@/components/HeroSpotlightStrip";
 import CollectionShowcase, { Product, PRODUCTS } from "@/components/CollectionShowcase";
 import HeritageStories from "@/components/HeritageStories";
 import ThreeWomenStory from "@/components/ThreeWomenStory";
@@ -122,40 +123,37 @@ export default function Home() {
             const el = document.getElementById("collection");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
-          onSelectStory={(storyId) => {
-            const found = PRODUCTS.find((p) => p.id.includes(storyId));
-            if (found) setQuickViewProduct(found);
-          }}
         />
       </div>
 
-      {/* spacer: reserves one screen so the film plays first, then the shop rises over it */}
-      <div className="h-screen" aria-hidden />
+      {/* spacer: reserves viewport minus slim ticker height so it docks flush at bottom edge */}
+      <div className="h-[calc(100vh-36px)] sm:h-[calc(100vh-38px)]" aria-hidden />
 
       {/* Everything below rises up over the fixed hero */}
-      <div className="relative z-10 bg-paper dark:bg-ink-deep rounded-t-[2.5rem] -mt-12 shadow-[0_-34px_80px_rgba(31,30,29,0.3)]">
-        {/* grab handle seam that reads as the shop panel rising over the film */}
-        <div className="flex justify-center pt-3.5 pb-1.5">
-          <span className="h-1.5 w-16 rounded-full bg-sand/70" />
-        </div>
-        {/* 4. HERITAGE VALUES TICKER */}
+      <div className="relative z-10 bg-paper dark:bg-ink-deep shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+        {/* 4. HERITAGE VALUES TICKER (Untouched at the bottom edge of hero) */}
         <HeritageTicker />
 
-      {/* 5. SERENDIPITY COLLECTION 01 SHOWCASE */}
-      <CollectionShowcase
-        onQuickView={(prod) => setQuickViewProduct(prod)}
-      />
+        {/* 5. THIS WEEK'S SPOTLIGHT (Curated signature silhouettes) */}
+        <HeroSpotlightStrip
+          onSelectProduct={(prod: Product) => setQuickViewProduct(prod)}
+        />
 
-      {/* 6. HERITAGE CHAPTER STORIES (LOTUS, RED MOSQUE, SIGIRIYA, TEA HILLS, MANNAR) */}
-      <HeritageStories />
+        {/* 6. SERENDIPITY COLLECTION 01 SHOWCASE */}
+        <CollectionShowcase
+          onQuickView={(prod) => setQuickViewProduct(prod)}
+        />
 
-      {/* 7. THREE WOMEN FOUNDER'S JOURNEY */}
-      <ThreeWomenStory />
+        {/* 7. HERITAGE CHAPTER STORIES (LOTUS, RED MOSQUE, SIGIRIYA, TEA HILLS, MANNAR) */}
+        <HeritageStories />
 
-      {/* 8. ARTISAN CRAFT & SUSTAINABLE FABRICS */}
-      <ArtisanCraft />
+        {/* 8. THREE WOMEN FOUNDER'S JOURNEY */}
+        <ThreeWomenStory />
 
-        {/* 9. LUXURY EDITORIAL FOOTER */}
+        {/* 9. ARTISAN CRAFT & SUSTAINABLE FABRICS */}
+        <ArtisanCraft />
+
+        {/* 10. LUXURY EDITORIAL FOOTER */}
         <Footer />
       </div>
 

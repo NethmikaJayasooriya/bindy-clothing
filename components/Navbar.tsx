@@ -82,7 +82,7 @@ export default function Navbar({
                 isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white/90"
               }`}
             >
-              Stories
+              Heritage Stories
             </Link>
             <Link
               href="#about"
@@ -141,7 +141,7 @@ export default function Navbar({
               </AnimatePresence>
             </div>
 
-            {/* Ambient Sound Toggle */}
+            {/* Ambient Sound Toggle (Clean & Static) */}
             <button
               onClick={toggleAudio}
               title={isMuted ? "Unmute Ambient Soundscape" : "Mute Soundscape"}
@@ -154,7 +154,7 @@ export default function Navbar({
               {isMuted ? (
                 <VolumeX className="w-4 h-4" />
               ) : (
-                <Volume2 className="w-4 h-4 text-[#C5A059] animate-pulse" />
+                <Volume2 className="w-4 h-4 text-[#C5A059]" />
               )}
             </button>
 

@@ -21,7 +21,7 @@ function StarRatingBadge({ product }: { product: Product }) {
   const count = product.reviews?.length || 0;
   if (count === 0) {
     return (
-      <span className="inline-block mt-1 text-[10px] font-sans uppercase tracking-widest text-gold/80 font-medium">
+      <span className="inline-block mt-1.5 text-[11px] font-sans uppercase tracking-wider text-gold/90 font-medium">
         New Arrival
       </span>
     );
@@ -30,12 +30,12 @@ function StarRatingBadge({ product }: { product: Product }) {
   const rating = getAverageRating(product);
 
   return (
-    <div className="inline-flex items-center gap-1.5 mt-1.5" title={`${rating.toFixed(1)} out of 5 stars (${count} reviews)`}>
+    <div className="inline-flex items-center gap-1.5 mt-2" title={`${rating.toFixed(1)} out of 5 stars (${count} reviews)`}>
       <div className="inline-flex items-center gap-0.5">
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}
-            className={`w-3 h-3 ${
+            className={`w-3.5 h-3.5 ${
               star <= Math.round(rating)
                 ? "fill-gold text-gold"
                 : "text-sand/40 fill-transparent"
@@ -43,8 +43,8 @@ function StarRatingBadge({ product }: { product: Product }) {
           />
         ))}
       </div>
-      <span className="text-[11px] font-sans text-muted">
-        ({count})
+      <span className="text-xs font-sans text-zinc-700 dark:text-sand/90 font-medium">
+        {rating.toFixed(1)} <span className="text-muted font-normal">({count})</span>
       </span>
     </div>
   );
