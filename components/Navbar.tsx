@@ -6,7 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Search, Heart, Volume2, VolumeX, Menu, X, ChevronDown, User } from "lucide-react";
 import SearchModal from "@/components/SearchModal";
 import AccountModal from "@/components/AccountModal";
+import WishlistDrawer from "@/components/WishlistDrawer";
 import { getAccount, subscribeAccount, type UserAccount } from "@/lib/account";
+import { getWishlistCount, subscribeWishlist } from "@/lib/wishlist";
 
 interface NavbarProps {
   isMuted: boolean;
@@ -25,16 +27,25 @@ export default function Navbar({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+  const [wishlistCount, setWishlistCount] = useState(0);
   const [account, setAccount] = useState<UserAccount | null>(null);
   const [currency, setCurrency] = useState("AUD $");
   const [isCurrencyDropdown, setIsCurrencyDropdown] = useState(false);
 
   useEffect(() => {
     setAccount(getAccount());
+    setWishlistCount(getWishlistCount());
     const unsub = subscribeAccount(() => {
       setAccount(getAccount());
     });
-    return () => unsub();
+    const unsubWish = subscribeWishlist(() => {
+      setWishlistCount(getWishlistCount());
+    });
+    return () => {
+      unsub();
+      unsubWish();
+    };
   }, []);
 
   useEffect(() => {
@@ -186,13 +197,25 @@ export default function Navbar({
               <Search className="w-4 h-4" />
             </button>
 
-            {/* Wishlist */}
+            {/* Wishlist / Saved Pieces */}
             <button
-              className={`p-2 rounded-full transition-all duration-300 hover:text-[#C5A059] hidden sm:block ${
+              onClick={() => setIsWishlistOpen(true)}
+              title="Saved Pieces"
+              className={`relative p-2 rounded-full transition-all duration-300 hover:text-[#C5A059] cursor-pointer ${
                 isScrolled ? "text-zinc-700 dark:text-zinc-300" : "text-white"
               }`}
+              aria-label="Saved Pieces"
             >
-              <Heart className="w-4 h-4" />
+              <Heart
+                className={`w-4 h-4 transition-colors ${
+                  wishlistCount > 0 ? "fill-[#C5A059] text-[#C5A059]" : ""
+                }`}
+              />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#C5A059] text-[#1F1E1D] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+                  {wishlistCount}
+                </span>
+              )}
             </button>
 
             {/* Profile / Account Button */}
@@ -249,7 +272,7 @@ export default function Navbar({
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-30 bg-[#FAF7F2] dark:bg-[#151413] pt-24 px-8 pb-12 flex flex-col justify-between md:hidden"
           >
-            <div className="flex flex-col space-y-4 text-center">
+            <div className="flex flex-col space-y-3.5 text-center">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -259,6 +282,17 @@ export default function Navbar({
               >
                 <Search className="w-4 h-4 text-gold" />
                 <span>Search Collection</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setIsWishlistOpen(true);
+                }}
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors"
+              >
+                <Heart className={`w-4 h-4 ${wishlistCount > 0 ? "fill-gold text-gold" : "text-gold"}`} />
+                <span>Saved Pieces {wishlistCount > 0 && `(${wishlistCount})`}</span>
               </button>
 
               <button
@@ -336,6 +370,13 @@ export default function Navbar({
       <AccountModal
         isOpen={isAccountOpen}
         onClose={() => setIsAccountOpen(false)}
+      />
+
+      {/* Global Saved Pieces / Wishlist Drawer */}
+      <WishlistDrawer
+        isOpen={isWishlistOpen}
+        onClose={() => setIsWishlistOpen(false)}
+        onOpenCart={onOpenCart}
       />
     </>
   );

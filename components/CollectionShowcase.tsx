@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Eye, Check, ArrowRight, MapPin, Palmtree, Sparkle, Building2, Flower2, Sun, Star } from "lucide-react";
+import { Plus, Eye, Check, ArrowRight, MapPin, Palmtree, Sparkle, Building2, Flower2, Sun, Star, Heart } from "lucide-react";
 import {
   PRODUCTS,
   CATEGORIES,
@@ -12,6 +12,7 @@ import {
   type Product,
   type Destination,
 } from "@/lib/products";
+import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 
 // Re-export so existing imports (page.tsx, ProductModal) keep working.
 export type { Product } from "@/lib/products";
@@ -79,6 +80,12 @@ export default function CollectionShowcase({
 }: CollectionShowcaseProps) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [activeDest, setActiveDest] = useState<Destination | "All">("All");
+  const [, setWishlistTick] = useState(0);
+
+  useEffect(() => {
+    const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
+    return () => unsub();
+  }, []);
 
   const filteredProducts = PRODUCTS.filter((p) => {
     const categoryMatch = activeCategory === "All" || p.category === activeCategory;
@@ -265,15 +272,31 @@ export default function CollectionShowcase({
                   {/* Quick actions */}
                   <div className="absolute inset-x-3 top-14 flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleWishlist(product);
+                      }}
+                      className={`p-2 rounded-xl backdrop-blur-md transition-all duration-200 cursor-pointer ${
+                        isInWishlist(product.id)
+                          ? "bg-gold text-charcoal shadow-md"
+                          : "bg-black/70 hover:bg-black text-white hover:text-gold"
+                      }`}
+                      title={isInWishlist(product.id) ? "Remove from Saved" : "Save to Wishlist"}
+                      aria-label="Save to Wishlist"
+                    >
+                      <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? "fill-charcoal text-charcoal" : "text-gold"}`} />
+                    </button>
+                    <button
                       onClick={(e) => { e.preventDefault(); onQuickView(product); }}
-                      className="p-2 rounded-xl bg-black/70 hover:bg-black text-white backdrop-blur-md transition-colors"
+                      className="p-2 rounded-xl bg-black/70 hover:bg-black text-white backdrop-blur-md transition-colors cursor-pointer"
                       title="Quick view"
                     >
                       <Eye className="w-4 h-4 text-[#C5A059]" />
                     </button>
                     <button
                       onClick={(e) => { e.preventDefault(); onQuickView(product); }}
-                      className="p-2 rounded-xl bg-[#C5A059] hover:bg-[#A46446] text-white shadow-lg transition-transform hover:scale-110"
+                      className="p-2 rounded-xl bg-[#C5A059] hover:bg-[#A46446] text-white shadow-lg transition-transform hover:scale-110 cursor-pointer"
                       title="Select size & add to bag"
                     >
                       <Plus className="w-4 h-4" />

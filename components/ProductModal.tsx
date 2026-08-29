@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Sparkles, ShoppingBag, ShieldCheck, Check } from "lucide-react";
+import { X, Sparkles, ShoppingBag, ShieldCheck, Check, Heart } from "lucide-react";
 import { Product } from "./CollectionShowcase";
 import { setBuyNowItem } from "@/lib/cart";
+import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 import SizeGuideModal from "@/components/SizeGuideModal";
 
 interface ProductModalProps {
@@ -23,6 +24,12 @@ export default function ProductModal({
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isAdded, setIsAdded] = useState(false);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [, setWishlistTick] = useState(0);
+
+  useEffect(() => {
+    const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
+    return () => unsub();
+  }, []);
 
   if (!product) return null;
 
@@ -68,86 +75,107 @@ export default function ProductModal({
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/50 text-white hover:bg-black transition-colors"
+            className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/40 hover:bg-black text-white transition-colors cursor-pointer"
+            aria-label="Close"
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
 
-          {/* Left: Product Image */}
-          <div className="md:w-1/2 relative aspect-[3/4] md:aspect-auto bg-ink min-h-[350px]">
+          {/* Left Column: Image */}
+          <div className="md:w-1/2 relative min-h-[350px] md:min-h-[500px] bg-sand/10">
             <img
               src={product.image}
               alt={product.name}
-              className="absolute inset-0 w-full h-full object-cover"
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).style.opacity = "0.7";
-              }}
+              className="w-full h-full object-cover object-center"
             />
-            <div className="absolute top-4 left-4 flex items-center space-x-2 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white">
-              <span
-                className="w-3 h-3 rounded-full border border-white/30"
-                style={{ backgroundColor: product.colorHex }}
-              />
-              <span className="font-sans tracking-wider uppercase text-[10px]">
-                {product.colorName}
+            <div className="absolute top-4 left-4 flex flex-col gap-2">
+              <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] uppercase tracking-[0.2em] text-[#FAF7F2] border border-white/20">
+                {product.category}
+              </span>
+              <span className="px-3 py-1 rounded-full bg-white/80 backdrop-blur-md text-[10px] uppercase tracking-[0.2em] text-[#1F1E1D] font-medium shadow-sm">
+                {product.storyPlace}
               </span>
             </div>
+
+            {/* Wishlist button over image */}
+            <button
+              onClick={() => toggleWishlist(product)}
+              className={`absolute bottom-4 left-4 p-2.5 rounded-full backdrop-blur-md transition-all duration-200 cursor-pointer shadow-md ${
+                isInWishlist(product.id)
+                  ? "bg-gold text-charcoal scale-105"
+                  : "bg-black/60 hover:bg-black text-white hover:text-gold"
+              }`}
+              title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
+              aria-label="Save to Wishlist"
+            >
+              <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? "fill-charcoal" : ""}`} />
+            </button>
           </div>
 
-          {/* Right: Product Details & Story */}
-          <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          {/* Right Column: Details & Selection */}
+          <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              <div className="flex items-center space-x-2 text-[10px] uppercase font-sans tracking-[0.3em] text-[#C5A059]">
-                <Sparkles className="w-3 h-3" />
-                <span>{product.story}</span>
-              </div>
-
               <div>
-                <h2 className="font-serif text-2xl sm:text-3xl text-zinc-900 dark:text-zinc-100 font-medium">
-                  {product.name}
-                </h2>
-                <p className="font-serif text-xl text-[#A46446] dark:text-[#C5A059] font-semibold mt-1">
+                <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-[#C5A059] font-medium mb-1">
+                  {product.story}
+                </p>
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="font-serif text-2xl md:text-3xl text-[#1F1E1D] dark:text-[#FAF7F2] font-normal">
+                    {product.name}
+                  </h3>
+                  <button
+                    onClick={() => toggleWishlist(product)}
+                    className={`p-2 rounded-full border transition-colors cursor-pointer flex-shrink-0 ${
+                      isInWishlist(product.id)
+                        ? "border-gold bg-gold/15 text-gold"
+                        : "border-sand/40 text-muted hover:border-gold hover:text-gold"
+                    }`}
+                    title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
+                    aria-label="Wishlist toggle"
+                  >
+                    <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? "fill-gold text-gold" : ""}`} />
+                  </button>
+                </div>
+                <p className="font-serif text-lg text-[#C5A059] font-semibold mt-1">
                   ${product.priceAud} AUD
                 </p>
               </div>
 
-              <p className="text-xs sm:text-sm font-sans text-zinc-600 dark:text-zinc-300 leading-relaxed">
+              <div className="space-y-1.5 text-xs">
+                <p className="text-zinc-600 dark:text-zinc-400">
+                  <span className="font-medium text-zinc-800 dark:text-zinc-200">Fabric: </span>
+                  {product.fabric}
+                </p>
+                <p className="text-zinc-600 dark:text-zinc-400">
+                  <span className="font-medium text-zinc-800 dark:text-zinc-200">Color: </span>
+                  {product.colorName}
+                </p>
+              </div>
+
+              <p className="text-xs font-sans text-zinc-600 dark:text-zinc-300 leading-relaxed font-light">
                 {product.description}
               </p>
 
-              {/* Craft Details list */}
-              <div className="space-y-1.5 pt-2">
-                <span className="text-[10px] uppercase font-sans tracking-widest text-zinc-400">
-                  Artisan Details:
-                </span>
-                <ul className="text-xs font-sans text-zinc-700 dark:text-zinc-300 space-y-1">
-                  {product.craftDetails.map((detail, idx) => (
-                    <li key={idx} className="flex items-center space-x-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
               {/* Size Selector */}
-              <div className="space-y-2 pt-2">
-                <div className="flex justify-between text-xs font-sans items-center">
-                  <span className="uppercase tracking-wider text-zinc-500">Select Australian Size:</span>
+              <div className="pt-2">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-[11px] font-sans uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-medium">
+                    Select AU Size:
+                  </span>
                   <button
-                    type="button"
                     onClick={() => setShowSizeGuide(true)}
-                    className="text-gold uppercase tracking-wide text-xs hover:underline underline-offset-4 cursor-pointer"
+                    className="text-[11px] font-sans text-[#C5A059] hover:underline cursor-pointer"
                   >
                     Size Guide
                   </button>
                 </div>
+
                 <div className="flex flex-wrap gap-2">
                   {sizes.map((s) => (
                     <button
                       key={s}
                       onClick={() => setSelectedSize(s)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-sans tracking-wider border transition-all ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-sans tracking-wider border transition-all cursor-pointer ${
                         selectedSize === s
                           ? "border-[#1F1E1D] dark:border-[#FAF7F2] bg-[#1F1E1D] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#1F1E1D] font-medium"
                           : "border-zinc-300 dark:border-zinc-700 hover:border-zinc-500 text-zinc-700 dark:text-zinc-300"

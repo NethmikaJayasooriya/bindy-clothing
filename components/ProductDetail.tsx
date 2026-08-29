@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,9 +18,11 @@ import {
   ChevronDown,
   MapPin,
   Sparkles,
+  Heart,
 } from "lucide-react";
 import { PRODUCTS, getAverageRating, type Product } from "@/lib/products";
 import { addToCart, setBuyNowItem } from "@/lib/cart";
+import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 import ReviewsSection from "@/components/ReviewsSection";
 import SizeGuideModal from "@/components/SizeGuideModal";
 
@@ -49,6 +51,12 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [added, setAdded] = useState(false);
   const [careOpen, setCareOpen] = useState(false);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [, setWishlistTick] = useState(0);
+
+  useEffect(() => {
+    const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
+    return () => unsub();
+  }, []);
 
   const avg = useMemo(() => getAverageRating(product), [product]);
 
@@ -234,17 +242,18 @@ export default function ProductDetail({ product }: { product: Product }) {
             </div>
           </div>
 
-          {/* qty + add */}
+          {/* qty + add + wishlist */}
           <div className="mt-6 flex items-stretch gap-3">
             <div className="flex items-center border border-sand/60 rounded-full px-1">
-              <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="p-2 text-zinc-600 hover:text-black dark:hover:text-white" aria-label="Decrease">
+              <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="p-2 text-zinc-600 hover:text-black dark:hover:text-white cursor-pointer" aria-label="Decrease">
                 <Minus className="w-4 h-4" />
               </button>
               <span className="w-8 text-center font-sans text-sm">{qty}</span>
-              <button onClick={() => setQty((q) => q + 1)} className="p-2 text-zinc-600 hover:text-black dark:hover:text-white" aria-label="Increase">
+              <button onClick={() => setQty((q) => q + 1)} className="p-2 text-zinc-600 hover:text-black dark:hover:text-white cursor-pointer" aria-label="Increase">
                 <Plus className="w-4 h-4" />
               </button>
             </div>
+
             <button
               onClick={handleAdd}
               disabled={!size}
@@ -256,6 +265,20 @@ export default function ProductDetail({ product }: { product: Product }) {
             >
               {added ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
               {added ? "Added to Bag" : !size ? "Select a Size" : "Add to Bag"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => toggleWishlist(product)}
+              className={`px-4 rounded-full border transition-all duration-300 cursor-pointer flex items-center justify-center ${
+                isInWishlist(product.id)
+                  ? "border-gold bg-gold/15 text-gold shadow-sm ring-1 ring-gold/40"
+                  : "border-sand/60 text-zinc-600 dark:text-zinc-300 hover:border-gold hover:text-gold"
+              }`}
+              title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
+              aria-label="Wishlist toggle"
+            >
+              <Heart className={`w-5 h-5 ${isInWishlist(product.id) ? "fill-gold text-gold" : ""}`} />
             </button>
           </div>
 

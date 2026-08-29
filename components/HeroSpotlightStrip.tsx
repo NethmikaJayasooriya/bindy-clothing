@@ -1,14 +1,22 @@
 "use client";
 
-import React from "react";
-import { Sparkles, ArrowRight, Eye } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Sparkles, ArrowRight, Eye, Heart } from "lucide-react";
 import { PRODUCTS, type Product } from "@/lib/products";
+import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 
 interface HeroSpotlightStripProps {
   onSelectProduct: (product: Product) => void;
 }
 
 export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStripProps) {
+  const [, setWishlistTick] = useState(0);
+
+  useEffect(() => {
+    const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
+    return () => unsub();
+  }, []);
+
   const spotlightIds = ["lotus-memory-dress", "cinnamon-flow-skirt", "pettah-check-dress"];
   const spotlightProducts = spotlightIds
     .map((id) => PRODUCTS.find((p) => p.id === id))
@@ -60,7 +68,29 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
                   {product.destinations[0] || "Everyday"}
                 </div>
 
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                {/* Top-Right Favorite Toggle */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleWishlist(product);
+                  }}
+                  className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all duration-200 cursor-pointer z-10 ${
+                    isInWishlist(product.id)
+                      ? "bg-gold text-charcoal shadow-md scale-105"
+                      : "bg-black/60 hover:bg-black text-white hover:text-gold"
+                  }`}
+                  title={isInWishlist(product.id) ? "Remove from Saved" : "Save to Wishlist"}
+                  aria-label="Save to Wishlist"
+                >
+                  <Heart
+                    className={`w-4 h-4 ${
+                      isInWishlist(product.id) ? "fill-charcoal text-charcoal" : "text-gold"
+                    }`}
+                  />
+                </button>
+
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
                   <span className="px-4 py-2 rounded-full bg-white/90 dark:bg-ink text-charcoal dark:text-paper font-sans text-[10px] uppercase tracking-[0.2em] font-medium flex items-center gap-1.5 shadow-lg">
                     <Eye className="w-3.5 h-3.5 text-gold" />
                     Quick View
