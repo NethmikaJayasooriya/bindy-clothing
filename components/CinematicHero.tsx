@@ -12,12 +12,17 @@ import { Play, Pause, Volume2, VolumeX, ArrowRight, Sparkles } from "lucide-reac
 
 interface HeroProps {
   onExploreCollection?: () => void;
+  isMuted?: boolean;
+  toggleAudio?: () => void;
 }
 
-export default function CinematicHero({ onExploreCollection }: HeroProps) {
+export default function CinematicHero({
+  onExploreCollection,
+  isMuted = true,
+  toggleAudio,
+}: HeroProps) {
   const [activeVideo, setActiveVideo] = useState<0 | 1>(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
   const [currentTimeFormatted, setCurrentTimeFormatted] = useState("00:00");
   const [totalProgress, setTotalProgress] = useState(0);
 
@@ -102,6 +107,12 @@ export default function CinematicHero({ onExploreCollection }: HeroProps) {
     };
   }, [activeVideo]);
 
+  // Keep video elements' muted attribute synchronized with the global audio state
+  useEffect(() => {
+    if (video0Ref.current) video0Ref.current.muted = isMuted;
+    if (video1Ref.current) video1Ref.current.muted = isMuted;
+  }, [isMuted]);
+
   // Direct video play/pause toggle
   const togglePlay = () => {
     const v0 = video0Ref.current;
@@ -119,13 +130,12 @@ export default function CinematicHero({ onExploreCollection }: HeroProps) {
     }
   };
 
-  // Video audio track toggle (separate from ambient background music)
-  const toggleMuteOnly = (e: React.MouseEvent) => {
+  // Connected audio toggle (synchronizes with Navbar and ambient soundscape)
+  const toggleSound = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const newMuted = !isMuted;
-    setIsMuted(newMuted);
-    if (video0Ref.current) video0Ref.current.muted = newMuted;
-    if (video1Ref.current) video1Ref.current.muted = newMuted;
+    if (toggleAudio) {
+      toggleAudio();
+    }
   };
 
   return (
@@ -315,12 +325,12 @@ export default function CinematicHero({ onExploreCollection }: HeroProps) {
             {/* Subtle Divider */}
             <div className="w-px h-3.5 bg-white/20" />
 
-            {/* Video Sound Toggle */}
+            {/* Connected Sound Toggle (Synchronized with Navbar & Ambient Soundscape) */}
             <button
-              onClick={toggleMuteOnly}
+              onClick={toggleSound}
               className="p-1 rounded-full text-sand/75 hover:text-gold hover:bg-white/10 transition-colors cursor-pointer flex-shrink-0"
-              title={isMuted ? "Unmute film audio" : "Mute film audio"}
-              aria-label={isMuted ? "Unmute film audio" : "Mute film audio"}
+              title={isMuted ? "Unmute Sound" : "Mute Sound"}
+              aria-label={isMuted ? "Unmute Sound" : "Mute Sound"}
             >
               {isMuted ? (
                 <VolumeX className="w-3.5 h-3.5" />

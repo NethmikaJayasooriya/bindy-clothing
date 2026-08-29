@@ -50,9 +50,8 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto flex items-center justify-center ${
-        isOpening ? "curtains-open" : ""
-      }`}
+      className={`fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto flex items-center justify-center ${isOpening ? "curtains-open" : ""
+        }`}
     >
       {/* LEFT SILK CURTAIN PANEL */}
       <div
@@ -74,9 +73,8 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
       {/* CENTER STAGE CONTENT - ABSOLUTELY CENTERED ON SCREEN */}
       <div
-        className={`absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 transition-all duration-1000 ${
-          isOpening ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"
-        }`}
+        className={`absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 transition-all duration-1000 ${isOpening ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"
+          }`}
       >
         {/* Perfectly Centered Radial Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-[#C5A059]/10 via-[#A46446]/10 to-transparent blur-3xl animate-pulse-glow pointer-events-none" />

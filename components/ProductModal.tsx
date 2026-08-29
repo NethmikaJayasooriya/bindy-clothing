@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Sparkles, ShoppingBag, ShieldCheck, Check, Heart } from "lucide-react";
+import { X, Sparkles, ShoppingBag, ShieldCheck, Check, Heart, ArrowRight } from "lucide-react";
 import { Product } from "./CollectionShowcase";
 import { setBuyNowItem } from "@/lib/cart";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
@@ -155,6 +156,15 @@ export default function ProductModal({
               <p className="text-xs font-sans text-zinc-600 dark:text-zinc-300 leading-relaxed font-light">
                 {product.description}
               </p>
+
+              <Link
+                href={`/product/${product.id}`}
+                onClick={onClose}
+                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-[0.2em] text-[#C5A059] hover:text-[#A46446] font-semibold transition-colors pt-0.5"
+              >
+                <span>View Full Piece & Heritage Story</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
 
               {/* Size Selector */}
               <div className="pt-2">

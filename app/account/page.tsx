@@ -39,6 +39,7 @@ import {
 } from "@/lib/account";
 import { getCart, saveCart, type CartItem } from "@/lib/cart";
 import { type Category } from "@/lib/products";
+import { ambientPlayer } from "@/lib/ambientSound";
 
 const AU_SIZES = [
   "AU 6 (XS)",
@@ -201,6 +202,13 @@ export default function AccountPage() {
   // Cart state for navbar drawer
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+
+  const toggleAudio = () => {
+    if (!ambientPlayer) return;
+    const muted = ambientPlayer.toggle();
+    setIsMuted(muted);
+  };
 
   // Signed-Out View States: 'signin' | 'signup-1' | 'signup-2' | 'signup-3' | 'signup-complete'
   const [authMode, setAuthMode] = useState<
@@ -506,8 +514,8 @@ export default function AccountPage() {
     <main className="min-h-screen bg-[#11100E] text-paper selection:bg-gold selection:text-white flex flex-col justify-between">
       {/* 1. LUXURY NAVBAR */}
       <Navbar
-        isMuted={true}
-        toggleAudio={() => {}}
+        isMuted={isMuted}
+        toggleAudio={toggleAudio}
         cartCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}
       />

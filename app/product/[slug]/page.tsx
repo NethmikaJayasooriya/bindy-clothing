@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { PRODUCTS, getProduct } from "@/lib/products";
 import ProductDetail from "@/components/ProductDetail";
 
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.id }));
 }
@@ -22,6 +24,8 @@ export function generateMetadata({
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
   const product = getProduct(params.slug);
-  if (!product) notFound();
+  if (!product) {
+    notFound();
+  }
   return <ProductDetail product={product} />;
 }

@@ -13,6 +13,8 @@ import {
   type Destination,
 } from "@/lib/products";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
+import { addToCart } from "@/lib/cart";
+import { getAccount } from "@/lib/account";
 
 // Re-export so existing imports (page.tsx, ProductModal) keep working.
 export type { Product } from "@/lib/products";
@@ -81,11 +83,32 @@ export default function CollectionShowcase({
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [activeDest, setActiveDest] = useState<Destination | "All">("All");
   const [, setWishlistTick] = useState(0);
+  const [addedId, setAddedId] = useState<string | null>(null);
 
   useEffect(() => {
     const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
     return () => unsub();
   }, []);
+
+  const handleQuickAdd = (product: Product) => {
+    const userAcc = getAccount();
+    const preferredSize = userAcc?.preferences?.preferredSize;
+    const defaultSize =
+      preferredSize && product.sizes.includes(preferredSize)
+        ? preferredSize
+        : product.sizes[1] || product.sizes[0] || "AU 8 (S)";
+
+    if (onAddToCart) {
+      onAddToCart(product, defaultSize);
+    } else {
+      addToCart(product, defaultSize, 1);
+    }
+
+    setAddedId(product.id);
+    setTimeout(() => {
+      setAddedId(null);
+    }, 1800);
+  };
 
   const filteredProducts = PRODUCTS.filter((p) => {
     const categoryMatch = activeCategory === "All" || p.category === activeCategory;
@@ -295,11 +318,24 @@ export default function CollectionShowcase({
                       <Eye className="w-4 h-4 text-[#C5A059]" />
                     </button>
                     <button
-                      onClick={(e) => { e.preventDefault(); onQuickView(product); }}
-                      className="p-2 rounded-xl bg-[#C5A059] hover:bg-[#A46446] text-white shadow-lg transition-transform hover:scale-110 cursor-pointer"
-                      title="Select size & add to bag"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleQuickAdd(product);
+                      }}
+                      className={`p-2 rounded-xl text-white shadow-lg transition-all duration-200 cursor-pointer ${
+                        addedId === product.id
+                          ? "bg-emerald-600 scale-105"
+                          : "bg-[#C5A059] hover:bg-[#A46446] hover:scale-110"
+                      }`}
+                      title={addedId === product.id ? "Added to shopping bag!" : "Add to shopping bag"}
+                      aria-label="Add to shopping bag"
                     >
-                      <Plus className="w-4 h-4" />
+                      {addedId === product.id ? (
+                        <Check className="w-4 h-4 text-white" />
+                      ) : (
+                        <Plus className="w-4 h-4" />
+                      )}
                     </button>
                   </div>
                 </div>

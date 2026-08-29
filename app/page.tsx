@@ -123,6 +123,8 @@ export default function Home() {
             const el = document.getElementById("collection");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
+          isMuted={isMuted}
+          toggleAudio={toggleAudio}
         />
       </div>
 
@@ -142,6 +144,7 @@ export default function Home() {
         {/* 6. SERENDIPITY COLLECTION 01 SHOWCASE */}
         <CollectionShowcase
           onQuickView={(prod) => setQuickViewProduct(prod)}
+          onAddToCart={(prod, size) => handleAddToCart(prod, size)}
         />
 
         {/* 7. HERITAGE CHAPTER STORIES (LOTUS, RED MOSQUE, SIGIRIYA, TEA HILLS, MANNAR) */}

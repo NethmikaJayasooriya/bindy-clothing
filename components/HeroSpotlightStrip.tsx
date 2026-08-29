@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { Sparkles, ArrowRight, Eye, Heart } from "lucide-react";
 import { PRODUCTS, type Product } from "@/lib/products";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 
 interface HeroSpotlightStripProps {
-  onSelectProduct: (product: Product) => void;
+  onSelectProduct?: (product: Product) => void;
 }
 
 export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStripProps) {
@@ -52,9 +53,9 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
         {/* 3 Spotlight Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {spotlightProducts.map((product) => (
-            <div
+            <Link
               key={product.id}
-              onClick={() => onSelectProduct(product)}
+              href={`/product/${product.id}`}
               className="group relative bg-white/40 dark:bg-ink rounded-3xl overflow-hidden border border-sand/30 dark:border-white/10 hover:border-gold/60 transition-all duration-400 p-4 sm:p-5 flex flex-col justify-between shadow-sm hover:shadow-xl cursor-pointer"
             >
               <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-sand/10 dark:bg-black/40 mb-4">
@@ -114,7 +115,7 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
                   {product.description}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
