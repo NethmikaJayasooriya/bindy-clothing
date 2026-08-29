@@ -1,7 +1,7 @@
 // Lightweight localStorage-backed mock account system for BINDY Clothing.
-// Manages mock user profile, saved addresses, and persistent order history.
+// Manages mock user profile, style preferences, saved addresses, and persistent order history.
 
-import type { CartItem } from "@/lib/cart";
+import type { Category } from "@/lib/products";
 
 export interface SavedAddress {
   address: string;
@@ -12,11 +12,19 @@ export interface SavedAddress {
   country: string;
 }
 
+export interface StylePreferences {
+  favoriteCategory: Category | "All";
+  preferredFit: "fitted" | "true" | "relaxed";
+  preferredSize: string;
+}
+
 export interface UserAccount {
   name: string;
   email: string;
+  password?: string;
   phone?: string;
   savedAddress?: SavedAddress;
+  preferences?: StylePreferences;
   memberSince?: string;
 }
 
@@ -62,6 +70,14 @@ export function saveAccount(account: UserAccount): void {
         month: "long",
         year: "numeric",
       });
+    }
+    // Default preferences if not provided
+    if (!account.preferences) {
+      account.preferences = {
+        favoriteCategory: "Dresses",
+        preferredFit: "true",
+        preferredSize: "AU 8 (S)",
+      };
     }
     window.localStorage.setItem(ACCOUNT_KEY, JSON.stringify(account));
     window.dispatchEvent(new CustomEvent(ACCOUNT_EVENT));
