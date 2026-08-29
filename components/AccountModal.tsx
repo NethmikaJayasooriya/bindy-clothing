@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
@@ -16,10 +16,9 @@ import {
   Eye,
   EyeOff,
   Save,
-  Tag,
   ShieldCheck,
-  Heart,
-  ChevronRight,
+  AlertCircle,
+  UserPlus,
 } from "lucide-react";
 import {
   getAccount,
@@ -31,9 +30,8 @@ import {
   type UserAccount,
   type OrderRecord,
   type SavedAddress,
-  type StylePreferences,
 } from "@/lib/account";
-import { CATEGORIES, type Category } from "@/lib/products";
+import { type Category } from "@/lib/products";
 
 interface AccountModalProps {
   isOpen: boolean;
@@ -72,14 +70,14 @@ const CATEGORY_OPTIONS: { category: Category; desc: string }[] = [
   { category: "Two Piece Sets", desc: "Matching artisan coordinates" },
 ];
 
-// Reusable Floating Label Input
-function FloatingInput({
+// Luxury Underline Input with High-Contrast Labels and Tonal Depth
+function UnderlineInput({
   id,
   label,
   type = "text",
   value,
   onChange,
-  required = false,
+  placeholder,
   autoComplete,
   error,
 }: {
@@ -88,7 +86,7 @@ function FloatingInput({
   type?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
+  placeholder?: string;
   autoComplete?: string;
   error?: string;
 }) {
@@ -97,56 +95,118 @@ function FloatingInput({
   const actualType = isPassword ? (showPassword ? "text" : "password") : type;
 
   return (
-    <div className="space-y-1 w-full">
-      <div className="relative group">
+    <div className="space-y-2 w-full text-left">
+      <label
+        htmlFor={id}
+        className="block text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium"
+      >
+        {label}
+      </label>
+      <div
+        className={`relative border-b-2 ${
+          error ? "border-terracotta bg-terracotta/5" : "border-white/25 focus-within:border-gold bg-white/[0.03]"
+        } px-3.5 pt-2 pb-2 rounded-t-lg transition-colors duration-300 flex items-center`}
+      >
         <input
           id={id}
           type={actualType}
           value={value}
           onChange={onChange}
-          required={required}
           autoComplete={autoComplete}
-          placeholder=" "
-          className={`w-full bg-white/5 border ${
-            error ? "border-terracotta" : "border-white/15 focus:border-gold"
-          } rounded-xl px-4 pt-5 pb-2 text-sm text-paper-light focus:outline-none transition-all peer`}
+          placeholder={placeholder}
+          className="w-full bg-transparent font-serif text-base sm:text-lg text-paper placeholder:text-sand/40 focus:outline-none tracking-wide"
         />
-        <label
-          htmlFor={id}
-          className="absolute left-4 top-3 text-sand/60 text-xs transition-all duration-200 pointer-events-none uppercase tracking-wider peer-focus:top-1.5 peer-focus:text-[9px] peer-focus:text-gold peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:text-[9px] peer-[:not(:placeholder-shown)]:text-gold"
-        >
-          {label} {required && "*"}
-        </label>
-
         {isPassword && (
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-3.5 text-sand/50 hover:text-white p-1 transition-colors"
+            className="text-sand hover:text-gold p-1 transition-colors flex-shrink-0 cursor-pointer"
             tabIndex={-1}
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
-            {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4 text-gold" />}
           </button>
         )}
       </div>
-      {error && <p className="text-[11px] font-sans text-terracotta pl-1">{error}</p>}
+      {error && (
+        <p className="text-xs font-sans text-terracotta flex items-center gap-1.5 mt-1 font-medium">
+          <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+          <span>{error}</span>
+        </p>
+      )}
+    </div>
+  );
+}
+
+// Luxury Underline Select with High-Contrast Label
+function UnderlineSelect({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  error,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  options: string[];
+  error?: string;
+}) {
+  return (
+    <div className="space-y-2 w-full text-left">
+      <label
+        htmlFor={id}
+        className="block text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium"
+      >
+        {label}
+      </label>
+      <div
+        className={`relative border-b-2 ${
+          error ? "border-terracotta bg-terracotta/5" : "border-white/25 focus-within:border-gold bg-white/[0.03]"
+        } px-3.5 pt-2 pb-2 rounded-t-lg transition-colors duration-300`}
+      >
+        <select
+          id={id}
+          value={value}
+          onChange={onChange}
+          className="w-full bg-transparent font-serif text-base sm:text-lg text-paper focus:outline-none cursor-pointer tracking-wide [&>option]:bg-[#1A1816] [&>option]:text-paper"
+        >
+          {options.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
+      </div>
+      {error && (
+        <p className="text-xs font-sans text-terracotta flex items-center gap-1.5 mt-1 font-medium">
+          <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+          <span>{error}</span>
+        </p>
+      )}
     </div>
   );
 }
 
 export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [account, setAccount] = useState<UserAccount | null>(null);
   const [orders, setOrders] = useState<OrderRecord[]>([]);
 
-  // Navigation State
-  // 'signin' | 'signup-1' | 'signup-2' | 'signup-3' | 'signup-complete' | 'panel'
+  // Navigation State: 'signin' | 'signup-1' | 'signup-2' | 'signup-3' | 'signup-complete' | 'panel'
   const [viewState, setViewState] = useState<
     "signin" | "signup-1" | "signup-2" | "signup-3" | "signup-complete" | "panel"
   >("signin");
 
   // Active Tab in Panel
   const [activeTab, setActiveTab] = useState<"profile" | "orders" | "address" | "preferences">("profile");
+
+  // Sign In Form Data
+  const [signinEmail, setSigninEmail] = useState("");
+  const [signinPassword, setSigninPassword] = useState("");
+  const [signinErrors, setSigninErrors] = useState<Record<string, string>>({});
 
   // Sign Up Form Data
   const [signupName, setSignupName] = useState("");
@@ -168,15 +228,25 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
     postcode: "",
     country: "Australia",
   });
+  const [addressErrors, setAddressErrors] = useState<Record<string, string>>({});
 
   // Edit Profile Panel State
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
+  const [profileErrors, setProfileErrors] = useState<Record<string, string>>({});
   const [isSavedFeedback, setIsSavedFeedback] = useState<string | null>(null);
 
-  // Sync state on mount and updates
+  // Mount state for portal
   useEffect(() => {
-    const update = () => {
+    setMounted(true);
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  // Sync account & orders state
+  useEffect(() => {
+    const syncData = () => {
       const acc = getAccount();
       setAccount(acc);
       setOrders(getOrders());
@@ -187,7 +257,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
           setAddressData(acc.savedAddress);
         }
         if (acc.preferences) {
-          setPrefCategory(acc.preferences.favoriteCategory as Category || "Dresses");
+          setPrefCategory((acc.preferences.favoriteCategory as Category) || "Dresses");
           setPrefFit(acc.preferences.preferredFit || "true");
           setPrefSize(acc.preferences.preferredSize || "AU 8 (S)");
         }
@@ -197,9 +267,9 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
       }
     };
 
-    update();
-    const unsubAcc = subscribeAccount(update);
-    const unsubOrd = subscribeOrders(update);
+    syncData();
+    const unsubAcc = subscribeAccount(syncData);
+    const unsubOrd = subscribeOrders(syncData);
 
     return () => {
       unsubAcc();
@@ -207,13 +277,17 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
     };
   }, [isOpen]);
 
-  // Lock body scroll and handle Escape key
+  // Lock body scroll and handle Escape key cleanly
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
       setIsSavedFeedback(null);
+      setSigninErrors({});
+      setSignupErrors({});
+      setAddressErrors({});
+      setProfileErrors({});
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -222,19 +296,68 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
       }
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
   }, [isOpen, onClose]);
 
-  // Handlers for Multi-Step Signup
+  // ── CUSTOM VALIDATION HANDLERS ──
+
+  const handleQuickSignIn = (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors: Record<string, string> = {};
+
+    if (!signinEmail.trim()) {
+      errors.email = "Please enter your email address";
+    } else if (!signinEmail.includes("@") || !signinEmail.includes(".")) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setSigninErrors(errors);
+      return;
+    }
+
+    setSigninErrors({});
+    const existing = getAccount();
+    if (existing && existing.email.toLowerCase() === signinEmail.trim().toLowerCase()) {
+      setAccount(existing);
+      setViewState("panel");
+    } else {
+      const [fName] = signinEmail.split("@");
+      const cleanName = fName.charAt(0).toUpperCase() + fName.slice(1);
+      const acc: UserAccount = {
+        name: cleanName,
+        email: signinEmail.trim().toLowerCase(),
+        preferences: {
+          favoriteCategory: "Dresses",
+          preferredFit: "true",
+          preferredSize: "AU 8 (S)",
+        },
+      };
+      saveAccount(acc);
+      setAccount(acc);
+      setViewState("panel");
+    }
+  };
+
   const handleNextToStep2 = (e: React.FormEvent) => {
     e.preventDefault();
     const errors: Record<string, string> = {};
-    if (!signupName.trim()) errors.name = "Please enter your name";
-    if (!signupEmail.trim() || !signupEmail.includes("@")) {
+
+    if (!signupName.trim()) {
+      errors.name = "Please enter your full name";
+    }
+    if (!signupEmail.trim()) {
+      errors.email = "Please enter your email address";
+    } else if (!signupEmail.includes("@") || !signupEmail.includes(".")) {
       errors.email = "Please enter a valid email address";
     }
-    if (signupPassword.length < 6) {
-      errors.password = "Password should be at least 6 characters";
+    if (!signupPassword) {
+      errors.password = "Please create a password";
+    } else if (signupPassword.length < 6) {
+      errors.password = "Password must be at least 6 characters";
     }
 
     if (Object.keys(errors).length > 0) {
@@ -246,11 +369,22 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
     setViewState("signup-2");
   };
 
-  const handleNextToStep3 = () => {
-    setViewState("signup-3");
-  };
-
   const handleCompleteSignup = (skipAddress = false) => {
+    if (!skipAddress) {
+      const errors: Record<string, string> = {};
+      if (!addressData.address.trim()) errors.address = "Please enter your street address";
+      if (!addressData.suburb.trim()) errors.suburb = "Please enter your suburb or city";
+      if (!addressData.postcode.trim() || addressData.postcode.length < 3) {
+        errors.postcode = "Please enter a valid postcode";
+      }
+
+      if (Object.keys(errors).length > 0) {
+        setAddressErrors(errors);
+        return;
+      }
+    }
+
+    setAddressErrors({});
     const newAccount: UserAccount = {
       name: signupName.trim(),
       email: signupEmail.trim().toLowerCase(),
@@ -271,52 +405,31 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
     setAccount(newAccount);
     setViewState("signup-complete");
 
-    // Auto-advance to dashboard after celebration
     setTimeout(() => {
       setViewState("panel");
-    }, 2000);
+    }, 1800);
   };
 
-  // Sign In Handler
-  const handleQuickSignIn = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!signupEmail.trim() || !signupEmail.includes("@")) {
-      setSignupErrors({ signinEmail: "Please enter a valid email address" });
-      return;
-    }
-
-    const existing = getAccount();
-    if (existing) {
-      setAccount(existing);
-      setViewState("panel");
-    } else {
-      // Fallback create simple account
-      const [fName] = signupEmail.split("@");
-      const cleanName = fName.charAt(0).toUpperCase() + fName.slice(1);
-      const acc: UserAccount = {
-        name: cleanName,
-        email: signupEmail.trim().toLowerCase(),
-        preferences: {
-          favoriteCategory: "Dresses",
-          preferredFit: "true",
-          preferredSize: "AU 8 (S)",
-        },
-      };
-      saveAccount(acc);
-      setAccount(acc);
-      setViewState("panel");
-    }
-  };
-
-  // Save Profile Edits
   const handleSaveProfileDetails = (e: React.FormEvent) => {
     e.preventDefault();
     if (!account) return;
 
+    const errors: Record<string, string> = {};
+    if (!editName.trim()) errors.name = "Please enter your name";
+    if (!editEmail.trim() || !editEmail.includes("@")) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setProfileErrors(errors);
+      return;
+    }
+
+    setProfileErrors({});
     const updated: UserAccount = {
       ...account,
-      name: editName.trim() || account.name,
-      email: editEmail.trim().toLowerCase() || account.email,
+      name: editName.trim(),
+      email: editEmail.trim().toLowerCase(),
     };
     saveAccount(updated);
     setAccount(updated);
@@ -324,11 +437,23 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
     setTimeout(() => setIsSavedFeedback(null), 2500);
   };
 
-  // Save Address Edits
   const handleSaveAddressDetails = (e: React.FormEvent) => {
     e.preventDefault();
     if (!account) return;
 
+    const errors: Record<string, string> = {};
+    if (!addressData.address.trim()) errors.address = "Please enter your street address";
+    if (!addressData.suburb.trim()) errors.suburb = "Please enter your suburb or city";
+    if (!addressData.postcode.trim() || addressData.postcode.length < 3) {
+      errors.postcode = "Please enter a valid postcode";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setAddressErrors(errors);
+      return;
+    }
+
+    setAddressErrors({});
     const updated: UserAccount = {
       ...account,
       savedAddress: addressData,
@@ -339,7 +464,6 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
     setTimeout(() => setIsSavedFeedback(null), 2500);
   };
 
-  // Save Style Preferences Edits
   const handleSavePreferences = () => {
     if (!account) return;
 
@@ -364,6 +488,8 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
     setSignupName("");
     setSignupEmail("");
     setSignupPassword("");
+    setSigninEmail("");
+    setSigninPassword("");
   };
 
   const getInitials = (name: string) => {
@@ -375,15 +501,17 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
       .slice(0, 2);
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 text-paper-light overflow-y-auto"
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 text-paper overflow-y-auto"
           onClick={(e) => {
             if (e.target === e.currentTarget) onClose();
           }}
@@ -392,78 +520,123 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
             initial={{ scale: 0.96, opacity: 0, y: 16 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.96, opacity: 0, y: 16 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-2xl bg-[#161513] border border-sand/30 dark:border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl relative my-auto max-h-[90vh] flex flex-col justify-between overflow-y-auto"
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full max-w-2xl bg-[#141311] border border-sand/30 rounded-3xl p-6 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative my-auto max-h-[90vh] flex flex-col justify-between overflow-y-auto"
           >
-            {/* Close Action */}
+            {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/15 text-sand hover:text-white transition-colors cursor-pointer border border-white/10"
+              className="absolute top-6 right-6 p-2.5 rounded-full bg-white/5 hover:bg-white/15 text-sand hover:text-white transition-colors cursor-pointer border border-white/15"
               aria-label="Close"
+              title="Close modal (Esc)"
             >
               <X className="w-5 h-5" />
             </button>
 
+            {/* Mode Switcher Header when Not Signed In */}
+            {!account && viewState !== "signup-complete" && (
+              <div className="flex items-center justify-center mb-6 pt-1">
+                <div className="inline-flex rounded-full bg-white/5 p-1 border border-white/10">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSigninErrors({});
+                      setSignupErrors({});
+                      setViewState("signin");
+                    }}
+                    className={`px-5 py-1.5 rounded-full text-xs font-sans uppercase tracking-[0.2em] font-medium transition-all duration-200 cursor-pointer ${
+                      viewState === "signin"
+                        ? "bg-gold text-charcoal font-bold shadow-md"
+                        : "text-sand/70 hover:text-white"
+                    }`}
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSigninErrors({});
+                      setSignupErrors({});
+                      setViewState("signup-1");
+                    }}
+                    className={`px-5 py-1.5 rounded-full text-xs font-sans uppercase tracking-[0.2em] font-medium transition-all duration-200 cursor-pointer ${
+                      viewState.startsWith("signup")
+                        ? "bg-gold text-charcoal font-bold shadow-md"
+                        : "text-sand/70 hover:text-white"
+                    }`}
+                  >
+                    Join (3 Steps)
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* ══════════════════════════════════════════════════════
-                FLOW A: SIGN IN (RETURNING ACCOUNT)
+                FLOW A: SIGN IN (RETURNING USER)
                ══════════════════════════════════════════════════════ */}
             {viewState === "signin" && (
-              <div className="space-y-8 py-2">
+              <div className="space-y-7 py-2">
                 <div className="text-center space-y-3 max-w-md mx-auto">
                   <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-medium">
                     The Bindy Circle
                   </span>
-                  <h3 className="font-serif text-3xl sm:text-4xl text-paper-light font-light">
+                  <h3 className="font-serif text-3xl sm:text-4xl text-paper font-light tracking-wide leading-tight">
                     Welcome to <span className="italic font-serif">BINDY.</span>
                   </h3>
-                  <p className="font-serif italic text-sm text-sand/75 font-light leading-relaxed">
+                  <p className="font-serif italic text-sm sm:text-base text-sand/90 font-light leading-relaxed">
                     Sign in to access your saved Australian wardrobe receipts, delivery addresses, and private previews.
                   </p>
                 </div>
 
-                <form onSubmit={handleQuickSignIn} className="space-y-4 max-w-md mx-auto">
-                  <FloatingInput
+                <form noValidate onSubmit={handleQuickSignIn} className="space-y-6 max-w-md mx-auto">
+                  <UnderlineInput
                     id="signin-email"
                     label="Email Address"
                     type="email"
-                    value={signupEmail}
+                    value={signinEmail}
                     onChange={(e) => {
-                      setSignupEmail(e.target.value);
-                      if (signupErrors.signinEmail) setSignupErrors({});
+                      setSigninEmail(e.target.value);
+                      if (signinErrors.email) setSigninErrors((p) => ({ ...p, email: "" }));
                     }}
-                    required
-                    error={signupErrors.signinEmail}
+                    placeholder="e.g. maya@example.com.au"
+                    error={signinErrors.email}
                   />
 
-                  <FloatingInput
+                  <UnderlineInput
                     id="signin-password"
                     label="Password"
                     type="password"
-                    value={signupPassword}
-                    onChange={(e) => setSignupPassword(e.target.value)}
+                    value={signinPassword}
+                    onChange={(e) => {
+                      setSigninPassword(e.target.value);
+                      if (signinErrors.password) setSigninErrors((p) => ({ ...p, password: "" }));
+                    }}
+                    placeholder="Enter your password"
+                    error={signinErrors.password}
                   />
 
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-3.5 rounded-full bg-gold hover:bg-white text-black font-sans text-xs uppercase tracking-[0.22em] font-semibold transition-all duration-300 shadow-lg cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full py-4 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center justify-center gap-2"
                     >
                       <span>Sign In to Account</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
 
-                  <div className="text-center pt-3 border-t border-white/10 space-y-2">
-                    <p className="text-xs font-sans text-sand/70">
-                      New to BINDY Clothing?
+                  <div className="text-center pt-4 border-t border-white/10 space-y-2">
+                    <p className="text-xs font-sans text-sand/80 font-light">
+                      New to BINDY slow fashion?
                     </p>
                     <button
                       type="button"
                       onClick={() => {
+                        setSigninErrors({});
                         setSignupErrors({});
                         setViewState("signup-1");
                       }}
-                      className="text-xs font-sans uppercase tracking-wider text-gold hover:text-white font-medium transition-colors underline underline-offset-4 cursor-pointer"
+                      className="text-xs font-sans uppercase tracking-[0.2em] text-gold hover:text-white font-medium transition-colors underline underline-offset-4 cursor-pointer"
                     >
                       Create your Member Profile (3 steps)
                     </button>
@@ -478,25 +651,25 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
             {viewState === "signup-1" && (
               <div className="space-y-6 py-2">
                 {/* Step Indicator */}
-                <div className="space-y-2 text-center max-w-md mx-auto">
+                <div className="space-y-3 text-center max-w-md mx-auto">
                   <div className="flex items-center justify-center gap-2 text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-medium">
                     <span>Step 1 of 3</span>
-                    <span className="text-white/20">•</span>
+                    <span className="text-white/30">•</span>
                     <span>Account Basics</span>
                   </div>
                   {/* Progress Bar */}
                   <div className="w-full grid grid-cols-3 gap-2 pt-1">
-                    <div className="h-1 rounded-full bg-gold" />
-                    <div className="h-1 rounded-full bg-white/15" />
-                    <div className="h-1 rounded-full bg-white/15" />
+                    <div className="h-1 rounded-full bg-gold shadow-[0_0_8px_rgba(197,160,89,0.5)]" />
+                    <div className="h-1 rounded-full bg-white/20" />
+                    <div className="h-1 rounded-full bg-white/20" />
                   </div>
-                  <h3 className="font-serif text-2xl sm:text-3xl text-paper-light font-light pt-2">
+                  <h3 className="font-serif text-3xl sm:text-4xl text-paper font-light tracking-wide leading-tight pt-2">
                     Create Your Profile
                   </h3>
                 </div>
 
-                <form onSubmit={handleNextToStep2} className="space-y-4 max-w-md mx-auto">
-                  <FloatingInput
+                <form noValidate onSubmit={handleNextToStep2} className="space-y-6 max-w-md mx-auto">
+                  <UnderlineInput
                     id="signup-name"
                     label="Full Name"
                     type="text"
@@ -505,11 +678,11 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                       setSignupName(e.target.value);
                       if (signupErrors.name) setSignupErrors((p) => ({ ...p, name: "" }));
                     }}
-                    required
+                    placeholder="e.g. Maya Ranasinghe"
                     error={signupErrors.name}
                   />
 
-                  <FloatingInput
+                  <UnderlineInput
                     id="signup-email"
                     label="Email Address"
                     type="email"
@@ -518,11 +691,11 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                       setSignupEmail(e.target.value);
                       if (signupErrors.email) setSignupErrors((p) => ({ ...p, email: "" }));
                     }}
-                    required
+                    placeholder="e.g. maya@example.com.au"
                     error={signupErrors.email}
                   />
 
-                  <FloatingInput
+                  <UnderlineInput
                     id="signup-pass"
                     label="Create Password"
                     type="password"
@@ -531,14 +704,14 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                       setSignupPassword(e.target.value);
                       if (signupErrors.password) setSignupErrors((p) => ({ ...p, password: "" }));
                     }}
-                    required
+                    placeholder="At least 6 characters"
                     error={signupErrors.password}
                   />
 
                   <div className="pt-3">
                     <button
                       type="submit"
-                      className="w-full py-3.5 rounded-full bg-gold hover:bg-white text-black font-sans text-xs uppercase tracking-[0.22em] font-semibold transition-all duration-300 shadow-lg cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full py-4 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center justify-center gap-2"
                     >
                       <span>Continue to Style Profile</span>
                       <ArrowRight className="w-4 h-4" />
@@ -549,7 +722,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                     <button
                       type="button"
                       onClick={() => setViewState("signin")}
-                      className="text-xs font-sans text-sand/60 hover:text-gold transition-colors"
+                      className="text-xs font-sans text-sand/80 hover:text-gold transition-colors"
                     >
                       Already have an account? Sign In
                     </button>
@@ -564,33 +737,33 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
             {viewState === "signup-2" && (
               <div className="space-y-6 py-2">
                 {/* Step Indicator */}
-                <div className="space-y-2 text-center max-w-md mx-auto">
+                <div className="space-y-3 text-center max-w-md mx-auto">
                   <div className="flex items-center justify-center gap-2 text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-medium">
                     <span>Step 2 of 3</span>
-                    <span className="text-white/20">•</span>
+                    <span className="text-white/30">•</span>
                     <span>Style Profile</span>
                   </div>
                   {/* Progress Bar */}
                   <div className="w-full grid grid-cols-3 gap-2 pt-1">
-                    <div className="h-1 rounded-full bg-gold" />
-                    <div className="h-1 rounded-full bg-gold" />
-                    <div className="h-1 rounded-full bg-white/15" />
+                    <div className="h-1 rounded-full bg-gold shadow-[0_0_8px_rgba(197,160,89,0.5)]" />
+                    <div className="h-1 rounded-full bg-gold shadow-[0_0_8px_rgba(197,160,89,0.5)]" />
+                    <div className="h-1 rounded-full bg-white/20" />
                   </div>
-                  <h3 className="font-serif text-2xl sm:text-3xl text-paper-light font-light pt-2">
+                  <h3 className="font-serif text-3xl sm:text-4xl text-paper font-light tracking-wide leading-tight pt-2">
                     Your Wardrobe Preferences
                   </h3>
-                  <p className="font-serif italic text-xs text-sand/75 font-light">
-                    Help us personalize your slow fashion recommendations.
+                  <p className="font-serif italic text-sm text-sand/90 font-light leading-relaxed">
+                    Help us personalize your slow fashion recommendations and sizing notes.
                   </p>
                 </div>
 
                 <div className="space-y-6 max-w-lg mx-auto">
                   {/* 1. Favorite Category */}
-                  <div className="space-y-2.5">
-                    <span className="text-[11px] font-sans uppercase tracking-wider text-sand/80 font-medium block">
+                  <div className="space-y-3">
+                    <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
                       Favorite Silhouette
                     </span>
-                    <div className="grid grid-cols-2 gap-2.5">
+                    <div className="grid grid-cols-2 gap-3">
                       {CATEGORY_OPTIONS.map((item) => {
                         const active = prefCategory === item.category;
                         return (
@@ -598,16 +771,16 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                             key={item.category}
                             type="button"
                             onClick={() => setPrefCategory(item.category)}
-                            className={`p-3 rounded-2xl border text-left transition-all duration-200 cursor-pointer ${
+                            className={`p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer ${
                               active
-                                ? "bg-gold/15 border-gold shadow-md"
-                                : "bg-white/5 border-white/10 hover:border-white/25"
+                                ? "bg-gold/15 border-gold shadow-[0_4px_20px_rgba(197,160,89,0.25)] ring-1 ring-gold/40"
+                                : "bg-white/[0.04] border-white/10 hover:border-white/25 hover:bg-white/[0.07]"
                             }`}
                           >
-                            <p className={`font-serif text-sm font-medium ${active ? "text-gold" : "text-paper-light"}`}>
+                            <p className={`font-serif text-base sm:text-lg font-medium ${active ? "text-gold" : "text-paper"}`}>
                               {item.category}
                             </p>
-                            <p className="text-[10px] font-sans text-sand/60 mt-0.5 line-clamp-1">
+                            <p className={`text-xs font-sans ${active ? "text-sand" : "text-sand/75"} mt-1 font-light leading-relaxed`}>
                               {item.desc}
                             </p>
                           </button>
@@ -617,11 +790,11 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                   </div>
 
                   {/* 2. Preferred Fit */}
-                  <div className="space-y-2.5">
-                    <span className="text-[11px] font-sans uppercase tracking-wider text-sand/80 font-medium block">
+                  <div className="space-y-3">
+                    <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
                       Preferred Fit Feel
                     </span>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-3 gap-2.5">
                       {FIT_OPTIONS.map((fit) => {
                         const active = prefFit === fit.id;
                         return (
@@ -629,13 +802,13 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                             key={fit.id}
                             type="button"
                             onClick={() => setPrefFit(fit.id)}
-                            className={`p-2.5 rounded-xl border text-center transition-all duration-200 cursor-pointer ${
+                            className={`p-3.5 rounded-xl border text-center transition-all duration-200 cursor-pointer ${
                               active
-                                ? "bg-gold/15 border-gold text-gold font-medium"
-                                : "bg-white/5 border-white/10 text-sand/80 hover:border-white/25"
+                                ? "bg-gold/15 border-gold text-gold font-medium shadow-[0_2px_12px_rgba(197,160,89,0.25)] ring-1 ring-gold/40"
+                                : "bg-white/[0.04] border-white/10 text-sand/90 hover:border-white/25 hover:bg-white/[0.07]"
                             }`}
                           >
-                            <p className="text-xs font-sans font-medium">{fit.label}</p>
+                            <p className="text-xs font-sans font-semibold tracking-wide">{fit.label}</p>
                           </button>
                         );
                       })}
@@ -643,11 +816,11 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                   </div>
 
                   {/* 3. Preferred AU Size */}
-                  <div className="space-y-2.5">
-                    <span className="text-[11px] font-sans uppercase tracking-wider text-sand/80 font-medium block">
+                  <div className="space-y-3">
+                    <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
                       Default AU Size
                     </span>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2.5">
                       {AU_SIZES.map((sz) => {
                         const active = prefSize === sz;
                         return (
@@ -655,10 +828,10 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                             key={sz}
                             type="button"
                             onClick={() => setPrefSize(sz)}
-                            className={`px-3.5 py-1.5 rounded-full border text-xs font-sans transition-all duration-200 cursor-pointer ${
+                            className={`px-4 py-2.5 rounded-full border text-xs font-sans transition-all duration-200 cursor-pointer ${
                               active
-                                ? "bg-gold text-black border-gold font-semibold shadow"
-                                : "bg-white/5 border-white/10 text-sand/80 hover:border-gold/60"
+                                ? "bg-gold text-charcoal border-gold font-bold shadow-[0_2px_12px_rgba(197,160,89,0.35)] scale-105"
+                                : "bg-white/[0.04] border-white/15 text-sand hover:border-gold/60 hover:text-paper"
                             }`}
                           >
                             {sz}
@@ -669,11 +842,11 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                   </div>
 
                   {/* Navigation Buttons */}
-                  <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                  <div className="flex items-center justify-between pt-5 border-t border-white/10">
                     <button
                       type="button"
                       onClick={() => setViewState("signup-1")}
-                      className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-wider text-sand/70 hover:text-white transition-colors"
+                      className="px-5 py-3 rounded-full border border-white/20 text-xs font-sans uppercase tracking-wider text-sand hover:text-paper hover:border-white/40 bg-white/5 hover:bg-white/10 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -681,8 +854,8 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
 
                     <button
                       type="button"
-                      onClick={handleNextToStep3}
-                      className="px-6 py-3 rounded-full bg-gold hover:bg-white text-black font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-md cursor-pointer flex items-center gap-2"
+                      onClick={() => setViewState("signup-3")}
+                      className="px-8 py-3.5 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center gap-2"
                     >
                       <span>Next: Address</span>
                       <ArrowRight className="w-4 h-4" />
@@ -698,92 +871,93 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
             {viewState === "signup-3" && (
               <div className="space-y-6 py-2">
                 {/* Step Indicator */}
-                <div className="space-y-2 text-center max-w-md mx-auto">
+                <div className="space-y-3 text-center max-w-md mx-auto">
                   <div className="flex items-center justify-center gap-2 text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-medium">
                     <span>Step 3 of 3</span>
-                    <span className="text-white/20">•</span>
+                    <span className="text-white/30">•</span>
                     <span>Australian Delivery Address</span>
                   </div>
                   {/* Progress Bar */}
                   <div className="w-full grid grid-cols-3 gap-2 pt-1">
-                    <div className="h-1 rounded-full bg-gold" />
-                    <div className="h-1 rounded-full bg-gold" />
-                    <div className="h-1 rounded-full bg-gold" />
+                    <div className="h-1 rounded-full bg-gold shadow-[0_0_8px_rgba(197,160,89,0.5)]" />
+                    <div className="h-1 rounded-full bg-gold shadow-[0_0_8px_rgba(197,160,89,0.5)]" />
+                    <div className="h-1 rounded-full bg-gold shadow-[0_0_8px_rgba(197,160,89,0.5)]" />
                   </div>
-                  <h3 className="font-serif text-2xl sm:text-3xl text-paper-light font-light pt-2">
+                  <h3 className="font-serif text-3xl sm:text-4xl text-paper font-light tracking-wide leading-tight pt-2">
                     Delivery Address
                   </h3>
-                  <p className="font-serif italic text-xs text-sand/75 font-light">
-                    Optional: Save your shipping address for one-click checkout.
+                  <p className="font-serif italic text-sm text-sand/90 font-light leading-relaxed">
+                    Optional: Save your shipping address for effortless one-click checkout.
                   </p>
                 </div>
 
-                <div className="space-y-4 max-w-lg mx-auto">
-                  <FloatingInput
+                <div className="space-y-5 max-w-lg mx-auto">
+                  <UnderlineInput
                     id="address-street"
                     label="Street Address"
                     value={addressData.address}
-                    onChange={(e) =>
-                      setAddressData((a) => ({ ...a, address: e.target.value }))
-                    }
+                    onChange={(e) => {
+                      setAddressData((a) => ({ ...a, address: e.target.value }));
+                      if (addressErrors.address) setAddressErrors((p) => ({ ...p, address: "" }));
+                    }}
+                    placeholder="e.g. 42 James Street"
+                    error={addressErrors.address}
                   />
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <FloatingInput
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <UnderlineInput
                       id="address-apt"
                       label="Apt / Suite (Optional)"
                       value={addressData.apartment || ""}
                       onChange={(e) =>
                         setAddressData((a) => ({ ...a, apartment: e.target.value }))
                       }
+                      placeholder="e.g. Apt 4B"
                     />
 
-                    <FloatingInput
+                    <UnderlineInput
                       id="address-suburb"
                       label="Suburb / City"
                       value={addressData.suburb}
-                      onChange={(e) =>
-                        setAddressData((a) => ({ ...a, suburb: e.target.value }))
-                      }
+                      onChange={(e) => {
+                        setAddressData((a) => ({ ...a, suburb: e.target.value }));
+                        if (addressErrors.suburb) setAddressErrors((p) => ({ ...p, suburb: "" }));
+                      }}
+                      placeholder="e.g. New Farm"
+                      error={addressErrors.suburb}
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-sans uppercase tracking-wider text-sand/70">
-                        State / Territory
-                      </label>
-                      <select
-                        value={addressData.state}
-                        onChange={(e) =>
-                          setAddressData((a) => ({ ...a, state: e.target.value }))
-                        }
-                        className="w-full px-3.5 py-3 rounded-xl bg-[#22201D] border border-white/15 text-paper-light text-xs font-sans focus:outline-none focus:border-gold transition-colors"
-                      >
-                        {AUSTRALIAN_STATES.map((s) => (
-                          <option key={s} value={s}>
-                            {s}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <UnderlineSelect
+                      id="address-state"
+                      label="State / Territory"
+                      value={addressData.state}
+                      onChange={(e) =>
+                        setAddressData((a) => ({ ...a, state: e.target.value }))
+                      }
+                      options={AUSTRALIAN_STATES}
+                    />
 
-                    <FloatingInput
+                    <UnderlineInput
                       id="address-postcode"
                       label="Postcode"
                       value={addressData.postcode}
-                      onChange={(e) =>
-                        setAddressData((a) => ({ ...a, postcode: e.target.value }))
-                      }
+                      onChange={(e) => {
+                        setAddressData((a) => ({ ...a, postcode: e.target.value }));
+                        if (addressErrors.postcode) setAddressErrors((p) => ({ ...p, postcode: "" }));
+                      }}
+                      placeholder="e.g. 4005"
+                      error={addressErrors.postcode}
                     />
                   </div>
 
                   {/* Actions */}
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-white/10">
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-5 border-t border-white/10">
                     <button
                       type="button"
                       onClick={() => handleCompleteSignup(true)}
-                      className="text-xs font-sans uppercase tracking-wider text-sand/60 hover:text-white underline underline-offset-4 transition-colors"
+                      className="text-xs font-sans uppercase tracking-[0.2em] text-sand/80 hover:text-gold underline underline-offset-4 transition-colors cursor-pointer font-medium"
                     >
                       Skip for now, add later
                     </button>
@@ -792,7 +966,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                       <button
                         type="button"
                         onClick={() => setViewState("signup-2")}
-                        className="px-4 py-2.5 rounded-full border border-white/15 text-xs font-sans text-sand/80 hover:text-white"
+                        className="px-5 py-3 rounded-full border border-white/20 text-xs font-sans text-sand hover:text-paper hover:border-white/40 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
                       >
                         Back
                       </button>
@@ -800,7 +974,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                       <button
                         type="button"
                         onClick={() => handleCompleteSignup(false)}
-                        className="flex-1 sm:flex-none px-6 py-3 rounded-full bg-gold hover:bg-white text-black font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center gap-2"
+                        className="flex-1 sm:flex-none px-8 py-3.5 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center justify-center gap-2"
                       >
                         <span>Save & Complete</span>
                         <ArrowRight className="w-4 h-4" />
@@ -820,7 +994,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                   initial={{ scale: 0.5, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-16 h-16 rounded-full bg-gold/20 border border-gold flex items-center justify-center mx-auto text-gold shadow-[0_0_30px_rgba(197,160,89,0.3)]"
+                  className="w-16 h-16 rounded-full bg-gold/20 border-2 border-gold flex items-center justify-center mx-auto text-gold shadow-[0_0_30px_rgba(197,160,89,0.3)]"
                 >
                   <Check className="w-8 h-8 stroke-[2.5]" />
                 </motion.div>
@@ -829,10 +1003,10 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                   <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-medium">
                     Origins Member Created
                   </span>
-                  <h3 className="font-serif text-3xl text-paper-light font-light">
+                  <h3 className="font-serif text-3xl sm:text-4xl text-paper font-light tracking-wide">
                     Welcome, {account?.name}!
                   </h3>
-                  <p className="font-serif italic text-sm text-sand/80 font-light leading-relaxed">
+                  <p className="font-serif italic text-sm text-sand/90 font-light leading-relaxed">
                     Your style profile has been created. Enjoy personal sizing notes and private previews.
                   </p>
                 </div>
@@ -840,7 +1014,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                 <div className="pt-4">
                   <button
                     onClick={() => setViewState("panel")}
-                    className="px-8 py-3 rounded-full bg-gold text-black font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-lg hover:bg-white cursor-pointer"
+                    className="px-8 py-3.5 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:bg-paper-light cursor-pointer"
                   >
                     Go to My Account
                   </button>
@@ -853,17 +1027,17 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                ══════════════════════════════════════════════════════ */}
             {viewState === "panel" && account && (
               <div className="space-y-6">
-                {/* Account Masthead */}
+                {/* Account Masthead with Luxury Avatar Glow */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-5 border-b border-sand/20">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-gold/15 border-2 border-gold flex items-center justify-center text-gold font-display text-xl shadow-inner select-none flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-gold/15 border-2 border-gold flex items-center justify-center text-gold font-display text-2xl shadow-[0_0_25px_rgba(197,160,89,0.25)] select-none flex-shrink-0">
                       {getInitials(account.name)}
                     </div>
                     <div>
-                      <h3 className="font-serif text-2xl sm:text-3xl text-paper-light font-medium leading-tight">
+                      <h3 className="font-serif text-2xl sm:text-3xl text-paper font-medium leading-snug break-words">
                         Welcome back, {account.name}
                       </h3>
-                      <p className="text-xs font-sans text-sand/70 mt-0.5">
+                      <p className="text-xs font-sans text-sand/80 mt-0.5 font-light">
                         {account.email} {account.memberSince && `• Member since ${account.memberSince}`}
                       </p>
                     </div>
@@ -871,7 +1045,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
 
                   <button
                     onClick={handleSignOut}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-[11px] font-sans uppercase tracking-wider text-sand hover:text-red-400 border border-white/10 transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-[11px] font-sans uppercase tracking-wider text-sand hover:text-red-400 border border-white/15 transition-colors cursor-pointer"
                   >
                     <LogOut className="w-3.5 h-3.5" />
                     <span>Sign Out</span>
@@ -893,7 +1067,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
                         className={`pb-3 text-xs font-sans uppercase tracking-[0.2em] font-medium transition-colors cursor-pointer relative whitespace-nowrap ${
-                          active ? "text-gold" : "text-sand/60 hover:text-sand"
+                          active ? "text-gold font-semibold" : "text-sand/70 hover:text-paper"
                         }`}
                       >
                         <span className="flex items-center gap-2">
@@ -902,8 +1076,8 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                         </span>
                         {active && (
                           <motion.div
-                            layoutId="accountTabUnderline"
-                            className="absolute bottom-0 inset-x-0 h-0.5 bg-gold"
+                            layoutId="accountTabActiveUnderline"
+                            className="absolute bottom-0 inset-x-0 h-0.5 bg-gold shadow-[0_0_12px_rgba(197,160,89,0.8)]"
                             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                           />
                         )}
@@ -914,33 +1088,39 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
 
                 {/* ── TAB 1: PROFILE ── */}
                 {activeTab === "profile" && (
-                  <form onSubmit={handleSaveProfileDetails} className="space-y-5 pt-2">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <FloatingInput
+                  <form noValidate onSubmit={handleSaveProfileDetails} className="space-y-6 pt-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <UnderlineInput
                         id="edit-name"
                         label="Full Name"
                         value={editName}
-                        onChange={(e) => setEditName(e.target.value)}
-                        required
+                        onChange={(e) => {
+                          setEditName(e.target.value);
+                          if (profileErrors.name) setProfileErrors((p) => ({ ...p, name: "" }));
+                        }}
+                        error={profileErrors.name}
                       />
 
-                      <FloatingInput
+                      <UnderlineInput
                         id="edit-email"
                         label="Email Address"
                         type="email"
                         value={editEmail}
-                        onChange={(e) => setEditEmail(e.target.value)}
-                        required
+                        onChange={(e) => {
+                          setEditEmail(e.target.value);
+                          if (profileErrors.email) setProfileErrors((p) => ({ ...p, email: "" }));
+                        }}
+                        error={profileErrors.email}
                       />
                     </div>
 
-                    {/* Member Benefits Card */}
-                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                      <div className="flex items-center gap-2 text-gold text-xs font-sans uppercase tracking-wider font-semibold">
+                    {/* Member Benefits Callout with Gold Tint */}
+                    <div className="p-5 rounded-2xl bg-gold/10 border border-gold/30 shadow-[0_4px_20px_rgba(197,160,89,0.1)] space-y-2">
+                      <div className="flex items-center gap-2 text-gold text-xs font-sans uppercase tracking-[0.2em] font-semibold">
                         <ShieldCheck className="w-4 h-4" />
                         <span>Origins Circle Membership</span>
                       </div>
-                      <p className="text-xs font-sans text-sand/75 font-light leading-relaxed">
+                      <p className="text-xs font-sans text-sand/90 font-light leading-relaxed">
                         Enjoy priority access to limited seasonal drops, private tailoring sizing notes, and carbon-neutral Australian shipping.
                       </p>
                     </div>
@@ -948,7 +1128,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                     <div className="pt-2 flex items-center justify-end">
                       <button
                         type="submit"
-                        className="px-6 py-2.5 rounded-full bg-gold hover:bg-white text-black font-sans text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md cursor-pointer flex items-center gap-2"
+                        className="px-8 py-3 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center gap-2"
                       >
                         {isSavedFeedback === "profile" ? (
                           <>
@@ -971,12 +1151,12 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                   <div className="space-y-4 pt-2">
                     {orders.length === 0 ? (
                       <div className="text-center py-12 space-y-4">
-                        <Package className="w-10 h-10 text-sand/40 mx-auto" />
+                        <Package className="w-10 h-10 text-sand/50 mx-auto" />
                         <div className="space-y-1">
-                          <p className="font-serif text-lg text-paper-light font-light">
+                          <p className="font-serif text-xl text-paper font-light">
                             No orders placed yet.
                           </p>
-                          <p className="text-xs font-sans text-sand/60">
+                          <p className="text-xs font-sans text-sand/80 font-light">
                             Your handcrafted garment receipts will appear here automatically upon checkout.
                           </p>
                         </div>
@@ -986,7 +1166,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                             const el = document.getElementById("collection");
                             el?.scrollIntoView({ behavior: "smooth" });
                           }}
-                          className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-gold hover:text-black text-paper-light font-sans text-xs uppercase tracking-wider transition-colors cursor-pointer"
+                          className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-gold hover:text-charcoal text-paper font-sans text-xs uppercase tracking-wider transition-colors cursor-pointer"
                         >
                           Explore Collection
                         </button>
@@ -996,14 +1176,14 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                         {orders.map((ord) => (
                           <div
                             key={ord.orderRef}
-                            className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3 hover:border-gold/40 transition-colors"
+                            className="p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/15 space-y-3 hover:border-gold/50 transition-colors shadow-sm"
                           >
                             <div className="flex items-center justify-between text-xs">
                               <div>
                                 <span className="font-mono text-gold font-medium tracking-wider">
                                   #{ord.orderRef}
                                 </span>
-                                <span className="text-sand/50 ml-2">• {ord.date}</span>
+                                <span className="text-sand/60 ml-2">• {ord.date}</span>
                               </div>
                               <span className="px-2.5 py-0.5 rounded-full bg-green-500/15 border border-green-500/30 text-green-400 text-[10px] font-sans uppercase tracking-wider font-medium">
                                 {ord.status || "Confirmed"}
@@ -1015,7 +1195,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                               {ord.items.map((item, idx) => (
                                 <div
                                   key={idx}
-                                  className="flex items-center gap-2 bg-black/30 p-1.5 rounded-xl border border-white/5 flex-shrink-0"
+                                  className="flex items-center gap-2.5 bg-black/40 p-2 rounded-xl border border-white/10 flex-shrink-0"
                                 >
                                   <img
                                     src={item.image}
@@ -1023,10 +1203,10 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                                     className="w-10 h-12 object-cover rounded-lg bg-black/40"
                                   />
                                   <div className="text-[11px] pr-2">
-                                    <p className="font-serif text-paper-light truncate max-w-[120px]">
+                                    <p className="font-serif text-paper truncate max-w-[140px]">
                                       {item.name}
                                     </p>
-                                    <p className="text-[10px] font-sans text-sand/60">
+                                    <p className="text-[10px] font-sans text-sand/70">
                                       Size {item.size} • Qty {item.quantity}
                                     </p>
                                   </div>
@@ -1034,11 +1214,11 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                               ))}
                             </div>
 
-                            <div className="pt-2 border-t border-white/5 flex items-center justify-between text-xs font-sans">
-                              <span className="text-sand/60">
-                                {ord.itemCount || ord.items.length} {ord.items.length === 1 ? "item" : "items"}
+                            <div className="pt-2.5 border-t border-white/10 flex items-center justify-between text-xs font-sans">
+                              <span className="text-sand/70">
+                                {ord.itemCount || ord.items.length} {ord.items.length === 1 ? "piece" : "pieces"}
                               </span>
-                              <span className="font-serif text-sm font-semibold text-gold">
+                              <span className="font-serif text-base font-semibold text-gold">
                                 Total: ${ord.total} AUD
                               </span>
                             </div>
@@ -1051,77 +1231,75 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
 
                 {/* ── TAB 3: ADDRESS ── */}
                 {activeTab === "address" && (
-                  <form onSubmit={handleSaveAddressDetails} className="space-y-4 pt-2">
-                    <FloatingInput
+                  <form noValidate onSubmit={handleSaveAddressDetails} className="space-y-5 pt-2">
+                    <UnderlineInput
                       id="edit-addr-street"
                       label="Street Address"
                       value={addressData.address}
-                      onChange={(e) =>
-                        setAddressData((a) => ({ ...a, address: e.target.value }))
-                      }
-                      required
+                      onChange={(e) => {
+                        setAddressData((a) => ({ ...a, address: e.target.value }));
+                        if (addressErrors.address) setAddressErrors((p) => ({ ...p, address: "" }));
+                      }}
+                      placeholder="e.g. 42 James Street"
+                      error={addressErrors.address}
                     />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <FloatingInput
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <UnderlineInput
                         id="edit-addr-apt"
                         label="Apt / Suite (Optional)"
                         value={addressData.apartment || ""}
                         onChange={(e) =>
                           setAddressData((a) => ({ ...a, apartment: e.target.value }))
                         }
+                        placeholder="e.g. Apt 4B"
                       />
 
-                      <FloatingInput
+                      <UnderlineInput
                         id="edit-addr-suburb"
                         label="Suburb / City"
                         value={addressData.suburb}
-                        onChange={(e) =>
-                          setAddressData((a) => ({ ...a, suburb: e.target.value }))
-                        }
-                        required
+                        onChange={(e) => {
+                          setAddressData((a) => ({ ...a, suburb: e.target.value }));
+                          if (addressErrors.suburb) setAddressErrors((p) => ({ ...p, suburb: "" }));
+                        }}
+                        placeholder="e.g. New Farm"
+                        error={addressErrors.suburb}
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="space-y-1">
-                        <label className="text-[10px] font-sans uppercase tracking-wider text-sand/70">
-                          State / Territory
-                        </label>
-                        <select
-                          value={addressData.state}
-                          onChange={(e) =>
-                            setAddressData((a) => ({ ...a, state: e.target.value }))
-                          }
-                          className="w-full px-3.5 py-3 rounded-xl bg-[#22201D] border border-white/15 text-paper-light text-xs font-sans focus:outline-none focus:border-gold transition-colors"
-                        >
-                          {AUSTRALIAN_STATES.map((s) => (
-                            <option key={s} value={s}>
-                              {s}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <UnderlineSelect
+                        id="edit-addr-state"
+                        label="State / Territory"
+                        value={addressData.state}
+                        onChange={(e) =>
+                          setAddressData((a) => ({ ...a, state: e.target.value }))
+                        }
+                        options={AUSTRALIAN_STATES}
+                      />
 
-                      <FloatingInput
+                      <UnderlineInput
                         id="edit-addr-postcode"
                         label="Postcode"
                         value={addressData.postcode}
-                        onChange={(e) =>
-                          setAddressData((a) => ({ ...a, postcode: e.target.value }))
-                        }
-                        required
+                        onChange={(e) => {
+                          setAddressData((a) => ({ ...a, postcode: e.target.value }));
+                          if (addressErrors.postcode) setAddressErrors((p) => ({ ...p, postcode: "" }));
+                        }}
+                        placeholder="e.g. 4005"
+                        error={addressErrors.postcode}
                       />
                     </div>
 
                     <div className="pt-4 flex items-center justify-between">
-                      <p className="text-[11px] font-sans text-sand/60">
+                      <p className="text-[11px] font-sans text-sand/80 font-light">
                         Pre-fills automatically during checkout.
                       </p>
 
                       <button
                         type="submit"
-                        className="px-6 py-2.5 rounded-full bg-gold hover:bg-white text-black font-sans text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md cursor-pointer flex items-center gap-2"
+                        className="px-8 py-3 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center gap-2"
                       >
                         {isSavedFeedback === "address" ? (
                           <>
@@ -1143,11 +1321,11 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                 {activeTab === "preferences" && (
                   <div className="space-y-6 pt-2">
                     {/* Category preference */}
-                    <div className="space-y-2.5">
-                      <span className="text-[11px] font-sans uppercase tracking-wider text-sand/80 font-medium block">
+                    <div className="space-y-3">
+                      <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
                         Favorite Category
                       </span>
-                      <div className="grid grid-cols-2 gap-2.5">
+                      <div className="grid grid-cols-2 gap-3">
                         {CATEGORY_OPTIONS.map((item) => {
                           const active = prefCategory === item.category;
                           return (
@@ -1155,16 +1333,16 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                               key={item.category}
                               type="button"
                               onClick={() => setPrefCategory(item.category)}
-                              className={`p-3 rounded-2xl border text-left transition-all duration-200 cursor-pointer ${
+                              className={`p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer ${
                                 active
-                                  ? "bg-gold/15 border-gold shadow-md"
-                                  : "bg-white/5 border-white/10 hover:border-white/25"
+                                  ? "bg-gold/15 border-gold shadow-[0_4px_20px_rgba(197,160,89,0.25)] ring-1 ring-gold/40"
+                                  : "bg-white/[0.04] border-white/10 hover:border-white/25 hover:bg-white/[0.07]"
                               }`}
                             >
-                              <p className={`font-serif text-sm font-medium ${active ? "text-gold" : "text-paper-light"}`}>
+                              <p className={`font-serif text-base sm:text-lg font-medium ${active ? "text-gold" : "text-paper"}`}>
                                 {item.category}
                               </p>
-                              <p className="text-[10px] font-sans text-sand/60 mt-0.5 line-clamp-1">
+                              <p className={`text-xs font-sans ${active ? "text-sand" : "text-sand/75"} mt-1 font-light leading-relaxed`}>
                                 {item.desc}
                               </p>
                             </button>
@@ -1174,11 +1352,11 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                     </div>
 
                     {/* Fit preference */}
-                    <div className="space-y-2.5">
-                      <span className="text-[11px] font-sans uppercase tracking-wider text-sand/80 font-medium block">
+                    <div className="space-y-3">
+                      <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
                         Preferred Fit Feel
                       </span>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-3 gap-2.5">
                         {FIT_OPTIONS.map((fit) => {
                           const active = prefFit === fit.id;
                           return (
@@ -1186,13 +1364,13 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                               key={fit.id}
                               type="button"
                               onClick={() => setPrefFit(fit.id)}
-                              className={`p-2.5 rounded-xl border text-center transition-all duration-200 cursor-pointer ${
+                              className={`p-3.5 rounded-xl border text-center transition-all duration-200 cursor-pointer ${
                                 active
-                                  ? "bg-gold/15 border-gold text-gold font-medium"
-                                  : "bg-white/5 border-white/10 text-sand/80 hover:border-white/25"
+                                  ? "bg-gold/15 border-gold text-gold font-medium shadow-[0_2px_12px_rgba(197,160,89,0.25)] ring-1 ring-gold/40"
+                                  : "bg-white/[0.04] border-white/10 text-sand/90 hover:border-white/25 hover:bg-white/[0.07]"
                               }`}
                             >
-                              <p className="text-xs font-sans font-medium">{fit.label}</p>
+                              <p className="text-xs font-sans font-semibold tracking-wide">{fit.label}</p>
                             </button>
                           );
                         })}
@@ -1200,11 +1378,11 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                     </div>
 
                     {/* Size preference */}
-                    <div className="space-y-2.5">
-                      <span className="text-[11px] font-sans uppercase tracking-wider text-sand/80 font-medium block">
+                    <div className="space-y-3">
+                      <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
                         Default Size
                       </span>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2.5">
                         {AU_SIZES.map((sz) => {
                           const active = prefSize === sz;
                           return (
@@ -1212,24 +1390,24 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
                               key={sz}
                               type="button"
                               onClick={() => setPrefSize(sz)}
-                              className={`px-3.5 py-1.5 rounded-full border text-xs font-sans transition-all duration-200 cursor-pointer ${
+                              className={`px-4 py-2.5 rounded-full border text-xs font-sans transition-all duration-200 cursor-pointer ${
                                 active
-                                  ? "bg-gold text-black border-gold font-semibold shadow"
-                                  : "bg-white/5 border-white/10 text-sand/80 hover:border-gold/60"
-                              }`}
-                            >
-                              {sz}
-                            </button>
-                          );
-                        })}
-                      </div>
+                                  ? "bg-gold text-charcoal border-gold font-bold shadow-[0_2px_12px_rgba(197,160,89,0.35)] scale-105"
+                                  : "bg-white/[0.04] border-white/15 text-sand hover:border-gold/60 hover:text-paper"
+                            }`}
+                          >
+                            {sz}
+                          </button>
+                        );
+                      })}
                     </div>
+                  </div>
 
-                    <div className="pt-3 flex items-center justify-end border-t border-white/10">
+                    <div className="pt-4 flex items-center justify-end border-t border-white/10">
                       <button
                         type="button"
                         onClick={handleSavePreferences}
-                        className="px-6 py-2.5 rounded-full bg-gold hover:bg-white text-black font-sans text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md cursor-pointer flex items-center gap-2"
+                        className="px-8 py-3 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center gap-2"
                       >
                         {isSavedFeedback === "preferences" ? (
                           <>
@@ -1251,6 +1429,7 @@ export default function AccountModal({ isOpen, onClose }: AccountModalProps) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
