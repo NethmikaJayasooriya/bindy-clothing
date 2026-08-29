@@ -29,6 +29,7 @@ import {
   clearBuyNowItem,
   type CartItem,
 } from "@/lib/cart";
+import { saveOrder, getAccount, type UserAccount } from "@/lib/account";
 
 type CheckoutStep = "shipping" | "payment" | "review" | "confirmation";
 
@@ -160,6 +161,7 @@ export default function CheckoutPage() {
 
   // Generated Order Details for Step 4
   const [orderSummary, setOrderSummary] = useState<CompletedOrder | null>(null);
+  const [savedAccount, setSavedAccount] = useState<UserAccount | null>(null);
 
   // Load cart or isolated Buy Now item + Rehydrate draft state
   useEffect(() => {
@@ -229,6 +231,7 @@ export default function CheckoutPage() {
       }
     }
 
+    setSavedAccount(getAccount());
     setIsLoaded(true);
 
     const unsubscribe = subscribe(() => {
@@ -428,6 +431,31 @@ export default function CheckoutPage() {
       };
 
       setOrderSummary(finalOrder);
+
+      // Persist order to account order history (localStorage)
+      saveOrder({
+        orderRef: mockId,
+        date: dateStr,
+        items: finalOrder.items.map((i) => ({
+          productId: i.product.id,
+          name: i.product.name,
+          size: i.size,
+          quantity: i.quantity,
+          priceAud: i.product.priceAud,
+          image: i.product.image,
+        })),
+        itemCount: finalOrder.items.reduce((s, i) => s + i.quantity, 0),
+        total: finalOrder.total,
+        shippingAddress: {
+          address: shipping.address,
+          apartment: shipping.apartment,
+          suburb: shipping.suburb,
+          state: shipping.state,
+          postcode: shipping.postcode,
+          country: shipping.country || "Australia",
+        },
+        status: "Confirmed",
+      });
 
       // Store completed order separately in sessionStorage
       if (typeof window !== "undefined") {
@@ -1027,6 +1055,44 @@ export default function CheckoutPage() {
                         Shipping & Delivery Address
                       </h2>
                     </div>
+
+                    {/* Pre-fill from Saved Account Banner */}
+                    {savedAccount?.savedAddress?.address && (
+                      <div className="p-4 rounded-2xl bg-gold/10 border border-gold/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div className="flex items-start sm:items-center gap-3 min-w-0">
+                          <Sparkles className="w-4 h-4 text-gold flex-shrink-0 mt-0.5 sm:mt-0" />
+                          <div className="text-xs text-paper-light">
+                            <p className="font-medium text-gold">Use saved address from your account</p>
+                            <p className="text-sand/70 truncate">
+                              {savedAccount.name} • {savedAccount.savedAddress.address}, {savedAccount.savedAddress.suburb} {savedAccount.savedAddress.postcode}
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const [fName, ...lNameParts] = (savedAccount.name || "").split(" ");
+                            setShipping((prev) => ({
+                              ...prev,
+                              firstName: fName || prev.firstName,
+                              lastName: lNameParts.join(" ") || prev.lastName,
+                              email: savedAccount.email || prev.email,
+                              phone: savedAccount.phone || prev.phone,
+                              address: savedAccount.savedAddress?.address || prev.address,
+                              apartment: savedAccount.savedAddress?.apartment || prev.apartment,
+                              suburb: savedAccount.savedAddress?.suburb || prev.suburb,
+                              state: savedAccount.savedAddress?.state?.includes("(")
+                                ? savedAccount.savedAddress.state.match(/\(([^)]+)\)/)?.[1] || prev.state
+                                : savedAccount.savedAddress?.state || prev.state,
+                              postcode: savedAccount.savedAddress?.postcode || prev.postcode,
+                            }));
+                          }}
+                          className="px-4 py-1.5 rounded-full bg-gold hover:bg-white text-black text-[11px] font-sans uppercase tracking-wider font-semibold transition-colors cursor-pointer flex-shrink-0 self-start sm:self-auto shadow-sm"
+                        >
+                          Auto-fill
+                        </button>
+                      </div>
+                    )}
 
                     <form onSubmit={handleNextToPayment} className="space-y-6">
                       {/* Contact Info */}

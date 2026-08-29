@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Search, Heart, Volume2, VolumeX, Menu, X, ChevronDown } from "lucide-react";
+import { ShoppingBag, Search, Heart, Volume2, VolumeX, Menu, X, ChevronDown, User } from "lucide-react";
 import SearchModal from "@/components/SearchModal";
+import AccountModal from "@/components/AccountModal";
+import { getAccount, subscribeAccount, type UserAccount } from "@/lib/account";
 
 interface NavbarProps {
   isMuted: boolean;
@@ -22,8 +24,18 @@ export default function Navbar({
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [account, setAccount] = useState<UserAccount | null>(null);
   const [currency, setCurrency] = useState("AUD $");
   const [isCurrencyDropdown, setIsCurrencyDropdown] = useState(false);
+
+  useEffect(() => {
+    setAccount(getAccount());
+    const unsub = subscribeAccount(() => {
+      setAccount(getAccount());
+    });
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -183,6 +195,23 @@ export default function Navbar({
               <Heart className="w-4 h-4" />
             </button>
 
+            {/* Profile / Account Button */}
+            <button
+              onClick={() => setIsAccountOpen(true)}
+              title={account ? `Account (${account.name})` : "Sign In / Account"}
+              className={`relative p-2 rounded-full transition-all duration-300 border ${
+                isScrolled
+                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059] hover:text-[#C5A059]"
+                  : "border-white/30 text-white hover:border-[#C5A059] hover:text-[#C5A059]"
+              }`}
+              aria-label="Account"
+            >
+              <User className="w-4 h-4" />
+              {account && (
+                <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#C5A059] ring-1 ring-black" />
+              )}
+            </button>
+
             {/* Cart Button */}
             <button
               onClick={onOpenCart}
@@ -220,22 +249,33 @@ export default function Navbar({
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-30 bg-[#FAF7F2] dark:bg-[#151413] pt-24 px-8 pb-12 flex flex-col justify-between md:hidden"
           >
-            <div className="flex flex-col space-y-6 text-center">
+            <div className="flex flex-col space-y-4 text-center">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   setIsSearchOpen(true);
                 }}
-                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors mb-2"
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors"
               >
                 <Search className="w-4 h-4 text-gold" />
                 <span>Search Collection</span>
               </button>
 
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setIsAccountOpen(true);
+                }}
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors mb-2"
+              >
+                <User className="w-4 h-4 text-gold" />
+                <span>{account ? `Account (${account.name})` : "Sign In / Join"}</span>
+              </button>
+
               <Link
                 href="#collection"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100"
+                className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100 pt-2"
               >
                 Collection 01
               </Link>
@@ -290,6 +330,12 @@ export default function Navbar({
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
+      />
+
+      {/* Global Account Modal Overlay */}
+      <AccountModal
+        isOpen={isAccountOpen}
+        onClose={() => setIsAccountOpen(false)}
       />
     </>
   );

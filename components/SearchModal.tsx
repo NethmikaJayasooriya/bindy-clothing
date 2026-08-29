@@ -30,7 +30,7 @@ const CATEGORY_CARDS = [
   {
     name: "Tops & Blouses",
     tagline: "Relaxed resort cuts & hand cutwork",
-    image: "/images/serendipity/tea-hills-camisole.jpg",
+    image: "/images/serendipity/shore-traces-blouse.jpg",
   },
   {
     name: "Skirts & Pants",
@@ -40,7 +40,7 @@ const CATEGORY_CARDS = [
   {
     name: "Two Piece Sets",
     tagline: "Matching handloom coordinates",
-    image: "/images/serendipity/pettah-check-dress.jpg",
+    image: "/images/serendipity/tea-leaf-two-piece.jpg",
   },
 ];
 
@@ -286,12 +286,15 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             setQuery(cat.name);
                             inputRef.current?.focus();
                           }}
-                          className="group relative h-44 sm:h-52 rounded-2xl overflow-hidden border border-white/10 hover:border-gold/70 text-left transition-all duration-500 shadow-lg hover:shadow-2xl cursor-pointer"
+                          className="group relative h-44 sm:h-52 rounded-2xl overflow-hidden bg-gradient-to-br from-[#26221E] via-[#1A1816] to-[#121110] border border-white/10 hover:border-gold/70 text-left transition-all duration-500 shadow-lg hover:shadow-2xl cursor-pointer"
                         >
-                          {/* Background Image */}
+                          {/* Background Image with Graceful Error Fallback */}
                           <img
                             src={cat.image}
                             alt={cat.name}
+                            onError={(e) => {
+                              (e.currentTarget as HTMLImageElement).style.display = "none";
+                            }}
                             className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                           />
 
