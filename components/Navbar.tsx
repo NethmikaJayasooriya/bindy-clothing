@@ -3,9 +3,18 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Search, Heart, Volume2, VolumeX, Menu, X, ChevronDown, User } from "lucide-react";
+import {
+  ShoppingBag,
+  Search,
+  Heart,
+  Volume2,
+  VolumeX,
+  Menu,
+  X,
+  ChevronDown,
+  User,
+} from "lucide-react";
 import SearchModal from "@/components/SearchModal";
-import AccountModal from "@/components/AccountModal";
 import WishlistDrawer from "@/components/WishlistDrawer";
 import { getAccount, subscribeAccount, type UserAccount } from "@/lib/account";
 import { getWishlistCount, subscribeWishlist } from "@/lib/wishlist";
@@ -26,7 +35,6 @@ export default function Navbar({
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [wishlistCount, setWishlistCount] = useState(0);
   const [account, setAccount] = useState<UserAccount | null>(null);
@@ -60,134 +68,142 @@ export default function Navbar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const currencies = ["AUD $", "USD $", "LKR Rs", "GBP £", "EUR €"];
+  const currencies = ["AUD $", "USD $", "GBP £", "LKR Rs"];
+
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((w) => w[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
   return (
     <>
       <motion.header
-        initial={{ y: -30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
           isScrolled
-            ? "bg-[#FAF7F2]/95 dark:bg-[#151413]/95 backdrop-blur-xl border-b border-[#DCC7AF]/30 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.08)] text-zinc-900 dark:text-zinc-100"
-            : "bg-gradient-to-b from-black/40 via-transparent to-transparent py-3 text-white"
+            ? "bg-[#FAF7F2]/90 dark:bg-[#151413]/90 backdrop-blur-md py-3.5 shadow-sm border-b border-[#DCC7AF]/20"
+            : "bg-gradient-to-b from-black/60 via-black/20 to-transparent py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* 1. LEFT CORNER: BRAND LOGO */}
-          <div className="flex items-center">
-            <Link href="/" className="group flex flex-col items-start text-left">
+          {/* Left: Brand Identity (Logo & Reverted Tagline "Clothing") */}
+          <div className="flex-shrink-0">
+            <Link href="/" className="inline-block text-left group">
               <span
-                className={`font-serif text-2xl sm:text-3xl tracking-[0.22em] uppercase font-medium transition-colors duration-300 ${
-                  isScrolled ? "text-[#1F1E1D] dark:text-[#FAF7F2]" : "text-[#FAF7F2]"
+                className={`font-display text-2xl sm:text-3xl tracking-[0.2em] font-normal transition-colors group-hover:text-[#C5A059] ${
+                  isScrolled ? "text-zinc-900 dark:text-zinc-100" : "text-white"
                 }`}
               >
-                BINDY<span className="text-[#C5A059]">.</span>
+                BINDY.
               </span>
-              <span className="text-[8px] font-sans tracking-[0.4em] uppercase text-[#C5A059] -mt-1 opacity-90">
+              <span className="block text-[8px] uppercase tracking-[0.45em] text-[#C5A059] font-sans -mt-1 font-semibold">
                 Clothing
               </span>
             </Link>
           </div>
 
-          {/* 2. CENTER: NAVIGATION LINKS (DESKTOP) */}
-          <nav className="hidden md:flex items-center space-x-9 text-[11px] lg:text-[12px] font-sans tracking-[0.25em] uppercase">
+          {/* Center: Navigation Links */}
+          <nav className="hidden md:flex items-center space-x-7 lg:space-x-9">
             <Link
-              href="#collection"
-              className={`transition-colors duration-300 hover:text-[#C5A059] ${
-                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white/90"
+              href="/#collection"
+              className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
+                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
               }`}
             >
               Collection
             </Link>
             <Link
-              href="#stories"
-              className={`transition-colors duration-300 hover:text-[#C5A059] ${
-                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white/90"
+              href="/#stories"
+              className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
+                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
               }`}
             >
               Heritage Stories
             </Link>
             <Link
-              href="#about"
-              className={`transition-colors duration-300 hover:text-[#C5A059] ${
-                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white/90"
+              href="/#about"
+              className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
+                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
               }`}
             >
               Our Story
             </Link>
             <Link
-              href="#craft"
-              className={`transition-colors duration-300 hover:text-[#C5A059] ${
-                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white/90"
+              href="/#craft"
+              className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
+                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
               }`}
             >
               Artisan Craft
             </Link>
           </nav>
 
-          {/* 3. RIGHT CORNER: CONTROLS & ACTIONS */}
-          <div className="flex items-center space-x-4 sm:space-x-5">
-            {/* Currency Selector */}
+          {/* Right: Uncrowded & Harmonious Controls Cluster */}
+          <div className="flex items-center gap-2.5 sm:gap-3 lg:gap-3.5">
+            {/* 1. Currency Selector (Desktop) */}
             <div className="relative hidden lg:block">
               <button
                 onClick={() => setIsCurrencyDropdown(!isCurrencyDropdown)}
-                className={`flex items-center space-x-1 text-[11px] font-sans tracking-[0.18em] uppercase transition-colors duration-300 hover:text-[#C5A059] ${
-                  isScrolled ? "text-zinc-700 dark:text-zinc-300" : "text-white/90"
+                className={`flex items-center gap-1 text-[11px] font-sans uppercase tracking-widest px-3 py-1.5 rounded-full border transition-all cursor-pointer ${
+                  isScrolled
+                    ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059]"
+                    : "border-white/30 text-white hover:border-[#C5A059]"
                 }`}
               >
                 <span>{currency}</span>
-                <ChevronDown className="w-3 h-3 opacity-70" />
+                <ChevronDown className="w-3 h-3 ml-0.5 opacity-70" />
               </button>
 
-              <AnimatePresence>
-                {isCurrencyDropdown && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    className="absolute right-0 mt-2 w-28 bg-[#FAF7F2] dark:bg-[#1E1D1B] border border-[#DCC7AF]/40 rounded-lg shadow-xl py-1.5 z-50 text-zinc-800 dark:text-zinc-100"
-                  >
-                    {currencies.map((c) => (
-                      <button
-                        key={c}
-                        onClick={() => {
-                          setCurrency(c);
-                          setIsCurrencyDropdown(false);
-                        }}
-                        className="w-full text-left px-3 py-1.5 text-xs hover:bg-[#DCC7AF]/20 transition-colors font-sans"
-                      >
-                        {c}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {isCurrencyDropdown && (
+                <div className="absolute right-0 mt-2 w-28 bg-[#FAF7F2] dark:bg-[#151413] border border-[#DCC7AF]/40 rounded-xl shadow-xl py-1 z-50">
+                  {currencies.map((c) => (
+                    <button
+                      key={c}
+                      onClick={() => {
+                        setCurrency(c);
+                        setIsCurrencyDropdown(false);
+                      }}
+                      className={`w-full text-left px-3 py-1.5 text-xs font-sans tracking-wider transition-colors hover:bg-[#C5A059]/15 hover:text-[#C5A059] ${
+                        currency === c
+                          ? "text-[#C5A059] font-medium"
+                          : "text-zinc-700 dark:text-zinc-300"
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Ambient Sound Toggle (Clean & Static) */}
+            {/* 2. Sound Toggle (Desktop & Tablet) */}
             <button
               onClick={toggleAudio}
-              title={isMuted ? "Unmute Ambient Soundscape" : "Mute Soundscape"}
-              className={`p-2 rounded-full transition-all duration-300 border ${
+              className={`hidden sm:flex p-2 sm:p-2.5 rounded-full transition-all duration-300 border cursor-pointer ${
                 isScrolled
-                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059]"
-                  : "border-white/30 text-white hover:border-[#C5A059]"
+                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059] hover:text-[#C5A059]"
+                  : "border-white/30 text-white hover:border-[#C5A059] hover:text-[#C5A059]"
               }`}
+              title={isMuted ? "Unmute Ambient Sound" : "Mute Ambient Sound"}
+              aria-label="Ambient Sound"
             >
-              {isMuted ? (
-                <VolumeX className="w-4 h-4" />
-              ) : (
-                <Volume2 className="w-4 h-4 text-[#C5A059]" />
-              )}
+              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#C5A059]" />}
             </button>
 
-            {/* Search Button */}
+            {/* Subtle Divider between utilities & shopping actions */}
+            <div className="hidden lg:block w-px h-4 bg-sand/30 dark:bg-white/15 my-auto" />
+
+            {/* 3. Search Trigger */}
             <button
               onClick={() => setIsSearchOpen(true)}
-              title="Search Collection"
-              className={`p-2 rounded-full transition-all duration-300 border ${
+              title="Search collection"
+              className={`p-2 sm:p-2.5 rounded-full transition-all duration-300 border cursor-pointer ${
                 isScrolled
                   ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059] hover:text-[#C5A059]"
                   : "border-white/30 text-white hover:border-[#C5A059] hover:text-[#C5A059]"
@@ -197,12 +213,14 @@ export default function Navbar({
               <Search className="w-4 h-4" />
             </button>
 
-            {/* Wishlist / Saved Pieces */}
+            {/* 4. Wishlist / Saved Pieces */}
             <button
               onClick={() => setIsWishlistOpen(true)}
               title="Saved Pieces"
-              className={`relative p-2 rounded-full transition-all duration-300 hover:text-[#C5A059] cursor-pointer ${
-                isScrolled ? "text-zinc-700 dark:text-zinc-300" : "text-white"
+              className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-300 border hover:border-[#C5A059] hover:text-[#C5A059] cursor-pointer ${
+                isScrolled
+                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300"
+                  : "border-white/30 text-white"
               }`}
               aria-label="Saved Pieces"
             >
@@ -218,29 +236,45 @@ export default function Navbar({
               )}
             </button>
 
-            {/* Profile / Account Button */}
-            <button
-              onClick={() => setIsAccountOpen(true)}
-              title={account ? `Account (${account.name})` : "Sign In / Account"}
-              className={`relative p-2 rounded-full transition-all duration-300 border ${
-                isScrolled
-                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059] hover:text-[#C5A059]"
-                  : "border-white/30 text-white hover:border-[#C5A059] hover:text-[#C5A059]"
-              }`}
-              aria-label="Account"
-            >
-              <User className="w-4 h-4" />
-              {account && (
-                <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#C5A059] ring-1 ring-black" />
-              )}
-            </button>
+            {/* 5. Profile Trigger (Signed-In: Initials Badge | Signed-Out: Standard User Icon) */}
+            {account ? (
+              <Link
+                href="/account"
+                title={`Origins Circle Account (${account.name})`}
+                className="relative group flex items-center justify-center cursor-pointer"
+                aria-label="Member Account"
+              >
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-[#282420] via-[#1B1917] to-[#121110] border border-[#C5A059]/80 group-hover:border-[#C5A059] flex items-center justify-center shadow-[0_0_12px_rgba(197,160,89,0.3)] group-hover:shadow-[0_0_20px_rgba(197,160,89,0.55)] transition-all duration-300 transform group-hover:scale-105">
+                  <span className="font-serif text-xs font-semibold text-[#C5A059] tracking-wider select-none">
+                    {getInitials(account.name)}
+                  </span>
+                </div>
+              </Link>
+            ) : (
+              <Link
+                href="/account"
+                title="Sign In / Account"
+                className={`p-2 sm:p-2.5 rounded-full transition-all duration-300 border flex items-center justify-center cursor-pointer ${
+                  isScrolled
+                    ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059] hover:text-[#C5A059]"
+                    : "border-white/30 text-white hover:border-[#C5A059] hover:text-[#C5A059]"
+                }`}
+                aria-label="Account"
+              >
+                <User className="w-4 h-4" />
+              </Link>
+            )}
 
-            {/* Cart Button */}
+            {/* 6. Shopping Bag / Cart Button */}
             <button
               onClick={onOpenCart}
-              className={`relative p-2 rounded-full transition-all duration-300 hover:text-[#C5A059] flex items-center space-x-1.5 ${
-                isScrolled ? "text-zinc-700 dark:text-zinc-300" : "text-white"
+              className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-300 border hover:border-[#C5A059] hover:text-[#C5A059] flex items-center justify-center cursor-pointer ${
+                isScrolled
+                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300"
+                  : "border-white/30 text-white"
               }`}
+              title="Shopping Bag"
+              aria-label="Shopping Bag"
             >
               <ShoppingBag className="w-4 h-4" />
               {cartCount > 0 && (
@@ -250,12 +284,13 @@ export default function Navbar({
               )}
             </button>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* 7. Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`md:hidden p-2 rounded-full transition-colors ${
+              className={`md:hidden p-2 rounded-full transition-colors cursor-pointer ${
                 isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
               }`}
+              aria-label="Open Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -278,7 +313,7 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   setIsSearchOpen(true);
                 }}
-                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors"
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors cursor-pointer"
               >
                 <Search className="w-4 h-4 text-gold" />
                 <span>Search Collection</span>
@@ -289,46 +324,83 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   setIsWishlistOpen(true);
                 }}
-                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors"
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors cursor-pointer"
               >
                 <Heart className={`w-4 h-4 ${wishlistCount > 0 ? "fill-gold text-gold" : "text-gold"}`} />
                 <span>Saved Pieces {wishlistCount > 0 && `(${wishlistCount})`}</span>
               </button>
 
+              {/* Mobile Profile Card / Link */}
+              {account ? (
+                <Link
+                  href="/account"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3.5 w-full p-3 rounded-2xl border border-gold/40 bg-gradient-to-r from-gold/15 via-gold/5 to-transparent text-left transition-all hover:border-gold cursor-pointer mb-2"
+                >
+                  <div className="w-10 h-10 rounded-full bg-[#181614] border border-gold/70 flex items-center justify-center text-gold font-serif text-sm font-semibold shadow-[0_0_12px_rgba(197,160,89,0.3)] flex-shrink-0">
+                    {getInitials(account.name)}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-serif text-sm text-zinc-900 dark:text-paper font-medium truncate">
+                      {account.name}
+                    </p>
+                    <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-gold font-semibold block">
+                      Origins Circle Member
+                    </span>
+                  </div>
+                </Link>
+              ) : (
+                <Link
+                  href="/account"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors mb-2 cursor-pointer"
+                >
+                  <User className="w-4 h-4 text-gold" />
+                  <span>Sign In / Join The Circle</span>
+                </Link>
+              )}
+
+              {/* Mobile Sound Toggle */}
               <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setIsAccountOpen(true);
-                }}
-                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors mb-2"
+                onClick={toggleAudio}
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors cursor-pointer"
               >
-                <User className="w-4 h-4 text-gold" />
-                <span>{account ? `Account (${account.name})` : "Sign In / Join"}</span>
+                {isMuted ? (
+                  <>
+                    <VolumeX className="w-4 h-4 text-sand/60" />
+                    <span>Unmute Ambient Sound</span>
+                  </>
+                ) : (
+                  <>
+                    <Volume2 className="w-4 h-4 text-gold" />
+                    <span>Ambient Sound Active</span>
+                  </>
+                )}
               </button>
 
               <Link
-                href="#collection"
+                href="/#collection"
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100 pt-2"
               >
                 Collection 01
               </Link>
               <Link
-                href="#stories"
+                href="/#stories"
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100"
               >
                 Heritage Stories
               </Link>
               <Link
-                href="#about"
+                href="/#about"
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100"
               >
                 Three Women
               </Link>
               <Link
-                href="#craft"
+                href="/#craft"
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100"
               >
@@ -364,12 +436,6 @@ export default function Navbar({
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
-      />
-
-      {/* Global Account Modal Overlay */}
-      <AccountModal
-        isOpen={isAccountOpen}
-        onClose={() => setIsAccountOpen(false)}
       />
 
       {/* Global Saved Pieces / Wishlist Drawer */}

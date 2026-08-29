@@ -122,7 +122,7 @@ export default function ProductDetail({ product }: { product: Product }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         {/* Gallery */}
         <div className="flex flex-col-reverse sm:flex-row gap-4 lg:sticky lg:top-24 self-start w-full">
-          <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0">
+          <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 no-scrollbar">
             {product.gallery.map((src, i) => (
               <button
                 key={src}

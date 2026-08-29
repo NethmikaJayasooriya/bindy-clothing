@@ -77,7 +77,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
             </div>
 
             {/* Scrollable Content */}
-            <div className="p-5 sm:p-7 overflow-y-auto space-y-6 sm:space-y-8">
+            <div className="p-5 sm:p-7 overflow-y-auto custom-scrollbar space-y-6 sm:space-y-8">
               {/* AU Sizing Chart */}
               <section className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -87,7 +87,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                   <span className="text-[11px] font-sans text-sand/60">Measurements in cm</span>
                 </div>
 
-                <div className="overflow-x-auto rounded-2xl border border-sand/20 bg-ink-deep/40">
+                <div className="overflow-x-auto custom-scrollbar rounded-2xl border border-sand/20 bg-ink-deep/40">
                   <table className="w-full text-left text-xs font-sans border-collapse">
                     <thead>
                       <tr className="border-b border-sand/20 bg-white/5 text-gold text-[10px] uppercase tracking-wider">

@@ -179,7 +179,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           </div>
 
           {/* Search Content Area (Scrollable) */}
-          <div className="flex-1 overflow-y-auto w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="flex-1 overflow-y-auto custom-scrollbar w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             {/* 1. STATE: LIVE SEARCH RESULTS */}
             {cleanQuery && matchingProducts.length > 0 && (
               <div className="space-y-6">

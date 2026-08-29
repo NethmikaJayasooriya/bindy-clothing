@@ -97,7 +97,7 @@ export default function CartDrawer({
               </div>
 
               {/* Items List */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-4">
                 {items.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center text-center space-y-4 text-zinc-500">
                     <ShoppingBag className="w-12 h-12 stroke-[1] text-[#C5A059]" />

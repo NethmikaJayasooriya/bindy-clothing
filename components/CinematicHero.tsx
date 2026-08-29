@@ -102,30 +102,24 @@ export default function CinematicHero({ onExploreCollection }: HeroProps) {
     };
   }, [activeVideo]);
 
-  // Click-to-unmute with sound pattern
-  const togglePlayOrSound = () => {
+  // Direct video play/pause toggle
+  const togglePlay = () => {
     const v0 = video0Ref.current;
     const v1 = video1Ref.current;
     const activeEl = activeVideo === 0 ? v0 : v1;
     if (!activeEl) return;
 
     if (isPlaying) {
-      if (isMuted) {
-        // Unmute on visitor engagement
-        setIsMuted(false);
-        if (v0) v0.muted = false;
-        if (v1) v1.muted = false;
-      } else {
-        v0?.pause();
-        v1?.pause();
-        setIsPlaying(false);
-      }
+      v0?.pause();
+      v1?.pause();
+      setIsPlaying(false);
     } else {
       activeEl.play().catch(() => {});
       setIsPlaying(true);
     }
   };
 
+  // Video audio track toggle (separate from ambient background music)
   const toggleMuteOnly = (e: React.MouseEvent) => {
     e.stopPropagation();
     const newMuted = !isMuted;
@@ -211,7 +205,7 @@ export default function CinematicHero({ onExploreCollection }: HeroProps) {
               </span>
             </motion.div>
 
-            {/* 2. Kinetic Oversized Headline Reveal (Bottega / Prada / YSL Editorial Scale) */}
+            {/* 2. Kinetic Oversized Headline Reveal */}
             <div className="overflow-hidden space-y-1 sm:space-y-2">
               <motion.h1
                 initial={{ opacity: 0, y: 25, filter: "blur(8px)" }}
@@ -242,7 +236,7 @@ export default function CinematicHero({ onExploreCollection }: HeroProps) {
               Thoughtfully designed silhouettes blending everyday ease, artistic spirit, and authentic Sri Lankan craftsmanship.
             </motion.p>
 
-            {/* 4. Single Confident Primary CTA (No competing secondary links in hero) */}
+            {/* 4. Single Confident Primary CTA */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -261,45 +255,96 @@ export default function CinematicHero({ onExploreCollection }: HeroProps) {
           </div>
         </div>
 
-        {/* 5. BOTTOM BAR: Fashion Film Player with Click-to-Unmute Pattern */}
-        <div className="flex items-center justify-between gap-4">
+        {/* 5. BOTTOM BAR: Sleek Circular-Progress Fashion Film Badge & Exploration Indicator */}
+        <div className="flex items-end justify-between gap-4 w-full">
+          {/* Compact Luxury Film Player Capsule */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex items-center space-x-3.5 bg-black/70 backdrop-blur-2xl px-4 py-2.5 rounded-full border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)] w-full sm:w-auto"
+            transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-3 bg-black/60 hover:bg-black/75 backdrop-blur-xl px-3 py-2 rounded-full border border-sand/30 hover:border-gold/60 shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_32px_rgba(197,160,89,0.2)] transition-all duration-300 group/badge select-none"
           >
-            {/* Play / Pause Toggle Button */}
+            {/* Circular Progress Ring with Play/Pause Button */}
             <button
-              onClick={togglePlayOrSound}
-              className="w-8 h-8 rounded-full bg-[#C5A059] text-black flex items-center justify-center hover:bg-white transition-all shadow-md cursor-pointer flex-shrink-0"
-              title={isPlaying ? (isMuted ? "Click to Unmute with Sound" : "Pause Video") : "Play Video"}
+              onClick={togglePlay}
+              className="relative w-8 h-8 rounded-full flex items-center justify-center bg-black/40 hover:bg-gold/20 text-paper hover:text-gold transition-all duration-200 cursor-pointer flex-shrink-0"
+              title={isPlaying ? "Pause Fashion Film" : "Play Fashion Film"}
+              aria-label={isPlaying ? "Pause Fashion Film" : "Play Fashion Film"}
             >
-              {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
+              {/* Background Ring */}
+              <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 32 32">
+                <circle
+                  cx="16"
+                  cy="16"
+                  r="14"
+                  fill="none"
+                  stroke="rgba(255, 255, 255, 0.15)"
+                  strokeWidth="1.5"
+                />
+                <circle
+                  cx="16"
+                  cy="16"
+                  r="14"
+                  fill="none"
+                  stroke="#C5A059"
+                  strokeWidth="1.5"
+                  strokeDasharray={2 * Math.PI * 14}
+                  strokeDashoffset={(2 * Math.PI * 14) * (1 - totalProgress / 100)}
+                  strokeLinecap="round"
+                  className="transition-all duration-150 ease-linear shadow-[0_0_8px_rgba(197,160,89,0.8)]"
+                />
+              </svg>
+              {isPlaying ? (
+                <Pause className="w-3 h-3 fill-current" />
+              ) : (
+                <Play className="w-3 h-3 fill-current ml-0.5" />
+              )}
             </button>
 
-            {/* Time & Progress Info */}
-            <div className="flex flex-col flex-1 sm:w-44">
-              <div className="flex justify-between text-[9px] font-sans tracking-[0.2em] text-white/90 uppercase mb-1">
-                <span>Fashion Film</span>
-                <span className="font-mono text-[#C5A059] font-medium">{currentTimeFormatted}</span>
-              </div>
-              <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden">
-                <div
-                  className="bg-[#C5A059] h-full transition-all duration-200 ease-linear rounded-full"
-                  style={{ width: `${totalProgress}%` }}
-                />
-              </div>
+            {/* Label & Live Timestamp */}
+            <div className="flex items-center gap-2 pr-1">
+              <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.25em] text-paper font-medium whitespace-nowrap">
+                Fashion Film
+              </span>
+              <span className="text-sand/40 text-[10px]">•</span>
+              <span className="font-mono text-[10px] sm:text-[11px] text-gold font-medium tracking-wider">
+                {currentTimeFormatted}
+              </span>
             </div>
 
-            {/* Audio Mute/Unmute Indicator */}
+            {/* Subtle Divider */}
+            <div className="w-px h-3.5 bg-white/20" />
+
+            {/* Video Sound Toggle */}
             <button
               onClick={toggleMuteOnly}
-              className="p-1.5 text-white/70 hover:text-[#C5A059] transition-colors"
-              title={isMuted ? "Unmute Video Sound" : "Mute Video Sound"}
+              className="p-1 rounded-full text-sand/75 hover:text-gold hover:bg-white/10 transition-colors cursor-pointer flex-shrink-0"
+              title={isMuted ? "Unmute film audio" : "Mute film audio"}
+              aria-label={isMuted ? "Unmute film audio" : "Mute film audio"}
             >
-              {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-[#C5A059]" />}
+              {isMuted ? (
+                <VolumeX className="w-3.5 h-3.5" />
+              ) : (
+                <Volume2 className="w-3.5 h-3.5 text-gold" />
+              )}
             </button>
+          </motion.div>
+
+          {/* Right: Scroll to Explore Prompt (Desktop) */}
+          <motion.div
+            initial={{ opacity: 0, x: 15 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="hidden lg:flex items-center gap-3 pb-1 text-[10px] font-sans uppercase tracking-[0.35em] text-sand/70 font-light select-none"
+          >
+            <span>Scroll to Discover</span>
+            <div className="w-4 h-8 rounded-full border border-sand/40 flex items-start justify-center p-0.5">
+              <motion.div
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-1 h-1.5 rounded-full bg-[#C5A059]"
+              />
+            </div>
           </motion.div>
         </div>
       </motion.div>

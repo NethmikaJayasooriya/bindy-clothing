@@ -70,7 +70,7 @@ export default function ProductModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="relative z-10 w-full max-w-4xl bg-paper dark:bg-ink rounded-3xl overflow-hidden shadow-2xl border border-sand/40 flex flex-col md:flex-row max-h-[90vh] overflow-y-auto"
+          className="relative z-10 w-full max-w-4xl bg-paper dark:bg-ink rounded-3xl overflow-hidden shadow-2xl border border-sand/40 flex flex-col md:flex-row max-h-[90vh] overflow-y-auto custom-scrollbar"
         >
           {/* Close button */}
           <button

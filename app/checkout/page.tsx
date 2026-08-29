@@ -564,7 +564,7 @@ export default function CheckoutPage() {
   const renderSummaryContent = () => (
     <div className="space-y-6">
       {/* Items List */}
-      <div className="max-h-72 overflow-y-auto space-y-3 pr-1">
+      <div className="max-h-72 overflow-y-auto custom-scrollbar space-y-3 pr-1">
         {items.map((item, idx) => (
           <div key={`${item.product.id}-${item.size}-${idx}`} className="flex items-center gap-3 py-1.5">
             <div className="relative w-14 h-16 rounded-xl overflow-hidden bg-black/40 border border-white/10 flex-shrink-0">
