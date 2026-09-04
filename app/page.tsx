@@ -2,19 +2,26 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { getCart, saveCart } from "@/lib/cart";
+import { type Product } from "@/data/products";
 import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
 import CinematicHero from "@/components/CinematicHero";
 import HeritageTicker from "@/components/HeritageTicker";
-import HeroSpotlightStrip from "@/components/HeroSpotlightStrip";
-import CollectionShowcase, { Product, PRODUCTS } from "@/components/CollectionShowcase";
-import HeritageStories from "@/components/HeritageStories";
-import ThreeWomenStory from "@/components/ThreeWomenStory";
-import ArtisanCraft from "@/components/ArtisanCraft";
+import TrustStrip from "@/components/home/TrustStrip";
+import SpotlightSection from "@/components/home/SpotlightSection";
+import JourneyTiles from "@/components/home/JourneyTiles";
+import BrowseSection from "@/components/home/BrowseSection";
+import StoriesSection from "@/components/home/StoriesSection";
+import FoundersSection from "@/components/home/FoundersSection";
+import MaterialsSection from "@/components/home/MaterialsSection";
+import SocialProofStrip from "@/components/home/SocialProofStrip";
+import JourneySignup from "@/components/home/JourneySignup";
+import FilmModal from "@/components/home/FilmModal";
 import ProductModal from "@/components/ProductModal";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
 import { ambientPlayer } from "@/lib/ambientSound";
+import type { Destination } from "@/data/products";
 
 export default function Home() {
   const [showSplash, setShowSplash] = useState(false);
@@ -22,6 +29,8 @@ export default function Home() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [isFilmModalOpen, setIsFilmModalOpen] = useState(false);
+  const [selectedJourney, setSelectedJourney] = useState<Destination | "All">("All");
 
   // Check if splash screen was already viewed in this browser session
   useEffect(() => {
@@ -33,7 +42,7 @@ export default function Home() {
     }
   }, []);
 
-  // Hydrate the cart from localStorage (so items added on product pages appear here)
+  // Hydrate the cart from localStorage
   const firstPersist = useRef(true);
   useEffect(() => {
     setCartItems(getCart());
@@ -96,7 +105,7 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-paper text-charcoal selection:bg-gold selection:text-white">
-      {/* 1. PLEATED SILK & UNRAVELLING THREAD SPLASH SCREEN */}
+      {/* 1. SPLASH SCREEN (Once per session) */}
       {showSplash && (
         <SplashScreen
           onComplete={() => {
@@ -108,7 +117,7 @@ export default function Home() {
         />
       )}
 
-      {/* 2. LUXURY NAVBAR */}
+      {/* 2. NAVBAR */}
       <Navbar
         isMuted={isMuted}
         toggleAudio={toggleAudio}
@@ -116,58 +125,83 @@ export default function Home() {
         onOpenCart={() => setIsCartOpen(true)}
       />
 
-      {/* 3. DUAL-REEL CINEMATIC HERO — fixed behind; the shop rises up and covers it */}
+      {/* 3. HERO (SECTION 1) — fixed behind; the shop rises up and covers it */}
       <div className="fixed inset-0 h-screen z-0">
         <CinematicHero
           onExploreCollection={() => {
-            const el = document.getElementById("collection");
+            const el = document.getElementById("browse-collection");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
+          onWatchFilm={() => setIsFilmModalOpen(true)}
           isMuted={isMuted}
           toggleAudio={toggleAudio}
         />
       </div>
 
-      {/* spacer: reserves viewport minus slim ticker height so it docks flush at bottom edge */}
+      {/* Spacer to dock flush at bottom edge of hero */}
       <div className="h-[calc(100vh-36px)] sm:h-[calc(100vh-38px)]" aria-hidden />
 
-      {/* Everything below rises up over the fixed hero */}
+      {/* Everything below rises up over the fixed hero in 11 sharp modules */}
       <div className="relative z-10 bg-paper shadow-[0_-20px_50px_rgba(0,0,0,0.15)]">
-        {/* 4. HERITAGE VALUES TICKER (Untouched at the bottom edge of hero) */}
+        {/* HERITAGE TICKER */}
         <HeritageTicker />
 
-        {/* 5. THIS WEEK'S SPOTLIGHT (Curated signature silhouettes) */}
-        <HeroSpotlightStrip
-          onSelectProduct={(prod: Product) => setQuickViewProduct(prod)}
+        {/* SECTION 2: TRUST / VALUE STRIP */}
+        <TrustStrip />
+
+        {/* SECTION 3: THIS WEEK'S SPOTLIGHT (with quick-add hover state) */}
+        <SpotlightSection
+          onSelectProduct={(prod) => setQuickViewProduct(prod)}
+          onAddToCart={handleAddToCart}
         />
 
-        {/* 6. SERENDIPITY COLLECTION 01 SHOWCASE */}
-        <CollectionShowcase
+        {/* SECTION 4: SHOP BY JOURNEY */}
+        <JourneyTiles
+          selectedJourney={selectedJourney}
+          onSelectJourney={(dest) => setSelectedJourney(dest)}
+        />
+
+        {/* SECTION 5: BROWSE BY PIECE (grid, filter pills, micro-badges, load more) */}
+        <BrowseSection
           onQuickView={(prod) => setQuickViewProduct(prod)}
-          onAddToCart={(prod, size) => handleAddToCart(prod, size)}
+          onAddToCart={handleAddToCart}
+          selectedJourney={selectedJourney}
+          onClearJourney={() => setSelectedJourney("All")}
         />
 
-        {/* 7. HERITAGE CHAPTER STORIES (LOTUS, RED MOSQUE, SIGIRIYA, TEA HILLS, MANNAR) */}
-        <HeritageStories />
+        {/* SECTION 6: THE STORIES BEHIND EVERY THREAD (tabbed story with deep-links) */}
+        <StoriesSection />
 
-        {/* 8. THREE WOMEN FOUNDER'S JOURNEY */}
-        <ThreeWomenStory />
+        {/* SECTION 7: THREE WOMEN. ONE VISION. (click-through to full founder bios) */}
+        <FoundersSection />
 
-        {/* 9. ARTISAN CRAFT & SUSTAINABLE FABRICS */}
-        <ArtisanCraft />
+        {/* SECTION 8: CRAFTED WITH HEART / MATERIALS (with link to /craft) */}
+        <MaterialsSection />
 
-        {/* 10. LUXURY EDITORIAL FOOTER */}
+        {/* SECTION 9: SOCIAL PROOF BAND (aggregate rating, press quotes, Instagram UGC) */}
+        <SocialProofStrip />
+
+        {/* SECTION 10: NEWSLETTER / JOURNEY SIGNUP (distinct closing section) */}
+        <JourneySignup />
+
+        {/* SECTION 11: FOOTER (full sitemap) */}
         <Footer />
       </div>
 
-      {/* 10. PRODUCT QUICK VIEW MODAL */}
+      {/* FILM MODAL */}
+      <FilmModal
+        isOpen={isFilmModalOpen}
+        onClose={() => setIsFilmModalOpen(false)}
+      />
+
+      {/* PRODUCT QUICK VIEW MODAL */}
       <ProductModal
         product={quickViewProduct}
         onClose={() => setQuickViewProduct(null)}
-        onAddToCart={(prod, size) => handleAddToCart(prod, size)}
+        onAddToCart={handleAddToCart}
       />
 
-      {/* 11. SLIDE-OUT CART DRAWER */}
+      {/* CART DRAWER */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}

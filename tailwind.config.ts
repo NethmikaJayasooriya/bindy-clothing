@@ -28,6 +28,16 @@ const config: Config = {
           pastel: "var(--color-pastel-blue, #C8D8E6)",
         },
         sage: "var(--color-sage, #AFC8B1)",
+        olive: {
+          DEFAULT: "#5E6C52",
+          light: "#849676",
+          dark: "#3D4835",
+        },
+        blush: {
+          DEFAULT: "#E8B7C3",
+          light: "#F5D6DE",
+          dark: "#D48D9B",
+        },
         cinnamon: "var(--color-cinnamon, #A46446)",
         terracotta: "var(--color-terracotta, #B86B4B)",
         lotus: "var(--color-lotus-pink, #E8B7C3)",

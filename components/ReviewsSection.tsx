@@ -127,6 +127,12 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
   const [helpfulVotes, setHelpfulVotes] = useState<Record<string, number>>({});
   const [userVoted, setUserVoted] = useState<Record<string, boolean>>({});
 
+  // Main Sub-Tab: Reviews vs Q&A
+  const [mainTab, setMainTab] = useState<"reviews" | "qa">("reviews");
+  const [qaSearch, setQaSearch] = useState("");
+  const [newQuestion, setNewQuestion] = useState("");
+  const [questionSubmitted, setQuestionSubmitted] = useState(false);
+
   // Lightbox Modal for Photo viewing
   const [activePhoto, setActivePhoto] = useState<{
     url: string;
@@ -212,6 +218,34 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
       });
   }, [reviews, isFeaturedBlockVisible, featuredReview, filterType, starFilter, sortBy, helpfulVotes]);
 
+  // Default Q&As for garment inquiry
+  const defaultQAs = [
+    {
+      q: "Is the fabric sheer / does it require a slip?",
+      a: "The piece is fully lined with lightweight organic cotton voile through both the structured bodice and skirt tiers, providing complete opacity without adding extra bulk or warmth.",
+      author: "Eleanor W.",
+      date: "August 2026",
+    },
+    {
+      q: "How does the bust fit on larger cup sizes?",
+      a: "The front princess seams are shaped to contour natural bust curves, and the hidden elastic back shirring panel offers flexibility for cup sizes B through DD. If you are E+, we advise sizing up one size.",
+      author: "Priya S.",
+      date: "July 2026",
+    },
+    {
+      q: "Can this dress be hemmed without losing the cutwork scallop hem?",
+      a: "Because the scallop cutwork is engineered directly into the lower hem tier, we recommend shortening from the middle tier seam rather than cutting the scalloped edge.",
+      author: "Hannah M.",
+      date: "June 2026",
+    },
+    {
+      q: "How should I wash and care for the mother-of-pearl buttons?",
+      a: "Natural mother-of-pearl shell is durable and water-safe. Turn the garment inside out or place it inside a cotton wash bag to protect against machine drum friction.",
+      author: "Clara T.",
+      date: "May 2026",
+    },
+  ];
+
   const visibleReviews = filteredReviews.slice(0, visibleCount);
   const hasMore = visibleCount < filteredReviews.length;
 
@@ -221,11 +255,11 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-sand/40 text-charcoal"
     >
       {/* 1. SECTION HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
           <div className="flex items-center gap-2 text-gold text-[11px] font-sans uppercase tracking-[0.3em] mb-2 font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Community Stories & Reviews</span>
+            <span>Community Stories & Questions</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light tracking-wide text-charcoal">
             Loved by Our Community
@@ -236,6 +270,130 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
           Australia and beyond.
         </p>
       </div>
+
+      {/* SUB-TAB SELECTOR: Customer Reviews vs Questions & Answers */}
+      <div className="flex items-center gap-3 mb-10 border-b border-sand/40 pb-4">
+        <button
+          type="button"
+          onClick={() => setMainTab("reviews")}
+          className={`px-6 py-2.5 rounded-full text-xs font-sans uppercase tracking-[0.2em] font-semibold transition-all cursor-pointer ${
+            mainTab === "reviews"
+              ? "bg-charcoal text-paper-light shadow-md"
+              : "bg-paper-light border border-sand/50 text-charcoal hover:border-gold hover:text-gold"
+          }`}
+        >
+          Customer Reviews ({totalCount})
+        </button>
+        <button
+          type="button"
+          onClick={() => setMainTab("qa")}
+          className={`px-6 py-2.5 rounded-full text-xs font-sans uppercase tracking-[0.2em] font-semibold transition-all cursor-pointer ${
+            mainTab === "qa"
+              ? "bg-charcoal text-paper-light shadow-md"
+              : "bg-paper-light border border-sand/50 text-charcoal hover:border-gold hover:text-gold"
+          }`}
+        >
+          Questions & Answers ({defaultQAs.length})
+        </button>
+      </div>
+
+      {mainTab === "qa" ? (
+        <div className="space-y-8">
+          {/* Ask question & search box */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-6 rounded-3xl bg-paper-light border border-sand/40">
+            <input
+              type="text"
+              value={qaSearch}
+              onChange={(e) => setQaSearch(e.target.value)}
+              placeholder="Search existing questions..."
+              className="px-4 py-2.5 rounded-full border border-sand/50 bg-paper text-xs font-sans text-charcoal focus:outline-none focus:border-gold max-w-sm"
+            />
+            <button
+              type="button"
+              onClick={() => setNewQuestion(newQuestion ? "" : "open")}
+              className="px-6 py-2.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white text-xs font-sans uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+            >
+              Ask a Question
+            </button>
+          </div>
+
+          {/* Ask question form */}
+          {newQuestion && (
+            <div className="p-6 rounded-3xl bg-paper-light border border-gold/40 shadow-luxury space-y-4 max-w-xl">
+              <h4 className="font-serif text-lg font-medium text-charcoal">
+                Ask a Question About {product.name}
+              </h4>
+              <textarea
+                placeholder="Ask about fabric weight, bust ease, hemming, or styling..."
+                rows={3}
+                className="w-full p-3 rounded-2xl border border-sand/60 bg-paper text-xs font-sans text-charcoal focus:outline-none focus:border-gold"
+              />
+              <div className="flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setNewQuestion("")}
+                  className="px-4 py-2 text-xs font-sans uppercase tracking-wider text-muted hover:text-charcoal cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuestionSubmitted(true);
+                    setTimeout(() => {
+                      setQuestionSubmitted(false);
+                      setNewQuestion("");
+                    }, 2000);
+                  }}
+                  className="px-6 py-2 rounded-full bg-gold text-charcoal text-xs font-sans uppercase tracking-wider font-semibold hover:bg-cinnamon hover:text-white transition-colors cursor-pointer"
+                >
+                  {questionSubmitted ? "Submitted!" : "Submit Question"}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Q&A Accordion List */}
+          <div className="space-y-4">
+            {defaultQAs
+              .filter(
+                (item) =>
+                  !qaSearch ||
+                  item.q.toLowerCase().includes(qaSearch.toLowerCase()) ||
+                  item.a.toLowerCase().includes(qaSearch.toLowerCase())
+              )
+              .map((item, idx) => (
+                <div
+                  key={idx}
+                  className="p-6 rounded-3xl bg-paper-light border border-sand/40 shadow-sm space-y-3"
+                >
+                  <div className="flex items-start gap-3">
+                    <span className="w-6 h-6 rounded-full bg-sand/30 flex items-center justify-center font-serif text-xs font-bold text-charcoal shrink-0">
+                      Q
+                    </span>
+                    <h4 className="font-serif text-base text-charcoal font-medium">
+                      {item.q}
+                    </h4>
+                  </div>
+                  <div className="flex items-start gap-3 pl-9">
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-sans uppercase tracking-widest text-gold font-semibold">
+                          Answered by BINDY Atelier Team
+                        </span>
+                        <span className="text-[10px] text-muted">• {item.date}</span>
+                      </div>
+                      <p className="text-xs font-sans text-charcoal/85 leading-relaxed font-light">
+                        {item.a}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      ) : (
+        <>
 
       {/* 2. RATING SUMMARY BLOCK (Light Luxury Surface) */}
       <div className="bg-paper-light border border-sand/40 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-paper-card mb-12">
@@ -710,6 +868,8 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
           </div>
         )}
       </AnimatePresence>
+        </>
+      )}
     </section>
   );
 }

@@ -109,9 +109,9 @@ export default function Navbar({
           </div>
 
           {/* Center: Navigation Links */}
-          <nav className="hidden md:flex items-center space-x-7 lg:space-x-9">
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             <Link
-              href="/#collection"
+              href="/collection"
               className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
                 isScrolled ? "text-charcoal" : "text-white"
               }`}
@@ -119,7 +119,7 @@ export default function Navbar({
               Collection
             </Link>
             <Link
-              href="/#stories"
+              href="/stories"
               className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
                 isScrolled ? "text-charcoal" : "text-white"
               }`}
@@ -127,7 +127,7 @@ export default function Navbar({
               Heritage Stories
             </Link>
             <Link
-              href="/#about"
+              href="/about"
               className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
                 isScrolled ? "text-charcoal" : "text-white"
               }`}
@@ -135,12 +135,20 @@ export default function Navbar({
               Our Story
             </Link>
             <Link
-              href="/#craft"
+              href="/craft"
               className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
                 isScrolled ? "text-charcoal" : "text-white"
               }`}
             >
               Artisan Craft
+            </Link>
+            <Link
+              href="/journal"
+              className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
+                isScrolled ? "text-charcoal" : "text-white"
+              }`}
+            >
+              Journal
             </Link>
           </nav>
 
@@ -379,32 +387,53 @@ export default function Navbar({
               </button>
 
               <Link
-                href="/#collection"
+                href="/collection"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-2xl uppercase tracking-[0.2em] text-charcoal pt-2 hover:text-gold transition-colors"
+                className="font-serif text-xl sm:text-2xl uppercase tracking-[0.2em] text-charcoal pt-2 hover:text-gold transition-colors"
               >
-                Collection 01
+                Collection
               </Link>
               <Link
-                href="/#stories"
+                href="/stories"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
+                className="font-serif text-xl sm:text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
               >
                 Heritage Stories
               </Link>
               <Link
-                href="/#about"
+                href="/about"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
+                className="font-serif text-xl sm:text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
               >
-                Three Women
+                Our Story
               </Link>
               <Link
-                href="/#craft"
+                href="/craft"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
+                className="font-serif text-xl sm:text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
               >
                 Artisan Craft
+              </Link>
+              <Link
+                href="/journal"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-serif text-xl sm:text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
+              >
+                Journal
+              </Link>
+              <Link
+                href="/size-guide"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-serif text-xl sm:text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
+              >
+                Size Guide
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-serif text-xl sm:text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
+              >
+                Contact & FAQ
               </Link>
             </div>
 

@@ -12,12 +12,14 @@ import { Play, Pause, Volume2, VolumeX, ArrowRight, Sparkles } from "lucide-reac
 
 interface HeroProps {
   onExploreCollection?: () => void;
+  onWatchFilm?: () => void;
   isMuted?: boolean;
   toggleAudio?: () => void;
 }
 
 export default function CinematicHero({
   onExploreCollection,
+  onWatchFilm,
   isMuted = true,
   toggleAudio,
 }: HeroProps) {
@@ -246,21 +248,32 @@ export default function CinematicHero({
               Thoughtfully designed silhouettes blending everyday ease, artistic spirit, and authentic Sri Lankan craftsmanship.
             </motion.p>
 
-            {/* 4. Single Confident Primary CTA */}
+            {/* 4. Primary & Secondary CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="pt-2 sm:pt-4"
+              className="pt-2 sm:pt-4 flex flex-wrap items-center gap-3 sm:gap-4"
             >
               <a
                 href="#collection"
                 onClick={onExploreCollection}
-                className="group inline-flex items-center space-x-3 px-9 py-4 sm:py-4.5 rounded-full bg-[#C5A059] hover:bg-[#FAF7F2] text-black font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_35px_rgba(255,255,255,0.4)] cursor-pointer hover:scale-[1.02]"
+                className="group inline-flex items-center space-x-3 px-8 sm:px-9 py-4 sm:py-4.5 rounded-full bg-[#C5A059] hover:bg-[#FAF7F2] text-black font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_35px_rgba(255,255,255,0.4)] cursor-pointer hover:scale-[1.02]"
               >
                 <span>Discover Collection</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform duration-300" />
               </a>
+
+              {onWatchFilm && (
+                <button
+                  type="button"
+                  onClick={onWatchFilm}
+                  className="group inline-flex items-center space-x-2.5 px-7 sm:px-8 py-4 sm:py-4.5 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white hover:text-gold font-sans text-xs uppercase tracking-[0.22em] font-semibold transition-all duration-300 border border-white/25 hover:border-gold cursor-pointer"
+                >
+                  <Play className="w-3.5 h-3.5 fill-current text-gold group-hover:scale-110 transition-transform" />
+                  <span>Watch the Film</span>
+                </button>
+              )}
             </motion.div>
           </div>
         </div>
