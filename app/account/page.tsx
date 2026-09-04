@@ -101,13 +101,13 @@ function UnderlineInput({
     <div className="space-y-2 w-full text-left">
       <label
         htmlFor={id}
-        className="block text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium"
+        className="block text-[11px] font-sans uppercase tracking-[0.28em] text-muted font-medium"
       >
         {label}
       </label>
       <div
         className={`relative border-b-2 ${
-          error ? "border-terracotta bg-terracotta/5" : "border-white/25 focus-within:border-gold bg-white/[0.03]"
+          error ? "border-terracotta bg-terracotta/5" : "border-sand/50 focus-within:border-gold bg-sand/10"
         } px-4 pt-3 pb-2.5 rounded-t-xl transition-colors duration-300 flex items-center`}
       >
         <input
@@ -117,13 +117,13 @@ function UnderlineInput({
           onChange={onChange}
           autoComplete={autoComplete}
           placeholder={placeholder}
-          className="w-full bg-transparent font-serif text-base sm:text-lg text-paper placeholder:text-sand/40 focus:outline-none tracking-wide"
+          className="w-full bg-transparent font-serif text-base sm:text-lg text-charcoal placeholder:text-muted/50 focus:outline-none tracking-wide"
         />
         {isPassword && (
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="text-sand hover:text-gold p-1 transition-colors flex-shrink-0 cursor-pointer"
+            className="text-muted hover:text-charcoal p-1 transition-colors flex-shrink-0 cursor-pointer"
             tabIndex={-1}
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
@@ -161,20 +161,20 @@ function UnderlineSelect({
     <div className="space-y-2 w-full text-left">
       <label
         htmlFor={id}
-        className="block text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium"
+        className="block text-[11px] font-sans uppercase tracking-[0.28em] text-muted font-medium"
       >
         {label}
       </label>
       <div
         className={`relative border-b-2 ${
-          error ? "border-terracotta bg-terracotta/5" : "border-white/25 focus-within:border-gold bg-white/[0.03]"
+          error ? "border-terracotta bg-terracotta/5" : "border-sand/50 focus-within:border-gold bg-sand/10"
         } px-4 pt-3 pb-2.5 rounded-t-xl transition-colors duration-300`}
       >
         <select
           id={id}
           value={value}
           onChange={onChange}
-          className="w-full bg-transparent font-serif text-base sm:text-lg text-paper focus:outline-none cursor-pointer tracking-wide [&>option]:bg-[#1A1816] [&>option]:text-paper"
+          className="w-full bg-transparent font-serif text-base sm:text-lg text-charcoal focus:outline-none cursor-pointer tracking-wide [&>option]:bg-paper-light [&>option]:text-charcoal"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>
@@ -511,7 +511,7 @@ export default function AccountPage() {
   if (!isClient) return null;
 
   return (
-    <main className="min-h-screen bg-[#11100E] text-paper selection:bg-gold selection:text-white flex flex-col justify-between">
+    <main className="min-h-screen bg-paper text-charcoal selection:bg-gold selection:text-white flex flex-col justify-between">
       {/* 1. LUXURY NAVBAR */}
       <Navbar
         isMuted={isMuted}
@@ -528,7 +528,7 @@ export default function AccountPage() {
           <div className="max-w-xl mx-auto space-y-8">
             {/* Top Switcher Segmented Control */}
             <div className="flex items-center justify-center">
-              <div className="inline-flex rounded-full bg-white/5 p-1.5 border border-white/10 shadow-lg">
+              <div className="inline-flex rounded-full bg-paper-dark p-1.5 border border-sand/40 shadow-sm">
                 <button
                   type="button"
                   onClick={() => {
@@ -539,7 +539,7 @@ export default function AccountPage() {
                   className={`px-6 py-2 rounded-full text-xs font-sans uppercase tracking-[0.22em] font-medium transition-all duration-200 cursor-pointer ${
                     authMode === "signin"
                       ? "bg-gold text-charcoal font-bold shadow-md scale-102"
-                      : "text-sand/70 hover:text-white"
+                      : "text-muted hover:text-charcoal"
                   }`}
                 >
                   Sign In
@@ -554,7 +554,7 @@ export default function AccountPage() {
                   className={`px-6 py-2 rounded-full text-xs font-sans uppercase tracking-[0.22em] font-medium transition-all duration-200 cursor-pointer ${
                     authMode.startsWith("signup")
                       ? "bg-gold text-charcoal font-bold shadow-md scale-102"
-                      : "text-sand/70 hover:text-white"
+                      : "text-muted hover:text-charcoal"
                   }`}
                 >
                   Join The Circle (3 Steps)
@@ -568,17 +568,17 @@ export default function AccountPage() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-[#171614] border border-sand/30 rounded-3xl p-8 sm:p-12 shadow-[0_12px_45px_rgba(0,0,0,0.6)] space-y-8"
+                className="bg-paper-light border border-sand/40 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8"
               >
                 <div className="text-center space-y-3">
-                  <div className="inline-flex items-center gap-2 text-[11px] font-sans uppercase tracking-[0.35em] text-gold font-medium">
+                  <div className="inline-flex items-center gap-2 text-[11px] font-sans uppercase tracking-[0.35em] text-gold font-semibold">
                     <Sparkle className="w-3.5 h-3.5" />
                     <span>The Bindy Circle</span>
                   </div>
-                  <h1 className="font-serif text-4xl sm:text-5xl text-paper font-light tracking-wide leading-tight">
+                  <h1 className="font-serif text-4xl sm:text-5xl text-charcoal font-light tracking-wide leading-tight">
                     Welcome to <span className="italic font-serif">BINDY.</span>
                   </h1>
-                  <p className="font-serif italic text-base sm:text-lg text-sand/90 font-light leading-relaxed max-w-md mx-auto">
+                  <p className="font-serif italic text-base sm:text-lg text-muted font-light leading-relaxed max-w-md mx-auto">
                     Sign in to view your handcrafted garment receipts, saved delivery addresses, and private previews.
                   </p>
                 </div>
@@ -613,15 +613,15 @@ export default function AccountPage() {
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-4 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full py-4 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all duration-300 shadow-lg cursor-pointer flex items-center justify-center gap-2"
                     >
                       <span>Sign In to Account</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
 
-                  <div className="text-center pt-4 border-t border-white/10 space-y-3">
-                    <p className="text-xs font-sans text-sand/80 font-light">
+                  <div className="text-center pt-4 border-t border-sand/30 space-y-3">
+                    <p className="text-xs font-sans text-muted font-light">
                       New to BINDY slow fashion?
                     </p>
                     <button
@@ -631,7 +631,7 @@ export default function AccountPage() {
                         setSignupErrors({});
                         setAuthMode("signup-1");
                       }}
-                      className="text-xs font-sans uppercase tracking-[0.2em] text-gold hover:text-white font-medium transition-colors underline underline-offset-4 cursor-pointer"
+                      className="text-xs font-sans uppercase tracking-[0.2em] text-gold hover:text-charcoal font-semibold transition-colors underline underline-offset-4 cursor-pointer"
                     >
                       Create your Member Profile (3 steps)
                     </button>
@@ -640,7 +640,7 @@ export default function AccountPage() {
                   <div className="text-center pt-2">
                     <Link
                       href="/"
-                      className="text-xs font-sans text-sand/60 hover:text-sand transition-colors inline-flex items-center gap-1.5"
+                      className="text-xs font-sans text-muted hover:text-charcoal transition-colors inline-flex items-center gap-1.5"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
                       <span>Continue as guest • Return to shopping</span>
@@ -656,22 +656,22 @@ export default function AccountPage() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-[#171614] border border-sand/30 rounded-3xl p-8 sm:p-12 shadow-[0_12px_45px_rgba(0,0,0,0.6)] space-y-8"
+                className="bg-paper-light border border-sand/40 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8"
               >
                 {/* Step Indicator */}
                 <div className="space-y-4 text-center">
-                  <div className="flex items-center justify-center gap-2 text-[11px] font-sans uppercase tracking-[0.3em] text-gold font-medium">
+                  <div className="flex items-center justify-center gap-2 text-[11px] font-sans uppercase tracking-[0.3em] text-gold font-semibold">
                     <span>Step 1 of 3</span>
-                    <span className="text-white/30">•</span>
+                    <span className="text-sand">•</span>
                     <span>Account Basics</span>
                   </div>
                   {/* Progress Bar */}
                   <div className="w-full grid grid-cols-3 gap-2.5 pt-1 max-w-md mx-auto">
-                    <div className="h-1.5 rounded-full bg-gold shadow-[0_0_10px_rgba(197,160,89,0.6)]" />
-                    <div className="h-1.5 rounded-full bg-white/15" />
-                    <div className="h-1.5 rounded-full bg-white/15" />
+                    <div className="h-1.5 rounded-full bg-gold shadow-sm" />
+                    <div className="h-1.5 rounded-full bg-sand/30" />
+                    <div className="h-1.5 rounded-full bg-sand/30" />
                   </div>
-                  <h1 className="font-serif text-3xl sm:text-4xl text-paper font-light tracking-wide leading-tight pt-2">
+                  <h1 className="font-serif text-3xl sm:text-4xl text-charcoal font-light tracking-wide leading-tight pt-2">
                     Create Your Member Profile
                   </h1>
                 </div>
@@ -719,7 +719,7 @@ export default function AccountPage() {
                   <div className="pt-3">
                     <button
                       type="submit"
-                      className="w-full py-4 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full py-4 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all duration-300 shadow-lg cursor-pointer flex items-center justify-center gap-2"
                     >
                       <span>Continue to Style Profile</span>
                       <ArrowRight className="w-4 h-4" />
@@ -730,7 +730,7 @@ export default function AccountPage() {
                     <button
                       type="button"
                       onClick={() => setAuthMode("signin")}
-                      className="text-xs font-sans text-sand/80 hover:text-gold transition-colors"
+                      className="text-xs font-sans text-muted hover:text-gold transition-colors cursor-pointer"
                     >
                       Already have an account? Sign In
                     </button>
@@ -745,25 +745,25 @@ export default function AccountPage() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-[#171614] border border-sand/30 rounded-3xl p-8 sm:p-12 shadow-[0_12px_45px_rgba(0,0,0,0.6)] space-y-8"
+                className="bg-paper-light border border-sand/40 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8"
               >
                 {/* Step Indicator */}
                 <div className="space-y-4 text-center">
-                  <div className="flex items-center justify-center gap-2 text-[11px] font-sans uppercase tracking-[0.3em] text-gold font-medium">
+                  <div className="flex items-center justify-center gap-2 text-[11px] font-sans uppercase tracking-[0.3em] text-gold font-semibold">
                     <span>Step 2 of 3</span>
-                    <span className="text-white/30">•</span>
+                    <span className="text-sand">•</span>
                     <span>Style Profile</span>
                   </div>
                   {/* Progress Bar */}
                   <div className="w-full grid grid-cols-3 gap-2.5 pt-1 max-w-md mx-auto">
-                    <div className="h-1.5 rounded-full bg-gold shadow-[0_0_10px_rgba(197,160,89,0.6)]" />
-                    <div className="h-1.5 rounded-full bg-gold shadow-[0_0_10px_rgba(197,160,89,0.6)]" />
-                    <div className="h-1.5 rounded-full bg-white/15" />
+                    <div className="h-1.5 rounded-full bg-gold shadow-sm" />
+                    <div className="h-1.5 rounded-full bg-gold shadow-sm" />
+                    <div className="h-1.5 rounded-full bg-sand/30" />
                   </div>
-                  <h1 className="font-serif text-3xl sm:text-4xl text-paper font-light tracking-wide leading-tight pt-2">
+                  <h1 className="font-serif text-3xl sm:text-4xl text-charcoal font-light tracking-wide leading-tight pt-2">
                     Your Wardrobe Preferences
                   </h1>
-                  <p className="font-serif italic text-base text-sand/90 font-light max-w-md mx-auto">
+                  <p className="font-serif italic text-base text-muted font-light max-w-md mx-auto">
                     Help us personalize your slow fashion recommendations and sizing notes.
                   </p>
                 </div>
@@ -771,7 +771,7 @@ export default function AccountPage() {
                 <div className="space-y-8 max-w-lg mx-auto">
                   {/* 1. Favorite Category */}
                   <div className="space-y-3.5">
-                    <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
+                    <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-muted font-semibold block">
                       Favorite Silhouette
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -784,14 +784,14 @@ export default function AccountPage() {
                             onClick={() => setPrefCategory(item.category)}
                             className={`p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer ${
                               active
-                                ? "bg-gold/15 border-gold shadow-[0_4px_20px_rgba(197,160,89,0.25)] ring-1 ring-gold/40"
-                                : "bg-white/[0.04] border-white/10 hover:border-white/25 hover:bg-white/[0.07]"
+                                ? "bg-gold/15 border-gold shadow-sm ring-1 ring-gold/40"
+                                : "bg-paper border-sand/40 hover:border-gold/50"
                             }`}
                           >
-                            <p className={`font-serif text-lg font-medium ${active ? "text-gold" : "text-paper"}`}>
+                            <p className={`font-serif text-lg font-medium ${active ? "text-charcoal font-semibold" : "text-charcoal"}`}>
                               {item.category}
                             </p>
-                            <p className={`text-xs font-sans ${active ? "text-sand" : "text-sand/75"} mt-1 font-light leading-relaxed`}>
+                            <p className="text-xs font-sans text-muted mt-1 font-light leading-relaxed">
                               {item.desc}
                             </p>
                           </button>
@@ -802,7 +802,7 @@ export default function AccountPage() {
 
                   {/* 2. Preferred Fit */}
                   <div className="space-y-3.5">
-                    <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
+                    <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-muted font-semibold block">
                       Preferred Fit Feel
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -815,8 +815,8 @@ export default function AccountPage() {
                             onClick={() => setPrefFit(fit.id)}
                             className={`p-3.5 rounded-xl border text-center transition-all duration-200 cursor-pointer ${
                               active
-                                ? "bg-gold/15 border-gold text-gold font-medium shadow-[0_2px_12px_rgba(197,160,89,0.25)] ring-1 ring-gold/40"
-                                : "bg-white/[0.04] border-white/10 text-sand/90 hover:border-white/25 hover:bg-white/[0.07]"
+                                ? "bg-gold/15 border-gold text-charcoal font-bold ring-1 ring-gold/40"
+                                : "bg-paper border-sand/40 text-charcoal hover:border-gold/50"
                             }`}
                           >
                             <p className="text-xs font-sans font-semibold tracking-wide">{fit.label}</p>
@@ -828,7 +828,7 @@ export default function AccountPage() {
 
                   {/* 3. Preferred AU Size */}
                   <div className="space-y-3.5">
-                    <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
+                    <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-muted font-semibold block">
                       Default AU Size
                     </span>
                     <div className="flex flex-wrap gap-2.5">
@@ -841,8 +841,8 @@ export default function AccountPage() {
                             onClick={() => setPrefSize(sz)}
                             className={`px-4 py-2.5 rounded-full border text-xs font-sans transition-all duration-200 cursor-pointer ${
                               active
-                                ? "bg-gold text-charcoal border-gold font-bold shadow-[0_2px_12px_rgba(197,160,89,0.35)] scale-105"
-                                : "bg-white/[0.04] border-white/15 text-sand hover:border-gold/60 hover:text-paper"
+                                ? "bg-gold text-charcoal border-gold font-bold shadow-md scale-105"
+                                : "bg-paper border-sand/40 text-charcoal hover:border-gold"
                             }`}
                           >
                             {sz}
@@ -853,11 +853,11 @@ export default function AccountPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center justify-between pt-6 border-t border-white/10">
+                  <div className="flex items-center justify-between pt-6 border-t border-sand/30">
                     <button
                       type="button"
                       onClick={() => setAuthMode("signup-1")}
-                      className="px-6 py-3 rounded-full border border-white/20 text-xs font-sans uppercase tracking-wider text-sand hover:text-paper hover:border-white/40 bg-white/5 hover:bg-white/10 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                      className="px-6 py-3 rounded-full border border-sand/40 text-xs font-sans uppercase tracking-wider text-charcoal hover:border-gold bg-paper hover:bg-sand/15 transition-colors inline-flex items-center gap-1.5 cursor-pointer font-medium"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -866,7 +866,7 @@ export default function AccountPage() {
                     <button
                       type="button"
                       onClick={() => setAuthMode("signup-3")}
-                      className="px-8 py-3.5 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center gap-2"
+                      className="px-8 py-3.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-lg cursor-pointer flex items-center gap-2"
                     >
                       <span>Next: Address</span>
                       <ArrowRight className="w-4 h-4" />
@@ -882,25 +882,25 @@ export default function AccountPage() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-[#171614] border border-sand/30 rounded-3xl p-8 sm:p-12 shadow-[0_12px_45px_rgba(0,0,0,0.6)] space-y-8"
+                className="bg-paper-light border border-sand/40 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8"
               >
                 {/* Step Indicator */}
                 <div className="space-y-4 text-center">
-                  <div className="flex items-center justify-center gap-2 text-[11px] font-sans uppercase tracking-[0.3em] text-gold font-medium">
+                  <div className="flex items-center justify-center gap-2 text-[11px] font-sans uppercase tracking-[0.3em] text-gold font-semibold">
                     <span>Step 3 of 3</span>
-                    <span className="text-white/30">•</span>
+                    <span className="text-sand">•</span>
                     <span>Australian Delivery Address</span>
                   </div>
                   {/* Progress Bar */}
                   <div className="w-full grid grid-cols-3 gap-2.5 pt-1 max-w-md mx-auto">
-                    <div className="h-1.5 rounded-full bg-gold shadow-[0_0_10px_rgba(197,160,89,0.6)]" />
-                    <div className="h-1.5 rounded-full bg-gold shadow-[0_0_10px_rgba(197,160,89,0.6)]" />
-                    <div className="h-1.5 rounded-full bg-gold shadow-[0_0_10px_rgba(197,160,89,0.6)]" />
+                    <div className="h-1.5 rounded-full bg-gold shadow-sm" />
+                    <div className="h-1.5 rounded-full bg-gold shadow-sm" />
+                    <div className="h-1.5 rounded-full bg-gold shadow-sm" />
                   </div>
-                  <h1 className="font-serif text-3xl sm:text-4xl text-paper font-light tracking-wide leading-tight pt-2">
+                  <h1 className="font-serif text-3xl sm:text-4xl text-charcoal font-light tracking-wide leading-tight pt-2">
                     Delivery Address
                   </h1>
-                  <p className="font-serif italic text-base text-sand/90 font-light max-w-md mx-auto">
+                  <p className="font-serif italic text-base text-muted font-light max-w-md mx-auto">
                     Optional: Save your shipping address for effortless one-click checkout across all future seasonal drops.
                   </p>
                 </div>
@@ -967,11 +967,11 @@ export default function AccountPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10">
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-sand/30">
                     <button
                       type="button"
                       onClick={() => handleCompleteSignup(true)}
-                      className="text-xs font-sans uppercase tracking-[0.2em] text-sand/80 hover:text-gold underline underline-offset-4 transition-colors cursor-pointer font-medium"
+                      className="text-xs font-sans uppercase tracking-[0.2em] text-muted hover:text-gold underline underline-offset-4 transition-colors cursor-pointer font-medium"
                     >
                       Skip for now, add later
                     </button>
@@ -980,7 +980,7 @@ export default function AccountPage() {
                       <button
                         type="button"
                         onClick={() => setAuthMode("signup-2")}
-                        className="px-6 py-3.5 rounded-full border border-white/20 text-xs font-sans text-sand hover:text-paper hover:border-white/40 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+                        className="px-6 py-3.5 rounded-full border border-sand/40 text-xs font-sans text-charcoal hover:border-gold bg-paper hover:bg-sand/15 transition-colors cursor-pointer font-medium"
                       >
                         Back
                       </button>
@@ -988,7 +988,7 @@ export default function AccountPage() {
                       <button
                         type="button"
                         onClick={() => handleCompleteSignup(false)}
-                        className="flex-1 sm:flex-none px-8 py-3.5 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center justify-center gap-2"
+                        className="flex-1 sm:flex-none px-8 py-3.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-lg cursor-pointer flex items-center justify-center gap-2"
                       >
                         <span>Save & Complete</span>
                         <ArrowRight className="w-4 h-4" />
@@ -1003,24 +1003,24 @@ export default function AccountPage() {
 
         {/* ── FLOW B: SIGN UP COMPLETION ── */}
         {!account && authMode === "signup-complete" && (
-          <div className="max-w-xl mx-auto py-16 text-center space-y-8 bg-[#171614] border border-sand/30 rounded-3xl p-8 sm:p-12 shadow-[0_12px_45px_rgba(0,0,0,0.6)]">
+          <div className="max-w-xl mx-auto py-16 text-center space-y-8 bg-paper-light border border-sand/40 rounded-3xl p-8 sm:p-12 shadow-sm">
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="w-20 h-20 rounded-full bg-gold/20 border-2 border-gold flex items-center justify-center mx-auto text-gold shadow-[0_0_35px_rgba(197,160,89,0.4)]"
+              className="w-20 h-20 rounded-full bg-gold/20 border-2 border-gold flex items-center justify-center mx-auto text-gold shadow-md"
             >
               <Check className="w-10 h-10 stroke-[2.5]" />
             </motion.div>
 
             <div className="space-y-3">
-              <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-gold font-medium">
+              <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-gold font-semibold">
                 Origins Member Created
               </span>
-              <h1 className="font-serif text-3xl sm:text-4xl text-paper font-light tracking-wide">
+              <h1 className="font-serif text-3xl sm:text-4xl text-charcoal font-light tracking-wide">
                 Welcome to The Circle, {signupName}!
               </h1>
-              <p className="font-serif italic text-base text-sand/90 font-light leading-relaxed max-w-md mx-auto">
+              <p className="font-serif italic text-base text-muted font-light leading-relaxed max-w-md mx-auto">
                 Your wardrobe profile has been established. You now have access to tailored size recommendations, private drops, and fast Australian shipping.
               </p>
             </div>
@@ -1031,7 +1031,7 @@ export default function AccountPage() {
                   const acc = getAccount();
                   if (acc) setAccount(acc);
                 }}
-                className="px-10 py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:bg-paper-light cursor-pointer"
+                className="px-10 py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all shadow-lg hover:bg-cinnamon hover:text-white cursor-pointer"
               >
                 Access My Dashboard
               </button>
@@ -1045,18 +1045,18 @@ export default function AccountPage() {
         {account && (
           <div className="max-w-7xl mx-auto space-y-8">
             {/* Breadcrumb Navigation */}
-            <div className="flex items-center gap-2 text-xs font-sans tracking-wider uppercase text-sand/60">
+            <div className="flex items-center gap-2 text-xs font-sans tracking-wider uppercase text-muted">
               <Link href="/" className="hover:text-gold transition-colors">
                 Home
               </Link>
               <ChevronRight className="w-3.5 h-3.5" />
-              <span className="text-gold font-medium">Account Dashboard</span>
+              <span className="text-gold font-semibold">Account Dashboard</span>
               <ChevronRight className="w-3.5 h-3.5" />
-              <span className="text-paper capitalize">{activeTab}</span>
+              <span className="text-charcoal capitalize font-medium">{activeTab}</span>
             </div>
 
             {/* Mobile Tab Row (Collapses from sidebar on small screens) */}
-            <div className="lg:hidden flex border-b border-white/10 gap-2 sm:gap-4 overflow-x-auto pb-2 no-scrollbar">
+            <div className="lg:hidden flex border-b border-sand/30 gap-2 sm:gap-4 overflow-x-auto pb-2 no-scrollbar">
               {[
                 { id: "profile", label: "Profile", icon: User },
                 { id: "orders", label: `Orders (${orders.length})`, icon: Package },
@@ -1071,8 +1071,8 @@ export default function AccountPage() {
                     onClick={() => setActiveTab(tab.id as any)}
                     className={`px-4 py-2.5 rounded-full text-xs font-sans uppercase tracking-[0.2em] font-medium transition-all duration-200 cursor-pointer whitespace-nowrap flex items-center gap-2 border ${
                       active
-                        ? "bg-gold text-charcoal font-bold border-gold shadow-md"
-                        : "bg-white/5 border-white/10 text-sand/80 hover:text-white"
+                        ? "bg-gold text-charcoal font-bold border-gold shadow-sm"
+                        : "bg-paper-light border-sand/40 text-muted hover:text-charcoal"
                     }`}
                   >
                     <Icon className="w-3.5 h-3.5" />
@@ -1087,23 +1087,23 @@ export default function AccountPage() {
               {/* ── LEFT SIDEBAR (~280px / 4 cols) ── */}
               <aside className="lg:col-span-4 space-y-6">
                 {/* Profile Card */}
-                <div className="bg-[#171614] border border-sand/30 rounded-3xl p-6 sm:p-7 shadow-lg space-y-5">
+                <div className="bg-paper-light border border-sand/40 rounded-3xl p-6 sm:p-7 shadow-sm space-y-5">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#2D2822] via-[#1E1B18] to-[#121110] border-2 border-gold flex items-center justify-center text-gold font-display text-2xl shadow-[0_0_30px_rgba(197,160,89,0.35)] ring-4 ring-gold/15 select-none flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-sand/20 border-2 border-gold flex items-center justify-center text-charcoal font-serif text-2xl shadow-sm ring-4 ring-gold/15 select-none flex-shrink-0">
                       {getInitials(account.name)}
                     </div>
                     <div className="min-w-0">
-                      <h2 className="font-serif text-xl sm:text-2xl text-paper font-medium truncate leading-snug">
+                      <h2 className="font-serif text-xl sm:text-2xl text-charcoal font-medium truncate leading-snug">
                         {account.name}
                       </h2>
-                      <p className="text-xs font-sans text-sand/80 truncate font-light mt-0.5">
+                      <p className="text-xs font-sans text-muted truncate font-light mt-0.5">
                         {account.email}
                       </p>
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-sans text-sand/70">
-                    <span className="inline-flex items-center gap-1.5 text-gold font-medium">
+                  <div className="pt-3 border-t border-sand/30 flex items-center justify-between text-xs font-sans text-muted">
+                    <span className="inline-flex items-center gap-1.5 text-gold font-semibold">
                       <ShieldCheck className="w-4 h-4" />
                       Origins Circle
                     </span>
@@ -1112,7 +1112,7 @@ export default function AccountPage() {
                 </div>
 
                 {/* Vertical Navigation Menu (Desktop) */}
-                <div className="hidden lg:block bg-[#171614] border border-sand/30 rounded-3xl p-3 shadow-lg space-y-1">
+                <div className="hidden lg:block bg-paper-light border border-sand/40 rounded-3xl p-3 shadow-sm space-y-1">
                   {[
                     { id: "profile", label: "Personal Profile", desc: "Name & contact details", icon: User },
                     { id: "orders", label: `Order History (${orders.length})`, desc: "Receipts & tracking", icon: Package },
@@ -1127,31 +1127,31 @@ export default function AccountPage() {
                         onClick={() => setActiveTab(item.id as any)}
                         className={`w-full p-3.5 rounded-2xl text-left transition-all duration-200 cursor-pointer flex items-center justify-between border-l-4 ${
                           active
-                            ? "bg-gold/15 border-gold text-gold shadow-sm"
-                            : "border-transparent text-sand/80 hover:text-white hover:bg-white/5"
+                            ? "bg-gold/15 border-gold text-charcoal font-semibold shadow-sm"
+                            : "border-transparent text-muted hover:text-charcoal hover:bg-sand/10"
                         }`}
                       >
                         <div className="flex items-center gap-3">
-                          <Icon className={`w-4 h-4 ${active ? "text-gold" : "text-sand/60"}`} />
+                          <Icon className={`w-4 h-4 ${active ? "text-gold" : "text-muted"}`} />
                           <div>
-                            <p className={`text-xs font-sans uppercase tracking-[0.2em] font-medium ${active ? "text-gold font-bold" : "text-paper"}`}>
+                            <p className={`text-xs font-sans uppercase tracking-[0.2em] font-medium ${active ? "text-charcoal font-bold" : "text-charcoal"}`}>
                               {item.label}
                             </p>
-                            <p className="text-[11px] font-sans text-sand/60 font-light mt-0.5">
+                            <p className="text-[11px] font-sans text-muted font-light mt-0.5">
                               {item.desc}
                             </p>
                           </div>
                         </div>
-                        <ChevronRight className={`w-4 h-4 ${active ? "text-gold opacity-100" : "text-sand/30 opacity-0"}`} />
+                        <ChevronRight className={`w-4 h-4 ${active ? "text-gold opacity-100" : "text-sand/40 opacity-0"}`} />
                       </button>
                     );
                   })}
 
                   {/* Sign Out Button */}
-                  <div className="pt-3 border-t border-white/10 mt-2">
+                  <div className="pt-3 border-t border-sand/30 mt-2">
                     <button
                       onClick={handleSignOut}
-                      className="w-full p-3.5 rounded-2xl text-left text-sand/60 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 cursor-pointer flex items-center gap-3 text-xs font-sans uppercase tracking-[0.2em]"
+                      className="w-full p-3.5 rounded-2xl text-left text-muted hover:text-terracotta hover:bg-terracotta/10 transition-all duration-200 cursor-pointer flex items-center gap-3 text-xs font-sans uppercase tracking-[0.2em]"
                     >
                       <LogOut className="w-4 h-4" />
                       <span>Sign Out</span>
@@ -1161,15 +1161,15 @@ export default function AccountPage() {
               </aside>
 
               {/* ── RIGHT CONTENT PANEL (8 cols) ── */}
-              <div className="lg:col-span-8 bg-[#171614] border border-sand/30 rounded-3xl p-6 sm:p-10 shadow-xl space-y-8">
+              <div className="lg:col-span-8 bg-paper-light border border-sand/40 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8">
                 {/* ── TAB 1: PROFILE ── */}
                 {activeTab === "profile" && (
                   <div className="space-y-8">
-                    <div className="border-b border-white/10 pb-5">
-                      <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-medium block">
+                    <div className="border-b border-sand/30 pb-5">
+                      <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-semibold block">
                         Account Settings
                       </span>
-                      <h2 className="font-serif text-3xl text-paper font-light mt-1">
+                      <h2 className="font-serif text-3xl text-charcoal font-light mt-1">
                         Personal Profile
                       </h2>
                     </div>
@@ -1201,12 +1201,12 @@ export default function AccountPage() {
                       </div>
 
                       {/* Origins Membership Benefits Box */}
-                      <div className="p-6 rounded-2xl bg-gold/10 border border-gold/30 shadow-[0_4px_20px_rgba(197,160,89,0.1)] space-y-2.5">
+                      <div className="p-6 rounded-2xl bg-gold/10 border border-gold/30 space-y-2.5">
                         <div className="flex items-center gap-2 text-gold text-xs font-sans uppercase tracking-[0.2em] font-semibold">
                           <ShieldCheck className="w-4 h-4" />
                           <span>Origins Circle Membership</span>
                         </div>
-                        <p className="text-xs font-sans text-sand/90 font-light leading-relaxed">
+                        <p className="text-xs font-sans text-charcoal/85 font-light leading-relaxed">
                           Enjoy priority access to limited seasonal drops, private tailoring sizing notes, and carbon-neutral Australian shipping.
                         </p>
                       </div>
@@ -1214,11 +1214,11 @@ export default function AccountPage() {
                       <div className="pt-2 flex items-center justify-end">
                         <button
                           type="submit"
-                          className="px-8 py-3.5 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center gap-2"
+                          className="px-8 py-3.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-lg cursor-pointer flex items-center gap-2"
                         >
                           {isSavedFeedback === "profile" ? (
                             <>
-                              <Check className="w-4 h-4 text-green-800" />
+                              <Check className="w-4 h-4 text-white" />
                               <span>Profile Saved!</span>
                             </>
                           ) : (
@@ -1236,35 +1236,35 @@ export default function AccountPage() {
                 {/* ── TAB 2: ORDERS ── */}
                 {activeTab === "orders" && (
                   <div className="space-y-6">
-                    <div className="border-b border-white/10 pb-5 flex items-center justify-between">
+                    <div className="border-b border-sand/30 pb-5 flex items-center justify-between">
                       <div>
-                        <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-medium block">
+                        <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-semibold block">
                           Garment Receipts
                         </span>
-                        <h2 className="font-serif text-3xl text-paper font-light mt-1">
+                        <h2 className="font-serif text-3xl text-charcoal font-light mt-1">
                           Order History
                         </h2>
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-sans text-sand/80">
+                      <span className="px-3 py-1 rounded-full bg-paper border border-sand/40 text-xs font-sans text-muted">
                         {orders.length} {orders.length === 1 ? "Order" : "Orders"}
                       </span>
                     </div>
 
                     {orders.length === 0 ? (
                       <div className="text-center py-16 space-y-4">
-                        <Package className="w-12 h-12 text-sand/40 mx-auto stroke-[1.5]" />
+                        <Package className="w-12 h-12 text-muted/60 mx-auto stroke-[1.5]" />
                         <div className="space-y-1">
-                          <p className="font-serif text-2xl text-paper font-light">
+                          <p className="font-serif text-2xl text-charcoal font-light">
                             No orders placed yet.
                           </p>
-                          <p className="text-xs font-sans text-sand/70 font-light max-w-sm mx-auto">
+                          <p className="text-xs font-sans text-muted font-light max-w-sm mx-auto">
                             Your handcrafted garment receipts and dispatch updates will appear here automatically upon checkout.
                           </p>
                         </div>
                         <div className="pt-2">
                           <Link
                             href="/#collection"
-                            className="inline-block px-7 py-3 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold hover:bg-paper-light transition-all shadow-md"
+                            className="inline-block px-7 py-3 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold hover:bg-cinnamon hover:text-white transition-all shadow-md"
                           >
                             Explore Collection 01
                           </Link>
@@ -1275,16 +1275,16 @@ export default function AccountPage() {
                         {orders.map((ord) => (
                           <div
                             key={ord.orderRef}
-                            className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/15 space-y-4 hover:border-gold/50 transition-colors shadow-sm"
+                            className="p-5 sm:p-6 rounded-2xl bg-paper border border-sand/30 space-y-4 hover:border-gold/50 transition-colors shadow-sm"
                           >
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs pb-3 border-b border-white/10">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs pb-3 border-b border-sand/30">
                               <div>
                                 <span className="font-mono text-gold font-bold tracking-wider text-sm">
                                   #{ord.orderRef}
                                 </span>
-                                <span className="text-sand/60 ml-2">• Placed on {ord.date}</span>
+                                <span className="text-muted ml-2">• Placed on {ord.date}</span>
                               </div>
-                              <span className="px-3 py-1 rounded-full bg-green-500/15 border border-green-500/30 text-green-400 text-[10px] font-sans uppercase tracking-wider font-medium self-start sm:self-auto">
+                              <span className="px-3 py-1 rounded-full bg-green-500/15 border border-green-500/30 text-green-700 text-[10px] font-sans uppercase tracking-wider font-semibold self-start sm:self-auto">
                                 {ord.status || "Confirmed"}
                               </span>
                             </div>
@@ -1294,21 +1294,21 @@ export default function AccountPage() {
                               {ord.items.map((item, idx) => (
                                 <div
                                   key={idx}
-                                  className="flex items-center gap-3.5 bg-black/40 p-3 rounded-xl border border-white/10"
+                                  className="flex items-center gap-3.5 bg-paper-light p-3 rounded-xl border border-sand/30"
                                 >
                                   <img
                                     src={item.image}
                                     alt={item.name}
-                                    className="w-14 h-18 object-cover rounded-lg bg-black/40 flex-shrink-0"
+                                    className="w-14 h-18 object-cover rounded-lg bg-paper-dark flex-shrink-0"
                                   />
                                   <div className="text-xs min-w-0">
-                                    <p className="font-serif text-paper font-medium truncate text-sm">
+                                    <p className="font-serif text-charcoal font-medium truncate text-sm">
                                       {item.name}
                                     </p>
-                                    <p className="text-[11px] font-sans text-sand/70 mt-0.5">
+                                    <p className="text-[11px] font-sans text-muted mt-0.5">
                                       Size {item.size} • Qty {item.quantity}
                                     </p>
-                                    <p className="font-serif text-gold font-semibold mt-1">
+                                    <p className="font-serif text-charcoal font-semibold mt-1">
                                       ${item.priceAud * item.quantity} AUD
                                     </p>
                                   </div>
@@ -1316,11 +1316,11 @@ export default function AccountPage() {
                               ))}
                             </div>
 
-                            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-sans">
-                              <span className="text-sand/70">
+                            <div className="pt-3 border-t border-sand/30 flex items-center justify-between text-xs font-sans">
+                              <span className="text-muted">
                                 Total Items: {ord.itemCount || ord.items.length}
                               </span>
-                              <span className="font-serif text-lg font-bold text-gold">
+                              <span className="font-serif text-lg font-bold text-charcoal">
                                 Paid: ${ord.total} AUD
                               </span>
                             </div>
@@ -1334,11 +1334,11 @@ export default function AccountPage() {
                 {/* ── TAB 3: ADDRESS ── */}
                 {activeTab === "address" && (
                   <div className="space-y-8">
-                    <div className="border-b border-white/10 pb-5">
-                      <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-medium block">
+                    <div className="border-b border-sand/30 pb-5">
+                      <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-semibold block">
                         Shipping Defaults
                       </span>
-                      <h2 className="font-serif text-3xl text-paper font-light mt-1">
+                      <h2 className="font-serif text-3xl text-charcoal font-light mt-1">
                         Australian Delivery Address
                       </h2>
                     </div>
@@ -1404,18 +1404,18 @@ export default function AccountPage() {
                         />
                       </div>
 
-                      <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-white/10">
-                        <p className="text-xs font-sans text-sand/80 font-light">
+                      <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-sand/30">
+                        <p className="text-xs font-sans text-muted font-light">
                           This address pre-fills automatically during checkout.
                         </p>
 
                         <button
                           type="submit"
-                          className="px-8 py-3.5 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center gap-2"
+                          className="px-8 py-3.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-lg cursor-pointer flex items-center gap-2"
                         >
                           {isSavedFeedback === "address" ? (
                             <>
-                              <Check className="w-4 h-4 text-green-800" />
+                              <Check className="w-4 h-4 text-white" />
                               <span>Address Saved!</span>
                             </>
                           ) : (
@@ -1433,11 +1433,11 @@ export default function AccountPage() {
                 {/* ── TAB 4: PREFERENCES ── */}
                 {activeTab === "preferences" && (
                   <div className="space-y-8">
-                    <div className="border-b border-white/10 pb-5">
-                      <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-medium block">
+                    <div className="border-b border-sand/30 pb-5">
+                      <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-semibold block">
                         Wardrobe Personalization
                       </span>
-                      <h2 className="font-serif text-3xl text-paper font-light mt-1">
+                      <h2 className="font-serif text-3xl text-charcoal font-light mt-1">
                         Style & Sizing Profile
                       </h2>
                     </div>
@@ -1445,7 +1445,7 @@ export default function AccountPage() {
                     <div className="space-y-8">
                       {/* Favorite Category */}
                       <div className="space-y-3.5">
-                        <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
+                        <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-muted font-semibold block">
                           Favorite Silhouette
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -1458,14 +1458,14 @@ export default function AccountPage() {
                                 onClick={() => setPrefCategory(item.category)}
                                 className={`p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer ${
                                   active
-                                    ? "bg-gold/15 border-gold shadow-[0_4px_20px_rgba(197,160,89,0.25)] ring-1 ring-gold/40"
-                                    : "bg-white/[0.04] border-white/10 hover:border-white/25 hover:bg-white/[0.07]"
+                                    ? "bg-gold/15 border-gold shadow-sm ring-1 ring-gold/40"
+                                    : "bg-paper border-sand/40 hover:border-gold/50"
                                 }`}
                               >
-                                <p className={`font-serif text-lg font-medium ${active ? "text-gold" : "text-paper"}`}>
+                                <p className={`font-serif text-lg font-medium ${active ? "text-charcoal font-semibold" : "text-charcoal"}`}>
                                   {item.category}
                                 </p>
-                                <p className={`text-xs font-sans ${active ? "text-sand" : "text-sand/75"} mt-1 font-light leading-relaxed`}>
+                                <p className="text-xs font-sans text-muted mt-1 font-light leading-relaxed">
                                   {item.desc}
                                 </p>
                               </button>
@@ -1476,7 +1476,7 @@ export default function AccountPage() {
 
                       {/* Preferred Fit */}
                       <div className="space-y-3.5">
-                        <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
+                        <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-muted font-semibold block">
                           Preferred Fit Feel
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -1489,8 +1489,8 @@ export default function AccountPage() {
                                 onClick={() => setPrefFit(fit.id)}
                                 className={`p-3.5 rounded-xl border text-center transition-all duration-200 cursor-pointer ${
                                   active
-                                    ? "bg-gold/15 border-gold text-gold font-medium shadow-[0_2px_12px_rgba(197,160,89,0.25)] ring-1 ring-gold/40"
-                                    : "bg-white/[0.04] border-white/10 text-sand/90 hover:border-white/25 hover:bg-white/[0.07]"
+                                    ? "bg-gold/15 border-gold text-charcoal font-bold ring-1 ring-gold/40"
+                                    : "bg-paper border-sand/40 text-charcoal hover:border-gold/50"
                                 }`}
                               >
                                 <p className="text-xs font-sans font-semibold tracking-wide">{fit.label}</p>
@@ -1502,7 +1502,7 @@ export default function AccountPage() {
 
                       {/* AU Size Chips */}
                       <div className="space-y-3.5">
-                        <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-sand font-medium block">
+                        <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-muted font-semibold block">
                           Default AU Size
                         </span>
                         <div className="flex flex-wrap gap-2.5">
@@ -1515,8 +1515,8 @@ export default function AccountPage() {
                                 onClick={() => setPrefSize(sz)}
                                 className={`px-4 py-2.5 rounded-full border text-xs font-sans transition-all duration-200 cursor-pointer ${
                                   active
-                                    ? "bg-gold text-charcoal border-gold font-bold shadow-[0_2px_12px_rgba(197,160,89,0.35)] scale-105"
-                                    : "bg-white/[0.04] border-white/15 text-sand hover:border-gold/60 hover:text-paper"
+                                    ? "bg-gold text-charcoal border-gold font-bold shadow-md scale-105"
+                                    : "bg-paper border-sand/40 text-charcoal hover:border-gold"
                                 }`}
                               >
                                 {sz}
@@ -1526,15 +1526,15 @@ export default function AccountPage() {
                         </div>
                       </div>
 
-                      <div className="pt-6 flex items-center justify-end border-t border-white/10">
+                      <div className="pt-6 flex items-center justify-end border-t border-sand/30">
                         <button
                           type="button"
                           onClick={handleSavePreferences}
-                          className="px-8 py-3.5 rounded-full bg-gold hover:bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.35)] hover:shadow-[0_8px_36px_rgba(197,160,89,0.55)] cursor-pointer flex items-center gap-2"
+                          className="px-8 py-3.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-lg cursor-pointer flex items-center gap-2"
                         >
                           {isSavedFeedback === "preferences" ? (
                             <>
-                              <Check className="w-4 h-4 text-green-800" />
+                              <Check className="w-4 h-4 text-white" />
                               <span>Preferences Saved!</span>
                             </>
                           ) : (

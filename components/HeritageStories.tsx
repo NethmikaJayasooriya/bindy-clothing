@@ -103,24 +103,24 @@ export default function HeritageStories() {
   const [activeStory, setActiveStory] = useState(STORIES[0]);
 
   return (
-    <section id="stories" className="py-28 bg-ink text-paper relative overflow-hidden">
+    <section id="stories" className="py-28 bg-paper-dark text-charcoal relative overflow-hidden border-y border-sand/30">
       {/* Ambient background glow */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cinnamon/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-gold/20 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-sand/40 pb-8 gap-4">
           <div className="space-y-3">
-            <div className="flex items-center space-x-2 text-gold text-[11px] uppercase font-sans tracking-[0.35em]">
+            <div className="flex items-center space-x-2 text-gold text-[10px] uppercase font-sans tracking-[0.35em] font-semibold">
               <Compass className="w-3.5 h-3.5" />
               <span>Roots → Journey → Discovery</span>
             </div>
-            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-wide">
-              The Stories Behind <span className="italic font-serif text-sand">Every Thread</span>
+            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-wide text-charcoal-rich">
+              The Stories Behind <span className="font-editorial-italic text-[#C5A059]">Every Thread</span>
             </h2>
           </div>
-          <p className="mt-4 md:mt-0 font-serif italic text-sm text-[#A89F91] max-w-sm">
+          <p className="font-serif italic text-base text-muted max-w-sm leading-relaxed">
             Not wearing the past. Carrying its story forward into modern Australian living.
           </p>
         </div>
@@ -131,13 +131,13 @@ export default function HeritageStories() {
             <button
               key={story.id}
               onClick={() => setActiveStory(story)}
-              className={`px-5 py-2.5 rounded-full text-xs font-sans uppercase tracking-[0.2em] whitespace-nowrap transition-all duration-300 flex items-center space-x-2 border ${
+              className={`px-5 py-2.5 rounded-full text-xs font-sans uppercase tracking-[0.2em] whitespace-nowrap transition-all duration-300 flex items-center space-x-2 border cursor-pointer ${
                 activeStory.id === story.id
-                  ? "bg-gold text-charcoal border-gold font-medium shadow-[0_0_20px_rgba(197,160,89,0.3)]"
-                  : "bg-white/5 border-white/10 text-white/70 hover:text-white hover:border-gold/50"
+                  ? "bg-gold text-charcoal border-gold font-bold shadow-[0_4px_20px_rgba(197,160,89,0.35)] scale-[1.03]"
+                  : "bg-paper-light border-sand/40 text-charcoal hover:text-gold hover:border-gold/60 font-medium shadow-sm"
               }`}
             >
-              <span className="text-[10px] opacity-70">{story.number}.</span>
+              <span className="text-[10px] opacity-75 font-mono">{story.number}.</span>
               <span>{story.title}</span>
             </button>
           ))}
@@ -155,7 +155,7 @@ export default function HeritageStories() {
           >
             {/* Story Visual Frame (5 cols) */}
             <div className="lg:col-span-5 relative">
-              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border border-gold/30 shadow-[0_20px_60px_rgba(0,0,0,0.8)]">
+              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border border-sand/40 shadow-luxury bg-paper">
                 <img
                   src={activeStory.image}
                   alt={activeStory.title}
@@ -163,7 +163,7 @@ export default function HeritageStories() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
-                  <span className="text-[10px] font-sans tracking-[0.3em] uppercase text-gold">
+                  <span className="text-[10px] font-sans tracking-[0.3em] uppercase text-[#DFC182] font-semibold">
                     Chapter {activeStory.number}
                   </span>
                   <h4 className="font-serif text-2xl text-white font-medium">
@@ -176,28 +176,28 @@ export default function HeritageStories() {
             {/* Story Text & Exploration (7 cols) */}
             <div className="lg:col-span-7 space-y-8">
               <div className="space-y-3">
-                <span className="text-xs uppercase font-sans tracking-[0.35em] text-gold">
+                <span className="text-xs uppercase font-sans tracking-[0.32em] text-gold font-semibold">
                   {activeStory.subtitle}
                 </span>
-                <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light leading-tight">
+                <h3 className="font-editorial-italic text-3xl sm:text-4xl lg:text-5xl font-light leading-tight text-charcoal-rich">
                   &ldquo;{activeStory.quote}&rdquo;
                 </h3>
               </div>
 
-              <p className="font-sans text-sm sm:text-base text-zinc-300 leading-relaxed max-w-xl">
+              <p className="font-sans text-sm sm:text-base text-charcoal/85 leading-relaxed max-w-xl font-light">
                 {activeStory.description}
               </p>
 
               {/* Elements Tags */}
               <div className="space-y-3">
-                <span className="text-[10px] uppercase font-sans tracking-[0.25em] text-[#8C8477]">
+                <span className="text-[10px] uppercase font-sans tracking-[0.28em] text-muted font-semibold">
                   Design Invocations:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {activeStory.elements.map((el, i) => (
                     <span
                       key={i}
-                      className="px-3.5 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-paper font-sans tracking-wide"
+                      className="px-3.5 py-1.5 rounded-xl bg-paper-light border border-sand/40 text-xs text-charcoal font-sans tracking-wide shadow-sm"
                     >
                       {el}
                     </span>
@@ -207,18 +207,18 @@ export default function HeritageStories() {
 
               {/* Color Palette Chips */}
               <div className="space-y-3 pt-2">
-                <span className="text-[10px] uppercase font-sans tracking-[0.25em] text-[#8C8477]">
+                <span className="text-[10px] uppercase font-sans tracking-[0.28em] text-muted font-semibold">
                   Harmonious Palette:
                 </span>
                 <div className="flex items-center space-x-3">
                   {activeStory.colorPalette.map((cp, idx) => (
                     <div key={idx} className="flex flex-col items-center space-y-1">
                       <div
-                        className="w-8 h-8 rounded-full border border-white/20 shadow-md"
+                        className="w-8 h-8 rounded-full border border-sand/60 shadow-sm"
                         style={{ backgroundColor: cp.hex }}
                         title={`${cp.name} (${cp.hex})`}
                       />
-                      <span className="text-[9px] font-sans text-zinc-400">
+                      <span className="text-[9px] font-sans text-muted">
                         {cp.name}
                       </span>
                     </div>

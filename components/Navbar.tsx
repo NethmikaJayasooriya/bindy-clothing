@@ -87,7 +87,7 @@ export default function Navbar({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
           isScrolled
-            ? "bg-[#FAF7F2]/90 dark:bg-[#151413]/90 backdrop-blur-md py-3.5 shadow-sm border-b border-[#DCC7AF]/20"
+            ? "bg-[#FAF7F2]/95 backdrop-blur-md py-3.5 shadow-sm border-b border-[#DCC7AF]/40"
             : "bg-gradient-to-b from-black/60 via-black/20 to-transparent py-5"
         }`}
       >
@@ -97,7 +97,7 @@ export default function Navbar({
             <Link href="/" className="inline-block text-left group">
               <span
                 className={`font-display text-2xl sm:text-3xl tracking-[0.2em] font-normal transition-colors group-hover:text-[#C5A059] ${
-                  isScrolled ? "text-zinc-900 dark:text-zinc-100" : "text-white"
+                  isScrolled ? "text-charcoal" : "text-white"
                 }`}
               >
                 BINDY.
@@ -113,7 +113,7 @@ export default function Navbar({
             <Link
               href="/#collection"
               className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
-                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
+                isScrolled ? "text-charcoal" : "text-white"
               }`}
             >
               Collection
@@ -121,7 +121,7 @@ export default function Navbar({
             <Link
               href="/#stories"
               className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
-                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
+                isScrolled ? "text-charcoal" : "text-white"
               }`}
             >
               Heritage Stories
@@ -129,7 +129,7 @@ export default function Navbar({
             <Link
               href="/#about"
               className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
-                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
+                isScrolled ? "text-charcoal" : "text-white"
               }`}
             >
               Our Story
@@ -137,7 +137,7 @@ export default function Navbar({
             <Link
               href="/#craft"
               className={`text-xs uppercase tracking-[0.25em] font-sans font-medium transition-colors hover:text-[#C5A059] ${
-                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
+                isScrolled ? "text-charcoal" : "text-white"
               }`}
             >
               Artisan Craft
@@ -152,7 +152,7 @@ export default function Navbar({
                 onClick={() => setIsCurrencyDropdown(!isCurrencyDropdown)}
                 className={`flex items-center gap-1 text-[11px] font-sans uppercase tracking-widest px-3 py-1.5 rounded-full border transition-all cursor-pointer ${
                   isScrolled
-                    ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059]"
+                    ? "border-[#DCC7AF]/60 text-charcoal hover:border-[#C5A059]"
                     : "border-white/30 text-white hover:border-[#C5A059]"
                 }`}
               >
@@ -161,7 +161,7 @@ export default function Navbar({
               </button>
 
               {isCurrencyDropdown && (
-                <div className="absolute right-0 mt-2 w-28 bg-[#FAF7F2] dark:bg-[#151413] border border-[#DCC7AF]/40 rounded-xl shadow-xl py-1 z-50">
+                <div className="absolute right-0 mt-2 w-28 bg-[#FFFDF9] border border-[#DCC7AF]/40 rounded-xl shadow-xl py-1 z-50">
                   {currencies.map((c) => (
                     <button
                       key={c}
@@ -172,7 +172,7 @@ export default function Navbar({
                       className={`w-full text-left px-3 py-1.5 text-xs font-sans tracking-wider transition-colors hover:bg-[#C5A059]/15 hover:text-[#C5A059] ${
                         currency === c
                           ? "text-[#C5A059] font-medium"
-                          : "text-zinc-700 dark:text-zinc-300"
+                          : "text-charcoal"
                       }`}
                     >
                       {c}
@@ -187,7 +187,7 @@ export default function Navbar({
               onClick={toggleAudio}
               className={`hidden sm:flex p-2 sm:p-2.5 rounded-full transition-all duration-300 border cursor-pointer ${
                 isScrolled
-                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059] hover:text-[#C5A059]"
+                  ? "border-[#DCC7AF]/60 text-charcoal hover:border-[#C5A059] hover:text-[#C5A059]"
                   : "border-white/30 text-white hover:border-[#C5A059] hover:text-[#C5A059]"
               }`}
               title={isMuted ? "Unmute Ambient Sound" : "Mute Ambient Sound"}
@@ -197,7 +197,7 @@ export default function Navbar({
             </button>
 
             {/* Subtle Divider between utilities & shopping actions */}
-            <div className="hidden lg:block w-px h-4 bg-sand/30 dark:bg-white/15 my-auto" />
+            <div className={`hidden lg:block w-px h-4 ${isScrolled ? "bg-sand/40" : "bg-white/25"} my-auto`} />
 
             {/* 3. Search Trigger */}
             <button
@@ -205,7 +205,7 @@ export default function Navbar({
               title="Search collection"
               className={`p-2 sm:p-2.5 rounded-full transition-all duration-300 border cursor-pointer ${
                 isScrolled
-                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059] hover:text-[#C5A059]"
+                  ? "border-[#DCC7AF]/60 text-charcoal hover:border-[#C5A059] hover:text-[#C5A059]"
                   : "border-white/30 text-white hover:border-[#C5A059] hover:text-[#C5A059]"
               }`}
               aria-label="Search"
@@ -219,7 +219,7 @@ export default function Navbar({
               title="Saved Pieces"
               className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-300 border hover:border-[#C5A059] hover:text-[#C5A059] cursor-pointer ${
                 isScrolled
-                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300"
+                  ? "border-[#DCC7AF]/60 text-charcoal"
                   : "border-white/30 text-white"
               }`}
               aria-label="Saved Pieces"
@@ -230,7 +230,7 @@ export default function Navbar({
                 }`}
               />
               {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#C5A059] text-[#1F1E1D] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+                <span className="absolute -top-1 -right-1 bg-[#C5A059] text-charcoal text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
                   {wishlistCount}
                 </span>
               )}
@@ -244,7 +244,7 @@ export default function Navbar({
                 className="relative group flex items-center justify-center cursor-pointer"
                 aria-label="Member Account"
               >
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-[#282420] via-[#1B1917] to-[#121110] border border-[#C5A059]/80 group-hover:border-[#C5A059] flex items-center justify-center shadow-[0_0_12px_rgba(197,160,89,0.3)] group-hover:shadow-[0_0_20px_rgba(197,160,89,0.55)] transition-all duration-300 transform group-hover:scale-105">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-[#FFFDF9] via-[#FAF7F2] to-[#F2ECE1] border border-[#C5A059] group-hover:border-[#C5A059] flex items-center justify-center shadow-[0_2px_8px_rgba(197,160,89,0.25)] group-hover:shadow-[0_4px_16px_rgba(197,160,89,0.45)] transition-all duration-300 transform group-hover:scale-105">
                   <span className="font-serif text-xs font-semibold text-[#C5A059] tracking-wider select-none">
                     {getInitials(account.name)}
                   </span>
@@ -256,7 +256,7 @@ export default function Navbar({
                 title="Sign In / Account"
                 className={`p-2 sm:p-2.5 rounded-full transition-all duration-300 border flex items-center justify-center cursor-pointer ${
                   isScrolled
-                    ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059] hover:text-[#C5A059]"
+                    ? "border-[#DCC7AF]/60 text-charcoal hover:border-[#C5A059] hover:text-[#C5A059]"
                     : "border-white/30 text-white hover:border-[#C5A059] hover:text-[#C5A059]"
                 }`}
                 aria-label="Account"
@@ -270,7 +270,7 @@ export default function Navbar({
               onClick={onOpenCart}
               className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-300 border hover:border-[#C5A059] hover:text-[#C5A059] flex items-center justify-center cursor-pointer ${
                 isScrolled
-                  ? "border-[#DCC7AF]/50 text-zinc-700 dark:text-zinc-300"
+                  ? "border-[#DCC7AF]/60 text-charcoal"
                   : "border-white/30 text-white"
               }`}
               title="Shopping Bag"
@@ -278,7 +278,7 @@ export default function Navbar({
             >
               <ShoppingBag className="w-4 h-4" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#C5A059] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-[#C5A059] text-charcoal text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
@@ -288,7 +288,7 @@ export default function Navbar({
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`md:hidden p-2 rounded-full transition-colors cursor-pointer ${
-                isScrolled ? "text-zinc-800 dark:text-zinc-200" : "text-white"
+                isScrolled ? "text-charcoal" : "text-white"
               }`}
               aria-label="Open Navigation Menu"
             >
@@ -305,7 +305,7 @@ export default function Navbar({
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-30 bg-[#FAF7F2] dark:bg-[#151413] pt-24 px-8 pb-12 flex flex-col justify-between md:hidden"
+            className="fixed inset-0 z-30 bg-[#FAF7F2] pt-24 px-8 pb-12 flex flex-col justify-between md:hidden shadow-2xl"
           >
             <div className="flex flex-col space-y-3.5 text-center">
               <button
@@ -313,7 +313,7 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   setIsSearchOpen(true);
                 }}
-                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors cursor-pointer"
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/60 bg-white/70 text-xs font-sans uppercase tracking-[0.2em] text-charcoal hover:border-gold hover:text-gold transition-colors cursor-pointer"
               >
                 <Search className="w-4 h-4 text-gold" />
                 <span>Search Collection</span>
@@ -324,7 +324,7 @@ export default function Navbar({
                   setMobileMenuOpen(false);
                   setIsWishlistOpen(true);
                 }}
-                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors cursor-pointer"
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/60 bg-white/70 text-xs font-sans uppercase tracking-[0.2em] text-charcoal hover:border-gold hover:text-gold transition-colors cursor-pointer"
               >
                 <Heart className={`w-4 h-4 ${wishlistCount > 0 ? "fill-gold text-gold" : "text-gold"}`} />
                 <span>Saved Pieces {wishlistCount > 0 && `(${wishlistCount})`}</span>
@@ -335,13 +335,13 @@ export default function Navbar({
                 <Link
                   href="/account"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3.5 w-full p-3 rounded-2xl border border-gold/40 bg-gradient-to-r from-gold/15 via-gold/5 to-transparent text-left transition-all hover:border-gold cursor-pointer mb-2"
+                  className="flex items-center gap-3.5 w-full p-3 rounded-2xl border border-gold/40 bg-[#FFFDF9] text-left transition-all hover:border-gold cursor-pointer mb-2 shadow-sm"
                 >
-                  <div className="w-10 h-10 rounded-full bg-[#181614] border border-gold/70 flex items-center justify-center text-gold font-serif text-sm font-semibold shadow-[0_0_12px_rgba(197,160,89,0.3)] flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-paper-dark border border-gold/70 flex items-center justify-center text-gold font-serif text-sm font-semibold shadow-sm flex-shrink-0">
                     {getInitials(account.name)}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="font-serif text-sm text-zinc-900 dark:text-paper font-medium truncate">
+                    <p className="font-serif text-sm text-charcoal font-medium truncate">
                       {account.name}
                     </p>
                     <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-gold font-semibold block">
@@ -353,7 +353,7 @@ export default function Navbar({
                 <Link
                   href="/account"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors mb-2 cursor-pointer"
+                  className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/60 bg-white/70 text-xs font-sans uppercase tracking-[0.2em] text-charcoal hover:border-gold hover:text-gold transition-colors mb-2 cursor-pointer"
                 >
                   <User className="w-4 h-4 text-gold" />
                   <span>Sign In / Join The Circle</span>
@@ -363,11 +363,11 @@ export default function Navbar({
               {/* Mobile Sound Toggle */}
               <button
                 onClick={toggleAudio}
-                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/50 dark:border-white/15 bg-black/5 dark:bg-white/5 text-xs font-sans uppercase tracking-[0.2em] text-zinc-800 dark:text-zinc-200 hover:border-gold hover:text-gold transition-colors cursor-pointer"
+                className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-full border border-[#DCC7AF]/60 bg-white/70 text-xs font-sans uppercase tracking-[0.2em] text-charcoal hover:border-gold hover:text-gold transition-colors cursor-pointer"
               >
                 {isMuted ? (
                   <>
-                    <VolumeX className="w-4 h-4 text-sand/60" />
+                    <VolumeX className="w-4 h-4 text-sand" />
                     <span>Unmute Ambient Sound</span>
                   </>
                 ) : (
@@ -381,35 +381,35 @@ export default function Navbar({
               <Link
                 href="/#collection"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100 pt-2"
+                className="font-serif text-2xl uppercase tracking-[0.2em] text-charcoal pt-2 hover:text-gold transition-colors"
               >
                 Collection 01
               </Link>
               <Link
                 href="/#stories"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100"
+                className="font-serif text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
               >
                 Heritage Stories
               </Link>
               <Link
                 href="/#about"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100"
+                className="font-serif text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
               >
                 Three Women
               </Link>
               <Link
                 href="/#craft"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-2xl uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100"
+                className="font-serif text-2xl uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors"
               >
                 Artisan Craft
               </Link>
             </div>
 
             <div className="border-t border-[#DCC7AF]/30 pt-6 text-center space-y-4">
-              <div className="flex justify-center space-x-4 text-xs tracking-wider uppercase text-zinc-600 dark:text-zinc-400">
+              <div className="flex justify-center space-x-4 text-xs tracking-wider uppercase text-charcoal/80">
                 {currencies.slice(0, 3).map((c) => (
                   <button
                     key={c}
@@ -417,14 +417,14 @@ export default function Navbar({
                     className={`px-3 py-1 rounded-full border ${
                       currency === c
                         ? "border-[#C5A059] text-[#C5A059] bg-[#C5A059]/10"
-                        : "border-zinc-300 dark:border-zinc-700"
+                        : "border-[#DCC7AF]/60 text-charcoal"
                     }`}
                   >
                     {c}
                   </button>
                 ))}
               </div>
-              <p className="text-[11px] uppercase tracking-[0.3em] text-[#8C8477]">
+              <p className="text-[11px] uppercase tracking-[0.3em] text-muted">
                 Designed in Australia • Inspired by Sri Lanka
               </p>
             </div>

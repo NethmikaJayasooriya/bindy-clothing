@@ -87,19 +87,19 @@ export default function ProductDetail({ product }: { product: Product }) {
   };
 
   return (
-    <main className="min-h-screen bg-paper dark:bg-ink-deep text-charcoal dark:text-paper">
+    <main className="min-h-screen bg-paper text-charcoal">
       {/* Slim header */}
-      <header className="sticky top-0 z-40 backdrop-blur-xl bg-paper/85 dark:bg-ink-deep/85 border-b border-sand/30">
+      <header className="sticky top-0 z-40 backdrop-blur-xl bg-paper/90 border-b border-sand/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex flex-col leading-none">
-            <span className="font-display text-2xl tracking-[0.12em]">BINDY.</span>
-            <span className="text-[8px] font-sans uppercase tracking-[0.45em] text-gold mt-0.5">
+            <span className="font-display text-2xl tracking-[0.12em] text-charcoal">BINDY.</span>
+            <span className="text-[8px] font-sans uppercase tracking-[0.45em] text-gold mt-0.5 font-semibold">
               Clothing
             </span>
           </Link>
           <Link
             href="/#collection"
-            className="flex items-center gap-2 text-[11px] font-sans uppercase tracking-[0.25em] text-zinc-600 dark:text-zinc-300 hover:text-gold transition-colors"
+            className="flex items-center gap-2 text-[11px] font-sans uppercase tracking-[0.25em] text-charcoal/80 hover:text-gold transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Back to collection
@@ -109,12 +109,12 @@ export default function ProductDetail({ product }: { product: Product }) {
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <nav className="text-[11px] font-sans tracking-wide text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+        <nav className="text-[11px] font-sans tracking-wide text-muted flex items-center gap-2">
           <Link href="/" className="hover:text-gold">Home</Link>
           <span>/</span>
           <Link href="/#collection" className="hover:text-gold">Collection</Link>
           <span>/</span>
-          <span className="text-zinc-700 dark:text-zinc-200">{product.name}</span>
+          <span className="text-charcoal font-medium">{product.name}</span>
         </nav>
       </div>
 
@@ -128,9 +128,9 @@ export default function ProductDetail({ product }: { product: Product }) {
                 key={src}
                 onMouseEnter={() => setActiveImg(i)}
                 onClick={() => setActiveImg(i)}
-                className={`relative w-16 h-20 sm:w-20 sm:h-24 aspect-[4/5] rounded-xl overflow-hidden border bg-ink flex-shrink-0 transition-all ${
+                className={`relative w-16 h-20 sm:w-20 sm:h-24 aspect-[4/5] rounded-xl overflow-hidden border bg-paper-dark flex-shrink-0 transition-all cursor-pointer ${
                   activeImg === i
-                    ? "border-gold ring-1 ring-gold"
+                    ? "border-gold ring-1 ring-gold shadow-sm"
                     : "border-sand/40 hover:border-gold/60"
                 }`}
               >
@@ -145,7 +145,7 @@ export default function ProductDetail({ product }: { product: Product }) {
               </button>
             ))}
           </div>
-          <div className="relative flex-1 aspect-[3/4] w-full min-h-[350px] sm:min-h-[460px] rounded-3xl overflow-hidden bg-ink border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+          <div className="relative flex-1 aspect-[3/4] w-full min-h-[350px] sm:min-h-[460px] rounded-3xl overflow-hidden bg-paper-dark border border-sand/40 shadow-xl">
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeImg}
@@ -170,57 +170,57 @@ export default function ProductDetail({ product }: { product: Product }) {
 
         {/* Details */}
         <div className="max-w-lg">
-          <p className="text-[11px] font-sans uppercase tracking-[0.35em] text-[#C5A059] mb-2 flex items-center gap-2">
+          <p className="text-[10px] font-sans uppercase tracking-[0.35em] text-[#C5A059] mb-2 flex items-center gap-2 font-semibold">
             <MapPin className="w-3.5 h-3.5" />
             {product.story} · {product.storyPlace}
           </p>
-          <h1 className="font-serif text-3xl sm:text-4xl font-light leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-[2.65rem] font-light leading-tight text-charcoal-rich">
             {product.name}
           </h1>
 
           <div className="mt-3 flex items-center gap-3">
             <Stars value={avg} />
-            <span className="text-xs text-zinc-500 dark:text-zinc-400">
-              {avg.toFixed(1)} · {product.reviews.length} reviews
+            <span className="text-xs text-muted font-sans font-medium">
+              {avg.toFixed(1)} · {product.reviews.length} customer reviews
             </span>
           </div>
 
-          <div className="mt-4 font-serif text-2xl font-semibold">
-            ${product.priceAud} <span className="text-sm font-sans text-zinc-500">AUD</span>
+          <div className="mt-4 font-serif text-2xl sm:text-3xl font-semibold text-charcoal-rich tracking-tight">
+            ${product.priceAud} <span className="text-sm font-sans text-muted font-normal">AUD</span>
           </div>
 
-          <p className="mt-5 text-[15px] leading-relaxed text-zinc-700 dark:text-zinc-300 font-light">
+          <p className="mt-5 text-[15px] leading-relaxed text-charcoal/85 font-light">
             {product.description}
           </p>
 
           {/* palette */}
           <div className="mt-6">
-            <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-zinc-500 mb-2">Colour Story</p>
-            <div className="flex items-center gap-2">
+            <p className="text-[10px] font-sans uppercase tracking-[0.28em] text-muted mb-2 font-semibold">Colour Story</p>
+            <div className="flex items-center gap-2.5">
               {product.palette.map((hex) => (
-                <span key={hex} className="w-7 h-7 rounded-full border border-black/10 shadow-sm" style={{ backgroundColor: hex }} title={hex} />
+                <span key={hex} className="w-7 h-7 rounded-full border border-sand/70 shadow-sm transition-transform hover:scale-110" style={{ backgroundColor: hex }} title={hex} />
               ))}
-              <span className="ml-2 text-xs text-zinc-500 dark:text-zinc-400">{product.colorName}</span>
+              <span className="ml-2 text-xs text-muted font-sans font-medium">{product.colorName}</span>
             </div>
           </div>
 
           {/* fabric */}
-          <div className="mt-5 text-sm">
-            <span className="text-zinc-500 dark:text-zinc-400">Fabric — </span>
-            <span className="text-zinc-800 dark:text-zinc-200">{product.fabric}</span>
+          <div className="mt-5 text-sm font-sans">
+            <span className="text-muted">Fabric — </span>
+            <span className="text-charcoal font-semibold">{product.fabric}</span>
           </div>
 
           {/* size */}
           <div className="mt-6">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-zinc-500">Select Size</p>
-                <span className="text-[11px] text-zinc-400 font-sans">• AU sizing</span>
+                <p className="text-[10px] font-sans uppercase tracking-[0.28em] text-muted font-semibold">Select Size</p>
+                <span className="text-[11px] text-muted font-sans">• AU sizing</span>
               </div>
               <button
                 type="button"
                 onClick={() => setShowSizeGuide(true)}
-                className="text-xs font-sans uppercase tracking-wide text-gold hover:underline underline-offset-4 cursor-pointer"
+                className="text-xs font-sans uppercase tracking-wider text-gold hover:text-cinnamon cursor-pointer font-semibold underline underline-offset-4"
               >
                 Size Guide
               </button>
@@ -230,10 +230,10 @@ export default function ProductDetail({ product }: { product: Product }) {
                 <button
                   key={s}
                   onClick={() => setSize(s)}
-                  className={`px-3.5 py-2 rounded-lg text-xs font-sans transition-all border ${
+                  className={`px-4 py-2.5 rounded-xl text-xs font-sans transition-all border cursor-pointer ${
                     size === s
-                      ? "bg-[#1F1E1D] text-[#FAF7F2] border-[#1F1E1D]"
-                      : "bg-transparent border-[#DCC7AF]/60 text-zinc-700 dark:text-zinc-300 hover:border-[#C5A059]"
+                      ? "bg-charcoal text-paper-light border-charcoal font-semibold shadow-md scale-[1.02]"
+                      : "bg-paper-light border-sand/40 text-charcoal hover:border-gold font-medium hover:shadow-sm"
                   }`}
                 >
                   {s}
@@ -243,13 +243,13 @@ export default function ProductDetail({ product }: { product: Product }) {
           </div>
 
           {/* qty + add + wishlist */}
-          <div className="mt-6 flex items-stretch gap-3">
-            <div className="flex items-center border border-sand/60 rounded-full px-1">
-              <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="p-2 text-zinc-600 hover:text-black dark:hover:text-white cursor-pointer" aria-label="Decrease">
+          <div className="mt-7 flex items-stretch gap-3">
+            <div className="flex items-center border border-sand/60 rounded-full px-1.5 bg-paper-light shadow-sm">
+              <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="p-2 text-charcoal/70 hover:text-charcoal cursor-pointer" aria-label="Decrease">
                 <Minus className="w-4 h-4" />
               </button>
-              <span className="w-8 text-center font-sans text-sm">{qty}</span>
-              <button onClick={() => setQty((q) => q + 1)} className="p-2 text-zinc-600 hover:text-black dark:hover:text-white cursor-pointer" aria-label="Increase">
+              <span className="w-8 text-center font-sans text-sm font-semibold text-charcoal">{qty}</span>
+              <button onClick={() => setQty((q) => q + 1)} className="p-2 text-charcoal/70 hover:text-charcoal cursor-pointer" aria-label="Increase">
                 <Plus className="w-4 h-4" />
               </button>
             </div>
@@ -257,10 +257,10 @@ export default function ProductDetail({ product }: { product: Product }) {
             <button
               onClick={handleAdd}
               disabled={!size}
-              className={`flex-1 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5 transition-all py-3.5 ${
+              className={`flex-1 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5 transition-all py-4 min-h-[48px] ${
                 !size
                   ? "bg-sand/20 text-muted border border-sand/30 cursor-not-allowed"
-                  : "bg-gold hover:bg-cinnamon text-white shadow-[0_8px_30px_rgba(197,160,89,0.35)] cursor-pointer"
+                  : "bg-gold hover:bg-cinnamon text-charcoal hover:text-white shadow-luxury hover:shadow-luxury-hover cursor-pointer"
               }`}
             >
               {added ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
@@ -270,10 +270,10 @@ export default function ProductDetail({ product }: { product: Product }) {
             <button
               type="button"
               onClick={() => toggleWishlist(product)}
-              className={`px-4 rounded-full border transition-all duration-300 cursor-pointer flex items-center justify-center ${
+              className={`px-4.5 rounded-full border transition-all duration-300 cursor-pointer flex items-center justify-center min-h-[48px] ${
                 isInWishlist(product.id)
                   ? "border-gold bg-gold/15 text-gold shadow-sm ring-1 ring-gold/40"
-                  : "border-sand/60 text-zinc-600 dark:text-zinc-300 hover:border-gold hover:text-gold"
+                  : "border-sand/60 text-charcoal hover:border-gold hover:text-gold bg-paper-light"
               }`}
               title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
               aria-label="Wishlist toggle"
@@ -286,13 +286,13 @@ export default function ProductDetail({ product }: { product: Product }) {
           <button
             onClick={handleBuyNow}
             disabled={!size}
-            className={`w-full mt-3 py-3.5 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5 transition-all border ${
+            className={`w-full mt-3.5 py-4 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5 transition-all border min-h-[48px] ${
               !size
                 ? "bg-transparent text-muted/60 border-sand/30 cursor-not-allowed"
-                : "bg-transparent border-gold text-gold hover:bg-gold hover:text-charcoal cursor-pointer shadow-md"
+                : "bg-paper-light border-gold text-charcoal hover:bg-gold hover:text-charcoal cursor-pointer shadow-sm hover:shadow-md"
             }`}
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-4 h-4 text-gold" />
             <span>Buy Now • Express Checkout</span>
           </button>
 
@@ -302,38 +302,38 @@ export default function ProductDetail({ product }: { product: Product }) {
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="mt-3 text-xs text-zinc-600 dark:text-zinc-300"
+                className="mt-3 text-xs text-charcoal"
               >
-                Added {qty} × {size}. <Link href="/" className="text-[#C5A059] underline underline-offset-2">View your bag →</Link>
+                Added {qty} × {size}. <Link href="/" className="text-gold underline underline-offset-2 font-medium">View your bag →</Link>
               </motion.div>
             )}
           </AnimatePresence>
 
           {/* trust row */}
-          <div className="mt-6 grid grid-cols-3 gap-2 text-[10px] font-sans text-zinc-500 dark:text-zinc-400">
-            <div className="flex items-center gap-1.5"><Truck className="w-3.5 h-3.5 text-[#C5A059]" /> Free AU shipping $150+</div>
-            <div className="flex items-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 text-[#C5A059]" /> 30-day returns</div>
-            <div className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" /> Secure checkout</div>
+          <div className="mt-6 grid grid-cols-3 gap-2 text-[10px] font-sans text-muted">
+            <div className="flex items-center gap-1.5"><Truck className="w-3.5 h-3.5 text-gold" /> Free AU shipping $150+</div>
+            <div className="flex items-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 text-gold" /> 30-day returns</div>
+            <div className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-gold" /> Secure checkout</div>
           </div>
 
           {/* heritage narrative */}
-          <div className="mt-9 border-t border-[#DCC7AF]/30 pt-7">
-            <p className="text-[10px] font-sans uppercase tracking-[0.35em] text-[#C5A059] mb-3">The Story</p>
-            <blockquote className="font-serif italic text-xl leading-snug text-zinc-800 dark:text-zinc-100">
+          <div className="mt-9 border-t border-sand/40 pt-7">
+            <p className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold mb-3 font-semibold">The Story</p>
+            <blockquote className="font-serif italic text-xl leading-snug text-charcoal">
               “{product.quote}”
             </blockquote>
-            <p className="mt-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-300 font-light">
+            <p className="mt-4 text-[15px] leading-relaxed text-charcoal/85 font-light">
               {product.heritage}
             </p>
           </div>
 
           {/* craft details */}
           <div className="mt-7">
-            <p className="text-[10px] font-sans uppercase tracking-[0.35em] text-zinc-500 mb-3">Thoughtful Details</p>
+            <p className="text-[10px] font-sans uppercase tracking-[0.35em] text-muted mb-3 font-medium">Thoughtful Details</p>
             <ul className="space-y-2">
               {product.craftDetails.map((d) => (
-                <li key={d} className="flex items-start gap-2.5 text-sm text-zinc-700 dark:text-zinc-300">
-                  <Check className="w-4 h-4 text-[#C5A059] mt-0.5 flex-shrink-0" />
+                <li key={d} className="flex items-start gap-2.5 text-sm text-charcoal/85">
+                  <Check className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
                   {d}
                 </li>
               ))}
@@ -341,8 +341,8 @@ export default function ProductDetail({ product }: { product: Product }) {
           </div>
 
           {/* care accordion */}
-          <div className="mt-6 border-t border-[#DCC7AF]/30 pt-4">
-            <button onClick={() => setCareOpen((o) => !o)} className="w-full flex items-center justify-between text-sm font-sans uppercase tracking-[0.2em] text-zinc-700 dark:text-zinc-200">
+          <div className="mt-6 border-t border-sand/40 pt-4">
+            <button onClick={() => setCareOpen((o) => !o)} className="w-full flex items-center justify-between text-sm font-sans uppercase tracking-[0.2em] text-charcoal cursor-pointer">
               Care & Fabric
               <ChevronDown className={`w-4 h-4 transition-transform ${careOpen ? "rotate-180" : ""}`} />
             </button>
@@ -352,10 +352,10 @@ export default function ProductDetail({ product }: { product: Product }) {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="overflow-hidden mt-3 space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400"
+                  className="overflow-hidden mt-3 space-y-1.5 text-sm text-muted font-light"
                 >
                   {product.care.map((c) => (
-                    <li key={c} className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#C5A059]" />{c}</li>
+                    <li key={c} className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-gold" />{c}</li>
                   ))}
                 </motion.ul>
               )}
@@ -370,13 +370,13 @@ export default function ProductDetail({ product }: { product: Product }) {
       {/* Related */}
       {related.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-          <h2 className="font-serif text-2xl sm:text-3xl font-light mb-8 text-center text-paper-light">
-            Complete the <span className="italic">journey</span>
+          <h2 className="font-serif text-2xl sm:text-3xl font-light mb-8 text-center text-charcoal">
+            Complete the <span className="italic font-serif">journey</span>
           </h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {related.map((p) => (
-              <Link key={p.id} href={`/product/${p.id}`} className="group flex flex-col">
-                <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-ink border border-white/10 shadow-sm flex-shrink-0">
+              <Link key={p.id} href={`/product/${p.id}`} className="group flex flex-col bg-paper-light rounded-2xl overflow-hidden border border-sand/40 hover:border-gold/60 p-4 transition-all shadow-sm hover:shadow-lg">
+                <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-paper-dark border border-sand/30 flex-shrink-0 mb-3">
                   <img
                     src={p.image}
                     alt={p.name}
@@ -394,8 +394,8 @@ export default function ProductDetail({ product }: { product: Product }) {
                     }}
                   />
                 </div>
-                <p className="mt-3 text-[10px] font-sans uppercase tracking-[0.25em] text-[#C5A059]">{p.story}</p>
-                <h3 className="font-serif text-base font-medium text-paper-light group-hover:text-[#C5A059] transition-colors leading-snug">{p.name}</h3>
+                <p className="text-[10px] font-sans uppercase tracking-[0.25em] text-[#C5A059] font-medium">{p.story}</p>
+                <h3 className="font-serif text-base font-medium text-charcoal group-hover:text-[#C5A059] transition-colors leading-snug truncate mt-0.5">{p.name}</h3>
 
                 {p.reviews && p.reviews.length > 0 ? (
                   <div className="mt-1 flex items-center gap-1.5" title={`${getAverageRating(p).toFixed(1)} out of 5 stars (${p.reviews.length} reviews)`}>
@@ -406,23 +406,23 @@ export default function ProductDetail({ product }: { product: Product }) {
                           className={`w-2.5 h-2.5 ${
                             star <= Math.round(getAverageRating(p))
                               ? "fill-gold text-gold"
-                              : "text-sand/30 fill-transparent"
+                              : "text-sand/40 fill-transparent"
                           }`}
                         />
                       ))}
                     </div>
-                    <span className="text-[10px] font-sans text-sand/60">({p.reviews.length})</span>
+                    <span className="text-[10px] font-sans text-muted">({p.reviews.length})</span>
                   </div>
                 ) : (
-                  <span className="mt-1 text-[9px] font-sans uppercase tracking-widest text-gold/80 font-medium">New Arrival</span>
+                  <span className="mt-1 text-[9px] font-sans uppercase tracking-widest text-gold font-medium">New Arrival</span>
                 )}
 
-                <p className="mt-1 text-sm text-sand/70">${p.priceAud} AUD</p>
+                <p className="mt-1.5 text-sm font-serif font-semibold text-charcoal">${p.priceAud} AUD</p>
               </Link>
             ))}
           </div>
           <div className="text-center mt-10">
-            <Link href="/#collection" className="inline-flex items-center gap-2 text-xs font-sans uppercase tracking-[0.25em] text-paper-light hover:text-[#C5A059] transition-colors">
+            <Link href="/#collection" className="inline-flex items-center gap-2 text-xs font-sans uppercase tracking-[0.25em] text-charcoal hover:text-[#C5A059] transition-colors font-medium">
               View the full collection <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

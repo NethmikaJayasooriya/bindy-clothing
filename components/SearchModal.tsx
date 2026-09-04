@@ -114,16 +114,16 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex flex-col text-paper-light"
+          className="fixed inset-0 z-50 bg-[#FAF7F2]/95 backdrop-blur-xl flex flex-col text-charcoal"
           onClick={(e) => {
             if (e.target === e.currentTarget) onClose();
           }}
         >
           {/* Top Bar: Primary Focal Search Input */}
-          <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 sm:pt-12 sm:pb-8 border-b border-sand/20 dark:border-white/10">
+          <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 sm:pt-12 sm:pb-8 border-b border-sand/40">
             <div className="flex items-center justify-between gap-4 mb-4">
               {/* Primary Search Input with Gold Bottom Rule */}
-              <div className="relative flex-1 flex items-center border-b-2 border-white/20 focus-within:border-gold pb-3 sm:pb-4 transition-colors duration-300">
+              <div className="relative flex-1 flex items-center border-b-2 border-sand/60 focus-within:border-gold pb-3 sm:pb-4 transition-colors duration-300">
                 <Search className="w-6 h-6 sm:w-8 sm:h-8 text-gold flex-shrink-0 mr-4" />
                 <input
                   ref={inputRef}
@@ -131,7 +131,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search dresses, fabrics, stories..."
-                  className="w-full bg-transparent font-serif text-2xl sm:text-4xl text-white placeholder:text-sand/35 focus:outline-none tracking-wide"
+                  className="w-full bg-transparent font-serif text-2xl sm:text-4xl text-charcoal placeholder:text-muted/50 focus:outline-none tracking-wide"
                 />
                 {query && (
                   <button
@@ -139,7 +139,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       setQuery("");
                       inputRef.current?.focus();
                     }}
-                    className="p-1.5 text-sand/60 hover:text-white transition-colors mr-2 cursor-pointer"
+                    className="p-1.5 text-muted hover:text-charcoal transition-colors mr-2 cursor-pointer"
                     title="Clear search"
                   >
                     <X className="w-5 h-5" />
@@ -150,7 +150,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="p-2.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-sand hover:text-white transition-all duration-300 flex items-center justify-center cursor-pointer flex-shrink-0"
+                className="p-2.5 rounded-full bg-sand/15 hover:bg-sand/30 border border-sand/40 text-charcoal transition-all duration-300 flex items-center justify-center cursor-pointer flex-shrink-0"
                 aria-label="Close search"
                 title="Close (Esc)"
               >
@@ -159,8 +159,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </div>
 
             {/* Quiet Suggestion Row: Popular Searches */}
-            <div className="flex items-center flex-wrap gap-2 text-[10px] sm:text-[11px] font-sans text-sand/60 pt-1">
-              <span className="uppercase tracking-widest text-sand/40 mr-1 hidden sm:inline-block">
+            <div className="flex items-center flex-wrap gap-2 text-[10px] sm:text-[11px] font-sans text-muted pt-1">
+              <span className="uppercase tracking-widest text-muted mr-1 hidden sm:inline-block font-medium">
                 Trending:
               </span>
               {POPULAR_SEARCHES.map((term) => (
@@ -170,7 +170,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     setQuery(term);
                     inputRef.current?.focus();
                   }}
-                  className="px-3 py-1 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-gold/50 text-sand/80 hover:text-white transition-all duration-200 cursor-pointer"
+                  className="px-3 py-1 rounded-full bg-paper-light hover:bg-gold/15 border border-sand/40 hover:border-gold text-charcoal hover:text-gold transition-all duration-200 cursor-pointer shadow-sm"
                 >
                   {term}
                 </button>
@@ -183,11 +183,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             {/* 1. STATE: LIVE SEARCH RESULTS */}
             {cleanQuery && matchingProducts.length > 0 && (
               <div className="space-y-6">
-                <div className="flex items-center justify-between text-xs font-sans text-sand/80 uppercase tracking-[0.25em]">
+                <div className="flex items-center justify-between text-xs font-sans text-muted uppercase tracking-[0.25em]">
                   <span>
                     Results for &ldquo;<span className="text-gold font-medium">{query}</span>&rdquo;
                   </span>
-                  <span className="text-sand/60">
+                  <span className="text-muted">
                     {matchingProducts.length} {matchingProducts.length === 1 ? "Piece" : "Pieces"} Found
                   </span>
                 </div>
@@ -197,10 +197,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     <div
                       key={product.id}
                       onClick={() => handleProductSelect(product.id)}
-                      className="group bg-white/5 hover:bg-white/10 rounded-2xl p-3.5 sm:p-4 border border-white/10 hover:border-gold/60 transition-all duration-300 cursor-pointer flex gap-4 items-center shadow-sm hover:shadow-xl"
+                      className="group bg-paper-light hover:bg-paper rounded-2xl p-3.5 sm:p-4 border border-sand/40 hover:border-gold/60 transition-all duration-300 cursor-pointer flex gap-4 items-center shadow-sm hover:shadow-xl"
                     >
                       {/* Generous Thumbnail */}
-                      <div className="w-20 sm:w-24 aspect-[3/4] rounded-xl overflow-hidden bg-black/40 flex-shrink-0 relative border border-white/10">
+                      <div className="w-20 sm:w-24 aspect-[3/4] rounded-xl overflow-hidden bg-paper-dark flex-shrink-0 relative border border-sand/30">
                         <img
                           src={product.image}
                           alt={product.name}
@@ -210,20 +210,20 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
                       {/* Details */}
                       <div className="flex-1 min-w-0 space-y-1">
-                        <span className="text-[10px] uppercase font-sans tracking-[0.2em] text-gold/90 block truncate font-medium">
+                        <span className="text-[10px] uppercase font-sans tracking-[0.2em] text-gold block truncate font-medium">
                           {product.story}
                         </span>
-                        <h4 className="font-serif text-base sm:text-lg text-paper-light font-medium group-hover:text-gold transition-colors leading-snug truncate">
+                        <h4 className="font-serif text-base sm:text-lg text-charcoal font-medium group-hover:text-gold transition-colors leading-snug truncate">
                           {product.name}
                         </h4>
-                        <p className="text-xs font-sans text-sand/70 truncate font-light">
+                        <p className="text-xs font-sans text-muted truncate font-light">
                           {product.fabric}
                         </p>
                         <div className="pt-1.5 flex items-center justify-between">
-                          <span className="font-serif text-sm sm:text-base font-semibold text-gold">
+                          <span className="font-serif text-sm sm:text-base font-semibold text-charcoal">
                             ${product.priceAud} AUD
                           </span>
-                          <span className="text-[10px] font-sans uppercase tracking-wider text-sand/80 group-hover:text-white flex items-center gap-0.5">
+                          <span className="text-[10px] font-sans uppercase tracking-wider text-muted group-hover:text-gold flex items-center gap-0.5">
                             View <ArrowUpRight className="w-3 h-3" />
                           </span>
                         </div>
@@ -241,10 +241,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   <Search className="w-7 h-7" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-serif text-2xl sm:text-3xl text-paper-light font-light">
+                  <h3 className="font-serif text-2xl sm:text-3xl text-charcoal font-light">
                     No results for &ldquo;<span className="text-gold">{query}</span>&rdquo;
                   </h3>
-                  <p className="font-serif italic text-sm text-sand/75 leading-relaxed font-light">
+                  <p className="font-serif italic text-sm text-muted leading-relaxed font-light">
                     Try searching by garment category, natural textile (&ldquo;Voile&rdquo;, &ldquo;Handloom&rdquo;, &ldquo;Silk&rdquo;), or color hue.
                   </p>
                 </div>
@@ -256,7 +256,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       const el = document.getElementById("collection");
                       el?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="px-8 py-3.5 rounded-full bg-gold text-black hover:bg-paper-light font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-[0_6px_25px_rgba(197,160,89,0.3)] cursor-pointer"
+                    className="px-8 py-3.5 rounded-full bg-gold text-charcoal hover:bg-cinnamon hover:text-white font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-lg cursor-pointer"
                   >
                     Browse Full Collection
                   </button>
@@ -273,7 +273,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-gold font-medium">
                       Browse by Category
                     </span>
-                    <span className="text-xs font-sans text-sand/50">19 Total Pieces</span>
+                    <span className="text-xs font-sans text-muted">19 Total Pieces</span>
                   </div>
 
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -286,7 +286,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             setQuery(cat.name);
                             inputRef.current?.focus();
                           }}
-                          className="group relative h-44 sm:h-52 rounded-2xl overflow-hidden bg-gradient-to-br from-[#26221E] via-[#1A1816] to-[#121110] border border-white/10 hover:border-gold/70 text-left transition-all duration-500 shadow-lg hover:shadow-2xl cursor-pointer"
+                          className="group relative h-44 sm:h-52 rounded-2xl overflow-hidden bg-paper-dark border border-sand/40 hover:border-gold text-left transition-all duration-500 shadow-md hover:shadow-2xl cursor-pointer"
                         >
                           {/* Background Image with Graceful Error Fallback */}
                           <img
@@ -311,7 +311,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             <h4 className="font-serif text-xl sm:text-2xl text-white font-medium group-hover:text-gold transition-colors leading-tight">
                               {cat.name}
                             </h4>
-                            <p className="text-[11px] font-sans text-sand/80 font-light line-clamp-1">
+                            <p className="text-[11px] font-sans text-white/80 font-light line-clamp-1">
                               {cat.tagline}
                             </p>
                           </div>
@@ -322,12 +322,12 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 </div>
 
                 {/* Secondary Content: Featured Highlights */}
-                <div className="space-y-5 pt-8 border-t border-white/10">
+                <div className="space-y-5 pt-8 border-t border-sand/30">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-sand/60 font-medium">
+                    <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-muted font-medium">
                       Featured Highlights
                     </span>
-                    <span className="text-[10px] font-sans uppercase tracking-wider text-gold">
+                    <span className="text-[10px] font-sans uppercase tracking-wider text-gold font-semibold">
                       Origins 01
                     </span>
                   </div>
@@ -337,21 +337,21 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <div
                         key={prod.id}
                         onClick={() => handleProductSelect(prod.id)}
-                        className="group flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-gold/50 cursor-pointer transition-all duration-300"
+                        className="group flex items-center gap-3.5 p-3 rounded-2xl bg-paper-light hover:bg-paper border border-sand/40 hover:border-gold/50 cursor-pointer transition-all duration-300 shadow-sm"
                       >
                         <img
                           src={prod.image}
                           alt={prod.name}
-                          className="w-14 h-16 object-cover rounded-xl bg-black/40 border border-white/10 flex-shrink-0 group-hover:scale-105 transition-transform"
+                          className="w-14 h-16 object-cover rounded-xl bg-paper-dark border border-sand/30 flex-shrink-0 group-hover:scale-105 transition-transform"
                         />
                         <div className="min-w-0 flex-1 space-y-0.5">
-                          <span className="text-[9px] uppercase font-sans tracking-widest text-gold block">
+                          <span className="text-[9px] uppercase font-sans tracking-widest text-gold block font-medium">
                             {prod.story}
                           </span>
-                          <p className="font-serif text-sm sm:text-base text-paper-light truncate font-medium group-hover:text-gold transition-colors">
+                          <p className="font-serif text-sm sm:text-base text-charcoal truncate font-medium group-hover:text-gold transition-colors">
                             {prod.name}
                           </p>
-                          <p className="font-serif text-xs font-semibold text-gold">
+                          <p className="font-serif text-xs font-semibold text-charcoal">
                             ${prod.priceAud} AUD
                           </p>
                         </div>

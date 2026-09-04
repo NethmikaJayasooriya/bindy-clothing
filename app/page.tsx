@@ -95,7 +95,7 @@ export default function Home() {
   const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <main className="relative min-h-screen bg-paper dark:bg-ink-deep text-charcoal dark:text-paper selection:bg-gold selection:text-white">
+    <main className="relative min-h-screen bg-paper text-charcoal selection:bg-gold selection:text-white">
       {/* 1. PLEATED SILK & UNRAVELLING THREAD SPLASH SCREEN */}
       {showSplash && (
         <SplashScreen
@@ -132,7 +132,7 @@ export default function Home() {
       <div className="h-[calc(100vh-36px)] sm:h-[calc(100vh-38px)]" aria-hidden />
 
       {/* Everything below rises up over the fixed hero */}
-      <div className="relative z-10 bg-paper dark:bg-ink-deep shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+      <div className="relative z-10 bg-paper shadow-[0_-20px_50px_rgba(0,0,0,0.15)]">
         {/* 4. HERITAGE VALUES TICKER (Untouched at the bottom edge of hero) */}
         <HeritageTicker />
 

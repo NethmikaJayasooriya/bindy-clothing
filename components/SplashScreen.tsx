@@ -55,20 +55,20 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     >
       {/* LEFT SILK CURTAIN PANEL */}
       <div
-        className={`curtain-left absolute top-0 left-0 w-1/2 h-full bg-ink z-20 overflow-hidden shadow-[10px_0_50px_rgba(0,0,0,0.8)]`}
+        className={`curtain-left absolute top-0 left-0 w-1/2 h-full bg-[#FAF7F2] z-20 overflow-hidden shadow-[10px_0_50px_rgba(0,0,0,0.12)]`}
       >
         {/* Symmetrical Fabric Shading */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#2A2420]/20 to-black/50" />
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_30%_50%,rgba(197,160,89,0.2)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#EFE7DC]/50 to-[#DCC7AF]/40" />
+        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_30%_50%,rgba(197,160,89,0.25)_0%,transparent_70%)]" />
       </div>
 
       {/* RIGHT SILK CURTAIN PANEL */}
       <div
-        className={`curtain-right absolute top-0 right-0 w-1/2 h-full bg-ink z-20 overflow-hidden shadow-[-10px_0_50px_rgba(0,0,0,0.8)]`}
+        className={`curtain-right absolute top-0 right-0 w-1/2 h-full bg-[#FAF7F2] z-20 overflow-hidden shadow-[-10px_0_50px_rgba(0,0,0,0.12)]`}
       >
         {/* Symmetrical Fabric Shading */}
-        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#2A2420]/20 to-black/50" />
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_70%_50%,rgba(197,160,89,0.2)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#EFE7DC]/50 to-[#DCC7AF]/40" />
+        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_70%_50%,rgba(197,160,89,0.25)_0%,transparent_70%)]" />
       </div>
 
       {/* CENTER STAGE CONTENT - ABSOLUTELY CENTERED ON SCREEN */}
@@ -77,7 +77,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           }`}
       >
         {/* Perfectly Centered Radial Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-[#C5A059]/10 via-[#A46446]/10 to-transparent blur-3xl animate-pulse-glow pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-[#C5A059]/15 via-[#A46446]/10 to-transparent blur-3xl animate-pulse-glow pointer-events-none" />
 
         {/* Brand Crest & Lotus Motif */}
         <motion.div
@@ -86,7 +86,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           transition={{ duration: 1, ease: "easeOut" }}
           className="flex flex-col items-center justify-center space-y-3 mb-6"
         >
-          <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full border border-[#C5A059]/40 flex items-center justify-center bg-[#C5A059]/5 backdrop-blur-md shadow-[0_0_25px_rgba(197,160,89,0.15)] mx-auto">
+          <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full border border-[#C5A059]/50 flex items-center justify-center bg-[#FFFDF9] backdrop-blur-md shadow-[0_2px_15px_rgba(197,160,89,0.2)] mx-auto">
             <svg
               className="w-6 h-6 sm:w-7 sm:h-7 text-[#C5A059]"
               viewBox="0 0 24 24"
@@ -99,7 +99,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
               <path d="M12 21C17 19 21 15 21 11C21 8 19 6 18 5C18 5 18 10 12 14" />
             </svg>
           </div>
-          <span className="text-[10px] sm:text-[11px] font-sans tracking-[0.35em] text-[#C5A059] uppercase block text-center pl-[0.35em]">
+          <span className="text-[10px] sm:text-[11px] font-sans tracking-[0.35em] text-[#C5A059] uppercase block text-center pl-[0.35em] font-semibold">
             Collection 01 • Origins
           </span>
         </motion.div>
@@ -112,13 +112,13 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto"
         >
           {/* Tracking compensation pl-[0.25em] ensures true optical & geometrical center */}
-          <h1 className="font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-[#FAF7F2] font-light tracking-[0.25em] pl-[0.25em] uppercase drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)] text-center">
+          <h1 className="font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-charcoal font-light tracking-[0.25em] pl-[0.25em] uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)] text-center">
             BINDY<span className="text-[#C5A059]">.</span>
           </h1>
-          <p className="mt-4 font-serif italic text-lg sm:text-2xl text-[#DCC7AF]/90 tracking-wide font-light text-center">
+          <p className="mt-4 font-serif italic text-lg sm:text-2xl text-charcoal/85 tracking-wide font-light text-center">
             Wear Your Calm, Feel Your Story
           </p>
-          <p className="mt-2 text-[11px] sm:text-[12px] font-sans uppercase tracking-[0.4em] pl-[0.4em] text-[#A89F91] text-center">
+          <p className="mt-2 text-[11px] sm:text-[12px] font-sans uppercase tracking-[0.4em] pl-[0.4em] text-muted text-center font-medium">
             Two Islands • One Thread
           </p>
         </motion.div>
@@ -134,7 +134,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
             {/* Background guide line */}
             <path
               d="M 10 15 Q 95 -2, 190 15 T 370 15"
-              stroke="rgba(197, 160, 89, 0.15)"
+              stroke="rgba(197, 160, 89, 0.25)"
               strokeWidth="1.5"
               strokeLinecap="round"
             />
@@ -153,15 +153,15 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
               <linearGradient id="threadGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#A46446" />
                 <stop offset="50%" stopColor="#C5A059" />
-                <stop offset="100%" stopColor="#FAF7F2" />
+                <stop offset="100%" stopColor="#1F1E1D" />
               </linearGradient>
             </defs>
           </svg>
 
           {/* Symmetrically balanced status row */}
-          <div className="grid grid-cols-3 w-full px-1 text-[10px] sm:text-[11px] font-sans tracking-[0.25em] text-[#DCC7AF]/80 uppercase mt-1">
+          <div className="grid grid-cols-3 w-full px-1 text-[10px] sm:text-[11px] font-sans tracking-[0.25em] text-charcoal/70 uppercase mt-1 font-medium">
             <span className="text-left">Weaving</span>
-            <span className="text-center text-[#C5A059] font-mono">{progress}%</span>
+            <span className="text-center text-[#C5A059] font-mono font-bold">{progress}%</span>
             <span className="text-right">Heritage</span>
           </div>
         </div>
@@ -176,17 +176,17 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           <button
             onClick={handleEnter}
             disabled={!isReady && progress < 30}
-            className="group relative px-8 py-3.5 rounded-full border border-[#C5A059]/50 bg-gradient-to-r from-[#C5A059]/10 via-[#FAF7F2]/5 to-[#C5A059]/10 hover:border-[#C5A059] transition-all duration-500 backdrop-blur-md shadow-[0_4px_30px_rgba(197,160,89,0.2)] hover:shadow-[0_4px_40px_rgba(197,160,89,0.4)] flex items-center space-x-3 cursor-pointer mx-auto"
+            className="group relative px-8 py-3.5 rounded-full border border-[#C5A059]/60 bg-[#FFFDF9] hover:bg-[#C5A059] transition-all duration-500 shadow-md hover:shadow-lg flex items-center space-x-3 cursor-pointer mx-auto"
           >
-            <span className="text-xs uppercase font-sans tracking-[0.35em] pl-[0.35em] text-[#FAF7F2] group-hover:text-[#C5A059] transition-colors duration-300">
+            <span className="text-xs uppercase font-sans tracking-[0.35em] pl-[0.35em] text-charcoal group-hover:text-charcoal transition-colors duration-300 font-semibold">
               {isReady ? "Unveil Experience" : "Unravelling Thread..."}
             </span>
-            <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] group-hover:translate-x-1.5 transition-transform duration-300" />
+            <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] group-hover:text-charcoal group-hover:translate-x-1.5 transition-transform duration-300" />
           </button>
         </motion.div>
 
         {/* Footer Credit & Origin - Symmetrically Centered */}
-        <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center space-x-4 text-[10px] uppercase font-sans tracking-[0.3em] pl-[0.3em] text-[#8C8477]">
+        <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center space-x-4 text-[10px] uppercase font-sans tracking-[0.3em] pl-[0.3em] text-muted font-medium">
           <span>Designed in Australia</span>
           <span className="text-[#C5A059]">•</span>
           <span>Inspired by Sri Lanka</span>

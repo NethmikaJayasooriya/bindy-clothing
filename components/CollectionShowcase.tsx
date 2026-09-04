@@ -46,7 +46,7 @@ function StarRatingBadge({ product }: { product: Product }) {
           />
         ))}
       </div>
-      <span className="text-xs font-sans text-zinc-700 dark:text-sand/90 font-medium">
+      <span className="text-xs font-sans text-charcoal font-medium">
         {rating.toFixed(1)} <span className="text-muted font-normal">({count})</span>
       </span>
     </div>
@@ -131,13 +131,13 @@ export default function CollectionShowcase({
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
-          <span className="text-[11px] font-sans uppercase tracking-[0.4em] text-[#C5A059] font-medium">
+          <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-[#C5A059] font-semibold block">
             Collection 01 • Serendipity
           </span>
-          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#1F1E1D] dark:text-[#FAF7F2] font-light tracking-wide">
-            Simple pieces. <span className="italic font-serif">Meaningful moments.</span>
+          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal-rich font-light tracking-wide leading-tight">
+            Simple pieces. <span className="font-editorial-italic text-[#C5A059]">Meaningful moments.</span>
           </h2>
-          <p className="font-serif italic text-lg text-zinc-600 dark:text-zinc-400 font-light">
+          <p className="font-serif italic text-lg sm:text-xl text-muted font-light max-w-2xl mx-auto leading-relaxed">
             Nineteen handcrafted styles — each one carrying a fragment of Sri Lanka into the Australian wardrobe.
           </p>
         </div>
@@ -146,7 +146,7 @@ export default function CollectionShowcase({
         <div className="mb-14">
           <div className="flex items-center justify-center gap-2 mb-6">
             <MapPin className="w-4 h-4 text-[#C5A059]" />
-            <span className="text-[12px] font-sans uppercase tracking-[0.35em] text-zinc-500 dark:text-zinc-300">
+            <span className="text-[11px] font-sans uppercase tracking-[0.32em] text-muted font-semibold">
               Where will you wear it?
             </span>
           </div>
@@ -159,10 +159,10 @@ export default function CollectionShowcase({
                 <button
                   key={k}
                   onClick={() => setActiveDest(k === "All" ? "All" : active ? "All" : (k as Destination))}
-                  className={`group relative h-36 sm:h-44 rounded-2xl overflow-hidden text-left transition-all duration-500 ${
+                  className={`group relative h-36 sm:h-44 rounded-2xl overflow-hidden text-left transition-all duration-500 cursor-pointer ${
                     active
-                      ? "ring-2 ring-[#C5A059] shadow-[0_12px_40px_rgba(197,160,89,0.35)] -translate-y-1"
-                      : "ring-1 ring-white/10 hover:-translate-y-1 hover:ring-[#C5A059]/60"
+                      ? "ring-2 ring-[#C5A059] shadow-[0_12px_36px_rgba(197,160,89,0.35)] -translate-y-1"
+                      : "ring-1 ring-sand/40 hover:-translate-y-1 hover:ring-[#C5A059]/70 shadow-sm"
                   }`}
                 >
                   {/* bg image */}
@@ -170,20 +170,20 @@ export default function CollectionShowcase({
                     src={DEST_IMG[k]}
                     alt={label}
                     className={`absolute inset-0 w-full h-full object-cover object-[center_20%] transition-transform duration-[1.4s] ease-out ${
-                      active ? "scale-105" : "grayscale-[15%] group-hover:scale-105 group-hover:grayscale-0"
+                      active ? "scale-105" : "grayscale-[10%] group-hover:scale-105 group-hover:grayscale-0"
                     }`}
                   />
                   {/* overlays */}
-                  <div className={`absolute inset-0 transition-colors duration-500 ${active ? "bg-black/35" : "bg-black/55 group-hover:bg-black/40"}`} />
+                  <div className={`absolute inset-0 transition-colors duration-500 ${active ? "bg-black/30" : "bg-black/50 group-hover:bg-black/35"}`} />
                   <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                  {active && <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-[#C5A059] flex items-center justify-center shadow"><Check className="w-3 h-3 text-black" /></div>}
+                  {active && <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-[#C5A059] flex items-center justify-center shadow-md"><Check className="w-3 h-3 text-black stroke-[3]" /></div>}
                   {/* content */}
                   <div className="absolute inset-0 p-3.5 flex flex-col justify-end">
-                    <Icon className="w-5 h-5 mb-2 text-[#E7C989] drop-shadow" />
+                    <Icon className="w-5 h-5 mb-2 text-[#DFC182] drop-shadow-sm" />
                     <div className="font-serif text-[15px] leading-tight text-white font-medium drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]">
                       {label}
                     </div>
-                    <div className="text-[10px] font-sans mt-0.5 tracking-wide text-white/75">
+                    <div className="text-[10px] font-sans mt-0.5 tracking-wide text-white/80 font-light">
                       {tagline}
                     </div>
                   </div>
@@ -195,7 +195,7 @@ export default function CollectionShowcase({
 
         {/* ── CATEGORY TABS (bold, high-contrast) ── */}
         <div className="flex flex-col items-center gap-4 mb-14">
-          <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-zinc-400 dark:text-zinc-500">
+          <span className="text-[10px] font-sans uppercase tracking-[0.32em] text-muted font-semibold">
             Browse by piece
           </span>
           <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
@@ -205,10 +205,10 @@ export default function CollectionShowcase({
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-2.5 rounded-full text-[12px] font-sans uppercase tracking-[0.22em] transition-all duration-300 border ${
+                  className={`px-6 py-2.5 rounded-full text-[11px] font-sans uppercase tracking-[0.24em] transition-all duration-300 border cursor-pointer ${
                     active
-                      ? "bg-[#C5A059] text-black border-[#C5A059] font-semibold shadow-[0_8px_28px_rgba(197,160,89,0.4)] scale-[1.04]"
-                      : "bg-white/70 dark:bg-white/5 text-zinc-700 dark:text-zinc-200 border-black/5 dark:border-white/10 hover:border-[#C5A059] hover:text-[#C5A059] dark:hover:text-[#E7C989]"
+                      ? "bg-[#C5A059] text-charcoal border-[#C5A059] font-bold shadow-[0_8px_24px_rgba(197,160,89,0.38)] scale-[1.04]"
+                      : "bg-paper-light text-charcoal border-sand/40 hover:border-[#C5A059] hover:text-[#C5A059] font-medium shadow-sm hover:shadow"
                   }`}
                 >
                   {cat}
@@ -229,11 +229,11 @@ export default function CollectionShowcase({
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.5 }}
                 key={product.id}
-                className="group flex flex-col bg-white/40 dark:bg-white/[0.03] rounded-2xl overflow-hidden border border-[#DCC7AF]/20 dark:border-white/10 hover:border-[#C5A059]/50 transition-all duration-500 hover:shadow-[0_14px_50px_rgba(31,30,29,0.14)]"
+                className="group flex flex-col bg-paper-light rounded-3xl overflow-hidden border border-sand/40 hover:border-[#C5A059]/70 transition-all duration-500 shadow-paper-card hover:shadow-luxury-hover"
               >
                 {/* Product Image Frame — image → cinematic video crossfade on hover */}
                 <div
-                  className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DC] dark:bg-[#1a1917]"
+                  className="relative aspect-[3/4] w-full overflow-hidden bg-paper-dark"
                   onMouseEnter={(e) => {
                     const v = e.currentTarget.querySelector("video");
                     if (v) { v.currentTime = 0; const p = v.play(); if (p) p.catch(() => {}); }
@@ -341,31 +341,32 @@ export default function CollectionShowcase({
                 </div>
 
                 {/* Product Info */}
-                <div className="p-5 flex flex-col justify-between flex-1">
+                <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
                   <div>
-                    <div className="text-[10px] uppercase font-sans tracking-[0.25em] text-[#C5A059] mb-1">
+                    <div className="text-[10px] uppercase font-sans tracking-[0.28em] text-[#C5A059] mb-1 font-semibold">
                       {product.story}
                     </div>
                     <Link href={`/product/${product.id}`}>
-                      <h3 className="font-serif text-lg text-zinc-900 dark:text-zinc-100 font-medium group-hover:text-[#C5A059] transition-colors cursor-pointer leading-snug">
+                      <h3 className="font-serif text-lg text-charcoal font-medium group-hover:text-[#C5A059] transition-colors cursor-pointer leading-snug">
                         {product.name}
                       </h3>
                     </Link>
-                    <p className="text-xs font-sans text-zinc-500 dark:text-zinc-400 mt-0.5">
+                    <p className="text-xs font-sans text-muted mt-1 font-light">
                       {product.fabric}
                     </p>
                     <StarRatingBadge product={product} />
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-[#DCC7AF]/20 dark:border-white/10 flex items-center justify-between">
-                    <span className="font-serif text-base text-zinc-900 dark:text-zinc-100 font-semibold">
-                      ${product.priceAud} AUD
+                  <div className="mt-4 pt-3.5 border-t border-sand/30 flex items-center justify-between">
+                    <span className="font-serif text-lg text-charcoal font-semibold tracking-tight">
+                      ${product.priceAud} <span className="text-[11px] font-sans font-normal text-muted">AUD</span>
                     </span>
                     <Link
                       href={`/product/${product.id}`}
-                      className="inline-flex items-center gap-1 text-xs font-sans uppercase tracking-widest text-[#1F1E1D] dark:text-[#FAF7F2] hover:text-[#C5A059] font-medium transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-[0.2em] text-charcoal hover:text-[#C5A059] font-semibold transition-colors"
                     >
-                      View <ArrowRight className="w-3.5 h-3.5" />
+                      <span>Explore</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 </div>
@@ -375,7 +376,7 @@ export default function CollectionShowcase({
         </div>
 
         {filteredProducts.length === 0 && (
-          <div className="text-center py-20 text-zinc-500 dark:text-zinc-400 font-serif italic">
+          <div className="text-center py-20 text-muted font-serif italic">
             No pieces match this journey yet — try another destination.
           </div>
         )}

@@ -71,19 +71,19 @@ export default function ProductModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="relative z-10 w-full max-w-4xl bg-paper dark:bg-ink rounded-3xl overflow-hidden shadow-2xl border border-sand/40 flex flex-col md:flex-row max-h-[90vh] overflow-y-auto custom-scrollbar"
+          className="relative z-10 w-full max-w-4xl bg-paper-light text-charcoal rounded-3xl overflow-hidden shadow-2xl border border-sand/40 flex flex-col md:flex-row max-h-[90vh] overflow-y-auto custom-scrollbar"
         >
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/40 hover:bg-black text-white transition-colors cursor-pointer"
+            className="absolute top-4 right-4 z-20 p-2 rounded-full bg-sand/20 hover:bg-sand/40 text-charcoal transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
           </button>
 
           {/* Left Column: Image */}
-          <div className="md:w-1/2 relative min-h-[350px] md:min-h-[500px] bg-sand/10">
+          <div className="md:w-1/2 relative min-h-[350px] md:min-h-[500px] bg-paper-dark">
             <img
               src={product.image}
               alt={product.name}
@@ -93,7 +93,7 @@ export default function ProductModal({
               <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] uppercase tracking-[0.2em] text-[#FAF7F2] border border-white/20">
                 {product.category}
               </span>
-              <span className="px-3 py-1 rounded-full bg-white/80 backdrop-blur-md text-[10px] uppercase tracking-[0.2em] text-[#1F1E1D] font-medium shadow-sm">
+              <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] uppercase tracking-[0.2em] text-[#1F1E1D] font-medium shadow-sm border border-sand/30">
                 {product.storyPlace}
               </span>
             </div>
@@ -109,7 +109,7 @@ export default function ProductModal({
               title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
               aria-label="Save to Wishlist"
             >
-              <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? "fill-charcoal" : ""}`} />
+              <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? "fill-charcoal text-charcoal" : "text-gold"}`} />
             </button>
           </div>
 
@@ -117,11 +117,11 @@ export default function ProductModal({
           <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div>
-                <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-[#C5A059] font-medium mb-1">
+                <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-[#C5A059] font-semibold mb-1">
                   {product.story}
                 </p>
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-serif text-2xl md:text-3xl text-[#1F1E1D] dark:text-[#FAF7F2] font-normal">
+                  <h3 className="font-serif text-2xl md:text-3xl text-charcoal font-medium">
                     {product.name}
                   </h3>
                   <button
@@ -137,23 +137,23 @@ export default function ProductModal({
                     <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? "fill-gold text-gold" : ""}`} />
                   </button>
                 </div>
-                <p className="font-serif text-lg text-[#C5A059] font-semibold mt-1">
+                <p className="font-serif text-lg text-charcoal font-semibold mt-1">
                   ${product.priceAud} AUD
                 </p>
               </div>
 
               <div className="space-y-1.5 text-xs">
-                <p className="text-zinc-600 dark:text-zinc-400">
-                  <span className="font-medium text-zinc-800 dark:text-zinc-200">Fabric: </span>
+                <p className="text-muted">
+                  <span className="font-medium text-charcoal">Fabric: </span>
                   {product.fabric}
                 </p>
-                <p className="text-zinc-600 dark:text-zinc-400">
-                  <span className="font-medium text-zinc-800 dark:text-zinc-200">Color: </span>
+                <p className="text-muted">
+                  <span className="font-medium text-charcoal">Color: </span>
                   {product.colorName}
                 </p>
               </div>
 
-              <p className="text-xs font-sans text-zinc-600 dark:text-zinc-300 leading-relaxed font-light">
+              <p className="text-xs font-sans text-charcoal/80 leading-relaxed font-light">
                 {product.description}
               </p>
 
@@ -169,12 +169,12 @@ export default function ProductModal({
               {/* Size Selector */}
               <div className="pt-2">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-[11px] font-sans uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-medium">
+                  <span className="text-[11px] font-sans uppercase tracking-wider text-charcoal font-medium">
                     Select AU Size:
                   </span>
                   <button
                     onClick={() => setShowSizeGuide(true)}
-                    className="text-[11px] font-sans text-[#C5A059] hover:underline cursor-pointer"
+                    className="text-[11px] font-sans text-gold hover:underline cursor-pointer font-medium"
                   >
                     Size Guide
                   </button>
@@ -187,8 +187,8 @@ export default function ProductModal({
                       onClick={() => setSelectedSize(s)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-sans tracking-wider border transition-all cursor-pointer ${
                         selectedSize === s
-                          ? "border-[#1F1E1D] dark:border-[#FAF7F2] bg-[#1F1E1D] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#1F1E1D] font-medium"
-                          : "border-zinc-300 dark:border-zinc-700 hover:border-zinc-500 text-zinc-700 dark:text-zinc-300"
+                          ? "border-charcoal bg-charcoal text-paper font-semibold shadow-sm"
+                          : "border-sand/40 bg-paper hover:border-gold text-charcoal"
                       }`}
                     >
                       {s}

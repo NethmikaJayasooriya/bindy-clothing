@@ -49,19 +49,19 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 15 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative z-10 max-w-2xl w-full bg-ink text-paper rounded-3xl overflow-hidden border border-gold/30 shadow-2xl max-h-[90vh] flex flex-col"
+            className="relative z-10 max-w-2xl w-full bg-paper-light text-charcoal rounded-3xl overflow-hidden border border-sand/40 shadow-2xl max-h-[90vh] flex flex-col"
           >
             {/* Header */}
-            <div className="p-5 sm:p-6 border-b border-white/10 flex items-center justify-between bg-ink-deep/60">
+            <div className="p-5 sm:p-6 border-b border-sand/30 flex items-center justify-between bg-paper">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold">
                   <Ruler className="w-5 h-5 stroke-[1.5]" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold block">
+                  <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-semibold block">
                     Tailoring & Dimensions
                   </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-light text-paper-light">
+                  <h3 className="font-serif text-xl sm:text-2xl font-normal text-charcoal">
                     Size & Fit Guide
                   </h3>
                 </div>
@@ -69,7 +69,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
 
               <button
                 onClick={onClose}
-                className="p-2 rounded-full bg-white/5 border border-white/10 text-sand/80 hover:text-white hover:bg-white/15 transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
+                className="p-2 rounded-full bg-sand/15 border border-sand/40 text-charcoal hover:bg-sand/30 transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
                 aria-label="Close Size Guide"
               >
                 <X className="w-4 h-4" />
@@ -81,29 +81,29 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
               {/* AU Sizing Chart */}
               <section className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-serif text-lg text-paper-light font-medium">
+                  <h4 className="font-serif text-lg text-charcoal font-medium">
                     Australian Standard Sizing Chart
                   </h4>
-                  <span className="text-[11px] font-sans text-sand/60">Measurements in cm</span>
+                  <span className="text-[11px] font-sans text-muted">Measurements in cm</span>
                 </div>
 
-                <div className="overflow-x-auto custom-scrollbar rounded-2xl border border-sand/20 bg-ink-deep/40">
+                <div className="overflow-x-auto custom-scrollbar rounded-2xl border border-sand/30 bg-paper">
                   <table className="w-full text-left text-xs font-sans border-collapse">
                     <thead>
-                      <tr className="border-b border-sand/20 bg-white/5 text-gold text-[10px] uppercase tracking-wider">
+                      <tr className="border-b border-sand/30 bg-sand/15 text-charcoal text-[10px] uppercase tracking-wider">
                         <th className="py-3 px-4 font-semibold">AU Size</th>
                         <th className="py-3 px-4 font-semibold">Bust (cm)</th>
                         <th className="py-3 px-4 font-semibold">Waist (cm)</th>
                         <th className="py-3 px-4 font-semibold">Hip (cm)</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5">
+                    <tbody className="divide-y divide-sand/20">
                       {SIZE_CHART.map((row, idx) => (
-                        <tr key={idx} className="hover:bg-white/5 transition-colors">
-                          <td className="py-3 px-4 font-medium text-paper-light">{row.size}</td>
-                          <td className="py-3 px-4 text-sand/90">{row.bust}</td>
-                          <td className="py-3 px-4 text-sand/90">{row.waist}</td>
-                          <td className="py-3 px-4 text-sand/90">{row.hip}</td>
+                        <tr key={idx} className="hover:bg-sand/10 transition-colors">
+                          <td className="py-3 px-4 font-medium text-charcoal">{row.size}</td>
+                          <td className="py-3 px-4 text-charcoal/80">{row.bust}</td>
+                          <td className="py-3 px-4 text-charcoal/80">{row.waist}</td>
+                          <td className="py-3 px-4 text-charcoal/80">{row.hip}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -113,41 +113,41 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
 
               {/* How to Measure */}
               <section className="space-y-3">
-                <h4 className="font-serif text-lg text-paper-light font-medium flex items-center gap-2">
+                <h4 className="font-serif text-lg text-charcoal font-medium flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-gold" />
                   How to Measure
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-sans">
-                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                    <span className="text-gold font-medium uppercase tracking-wider text-[10px] block">1. Bust</span>
-                    <p className="text-sand/80 leading-relaxed font-light">
+                  <div className="p-3.5 rounded-2xl bg-paper border border-sand/30 space-y-1">
+                    <span className="text-gold font-semibold uppercase tracking-wider text-[10px] block">1. Bust</span>
+                    <p className="text-charcoal/80 leading-relaxed font-light">
                       Measure around the fullest part of your bust, keeping the tape level.
                     </p>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                    <span className="text-gold font-medium uppercase tracking-wider text-[10px] block">2. Waist</span>
-                    <p className="text-sand/80 leading-relaxed font-light">
+                  <div className="p-3.5 rounded-2xl bg-paper border border-sand/30 space-y-1">
+                    <span className="text-gold font-semibold uppercase tracking-wider text-[10px] block">2. Waist</span>
+                    <p className="text-charcoal/80 leading-relaxed font-light">
                       Measure around the narrowest part of your natural waistline.
                     </p>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                    <span className="text-gold font-medium uppercase tracking-wider text-[10px] block">3. Hip</span>
-                    <p className="text-sand/80 leading-relaxed font-light">
+                  <div className="p-3.5 rounded-2xl bg-paper border border-sand/30 space-y-1">
+                    <span className="text-gold font-semibold uppercase tracking-wider text-[10px] block">3. Hip</span>
+                    <p className="text-charcoal/80 leading-relaxed font-light">
                       Measure around the fullest part of your hips, about 20cm below your waist.
                     </p>
                   </div>
                 </div>
-                <p className="text-[11px] font-sans text-sand/70 italic">
+                <p className="text-[11px] font-sans text-muted italic">
                   * For the most accurate fit, measure over light clothing or undergarments, keeping the tape snug but not tight.
                 </p>
               </section>
 
               {/* Fit Notes */}
-              <section className="space-y-3 bg-white/5 border border-white/10 p-4 sm:p-5 rounded-2xl">
-                <h4 className="font-serif text-base text-paper-light font-medium text-gold">
+              <section className="space-y-3 bg-paper border border-sand/30 p-4 sm:p-5 rounded-2xl">
+                <h4 className="font-serif text-base text-charcoal font-medium text-gold">
                   Artisan Fabric & Silhouette Notes
                 </h4>
-                <ul className="space-y-2.5 text-xs font-sans text-sand/90 font-light leading-relaxed">
+                <ul className="space-y-2.5 text-xs font-sans text-charcoal/85 font-light leading-relaxed">
                   <li className="flex items-start gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0" />
                     <span>
@@ -170,7 +170,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
               </section>
 
               {/* Still Unsure? */}
-              <section className="flex items-center gap-3 p-4 rounded-2xl bg-gold/10 border border-gold/30 text-xs font-sans text-sand/90">
+              <section className="flex items-center gap-3 p-4 rounded-2xl bg-gold/10 border border-gold/30 text-xs font-sans text-charcoal">
                 <HelpCircle className="w-5 h-5 text-gold flex-shrink-0" />
                 <div className="space-y-0.5">
                   <span className="font-medium text-gold">Still Unsure About Sizing?</span>
@@ -182,8 +182,8 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
             </div>
 
             {/* Footer */}
-            <div className="p-4 sm:p-5 border-t border-white/10 bg-ink-deep flex items-center justify-between">
-              <div className="flex items-center gap-2 text-[11px] font-sans text-sand/70">
+            <div className="p-4 sm:p-5 border-t border-sand/30 bg-paper flex items-center justify-between">
+              <div className="flex items-center gap-2 text-[11px] font-sans text-muted">
                 <ShieldCheck className="w-4 h-4 text-gold" />
                 <span>30-Day Effortless Australian Exchanges</span>
               </div>

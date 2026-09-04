@@ -518,10 +518,10 @@ export default function CheckoutPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-ink-deep flex items-center justify-center text-paper">
+      <div className="min-h-screen bg-paper flex items-center justify-center text-charcoal">
         <div className="flex flex-col items-center gap-3">
           <span className="w-6 h-6 border-2 border-gold border-t-transparent rounded-full animate-spin" />
-          <span className="font-sans text-xs uppercase tracking-widest text-sand/70">Loading Checkout...</span>
+          <span className="font-sans text-xs uppercase tracking-widest text-muted">Loading Checkout...</span>
         </div>
       </div>
     );
@@ -530,30 +530,30 @@ export default function CheckoutPage() {
   // If bag is empty and no completed order exists in this session
   if (items.length === 0 && step !== "confirmation") {
     return (
-      <main className="min-h-screen bg-ink-deep text-paper flex flex-col justify-between">
-        <header className="border-b border-white/10 py-5 px-4 sm:px-6">
+      <main className="min-h-screen bg-paper text-charcoal flex flex-col justify-between">
+        <header className="border-b border-sand/40 py-5 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <Link href="/" className="font-display text-2xl tracking-[0.12em]">
+            <Link href="/" className="font-display text-2xl tracking-[0.12em] text-charcoal">
               BINDY<span className="text-gold">.</span>
             </Link>
           </div>
         </header>
         <div className="max-w-md mx-auto px-4 py-20 text-center space-y-6">
-          <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-gold">
+          <div className="w-16 h-16 rounded-full bg-sand/20 border border-sand/40 flex items-center justify-center mx-auto text-gold">
             <ShoppingBag className="w-7 h-7 stroke-[1.2]" />
           </div>
-          <h1 className="font-serif text-3xl font-light text-paper-light">Your Bag is Empty</h1>
-          <p className="font-sans text-sm text-sand/80 leading-relaxed font-light">
+          <h1 className="font-serif text-3xl font-light text-charcoal">Your Bag is Empty</h1>
+          <p className="font-sans text-sm text-muted leading-relaxed font-light">
             You don&apos;t have any pieces in your bag yet. Explore our Serendipity Collection 01 to begin your journey.
           </p>
           <Link
             href="/#collection"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-medium hover:bg-cinnamon hover:text-white transition-all shadow-lg min-h-[48px]"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-medium hover:bg-cinnamon hover:text-white transition-all shadow-md min-h-[48px]"
           >
             Discover Collection <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-        <footer className="py-6 border-t border-white/10 text-center text-xs text-sand/60 font-sans">
+        <footer className="py-6 border-t border-sand/40 text-center text-xs text-muted font-sans">
           © {new Date().getFullYear()} BINDY Clothing • Brisbane, Australia
         </footer>
       </main>
@@ -567,28 +567,28 @@ export default function CheckoutPage() {
       <div className="max-h-72 overflow-y-auto custom-scrollbar space-y-3 pr-1">
         {items.map((item, idx) => (
           <div key={`${item.product.id}-${item.size}-${idx}`} className="flex items-center gap-3 py-1.5">
-            <div className="relative w-14 h-16 rounded-xl overflow-hidden bg-black/40 border border-white/10 flex-shrink-0">
+            <div className="relative w-14 h-16 rounded-xl overflow-hidden bg-paper-dark border border-sand/40 flex-shrink-0">
               <img
                 src={item.product.image}
                 alt={item.product.name}
                 className="w-full h-full object-cover"
               />
-              <span className="absolute top-1 right-1 bg-black/80 text-white text-[9px] font-mono px-1.5 py-0.2 rounded-full">
+              <span className="absolute top-1 right-1 bg-charcoal/80 text-white text-[9px] font-mono px-1.5 py-0.2 rounded-full">
                 ×{item.quantity}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="font-serif text-sm text-paper-light truncate">
+              <h4 className="font-serif text-sm text-charcoal truncate">
                 {item.product.name}
               </h4>
-              <p className="text-[11px] font-sans text-sand/70">
+              <p className="text-[11px] font-sans text-muted">
                 {item.size} • {item.product.colorName}
               </p>
-              <p className="font-serif text-xs font-medium text-gold mt-0.5">
+              <p className="font-serif text-xs font-semibold text-charcoal mt-0.5">
                 ${item.product.priceAud} AUD
               </p>
             </div>
-            <span className="font-serif text-sm text-paper-light font-medium flex-shrink-0">
+            <span className="font-serif text-sm text-charcoal font-semibold flex-shrink-0">
               ${item.product.priceAud * item.quantity}
             </span>
           </div>
@@ -596,10 +596,10 @@ export default function CheckoutPage() {
       </div>
 
       {/* Promo Code Input */}
-      <form onSubmit={handleApplyPromo} className="pt-4 border-t border-white/10 space-y-2">
+      <form onSubmit={handleApplyPromo} className="pt-4 border-t border-sand/30 space-y-2">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Tag className="w-3.5 h-3.5 text-sand/50 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Tag className="w-3.5 h-3.5 text-muted absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               maxLength={25}
@@ -609,12 +609,12 @@ export default function CheckoutPage() {
                 if (promoError) setPromoError("");
               }}
               placeholder="Discount code (e.g. WELCOME10)"
-              className="w-full bg-white/5 border border-white/15 rounded-xl pl-9 pr-3 py-2.5 text-xs text-paper focus:outline-none focus:border-gold uppercase min-h-[44px]"
+              className="w-full bg-sand/10 border border-sand/40 rounded-xl pl-9 pr-3 py-2.5 text-xs text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold uppercase min-h-[44px]"
             />
           </div>
           <button
             type="submit"
-            className="px-4 py-2 rounded-xl bg-white/10 text-xs font-sans uppercase tracking-wider text-paper hover:bg-gold hover:text-charcoal transition-colors min-h-[44px] cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-sand/20 text-xs font-sans uppercase tracking-wider text-charcoal hover:bg-gold transition-colors min-h-[44px] cursor-pointer font-medium"
           >
             Apply
           </button>
@@ -626,15 +626,15 @@ export default function CheckoutPage() {
           </p>
         )}
         {appliedPromo && (
-          <div className="flex items-center justify-between text-xs text-sage bg-sage/10 border border-sage/30 px-3 py-2 rounded-xl">
+          <div className="flex items-center justify-between text-xs text-sage bg-sage/15 border border-sage/30 px-3 py-2 rounded-xl text-charcoal">
             <div className="flex items-center gap-1.5 min-w-0">
-              <Check className="w-3.5 h-3.5 stroke-[2.5] flex-shrink-0" />
+              <Check className="w-3.5 h-3.5 stroke-[2.5] flex-shrink-0 text-sage" />
               <span className="truncate">Code &lsquo;{appliedPromo.code}&rsquo; applied • {appliedPromo.discountPercent}% Off</span>
             </div>
             <button
               type="button"
               onClick={() => setAppliedPromo(null)}
-              className="text-[10px] uppercase tracking-wider text-sand/60 hover:text-paper ml-2 flex-shrink-0 cursor-pointer"
+              className="text-[10px] uppercase tracking-wider text-muted hover:text-charcoal ml-2 flex-shrink-0 cursor-pointer"
             >
               Remove
             </button>
@@ -643,46 +643,46 @@ export default function CheckoutPage() {
       </form>
 
       {/* Price Breakdown */}
-      <div className="pt-4 border-t border-white/10 space-y-2.5 text-xs font-sans">
-        <div className="flex justify-between text-sand/80">
+      <div className="pt-4 border-t border-sand/30 space-y-2.5 text-xs font-sans">
+        <div className="flex justify-between text-muted">
           <span>Subtotal</span>
-          <span>${subtotal} AUD</span>
+          <span className="text-charcoal font-medium">${subtotal} AUD</span>
         </div>
 
         {discountAmount > 0 && (
-          <div className="flex justify-between text-gold">
+          <div className="flex justify-between text-gold font-semibold">
             <span>Promo Discount</span>
             <span>-${discountAmount} AUD</span>
           </div>
         )}
 
-        <div className="flex justify-between text-sand/80">
+        <div className="flex justify-between text-muted">
           <span>Shipping</span>
-          <span>
+          <span className="text-charcoal font-medium">
             {shippingFee === 0 ? (
-              <span className="text-sage font-medium">FREE</span>
+              <span className="text-green-700 font-semibold">FREE</span>
             ) : (
               `$${shippingFee} AUD`
             )}
           </span>
         </div>
 
-        <div className="pt-3 border-t border-white/10 flex items-baseline justify-between font-serif text-lg text-paper-light">
+        <div className="pt-3 border-t border-sand/30 flex items-baseline justify-between font-serif text-lg text-charcoal">
           <span>Total (AUD)</span>
-          <span className="text-2xl font-bold text-gold">${total} AUD</span>
+          <span className="text-2xl font-bold text-charcoal">${total} AUD</span>
         </div>
       </div>
     </div>
   );
 
   return (
-    <main className="min-h-screen bg-ink-deep text-paper flex flex-col justify-between">
+    <main className="min-h-screen bg-paper text-charcoal flex flex-col justify-between">
       {/* 1. LUXURY CHECKOUT HEADER */}
-      <header className="sticky top-0 z-40 bg-ink-deep/90 backdrop-blur-xl border-b border-white/10 py-3.5 sm:py-4 px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur-xl border-b border-sand/40 py-3.5 sm:py-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex flex-col leading-none flex-shrink-0">
-              <span className="font-display text-2xl tracking-[0.12em] text-paper-light">
+              <span className="font-display text-2xl tracking-[0.12em] text-charcoal">
                 BINDY<span className="text-gold">.</span>
               </span>
               <span className="text-[8px] font-sans uppercase tracking-[0.45em] text-gold mt-0.5">
@@ -691,14 +691,14 @@ export default function CheckoutPage() {
             </Link>
 
             {isBuyNowMode && (
-              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-gold bg-gold/10 border border-gold/30 px-2.5 py-0.5 rounded-full">
+              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-gold bg-gold/15 border border-gold/30 px-2.5 py-0.5 rounded-full font-semibold">
                 <Sparkles className="w-3 h-3" /> Express Buy Now
               </span>
             )}
           </div>
 
           {/* Centered Encryption Badge (hidden on small mobile) */}
-          <div className="hidden md:flex items-center gap-2 text-xs font-sans text-sand/70 bg-white/5 px-3.5 py-1.5 rounded-full border border-white/10">
+          <div className="hidden md:flex items-center gap-2 text-xs font-sans text-muted bg-paper-light px-3.5 py-1.5 rounded-full border border-sand/40 shadow-sm">
             <Lock className="w-3.5 h-3.5 text-gold" />
             <span>256-Bit Encrypted Checkout</span>
           </div>
@@ -706,7 +706,7 @@ export default function CheckoutPage() {
           {step !== "confirmation" ? (
             <button
               onClick={handleReturnToCollection}
-              className="flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest text-sand/80 hover:text-gold transition-colors py-2 cursor-pointer"
+              className="flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest text-muted hover:text-gold transition-colors py-2 cursor-pointer font-medium"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Return to Collection</span>
@@ -720,26 +720,26 @@ export default function CheckoutPage() {
 
       {/* 2. CLICKABLE PROGRESS STEPPER (Steps 1–3) */}
       {step !== "confirmation" && (
-        <div className="border-b border-white/10 bg-ink py-3.5 px-4 sm:px-6">
+        <div className="border-b border-sand/40 bg-paper-dark/60 py-3.5 px-4 sm:px-6">
           <div className="max-w-xl mx-auto flex items-center justify-between">
             {/* Step 1: Shipping */}
             <div
               className={`flex items-center gap-2 transition-colors py-1 ${
                 step === "shipping"
-                  ? "text-gold font-medium"
+                  ? "text-gold font-bold"
                   : step === "payment" || step === "review"
-                  ? "text-paper-light hover:text-gold cursor-pointer"
-                  : "text-sand/50"
+                  ? "text-charcoal hover:text-gold cursor-pointer"
+                  : "text-muted"
               }`}
               onClick={() => handleStepClick("shipping")}
             >
               <span
                 className={`w-7 h-7 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-mono border transition-all ${
                   step === "shipping"
-                    ? "bg-gold text-charcoal border-gold font-bold shadow-[0_0_12px_rgba(197,160,89,0.3)]"
+                    ? "bg-gold text-charcoal border-gold font-bold shadow-sm"
                     : step === "payment" || step === "review"
-                    ? "bg-white/15 border-white/30 text-paper hover:border-gold hover:text-gold"
-                    : "border-white/20 text-sand/50"
+                    ? "bg-sand/30 border-sand text-charcoal hover:border-gold hover:text-gold"
+                    : "border-sand/40 text-muted"
                 }`}
               >
                 {step === "payment" || step === "review" ? <Check className="w-3.5 h-3.5 stroke-[2.5]" /> : "1"}
@@ -747,26 +747,26 @@ export default function CheckoutPage() {
               <span className="text-xs uppercase font-sans tracking-wider hidden sm:inline">Shipping</span>
             </div>
 
-            <ChevronRight className="w-4 h-4 text-white/20 flex-shrink-0" />
+            <ChevronRight className="w-4 h-4 text-sand/60 flex-shrink-0" />
 
             {/* Step 2: Payment */}
             <div
               className={`flex items-center gap-2 transition-colors py-1 ${
                 step === "payment"
-                  ? "text-gold font-medium"
+                  ? "text-gold font-bold"
                   : step === "review"
-                  ? "text-paper-light hover:text-gold cursor-pointer"
-                  : "text-sand/50"
+                  ? "text-charcoal hover:text-gold cursor-pointer"
+                  : "text-muted"
               }`}
               onClick={() => handleStepClick("payment")}
             >
               <span
                 className={`w-7 h-7 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-mono border transition-all ${
                   step === "payment"
-                    ? "bg-gold text-charcoal border-gold font-bold shadow-[0_0_12px_rgba(197,160,89,0.3)]"
+                    ? "bg-gold text-charcoal border-gold font-bold shadow-sm"
                     : step === "review"
-                    ? "bg-white/15 border-white/30 text-paper hover:border-gold hover:text-gold"
-                    : "border-white/20 text-sand/50"
+                    ? "bg-sand/30 border-sand text-charcoal hover:border-gold hover:text-gold"
+                    : "border-sand/40 text-muted"
                 }`}
               >
                 {step === "review" ? <Check className="w-3.5 h-3.5 stroke-[2.5]" /> : "2"}
@@ -774,20 +774,20 @@ export default function CheckoutPage() {
               <span className="text-xs uppercase font-sans tracking-wider hidden sm:inline">Payment</span>
             </div>
 
-            <ChevronRight className="w-4 h-4 text-white/20 flex-shrink-0" />
+            <ChevronRight className="w-4 h-4 text-sand/60 flex-shrink-0" />
 
             {/* Step 3: Review */}
             <div
               className={`flex items-center gap-2 py-1 ${
-                step === "review" ? "text-gold font-medium" : "text-sand/50"
+                step === "review" ? "text-gold font-bold" : "text-muted"
               }`}
               onClick={() => handleStepClick("review")}
             >
               <span
                 className={`w-7 h-7 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-mono border transition-all ${
                   step === "review"
-                    ? "bg-gold text-charcoal border-gold font-bold shadow-[0_0_12px_rgba(197,160,89,0.3)]"
-                    : "border-white/20 text-sand/50"
+                    ? "bg-gold text-charcoal border-gold font-bold shadow-sm"
+                    : "border-sand/40 text-muted"
                 }`}
               >
                 3
@@ -800,19 +800,19 @@ export default function CheckoutPage() {
 
       {/* 3. MOBILE COLLAPSIBLE ORDER SUMMARY ACCORDION (< lg) */}
       {step !== "confirmation" && (
-        <div className="lg:hidden border-b border-white/10 bg-ink">
+        <div className="lg:hidden border-b border-sand/40 bg-paper-light">
           <button
             type="button"
             onClick={() => setIsMobileSummaryOpen(!isMobileSummaryOpen)}
-            className="w-full px-4 py-3.5 flex items-center justify-between text-xs font-sans hover:bg-white/5 transition-colors cursor-pointer min-h-[48px]"
+            className="w-full px-4 py-3.5 flex items-center justify-between text-xs font-sans hover:bg-sand/10 transition-colors cursor-pointer min-h-[48px]"
           >
-            <div className="flex items-center gap-2 text-sand/90">
+            <div className="flex items-center gap-2 text-muted">
               <ShoppingBag className="w-4 h-4 text-gold" />
-              <span className="font-medium text-paper-light">
+              <span className="font-semibold text-charcoal">
                 {isMobileSummaryOpen ? "Hide order summary" : `Order summary (${totalItemsCount} items)`}
               </span>
               {isBuyNowMode && (
-                <span className="text-[9px] uppercase tracking-wider text-gold bg-gold/15 px-1.5 py-0.5 rounded">
+                <span className="text-[9px] uppercase tracking-wider text-gold bg-gold/15 px-1.5 py-0.5 rounded font-semibold">
                   Buy Now
                 </span>
               )}
@@ -822,7 +822,7 @@ export default function CheckoutPage() {
                 }`}
               />
             </div>
-            <span className="font-serif text-sm font-bold text-gold">${total} AUD</span>
+            <span className="font-serif text-sm font-bold text-charcoal">${total} AUD</span>
           </button>
 
           <AnimatePresence>
@@ -832,7 +832,7 @@ export default function CheckoutPage() {
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="overflow-hidden border-t border-white/10 bg-ink-deep/50 px-4 py-6"
+                className="overflow-hidden border-t border-sand/30 bg-paper px-4 py-6"
               >
                 {renderSummaryContent()}
               </motion.div>
@@ -863,7 +863,7 @@ export default function CheckoutPage() {
                 hidden: { opacity: 0, y: 16 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
               }}
-              className="bg-ink border border-gold/40 rounded-3xl p-6 sm:p-12 text-center relative overflow-hidden shadow-2xl"
+              className="bg-paper-light border border-gold/40 rounded-3xl p-6 sm:p-12 text-center relative overflow-hidden shadow-sm"
             >
               <div className="absolute top-0 right-0 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-80 h-80 bg-cinnamon/10 rounded-full blur-3xl pointer-events-none" />
@@ -874,7 +874,7 @@ export default function CheckoutPage() {
                   initial={{ scale: 0.6, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gold/20 border border-gold flex items-center justify-center mx-auto text-gold shadow-[0_0_30px_rgba(197,160,89,0.3)]"
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gold/20 border border-gold flex items-center justify-center mx-auto text-gold shadow-sm"
                 >
                   <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
@@ -886,28 +886,28 @@ export default function CheckoutPage() {
                 </motion.div>
 
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-[10px] font-sans uppercase tracking-[0.4em] text-gold">
+                  <span className="text-[10px] font-sans uppercase tracking-[0.4em] text-gold font-semibold">
                     Order Successfully Placed
                   </span>
                   {orderSummary.isBuyNow && (
-                    <span className="text-[9px] font-sans uppercase tracking-wider text-gold bg-gold/15 border border-gold/30 px-2 py-0.5 rounded-full">
+                    <span className="text-[9px] font-sans uppercase tracking-wider text-gold bg-gold/15 border border-gold/30 px-2 py-0.5 rounded-full font-semibold">
                       Express Buy Now
                     </span>
                   )}
                 </div>
 
-                <h1 className="font-serif text-2xl sm:text-5xl font-light text-paper-light">
+                <h1 className="font-serif text-2xl sm:text-5xl font-light text-charcoal">
                   Thank You, {orderSummary.shippingAddress.firstName}
                 </h1>
 
-                <p className="font-serif italic text-sm sm:text-lg text-sand/90 font-light max-w-lg mx-auto leading-relaxed">
+                <p className="font-serif italic text-sm sm:text-lg text-muted font-light max-w-lg mx-auto leading-relaxed">
                   Your pieces are being prepared with mindful care in Brisbane. We have sent a confirmation email with tracking details to{" "}
-                  <strong className="text-gold font-normal break-all">{orderSummary.shippingAddress.email}</strong>.
+                  <strong className="text-gold font-semibold break-all">{orderSummary.shippingAddress.email}</strong>.
                 </p>
 
-                <div className="inline-flex items-center gap-3 px-4 sm:px-5 py-2.5 bg-white/5 border border-white/15 rounded-2xl mt-4">
-                  <span className="text-xs font-sans uppercase tracking-widest text-sand/70">Order Reference:</span>
-                  <span className="font-mono text-sm sm:text-base text-gold font-semibold">{orderSummary.orderId}</span>
+                <div className="inline-flex items-center gap-3 px-4 sm:px-5 py-2.5 bg-sand/15 border border-sand/40 rounded-2xl mt-4">
+                  <span className="text-xs font-sans uppercase tracking-widest text-muted">Order Reference:</span>
+                  <span className="font-mono text-sm sm:text-base text-gold font-bold">{orderSummary.orderId}</span>
                 </div>
               </div>
             </motion.div>
@@ -920,27 +920,27 @@ export default function CheckoutPage() {
               }}
               className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
             >
-              <div className="bg-ink border border-white/10 rounded-3xl p-5 sm:p-6 space-y-3">
-                <div className="flex items-center gap-2 text-gold text-xs uppercase font-sans tracking-widest">
+              <div className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-6 space-y-3 shadow-sm">
+                <div className="flex items-center gap-2 text-gold text-xs uppercase font-sans tracking-widest font-semibold">
                   <Clock className="w-4 h-4" />
                   <span>Estimated Delivery Window</span>
                 </div>
-                <p className="font-serif text-lg sm:text-xl text-paper-light">
+                <p className="font-serif text-lg sm:text-xl text-charcoal">
                   {orderSummary.shippingAddress.method === "express"
                     ? "1 – 2 Business Days (Express Courier)"
                     : "3 – 5 Business Days (Standard Tracked)"}
                 </p>
-                <p className="text-xs font-sans text-sand/70">
+                <p className="text-xs font-sans text-muted">
                   Australia Post Carbon Neutral Tracked Delivery with signature on arrival.
                 </p>
               </div>
 
-              <div className="bg-ink border border-white/10 rounded-3xl p-5 sm:p-6 space-y-3">
-                <div className="flex items-center gap-2 text-gold text-xs uppercase font-sans tracking-widest">
+              <div className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-6 space-y-3 shadow-sm">
+                <div className="flex items-center gap-2 text-gold text-xs uppercase font-sans tracking-widest font-semibold">
                   <MapPin className="w-4 h-4" />
                   <span>Shipping Address</span>
                 </div>
-                <p className="font-serif text-sm sm:text-base text-paper-light leading-snug break-words">
+                <p className="font-serif text-sm sm:text-base text-charcoal leading-snug break-words">
                   {orderSummary.shippingAddress.firstName} {orderSummary.shippingAddress.lastName}
                   <br />
                   {orderSummary.shippingAddress.address}
@@ -959,56 +959,56 @@ export default function CheckoutPage() {
                 hidden: { opacity: 0, y: 16 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
               }}
-              className="bg-ink border border-white/10 rounded-3xl p-5 sm:p-8 space-y-6"
+              className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-8 space-y-6 shadow-sm"
             >
-              <h3 className="font-serif text-lg sm:text-xl font-medium text-paper-light border-b border-white/10 pb-4">
+              <h3 className="font-serif text-lg sm:text-xl font-medium text-charcoal border-b border-sand/30 pb-4">
                 Items in This Order ({orderSummary.items.reduce((s, i) => s + i.quantity, 0)})
               </h3>
 
               <div className="space-y-4">
                 {orderSummary.items.map((item, idx) => (
-                  <div key={idx} className="flex items-center justify-between gap-3 sm:gap-4 py-2 border-b border-white/5 last:border-0">
+                  <div key={idx} className="flex items-center justify-between gap-3 sm:gap-4 py-2 border-b border-sand/20 last:border-0">
                     <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                       <img
                         src={item.product.image}
                         alt={item.product.name}
-                        className="w-14 h-16 sm:w-16 sm:h-20 object-cover rounded-xl bg-black/40 border border-white/10 flex-shrink-0"
+                        className="w-14 h-16 sm:w-16 sm:h-20 object-cover rounded-xl bg-paper-dark border border-sand/40 flex-shrink-0"
                       />
                       <div className="min-w-0">
-                        <h4 className="font-serif text-sm sm:text-base text-paper-light truncate">{item.product.name}</h4>
-                        <p className="text-xs font-sans text-sand/70">
+                        <h4 className="font-serif text-sm sm:text-base text-charcoal truncate">{item.product.name}</h4>
+                        <p className="text-xs font-sans text-muted">
                           Size: {item.size} • Qty: {item.quantity}
                         </p>
-                        <p className="text-[11px] font-sans uppercase tracking-widest text-gold mt-0.5">
+                        <p className="text-[11px] font-sans uppercase tracking-widest text-gold mt-0.5 font-medium">
                           {item.product.colorName}
                         </p>
                       </div>
                     </div>
-                    <span className="font-serif text-sm sm:text-base text-paper-light font-semibold flex-shrink-0">
+                    <span className="font-serif text-sm sm:text-base text-charcoal font-semibold flex-shrink-0">
                       ${item.product.priceAud * item.quantity} AUD
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-4 border-t border-white/10 space-y-2 text-xs font-sans">
-                <div className="flex justify-between text-sand/80">
+              <div className="pt-4 border-t border-sand/30 space-y-2 text-xs font-sans">
+                <div className="flex justify-between text-muted">
                   <span>Subtotal</span>
-                  <span>${orderSummary.subtotal} AUD</span>
+                  <span className="text-charcoal font-medium">${orderSummary.subtotal} AUD</span>
                 </div>
                 {orderSummary.discountAmount > 0 && (
-                  <div className="flex justify-between text-gold">
+                  <div className="flex justify-between text-gold font-semibold">
                     <span>Promotional Discount</span>
                     <span>-${orderSummary.discountAmount} AUD</span>
                   </div>
                 )}
-                <div className="flex justify-between text-sand/80">
+                <div className="flex justify-between text-muted">
                   <span>Shipping</span>
-                  <span>{orderSummary.shippingFee === 0 ? "FREE" : `$${orderSummary.shippingFee} AUD`}</span>
+                  <span className="text-charcoal font-medium">{orderSummary.shippingFee === 0 ? "FREE" : `$${orderSummary.shippingFee} AUD`}</span>
                 </div>
-                <div className="flex justify-between text-base font-serif text-paper-light font-bold pt-3 border-t border-white/10">
+                <div className="flex justify-between text-base font-serif text-charcoal font-bold pt-3 border-t border-sand/30">
                   <span>Total Paid</span>
-                  <span className="text-gold text-lg">${orderSummary.total} AUD</span>
+                  <span className="text-charcoal text-xl">${orderSummary.total} AUD</span>
                 </div>
               </div>
             </motion.div>
@@ -1024,7 +1024,7 @@ export default function CheckoutPage() {
               <button
                 type="button"
                 onClick={handleReturnToCollection}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-cinnamon hover:text-white transition-all shadow-xl min-h-[48px] cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-cinnamon hover:text-white transition-all shadow-md min-h-[48px] cursor-pointer"
               >
                 <span>Continue Shopping</span>
                 <ArrowRight className="w-4 h-4" />
@@ -1048,10 +1048,10 @@ export default function CheckoutPage() {
                     className="space-y-6 sm:space-y-8"
                   >
                     <div>
-                      <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold block mb-1">
+                      <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block mb-1">
                         Step 1 of 3
                       </span>
-                      <h2 className="font-serif text-2xl sm:text-4xl text-paper-light font-light">
+                      <h2 className="font-serif text-2xl sm:text-4xl text-charcoal font-light">
                         Shipping & Delivery Address
                       </h2>
                     </div>
@@ -1061,9 +1061,9 @@ export default function CheckoutPage() {
                       <div className="p-4 rounded-2xl bg-gold/10 border border-gold/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div className="flex items-start sm:items-center gap-3 min-w-0">
                           <Sparkles className="w-4 h-4 text-gold flex-shrink-0 mt-0.5 sm:mt-0" />
-                          <div className="text-xs text-paper-light">
+                          <div className="text-xs text-charcoal">
                             <p className="font-medium text-gold">Use saved address from your account</p>
-                            <p className="text-sand/70 truncate">
+                            <p className="text-muted truncate">
                               {savedAccount.name} • {savedAccount.savedAddress.address}, {savedAccount.savedAddress.suburb} {savedAccount.savedAddress.postcode}
                             </p>
                           </div>
@@ -1087,7 +1087,7 @@ export default function CheckoutPage() {
                               postcode: savedAccount.savedAddress?.postcode || prev.postcode,
                             }));
                           }}
-                          className="px-4 py-1.5 rounded-full bg-gold hover:bg-white text-black text-[11px] font-sans uppercase tracking-wider font-semibold transition-colors cursor-pointer flex-shrink-0 self-start sm:self-auto shadow-sm"
+                          className="px-4 py-1.5 rounded-full bg-gold hover:bg-cinnamon hover:text-white text-charcoal text-[11px] font-sans uppercase tracking-wider font-semibold transition-colors cursor-pointer flex-shrink-0 self-start sm:self-auto shadow-sm"
                         >
                           Auto-fill
                         </button>
@@ -1096,14 +1096,14 @@ export default function CheckoutPage() {
 
                     <form onSubmit={handleNextToPayment} className="space-y-6">
                       {/* Contact Info */}
-                      <div className="bg-ink border border-white/10 rounded-3xl p-5 sm:p-8 space-y-4">
-                        <h3 className="font-serif text-lg sm:text-xl font-medium text-paper-light mb-2">
+                      <div className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-8 space-y-4 shadow-sm">
+                        <h3 className="font-serif text-lg sm:text-xl font-medium text-charcoal mb-2">
                           Contact Information
                         </h3>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                               First Name *
                             </label>
                             <input
@@ -1115,9 +1115,9 @@ export default function CheckoutPage() {
                                 if (errors.firstName) setErrors((prev) => ({ ...prev, firstName: "" }));
                               }}
                               placeholder="e.g. Eleanor"
-                              className={`w-full bg-white/5 border ${
-                                errors.firstName ? "border-terracotta/80" : "border-white/15"
-                              } rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                              className={`w-full bg-sand/10 border ${
+                                errors.firstName ? "border-terracotta/80" : "border-sand/40"
+                              } rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                             />
                             {errors.firstName && (
                               <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1128,7 +1128,7 @@ export default function CheckoutPage() {
                           </div>
 
                           <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                               Last Name *
                             </label>
                             <input
@@ -1140,9 +1140,9 @@ export default function CheckoutPage() {
                                 if (errors.lastName) setErrors((prev) => ({ ...prev, lastName: "" }));
                               }}
                               placeholder="e.g. Sterling"
-                              className={`w-full bg-white/5 border ${
-                                errors.lastName ? "border-terracotta/80" : "border-white/15"
-                              } rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                              className={`w-full bg-sand/10 border ${
+                                errors.lastName ? "border-terracotta/80" : "border-sand/40"
+                              } rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                             />
                             {errors.lastName && (
                               <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1155,7 +1155,7 @@ export default function CheckoutPage() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                               Email Address *
                             </label>
                             <input
@@ -1167,9 +1167,9 @@ export default function CheckoutPage() {
                                 if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
                               }}
                               placeholder="name@domain.com"
-                              className={`w-full bg-white/5 border ${
-                                errors.email ? "border-terracotta/80" : "border-white/15"
-                              } rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                              className={`w-full bg-sand/10 border ${
+                                errors.email ? "border-terracotta/80" : "border-sand/40"
+                              } rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                             />
                             {errors.email && (
                               <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1180,7 +1180,7 @@ export default function CheckoutPage() {
                           </div>
 
                           <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                               Phone Number *
                             </label>
                             <input
@@ -1189,9 +1189,9 @@ export default function CheckoutPage() {
                               value={shipping.phone}
                               onChange={handlePhoneChange}
                               placeholder="+61 400 000 000"
-                              className={`w-full bg-white/5 border ${
-                                errors.phone ? "border-terracotta/80" : "border-white/15"
-                              } rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                              className={`w-full bg-sand/10 border ${
+                                errors.phone ? "border-terracotta/80" : "border-sand/40"
+                              } rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                             />
                             {errors.phone && (
                               <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1204,13 +1204,13 @@ export default function CheckoutPage() {
                       </div>
 
                       {/* Delivery Address */}
-                      <div className="bg-ink border border-white/10 rounded-3xl p-5 sm:p-8 space-y-4">
-                        <h3 className="font-serif text-lg sm:text-xl font-medium text-paper-light mb-2">
+                      <div className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-8 space-y-4 shadow-sm">
+                        <h3 className="font-serif text-lg sm:text-xl font-medium text-charcoal mb-2">
                           Australian Delivery Address
                         </h3>
 
                         <div>
-                          <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                          <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                             Street Address *
                           </label>
                           <input
@@ -1222,9 +1222,9 @@ export default function CheckoutPage() {
                               if (errors.address) setErrors((prev) => ({ ...prev, address: "" }));
                             }}
                             placeholder="e.g. 42 James Street"
-                            className={`w-full bg-white/5 border ${
-                              errors.address ? "border-terracotta/80" : "border-white/15"
-                            } rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                            className={`w-full bg-sand/10 border ${
+                              errors.address ? "border-terracotta/80" : "border-sand/40"
+                            } rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                           />
                           {errors.address && (
                             <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1235,7 +1235,7 @@ export default function CheckoutPage() {
                         </div>
 
                         <div>
-                          <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                          <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                             Apartment / Suite / Unit (Optional)
                           </label>
                           <input
@@ -1244,13 +1244,13 @@ export default function CheckoutPage() {
                             value={shipping.apartment}
                             onChange={(e) => setShipping({ ...shipping, apartment: e.target.value })}
                             placeholder="e.g. Unit 4B"
-                            className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]"
+                            className="w-full bg-sand/10 border border-sand/40 rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]"
                           />
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                           <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                               Suburb / City *
                             </label>
                             <input
@@ -1262,9 +1262,9 @@ export default function CheckoutPage() {
                                 if (errors.suburb) setErrors((prev) => ({ ...prev, suburb: "" }));
                               }}
                               placeholder="e.g. Fortitude Valley"
-                              className={`w-full bg-white/5 border ${
-                                errors.suburb ? "border-terracotta/80" : "border-white/15"
-                              } rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                              className={`w-full bg-sand/10 border ${
+                                errors.suburb ? "border-terracotta/80" : "border-sand/40"
+                              } rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                             />
                             {errors.suburb && (
                               <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1275,13 +1275,13 @@ export default function CheckoutPage() {
                           </div>
 
                           <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                               State *
                             </label>
                             <select
                               value={shipping.state}
                               onChange={(e) => setShipping({ ...shipping, state: e.target.value })}
-                              className="w-full bg-ink border border-white/15 rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]"
+                              className="w-full bg-paper-light border border-sand/40 rounded-xl px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-gold transition-colors min-h-[46px] [&>option]:bg-paper-light [&>option]:text-charcoal"
                             >
                               {AUSTRALIAN_STATES.map((s) => (
                                 <option key={s.code} value={s.code}>
@@ -1292,7 +1292,7 @@ export default function CheckoutPage() {
                           </div>
 
                           <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                               Postcode *
                             </label>
                             <input
@@ -1301,9 +1301,9 @@ export default function CheckoutPage() {
                               value={shipping.postcode}
                               onChange={handlePostcodeChange}
                               placeholder="4006"
-                              className={`w-full bg-white/5 border ${
-                                errors.postcode ? "border-terracotta/80" : "border-white/15"
-                              } rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                              className={`w-full bg-sand/10 border ${
+                                errors.postcode ? "border-terracotta/80" : "border-sand/40"
+                              } rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                             />
                             {errors.postcode && (
                               <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1316,8 +1316,8 @@ export default function CheckoutPage() {
                       </div>
 
                       {/* Shipping Method Options */}
-                      <div className="bg-ink border border-white/10 rounded-3xl p-5 sm:p-8 space-y-4">
-                        <h3 className="font-serif text-lg sm:text-xl font-medium text-paper-light mb-2">
+                      <div className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-8 space-y-4 shadow-sm">
+                        <h3 className="font-serif text-lg sm:text-xl font-medium text-charcoal mb-2">
                           Select Delivery Method
                         </h3>
 
@@ -1325,8 +1325,8 @@ export default function CheckoutPage() {
                           <label
                             className={`flex items-center justify-between p-4 rounded-2xl border transition-all cursor-pointer min-h-[52px] ${
                               shipping.method === "standard"
-                                ? "bg-white/10 border-gold shadow-md"
-                                : "bg-white/5 border-white/10 hover:border-white/25"
+                                ? "bg-sand/15 border-gold shadow-sm ring-1 ring-gold/40"
+                                : "bg-sand/5 border-sand/30 hover:border-gold/40"
                             }`}
                           >
                             <div className="flex items-center gap-3">
@@ -1338,10 +1338,10 @@ export default function CheckoutPage() {
                                 className="accent-[#C5A059] w-4 h-4 cursor-pointer"
                               />
                               <div>
-                                <p className="text-sm font-sans font-medium text-paper-light">
+                                <p className="text-sm font-sans font-medium text-charcoal">
                                   Standard Tracked Delivery (Australia Post)
                                 </p>
-                                <p className="text-xs font-sans text-sand/70">Estimated 3–5 business days</p>
+                                <p className="text-xs font-sans text-muted">Estimated 3–5 business days</p>
                               </div>
                             </div>
                             <span className="font-serif text-sm font-semibold text-gold">
@@ -1352,8 +1352,8 @@ export default function CheckoutPage() {
                           <label
                             className={`flex items-center justify-between p-4 rounded-2xl border transition-all cursor-pointer min-h-[52px] ${
                               shipping.method === "express"
-                                ? "bg-white/10 border-gold shadow-md"
-                                : "bg-white/5 border-white/10 hover:border-white/25"
+                                ? "bg-sand/15 border-gold shadow-sm ring-1 ring-gold/40"
+                                : "bg-sand/5 border-sand/30 hover:border-gold/40"
                             }`}
                           >
                             <div className="flex items-center gap-3">
@@ -1365,10 +1365,10 @@ export default function CheckoutPage() {
                                 className="accent-[#C5A059] w-4 h-4 cursor-pointer"
                               />
                               <div>
-                                <p className="text-sm font-sans font-medium text-paper-light">
+                                <p className="text-sm font-sans font-medium text-charcoal">
                                   Express Priority Courier (Next Day Dispatch)
                                 </p>
-                                <p className="text-xs font-sans text-sand/70">Estimated 1–2 business days</p>
+                                <p className="text-xs font-sans text-muted">Estimated 1–2 business days</p>
                               </div>
                             </div>
                             <span className="font-serif text-sm font-semibold text-gold">$18 AUD</span>
@@ -1379,7 +1379,7 @@ export default function CheckoutPage() {
                       {/* Continue Button */}
                       <button
                         type="submit"
-                        className="w-full py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-cinnamon hover:text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-xl cursor-pointer min-h-[48px]"
+                        className="w-full py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-cinnamon hover:text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-lg cursor-pointer min-h-[48px]"
                       >
                         <span>Continue to Payment</span>
                         <ArrowRight className="w-4 h-4" />
@@ -1399,10 +1399,10 @@ export default function CheckoutPage() {
                     className="space-y-6 sm:space-y-8"
                   >
                     <div>
-                      <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold block mb-1">
+                      <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block mb-1">
                         Step 2 of 3
                       </span>
-                      <h2 className="font-serif text-2xl sm:text-4xl text-paper-light font-light">
+                      <h2 className="font-serif text-2xl sm:text-4xl text-charcoal font-light">
                         Payment & Billing
                       </h2>
                     </div>
@@ -1410,7 +1410,7 @@ export default function CheckoutPage() {
                     {/* Demo Disclaimer Box */}
                     <div className="bg-gold/10 border border-gold/30 rounded-2xl p-4 sm:p-5 flex items-start gap-3">
                       <AlertCircle className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
-                      <div className="text-xs font-sans text-sand/90 space-y-1">
+                      <div className="text-xs font-sans text-charcoal/85 space-y-1">
                         <p className="font-medium text-gold">Demo Checkout Demonstration</p>
                         <p>
                           This checkout is running in mock presentation mode. No actual charge will be made to any credit card entered.
@@ -1419,28 +1419,28 @@ export default function CheckoutPage() {
                     </div>
 
                     <form onSubmit={handleNextToReview} className="space-y-6">
-                      <div className="bg-ink border border-white/10 rounded-3xl p-5 sm:p-8 space-y-5">
-                        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
-                          <h3 className="font-serif text-lg sm:text-xl font-medium text-paper-light">
+                      <div className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-8 space-y-5 shadow-sm">
+                        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-sand/30 pb-4">
+                          <h3 className="font-serif text-lg sm:text-xl font-medium text-charcoal">
                             Credit or Debit Card
                           </h3>
                           {/* Payment method trust badges */}
                           <div className="flex items-center gap-1.5">
-                            <span className="px-2 py-1 rounded-md bg-white/10 border border-white/15 text-[10px] font-sans font-black italic tracking-tight text-paper">
+                            <span className="px-2 py-1 rounded-md bg-sand/20 border border-sand/40 text-[10px] font-sans font-black italic tracking-tight text-charcoal">
                               VISA
                             </span>
-                            <span className="flex items-center -space-x-1 px-2 py-1 rounded-md bg-white/10 border border-white/15">
+                            <span className="flex items-center -space-x-1 px-2 py-1 rounded-md bg-sand/20 border border-sand/40">
                               <span className="w-2.5 h-2.5 rounded-full bg-[#EB001B] opacity-90 inline-block" />
                               <span className="w-2.5 h-2.5 rounded-full bg-[#F79E1B] opacity-90 inline-block" />
                             </span>
-                            <span className="px-2 py-1 rounded-md bg-white border border-white/15 text-[9px] font-sans font-bold uppercase tracking-tight text-[#006FCF]">
+                            <span className="px-2 py-1 rounded-md bg-white border border-sand/40 text-[9px] font-sans font-bold uppercase tracking-tight text-[#006FCF]">
                               AMEX
                             </span>
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                          <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                             Cardholder Name *
                           </label>
                           <input
@@ -1452,9 +1452,9 @@ export default function CheckoutPage() {
                               if (errors.cardName) setErrors((prev) => ({ ...prev, cardName: "" }));
                             }}
                             placeholder="Name as it appears on card"
-                            className={`w-full bg-white/5 border ${
-                              errors.cardName ? "border-terracotta/80" : "border-white/15"
-                            } rounded-xl px-4 py-3 text-sm text-paper focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                            className={`w-full bg-sand/10 border ${
+                              errors.cardName ? "border-terracotta/80" : "border-sand/40"
+                            } rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                           />
                           {errors.cardName && (
                             <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1465,7 +1465,7 @@ export default function CheckoutPage() {
                         </div>
 
                         <div>
-                          <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                          <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                             Card Number *
                           </label>
                           <input
@@ -1473,9 +1473,9 @@ export default function CheckoutPage() {
                             value={payment.cardNumber}
                             onChange={handleCardNumberChange}
                             placeholder="4532 1234 5678 9012"
-                            className={`w-full bg-white/5 border ${
-                              errors.cardNumber ? "border-terracotta/80" : "border-white/15"
-                            } rounded-xl px-4 py-3 text-sm text-paper font-mono focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                            className={`w-full bg-sand/10 border ${
+                              errors.cardNumber ? "border-terracotta/80" : "border-sand/40"
+                            } rounded-xl px-4 py-3 text-sm text-charcoal font-mono placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                           />
                           {errors.cardNumber && (
                             <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1487,7 +1487,7 @@ export default function CheckoutPage() {
 
                         <div className="grid grid-cols-2 gap-3 sm:gap-4">
                           <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                               Expiry Date (MM/YY) *
                             </label>
                             <input
@@ -1496,9 +1496,9 @@ export default function CheckoutPage() {
                               value={payment.expiry}
                               onChange={handleExpiryChange}
                               placeholder="08/28"
-                              className={`w-full bg-white/5 border ${
-                                errors.expiry ? "border-terracotta/80" : "border-white/15"
-                              } rounded-xl px-4 py-3 text-sm text-paper font-mono focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                              className={`w-full bg-sand/10 border ${
+                                errors.expiry ? "border-terracotta/80" : "border-sand/40"
+                              } rounded-xl px-4 py-3 text-sm text-charcoal font-mono placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                             />
                             {errors.expiry && (
                               <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1509,7 +1509,7 @@ export default function CheckoutPage() {
                           </div>
 
                           <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-sand/80 mb-1.5">
+                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
                               Security Code (CVC) *
                             </label>
                             <input
@@ -1518,9 +1518,9 @@ export default function CheckoutPage() {
                               value={payment.cvc}
                               onChange={handleCvcChange}
                               placeholder="123"
-                              className={`w-full bg-white/5 border ${
-                                errors.cvc ? "border-terracotta/80" : "border-white/15"
-                              } rounded-xl px-4 py-3 text-sm text-paper font-mono focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
+                              className={`w-full bg-sand/10 border ${
+                                errors.cvc ? "border-terracotta/80" : "border-sand/40"
+                              } rounded-xl px-4 py-3 text-sm text-charcoal font-mono placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
                             />
                             {errors.cvc && (
                               <p className="text-[11px] font-sans text-terracotta mt-1.5 flex items-center gap-1">
@@ -1531,7 +1531,7 @@ export default function CheckoutPage() {
                           </div>
                         </div>
 
-                        <label className="flex items-center gap-2.5 pt-2 text-xs font-sans text-sand/80 cursor-pointer select-none min-h-[44px]">
+                        <label className="flex items-center gap-2.5 pt-2 text-xs font-sans text-muted cursor-pointer select-none min-h-[44px]">
                           <input
                             type="checkbox"
                             checked={payment.sameAsShipping}
@@ -1547,13 +1547,13 @@ export default function CheckoutPage() {
                         <button
                           type="button"
                           onClick={() => setStep("shipping")}
-                          className="px-6 py-4 rounded-full border border-white/20 text-paper font-sans text-xs uppercase tracking-[0.2em] hover:border-gold transition-colors min-h-[48px] cursor-pointer"
+                          className="px-6 py-4 rounded-full border border-sand/40 text-charcoal font-sans text-xs uppercase tracking-[0.2em] hover:border-gold bg-paper transition-colors min-h-[48px] cursor-pointer font-medium"
                         >
                           Back
                         </button>
                         <button
                           type="submit"
-                          className="flex-1 py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-cinnamon hover:text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-xl cursor-pointer min-h-[48px]"
+                          className="flex-1 py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-cinnamon hover:text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-lg cursor-pointer min-h-[48px]"
                         >
                           <span>Review Order</span>
                           <ArrowRight className="w-4 h-4" />
@@ -1574,10 +1574,10 @@ export default function CheckoutPage() {
                     className="space-y-6 sm:space-y-8"
                   >
                     <div>
-                      <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold block mb-1">
+                      <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block mb-1">
                         Step 3 of 3
                       </span>
-                      <h2 className="font-serif text-2xl sm:text-4xl text-paper-light font-light">
+                      <h2 className="font-serif text-2xl sm:text-4xl text-charcoal font-light">
                         Review & Confirm Order
                       </h2>
                     </div>
@@ -1585,51 +1585,51 @@ export default function CheckoutPage() {
                     {/* Summary recap cards */}
                     <div className="space-y-4">
                       {/* Shipping Summary */}
-                      <div className="bg-ink border border-white/10 rounded-3xl p-5 sm:p-6 flex items-start justify-between gap-4">
+                      <div className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-6 flex items-start justify-between gap-4 shadow-sm">
                         <div className="space-y-1 text-xs font-sans min-w-0">
-                          <span className="text-[10px] uppercase tracking-widest text-gold block mb-1">
+                          <span className="text-[10px] uppercase tracking-widest text-gold font-semibold block mb-1">
                             Shipping To:
                           </span>
-                          <p className="text-paper-light font-medium truncate">
+                          <p className="text-charcoal font-medium truncate">
                             {shipping.firstName} {shipping.lastName} • {shipping.phone}
                           </p>
-                          <p className="text-sand/80 break-words">
+                          <p className="text-muted break-words">
                             {shipping.address}
                             {shipping.apartment && `, ${shipping.apartment}`}
                             <br />
                             {shipping.suburb}, {shipping.state} {shipping.postcode}
                           </p>
-                          <p className="text-gold pt-1">
+                          <p className="text-gold font-medium pt-1">
                             Method: {shipping.method === "express" ? "Express Courier ($18)" : "Standard Tracked"}
                           </p>
                         </div>
                         <button
                           onClick={() => setStep("shipping")}
-                          className="text-xs uppercase font-sans tracking-widest text-gold underline underline-offset-4 hover:text-cinnamon p-2 min-h-[44px] flex items-center cursor-pointer flex-shrink-0"
+                          className="text-xs uppercase font-sans tracking-widest text-gold underline underline-offset-4 hover:text-cinnamon p-2 min-h-[44px] flex items-center cursor-pointer flex-shrink-0 font-semibold"
                         >
                           Edit
                         </button>
                       </div>
 
                       {/* Payment Summary */}
-                      <div className="bg-ink border border-white/10 rounded-3xl p-5 sm:p-6 flex items-start justify-between gap-4">
+                      <div className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-6 flex items-start justify-between gap-4 shadow-sm">
                         <div className="space-y-1 text-xs font-sans min-w-0">
-                          <span className="text-[10px] uppercase tracking-widest text-gold block mb-1">
+                          <span className="text-[10px] uppercase tracking-widest text-gold font-semibold block mb-1">
                             Payment Method:
                           </span>
-                          <p className="text-paper-light font-medium">
+                          <p className="text-charcoal font-medium">
                             Card ending in {payment.cardNumber.replace(/\s+/g, "").slice(-4) || "8921"}
                           </p>
-                          <p className="text-sand/80 truncate">
+                          <p className="text-muted truncate">
                             Cardholder: {payment.cardName} • Exp: {payment.expiry}
                           </p>
-                          <span className="inline-block text-[10px] uppercase tracking-wider text-sage bg-sage/10 px-2 py-0.5 rounded mt-1">
+                          <span className="inline-block text-[10px] uppercase tracking-wider text-green-700 bg-green-500/15 border border-green-500/30 px-2 py-0.5 rounded mt-1 font-semibold">
                             Demo Mode Verified
                           </span>
                         </div>
                         <button
                           onClick={() => setStep("payment")}
-                          className="text-xs uppercase font-sans tracking-widest text-gold underline underline-offset-4 hover:text-cinnamon p-2 min-h-[44px] flex items-center cursor-pointer flex-shrink-0"
+                          className="text-xs uppercase font-sans tracking-widest text-gold underline underline-offset-4 hover:text-cinnamon p-2 min-h-[44px] flex items-center cursor-pointer flex-shrink-0 font-semibold"
                         >
                           Edit
                         </button>
@@ -1637,23 +1637,23 @@ export default function CheckoutPage() {
                     </div>
 
                     {/* Ethical guarantee banner */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3">
+                    <div className="p-4 sm:p-5 rounded-2xl bg-gold/10 border border-gold/30 flex items-center gap-3">
                       <ShieldCheck className="w-5 h-5 text-gold flex-shrink-0" />
-                      <p className="text-xs font-sans text-sand/80 leading-relaxed">
+                      <p className="text-xs font-sans text-charcoal/85 leading-relaxed">
                         Ethically crafted in limited batches in Sri Lanka. 30-day effortless Australian exchange guarantee.
                       </p>
                     </div>
 
                     {/* Terms of Service Consent Checkbox */}
-                    <label className="flex items-start gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 cursor-pointer select-none min-h-[48px]">
+                    <label className="flex items-start gap-3 p-4 rounded-2xl bg-paper-light border border-sand/40 cursor-pointer select-none min-h-[48px] shadow-sm">
                       <input
                         type="checkbox"
                         checked={agreedToTerms}
                         onChange={(e) => setAgreedToTerms(e.target.checked)}
                         className="accent-[#C5A059] rounded mt-0.5 w-4 h-4 cursor-pointer"
                       />
-                      <span className="text-xs font-sans text-sand/90 leading-relaxed">
-                        I agree to BINDY&apos;s <span className="text-gold underline underline-offset-2">Terms of Service</span> and <span className="text-gold underline underline-offset-2">Privacy Policy</span>.
+                      <span className="text-xs font-sans text-muted leading-relaxed">
+                        I agree to BINDY&apos;s <span className="text-gold underline underline-offset-2 font-medium">Terms of Service</span> and <span className="text-gold underline underline-offset-2 font-medium">Privacy Policy</span>.
                       </span>
                     </label>
 
@@ -1663,7 +1663,7 @@ export default function CheckoutPage() {
                         type="button"
                         onClick={() => setStep("payment")}
                         disabled={isSubmitting}
-                        className="px-6 py-4 rounded-full border border-white/20 text-paper font-sans text-xs uppercase tracking-[0.2em] hover:border-gold transition-colors min-h-[48px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-6 py-4 rounded-full border border-sand/40 text-charcoal font-sans text-xs uppercase tracking-[0.2em] hover:border-gold bg-paper transition-colors min-h-[48px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                       >
                         Back
                       </button>
@@ -1672,8 +1672,8 @@ export default function CheckoutPage() {
                         disabled={!agreedToTerms || isSubmitting}
                         className={`flex-1 py-4 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center gap-2.5 min-h-[48px] ${
                           !agreedToTerms || isSubmitting
-                            ? "bg-sand/20 text-sand/50 border border-white/5 cursor-not-allowed shadow-none pointer-events-none"
-                            : "bg-gold text-charcoal hover:bg-cinnamon hover:text-white shadow-2xl cursor-pointer"
+                            ? "bg-sand/20 text-muted border border-sand/40 cursor-not-allowed shadow-none pointer-events-none"
+                            : "bg-gold text-charcoal hover:bg-cinnamon hover:text-white shadow-lg cursor-pointer"
                         }`}
                       >
                         {isSubmitting ? (
@@ -1696,19 +1696,19 @@ export default function CheckoutPage() {
 
             {/* Right: Sticky Order Summary (Desktop only >= lg) */}
             <div className="hidden lg:block lg:col-span-5 lg:sticky lg:top-24 self-start">
-              <div className="bg-ink border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="bg-paper-light border border-sand/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
+                <div className="flex items-center justify-between border-b border-sand/30 pb-4">
                   <div className="flex items-center gap-2">
-                    <h3 className="font-serif text-xl font-medium text-paper-light">
+                    <h3 className="font-serif text-xl font-medium text-charcoal">
                       Order Summary
                     </h3>
                     {isBuyNowMode && (
-                      <span className="text-[10px] font-sans uppercase tracking-widest text-gold bg-gold/10 border border-gold/30 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-sans uppercase tracking-widest text-gold bg-gold/15 border border-gold/30 px-2 py-0.5 rounded-full font-semibold">
                         Buy Now
                       </span>
                     )}
                   </div>
-                  <span className="text-xs font-sans text-sand/70">
+                  <span className="text-xs font-sans text-muted">
                     {totalItemsCount} items
                   </span>
                 </div>
@@ -1721,7 +1721,7 @@ export default function CheckoutPage() {
       </div>
 
       {/* 5. FOOTER */}
-      <footer className="py-6 border-t border-white/10 text-center text-xs text-sand/60 font-sans mt-8 sm:mt-12 px-4">
+      <footer className="py-6 border-t border-sand/40 text-center text-xs text-muted font-sans mt-8 sm:mt-12 px-4">
         <p>© {new Date().getFullYear()} BINDY Clothing • Designed in Australia, Inspired by Sri Lanka</p>
       </footer>
     </main>

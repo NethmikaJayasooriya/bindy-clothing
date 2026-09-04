@@ -59,17 +59,17 @@ export default function ThreeWomenStory() {
         <span className="text-[11px] font-sans uppercase tracking-[0.4em] text-gold font-medium">
           Our Origin • Three Women
         </span>
-        <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-zinc-900 dark:text-zinc-100 font-light tracking-wide">
+        <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal font-light tracking-wide">
           Three Women. <span className="italic font-serif">One Vision.</span>
         </h2>
-        <p className="font-serif italic text-base sm:text-lg text-zinc-600 dark:text-sand/80 font-light leading-relaxed">
+        <p className="font-serif italic text-base sm:text-lg text-muted font-light leading-relaxed">
           What began as one woman’s dream evolved into a shared journey between a mother and her two daughters, united by a passion for ethical slow fashion.
         </p>
       </div>
 
       {/* Magazine Masthead Credits Layout (Typography-Only Spread) */}
-      <div className="border-y border-sand/30 dark:border-white/10">
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-sand/30 dark:divide-white/10">
+      <div className="border-y border-sand/40 bg-paper-light/60 rounded-3xl shadow-sm overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-sand/40">
           {founders.map((person, idx) => (
             <motion.div
               key={person.id}
@@ -77,26 +77,26 @@ export default function ThreeWomenStory() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className="px-4 sm:px-8 lg:px-12 py-12 md:py-14 flex flex-col justify-between space-y-8 text-left"
+              className="px-6 sm:px-8 lg:px-12 py-12 md:py-14 flex flex-col justify-between space-y-8 text-left bg-paper-light/40 hover:bg-paper-light transition-colors duration-300"
             >
               {/* 1. Header: Monogram + Name + Role */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="font-display text-4xl sm:text-5xl text-gold/90 tracking-wide font-normal select-none">
+                  <span className="font-display text-4xl sm:text-5xl text-gold tracking-wide font-normal select-none">
                     {person.monogram}
                   </span>
-                  <span className="font-mono text-[10px] tracking-[0.3em] text-sand/60 uppercase">
+                  <span className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase font-medium">
                     {person.number} / 03
                   </span>
                 </div>
 
-                <div className="w-12 h-px bg-gold/40" />
+                <div className="w-12 h-px bg-gold/50" />
 
                 <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl text-zinc-900 dark:text-paper-light font-medium tracking-wide leading-snug">
+                  <h3 className="font-serif text-2xl sm:text-3xl text-charcoal-rich font-medium tracking-wide leading-snug">
                     {person.name}
                   </h3>
-                  <p className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.28em] text-gold font-medium mt-1">
+                  <p className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.28em] text-gold font-semibold mt-1">
                     {person.role}
                   </p>
                 </div>
@@ -104,25 +104,25 @@ export default function ThreeWomenStory() {
 
               {/* 2. Emotional Centerpiece: Pull-Quote */}
               <div className="space-y-4 my-auto py-2">
-                <blockquote className="font-serif italic text-base sm:text-lg text-zinc-800 dark:text-[#E8DFC8] font-light leading-relaxed border-l-2 border-gold/40 pl-4 py-1">
+                <blockquote className="font-editorial-italic text-base sm:text-lg text-charcoal font-light leading-relaxed border-l-2 border-gold/60 pl-4 py-1">
                   &ldquo;{person.quote}&rdquo;
                 </blockquote>
-                <p className="font-sans text-xs sm:text-[13px] text-zinc-600 dark:text-sand/75 font-light leading-relaxed">
+                <p className="font-sans text-xs sm:text-[13px] text-charcoal/85 font-light leading-relaxed">
                   {person.bio}
                 </p>
               </div>
 
               {/* 3. Unboxed Editorial Focus Tags */}
-              <div className="pt-6 border-t border-sand/20 dark:border-white/10 space-y-2">
-                <span className="text-[9px] uppercase font-sans tracking-[0.25em] text-muted block font-medium">
+              <div className="pt-6 border-t border-sand/30 space-y-2">
+                <span className="text-[9px] uppercase font-sans tracking-[0.28em] text-muted block font-semibold">
                   Focus Areas
                 </span>
-                <div className="text-xs font-sans text-zinc-700 dark:text-sand/80 font-light flex flex-wrap gap-x-2.5 gap-y-1">
+                <div className="text-xs font-sans text-charcoal font-light flex flex-wrap gap-x-2.5 gap-y-1">
                   {person.focus.map((f, i) => (
                     <span key={i} className="inline-flex items-center gap-2">
-                      <span>{f}</span>
+                      <span className="font-medium text-charcoal/90">{f}</span>
                       {i < person.focus.length - 1 && (
-                        <span className="text-gold/40 text-[10px]">•</span>
+                        <span className="text-gold/60 text-[10px]">•</span>
                       )}
                     </span>
                   ))}
