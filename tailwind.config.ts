@@ -1,9 +1,20 @@
 import type { Config } from "tailwindcss";
 
+/**
+ * Tailwind CSS Configuration for BINDY Clothing
+ *
+ * CSS Connection Pipeline:
+ * 1. Global stylesheet: `app/globals.css` (contains @tailwind base, components, utilities)
+ * 2. Root Layout: `app/layout.tsx` imports `./globals.css` directly at line 2.
+ * 3. PostCSS Processor: `postcss.config.mjs` triggers Tailwind & Autoprefixer during Next.js compilation.
+ * 4. Content Scanner: All files in `./app`, `./components`, `./data`, and `./lib` are scanned for utility classes.
+ */
 const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./data/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
