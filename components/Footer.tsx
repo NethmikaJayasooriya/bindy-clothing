@@ -119,27 +119,27 @@ export default function Footer() {
             <ul className="space-y-2.5 text-xs font-sans uppercase tracking-[0.18em] text-charcoal/80">
               <li>
                 <Link href="/size-guide" className="hover:text-gold transition-colors">
-                  Size Guide & Measuring
+                  Size Guide &amp; Fit
+                </Link>
+              </li>
+              <li>
+                <Link href="/returns" className="hover:text-gold transition-colors">
+                  Returns &amp; Exchanges Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/returns/start" className="hover:text-gold transition-colors">
+                  Return &amp; Exchange Portal
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-gold transition-colors">
-                  Contact & Inquiries
+                  Contact &amp; Inquiries
                 </Link>
               </li>
               <li>
                 <Link href="/contact#faq" className="hover:text-gold transition-colors">
                   Frequently Asked Questions
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact#returns" className="hover:text-gold transition-colors">
-                  30-Day Returns Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact#shipping" className="hover:text-gold transition-colors">
-                  Shipping & Delivery
                 </Link>
               </li>
             </ul>

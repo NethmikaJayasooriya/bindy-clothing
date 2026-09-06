@@ -13,9 +13,64 @@ export interface EnrichedProduct extends BaseProduct {
   badge?: "NEW" | "LIMITED EDITION" | "BEST SELLER" | "ARCHIVE";
   weightGsm?: number;
   originDistrict?: string;
+  parentCategory: "Tops" | "Bottoms" | "Dresses" | "Resort Wear";
+  subCategory: string;
+  collectionName: "Serendipity";
+  occasions: string[];
 }
 
-// Enrich each product with realistic luxury stock and origin data
+// Taxonomy mapping for client-specified hierarchy
+const TAXONOMY_MAP: Record<
+  string,
+  {
+    parent: "Tops" | "Bottoms" | "Dresses" | "Resort Wear";
+    sub: string;
+    occasions: string[];
+  }
+> = {
+  "lotus-memory-dress": {
+    parent: "Dresses",
+    sub: "Linen",
+    occasions: ["Everyday Calm", "Garden & High Tea"],
+  },
+  "cinnamon-flow-skirt": {
+    parent: "Bottoms",
+    sub: "Skirts",
+    occasions: ["Everyday Calm", "Beach & Coast"],
+  },
+  "pettah-check-dress": {
+    parent: "Dresses",
+    sub: "Casual",
+    occasions: ["Everyday Calm", "Evening & Party"],
+  },
+  "ocean-embraced-tiered-dress": {
+    parent: "Dresses",
+    sub: "Maxi",
+    occasions: ["Beach & Coast", "Resort Wear"],
+  },
+  "serendib-pearl-dress": {
+    parent: "Dresses",
+    sub: "Formal",
+    occasions: ["Evening & Party", "Garden & High Tea"],
+  },
+  "shore-traces-blouse": {
+    parent: "Tops",
+    sub: "Blouses & Shirts",
+    occasions: ["Everyday Calm", "Beach & Coast"],
+  },
+  "celestial-terracotta-skirt": {
+    parent: "Bottoms",
+    sub: "Skirts",
+    occasions: ["Evening & Party", "Everyday Calm"],
+  },
+  "tea-leaf-two-piece": {
+    parent: "Resort Wear",
+    sub: "Crop Tops",
+    occasions: ["Beach & Coast", "Resort Wear", "Garden & High Tea"],
+  },
+};
+
+// Enrich each product with realistic luxury stock, origin, and taxonomy data
 export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
   const stockStatuses: ("in_stock" | "low_stock" | "in_stock")[] = ["in_stock", "low_stock", "in_stock"];
   const inventoryCounts = [14, 2, 8, 19, 3, 11, 4, 16];
@@ -40,6 +95,12 @@ export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
     "Dambulla Voile Weavers, Central Province",
   ];
 
+  const taxonomy = TAXONOMY_MAP[p.id] || {
+    parent: p.category.includes("Dress") ? "Dresses" : p.category.includes("Top") ? "Tops" : "Bottoms",
+    sub: "Linen",
+    occasions: ["Everyday Calm"],
+  };
+
   return {
     ...p,
     inventoryStatus: stockStatuses[idx % stockStatuses.length],
@@ -47,6 +108,10 @@ export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
     badge: badges[idx % badges.length],
     weightGsm: 110 + (idx * 25),
     originDistrict: origins[idx % origins.length],
+    parentCategory: taxonomy.parent,
+    subCategory: taxonomy.sub,
+    collectionName: "Serendipity",
+    occasions: taxonomy.occasions,
   };
 });
 
@@ -57,6 +122,19 @@ export function getProduct(slug: string): EnrichedProduct | undefined {
 export function getProductsByCategory(category: Category | "All"): EnrichedProduct[] {
   if (category === "All") return PRODUCTS;
   return PRODUCTS.filter((p) => p.category === category);
+}
+
+export function getProductsByTaxonomy(
+  parentCategory?: string,
+  subCategory?: string,
+  occasion?: string
+): EnrichedProduct[] {
+  return PRODUCTS.filter((p) => {
+    if (parentCategory && parentCategory !== "All" && p.parentCategory !== parentCategory) return false;
+    if (subCategory && subCategory !== "All" && p.subCategory !== subCategory) return false;
+    if (occasion && occasion !== "All" && !p.occasions.includes(occasion)) return false;
+    return true;
+  });
 }
 
 export function getProductsByDestination(destination: Destination | "All"): EnrichedProduct[] {
@@ -70,3 +148,4 @@ export function getFeaturedSpotlightProducts(): EnrichedProduct[] {
 }
 
 export { CATEGORIES, DESTINATIONS, getAverageRating, getStoreReviewsAggregate } from "@/lib/products";
+

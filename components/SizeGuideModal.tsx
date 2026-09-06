@@ -1,23 +1,19 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Ruler, Sparkles, HelpCircle, ShieldCheck } from "lucide-react";
+import { X, Ruler, Sparkles, ExternalLink, HelpCircle } from "lucide-react";
+import { BODY_MEASUREMENTS, SIZE_CONVERSIONS, MEASURING_GUIDE_TIPS } from "@/data/size-guide";
 
 interface SizeGuideModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const SIZE_CHART = [
-  { size: "AU 6 (XS)", bust: "78–82", waist: "60–64", hip: "86–90" },
-  { size: "AU 8 (S)", bust: "83–87", waist: "65–69", hip: "91–95" },
-  { size: "AU 10 (M)", bust: "88–93", waist: "70–75", hip: "96–101" },
-  { size: "AU 12 (L)", bust: "94–99", waist: "76–81", hip: "102–107" },
-  { size: "AU 14 (XL)", bust: "100–106", waist: "82–88", hip: "108–114" },
-];
-
 export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
+  const [unit, setUnit] = useState<"in" | "cm">("in");
+
   // Listen for Escape key to close modal
   useEffect(() => {
     if (!isOpen) return;
@@ -40,158 +36,212 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
           />
 
           {/* Modal Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.94, y: 15 }}
+            initial={{ opacity: 0, scale: 0.95, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.94, y: 15 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative z-10 max-w-2xl w-full bg-paper-light text-charcoal rounded-3xl overflow-hidden border border-sand/40 shadow-2xl max-h-[90vh] flex flex-col"
+            exit={{ opacity: 0, scale: 0.95, y: 12 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="relative z-10 max-w-3xl w-full bg-[#FAF7F2] text-[#1F1E1D] rounded-3xl overflow-hidden border border-[#DCC7AF]/60 shadow-2xl max-h-[92vh] flex flex-col"
           >
             {/* Header */}
-            <div className="p-5 sm:p-6 border-b border-sand/30 flex items-center justify-between bg-paper">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold">
+            <div className="p-5 sm:p-6 border-b border-[#DCC7AF]/40 flex items-center justify-between bg-white/70">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/30 flex items-center justify-center text-[#C5A059]">
                   <Ruler className="w-5 h-5 stroke-[1.5]" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-semibold block">
-                    Tailoring & Dimensions
-                  </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-normal text-charcoal">
-                    Size & Fit Guide
+                  <h3 className="font-serif text-xl sm:text-2xl text-[#1F1E1D] font-normal">
+                    Size &amp; Fit Guide
                   </h3>
+                  <p className="text-[11px] font-mono tracking-widest uppercase text-[#78716A]">
+                    BODY MEASUREMENTS &amp; CONVERSIONS
+                  </p>
                 </div>
               </div>
 
-              <button
-                onClick={onClose}
-                className="p-2 rounded-full bg-sand/15 border border-sand/40 text-charcoal hover:bg-sand/30 transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
-                aria-label="Close Size Guide"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              {/* UNIT TOGGLE (CM / IN) */}
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center bg-[#FAF7F2] p-1 rounded-full border border-[#DCC7AF]/80">
+                  <button
+                    type="button"
+                    onClick={() => setUnit("cm")}
+                    className={`px-3 py-1 text-xs font-mono rounded-full transition-all ${
+                      unit === "cm"
+                        ? "bg-[#1F1E1D] text-white shadow-sm"
+                        : "text-[#78716A] hover:text-[#1F1E1D]"
+                    }`}
+                  >
+                    CM
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setUnit("in")}
+                    className={`px-3 py-1 text-xs font-mono rounded-full transition-all ${
+                      unit === "in"
+                        ? "bg-[#1F1E1D] text-white shadow-sm"
+                        : "text-[#78716A] hover:text-[#1F1E1D]"
+                    }`}
+                  >
+                    IN
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-9 h-9 rounded-full bg-white border border-[#DCC7AF]/60 flex items-center justify-center text-[#78716A] hover:text-[#1F1E1D] hover:border-[#1F1E1D] transition-colors"
+                  aria-label="Close size guide"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
             {/* Scrollable Content */}
-            <div className="p-5 sm:p-7 overflow-y-auto custom-scrollbar space-y-6 sm:space-y-8">
-              {/* AU Sizing Chart */}
-              <section className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <h4 className="font-serif text-lg text-charcoal font-medium">
-                    Australian Standard Sizing Chart
+            <div className="p-5 sm:p-7 overflow-y-auto space-y-8 text-xs sm:text-sm custom-scrollbar">
+              
+              {/* BODY MEASUREMENTS TABLE (EXACT FROM CLIENT SPEC) */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="font-mono text-[11px] uppercase tracking-widest text-[#78716A] font-semibold">
+                    BODY MEASUREMENTS ({unit.toUpperCase()})
                   </h4>
-                  <span className="text-[11px] font-sans text-muted">Measurements in cm</span>
+                  <span className="text-[10px] text-[#78716A] italic">
+                    All measurements in {unit === "in" ? "inches" : "centimetres"}
+                  </span>
                 </div>
 
-                <div className="overflow-x-auto custom-scrollbar rounded-2xl border border-sand/30 bg-paper">
-                  <table className="w-full text-left text-xs font-sans border-collapse">
+                <div className="overflow-x-auto rounded-2xl border border-[#DCC7AF]/60 bg-white">
+                  <table className="w-full text-center border-collapse">
                     <thead>
-                      <tr className="border-b border-sand/30 bg-sand/15 text-charcoal text-[10px] uppercase tracking-wider">
-                        <th className="py-3 px-4 font-semibold">AU Size</th>
-                        <th className="py-3 px-4 font-semibold">Bust (cm)</th>
-                        <th className="py-3 px-4 font-semibold">Waist (cm)</th>
-                        <th className="py-3 px-4 font-semibold">Hip (cm)</th>
+                      <tr className="bg-[#FAF7F2]/80 border-b border-[#DCC7AF]/40 text-[#78716A] font-mono text-[11px]">
+                        <th className="py-3 px-3 sm:px-4 text-left font-medium uppercase tracking-wider sticky left-0 bg-[#FAF7F2]">
+                          AUS / UK
+                        </th>
+                        {BODY_MEASUREMENTS.map((m) => (
+                          <th key={m.size} className="py-3 px-3 sm:px-4 font-semibold text-[#1F1E1D]">
+                            {m.size}
+                          </th>
+                        ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-sand/20">
-                      {SIZE_CHART.map((row, idx) => (
-                        <tr key={idx} className="hover:bg-sand/10 transition-colors">
-                          <td className="py-3 px-4 font-medium text-charcoal">{row.size}</td>
-                          <td className="py-3 px-4 text-charcoal/80">{row.bust}</td>
-                          <td className="py-3 px-4 text-charcoal/80">{row.waist}</td>
-                          <td className="py-3 px-4 text-charcoal/80">{row.hip}</td>
-                        </tr>
-                      ))}
+                    <tbody className="divide-y divide-[#DCC7AF]/20 text-[#1F1E1D]">
+                      <tr>
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-white">
+                          Bust
+                        </td>
+                        {BODY_MEASUREMENTS.map((m) => (
+                          <td key={m.size} className="py-3 px-3 sm:px-4 font-mono text-xs">
+                            {m.bust[unit]}
+                          </td>
+                        ))}
+                      </tr>
+                      <tr className="bg-[#FAF7F2]/30">
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-[#FAF7F2]/30">
+                          Waist
+                        </td>
+                        {BODY_MEASUREMENTS.map((m) => (
+                          <td key={m.size} className="py-3 px-3 sm:px-4 font-mono text-xs">
+                            {m.waist[unit]}
+                          </td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-white">
+                          Hip
+                        </td>
+                        {BODY_MEASUREMENTS.map((m) => (
+                          <td key={m.size} className="py-3 px-3 sm:px-4 font-mono text-xs">
+                            {m.hip[unit]}
+                          </td>
+                        ))}
+                      </tr>
                     </tbody>
                   </table>
                 </div>
-              </section>
+              </div>
 
-              {/* How to Measure */}
-              <section className="space-y-3">
-                <h4 className="font-serif text-lg text-charcoal font-medium flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-gold" />
-                  How to Measure
+              {/* SIZE CONVERSION TABLE (EXACT FROM CLIENT SPEC) */}
+              <div>
+                <h4 className="font-mono text-[11px] uppercase tracking-widest text-[#78716A] font-semibold mb-3">
+                  INTERNATIONAL SIZE CONVERSION
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-sans">
-                  <div className="p-3.5 rounded-2xl bg-paper border border-sand/30 space-y-1">
-                    <span className="text-gold font-semibold uppercase tracking-wider text-[10px] block">1. Bust</span>
-                    <p className="text-charcoal/80 leading-relaxed font-light">
-                      Measure around the fullest part of your bust, keeping the tape level.
-                    </p>
-                  </div>
-                  <div className="p-3.5 rounded-2xl bg-paper border border-sand/30 space-y-1">
-                    <span className="text-gold font-semibold uppercase tracking-wider text-[10px] block">2. Waist</span>
-                    <p className="text-charcoal/80 leading-relaxed font-light">
-                      Measure around the narrowest part of your natural waistline.
-                    </p>
-                  </div>
-                  <div className="p-3.5 rounded-2xl bg-paper border border-sand/30 space-y-1">
-                    <span className="text-gold font-semibold uppercase tracking-wider text-[10px] block">3. Hip</span>
-                    <p className="text-charcoal/80 leading-relaxed font-light">
-                      Measure around the fullest part of your hips, about 20cm below your waist.
-                    </p>
-                  </div>
+                <div className="overflow-x-auto rounded-2xl border border-[#DCC7AF]/60 bg-white">
+                  <table className="w-full text-center border-collapse">
+                    <thead>
+                      <tr className="bg-[#FAF7F2]/80 border-b border-[#DCC7AF]/40 text-[#78716A] font-mono text-[11px]">
+                        <th className="py-3 px-3 sm:px-4 text-left font-medium uppercase tracking-wider sticky left-0 bg-[#FAF7F2]">
+                          AUS / UK
+                        </th>
+                        {SIZE_CONVERSIONS.map((c) => (
+                          <th key={c.ausUk} className="py-3 px-3 sm:px-4 font-semibold text-[#1F1E1D]">
+                            {c.ausUk}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#DCC7AF]/20 text-[#1F1E1D]">
+                      <tr>
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-white">
+                          USA
+                        </td>
+                        {SIZE_CONVERSIONS.map((c) => (
+                          <td key={c.ausUk} className="py-3 px-3 sm:px-4 font-mono text-xs">
+                            {c.usa}
+                          </td>
+                        ))}
+                      </tr>
+                      <tr className="bg-[#FAF7F2]/30">
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-[#FAF7F2]/30">
+                          EU
+                        </td>
+                        {SIZE_CONVERSIONS.map((c) => (
+                          <td key={c.ausUk} className="py-3 px-3 sm:px-4 font-mono text-xs">
+                            {c.eu}
+                          </td>
+                        ))}
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <p className="text-[11px] font-sans text-muted italic">
-                  * For the most accurate fit, measure over light clothing or undergarments, keeping the tape snug but not tight.
-                </p>
-              </section>
+              </div>
 
-              {/* Fit Notes */}
-              <section className="space-y-3 bg-paper border border-sand/30 p-4 sm:p-5 rounded-2xl">
-                <h4 className="font-serif text-base text-charcoal font-medium text-gold">
-                  Artisan Fabric & Silhouette Notes
-                </h4>
-                <ul className="space-y-2.5 text-xs font-sans text-charcoal/85 font-light leading-relaxed">
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0" />
-                    <span>
-                      Our handloom cotton and linen pieces are woven with natural give — if you&apos;re between sizes, we recommend sizing down for a fitted silhouette or sizing up for a relaxed drape.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0" />
-                    <span>
-                      Bias-cut and gathered-waist styles (like the Cinnamon Flow Skirt) are more forgiving through the waist and hip.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0" />
-                    <span>
-                      Structured bodices (like the Lotus Memory Dress) fit closer to your true measurements — check individual product reviews under &ldquo;Fit Feedback&rdquo; for real customer experiences with this piece specifically.
-                    </span>
-                  </li>
-                </ul>
-              </section>
-
-              {/* Still Unsure? */}
-              <section className="flex items-center gap-3 p-4 rounded-2xl bg-gold/10 border border-gold/30 text-xs font-sans text-charcoal">
-                <HelpCircle className="w-5 h-5 text-gold flex-shrink-0" />
-                <div className="space-y-0.5">
-                  <span className="font-medium text-gold">Still Unsure About Sizing?</span>
-                  <p className="font-light">
-                    Reach out to our team for personalized fit advice before you order, or use our 30-day effortless Australian exchange guarantee if it&apos;s not quite right.
-                  </p>
+              {/* HOW TO MEASURE TIPS */}
+              <div className="p-4 sm:p-5 bg-white rounded-2xl border border-[#DCC7AF]/50 space-y-3">
+                <h5 className="font-serif text-sm text-[#1F1E1D] font-medium">
+                  How to Measure Accurately
+                </h5>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-[#78716A]">
+                  {MEASURING_GUIDE_TIPS.map((tip) => (
+                    <div key={tip.title}>
+                      <span className="font-medium text-[#1F1E1D] block mb-1">{tip.title}</span>
+                      <p className="leading-relaxed text-[11px]">{tip.desc}</p>
+                    </div>
+                  ))}
                 </div>
-              </section>
+              </div>
             </div>
 
-            {/* Footer */}
-            <div className="p-4 sm:p-5 border-t border-sand/30 bg-paper flex items-center justify-between">
-              <div className="flex items-center gap-2 text-[11px] font-sans text-muted">
-                <ShieldCheck className="w-4 h-4 text-gold" />
-                <span>30-Day Effortless Australian Exchanges</span>
-              </div>
-              <button
+            {/* Modal Footer */}
+            <div className="p-4 sm:p-5 border-t border-[#DCC7AF]/40 bg-white/70 flex items-center justify-between text-xs">
+              <Link
+                href="/size-guide"
                 onClick={onClose}
-                className="px-6 py-2.5 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-widest font-semibold hover:bg-cinnamon hover:text-white transition-colors cursor-pointer min-h-[40px]"
+                className="text-[#C5A059] hover:underline flex items-center space-x-1 font-medium"
               >
-                Close Guide
+                <span>View Full Standalone Size Guide</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Link>
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-5 py-2.5 bg-[#1F1E1D] text-white rounded-full text-xs font-mono uppercase tracking-widest hover:bg-[#C5A059] transition-colors"
+              >
+                Done
               </button>
             </div>
           </motion.div>

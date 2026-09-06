@@ -4,21 +4,14 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Ruler, UserCheck, Sparkles } from "lucide-react";
 import type { Product } from "@/lib/products";
+import { BODY_MEASUREMENTS } from "@/data/size-guide";
 
 export interface SizeFitGuidanceProps {
   product: Product;
 }
 
 export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
-  const [unit, setUnit] = useState<"cm" | "in">("cm");
-
-  const sizeMeasurements = [
-    { size: "AU 6 (XS)", bust: { cm: "80 - 83", in: "31.5 - 32.5" }, waist: { cm: "62 - 65", in: "24.5 - 25.5" }, hip: { cm: "88 - 91", in: "34.5 - 35.8" }, length: { cm: "128", in: "50.4" } },
-    { size: "AU 8 (S)", bust: { cm: "84 - 87", in: "33.0 - 34.2" }, waist: { cm: "66 - 69", in: "26.0 - 27.2" }, hip: { cm: "92 - 95", in: "36.2 - 37.4" }, length: { cm: "130", in: "51.2" } },
-    { size: "AU 10 (M)", bust: { cm: "88 - 92", in: "34.6 - 36.2" }, waist: { cm: "70 - 74", in: "27.5 - 29.1" }, hip: { cm: "96 - 100", in: "37.8 - 39.4" }, length: { cm: "132", in: "52.0" } },
-    { size: "AU 12 (L)", bust: { cm: "93 - 97", in: "36.6 - 38.2" }, waist: { cm: "75 - 79", in: "29.5 - 31.1" }, hip: { cm: "101 - 105", in: "39.8 - 41.3" }, length: { cm: "134", in: "52.8" } },
-    { size: "AU 14 (XL)", bust: { cm: "98 - 103", in: "38.6 - 40.5" }, waist: { cm: "80 - 85", in: "31.5 - 33.5" }, hip: { cm: "106 - 111", in: "41.7 - 43.7" }, length: { cm: "136", in: "53.5" } },
-  ];
+  const [unit, setUnit] = useState<"in" | "cm">("in");
 
   return (
     <section className="py-20 sm:py-24 bg-paper-light border-b border-sand/30">
@@ -121,21 +114,19 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
               <table className="w-full text-left text-xs font-sans">
                 <thead className="bg-paper-dark border-b border-sand/40 text-[10px] uppercase tracking-wider text-muted font-semibold">
                   <tr>
-                    <th className="py-3.5 px-4">Size</th>
+                    <th className="py-3.5 px-4">Size (AUS/UK)</th>
                     <th className="py-3.5 px-4">Bust ({unit})</th>
                     <th className="py-3.5 px-4">Waist ({unit})</th>
                     <th className="py-3.5 px-4">Hip ({unit})</th>
-                    <th className="py-3.5 px-4">Length ({unit})</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-sand/30 text-charcoal">
-                  {sizeMeasurements.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-paper-light transition-colors">
-                      <td className="py-3.5 px-4 font-semibold text-charcoal">{row.size}</td>
-                      <td className="py-3.5 px-4 text-charcoal/80">{row.bust[unit]}</td>
-                      <td className="py-3.5 px-4 text-charcoal/80">{row.waist[unit]}</td>
-                      <td className="py-3.5 px-4 text-charcoal/80">{row.hip[unit]}</td>
-                      <td className="py-3.5 px-4 text-charcoal/80">{row.length[unit]}</td>
+                  {BODY_MEASUREMENTS.map((m) => (
+                    <tr key={m.size} className="hover:bg-paper-light transition-colors">
+                      <td className="py-3.5 px-4 font-semibold text-charcoal">AU {m.size}</td>
+                      <td className="py-3.5 px-4 text-charcoal/80 font-mono">{m.bust[unit]}</td>
+                      <td className="py-3.5 px-4 text-charcoal/80 font-mono">{m.waist[unit]}</td>
+                      <td className="py-3.5 px-4 text-charcoal/80 font-mono">{m.hip[unit]}</td>
                     </tr>
                   ))}
                 </tbody>
