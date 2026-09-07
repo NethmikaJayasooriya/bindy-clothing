@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ShoppingBag } from "lucide-react";
 import { getCart, saveCart } from "@/lib/cart";
 import { type Product } from "@/data/products";
 import SplashScreen from "@/components/SplashScreen";
@@ -32,6 +34,18 @@ export default function Home() {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [isFilmModalOpen, setIsFilmModalOpen] = useState(false);
   const [selectedJourney, setSelectedJourney] = useState<Destination | "All">("All");
+  const [showStickyMobile, setShowStickyMobile] = useState(false);
+
+  // Track scroll position for sticky mobile CTA bar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window !== "undefined") {
+        setShowStickyMobile(window.scrollY > window.innerHeight * 0.7);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Check if splash screen was already viewed in this browser session
   useEffect(() => {
@@ -216,6 +230,54 @@ export default function Home() {
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
       />
+
+      {/* STICKY MOBILE CONVERSION BAR (Section 7.8) */}
+      <AnimatePresence>
+        {showStickyMobile && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-white/95 backdrop-blur-md border-t border-[#DCC7AF]/80 p-3 px-4 flex items-center justify-between gap-3 shadow-[0_-8px_30px_rgba(0,0,0,0.1)]"
+          >
+            <div className="min-w-0">
+              <p className="font-serif text-xs font-semibold text-[#1F1E1D] truncate">
+                Serendipity Collection
+              </p>
+              <p className="text-[10px] font-mono text-[#78716A]">
+                Ethical Handloom
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById("browse-collection");
+                  el?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-4 py-2 rounded-full bg-[#B86B4B] hover:bg-[#9B5538] text-white font-mono text-xs uppercase tracking-wider font-semibold shadow-md active:scale-95 transition-all"
+              >
+                Shop Now
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsCartOpen(true)}
+                className="relative p-2 rounded-full bg-[#FAF7F2] border border-[#DCC7AF] text-[#1F1E1D] shadow-sm hover:border-[#B86B4B] transition-colors"
+                aria-label="Open Shopping Bag"
+              >
+                <ShoppingBag className="w-4 h-4 text-[#B86B4B]" />
+                {totalCartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#1F1E1D] text-white text-[9px] font-mono flex items-center justify-center font-bold">
+                    {totalCartCount}
+                  </span>
+                )}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

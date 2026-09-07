@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Heart, Eye, Plus, Check, ArrowRight } from "lucide-react";
+import { Heart, Eye, Plus, Check, ArrowRight, Flame } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { getAverageRating } from "@/lib/products";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
@@ -210,12 +210,18 @@ export default function ProductCard({
             {product.fabric}
           </p>
 
-          <div className="mt-2">
+          <div className="mt-2 flex items-center justify-between">
             <StarRating
               value={rating}
               count={product.reviews.length}
               size="sm"
             />
+            {product.id.includes("lotus") || product.id.includes("cinnamon") ? (
+              <span className="flex items-center gap-1 text-[10px] font-mono text-[#B86B4B] font-semibold">
+                <Flame className="w-3 h-3 fill-[#B86B4B]" />
+                <span>Bestseller</span>
+              </span>
+            ) : null}
           </div>
         </div>
 
@@ -224,10 +230,10 @@ export default function ProductCard({
 
           <Link
             href={`/product/${product.id}`}
-            className="inline-flex items-center gap-1 text-[11px] font-sans uppercase tracking-[0.2em] text-charcoal group-hover:text-gold font-semibold transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#B86B4B]/10 hover:bg-[#B86B4B] text-[#B86B4B] hover:text-white border border-[#B86B4B]/30 hover:border-[#B86B4B] text-[11px] font-mono uppercase tracking-wider font-semibold transition-all duration-300 shadow-sm"
           >
             <span>Explore</span>
-            <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
       </div>

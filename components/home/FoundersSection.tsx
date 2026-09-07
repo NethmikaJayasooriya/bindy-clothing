@@ -29,32 +29,41 @@ export default function FoundersSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className="p-8 lg:p-10 flex flex-col justify-between space-y-6 text-left hover:bg-paper-dark/30 transition-colors duration-300"
+              className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6 text-left hover:bg-paper-dark/20 transition-colors duration-300 group"
             >
-              {/* Header: Monogram + Number */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-4xl sm:text-5xl text-gold tracking-wide select-none">
+              {/* Top: Editorial Portrait Photo */}
+              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-paper-dark border border-sand/40 group-hover:border-gold/60 transition-all duration-500 shadow-sm">
+                <img
+                  src={founder.image}
+                  alt={founder.name}
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                {/* Top Corner: Sequence Badge */}
+                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md text-[9px] font-mono tracking-widest text-gold uppercase border border-white/15">
+                  {founder.number} / 03
+                </div>
+
+                {/* Bottom Overlay: Monogram & Location */}
+                <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between text-white">
+                  <span className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center font-display text-base text-charcoal font-semibold shadow-md">
                     {founder.monogram}
                   </span>
-                  <span className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase font-medium">
-                    {founder.number} / 03
+                  <span className="text-[10px] font-sans uppercase tracking-wider text-white/90 bg-black/45 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15">
+                    {founder.location}
                   </span>
                 </div>
+              </div>
 
-                <div className="w-10 h-px bg-gold/50" />
-
-                <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl text-charcoal-rich font-medium tracking-wide leading-snug">
-                    {founder.name}
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.25em] text-gold font-semibold mt-1">
-                    {founder.role}
-                  </p>
-                  <p className="text-[10px] font-sans text-muted mt-0.5">
-                    {founder.location}
-                  </p>
-                </div>
+              {/* Founder Details */}
+              <div className="space-y-2">
+                <h3 className="font-serif text-2xl text-charcoal-rich font-medium tracking-wide leading-snug group-hover:text-gold transition-colors">
+                  {founder.name}
+                </h3>
+                <p className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.25em] text-gold font-semibold">
+                  {founder.role}
+                </p>
               </div>
 
               {/* Emotional Centerpiece: Pull-Quote */}
