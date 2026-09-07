@@ -12,6 +12,7 @@ import HeritageTicker from "@/components/HeritageTicker";
 import TrustStrip from "@/components/home/TrustStrip";
 import SpotlightSection from "@/components/home/SpotlightSection";
 import FlashArchiveSection from "@/components/home/FlashArchiveSection";
+import ShopTheLookSection from "@/components/home/ShopTheLookSection";
 import JourneyTiles from "@/components/home/JourneyTiles";
 import BrowseSection from "@/components/home/BrowseSection";
 import StoriesSection from "@/components/home/StoriesSection";
@@ -172,6 +173,12 @@ export default function Home() {
 
         {/* SECTION 3.5: LIMITED 24-HOUR ARCHIVE WINDOW (FLASH PRIVILEGE) */}
         <FlashArchiveSection
+          onQuickView={(prod) => setQuickViewProduct(prod)}
+          onAddToCart={handleAddToCart}
+        />
+
+        {/* SECTION 3.8: INTERACTIVE EDITORIAL LOOKBOOK (SHOP THE ENSEMBLE) */}
+        <ShopTheLookSection
           onQuickView={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
         />

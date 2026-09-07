@@ -116,11 +116,11 @@ export default function FlashArchiveSection({
   };
 
   return (
-    <section className="relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#FAF7F2] via-[#F4EFE6]/80 to-[#FAF7F2] border-y border-[#DCC7AF]/60 overflow-hidden">
+    <section id="flash-privilege" className="relative py-24 sm:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#1C1B1A] via-[#141312] to-[#1C1B1A] text-white border-y border-[#C5A059]/50 overflow-hidden shadow-2xl">
       
-      {/* Subtle Background Glow Rings */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#C5A059]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-[#B86B4B]/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Radiant Background Ambience Glow */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-[#B86B4B]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -128,25 +128,25 @@ export default function FlashArchiveSection({
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
           
           {/* Left Title Area */}
-          <div className="space-y-3 max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#B86B4B]/10 border border-[#B86B4B]/30 text-[#B86B4B] text-[11px] font-mono tracking-widest uppercase font-semibold">
+          <div className="space-y-3.5 max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#B86B4B]/25 border border-[#B86B4B]/60 text-white text-[11px] font-mono tracking-widest uppercase font-semibold shadow-inner">
               <span className="w-2 h-2 rounded-full bg-[#B86B4B] animate-ping" />
-              <Zap className="w-3.5 h-3.5" />
+              <Zap className="w-3.5 h-3.5 text-[#C5A059]" />
               <span>Limited 24-Hour Archive Window</span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#1F1E1D] font-normal leading-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-white font-normal leading-tight">
               Curated Flash <span className="italic font-serif text-[#C5A059]">Privilege</span>
             </h2>
 
-            <p className="font-serif italic text-sm sm:text-base text-[#78716A] leading-relaxed">
+            <p className="font-serif italic text-sm sm:text-base text-white/75 leading-relaxed font-light">
               Rare seasonal privileges on our most loved handloom silhouettes. Limited to current weaver dye-lot yardage before entering our permanent archive.
             </p>
           </div>
 
           {/* Right: Modern Luxury Countdown Clock */}
-          <div className="bg-white/90 backdrop-blur-md border border-[#DCC7AF] rounded-3xl p-5 sm:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] self-start lg:self-auto">
-            <div className="flex items-center space-x-2 text-[11px] font-mono uppercase tracking-widest text-[#78716A] mb-3">
+          <div className="bg-black/60 backdrop-blur-xl border border-[#C5A059]/40 rounded-3xl p-5 sm:p-6 shadow-[0_8px_40px_rgba(0,0,0,0.5)] self-start lg:self-auto ring-1 ring-white/10">
+            <div className="flex items-center space-x-2 text-[11px] font-mono uppercase tracking-widest text-[#C5A059] mb-3 font-semibold">
               <Clock className="w-3.5 h-3.5 text-[#C5A059]" />
               <span>Window Concludes In</span>
             </div>
@@ -154,10 +154,10 @@ export default function FlashArchiveSection({
             <div className="flex items-center space-x-2 sm:space-x-3">
               {/* Hours */}
               <div className="flex flex-col items-center">
-                <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-[#1F1E1D] text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-medium shadow-md">
+                <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-white/10 border border-[#C5A059]/40 text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-medium shadow-md">
                   {formatDigit(timeLeft.hours)}
                 </div>
-                <span className="text-[9px] font-mono tracking-widest uppercase text-[#78716A] mt-1.5">
+                <span className="text-[9px] font-mono tracking-widest uppercase text-white/60 mt-1.5 font-medium">
                   Hours
                 </span>
               </div>
@@ -166,10 +166,10 @@ export default function FlashArchiveSection({
 
               {/* Minutes */}
               <div className="flex flex-col items-center">
-                <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-[#1F1E1D] text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-medium shadow-md">
+                <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-white/10 border border-[#C5A059]/40 text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-medium shadow-md">
                   {formatDigit(timeLeft.minutes)}
                 </div>
-                <span className="text-[9px] font-mono tracking-widest uppercase text-[#78716A] mt-1.5">
+                <span className="text-[9px] font-mono tracking-widest uppercase text-white/60 mt-1.5 font-medium">
                   Mins
                 </span>
               </div>
@@ -178,10 +178,10 @@ export default function FlashArchiveSection({
 
               {/* Seconds */}
               <div className="flex flex-col items-center">
-                <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-[#C5A059] text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-medium shadow-md">
+                <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-[#B86B4B] text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-medium shadow-md">
                   {formatDigit(timeLeft.seconds)}
                 </div>
-                <span className="text-[9px] font-mono tracking-widest uppercase text-[#78716A] mt-1.5">
+                <span className="text-[9px] font-mono tracking-widest uppercase text-white/60 mt-1.5 font-medium">
                   Secs
                 </span>
               </div>
@@ -344,17 +344,17 @@ export default function FlashArchiveSection({
         </div>
 
         {/* BOTTOM GUARANTEE REASSURANCE */}
-        <div className="mt-12 pt-6 border-t border-[#DCC7AF]/50 flex flex-wrap items-center justify-around gap-4 text-xs font-mono uppercase tracking-wider text-[#78716A]">
+        <div className="mt-12 pt-6 border-t border-white/15 flex flex-wrap items-center justify-around gap-4 text-xs font-mono uppercase tracking-wider text-white/80">
           <span className="flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
             <span>Complimentary Carbon-Neutral AU Shipping</span>
           </span>
-          <span className="hidden sm:inline text-[#DCC7AF]">•</span>
+          <span className="hidden sm:inline text-white/30">•</span>
           <span className="flex items-center gap-1.5">
             <Clock className="w-4 h-4 text-[#C5A059]" />
             <span>30-Day Easy Australian Returns</span>
           </span>
-          <span className="hidden sm:inline text-[#DCC7AF]">•</span>
+          <span className="hidden sm:inline text-white/30">•</span>
           <span className="flex items-center gap-1.5">
             <Sparkles className="w-4 h-4 text-[#C5A059]" />
             <span>100% Ethical Small-Batch Handloom</span>

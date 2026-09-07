@@ -11,6 +11,7 @@ import {
   type Product,
 } from "@/data/products";
 import { SectionHeading, ProductCard, Button } from "@/components/ui";
+import CategoryStoryBar from "@/components/home/CategoryStoryBar";
 
 export interface BrowseSectionProps {
   onQuickView: (product: Product) => void;
@@ -53,7 +54,7 @@ export default function BrowseSection({
 
         {/* Active Journey Filter Chip (if selected from Journey Tiles) */}
         {selectedJourney !== "All" && (
-          <div className="flex items-center justify-center gap-2 mb-8">
+          <div className="flex items-center justify-center gap-2 mb-6">
             <span className="text-xs font-sans text-muted">Filtered by journey:</span>
             <span className="inline-flex items-center gap-2 bg-gold/15 border border-gold/30 px-3.5 py-1 rounded-full text-xs font-sans font-semibold text-charcoal">
               <span>{selectedJourney}</span>
@@ -68,6 +69,15 @@ export default function BrowseSection({
             </span>
           </div>
         )}
+
+        {/* High-Fashion 1-Tap Category Story Bar (E-Com Upgrade) */}
+        <CategoryStoryBar
+          activeCategory={activeCategory}
+          onSelectCategory={(cat) => {
+            setActiveCategory(cat);
+            setVisibleCount(8);
+          }}
+        />
 
         {/* Category Filter Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-12 sm:mb-14">

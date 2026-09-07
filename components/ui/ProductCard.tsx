@@ -33,6 +33,7 @@ export default function ProductCard({
 }: ProductCardProps) {
   const [, setWishlistTick] = useState(0);
   const [added, setAdded] = useState(false);
+  const [addedSize, setAddedSize] = useState<string | null>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   useEffect(() => {
@@ -155,38 +156,57 @@ export default function ProductCard({
           )}
         </div>
 
-        {/* Hover Quick Action Buttons (Middle / Lower) */}
-        <div className="absolute inset-x-3 bottom-4 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-auto">
-          {onQuickView && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onQuickView(product);
-              }}
-              className="px-3 py-1.5 rounded-full bg-paper-light/95 hover:bg-paper-light text-charcoal backdrop-blur-md font-sans text-[10px] uppercase tracking-[0.2em] font-semibold flex items-center gap-1.5 shadow-md hover:shadow-lg transition-all cursor-pointer"
-            >
-              <Eye className="w-3 h-3 text-gold" />
-              Quick View
-            </button>
-          )}
+        {/* Hover Quick Size Selector Bar (Section 7.5 & E-com Conversion Upgrade) */}
+        <div className="absolute inset-x-2.5 bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-auto bg-white/95 backdrop-blur-md p-2.5 rounded-2xl border border-[#DCC7AF]/80 shadow-lg flex flex-col gap-1.5 z-20">
+          <div className="flex items-center justify-between px-1 text-[10px] font-mono">
+            <span className="uppercase text-[#78716A] font-semibold">Quick Add Size:</span>
+            {onQuickView && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onQuickView(product);
+                }}
+                className="text-[#B86B4B] hover:underline flex items-center gap-0.5"
+              >
+                <Eye className="w-3 h-3" />
+                <span>Quick View</span>
+              </button>
+            )}
+          </div>
+          <div className="grid grid-cols-5 gap-1">
+            {product.sizes.map((sz) => {
+              const short = sz.replace("AU ", "").split(" ")[0];
+              const isAdded = addedSize === sz;
 
-          {showQuickAdd && stockStatus !== "sold_out" && (
-            <button
-              type="button"
-              onClick={handleAdd}
-              className={`ml-auto p-2 rounded-full text-white shadow-luxury transition-all duration-200 cursor-pointer ${
-                added
-                  ? "bg-emerald-600 scale-105"
-                  : "bg-gold hover:bg-cinnamon hover:scale-105 text-charcoal hover:text-white"
-              }`}
-              title={added ? "Added to bag" : "Quick Add to Bag"}
-              aria-label="Quick Add to Bag"
-            >
-              {added ? <Check className="w-3.5 h-3.5 text-white" /> : <Plus className="w-3.5 h-3.5" />}
-            </button>
-          )}
+              return (
+                <button
+                  key={sz}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (onQuickAdd) {
+                      onQuickAdd(product, sz);
+                    } else {
+                      addToCart(product, sz, 1);
+                    }
+                    setAddedSize(sz);
+                    setTimeout(() => setAddedSize(null), 1800);
+                  }}
+                  className={`py-1.5 text-[10px] font-mono rounded-lg border text-center transition-all ${
+                    isAdded
+                      ? "bg-[#AFC8B1] text-[#2E4A32] border-[#AFC8B1] font-bold shadow-sm"
+                      : "border-[#DCC7AF]/60 bg-[#FAF7F2] text-[#1F1E1D] hover:bg-[#B86B4B] hover:text-white hover:border-[#B86B4B]"
+                  }`}
+                  title={`Add size ${sz} to bag`}
+                >
+                  {isAdded ? "✓" : short}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
