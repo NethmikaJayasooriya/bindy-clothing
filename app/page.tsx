@@ -9,6 +9,7 @@ import CinematicHero from "@/components/CinematicHero";
 import HeritageTicker from "@/components/HeritageTicker";
 import TrustStrip from "@/components/home/TrustStrip";
 import SpotlightSection from "@/components/home/SpotlightSection";
+import FlashArchiveSection from "@/components/home/FlashArchiveSection";
 import JourneyTiles from "@/components/home/JourneyTiles";
 import BrowseSection from "@/components/home/BrowseSection";
 import StoriesSection from "@/components/home/StoriesSection";
@@ -152,6 +153,12 @@ export default function Home() {
         {/* SECTION 3: THIS WEEK'S SPOTLIGHT (with quick-add hover state) */}
         <SpotlightSection
           onSelectProduct={(prod) => setQuickViewProduct(prod)}
+          onAddToCart={handleAddToCart}
+        />
+
+        {/* SECTION 3.5: LIMITED 24-HOUR ARCHIVE WINDOW (FLASH PRIVILEGE) */}
+        <FlashArchiveSection
+          onQuickView={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
         />
 
