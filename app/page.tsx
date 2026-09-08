@@ -12,7 +12,7 @@ import HeritageTicker from "@/components/HeritageTicker";
 import TrustStrip from "@/components/home/TrustStrip";
 import SpotlightSection from "@/components/home/SpotlightSection";
 import FlashArchiveSection from "@/components/home/FlashArchiveSection";
-import StyleMatcherSection from "@/components/home/StyleMatcherSection";
+import CapsuleWardrobeSection from "@/components/home/CapsuleWardrobeSection";
 import JourneyTiles from "@/components/home/JourneyTiles";
 import BrowseSection from "@/components/home/BrowseSection";
 import StoriesSection from "@/components/home/StoriesSection";
@@ -177,8 +177,8 @@ export default function Home() {
           onAddToCart={handleAddToCart}
         />
 
-        {/* SECTION 3.8: INTERACTIVE SILHOUETTE & OCCASION MATCHER */}
-        <StyleMatcherSection
+        {/* SECTION 3.8: PACK YOUR CAPSULE (4-PIECE VACATION WARDROBE STYLER) */}
+        <CapsuleWardrobeSection
           onQuickView={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
         />
