@@ -17,6 +17,8 @@ import {
   ArrowRight,
   Truck,
   RotateCcw,
+  Globe,
+  Package,
 } from "lucide-react";
 import SearchModal from "@/components/SearchModal";
 import WishlistDrawer from "@/components/WishlistDrawer";
@@ -96,7 +98,7 @@ export default function Navbar({
     <>
       <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300 pointer-events-none">
         
-        {/* 1. TOP UTILITY STRIP (CRIB.lk top bar: active when at page top, slides out on scroll) */}
+        {/* 1. TOP UTILITY STRIP (Wide, refined announcement & secondary utilities) */}
         <div
           className={`pointer-events-auto transition-all duration-300 overflow-hidden ${
             isScrolled
@@ -104,26 +106,28 @@ export default function Navbar({
               : "max-h-11 opacity-100 bg-[#1F1E1D]/90 backdrop-blur-md border-b border-white/10 text-white/85 py-1.5"
           }`}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-[11px] font-mono">
-            {/* Left: Contact / Announcements (like CRIB phone/email row) */}
-            <div className="flex items-center gap-2.5">
+          <div className="max-w-[1540px] w-[96vw] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-[11px] font-mono">
+            {/* Left: Free delivery & return assurance */}
+            <div className="flex items-center gap-3">
               <span className="flex items-center gap-1.5 text-[#C5A059]">
                 <Truck className="w-3.5 h-3.5" />
                 <span className="font-semibold uppercase tracking-wider">Free AU Courier $150+</span>
               </span>
               <span className="text-white/30 hidden sm:inline">•</span>
-              <span className="text-white/70 hidden sm:inline">30-Day Easy Returns</span>
+              <span className="text-white/70 hidden sm:inline">30-Day Easy Australian Returns</span>
             </div>
 
-            {/* Right: Quick Utilities (Member login, currency switcher, sound) */}
+            {/* Right: Premium utilities with standard iconography */}
             <div className="flex items-center gap-4 text-white/80">
-              {/* Currency Selector */}
+              {/* Currency Selector with Globe Icon */}
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setIsCurrencyDropdown(!isCurrencyDropdown)}
-                  className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
+                  title="Change Currency"
                 >
+                  <Globe className="w-3.5 h-3.5 text-[#C5A059]" />
                   <span>{currency}</span>
                   <ChevronDown className="w-3 h-3 opacity-60" />
                 </button>
@@ -153,8 +157,8 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={toggleAudio}
-                className="hidden sm:flex items-center gap-1 hover:text-[#C5A059] transition-colors cursor-pointer"
-                title={isMuted ? "Unmute Ambient Audio" : "Mute Ambient Audio"}
+                className="hidden sm:flex items-center gap-1.5 hover:text-[#C5A059] transition-colors cursor-pointer"
+                title={isMuted ? "Unmute Ambient Sound" : "Mute Ambient Sound"}
               >
                 {isMuted ? (
                   <>
@@ -173,7 +177,8 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={() => setIsWishlistOpen(true)}
-                className="hidden sm:flex items-center gap-1 hover:text-[#C5A059] transition-colors cursor-pointer"
+                className="hidden sm:flex items-center gap-1.5 hover:text-[#C5A059] transition-colors cursor-pointer"
+                title="View Saved Pieces"
               >
                 <Heart className={`w-3.5 h-3.5 ${wishlistCount > 0 ? "fill-[#C5A059] text-[#C5A059]" : ""}`} />
                 <span>Saved ({wishlistCount})</span>
@@ -182,30 +187,30 @@ export default function Navbar({
               {/* Account / Login */}
               <Link
                 href="/account"
-                className="hover:text-white flex items-center gap-1 transition-colors"
+                className="hover:text-white flex items-center gap-1.5 transition-colors"
+                title="Account Login"
               >
                 <User className="w-3.5 h-3.5" />
-                <span>{account ? account.name.split(" ")[0] : "Account Login"}</span>
+                <span>{account ? account.name.split(" ")[0] : "Account"}</span>
               </Link>
             </div>
           </div>
         </div>
 
-        {/* 2. FLOATING PILL CAPSULE (CRIB.lk Morphing Pattern) */}
-        {/* At top: White Capsule with Dark Text. When scrolled: Deep Charcoal Capsule with Light Text. */}
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-2.5 sm:mt-3">
+        {/* 2. FLOATING PILL CAPSULE (Wide luxury span + CRIB.lk morphing states + premium standard icons) */}
+        <div className="max-w-[1540px] w-[96vw] mx-auto px-2 sm:px-4 lg:px-6 mt-2.5 sm:mt-3">
           <nav
             className={`pointer-events-auto rounded-full transition-all duration-300 flex items-center justify-between border ${
               isScrolled
-                ? "bg-[#1F1E1D]/95 backdrop-blur-xl border-white/15 text-white py-2 px-4 sm:px-6 shadow-[0_16px_45px_rgba(0,0,0,0.25)]"
-                : "bg-white/95 backdrop-blur-xl border-[#DCC7AF]/70 text-[#1F1E1D] py-2.5 px-4 sm:px-7 shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
+                ? "bg-[#1F1E1D]/95 backdrop-blur-xl border-white/15 text-white py-2 px-5 sm:px-8 shadow-[0_16px_45px_rgba(0,0,0,0.25)]"
+                : "bg-white/95 backdrop-blur-xl border-[#DCC7AF]/70 text-[#1F1E1D] py-2.5 sm:py-3 px-5 sm:px-8 shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
             }`}
           >
-            {/* ZONE 1: BRAND LOGO (Clean breathing room) */}
-            <div className="flex-shrink-0 mr-4 sm:mr-6 lg:mr-8">
+            {/* ZONE 1: BRAND IDENTITY (Generous left margin & luxury typography) */}
+            <div className="flex-shrink-0 mr-6 sm:mr-8 xl:mr-10">
               <Link href="/" className="inline-block text-left group">
                 <span
-                  className={`font-display text-xl sm:text-2xl tracking-[0.2em] font-normal transition-colors ${
+                  className={`font-display text-xl sm:text-2xl lg:text-[26px] tracking-[0.2em] font-normal transition-colors ${
                     isScrolled
                       ? "text-white group-hover:text-[#C5A059]"
                       : "text-[#1F1E1D] group-hover:text-[#B86B4B]"
@@ -219,9 +224,9 @@ export default function Navbar({
               </Link>
             </div>
 
-            {/* ZONE 2: PRIMARY NAVIGATION LINKS (Centered & uncluttered) */}
-            <div className="hidden lg:flex items-center space-x-5 xl:space-x-7">
-              {/* Collection with Mega-Menu */}
+            {/* ZONE 2: PRIMARY NAVIGATION (Centered with comfortable breathing room) */}
+            <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+              {/* Collection Dropdown */}
               <div
                 className="relative py-2"
                 onMouseEnter={() => setIsCollectionHovered(true)}
@@ -229,14 +234,14 @@ export default function Navbar({
               >
                 <Link
                   href="/collection"
-                  className={`text-xs uppercase tracking-[0.2em] font-sans font-medium transition-colors flex items-center gap-1 ${
+                  className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors flex items-center gap-1.5 ${
                     isScrolled
                       ? "text-white/90 hover:text-[#C5A059]"
                       : "text-[#1F1E1D] hover:text-[#B86B4B]"
                   }`}
                 >
                   <span>Collection</span>
-                  <ChevronDown className="w-3 h-3 opacity-60" />
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isCollectionHovered ? "rotate-180 text-[#C5A059]" : "opacity-60"}`} />
                 </Link>
 
                 {/* Desktop Mega-Menu Dropdown */}
@@ -247,7 +252,7 @@ export default function Navbar({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.2 }}
-                      className={`absolute left-0 top-full mt-2 w-[700px] rounded-3xl p-7 shadow-2xl z-50 border text-left ${
+                      className={`absolute left-0 top-full mt-2 w-[720px] rounded-3xl p-7 shadow-2xl z-50 border text-left ${
                         isScrolled
                           ? "bg-[#1F1E1D] border-white/15 text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
                           : "bg-[#FAF7F2] border-[#DCC7AF] text-[#1F1E1D]"
@@ -426,7 +431,7 @@ export default function Navbar({
 
               <Link
                 href="/collection?filter=new"
-                className={`text-xs uppercase tracking-[0.2em] font-sans font-medium transition-colors ${
+                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -434,7 +439,7 @@ export default function Navbar({
               </Link>
               <Link
                 href="/stories"
-                className={`text-xs uppercase tracking-[0.2em] font-sans font-medium transition-colors ${
+                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -442,7 +447,7 @@ export default function Navbar({
               </Link>
               <Link
                 href="/about"
-                className={`text-xs uppercase tracking-[0.2em] font-sans font-medium transition-colors ${
+                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -450,7 +455,7 @@ export default function Navbar({
               </Link>
               <Link
                 href="/craft"
-                className={`text-xs uppercase tracking-[0.2em] font-sans font-medium transition-colors ${
+                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -458,7 +463,7 @@ export default function Navbar({
               </Link>
               <Link
                 href="/journal"
-                className={`text-xs uppercase tracking-[0.2em] font-sans font-medium transition-colors ${
+                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -466,23 +471,23 @@ export default function Navbar({
               </Link>
             </div>
 
-            {/* ZONE 3: RIGHT UTILITY CONTROLS (CRIB.lk style: Search pill + 2 CTA pills) */}
-            <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* ZONE 3: PREMIUM STANDARD ACTIONS & CTAS (CRIB.lk Pattern elevated) */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
               
-              {/* Rounded Search Pill Input (Matching CRIB.lk search pill) */}
+              {/* Rounded Search Pill Input (Clean search bar with standard magnifying glass) */}
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
                 className={`hidden md:flex items-center justify-between rounded-full px-3.5 py-1.5 transition-all text-xs cursor-pointer border ${
                   isScrolled
-                    ? "bg-white/10 hover:bg-white/15 border-white/20 text-white/80 w-32 xl:w-36"
-                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-[#78716A] w-32 xl:w-36"
+                    ? "bg-white/10 hover:bg-white/15 border-white/20 text-white/80 w-36 xl:w-44"
+                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-[#78716A] w-36 xl:w-44"
                 }`}
-                title="Search garments"
+                title="Search garments (Cmd+K)"
                 aria-label="Search garments"
               >
-                <span className="text-[11px] truncate">Search...</span>
-                <Search className={`w-3 h-3 ${isScrolled ? "text-white/70" : "text-[#78716A]"}`} />
+                <span className="text-[11px] truncate font-sans">Search collection...</span>
+                <Search className={`w-3.5 h-3.5 shrink-0 ${isScrolled ? "text-white/70" : "text-[#78716A]"}`} />
               </button>
 
               {/* Mobile Search Icon */}
@@ -497,44 +502,48 @@ export default function Navbar({
                 <Search className="w-4 h-4" />
               </button>
 
-              {/* CRIB.lk Pill Button 1: Ghost/Secondary Pill (Track Order) */}
+              {/* Pill Button 1: Track Order (Secondary action with standard package icon) */}
               <Link
                 href="/returns/start"
-                className={`hidden sm:inline-flex items-center justify-center px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider font-semibold transition-all border ${
+                className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 xl:px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider font-semibold transition-all border ${
                   isScrolled
                     ? "bg-white/15 hover:bg-white/25 border-white/25 text-white shadow-sm"
-                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-[#1F1E1D]"
+                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-[#1F1E1D] hover:border-[#1F1E1D]"
                 }`}
                 title="Track order or returns"
               >
+                <RotateCcw className={`w-3 h-3 ${isScrolled ? "text-[#C5A059]" : "text-[#C5A059]"}`} />
                 <span>Track Order</span>
               </Link>
 
-              {/* CRIB.lk Pill Button 2: Primary Accent Pill (Shop Now / Get Started) */}
+              {/* Pill Button 2: Shop Now (Primary CTA with standard sparkles icon) */}
               <Link
                 href="/collection"
-                className={`hidden sm:inline-flex items-center gap-1 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider font-semibold transition-all shadow-sm ${
+                className={`hidden sm:inline-flex items-center gap-1.5 px-4 xl:px-5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider font-semibold transition-all shadow-sm ${
                   isScrolled
                     ? "bg-white hover:bg-[#C5A059] text-[#1F1E1D] hover:text-white"
                     : "bg-[#1F1E1D] hover:bg-[#B86B4B] text-white"
                 }`}
+                title="Shop the Serendipity collection"
               >
+                <Sparkles className="w-3 h-3 text-[#C5A059]" />
                 <span>Shop Now</span>
               </Link>
 
-              {/* Cart Bag Pill (Always accessible) */}
+              {/* Shopping Bag Pill (Prominent, intuitive, always accessible) */}
               <button
                 type="button"
                 onClick={onOpenCart}
-                className={`flex items-center gap-1.5 py-1.5 px-3 rounded-full transition-all cursor-pointer shadow-sm text-xs font-mono font-medium ${
+                className={`flex items-center gap-2 py-1.5 px-3.5 rounded-full transition-all cursor-pointer shadow-sm text-xs font-mono font-medium ${
                   isScrolled
                     ? "bg-[#B86B4B] hover:bg-[#9E4D30] text-white"
                     : "bg-[#1F1E1D] hover:bg-[#B86B4B] text-white"
                 }`}
                 aria-label={`Shopping bag with ${cartCount} items`}
+                title="View Shopping Bag"
               >
                 <ShoppingBag className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span className="text-[11px] font-bold">{cartCount}</span>
+                <span className="text-[11px] font-bold tracking-tight">Bag ({cartCount})</span>
               </button>
 
               {/* Mobile Hamburger Menu Toggle */}
@@ -592,6 +601,7 @@ export default function Navbar({
                   type="button"
                   onClick={toggleAudio}
                   className="p-2 rounded-full border border-[#DCC7AF] text-[#1F1E1D]"
+                  title="Toggle Sound"
                 >
                   {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#C5A059]" />}
                 </button>
