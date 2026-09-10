@@ -155,7 +155,7 @@ export default function Home() {
       </div>
 
       {/* Spacer to dock flush at bottom edge of hero */}
-      <div className="h-[calc(100vh-36px)] sm:h-[calc(100vh-38px)]" aria-hidden />
+      <div className="h-[calc(100vh-52px)] sm:h-[calc(100vh-58px)]" aria-hidden />
 
       {/* Everything below rises up over the fixed hero in 11 sharp modules */}
       <div className="relative z-10 bg-paper shadow-[0_-20px_50px_rgba(0,0,0,0.15)]">

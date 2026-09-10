@@ -15,8 +15,8 @@ import {
   Play,
   Pause,
   ArrowRight,
-  Sparkles,
   Tag,
+  ChevronLeft,
   ChevronRight,
   Copy,
   Check,
@@ -267,6 +267,45 @@ export const HERO_COLLECTIONS_DATA: HeroCollectionData[] = [
   },
 ];
 
+export const HERO_SCENES = [
+  {
+    colIdx: 0,
+    secIdx: 0,
+    num: "01",
+    name: "Island Silhouettes",
+    subtitle: "Voile & Bias",
+    collection: "Serendipity",
+    thumb: "/images/hero images only/collection 1/section 1/lotus-memory-dress.jpg",
+  },
+  {
+    colIdx: 0,
+    secIdx: 1,
+    num: "02",
+    name: "Coastal Lace",
+    subtitle: "Cutwork Maxi",
+    collection: "Serendipity",
+    thumb: "/images/hero images only/collection 1/section 2/serendib-pearl-dress.jpg",
+  },
+  {
+    colIdx: 1,
+    secIdx: 0,
+    num: "03",
+    name: "Golden Cascade",
+    subtitle: "Ehela Blossom",
+    collection: "Botanicals",
+    thumb: "/images/hero images only/collection 2/section 1/A_GOLDEN_CASCADE_Inspired_by_Sri_Lankas_Ehela_blossom.jpeg",
+  },
+  {
+    colIdx: 1,
+    secIdx: 1,
+    num: "04",
+    name: "Midnight Bloom",
+    subtitle: "Crimson Lotus",
+    collection: "Botanicals",
+    thumb: "/images/hero images only/collection 2/section 2/The Crimson Lotus 1.jpeg",
+  },
+];
+
 // Modern E-Commerce Discount Campaigns
 export interface PromoCampaign {
   id: string;
@@ -311,7 +350,7 @@ export const HERO_DISCOUNT_CAMPAIGNS: PromoCampaign[] = [
   {
     id: "campaign-3",
     tag: "VACATION CAPSULE",
-    title: "CAPSULE STYLER —",
+    title: "CAPSULE WARDROBE STYLER —",
     highlightDiscount: "BUY 2, GET 15% OFF",
     description:
       "Curate your 4-piece island-hopping wardrobe. Infinitely mixable, weightless natural cottons that fold into one tote bag.",
@@ -508,6 +547,18 @@ export default function CinematicHero({
   // Automatic 4-State Cycle: (Col 1 Sec 1 -> Col 1 Sec 2 -> Col 2 Sec 1 -> Col 2 Sec 2)
   // ----------------------------------------------------
   const currentStep = activeCollectionIdx * 2 + activeSectionIdx;
+
+  const handlePrevScene = useCallback(() => {
+    const prevStep = (currentStep - 1 + 4) % 4;
+    const target = HERO_SCENES[prevStep];
+    transitionToSection(target.colIdx, target.secIdx);
+  }, [currentStep, transitionToSection]);
+
+  const handleNextScene = useCallback(() => {
+    const nextStep = (currentStep + 1) % 4;
+    const target = HERO_SCENES[nextStep];
+    transitionToSection(target.colIdx, target.secIdx);
+  }, [currentStep, transitionToSection]);
 
   useEffect(() => {
     if (!isTilesPlaying || hoveredTileIndex !== null || isPromoHovered) return;
@@ -777,7 +828,7 @@ export default function CinematicHero({
       {/* ========================================================================= */}
       <motion.div
         style={{ y: heroContentY, opacity: heroOpacity }}
-        className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-12"
+        className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-between pt-24 sm:pt-28 pb-20 sm:pb-24"
       >
         {/* TOP BAR: Interactive Collection Selector & Section Switcher */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full flex-shrink-0">
@@ -799,34 +850,6 @@ export default function CinematicHero({
                 >
                   <Layers className={`w-3 h-3 ${isColActive ? "text-black" : "text-[#C5A059]"}`} />
                   <span>{col.shortName}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Section 01 / Section 02 Segmented Switcher for Active Collection */}
-          <div className="flex items-center gap-2 p-1 rounded-full bg-black/75 backdrop-blur-xl border border-white/15 shadow-lg self-start sm:self-auto">
-            <span className="hidden md:inline-block text-[9px] font-sans uppercase tracking-[0.25em] text-[#DCC7AF]/60 pl-2">
-              Chapter:
-            </span>
-            {activeCollection.sections.map((sec, sIdx) => {
-              const isSecActive = activeSectionIdx === sIdx;
-              return (
-                <button
-                  key={sec.id}
-                  type="button"
-                  onClick={() => transitionToSection(activeCollectionIdx, sIdx)}
-                  className={`px-3 sm:px-3.5 py-1 rounded-full text-[9px] sm:text-[10px] font-sans uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer flex items-center gap-1 ${
-                    isSecActive
-                      ? "bg-white/20 text-[#FAF7F2] font-bold border border-[#C5A059]/70 shadow-sm"
-                      : "text-[#DCC7AF]/60 hover:text-[#FAF7F2] hover:bg-white/5"
-                  }`}
-                  title={`${sec.title} • ${sec.tagline}`}
-                >
-                  <span className={isSecActive ? "text-[#C5A059]" : "opacity-40"}>
-                    0{sIdx + 1}
-                  </span>
-                  <span className="truncate max-w-[120px] sm:max-w-none">{sec.title}</span>
                 </button>
               );
             })}
@@ -860,7 +883,7 @@ export default function CinematicHero({
               </AnimatePresence>
 
               {/* 4 Deal Dots */}
-              <div className="inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
+              <div className="inline-flex items-center gap-2 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
                 {HERO_DISCOUNT_CAMPAIGNS.map((c, idx) => {
                   const isActive = campaignIndex === idx;
                   return (
@@ -868,7 +891,7 @@ export default function CinematicHero({
                       key={c.id}
                       type="button"
                       onClick={() => setCampaignIndex(idx)}
-                      className="group flex items-center gap-1 cursor-pointer py-0.5 focus:outline-none"
+                      className="group flex items-center cursor-pointer py-0.5 focus:outline-none"
                       title={`${c.title} ${c.highlightDiscount}`}
                       aria-label={`View deal ${idx + 1}: ${c.title}`}
                     >
@@ -879,11 +902,6 @@ export default function CinematicHero({
                             : "w-2 bg-white/35 hover:bg-white/70"
                         }`}
                       />
-                      {isActive && (
-                        <span className="text-[9px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-                          0{idx + 1}
-                        </span>
-                      )}
                     </button>
                   );
                 })}
@@ -965,60 +983,144 @@ export default function CinematicHero({
 
         {/* BOTTOM BAR: 4-Section Stepper, Autoplay Control & Scroll Prompt */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 w-full">
-          {/* 4-Section Navigation & Play/Pause Pill */}
+          {/* ========================================================================= */}
+          {/* CREATIVE LUXURY RUNWAY FILMSTRIP DOCK (Interactive Lookbook Navigator)    */}
+          {/* ========================================================================= */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex flex-wrap items-center gap-2.5 bg-black/80 hover:bg-black/95 backdrop-blur-xl px-3.5 py-2 rounded-full border border-[#DCC7AF]/30 hover:border-[#C5A059]/60 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 select-none"
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-2 sm:gap-3 bg-black/85 hover:bg-black/95 backdrop-blur-2xl px-2.5 sm:px-3.5 py-2 rounded-2xl sm:rounded-full border border-white/20 hover:border-[#C5A059]/60 shadow-[0_16px_50px_rgba(0,0,0,0.7)] transition-all duration-500 select-none group/dock"
           >
-            {/* Play/Pause Toggle */}
-            <button
-              type="button"
-              onClick={() => setIsTilesPlaying((prev) => !prev)}
-              className="relative w-7 h-7 rounded-full flex items-center justify-center bg-black/60 hover:bg-[#C5A059]/20 text-[#FAF7F2] hover:text-[#C5A059] border border-white/10 transition-all duration-200 cursor-pointer flex-shrink-0"
-              title={isTilesPlaying ? "Pause Section Rotation" : "Play Section Rotation"}
-              aria-label={isTilesPlaying ? "Pause Section Rotation" : "Play Section Rotation"}
-            >
-              {isTilesPlaying ? (
-                <Pause className="w-3 h-3 fill-current" />
-              ) : (
-                <Play className="w-3 h-3 fill-current ml-0.5" />
+            {/* 1. Living Play/Pause Indicator with Ambient Halo */}
+            <div className="relative flex items-center justify-center">
+              {isTilesPlaying && (
+                <motion.div
+                  animate={{ scale: [1, 1.4, 1], opacity: [0.45, 0, 0.45] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute inset-0 rounded-full bg-[#C5A059] blur-xs pointer-events-none"
+                />
               )}
-            </button>
+              <button
+                type="button"
+                onClick={() => setIsTilesPlaying((prev) => !prev)}
+                className="relative w-8 h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-[#C5A059] text-[#FAF7F2] hover:text-black border border-white/20 hover:border-[#C5A059] transition-all duration-300 cursor-pointer shadow-md active:scale-90 z-10"
+                title={isTilesPlaying ? "Pause runway autoplay" : "Resume runway autoplay"}
+                aria-label={isTilesPlaying ? "Pause runway autoplay" : "Resume runway autoplay"}
+              >
+                {isTilesPlaying ? (
+                  <Pause className="w-3.5 h-3.5 fill-current" />
+                ) : (
+                  <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                )}
+              </button>
+            </div>
 
-            {/* Stepper for 4 Hero Sections (Col 1 Sec 1, Col 1 Sec 2, Col 2 Sec 1, Col 2 Sec 2) */}
-            <div className="flex items-center gap-1.5">
-              {[
-                { colIdx: 0, secIdx: 0, label: "C1 • S1" },
-                { colIdx: 0, secIdx: 1, label: "C1 • S2" },
-                { colIdx: 1, secIdx: 0, label: "C2 • S1" },
-                { colIdx: 1, secIdx: 1, label: "C2 • S2" },
-              ].map((step, idx) => {
+            <div className="h-6 w-px bg-white/15 mx-0.5" />
+
+            {/* 2. 4 Interactive Photographic Scene Portals */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              {HERO_SCENES.map((scene, idx) => {
                 const isActive = currentStep === idx;
                 return (
                   <button
-                    key={idx}
+                    key={scene.num}
                     type="button"
-                    onClick={() => transitionToSection(step.colIdx, step.secIdx)}
-                    className={`px-2.5 py-1 rounded-full text-[9px] font-mono transition-all duration-300 cursor-pointer ${
+                    onClick={() => transitionToSection(scene.colIdx, scene.secIdx)}
+                    className={`group/card relative rounded-xl sm:rounded-full overflow-hidden transition-all duration-500 cursor-pointer flex items-center p-1 focus:outline-none ${
                       isActive
-                        ? "bg-[#C5A059] text-black font-bold shadow-[0_0_10px_rgba(197,160,89,0.8)]"
-                        : "text-[#DCC7AF]/70 hover:text-white bg-white/5 hover:bg-white/15"
+                        ? "bg-white/15 border border-[#C5A059] shadow-[0_0_20px_rgba(197,160,89,0.35)] pr-3"
+                        : "bg-black/40 border border-white/10 hover:border-white/40 hover:bg-white/10 opacity-70 hover:opacity-100"
                     }`}
-                    title={`Jump to ${HERO_COLLECTIONS_DATA[step.colIdx].shortName} - ${
-                      HERO_COLLECTIONS_DATA[step.colIdx].sections[step.secIdx].shortTitle
-                    }`}
+                    title={`${scene.num} • ${scene.name} (${scene.collection})`}
+                    aria-label={`Switch to ${scene.name}`}
                   >
-                    {step.label}
+                    {/* Mini Thumbnail Image */}
+                    <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-full overflow-hidden flex-shrink-0 border border-white/20">
+                      <Image
+                        src={safeSrc(scene.thumb)}
+                        alt={scene.name}
+                        fill
+                        sizes="32px"
+                        className="object-cover object-[center_20%] group-hover/card:scale-110 transition-transform duration-500"
+                      />
+                      {/* Number Badge Overlay on inactive cards */}
+                      {!isActive && (
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                          <span className="font-mono text-[9px] text-[#FAF7F2] font-bold">
+                            {scene.num}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Expanded Active Details */}
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          initial={{ opacity: 0, width: 0 }}
+                          animate={{ opacity: 1, width: "auto" }}
+                          exit={{ opacity: 0, width: 0 }}
+                          transition={{ duration: 0.35, ease: "easeOut" }}
+                          className="overflow-hidden whitespace-nowrap pl-2 flex flex-col items-start text-left"
+                        >
+                          <div className="flex items-center gap-1">
+                            <span className="font-mono text-[9px] text-[#C5A059] font-bold leading-none">
+                              {scene.num}
+                            </span>
+                            <span className="text-[10px] font-sans uppercase tracking-[0.18em] text-[#FAF7F2] font-bold leading-none">
+                              {scene.name}
+                            </span>
+                          </div>
+                          <span className="text-[8px] font-sans uppercase tracking-wider text-[#DCC7AF]/80 leading-none pt-0.5">
+                            {scene.subtitle}
+                          </span>
+
+                          {/* Progress Fill Bar */}
+                          <div className="w-full h-0.5 bg-white/20 rounded-full mt-1 overflow-hidden">
+                            <motion.div
+                              key={`dock-progress-${currentStep}-${isTilesPlaying}`}
+                              initial={{ width: "0%" }}
+                              animate={{ width: "100%" }}
+                              transition={{
+                                duration: isTilesPlaying ? 6 : 0.4,
+                                ease: isTilesPlaying ? "linear" : "easeOut",
+                              }}
+                              className="h-full bg-[#C5A059] shadow-[0_0_6px_rgba(197,160,89,1)]"
+                            />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </button>
                 );
               })}
             </div>
 
-            <span className="hidden md:inline text-[10px] font-sans uppercase tracking-[0.2em] text-[#DCC7AF]/50 pl-1">
-              • {activeSection.tagline}
-            </span>
+            <div className="h-6 w-px bg-white/15 mx-0.5" />
+
+            {/* 3. Sleek Prev & Next Arrow Controls */}
+            <div className="flex items-center gap-0.5">
+              <button
+                type="button"
+                onClick={handlePrevScene}
+                className="w-7 h-7 rounded-full flex items-center justify-center text-[#DCC7AF]/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
+                title="Previous section"
+                aria-label="Previous section"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={handleNextScene}
+                className="w-7 h-7 rounded-full flex items-center justify-center text-[#DCC7AF]/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
+                title="Next section"
+                aria-label="Next section"
+              >
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </motion.div>
 
           {/* Right: Scroll to Discover indicator */}
