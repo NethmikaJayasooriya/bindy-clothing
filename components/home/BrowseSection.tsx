@@ -26,6 +26,7 @@ export default function BrowseSection({
   selectedJourney = "All",
   onClearJourney,
 }: BrowseSectionProps) {
+  const [activeCollection, setActiveCollection] = useState<"All" | "Serendipity" | "Collection 02">("All");
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
   const [visibleCount, setVisibleCount] = useState(8);
 
@@ -33,9 +34,10 @@ export default function BrowseSection({
     return PRODUCTS.filter((p) => {
       const matchCat = activeCategory === "All" || p.category === activeCategory;
       const matchJourney = selectedJourney === "All" || p.destinations.includes(selectedJourney);
-      return matchCat && matchJourney;
+      const matchCol = activeCollection === "All" || p.collectionName === activeCollection;
+      return matchCat && matchJourney && matchCol;
     });
-  }, [activeCategory, selectedJourney]);
+  }, [activeCategory, selectedJourney, activeCollection]);
 
   const displayedProducts = filteredProducts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProducts.length;
@@ -44,13 +46,52 @@ export default function BrowseSection({
     <section id="browse-collection" className="relative py-24 sm:py-28 px-4 sm:px-6 lg:px-8 bg-paper">
       <div className="max-w-7xl mx-auto">
         <SectionHeading
-          eyebrow="Collection 01 • Serendipity"
+          eyebrow={
+            activeCollection === "Collection 02"
+              ? "Collection 02 • New Arrivals"
+              : activeCollection === "Serendipity"
+              ? "Collection 01 • Serendipity"
+              : "Origins • Complete Capsule"
+          }
           eyebrowIcon={<Sparkles className="w-3.5 h-3.5 text-gold" />}
           title="Browse by Piece"
           italicWord="Piece"
-          description="Nineteen handcrafted styles — each one carrying a fragment of Sri Lanka into the Australian wardrobe."
+          description="Handcrafted silhouettes — each one carrying a fragment of Sri Lankan heritage into the Australian wardrobe."
           align="center"
         />
+
+        {/* Collection Selector Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+          {[
+            { key: "All", label: "All Collections" },
+            { key: "Serendipity", label: "Collection 01 • Serendipity" },
+            { key: "Collection 02", label: "Collection 02", isNew: true },
+          ].map((col) => {
+            const active = activeCollection === col.key;
+            return (
+              <button
+                key={col.key}
+                type="button"
+                onClick={() => {
+                  setActiveCollection(col.key as any);
+                  setVisibleCount(8);
+                }}
+                className={`relative px-4 sm:px-5 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none ${
+                  active
+                    ? "bg-[#1F1E1D] text-white border-[#1F1E1D] shadow-md font-semibold"
+                    : "bg-white/80 text-[#78716A] border-[#DCC7AF]/60 hover:text-[#1F1E1D] hover:border-[#1F1E1D]"
+                }`}
+              >
+                <span>{col.label}</span>
+                {col.isNew && (
+                  <span className="ml-1.5 px-1.5 py-0.2 text-[9px] rounded-full bg-[#C5A059] text-white font-bold">
+                    NEW
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
 
         {/* Active Journey Filter Chip (if selected from Journey Tiles) */}
         {selectedJourney !== "All" && (

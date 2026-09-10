@@ -263,13 +263,13 @@ export default function Navbar({
                         <div className={`space-y-4 border-r pr-4 ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/40"}`}>
                           <div>
                             <Link
-                              href="/collection?filter=new"
+                              href="/collection?collection=Collection%2002"
                               className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-semibold hover:underline block mb-1"
                             >
-                              ✦ New Arrivals
+                              ✦ Collection 02 (New)
                             </Link>
                             <p className={`text-[11px] leading-relaxed ${isScrolled ? "text-white/60" : "text-[#78716A]"}`}>
-                              Latest drop from our coastal Sri Lankan ateliers.
+                              9 fresh silhouettes inspired by Ceylon flora &amp; ancient wonders.
                             </p>
                           </div>
 
@@ -474,31 +474,22 @@ export default function Navbar({
             {/* ZONE 3: SEARCH & PREMIUM ACTIONS (Spacious search, Track Order, Heart & Bag icons) */}
             <div className="flex items-center gap-2 sm:gap-3 xl:gap-4">
               
-              {/* Spacious Search Bar (Expanded width with standard icon & Cmd+K badge) */}
+              {/* Spacious Search Bar (Expanded width with standard icon) */}
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className={`hidden md:flex items-center justify-between rounded-full px-4 py-2 transition-all text-xs cursor-pointer border ${
+                className={`hidden md:flex items-center rounded-full px-4 py-2 transition-all text-xs cursor-pointer border ${
                   isScrolled
                     ? "bg-white/10 hover:bg-white/15 border-white/20 text-white/80 w-52 md:w-60 lg:w-72 xl:w-80 shadow-inner"
                     : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-[#78716A] w-52 md:w-60 lg:w-72 xl:w-80 shadow-sm"
                 }`}
-                title="Search garments (Cmd+K)"
+                title="Search garments"
                 aria-label="Search garments"
               >
-                <div className="flex items-center gap-2.5 truncate">
+                <div className="flex items-center gap-2.5 truncate w-full">
                   <Search className={`w-3.5 h-3.5 shrink-0 ${isScrolled ? "text-[#C5A059]" : "text-[#78716A]"}`} />
                   <span className="text-xs truncate font-sans text-left">Search collection, silk, dresses...</span>
                 </div>
-                <kbd
-                  className={`hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded border ${
-                    isScrolled
-                      ? "bg-white/10 border-white/20 text-white/60"
-                      : "bg-black/5 border-[#DCC7AF] text-[#78716A]"
-                  }`}
-                >
-                  ⌘K
-                </kbd>
               </button>
 
               {/* Mobile Search Icon */}
@@ -686,11 +677,11 @@ export default function Navbar({
                 {mobileExpandedCat === "collection" && (
                   <div className="pl-4 py-2 space-y-2.5 text-sm text-[#78716A] border-l-2 border-[#DCC7AF]/60 mt-1">
                     <Link
-                      href="/collection?filter=new"
+                      href="/collection?collection=Collection%2002"
                       onClick={() => setMobileMenuOpen(false)}
                       className="block text-[#C5A059] font-mono text-xs uppercase tracking-wider font-semibold"
                     >
-                      ✦ New Arrivals
+                      ✦ Collection 02 (9 New Pieces)
                     </Link>
                     <Link
                       href="/collection?parent=Dresses"

@@ -396,9 +396,19 @@ function CollectionContent() {
 
             {/* 4. COLLECTION TAGS */}
             <div className="bg-white border border-[#DCC7AF]/60 rounded-3xl p-6 shadow-sm space-y-3">
-              <h3 className="text-xs font-mono uppercase tracking-widest text-[#78716A] font-semibold">
-                Collection
-              </h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-mono uppercase tracking-widest text-[#78716A] font-semibold">
+                  Collections
+                </h3>
+                {selectedCollection && (
+                  <button
+                    onClick={() => setSelectedCollection(null)}
+                    className="text-[10px] font-mono text-[#C5A059] hover:underline"
+                  >
+                    Reset
+                  </button>
+                )}
+              </div>
               <button
                 type="button"
                 onClick={() =>
@@ -410,8 +420,27 @@ function CollectionContent() {
                     : "text-[#78716A] hover:bg-[#FAF7F2] hover:text-[#1F1E1D]"
                 }`}
               >
-                <span>Serendipity (Collection 01)</span>
+                <span>Collection 01 • Serendipity</span>
                 {selectedCollection === "Serendipity" && (
+                  <span className="text-[#C5A059] text-xs">✓</span>
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  setSelectedCollection(selectedCollection === "Collection 02" ? null : "Collection 02")
+                }
+                className={`w-full text-left py-2 px-3 rounded-lg text-xs transition-colors flex items-center justify-between ${
+                  selectedCollection === "Collection 02"
+                    ? "bg-[#C5A059]/15 text-[#1F1E1D] font-semibold border border-[#C5A059]/40"
+                    : "text-[#78716A] hover:bg-[#FAF7F2] hover:text-[#1F1E1D]"
+                }`}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span>Collection 02</span>
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#C5A059] text-white font-mono uppercase font-bold">New</span>
+                </div>
+                {selectedCollection === "Collection 02" && (
                   <span className="text-[#C5A059] text-xs">✓</span>
                 )}
               </button>

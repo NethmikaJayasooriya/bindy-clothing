@@ -15,7 +15,7 @@ export interface EnrichedProduct extends BaseProduct {
   originDistrict?: string;
   parentCategory: "Tops" | "Bottoms" | "Dresses" | "Resort Wear";
   subCategory: string;
-  collectionName: "Serendipity";
+  collectionName: "Serendipity" | "Collection 02";
   occasions: string[];
 }
 
@@ -68,12 +68,84 @@ const TAXONOMY_MAP: Record<
     sub: "Crop Tops",
     occasions: ["Beach & Coast", "Resort Wear", "Garden & High Tea"],
   },
+  // Collection 02 Pieces
+  "golden-cascade-dress": {
+    parent: "Dresses",
+    sub: "Casual",
+    occasions: ["Everyday Calm", "Garden & High Tea"],
+  },
+  "beyond-garden-wall-peplum": {
+    parent: "Tops",
+    sub: "Crop Tops",
+    occasions: ["Everyday Calm", "Evening & Party"],
+  },
+  "desert-rose-set": {
+    parent: "Resort Wear",
+    sub: "Skirts",
+    occasions: ["Everyday Calm", "Beach & Coast"],
+  },
+  "sunset-stroll-set": {
+    parent: "Resort Wear",
+    sub: "Crop Tops",
+    occasions: ["Beach & Coast", "Evening & Party"],
+  },
+  "sweet-breeze-dress": {
+    parent: "Dresses",
+    sub: "Floral",
+    occasions: ["Everyday Calm", "Garden & High Tea"],
+  },
+  "terra-essence-set": {
+    parent: "Resort Wear",
+    sub: "Crop Tops",
+    occasions: ["Everyday Calm", "Garden & High Tea"],
+  },
+  "crimson-lotus-dress": {
+    parent: "Dresses",
+    sub: "Maxi",
+    occasions: ["Evening & Party", "Garden & High Tea"],
+  },
+  "midnight-bloom-set": {
+    parent: "Resort Wear",
+    sub: "Crop Tops",
+    occasions: ["Evening & Party"],
+  },
+  "tropic-lagoon-dress": {
+    parent: "Dresses",
+    sub: "Maxi",
+    occasions: ["Beach & Coast", "Everyday Calm"],
+  },
 };
+
+const COLLECTION_02_IDS = new Set([
+  "golden-cascade-dress",
+  "beyond-garden-wall-peplum",
+  "desert-rose-set",
+  "sunset-stroll-set",
+  "sweet-breeze-dress",
+  "terra-essence-set",
+  "crimson-lotus-dress",
+  "midnight-bloom-set",
+  "tropic-lagoon-dress",
+]);
 
 // Enrich each product with realistic luxury stock, origin, and taxonomy data
 export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
   const stockStatuses: ("in_stock" | "low_stock" | "in_stock")[] = ["in_stock", "low_stock", "in_stock"];
-  const inventoryCounts = [14, 2, 8, 19, 3, 11, 4, 16];
+  const inventoryCounts = [14, 2, 8, 19, 3, 11, 4, 16, 12, 7, 5, 18, 9, 6, 11, 4, 15];
+  const isCol2 = COLLECTION_02_IDS.has(p.id);
+
+  const col2Badges: ("NEW" | "LIMITED EDITION")[] = [
+    "NEW",
+    "NEW",
+    "LIMITED EDITION",
+    "NEW",
+    "NEW",
+    "LIMITED EDITION",
+    "NEW",
+    "LIMITED EDITION",
+    "NEW",
+  ];
+
   const badges: ("NEW" | "LIMITED EDITION" | "BEST SELLER" | undefined)[] = [
     "BEST SELLER",
     "LIMITED EDITION",
@@ -84,6 +156,7 @@ export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
     "NEW",
     "BEST SELLER",
   ];
+
   const origins = [
     "Gampaha Handloom Village, Western Province",
     "Mannar Coastal Weaving Guild, Northern Province",
@@ -93,6 +166,9 @@ export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
     "Galle Fort Textile Atelier, Southern Province",
     "Kandy Handloom Cooperative, Central Province",
     "Dambulla Voile Weavers, Central Province",
+    "Kelaniya Clay & Loom Atelier, Western Province",
+    "Matara Coastal Verandah Looms, Southern Province",
+    "Hikkaduwa Marine Dye Guild, Southern Province",
   ];
 
   const taxonomy = TAXONOMY_MAP[p.id] || {
@@ -101,16 +177,20 @@ export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
     occasions: ["Everyday Calm"],
   };
 
+  const badge = isCol2
+    ? col2Badges[idx % col2Badges.length]
+    : badges[idx % badges.length];
+
   return {
     ...p,
     inventoryStatus: stockStatuses[idx % stockStatuses.length],
     inventoryCount: inventoryCounts[idx % inventoryCounts.length],
-    badge: badges[idx % badges.length],
-    weightGsm: 110 + (idx * 25),
+    badge,
+    weightGsm: 110 + (idx * 20),
     originDistrict: origins[idx % origins.length],
     parentCategory: taxonomy.parent,
     subCategory: taxonomy.sub,
-    collectionName: "Serendipity",
+    collectionName: isCol2 ? "Collection 02" : "Serendipity",
     occasions: taxonomy.occasions,
   };
 });

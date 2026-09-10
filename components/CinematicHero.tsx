@@ -181,7 +181,7 @@ export const HERO_COLLECTIONS_DATA: HeroCollectionData[] = [
             priceAud: 295,
             origin: "Ruhuna Guild",
             caption: "Inspired by Sri Lanka's Ehela",
-            src: "/images/hero images only/collection 2/section 1/A_GOLDEN_CASCADE_Inspired_by_Sri_Lankas_Ehela_blossom.jpeg",
+            src: "/images/new info/collection 2/A_GOLDEN_CASCADE_Inspired_by_Sri_Lankas_Ehela_blossom/A_GOLDEN_CASCADE_Inspired_by_Sri_Lankas_Ehela_blossom.jpeg",
           },
           {
             id: "beyond-the-garden-wall",
@@ -191,7 +191,7 @@ export const HERO_COLLECTIONS_DATA: HeroCollectionData[] = [
             priceAud: 310,
             origin: "Sigiriya Atelier",
             caption: "Botanical Garden Motif",
-            src: "/images/hero images only/collection 2/section 1/beyond the garden wall.jpeg",
+            src: "/images/new info/collection 2/beyond the garden wall/beyond the garden wall.jpeg",
           },
           {
             id: "sunset-stroll",
@@ -201,7 +201,7 @@ export const HERO_COLLECTIONS_DATA: HeroCollectionData[] = [
             priceAud: 270,
             origin: "Bentota Looms",
             caption: "Warm Golden Hour Weave",
-            src: "/images/hero images only/collection 2/section 1/491359925_1218755440258894_9128689862156059991_n.jpg",
+            src: "/images/new info/collection 2/Sunset Stroll/0Y9A0074.JPG",
           },
           {
             id: "sweet-breeze",
@@ -211,7 +211,7 @@ export const HERO_COLLECTIONS_DATA: HeroCollectionData[] = [
             priceAud: 265,
             origin: "Negombo Craft",
             caption: "Airy Coastal Silhouette",
-            src: "/images/hero images only/collection 2/section 1/491835405_1217181367082968_2732572898785349137_n.jpg",
+            src: "/images/new info/collection 2/Sweet Breeze/0Y9A0124.JPG",
           },
         ],
       },
@@ -229,7 +229,7 @@ export const HERO_COLLECTIONS_DATA: HeroCollectionData[] = [
             priceAud: 320,
             origin: "Dambulla Atelier",
             caption: "Deep Crimson Hand-Drape",
-            src: "/images/hero images only/collection 2/section 2/The Crimson Lotus 1.jpeg",
+            src: "/images/new info/collection 2/The Crimson Lotus/The Crimson Lotus 1.jpeg",
           },
           {
             id: "the-midnight-bloom",
@@ -239,7 +239,7 @@ export const HERO_COLLECTIONS_DATA: HeroCollectionData[] = [
             priceAud: 340,
             origin: "Hikkaduwa Guild",
             caption: "Nocturnal Floral Embroidery",
-            src: "/images/hero images only/collection 2/section 2/The Midnight Bloom.jpeg",
+            src: "/images/new info/collection 2/The Midnight Bloom/The Midnight Bloom.jpeg",
           },
           {
             id: "desert-rose",
@@ -249,7 +249,7 @@ export const HERO_COLLECTIONS_DATA: HeroCollectionData[] = [
             priceAud: 280,
             origin: "Jaffna Looms",
             caption: "Sculpted Desert Earth Tones",
-            src: "/images/hero images only/collection 2/section 2/492230020_1217267283741043_7201811062395837141_n.jpg",
+            src: "/images/new info/collection 2/Desert Rose/491359925_1218755440258894_9128689862156059991_n.jpg",
           },
           {
             id: "tropic-lagoon",
@@ -259,7 +259,7 @@ export const HERO_COLLECTIONS_DATA: HeroCollectionData[] = [
             priceAud: 315,
             origin: "Mirissa Guild",
             caption: "Ocean Azure Gradient",
-            src: "/images/hero images only/collection 2/section 2/0Y9A0074.JPG",
+            src: "/images/new info/collection 2/Tropic Lagoon/492230020_1217267283741043_7201811062395837141_n.jpg",
           },
         ],
       },
@@ -293,7 +293,7 @@ export const HERO_SCENES = [
     name: "Golden Cascade",
     subtitle: "Ehela Blossom",
     collection: "Botanicals",
-    thumb: "/images/hero images only/collection 2/section 1/A_GOLDEN_CASCADE_Inspired_by_Sri_Lankas_Ehela_blossom.jpeg",
+    thumb: "/images/new info/collection 2/A_GOLDEN_CASCADE_Inspired_by_Sri_Lankas_Ehela_blossom/A_GOLDEN_CASCADE_Inspired_by_Sri_Lankas_Ehela_blossom.jpeg",
   },
   {
     colIdx: 1,
@@ -302,7 +302,7 @@ export const HERO_SCENES = [
     name: "Midnight Bloom",
     subtitle: "Crimson Lotus",
     collection: "Botanicals",
-    thumb: "/images/hero images only/collection 2/section 2/The Crimson Lotus 1.jpeg",
+    thumb: "/images/new info/collection 2/The Crimson Lotus/The Crimson Lotus 1.jpeg",
   },
 ];
 
@@ -398,9 +398,9 @@ export default function CinematicHero({
   onExploreCollection,
 }: HeroProps) {
   // ----------------------------------------------------
-  // State: Active Collection & Active Section
+  // State: Active Collection & Active Section (Begins with Collection 02)
   // ----------------------------------------------------
-  const [activeCollectionIdx, setActiveCollectionIdx] = useState<number>(0);
+  const [activeCollectionIdx, setActiveCollectionIdx] = useState<number>(1);
   const [activeSectionIdx, setActiveSectionIdx] = useState<number>(0);
 
   // ----------------------------------------------------
@@ -412,19 +412,19 @@ export default function CinematicHero({
   const [hoveredTileIndex, setHoveredTileIndex] = useState<number | null>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(false);
 
-  // Front & Back face contents for each of the 4 tiles
+  // Front & Back face contents for each of the 4 tiles (Collection 02 Section 1 & Section 2)
   const [frontItems, setFrontItems] = useState<HeroLookItem[]>(() => [
-    HERO_COLLECTIONS_DATA[0].sections[0].items[0],
-    HERO_COLLECTIONS_DATA[0].sections[0].items[1],
-    HERO_COLLECTIONS_DATA[0].sections[0].items[2],
-    HERO_COLLECTIONS_DATA[0].sections[0].items[3],
+    HERO_COLLECTIONS_DATA[1].sections[0].items[0],
+    HERO_COLLECTIONS_DATA[1].sections[0].items[1],
+    HERO_COLLECTIONS_DATA[1].sections[0].items[2],
+    HERO_COLLECTIONS_DATA[1].sections[0].items[3],
   ]);
 
   const [backItems, setBackItems] = useState<HeroLookItem[]>(() => [
-    HERO_COLLECTIONS_DATA[0].sections[1].items[0],
-    HERO_COLLECTIONS_DATA[0].sections[1].items[1],
-    HERO_COLLECTIONS_DATA[0].sections[1].items[2],
-    HERO_COLLECTIONS_DATA[0].sections[1].items[3],
+    HERO_COLLECTIONS_DATA[1].sections[1].items[0],
+    HERO_COLLECTIONS_DATA[1].sections[1].items[1],
+    HERO_COLLECTIONS_DATA[1].sections[1].items[2],
+    HERO_COLLECTIONS_DATA[1].sections[1].items[3],
   ]);
 
   // ----------------------------------------------------
