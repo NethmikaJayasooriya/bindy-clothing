@@ -12,6 +12,7 @@ import HeritageTicker from "@/components/HeritageTicker";
 import TrustStrip from "@/components/home/TrustStrip";
 import SpotlightSection from "@/components/home/SpotlightSection";
 import FlashArchiveSection from "@/components/home/FlashArchiveSection";
+import FlashDiscountRibbon from "@/components/home/FlashDiscountRibbon";
 import CapsuleWardrobeSection from "@/components/home/CapsuleWardrobeSection";
 import JourneyTiles from "@/components/home/JourneyTiles";
 import BrowseSection from "@/components/home/BrowseSection";
@@ -170,6 +171,9 @@ export default function Home() {
           onSelectProduct={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
         />
+
+        {/* DYNAMIC DISCOUNT INFINITE RIBBON */}
+        <FlashDiscountRibbon />
 
         {/* SECTION 3.5: LIMITED 24-HOUR ARCHIVE WINDOW (FLASH PRIVILEGE) */}
         <FlashArchiveSection

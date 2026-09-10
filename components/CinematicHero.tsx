@@ -311,6 +311,7 @@ export interface PromoCampaign {
   id: string;
   tag: string;
   title: string;
+  headlineLines: string[];
   highlightDiscount: string;
   description: string;
   promoCode: string;
@@ -324,10 +325,11 @@ export const HERO_DISCOUNT_CAMPAIGNS: PromoCampaign[] = [
   {
     id: "campaign-1",
     tag: "LIMITED TIME PRIVILEGE",
-    title: "SEASON SALE —",
-    highlightDiscount: "Up to 50% OFF",
+    title: "SEASON SALE — 50% OFF",
+    headlineLines: ["SEASON", "SALE —"],
+    highlightDiscount: "50% OFF",
     description:
-      "Refresh your wardrobe with curated luxury styles, everyday handloom staples, and designer pit-loom drops crafted for the Australian calm.",
+      "Curated luxury handloom and voile staples crafted for the effortless Australian calm.",
     promoCode: "SERENDIPITY50",
     primaryCtaText: "SHOP NOW",
     primaryCtaHref: "#browse-collection",
@@ -337,10 +339,11 @@ export const HERO_DISCOUNT_CAMPAIGNS: PromoCampaign[] = [
   {
     id: "campaign-2",
     tag: "NEW IN EDITORIAL",
-    title: "NEW ARRIVALS —",
-    highlightDiscount: "20% OFF FIRST ORDER",
+    title: "NEW ARRIVALS — 20% OFF",
+    headlineLines: ["NEW", "ARRIVALS —"],
+    highlightDiscount: "20% OFF",
     description:
-      "Elevate your summer wardrobe with featherlight cotton voile, scalloped cutwork lace, and fluid bias skirts direct from Sri Lankan master weavers.",
+      "Featherlight cotton voile and scalloped cutwork lace direct from Sri Lankan master weavers.",
     promoCode: "WELCOME20",
     primaryCtaText: "SHOP NEW IN",
     primaryCtaHref: "#browse-collection",
@@ -350,10 +353,11 @@ export const HERO_DISCOUNT_CAMPAIGNS: PromoCampaign[] = [
   {
     id: "campaign-3",
     tag: "VACATION CAPSULE",
-    title: "CAPSULE WARDROBE STYLER —",
-    highlightDiscount: "BUY 2, GET 15% OFF",
+    title: "CAPSULE WARDROBE STYLER — 15% OFF",
+    headlineLines: ["CAPSULE", "WARDROBE", "STYLER —"],
+    highlightDiscount: "15% OFF",
     description:
-      "Curate your 4-piece island-hopping wardrobe. Infinitely mixable, weightless natural cottons that fold into one tote bag.",
+      "Curate your 4-piece mixable wardrobe. Weightless natural cottons that fold into one tote bag.",
     promoCode: "CAPSULE15",
     primaryCtaText: "BUILD CAPSULE",
     primaryCtaHref: "#capsule-wardrobe",
@@ -363,10 +367,11 @@ export const HERO_DISCOUNT_CAMPAIGNS: PromoCampaign[] = [
   {
     id: "campaign-4",
     tag: "AUSTRALIA WIDE",
-    title: "FREE EXPRESS SHIPPING —",
-    highlightDiscount: "ORDERS OVER $150",
+    title: "EXPRESS SHIPPING — OVER $150",
+    headlineLines: ["EXPRESS", "SHIPPING —"],
+    highlightDiscount: "OVER $150",
     description:
-      "Carbon-neutral expedited courier dispatch across Sydney, Melbourne, Brisbane & regional Australia. 30-day thoughtful returns.",
+      "Carbon-neutral courier dispatch across Sydney, Melbourne, Brisbane and regional Australia.",
     promoCode: "FREESHIP150",
     primaryCtaText: "ORDER TODAY",
     primaryCtaHref: "#browse-collection",
@@ -908,8 +913,8 @@ export default function CinematicHero({
               </div>
             </div>
 
-            {/* 2. Dynamic Rotating Campaign Discount Headline & Subtext */}
-            <div className="min-h-[130px] sm:min-h-[155px] flex flex-col justify-center">
+            {/* 2. Dynamic Rotating Campaign Discount Headline & Subtext (3 to 4 lines) */}
+            <div className="min-h-[175px] sm:min-h-[205px] flex flex-col justify-center">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentCampaign.id + "-content"}
@@ -917,20 +922,25 @@ export default function CinematicHero({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -14 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="space-y-2 sm:space-y-3"
+                  className="space-y-2.5 sm:space-y-3"
                 >
-                  {/* Huge Bold Title & Vibrant Accent Discount */}
-                  <h1 className="font-serif tracking-tight leading-[0.96] text-left">
-                    <span className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-[#FFFFFF] font-bold block drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-                      {currentCampaign.title}
-                    </span>
+                  {/* 3 to 4 Lines Bold Editorial Headline */}
+                  <h1 className="font-serif tracking-tight leading-[0.95] text-left">
+                    {currentCampaign.headlineLines.map((line, lIdx) => (
+                      <span
+                        key={lIdx}
+                        className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-[#FFFFFF] font-bold block drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
+                      >
+                        {line}
+                      </span>
+                    ))}
                     <span className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-[#C5A059] font-bold block mt-1 drop-shadow-[0_4px_28px_rgba(0,0,0,0.95)]">
                       {currentCampaign.highlightDiscount}
                     </span>
                   </h1>
 
-                  {/* Scannable Marketing Subtext */}
-                  <p className="font-sans text-sm sm:text-base md:text-lg text-[#F2ECE1] leading-relaxed font-normal max-w-xl pt-0.5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] text-left">
+                  {/* 3 to 4 Line Scannable Marketing Subtext */}
+                  <p className="font-sans text-sm sm:text-base md:text-[17px] text-[#F2ECE1] leading-relaxed font-normal max-w-lg pt-0.5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] text-left">
                     {currentCampaign.description}
                   </p>
                 </motion.div>

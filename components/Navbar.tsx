@@ -471,23 +471,34 @@ export default function Navbar({
               </Link>
             </div>
 
-            {/* ZONE 3: PREMIUM STANDARD ACTIONS & CTAS (CRIB.lk Pattern elevated) */}
-            <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* ZONE 3: SEARCH & PREMIUM ACTIONS (Spacious search, Track Order, Heart & Bag icons) */}
+            <div className="flex items-center gap-2 sm:gap-3 xl:gap-4">
               
-              {/* Rounded Search Pill Input (Clean search bar with standard magnifying glass) */}
+              {/* Spacious Search Bar (Expanded width with standard icon & Cmd+K badge) */}
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className={`hidden md:flex items-center justify-between rounded-full px-3.5 py-1.5 transition-all text-xs cursor-pointer border ${
+                className={`hidden md:flex items-center justify-between rounded-full px-4 py-2 transition-all text-xs cursor-pointer border ${
                   isScrolled
-                    ? "bg-white/10 hover:bg-white/15 border-white/20 text-white/80 w-36 xl:w-44"
-                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-[#78716A] w-36 xl:w-44"
+                    ? "bg-white/10 hover:bg-white/15 border-white/20 text-white/80 w-52 md:w-60 lg:w-72 xl:w-80 shadow-inner"
+                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-[#78716A] w-52 md:w-60 lg:w-72 xl:w-80 shadow-sm"
                 }`}
                 title="Search garments (Cmd+K)"
                 aria-label="Search garments"
               >
-                <span className="text-[11px] truncate font-sans">Search collection...</span>
-                <Search className={`w-3.5 h-3.5 shrink-0 ${isScrolled ? "text-white/70" : "text-[#78716A]"}`} />
+                <div className="flex items-center gap-2.5 truncate">
+                  <Search className={`w-3.5 h-3.5 shrink-0 ${isScrolled ? "text-[#C5A059]" : "text-[#78716A]"}`} />
+                  <span className="text-xs truncate font-sans text-left">Search collection, silk, dresses...</span>
+                </div>
+                <kbd
+                  className={`hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded border ${
+                    isScrolled
+                      ? "bg-white/10 border-white/20 text-white/60"
+                      : "bg-black/5 border-[#DCC7AF] text-[#78716A]"
+                  }`}
+                >
+                  ⌘K
+                </kbd>
               </button>
 
               {/* Mobile Search Icon */}
@@ -502,48 +513,62 @@ export default function Navbar({
                 <Search className="w-4 h-4" />
               </button>
 
-              {/* Pill Button 1: Track Order (Secondary action with standard package icon) */}
+              {/* Track Order Link (Styled with identical font and tracking to other nav items) */}
               <Link
                 href="/returns/start"
-                className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 xl:px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider font-semibold transition-all border ${
+                className={`hidden xl:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
                   isScrolled
-                    ? "bg-white/15 hover:bg-white/25 border-white/25 text-white shadow-sm"
-                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-[#1F1E1D] hover:border-[#1F1E1D]"
+                    ? "text-white/85 hover:text-[#C5A059]"
+                    : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
                 title="Track order or returns"
               >
-                <RotateCcw className={`w-3 h-3 ${isScrolled ? "text-[#C5A059]" : "text-[#C5A059]"}`} />
+                <RotateCcw className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>Track Order</span>
               </Link>
 
-              {/* Pill Button 2: Shop Now (Primary CTA with standard sparkles icon) */}
-              <Link
-                href="/collection"
-                className={`hidden sm:inline-flex items-center gap-1.5 px-4 xl:px-5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider font-semibold transition-all shadow-sm ${
+              {/* Wishlist / Saved Heart Icon Button */}
+              <button
+                type="button"
+                onClick={() => setIsWishlistOpen(true)}
+                className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-200 cursor-pointer flex items-center justify-center ${
                   isScrolled
-                    ? "bg-white hover:bg-[#C5A059] text-[#1F1E1D] hover:text-white"
-                    : "bg-[#1F1E1D] hover:bg-[#B86B4B] text-white"
+                    ? "text-white/90 hover:text-[#C5A059] hover:bg-white/10"
+                    : "text-[#1F1E1D] hover:text-[#B86B4B] hover:bg-black/5"
                 }`}
-                title="Shop the Serendipity collection"
+                aria-label={`Saved pieces (${wishlistCount})`}
+                title="View Saved Pieces"
               >
-                <Sparkles className="w-3 h-3 text-[#C5A059]" />
-                <span>Shop Now</span>
-              </Link>
+                <Heart
+                  className={`w-5 h-5 transition-transform hover:scale-110 ${
+                    wishlistCount > 0 ? "fill-[#C5A059] text-[#C5A059]" : ""
+                  }`}
+                />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#C5A059] text-black text-[9px] font-mono font-bold flex items-center justify-center shadow-md">
+                    {wishlistCount}
+                  </span>
+                )}
+              </button>
 
-              {/* Shopping Bag Pill (Prominent, intuitive, always accessible) */}
+              {/* Shopping Bag Icon Button (Standard premium icon with counter badge) */}
               <button
                 type="button"
                 onClick={onOpenCart}
-                className={`flex items-center gap-2 py-1.5 px-3.5 rounded-full transition-all cursor-pointer shadow-sm text-xs font-mono font-medium ${
+                className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-200 cursor-pointer flex items-center justify-center ${
                   isScrolled
-                    ? "bg-[#B86B4B] hover:bg-[#9E4D30] text-white"
-                    : "bg-[#1F1E1D] hover:bg-[#B86B4B] text-white"
+                    ? "text-white/90 hover:text-[#C5A059] hover:bg-white/10"
+                    : "text-[#1F1E1D] hover:text-[#B86B4B] hover:bg-black/5"
                 }`}
                 aria-label={`Shopping bag with ${cartCount} items`}
                 title="View Shopping Bag"
               >
-                <ShoppingBag className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span className="text-[11px] font-bold tracking-tight">Bag ({cartCount})</span>
+                <ShoppingBag className="w-5 h-5 transition-transform hover:scale-110" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#1F1E1D] border border-[#C5A059]/50 text-[#C5A059] text-[9px] font-mono font-bold flex items-center justify-center shadow-md">
+                    {cartCount}
+                  </span>
+                )}
               </button>
 
               {/* Mobile Hamburger Menu Toggle */}
