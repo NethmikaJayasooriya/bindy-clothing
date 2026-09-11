@@ -13,10 +13,8 @@ import TrustStrip from "@/components/home/TrustStrip";
 import SpotlightSection from "@/components/home/SpotlightSection";
 import FlashArchiveSection from "@/components/home/FlashArchiveSection";
 import FlashDiscountRibbon from "@/components/home/FlashDiscountRibbon";
-import CapsuleWardrobeSection from "@/components/home/CapsuleWardrobeSection";
 import BrowseSection from "@/components/home/BrowseSection";
 import StoriesSection from "@/components/home/StoriesSection";
-import FoundersSection from "@/components/home/FoundersSection";
 import MaterialsSection from "@/components/home/MaterialsSection";
 import SocialProofStrip from "@/components/home/SocialProofStrip";
 import JourneySignup from "@/components/home/JourneySignup";
@@ -188,18 +186,11 @@ export default function Home() {
           onAddToCart={handleAddToCart}
         />
 
-        {/* SECTION 3.8: PACK YOUR CAPSULE (4-PIECE VACATION WARDROBE STYLER) */}
-        <CapsuleWardrobeSection
-          onQuickView={(prod) => setQuickViewProduct(prod)}
-          onAddToCart={handleAddToCart}
-        />
 
 
         {/* SECTION 6: THE STORIES BEHIND EVERY THREAD (tabbed story with deep-links) */}
         <StoriesSection />
 
-        {/* SECTION 7: THREE WOMEN. ONE VISION. (click-through to full founder bios) */}
-        <FoundersSection />
 
         {/* SECTION 8: CRAFTED WITH HEART / MATERIALS (with link to /craft) */}
         <MaterialsSection />

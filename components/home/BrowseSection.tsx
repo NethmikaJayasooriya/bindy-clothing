@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, ArrowRight, Filter, RefreshCw } from "lucide-react";
 import {
   PRODUCTS,
-  CATEGORIES,
   type Category,
   type Destination,
   type Product,
@@ -28,7 +27,7 @@ export default function BrowseSection({
 }: BrowseSectionProps) {
   const [activeCollection, setActiveCollection] = useState<"All" | "Serendipity" | "Collection 02">("All");
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
-  const [visibleCount, setVisibleCount] = useState(8);
+  const [visibleCount, setVisibleCount] = useState(12);
 
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((p) => {
@@ -74,7 +73,7 @@ export default function BrowseSection({
                 type="button"
                 onClick={() => {
                   setActiveCollection(col.key as any);
-                  setVisibleCount(8);
+                  setVisibleCount(12);
                 }}
                 className={`relative px-4 sm:px-5 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none ${
                   active
@@ -116,33 +115,10 @@ export default function BrowseSection({
           activeCategory={activeCategory}
           onSelectCategory={(cat) => {
             setActiveCategory(cat);
-            setVisibleCount(8);
+            setVisibleCount(12);
           }}
         />
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-12 sm:mb-14">
-          {CATEGORIES.map((cat) => {
-            const active = activeCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => {
-                  setActiveCategory(cat);
-                  setVisibleCount(8);
-                }}
-                className={`px-6 py-2.5 rounded-full text-[11px] font-sans uppercase tracking-[0.24em] transition-all duration-300 border cursor-pointer select-none ${
-                  active
-                    ? "bg-gold text-charcoal border-gold font-bold shadow-luxury scale-[1.03]"
-                    : "bg-paper-light text-charcoal border-sand/40 hover:border-gold hover:text-gold font-medium shadow-sm hover:shadow"
-                }`}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
