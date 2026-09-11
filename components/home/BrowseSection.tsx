@@ -43,7 +43,7 @@ export default function BrowseSection({
   const hasMore = visibleCount < filteredProducts.length;
 
   return (
-    <section id="browse-collection" className="relative py-24 sm:py-28 px-4 sm:px-6 lg:px-8 bg-paper">
+    <section id="browse-collection" className="relative pt-12 sm:pt-14 pb-24 sm:pb-28 px-4 sm:px-6 lg:px-8 bg-paper">
       <div className="max-w-7xl mx-auto">
         <SectionHeading
           eyebrow={

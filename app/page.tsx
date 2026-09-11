@@ -14,7 +14,6 @@ import SpotlightSection from "@/components/home/SpotlightSection";
 import FlashArchiveSection from "@/components/home/FlashArchiveSection";
 import FlashDiscountRibbon from "@/components/home/FlashDiscountRibbon";
 import CapsuleWardrobeSection from "@/components/home/CapsuleWardrobeSection";
-import JourneyTiles from "@/components/home/JourneyTiles";
 import BrowseSection from "@/components/home/BrowseSection";
 import StoriesSection from "@/components/home/StoriesSection";
 import FoundersSection from "@/components/home/FoundersSection";
@@ -166,6 +165,14 @@ export default function Home() {
         {/* SECTION 2: TRUST / VALUE STRIP */}
         <TrustStrip />
 
+        {/* SECTION 5: BROWSE BY PIECE (grid, filter pills, micro-badges, load more) */}
+        <BrowseSection
+          onQuickView={(prod) => setQuickViewProduct(prod)}
+          onAddToCart={handleAddToCart}
+          selectedJourney={selectedJourney}
+          onClearJourney={() => setSelectedJourney("All")}
+        />
+
         {/* SECTION 3: THIS WEEK'S SPOTLIGHT (with quick-add hover state) */}
         <SpotlightSection
           onSelectProduct={(prod) => setQuickViewProduct(prod)}
@@ -187,19 +194,6 @@ export default function Home() {
           onAddToCart={handleAddToCart}
         />
 
-        {/* SECTION 4: SHOP BY JOURNEY */}
-        <JourneyTiles
-          selectedJourney={selectedJourney}
-          onSelectJourney={(dest) => setSelectedJourney(dest)}
-        />
-
-        {/* SECTION 5: BROWSE BY PIECE (grid, filter pills, micro-badges, load more) */}
-        <BrowseSection
-          onQuickView={(prod) => setQuickViewProduct(prod)}
-          onAddToCart={handleAddToCart}
-          selectedJourney={selectedJourney}
-          onClearJourney={() => setSelectedJourney("All")}
-        />
 
         {/* SECTION 6: THE STORIES BEHIND EVERY THREAD (tabbed story with deep-links) */}
         <StoriesSection />
