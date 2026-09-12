@@ -47,7 +47,7 @@ export const FOUNDERS: FounderProfile[] = [
       "Small-Batch Ethics",
       "Natural Fibres",
     ],
-    image: "/images/serendipity/lotus-memory-dress-full.jpg",
+    image: "/images/founders/dilrukshi.jpg",
     interview: [
       {
         question: "What does 'Two Islands, One Thread' mean to you as a mother and designer?",
@@ -87,7 +87,7 @@ export const FOUNDERS: FounderProfile[] = [
       "Contemporary Proportion",
       "Versatile Styling",
     ],
-    image: "/images/serendipity/ocean-embraced-tiered-dress-full.jpg",
+    image: "/images/founders/binadhi.jpg",
     interview: [
       {
         question: "How do you translate traditional handloom into everyday Australian style?",
@@ -127,7 +127,7 @@ export const FOUNDERS: FounderProfile[] = [
       "Brand Poetry & Tone",
       "Community UGC",
     ],
-    image: "/images/serendipity/serendib-pearl-dress-full.jpg",
+    image: "/images/founders/vinadi.jpg",
     interview: [
       {
         question: "How do you choose locations for BINDY campaigns?",

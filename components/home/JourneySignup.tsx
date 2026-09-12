@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Check, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui";
+import { Mail, Check, Sparkles, Copy, ArrowUp, Lock, Gift } from "lucide-react";
 
 export default function JourneySignup() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const PROMO_CODE = "CALM10";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,80 +16,138 @@ export default function JourneySignup() {
     setSubmitted(true);
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(PROMO_CODE);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2200);
+  };
+
+  const handleScrollToCollection = () => {
+    const el = document.getElementById("browse-collection");
+    el?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <section className="relative py-24 sm:py-32 overflow-hidden bg-paper-dark">
+    <section className="relative py-20 sm:py-28 overflow-hidden bg-[#FAF7F2] border-t border-[#DCC7AF]/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden bg-charcoal text-paper-light border border-sand/40 shadow-2xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[480px]">
-            {/* Left Column: Image Background with Scrim */}
-            <div className="lg:col-span-6 relative min-h-[280px] lg:min-h-full">
+        <div className="relative rounded-[32px] overflow-hidden bg-[#161513] text-white border border-[#C5A059]/40 shadow-2xl">
+          
+          {/* Subtle Ambient Gold Halo */}
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px]">
+            {/* Left Column: Image Background with Slow Fashion Quote */}
+            <div className="lg:col-span-5 relative min-h-[260px] lg:min-h-full">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/destinations/garden.jpg"
                 alt="Sri Lankan courtyard morning light"
                 loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-charcoal via-charcoal/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-[#161513] via-[#161513]/50 to-transparent" />
 
               <div className="absolute bottom-6 left-6 right-6 lg:p-4 text-white">
-                <blockquote className="font-editorial-italic text-lg sm:text-xl text-sand-light font-light">
-                  &ldquo;A thread between two islands, woven at the pace of memory.&rdquo;
+                <blockquote className="font-serif italic text-base sm:text-lg text-[#DCC7AF] font-light leading-relaxed">
+                  &ldquo;A living thread between two islands, woven at the pace of calm.&rdquo;
                 </blockquote>
+                <span className="block text-[10px] font-mono uppercase tracking-[0.25em] text-[#C5A059] mt-2 font-semibold">
+                  Two Islands • One Thread
+                </span>
               </div>
             </div>
 
-            {/* Right Column: Editorial Copy & Signup Form */}
-            <div className="lg:col-span-6 p-8 sm:p-12 lg:p-16 flex flex-col justify-center space-y-6">
+            {/* Right Column: High-Converting VIP Privilege Box */}
+            <div className="lg:col-span-7 p-8 sm:p-12 lg:p-14 flex flex-col justify-center space-y-6">
               <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold">
-                  <Sparkles className="w-3 h-3 text-gold" />
-                  <span>The BINDY Journal</span>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-[#C5A059]/40 text-[#C5A059] text-[10px] font-mono tracking-[0.25em] uppercase font-semibold">
+                  <Gift className="w-3.5 h-3.5 text-[#C5A059]" />
+                  <span>First-Order Invitation</span>
                 </div>
 
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light tracking-wide text-white leading-tight">
-                  Join the <span className="font-editorial-italic text-gold">Quiet Journey.</span>
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
+                  Unlock <span className="italic font-serif text-[#C5A059]">10% Off</span> Your First Silhouette
                 </h2>
 
-                <p className="font-sans text-xs sm:text-sm text-sand/80 font-light leading-relaxed max-w-md">
-                  Receive private preview access to our numbered edition drops, artisan field notes, and 10% off your first handcrafted piece.
+                <p className="font-serif italic text-sm sm:text-base text-[#DCC7AF]/85 font-light leading-relaxed max-w-lg">
+                  Join our private client circle to receive immediate 10% savings on your first handloom purchase, private edition drop access, and artisan dispatches.
                 </p>
               </div>
 
               {submitted ? (
-                <div className="p-6 rounded-2xl bg-paper-light/10 border border-gold/40 text-paper-light space-y-2">
-                  <div className="flex items-center gap-2 text-gold font-sans text-sm font-semibold">
-                    <Check className="w-4 h-4" />
-                    <span>Welcome to the BINDY family.</span>
+                <div className="p-6 rounded-2xl bg-white/[0.05] border border-[#C5A059]/60 text-white space-y-4 animate-in fade-in zoom-in-95 duration-300">
+                  <div className="flex items-center gap-2 text-[#AFC8B1] font-mono text-xs uppercase tracking-wider font-semibold">
+                    <Check className="w-4 h-4 text-[#AFC8B1]" />
+                    <span>Welcome. Your 10% Privilege Is Active</span>
                   </div>
-                  <p className="text-xs text-sand/80 font-light">
-                    Use code <strong className="text-gold font-mono tracking-wider">BINDYJOURNEY</strong> at checkout for 10% off your first order.
-                  </p>
+
+                  {/* Copyable Code Box */}
+                  <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#0E0D0C] border border-[#C5A059]/50">
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#DCC7AF]/60 block">
+                        VIP Checkout Code
+                      </span>
+                      <span className="font-mono text-xl sm:text-2xl font-bold tracking-[0.15em] text-[#C5A059]">
+                        {PROMO_CODE}
+                      </span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleCopy}
+                      className="px-4 py-2 rounded-lg bg-[#C5A059] text-[#161513] font-mono text-xs uppercase tracking-wider font-bold hover:bg-[#E2C78E] transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      {copied ? (
+                        <>
+                          <Check className="w-3.5 h-3.5" />
+                          <span>Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span>Copy Code</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <button
+                      type="button"
+                      onClick={handleScrollToCollection}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#161513] font-mono text-xs uppercase tracking-wider font-bold hover:bg-[#C5A059] transition-colors cursor-pointer shadow-md"
+                    >
+                      <ArrowUp className="w-3.5 h-3.5" />
+                      <span>Shop Now with 10% Off</span>
+                    </button>
+                    <span className="text-[11px] font-mono text-[#DCC7AF]/70">
+                      Applied automatically at checkout
+                    </span>
+                  </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-3 max-w-md">
+                <form onSubmit={handleSubmit} className="space-y-3.5 max-w-lg">
                   <div className="flex flex-col sm:flex-row gap-2.5">
                     <div className="relative flex-1">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#DCC7AF]/60" />
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email address"
+                        placeholder="Enter your email to reveal 10% code"
                         required
-                        className="w-full bg-paper-light text-charcoal pl-11 pr-4 py-3.5 rounded-full text-xs font-sans placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold border border-sand/40"
+                        className="w-full bg-white/10 text-white pl-11 pr-4 py-3.5 rounded-full text-xs font-mono placeholder:text-[#DCC7AF]/50 focus:outline-none focus:ring-2 focus:ring-[#C5A059] border border-[#DCC7AF]/30"
                       />
                     </div>
-                    <Button
+                    <button
                       type="submit"
-                      variant="primary"
-                      size="md"
-                      className="shrink-0"
+                      className="px-7 py-3.5 rounded-full bg-[#C5A059] text-[#161513] font-mono text-xs uppercase tracking-[0.18em] font-bold hover:bg-[#E2C78E] transition-all shadow-md cursor-pointer shrink-0"
                     >
-                      Subscribe
-                    </Button>
+                      Claim 10% Code
+                    </button>
                   </div>
-                  <p className="text-[10px] font-sans text-sand/60">
-                    We send occasional thoughtful notes, never noise. Unsubscribe at any time.
+                  <p className="text-[10px] font-mono text-[#DCC7AF]/60 tracking-wider">
+                    Instant voucher code revealed upon submission • Valid across all pieces
                   </p>
                 </form>
               )}
@@ -98,3 +158,4 @@ export default function JourneySignup() {
     </section>
   );
 }
+

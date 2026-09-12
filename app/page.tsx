@@ -14,10 +14,8 @@ import SpotlightSection from "@/components/home/SpotlightSection";
 import FlashArchiveSection from "@/components/home/FlashArchiveSection";
 import FlashDiscountRibbon from "@/components/home/FlashDiscountRibbon";
 import BrowseSection from "@/components/home/BrowseSection";
-import EditorialPhilosophyBanner from "@/components/home/EditorialPhilosophyBanner";
-import StoriesSection from "@/components/home/StoriesSection";
-import MaterialsSection from "@/components/home/MaterialsSection";
-import SocialProofStrip from "@/components/home/SocialProofStrip";
+import ShopTheLookSection from "@/components/home/ShopTheLookSection";
+import VerifiedReviewsSellingSection from "@/components/home/VerifiedReviewsSellingSection";
 import JourneySignup from "@/components/home/JourneySignup";
 import FilmModal from "@/components/home/FilmModal";
 import ProductModal from "@/components/ProductModal";
@@ -172,37 +170,34 @@ export default function Home() {
           onClearJourney={() => setSelectedJourney("All")}
         />
 
-        {/* EDITORIAL PHILOSOPHY & STORYTELLING DIVIDER BANNER */}
-        <EditorialPhilosophyBanner />
-
-        {/* SECTION 3: THIS WEEK'S SPOTLIGHT (with quick-add hover state) */}
+        {/* SECTION 3: THIS WEEK'S SPOTLIGHT (Curated Top Silhouettes + 1-Tap Size Add) */}
         <SpotlightSection
           onSelectProduct={(prod) => setQuickViewProduct(prod)}
+          onAddToCart={handleAddToCart}
+        />
+
+        {/* SECTION 4: SHOP THE LOOK / EDITORIAL STYLING HOTSPOTS (AOV Bundle Booster) */}
+        <ShopTheLookSection
+          onQuickView={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
         />
 
         {/* DYNAMIC DISCOUNT INFINITE RIBBON */}
         <FlashDiscountRibbon />
 
-        {/* SECTION 3.5: LIMITED 24-HOUR ARCHIVE WINDOW (FLASH PRIVILEGE) */}
+        {/* SECTION 5: LIMITED 24-HOUR ARCHIVE WINDOW (Obsidian Private Vault) */}
         <FlashArchiveSection
           onQuickView={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
         />
 
+        {/* SECTION 6: LOVED ACROSS AUSTRALIA — VERIFIED REVIEWS THAT SELL */}
+        <VerifiedReviewsSellingSection
+          onQuickView={(prod) => setQuickViewProduct(prod)}
+          onAddToCart={handleAddToCart}
+        />
 
-
-        {/* SECTION 6: THE STORIES BEHIND EVERY THREAD (tabbed story with deep-links) */}
-        <StoriesSection />
-
-
-        {/* SECTION 8: CRAFTED WITH HEART / MATERIALS (with link to /craft) */}
-        <MaterialsSection />
-
-        {/* SECTION 9: SOCIAL PROOF BAND (aggregate rating, press quotes, Instagram UGC) */}
-        <SocialProofStrip />
-
-        {/* SECTION 10: NEWSLETTER / JOURNEY SIGNUP (distinct closing section) */}
+        {/* SECTION 7: VIP FIRST-ORDER PRIVILEGE (Instant 10% Off Activation) */}
         <JourneySignup />
 
         {/* SECTION 11: FOOTER (full sitemap) */}
