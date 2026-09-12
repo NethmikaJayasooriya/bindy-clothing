@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, Heart, Mail } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -21,12 +22,7 @@ export default function Footer() {
           {/* Brand Column (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <Link href="/" className="inline-block">
-              <h3 className="font-display text-3xl sm:text-4xl tracking-[0.2em] font-normal text-charcoal">
-                BINDY<span className="text-gold">.</span>
-              </h3>
-              <span className="text-[8px] uppercase font-sans tracking-[0.45em] text-gold font-semibold block -mt-1">
-                Clothing
-              </span>
+              <BrandLogo size="lg" />
             </Link>
 
             <p className="text-xs uppercase font-sans tracking-[0.35em] text-gold font-semibold">

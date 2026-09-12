@@ -75,6 +75,8 @@ const config: Config = {
         serif: ["var(--font-serif)", "Fraunces", "Georgia", "serif"],
         display: ["var(--font-display)", "Fraunces", "Georgia", "serif"],
         sans: ["var(--font-sans)", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        logo: ["var(--font-logo)", "'League Spartan'", "sans-serif"],
+        spartan: ["'League Spartan'", "sans-serif"],
       },
       letterSpacing: {
         'widest-caps': '0.32em',

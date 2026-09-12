@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import SearchModal from "@/components/SearchModal";
 import WishlistDrawer from "@/components/WishlistDrawer";
+import BrandLogo from "@/components/BrandLogo";
 import { getAccount, subscribeAccount, type UserAccount } from "@/lib/account";
 import { getWishlistCount, subscribeWishlist } from "@/lib/wishlist";
 
@@ -206,21 +207,10 @@ export default function Navbar({
                 : "bg-white/95 backdrop-blur-xl border-[#DCC7AF]/70 text-[#1F1E1D] py-2.5 sm:py-3 px-5 sm:px-8 shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
             }`}
           >
-            {/* ZONE 1: BRAND IDENTITY (Generous left margin & luxury typography) */}
+            {/* ZONE 1: BRAND IDENTITY (League Spartan brand logo) */}
             <div className="flex-shrink-0 mr-6 sm:mr-8 xl:mr-10">
               <Link href="/" className="inline-block text-left group">
-                <span
-                  className={`font-display text-xl sm:text-2xl lg:text-[26px] tracking-[0.2em] font-normal transition-colors ${
-                    isScrolled
-                      ? "text-white group-hover:text-[#C5A059]"
-                      : "text-[#1F1E1D] group-hover:text-[#B86B4B]"
-                  }`}
-                >
-                  BINDY.
-                </span>
-                <span className="block text-[7px] sm:text-[8px] uppercase tracking-[0.45em] text-[#C5A059] font-sans -mt-1 font-semibold">
-                  Clothing
-                </span>
+                <BrandLogo size="md" isScrolled={isScrolled} />
               </Link>
             </div>
 
@@ -604,12 +594,7 @@ export default function Navbar({
                 onClick={() => setMobileMenuOpen(false)}
                 className="inline-block text-left"
               >
-                <span className="font-display text-2xl tracking-[0.2em] text-[#1F1E1D]">
-                  BINDY.
-                </span>
-                <span className="block text-[8px] uppercase tracking-[0.45em] text-[#C5A059] font-sans -mt-1 font-semibold">
-                  Clothing
-                </span>
+                <BrandLogo size="md" />
               </Link>
 
               <div className="flex items-center gap-2">

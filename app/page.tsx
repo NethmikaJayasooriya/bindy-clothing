@@ -14,6 +14,7 @@ import SpotlightSection from "@/components/home/SpotlightSection";
 import FlashArchiveSection from "@/components/home/FlashArchiveSection";
 import FlashDiscountRibbon from "@/components/home/FlashDiscountRibbon";
 import BrowseSection from "@/components/home/BrowseSection";
+import EditorialPhilosophyBanner from "@/components/home/EditorialPhilosophyBanner";
 import StoriesSection from "@/components/home/StoriesSection";
 import MaterialsSection from "@/components/home/MaterialsSection";
 import SocialProofStrip from "@/components/home/SocialProofStrip";
@@ -170,6 +171,9 @@ export default function Home() {
           selectedJourney={selectedJourney}
           onClearJourney={() => setSelectedJourney("All")}
         />
+
+        {/* EDITORIAL PHILOSOPHY & STORYTELLING DIVIDER BANNER */}
+        <EditorialPhilosophyBanner />
 
         {/* SECTION 3: THIS WEEK'S SPOTLIGHT (with quick-add hover state) */}
         <SpotlightSection

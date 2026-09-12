@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -111,10 +112,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           transition={{ duration: 1.2, delay: 0.2 }}
           className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto"
         >
-          {/* Tracking compensation pl-[0.25em] ensures true optical & geometrical center */}
-          <h1 className="font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-charcoal font-light tracking-[0.25em] pl-[0.25em] uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)] text-center">
-            BINDY<span className="text-[#C5A059]">.</span>
-          </h1>
+          <BrandLogo size="hero" align="center" className="drop-shadow-[0_2px_15px_rgba(0,0,0,0.08)] mb-2" />
           <p className="mt-4 font-serif italic text-lg sm:text-2xl text-charcoal/85 tracking-wide font-light text-center">
             Wear Your Calm, Feel Your Story
           </p>
