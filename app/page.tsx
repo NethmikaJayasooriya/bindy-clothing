@@ -21,11 +21,12 @@ import FilmModal from "@/components/home/FilmModal";
 import ProductModal from "@/components/ProductModal";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 import { ambientPlayer } from "@/lib/ambientSound";
 import type { Destination } from "@/data/products";
 
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -49,8 +50,8 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const seen = sessionStorage.getItem("bindy_splash_seen");
-      if (!seen) {
-        setShowSplash(true);
+      if (seen) {
+        setShowSplash(false);
       }
     }
   }, []);
@@ -171,9 +172,11 @@ export default function Home() {
         />
 
         {/* ELEGANT DIVIDER BETWEEN BROWSE AND SPOTLIGHT */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ScrollReveal>
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <hr className="border-t border-sand/40 my-8 sm:my-12" />
         </div>
+        </ScrollReveal>
 
         {/* SECTION 3: THIS WEEK'S SPOTLIGHT (Curated Top Silhouettes + 1-Tap Size Add) */}
         <SpotlightSection
@@ -188,7 +191,9 @@ export default function Home() {
         />
 
         {/* DYNAMIC DISCOUNT INFINITE RIBBON */}
-        <FlashDiscountRibbon />
+        <ScrollReveal>
+          <FlashDiscountRibbon />
+        </ScrollReveal>
 
         {/* SECTION 5: LIMITED 24-HOUR ARCHIVE WINDOW (Obsidian Private Vault) */}
         <FlashArchiveSection
@@ -203,10 +208,14 @@ export default function Home() {
         />
 
         {/* SECTION 7: VIP FIRST-ORDER PRIVILEGE (Instant 10% Off Activation) */}
-        <JourneySignup />
+        <ScrollReveal>
+          <JourneySignup />
+        </ScrollReveal>
 
         {/* SECTION 11: FOOTER (full sitemap) */}
-        <Footer />
+        <ScrollReveal>
+          <Footer />
+        </ScrollReveal>
       </div>
 
       {/* FILM MODAL */}

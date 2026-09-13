@@ -36,7 +36,7 @@ export default function SpotlightSection({
   if (!heroProduct) return null;
 
   return (
-    <section className="relative py-24 sm:py-28 px-4 sm:px-6 lg:px-8 border-b border-[#DCC7AF]/50 bg-gradient-to-b from-[#FAF7F2] via-white to-[#FAF7F2]">
+    <section className="relative pt-8 pb-24 sm:pt-12 sm:pb-28 px-4 sm:px-6 lg:px-8 border-b border-[#DCC7AF]/50 bg-gradient-to-b from-[#FAF7F2] via-white to-[#FAF7F2]">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
