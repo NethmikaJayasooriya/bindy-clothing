@@ -833,7 +833,7 @@ export default function CinematicHero({
       {/* ========================================================================= */}
       <motion.div
         style={{ y: heroContentY, opacity: heroOpacity }}
-        className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-between pt-24 sm:pt-28 pb-20 sm:pb-24"
+        className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-between pt-32 sm:pt-36 pb-20 sm:pb-24"
       >
         {/* TOP BAR: Interactive Collection Selector & Section Switcher */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full flex-shrink-0">

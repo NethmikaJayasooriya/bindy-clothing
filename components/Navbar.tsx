@@ -208,7 +208,7 @@ export default function Navbar({
             }`}
           >
             {/* ZONE 1: BRAND IDENTITY (League Spartan brand logo) */}
-            <div className="flex-shrink-0 mr-6 sm:mr-8 xl:mr-10">
+            <div className="flex-shrink-0 mr-6 sm:mr-8 xl:mr-10 pt-1">
               <Link href="/" className="inline-block text-left group">
                 <BrandLogo size="md" isScrolled={isScrolled} />
               </Link>

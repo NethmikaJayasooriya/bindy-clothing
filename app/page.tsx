@@ -170,6 +170,11 @@ export default function Home() {
           onClearJourney={() => setSelectedJourney("All")}
         />
 
+        {/* ELEGANT DIVIDER BETWEEN BROWSE AND SPOTLIGHT */}
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <hr className="border-t border-sand/40 my-8 sm:my-12" />
+        </div>
+
         {/* SECTION 3: THIS WEEK'S SPOTLIGHT (Curated Top Silhouettes + 1-Tap Size Add) */}
         <SpotlightSection
           onSelectProduct={(prod) => setQuickViewProduct(prod)}
