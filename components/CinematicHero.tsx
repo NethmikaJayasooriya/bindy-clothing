@@ -639,7 +639,7 @@ export default function CinematicHero({
     <section
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full h-screen min-h-[740px] overflow-hidden bg-[#121110] flex items-center justify-center select-none"
+      className="relative w-full h-[100dvh] min-h-[580px] sm:min-h-[720px] overflow-hidden bg-[#121110] flex items-center justify-center select-none"
       aria-label="BINDY Hero Showcase"
     >
       {/* ========================================================================= */}
@@ -833,12 +833,12 @@ export default function CinematicHero({
       {/* ========================================================================= */}
       <motion.div
         style={{ y: heroContentY, opacity: heroOpacity }}
-        className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-between pt-32 sm:pt-36 pb-20 sm:pb-24"
+        className="relative z-20 w-full max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-full flex flex-col justify-between pt-20 sm:pt-32 pb-16 sm:pb-20"
       >
         {/* TOP BAR: Interactive Collection Selector & Section Switcher */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full flex-shrink-0">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 w-full flex-shrink-0">
           {/* Collection 01 / Collection 02 Selector Pill */}
-          <div className="flex items-center gap-1.5 p-1 rounded-full bg-black/75 backdrop-blur-xl border border-white/15 shadow-lg self-start">
+          <div className="flex items-center gap-1 sm:gap-1.5 p-1 rounded-full bg-black/75 backdrop-blur-xl border border-white/15 shadow-lg self-start">
             {HERO_COLLECTIONS_DATA.map((col, cIdx) => {
               const isColActive = activeCollectionIdx === cIdx;
               return (
@@ -846,7 +846,7 @@ export default function CinematicHero({
                   key={col.id}
                   type="button"
                   onClick={() => transitionToSection(cIdx, 0)}
-                  className={`relative px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-sans uppercase tracking-wider font-medium transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
+                  className={`relative px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-sans uppercase tracking-wider font-medium transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
                     isColActive
                       ? "bg-[#C5A059] text-black font-bold shadow-[0_2px_12px_rgba(197,160,89,0.4)]"
                       : "text-[#DCC7AF]/80 hover:text-white hover:bg-white/10"
@@ -862,17 +862,17 @@ export default function CinematicHero({
         </div>
 
         {/* CENTER EDITORIAL HERO: Modern E-Commerce Discount Information Section */}
-        <div className="my-auto w-full max-w-2xl lg:max-w-3xl py-4 sm:py-6">
+        <div className="my-auto w-full max-w-2xl lg:max-w-3xl py-2 sm:py-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             onMouseEnter={() => setIsPromoHovered(true)}
             onMouseLeave={() => setIsPromoHovered(false)}
-            className="w-full space-y-4 sm:space-y-5"
+            className="w-full space-y-3 sm:space-y-5"
           >
             {/* 1. Category Tag & Active Offer Switcher */}
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentCampaign.id + "-tag"}
@@ -880,7 +880,7 @@ export default function CinematicHero({
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 8 }}
                   transition={{ duration: 0.25 }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-[#C5A059]/50 text-[#FAF7F2] text-xs sm:text-sm font-sans uppercase font-semibold font-bold tracking-[0.2em] shadow-md"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-[#C5A059]/50 text-[#FAF7F2] text-[11px] sm:text-xs font-sans uppercase font-bold tracking-[0.18em] shadow-md"
                 >
                   <Tag className="w-3 h-3 text-[#C5A059]" />
                   <span>{currentCampaign.tag}</span>
@@ -888,7 +888,7 @@ export default function CinematicHero({
               </AnimatePresence>
 
               {/* 4 Deal Dots */}
-              <div className="inline-flex items-center gap-2 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-black/60 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/15">
                 {HERO_DISCOUNT_CAMPAIGNS.map((c, idx) => {
                   const isActive = campaignIndex === idx;
                   return (
@@ -901,10 +901,10 @@ export default function CinematicHero({
                       aria-label={`View deal ${idx + 1}: ${c.title}`}
                     >
                       <span
-                        className={`h-2 rounded-full transition-all duration-300 ${
+                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                           isActive
-                            ? "w-6 bg-[#C5A059] shadow-[0_0_8px_rgba(197,160,89,0.9)]"
-                            : "w-2 bg-white/35 hover:bg-white/70"
+                            ? "w-5 sm:w-6 bg-[#C5A059] shadow-[0_0_8px_rgba(197,160,89,0.9)]"
+                            : "w-1.5 sm:w-2 bg-white/35 hover:bg-white/70"
                         }`}
                       />
                     </button>
@@ -914,7 +914,7 @@ export default function CinematicHero({
             </div>
 
             {/* 2. Dynamic Rotating Campaign Discount Headline & Subtext (3 to 4 lines) */}
-            <div className="min-h-[175px] sm:min-h-[205px] flex flex-col justify-center">
+            <div className="min-h-[145px] sm:min-h-[205px] flex flex-col justify-center">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentCampaign.id + "-content"}
@@ -922,25 +922,25 @@ export default function CinematicHero({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -14 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="space-y-2.5 sm:space-y-3"
+                  className="space-y-1.5 sm:space-y-3"
                 >
                   {/* 3 to 4 Lines Bold Editorial Headline */}
                   <h1 className="font-serif tracking-tight leading-[0.95] text-left">
                     {currentCampaign.headlineLines.map((line, lIdx) => (
                       <span
                         key={lIdx}
-                        className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-[#FFFFFF] font-bold block drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
+                        className="text-3xl sm:text-5xl md:text-6xl lg:text-[5.5rem] text-[#FFFFFF] font-bold block drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
                       >
                         {line}
                       </span>
                     ))}
-                    <span className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-[#C5A059] font-bold block mt-1 drop-shadow-[0_4px_28px_rgba(0,0,0,0.95)]">
+                    <span className="text-3xl sm:text-5xl md:text-6xl lg:text-[5.5rem] text-[#C5A059] font-bold block mt-0.5 sm:mt-1 drop-shadow-[0_4px_28px_rgba(0,0,0,0.95)]">
                       {currentCampaign.highlightDiscount}
                     </span>
                   </h1>
 
                   {/* 3 to 4 Line Scannable Marketing Subtext */}
-                  <p className="font-sans text-sm sm:text-base md:text-[17px] text-[#F2ECE1] leading-relaxed font-normal max-w-lg pt-0.5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] text-left">
+                  <p className="font-sans text-xs sm:text-base md:text-[17px] text-[#F2ECE1] leading-relaxed font-normal max-w-lg pt-0.5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] text-left line-clamp-2 sm:line-clamp-none">
                     {currentCampaign.description}
                   </p>
                 </motion.div>
@@ -948,22 +948,22 @@ export default function CinematicHero({
             </div>
 
             {/* 3. Action CTAs & 1-Click Promo Code Row */}
-            <div className="pt-1 flex flex-wrap items-center gap-3 sm:gap-4">
+            <div className="pt-0.5 sm:pt-1 flex flex-wrap items-center gap-2 sm:gap-3.5">
               {/* Primary Shop Button */}
               <a
                 href={currentCampaign.primaryCtaHref}
                 onClick={onExploreCollection}
-                className="group/btn inline-flex items-center justify-center space-x-2.5 px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-[#C5A059] hover:bg-[#FAF7F2] text-black font-sans text-sm uppercase font-semibold tracking-wider font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.45)] hover:shadow-[0_8px_35px_rgba(255,255,255,0.5)] hover:scale-[1.02] cursor-pointer"
+                className="group/btn inline-flex items-center justify-center space-x-2 px-6 sm:px-9 py-2.5 sm:py-4 rounded-full bg-[#C5A059] hover:bg-[#FAF7F2] text-black font-sans text-xs sm:text-sm uppercase font-semibold tracking-wider font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.45)] hover:shadow-[0_8px_35px_rgba(255,255,255,0.5)] hover:scale-[1.02] cursor-pointer"
               >
                 <span>{currentCampaign.primaryCtaText}</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1.5 transition-transform duration-300" />
+                <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover/btn:translate-x-1.5 transition-transform duration-300" />
               </a>
 
               {/* Secondary Explore Button */}
               <a
                 href={currentCampaign.secondaryCtaHref}
                 onClick={onExploreCollection}
-                className="inline-flex items-center justify-center space-x-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white hover:text-[#C5A059] font-sans text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 border border-white/25 hover:border-[#C5A059] cursor-pointer"
+                className="hidden xs:inline-flex items-center justify-center space-x-1.5 px-4 sm:px-8 py-2.5 sm:py-4 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white hover:text-[#C5A059] font-sans text-xs sm:text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 border border-white/25 hover:border-[#C5A059] cursor-pointer"
               >
                 <span>{currentCampaign.secondaryCtaText}</span>
               </a>
@@ -972,19 +972,19 @@ export default function CinematicHero({
               <button
                 type="button"
                 onClick={() => handleCopyCode(currentCampaign.promoCode)}
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 hover:border-[#C5A059] text-[#FAF7F2] transition-all cursor-pointer shadow-sm active:scale-95"
+                className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 sm:py-3 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 hover:border-[#C5A059] text-[#FAF7F2] transition-all cursor-pointer shadow-sm active:scale-95 text-xs sm:text-sm"
                 title="Click to copy discount code"
               >
-                <Tag className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span className="text-sm sm:text-sm font-mono uppercase font-semibold text-[#DCC7AF]">
+                <Tag className="w-3 h-3 text-[#C5A059]" />
+                <span className="font-mono uppercase text-[#DCC7AF]">
                   Code: <strong className="text-white font-bold">{currentCampaign.promoCode}</strong>
                 </span>
                 {copiedCode === currentCampaign.promoCode ? (
-                  <span className="inline-flex items-center gap-1 text-sm font-mono text-emerald-400 font-bold pl-1">
-                    <Check className="w-3 h-3" /> Copied
+                  <span className="inline-flex items-center gap-0.5 font-mono text-emerald-400 font-bold text-[11px] sm:text-xs">
+                    <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3" /> Copied
                   </span>
                 ) : (
-                  <Copy className="w-3 h-3 text-[#DCC7AF]/70" />
+                  <Copy className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#DCC7AF]/70" />
                 )}
               </button>
             </div>
@@ -1000,7 +1000,7 @@ export default function CinematicHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 sm:gap-3 bg-black/85 hover:bg-black/95 backdrop-blur-2xl px-2.5 sm:px-3.5 py-2 rounded-2xl sm:rounded-full border border-white/20 hover:border-[#C5A059]/60 shadow-[0_16px_50px_rgba(0,0,0,0.7)] transition-all duration-500 select-none group/dock"
+            className="inline-flex items-center gap-1.5 sm:gap-3 bg-black/85 hover:bg-black/95 backdrop-blur-2xl px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-full border border-white/20 hover:border-[#C5A059]/60 shadow-[0_16px_50px_rgba(0,0,0,0.7)] transition-all duration-500 select-none group/dock max-w-full"
           >
             {/* 1. Living Play/Pause Indicator with Ambient Halo */}
             <div className="relative flex items-center justify-center">
@@ -1014,22 +1014,22 @@ export default function CinematicHero({
               <button
                 type="button"
                 onClick={() => setIsTilesPlaying((prev) => !prev)}
-                className="relative w-8 h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-[#C5A059] text-[#FAF7F2] hover:text-black border border-white/20 hover:border-[#C5A059] transition-all duration-300 cursor-pointer shadow-md active:scale-90 z-10"
+                className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-[#C5A059] text-[#FAF7F2] hover:text-black border border-white/20 hover:border-[#C5A059] transition-all duration-300 cursor-pointer shadow-md active:scale-90 z-10"
                 title={isTilesPlaying ? "Pause runway autoplay" : "Resume runway autoplay"}
                 aria-label={isTilesPlaying ? "Pause runway autoplay" : "Resume runway autoplay"}
               >
                 {isTilesPlaying ? (
-                  <Pause className="w-3.5 h-3.5 fill-current" />
+                  <Pause className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current" />
                 ) : (
-                  <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                  <Play className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current ml-0.5" />
                 )}
               </button>
             </div>
 
-            <div className="h-6 w-px bg-white/15 mx-0.5" />
+            <div className="h-5 sm:h-6 w-px bg-white/15 mx-0.5" />
 
             {/* 2. 4 Interactive Photographic Scene Portals */}
-            <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               {HERO_SCENES.map((scene, idx) => {
                 const isActive = currentStep === idx;
                 return (
@@ -1037,16 +1037,16 @@ export default function CinematicHero({
                     key={scene.num}
                     type="button"
                     onClick={() => transitionToSection(scene.colIdx, scene.secIdx)}
-                    className={`group/card relative rounded-xl sm:rounded-full overflow-hidden transition-all duration-500 cursor-pointer flex items-center p-1 focus:outline-none ${
+                    className={`group/card relative rounded-full overflow-hidden transition-all duration-500 cursor-pointer flex items-center p-0.5 sm:p-1 focus:outline-none ${
                       isActive
-                        ? "bg-white/15 border border-[#C5A059] shadow-[0_0_20px_rgba(197,160,89,0.35)] pr-3"
+                        ? "bg-white/15 border border-[#C5A059] shadow-[0_0_20px_rgba(197,160,89,0.35)] pr-2 sm:pr-3"
                         : "bg-black/40 border border-white/10 hover:border-white/40 hover:bg-white/10 opacity-70 hover:opacity-100"
                     }`}
                     title={`${scene.num} • ${scene.name} (${scene.collection})`}
                     aria-label={`Switch to ${scene.name}`}
                   >
                     {/* Mini Thumbnail Image */}
-                    <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-full overflow-hidden flex-shrink-0 border border-white/20">
+                    <div className="relative w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden flex-shrink-0 border border-white/20">
                       <Image
                         src={safeSrc(scene.thumb)}
                         alt={scene.name}
@@ -1057,7 +1057,7 @@ export default function CinematicHero({
                       {/* Number Badge Overlay on inactive cards */}
                       {!isActive && (
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                          <span className="font-mono text-xs text-[#FAF7F2] font-bold">
+                          <span className="font-mono text-[10px] sm:text-xs text-[#FAF7F2] font-bold">
                             {scene.num}
                           </span>
                         </div>
@@ -1072,17 +1072,17 @@ export default function CinematicHero({
                           animate={{ opacity: 1, width: "auto" }}
                           exit={{ opacity: 0, width: 0 }}
                           transition={{ duration: 0.35, ease: "easeOut" }}
-                          className="overflow-hidden whitespace-nowrap pl-2 flex flex-col items-start text-left"
+                          className="overflow-hidden whitespace-nowrap pl-1.5 sm:pl-2 flex flex-col items-start text-left max-w-[100px] xs:max-w-[130px] sm:max-w-none"
                         >
                           <div className="flex items-center gap-1">
-                            <span className="font-mono text-xs text-[#C5A059] font-bold leading-none">
+                            <span className="font-mono text-[10px] sm:text-xs text-[#C5A059] font-bold leading-none">
                               {scene.num}
                             </span>
-                            <span className="text-sm font-sans uppercase font-semibold tracking-[0.18em] text-[#FAF7F2] font-bold leading-none">
+                            <span className="text-xs sm:text-sm font-sans uppercase font-semibold tracking-[0.14em] text-[#FAF7F2] font-bold leading-none truncate">
                               {scene.name}
                             </span>
                           </div>
-                          <span className="text-xs font-sans uppercase tracking-wider text-[#DCC7AF]/80 leading-none pt-0.5">
+                          <span className="text-[10px] sm:text-xs font-sans uppercase tracking-wider text-[#DCC7AF]/80 leading-none pt-0.5 truncate hidden xs:block">
                             {scene.subtitle}
                           </span>
 
@@ -1107,28 +1107,28 @@ export default function CinematicHero({
               })}
             </div>
 
-            <div className="h-6 w-px bg-white/15 mx-0.5" />
+            <div className="h-5 sm:h-6 w-px bg-white/15 mx-0.5" />
 
             {/* 3. Sleek Prev & Next Arrow Controls */}
             <div className="flex items-center gap-0.5">
               <button
                 type="button"
                 onClick={handlePrevScene}
-                className="w-7 h-7 rounded-full flex items-center justify-center text-[#DCC7AF]/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
+                className="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[#DCC7AF]/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
                 title="Previous section"
                 aria-label="Previous section"
               >
-                <ChevronLeft className="w-3.5 h-3.5" />
+                <ChevronLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               </button>
 
               <button
                 type="button"
                 onClick={handleNextScene}
-                className="w-7 h-7 rounded-full flex items-center justify-center text-[#DCC7AF]/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
+                className="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[#DCC7AF]/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
                 title="Next section"
                 aria-label="Next section"
               >
-                <ChevronRight className="w-3.5 h-3.5" />
+                <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               </button>
             </div>
           </motion.div>

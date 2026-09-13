@@ -42,7 +42,7 @@ export default function BrowseSection({
   const hasMore = visibleCount < filteredProducts.length;
 
   return (
-    <section id="browse-collection" className="relative pt-12 sm:pt-14 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-paper">
+    <section id="browse-collection" className="relative pt-8 sm:pt-14 pb-12 sm:pb-16 px-3 sm:px-6 lg:px-8 bg-paper">
       <div className="max-w-7xl mx-auto">
         <SectionHeading
           eyebrow={
@@ -60,7 +60,7 @@ export default function BrowseSection({
         />
 
         {/* Collection Selector Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+        <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 mb-6 sm:mb-10 overflow-x-auto no-scrollbar px-1 pb-1">
           {[
             { key: "All", label: "All Collections" },
             { key: "Serendipity", label: "Collection 01 • Serendipity" },
@@ -75,7 +75,7 @@ export default function BrowseSection({
                   setActiveCollection(col.key as any);
                   setVisibleCount(12);
                 }}
-                className={`relative px-4 sm:px-5 py-2 rounded-full text-sm font-mono uppercase font-semibold tracking-wider transition-all duration-300 border cursor-pointer select-none ${
+                className={`relative px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none whitespace-nowrap flex-shrink-0 ${
                   active
                     ? "bg-[#1F1E1D] text-white border-[#1F1E1D] shadow-md font-semibold"
                     : "bg-white/80 text-charcoal-subtle border-[#DCC7AF]/60 hover:text-[#1F1E1D] hover:border-[#1F1E1D]"
@@ -83,7 +83,7 @@ export default function BrowseSection({
               >
                 <span>{col.label}</span>
                 {col.isNew && (
-                  <span className="ml-1.5 px-1.5 py-0.2 text-xs rounded-full bg-[#C5A059] text-white font-bold">
+                  <span className="ml-1.5 px-1.5 py-0.2 text-[10px] sm:text-xs rounded-full bg-[#C5A059] text-white font-bold">
                     NEW
                   </span>
                 )}
@@ -119,9 +119,8 @@ export default function BrowseSection({
           }}
         />
 
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        {/* Products Grid: 2-columns on mobile, 4-columns on desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
           <AnimatePresence mode="popLayout">
             {displayedProducts.map((product) => (
               <motion.div

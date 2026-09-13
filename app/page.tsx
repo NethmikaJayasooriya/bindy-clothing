@@ -153,7 +153,7 @@ export default function Home() {
       </div>
 
       {/* Spacer to dock flush at bottom edge of hero */}
-      <div className="h-[calc(100vh-52px)] sm:h-[calc(100vh-58px)]" aria-hidden />
+      <div className="h-[calc(100dvh-52px)] sm:h-[calc(100vh-58px)]" aria-hidden />
 
       {/* Everything below rises up over the fixed hero in 11 sharp modules */}
       <div className="relative z-10 bg-paper shadow-[0_-20px_50px_rgba(0,0,0,0.15)]">
@@ -248,7 +248,7 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-white/95 backdrop-blur-md border-t border-[#DCC7AF]/80 p-3 px-4 flex items-center justify-between gap-3 shadow-[0_-8px_30px_rgba(0,0,0,0.1)]"
+            className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-white/95 backdrop-blur-md border-t border-[#DCC7AF]/80 p-3 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] flex items-center justify-between gap-3 shadow-[0_-8px_30px_rgba(0,0,0,0.1)]"
           >
             <div className="min-w-0">
               <p className="font-serif text-xs font-semibold text-[#1F1E1D] truncate">

@@ -122,7 +122,7 @@ export default function FlashArchiveSection({
   return (
     <section
       id="flash-privilege"
-      className="relative py-24 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0E0D0C] text-white border-y border-[#C5A059]/30 overflow-hidden"
+      className="relative py-14 sm:py-28 px-3.5 sm:px-6 lg:px-8 bg-[#0E0D0C] text-white border-y border-[#C5A059]/30 overflow-hidden"
     >
       {/* Editorial Ambient Spotlight Gradients */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-[#C5A059]/15 to-transparent rounded-full blur-[120px] pointer-events-none" />
@@ -134,37 +134,37 @@ export default function FlashArchiveSection({
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* SECTION HEADER & HAUTE HORLOGERIE COUNTDOWN */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 sm:gap-10 mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-10 mb-10 sm:mb-16">
           {/* Left Title Area */}
-          <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.04] border border-[#C5A059]/50 text-[#C5A059] text-xs font-mono tracking-wider uppercase font-semibold shadow-sm backdrop-blur-md">
+          <div className="space-y-3 sm:space-y-4 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/[0.04] border border-[#C5A059]/50 text-[#C5A059] text-[11px] sm:text-xs font-mono tracking-wider uppercase font-semibold shadow-sm backdrop-blur-md">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
               <Lock className="w-3 h-3 text-[#C5A059]" />
               <span>Curated Flash Privilege • Private Vault</span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-white font-light tracking-tight leading-[1.15]">
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl text-white font-light tracking-tight leading-[1.15]">
               Limited 24-Hour{" "}
               <span className="italic font-serif text-[#C5A059]">Archive Window</span>
             </h2>
 
-            <p className="font-serif italic text-sm sm:text-base text-[#DCC7AF]/85 leading-relaxed font-light max-w-xl">
+            <p className="font-serif italic text-xs sm:text-base text-[#DCC7AF]/85 leading-relaxed font-light max-w-xl">
               Rare seasonal privileges on our most loved handloom silhouettes. Limited to current weaver dye-lot yardage before entering our permanent archive.
             </p>
           </div>
 
           {/* Right: Haute Horlogerie Countdown Display */}
-          <div className="relative self-start lg:self-auto group">
+          <div className="relative self-stretch sm:self-start lg:self-auto group">
             {/* Ambient Gold Halo */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#C5A059]/30 via-[#B86B4B]/20 to-[#C5A059]/30 rounded-3xl blur-lg opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#C5A059]/30 via-[#B86B4B]/20 to-[#C5A059]/30 rounded-2xl sm:rounded-3xl blur-lg opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
 
-            <div className="relative bg-[#151412]/95 backdrop-blur-2xl border border-[#C5A059]/50 rounded-3xl p-5 sm:p-6 shadow-[0_16px_50px_rgba(0,0,0,0.8)] ring-1 ring-white/10 min-w-[280px] sm:min-w-[340px]">
-              <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
-                <div className="flex items-center space-x-2 text-sm font-mono uppercase font-semibold tracking-wider text-[#C5A059] font-bold">
+            <div className="relative bg-[#151412]/95 backdrop-blur-2xl border border-[#C5A059]/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_16px_50px_rgba(0,0,0,0.8)] ring-1 ring-white/10 min-w-full sm:min-w-[340px]">
+              <div className="flex items-center justify-between pb-2.5 sm:pb-3 mb-3 sm:mb-4 border-b border-white/10">
+                <div className="flex items-center space-x-2 text-xs sm:text-sm font-mono uppercase font-semibold tracking-wider text-[#C5A059] font-bold">
                   <Clock className="w-3.5 h-3.5 text-[#C5A059] animate-spin-slow" />
                   <span>Window Concludes In</span>
                 </div>
-                <span className="text-xs font-mono text-[#DCC7AF]/60 uppercase tracking-widest">
+                <span className="text-[10px] sm:text-xs font-mono text-[#DCC7AF]/60 uppercase tracking-widest">
                   Live Allotment
                 </span>
               </div>
@@ -173,38 +173,38 @@ export default function FlashArchiveSection({
               <div className="flex items-center justify-center space-x-2 sm:space-x-3.5">
                 {/* Hours */}
                 <div className="flex flex-col items-center">
-                  <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-[#C5A059]/40 text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-light shadow-inner">
+                  <div className="w-12 sm:w-16 h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-[#C5A059]/40 text-white flex items-center justify-center font-serif text-xl sm:text-3xl font-light shadow-inner">
                     <span className="tracking-tight font-serif">{formatDigit(timeLeft.hours)}</span>
                   </div>
-                  <span className="text-xs font-mono tracking-[0.2em] uppercase text-[#DCC7AF]/70 mt-2 font-medium">
+                  <span className="text-[10px] sm:text-xs font-mono tracking-[0.2em] uppercase text-[#DCC7AF]/70 mt-1.5 sm:mt-2 font-medium">
                     Hours
                   </span>
                 </div>
 
-                <span className="font-serif text-2xl text-[#C5A059]/80 -mt-6 font-light select-none">
+                <span className="font-serif text-xl sm:text-2xl text-[#C5A059]/80 -mt-5 sm:-mt-6 font-light select-none">
                   :
                 </span>
 
                 {/* Minutes */}
                 <div className="flex flex-col items-center">
-                  <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-[#C5A059]/40 text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-light shadow-inner">
+                  <div className="w-12 sm:w-16 h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-[#C5A059]/40 text-white flex items-center justify-center font-serif text-xl sm:text-3xl font-light shadow-inner">
                     <span className="tracking-tight font-serif">{formatDigit(timeLeft.minutes)}</span>
                   </div>
-                  <span className="text-xs font-mono tracking-[0.2em] uppercase text-[#DCC7AF]/70 mt-2 font-medium">
+                  <span className="text-[10px] sm:text-xs font-mono tracking-[0.2em] uppercase text-[#DCC7AF]/70 mt-1.5 sm:mt-2 font-medium">
                     Mins
                   </span>
                 </div>
 
-                <span className="font-serif text-2xl text-[#C5A059]/80 -mt-6 font-light select-none">
+                <span className="font-serif text-xl sm:text-2xl text-[#C5A059]/80 -mt-5 sm:-mt-6 font-light select-none">
                   :
                 </span>
 
                 {/* Seconds */}
                 <div className="flex flex-col items-center">
-                  <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-gradient-to-b from-[#C5A059]/25 to-[#C5A059]/10 border border-[#C5A059]/70 text-[#FCEAC7] flex items-center justify-center font-serif text-2xl sm:text-3xl font-medium shadow-inner ring-1 ring-[#C5A059]/40">
+                  <div className="w-12 sm:w-16 h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#C5A059]/25 to-[#C5A059]/10 border border-[#C5A059]/70 text-[#FCEAC7] flex items-center justify-center font-serif text-xl sm:text-3xl font-medium shadow-inner ring-1 ring-[#C5A059]/40">
                     <span className="tracking-tight font-serif">{formatDigit(timeLeft.seconds)}</span>
                   </div>
-                  <span className="text-xs font-mono tracking-[0.2em] uppercase text-[#C5A059] mt-2 font-bold">
+                  <span className="text-[10px] sm:text-xs font-mono tracking-[0.2em] uppercase text-[#C5A059] mt-1.5 sm:mt-2 font-bold">
                     Secs
                   </span>
                 </div>
@@ -214,7 +214,7 @@ export default function FlashArchiveSection({
         </div>
 
         {/* COUTURE ARCHIVE SHOWCASE CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-7 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {FLASH_DEALS.map((deal) => {
             const product = PRODUCTS.find((p) => p.id === deal.productId);
             if (!product) return null;
@@ -229,7 +229,7 @@ export default function FlashArchiveSection({
                 key={deal.productId}
                 whileHover={{ y: -6 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="relative bg-[#161513]/90 backdrop-blur-xl border border-[#C5A059]/25 hover:border-[#C5A059]/80 rounded-[30px] p-5 sm:p-6 transition-all duration-500 hover:shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_35px_rgba(197,160,89,0.18)] flex flex-col justify-between group overflow-hidden"
+                className="relative bg-[#161513]/90 backdrop-blur-xl border border-[#C5A059]/25 hover:border-[#C5A059]/80 rounded-2xl sm:rounded-[30px] p-4 sm:p-6 transition-all duration-500 hover:shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_35px_rgba(197,160,89,0.18)] flex flex-col justify-between group overflow-hidden"
               >
                 {/* Subtle Ambient Hover Sheen */}
                 <div className="absolute -top-28 -right-28 w-56 h-56 bg-[#C5A059]/10 rounded-full blur-3xl group-hover:bg-[#C5A059]/20 transition-all duration-700 pointer-events-none" />

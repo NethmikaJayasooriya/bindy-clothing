@@ -36,7 +36,7 @@ export default function SpotlightSection({
   if (!heroProduct) return null;
 
   return (
-    <section className="relative pt-8 pb-24 sm:pt-12 sm:pb-28 px-4 sm:px-6 lg:px-8 border-b border-[#DCC7AF]/50 bg-gradient-to-b from-[#FAF7F2] via-white to-[#FAF7F2]">
+    <section className="relative pt-6 pb-16 sm:pt-12 sm:pb-28 px-3 sm:px-6 lg:px-8 border-b border-[#DCC7AF]/50 bg-gradient-to-b from-[#FAF7F2] via-white to-[#FAF7F2]">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
@@ -50,7 +50,7 @@ export default function SpotlightSection({
           action={
             <a
               href="#browse-collection"
-              className="inline-flex items-center gap-2 text-sm font-mono uppercase font-semibold tracking-widest text-[#1F1E1D] hover:text-[#B86B4B] transition-colors font-semibold group pb-1"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono uppercase font-semibold tracking-widest text-[#1F1E1D] hover:text-[#B86B4B] transition-colors font-semibold group pb-1"
             >
               <span>Explore All 28 Silhouettes</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -59,10 +59,10 @@ export default function SpotlightSection({
         />
 
         {/* Asymmetrical High-Impact Editorial Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch mt-4 sm:mt-6">
           
           {/* 1. HERO SPOTLIGHT PIECE (7 COLUMNS) */}
-          <div className="lg:col-span-7 bg-white rounded-3xl overflow-hidden border border-[#DCC7AF] shadow-[0_12px_45px_rgba(0,0,0,0.06)] flex flex-col md:flex-row group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)]">
+          <div className="lg:col-span-7 bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-[#DCC7AF] shadow-[0_12px_45px_rgba(0,0,0,0.06)] flex flex-col md:flex-row group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)]">
             
             {/* Image Frame with Dual Hover */}
             <div className="relative aspect-[3/4] md:w-1/2 overflow-hidden bg-[#FAF7F2] flex-shrink-0">
@@ -81,8 +81,8 @@ export default function SpotlightSection({
               )}
 
               {/* Bestseller Ribbon */}
-              <div className="absolute top-4 left-4 z-10 flex flex-col gap-1">
-                <span className="px-3 py-1 rounded-full bg-[#1F1E1D] text-white text-sm font-mono uppercase font-semibold tracking-wider font-bold shadow-md flex items-center gap-1">
+              <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 flex flex-col gap-1">
+                <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#1F1E1D] text-white text-xs sm:text-sm font-mono uppercase font-semibold tracking-wider font-bold shadow-md flex items-center gap-1">
                   <Flame className="w-3 h-3 text-[#C5A059]" />
                   <span>Signature Hero</span>
                 </span>
@@ -92,53 +92,53 @@ export default function SpotlightSection({
               <button
                 type="button"
                 onClick={() => onSelectProduct && onSelectProduct(heroProduct)}
-                className="absolute bottom-4 right-4 p-2.5 rounded-full bg-white/90 backdrop-blur-md text-[#1F1E1D] hover:text-[#B86B4B] shadow-md transition-all opacity-0 group-hover:opacity-100 z-10"
+                className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 p-2 sm:p-2.5 rounded-full bg-white/90 backdrop-blur-md text-[#1F1E1D] hover:text-[#B86B4B] shadow-md transition-all opacity-0 group-hover:opacity-100 z-10"
                 title="Quick View"
               >
-                <Eye className="w-4 h-4" />
+                <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
             </div>
 
             {/* Information & Direct Purchase Controls */}
-            <div className="p-6 sm:p-8 md:w-1/2 flex flex-col justify-between space-y-5">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-semibold">
+            <div className="p-4 sm:p-8 md:w-1/2 flex flex-col justify-between space-y-4 sm:space-y-5">
+              <div className="space-y-2 sm:space-y-3">
+                <div className="flex items-center justify-between text-xs sm:text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-semibold">
                   <span>{heroProduct.storyPlace}</span>
                   <div className="flex items-center gap-1 text-[#1F1E1D]">
-                    <Star className="w-3.5 h-3.5 fill-[#C5A059] text-[#C5A059]" />
+                    <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-[#C5A059] text-[#C5A059]" />
                     <span>4.9 (28 reviews)</span>
                   </div>
                 </div>
 
                 <Link
                   href={`/product/${heroProduct.id}`}
-                  className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] hover:text-[#B86B4B] transition-colors block font-medium leading-tight"
+                  className="font-serif text-xl sm:text-3xl text-[#1F1E1D] hover:text-[#B86B4B] transition-colors block font-medium leading-tight"
                 >
                   {heroProduct.name}
                 </Link>
 
-                <p className="text-xs font-sans text-charcoal-subtle leading-relaxed line-clamp-3 font-light">
+                <p className="text-xs font-sans text-charcoal-subtle leading-relaxed line-clamp-2 sm:line-clamp-3 font-light">
                   {heroProduct.description}
                 </p>
 
-                <div className="pt-1">
-                  <span className="font-serif text-2xl sm:text-3xl font-semibold text-[#1F1E1D]">
+                <div className="pt-0.5 sm:pt-1">
+                  <span className="font-serif text-xl sm:text-3xl font-semibold text-[#1F1E1D]">
                     ${heroProduct.priceAud} AUD
                   </span>
-                  <span className="block text-xs font-mono text-charcoal-subtle uppercase tracking-wider mt-0.5">
+                  <span className="block text-[11px] sm:text-xs font-mono text-charcoal-subtle uppercase tracking-wider mt-0.5">
                     {heroProduct.fabric} • Carbon-Neutral AU Shipping
                   </span>
                 </div>
               </div>
 
               {/* In-Card Instant Size Selector */}
-              <div className="space-y-4 pt-3 border-t border-[#DCC7AF]/50">
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between text-xs font-mono">
+              <div className="space-y-3 sm:space-y-4 pt-2 sm:pt-3 border-t border-[#DCC7AF]/50">
+                <div className="space-y-1 sm:space-y-1.5">
+                  <div className="flex items-center justify-between text-[11px] sm:text-xs font-mono">
                     <span className="uppercase text-charcoal-subtle">Select Size:</span>
                     <span className="text-[#C5A059] font-medium">{heroSize}</span>
                   </div>
-                  <div className="grid grid-cols-5 gap-1.5">
+                  <div className="grid grid-cols-5 gap-1 sm:gap-1.5">
                     {heroProduct.sizes.map((sz) => {
                       const isSelected = heroSize === sz;
                       const short = sz.replace("AU ", "").split(" ")[0];
@@ -148,13 +148,13 @@ export default function SpotlightSection({
                           key={sz}
                           type="button"
                           onClick={() => setHeroSize(sz)}
-                          className={`py-2 text-xs font-mono rounded-xl border text-center transition-all ${
+                          className={`py-1.5 sm:py-2 text-[10px] sm:text-xs font-mono rounded-lg sm:rounded-xl border text-center transition-all ${
                             isSelected
                               ? "bg-[#1F1E1D] text-white border-[#1F1E1D] font-bold shadow-sm"
                               : "bg-[#FAF7F2] text-charcoal-subtle border-[#DCC7AF]/60 hover:border-[#1F1E1D] hover:text-[#1F1E1D]"
                           }`}
                         >
-                          AU {short}
+                          {short}
                         </button>
                       );
                     })}
@@ -165,7 +165,7 @@ export default function SpotlightSection({
                 <button
                   type="button"
                   onClick={() => handleAdd(heroProduct, heroSize)}
-                  className={`w-full py-4 rounded-full font-mono text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 shadow-md flex items-center justify-center gap-2 ${
+                  className={`w-full py-3 sm:py-4 rounded-full font-mono text-xs sm:text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 shadow-md flex items-center justify-center gap-2 ${
                     addedId === heroProduct.id
                       ? "bg-[#AFC8B1] text-[#2E4A32]"
                       : "bg-[#B86B4B] hover:bg-[#9E4D30] text-white"
@@ -189,14 +189,14 @@ export default function SpotlightSection({
           </div>
 
           {/* 2. STACKED SIDE SIGNATURES (5 COLUMNS) */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          <div className="lg:col-span-5 flex flex-col gap-4 sm:gap-6">
             {sideProducts.map((product) => (
               <div
                 key={product.id}
-                className="bg-white rounded-3xl p-5 sm:p-6 border border-[#DCC7AF]/80 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_45px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center gap-5 group"
+                className="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border border-[#DCC7AF]/80 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_45px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center gap-3.5 sm:gap-5 group"
               >
                 {/* Square-ish Media Thumbnail */}
-                <div className="w-28 sm:w-32 aspect-[3/4] rounded-2xl overflow-hidden bg-[#FAF7F2] relative border border-[#DCC7AF]/40 flex-shrink-0">
+                <div className="w-20 sm:w-32 aspect-[3/4] rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF7F2] relative border border-[#DCC7AF]/40 flex-shrink-0">
                   <img
                     src={product.image}
                     alt={product.name}
@@ -205,39 +205,39 @@ export default function SpotlightSection({
                   <button
                     type="button"
                     onClick={() => onSelectProduct && onSelectProduct(product)}
-                    className="absolute bottom-2 right-2 p-1.5 rounded-full bg-white/90 text-[#1F1E1D] hover:text-[#C5A059] shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute bottom-1.5 right-1.5 sm:bottom-2 sm:right-2 p-1 sm:p-1.5 rounded-full bg-white/90 text-[#1F1E1D] hover:text-[#C5A059] shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
                     title="Quick Inspect"
                   >
-                    <Eye className="w-3 h-3" />
+                    <Eye className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </button>
                 </div>
 
                 {/* Details & Quick Add */}
-                <div className="min-w-0 flex-1 space-y-2">
+                <div className="min-w-0 flex-1 space-y-1.5 sm:space-y-2">
                   <div>
-                    <span className="text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] block truncate font-medium">
+                    <span className="text-[10px] sm:text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] block truncate font-medium">
                       {product.story}
                     </span>
                     <Link
                       href={`/product/${product.id}`}
-                      className="font-serif text-base sm:text-lg text-[#1F1E1D] hover:text-[#B86B4B] transition-colors block font-medium truncate"
+                      className="font-serif text-sm sm:text-lg text-[#1F1E1D] hover:text-[#B86B4B] transition-colors block font-medium truncate"
                     >
                       {product.name}
                     </Link>
-                    <p className="text-xs text-charcoal-subtle truncate font-light">
+                    <p className="text-[11px] sm:text-xs text-charcoal-subtle truncate font-light">
                       {product.fabric}
                     </p>
                   </div>
 
                   <div className="flex items-baseline gap-2">
-                    <span className="font-serif text-lg sm:text-xl font-semibold text-[#1F1E1D]">
+                    <span className="font-serif text-base sm:text-xl font-semibold text-[#1F1E1D]">
                       ${product.priceAud} AUD
                     </span>
                   </div>
 
                   {/* Size Mini Buttons */}
-                  <div className="pt-1">
-                    <div className="flex items-center gap-1.5">
+                  <div className="pt-0.5 sm:pt-1">
+                    <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
                       {product.sizes.slice(0, 4).map((sz) => {
                         const short = sz.replace("AU ", "").split(" ")[0];
                         return (
@@ -245,7 +245,7 @@ export default function SpotlightSection({
                             key={sz}
                             type="button"
                             onClick={() => handleAdd(product, sz)}
-                            className="px-2.5 py-1 text-xs font-mono rounded-lg border border-[#DCC7AF] bg-[#FAF7F2] text-[#1F1E1D] hover:bg-[#B86B4B] hover:text-white hover:border-[#B86B4B] transition-colors cursor-pointer"
+                            className="px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs font-mono rounded-md sm:rounded-lg border border-[#DCC7AF] bg-[#FAF7F2] text-[#1F1E1D] hover:bg-[#B86B4B] hover:text-white hover:border-[#B86B4B] transition-colors cursor-pointer"
                             title={`Quick add AU ${short}`}
                           >
                             AU {short}

@@ -59,7 +59,7 @@ export default function ProductCard({
 
   return (
     <div
-      className={`group flex flex-col bg-paper-light rounded-3xl overflow-hidden border border-sand/40 hover:border-gold/70 transition-all duration-500 shadow-paper-card hover:shadow-luxury-hover ${className}`}
+      className={`group flex flex-col bg-paper-light rounded-2xl sm:rounded-3xl overflow-hidden border border-sand/40 hover:border-gold/70 transition-all duration-500 shadow-paper-card hover:shadow-luxury-hover ${className}`}
     >
       {/* Image & Media Frame */}
       <div
@@ -115,9 +115,9 @@ export default function ProductCard({
         </Link>
 
         {/* Top-Left: Color swatch badge */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/45 backdrop-blur-md px-2.5 py-1 rounded-full text-xs text-white border border-white/10 pointer-events-none">
+        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex items-center gap-1 sm:gap-1.5 bg-black/45 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs text-white border border-white/10 pointer-events-none">
           <span
-            className="w-2 h-2 rounded-full border border-white/30"
+            className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full border border-white/30"
             style={{ backgroundColor: product.colorHex }}
           />
           <span className="font-sans uppercase tracking-wider">{product.colorName}</span>
@@ -131,7 +131,7 @@ export default function ProductCard({
             e.stopPropagation();
             toggleWishlist(product);
           }}
-          className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all duration-300 cursor-pointer z-10 ${
+          className={`absolute top-2 right-2 sm:top-3 sm:right-3 p-1.5 sm:p-2 rounded-full backdrop-blur-md transition-all duration-300 cursor-pointer z-10 ${
             inWishlist
               ? "bg-gold text-charcoal shadow-md scale-105"
               : "bg-black/50 hover:bg-black text-white hover:text-gold"
@@ -143,7 +143,7 @@ export default function ProductCard({
         </button>
 
         {/* Micro-Badges: Low Stock or Special Destination */}
-        <div className="absolute top-12 left-3 flex flex-col items-start gap-1 pointer-events-none">
+        <div className="absolute top-9 sm:top-12 left-2 sm:left-3 flex flex-col items-start gap-1 pointer-events-none">
           {stockStatus === "low_stock" && (
             <Badge variant="terracotta" size="sm">
               {stockText || "Only 2 Left"}
@@ -156,10 +156,10 @@ export default function ProductCard({
           )}
         </div>
 
-        {/* Hover Quick Size Selector Bar (Section 7.5 & E-com Conversion Upgrade) */}
-        <div className="absolute inset-x-2.5 bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-auto bg-white/95 backdrop-blur-md p-2.5 rounded-2xl border border-[#DCC7AF]/80 shadow-lg flex flex-col gap-1.5 z-20">
-          <div className="flex items-center justify-between px-1 text-xs font-mono">
-            <span className="uppercase text-charcoal-subtle font-semibold">Quick Add Size:</span>
+        {/* Hover Quick Size Selector Bar (Desktop Hover & Mobile Touch) */}
+        <div className="absolute inset-x-2 bottom-2 sm:inset-x-2.5 sm:bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-auto bg-white/95 backdrop-blur-md p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border border-[#DCC7AF]/80 shadow-lg flex flex-col gap-1 sm:gap-1.5 z-20">
+          <div className="flex items-center justify-between px-0.5 text-[10px] sm:text-xs font-mono">
+            <span className="uppercase text-charcoal-subtle font-semibold">Quick Add:</span>
             {onQuickView && (
               <button
                 type="button"
@@ -170,12 +170,12 @@ export default function ProductCard({
                 }}
                 className="text-[#B86B4B] hover:underline flex items-center gap-0.5"
               >
-                <Eye className="w-3 h-3" />
+                <Eye className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                 <span>Quick View</span>
               </button>
             )}
           </div>
-          <div className="grid grid-cols-5 gap-1">
+          <div className="grid grid-cols-5 gap-0.5 sm:gap-1">
             {product.sizes.map((sz) => {
               const short = sz.replace("AU ", "").split(" ")[0];
               const isAdded = addedSize === sz;
@@ -195,7 +195,7 @@ export default function ProductCard({
                     setAddedSize(sz);
                     setTimeout(() => setAddedSize(null), 1800);
                   }}
-                  className={`py-1.5 text-xs font-mono rounded-lg border text-center transition-all ${
+                  className={`py-1 sm:py-1.5 text-[10px] sm:text-xs font-mono rounded-md sm:rounded-lg border text-center transition-all ${
                     isAdded
                       ? "bg-[#AFC8B1] text-[#2E4A32] border-[#AFC8B1] font-bold shadow-sm"
                       : "border-[#DCC7AF]/60 bg-[#FAF7F2] text-[#1F1E1D] hover:bg-[#B86B4B] hover:text-white hover:border-[#B86B4B]"
@@ -211,49 +211,49 @@ export default function ProductCard({
       </div>
 
       {/* Card Information */}
-      <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 space-y-3">
+      <div className="p-3.5 sm:p-5 flex flex-col justify-between flex-1 space-y-2 sm:space-y-3">
         <div>
-          <div className="flex items-center justify-between text-sm uppercase font-semibold font-sans tracking-wider text-gold font-semibold mb-1">
-            <span>{product.story}</span>
+          <div className="flex items-center justify-between text-[10px] sm:text-xs uppercase font-semibold font-sans tracking-wider text-gold font-semibold mb-0.5 sm:mb-1">
+            <span className="truncate">{product.story}</span>
             {product.destinations[0] && (
-              <span className="text-charcoal-subtle font-normal">{product.destinations[0]}</span>
+              <span className="text-charcoal-subtle font-normal truncate ml-1 hidden xs:inline">{product.destinations[0]}</span>
             )}
           </div>
 
           <Link href={`/product/${product.id}`} className="block">
-            <h3 className="font-serif text-lg text-charcoal font-medium group-hover:text-gold transition-colors leading-snug line-clamp-1">
+            <h3 className="font-serif text-sm sm:text-lg text-charcoal font-medium group-hover:text-gold transition-colors leading-snug line-clamp-1">
               {product.name}
             </h3>
           </Link>
 
-          <p className="text-xs font-sans text-charcoal-subtle mt-1 font-light line-clamp-1">
+          <p className="text-[11px] sm:text-xs font-sans text-charcoal-subtle mt-0.5 sm:mt-1 font-light line-clamp-1">
             {product.fabric}
           </p>
 
-          <div className="mt-2 flex items-center justify-between">
+          <div className="mt-1.5 sm:mt-2 flex items-center justify-between">
             <StarRating
               value={rating}
               count={product.reviews.length}
               size="sm"
             />
             {product.id.includes("lotus") || product.id.includes("cinnamon") ? (
-              <span className="flex items-center gap-1 text-xs font-mono text-[#B86B4B] font-semibold">
-                <Flame className="w-3 h-3 fill-[#B86B4B]" />
-                <span>Bestseller</span>
+              <span className="flex items-center gap-0.5 sm:gap-1 text-[10px] sm:text-xs font-mono text-[#B86B4B] font-semibold">
+                <Flame className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-[#B86B4B]" />
+                <span className="hidden xs:inline">Bestseller</span>
               </span>
             ) : null}
           </div>
         </div>
 
-        <div className="pt-3 border-t border-sand/30 flex items-center justify-between">
+        <div className="pt-2 sm:pt-3 border-t border-sand/30 flex items-center justify-between gap-1">
           <Price amount={product.priceAud} size="sm" />
 
           <Link
             href={`/product/${product.id}`}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#B86B4B]/10 hover:bg-[#B86B4B] text-[#B86B4B] hover:text-white border border-[#B86B4B]/30 hover:border-[#B86B4B] text-sm font-mono uppercase tracking-wider font-semibold transition-all duration-300 shadow-sm"
+            className="inline-flex items-center gap-1 px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#B86B4B]/10 hover:bg-[#B86B4B] text-[#B86B4B] hover:text-white border border-[#B86B4B]/30 hover:border-[#B86B4B] text-xs sm:text-sm font-mono uppercase tracking-wider font-semibold transition-all duration-300 shadow-sm"
           >
             <span>Explore</span>
-            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
       </div>

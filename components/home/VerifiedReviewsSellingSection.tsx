@@ -163,32 +163,32 @@ export default function VerifiedReviewsSellingSection({
   };
 
   return (
-    <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#FAF7F2] via-white to-[#FAF7F2] border-b border-[#DCC7AF]/60 overflow-hidden">
-      <div className="max-w-7xl mx-auto space-y-12">
+    <section className="py-14 sm:py-28 px-3.5 sm:px-6 lg:px-8 bg-gradient-to-b from-[#FAF7F2] via-white to-[#FAF7F2] border-b border-[#DCC7AF]/60 overflow-hidden">
+      <div className="max-w-7xl mx-auto space-y-8 sm:space-y-12">
         
         {/* 1. SECTION HEADER + AGGREGATE METRICS BAR */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8">
           
-          <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1F1E1D] text-[#DFC285] text-xs font-mono tracking-wider uppercase font-semibold shadow-xs">
+          <div className="space-y-3 sm:space-y-4 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#1F1E1D] text-[#DFC285] text-[11px] sm:text-xs font-mono tracking-wider uppercase font-semibold shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
               <span>Direct Customer Experience • 4.9 / 5.0 Rating</span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#1F1E1D] font-light leading-tight">
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl text-[#1F1E1D] font-light leading-tight">
               Loved Across Australia —{" "}
               <span className="italic font-serif text-[#B86B4B]">
                 Silhouettes in the Wild
               </span>
             </h2>
 
-            <p className="font-serif italic text-base sm:text-lg text-charcoal-subtle leading-relaxed font-light">
+            <p className="font-serif italic text-sm sm:text-lg text-charcoal-subtle leading-relaxed font-light">
               Real reflections from conscious women who wear our slow-crafted handloom pieces
               across warm Australian days and balmy coastal twilights.
             </p>
 
             {/* OCCASION FILTER TABS */}
-            <div className="pt-2 flex flex-wrap items-center gap-2">
+            <div className="pt-1 sm:pt-2 flex items-center justify-start gap-2 overflow-x-auto no-scrollbar pb-1">
               {[
                 { key: "all", label: "All Stories (70+)" },
                 { key: "coastal", label: "Coastal & Beach" },
@@ -201,7 +201,7 @@ export default function VerifiedReviewsSellingSection({
                     key={tab.key}
                     type="button"
                     onClick={() => setActiveFilter(tab.key as any)}
-                    className={`px-4 py-2 rounded-full text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer ${
+                    className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer whitespace-nowrap flex-shrink-0 ${
                       isActive
                         ? "bg-[#1F1E1D] text-white shadow-md font-bold border border-[#1F1E1D]"
                         : "bg-white text-charcoal-subtle border border-[#DCC7AF]/80 hover:border-[#1F1E1D] hover:text-[#1F1E1D]"
@@ -218,22 +218,22 @@ export default function VerifiedReviewsSellingSection({
           <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-4 shrink-0">
             
             {/* 4.9 Star Aggregate Box */}
-            <div className="bg-white border border-[#DCC7AF] px-5 py-3.5 rounded-2xl shadow-sm flex items-center gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-1">
+            <div className="bg-white border border-[#DCC7AF] px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl shadow-sm flex items-center gap-3 sm:gap-4">
+              <div className="space-y-0.5 sm:space-y-1">
+                <div className="flex items-center gap-0.5 sm:gap-1">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-4 h-4 fill-[#C5A059] text-[#C5A059]" />
+                    <Star key={s} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-[#C5A059] text-[#C5A059]" />
                   ))}
                 </div>
-                <span className="block font-serif text-sm font-semibold text-[#1F1E1D]">
+                <span className="block font-serif text-xs sm:text-sm font-semibold text-[#1F1E1D]">
                   4.9 / 5.0 Aggregate
                 </span>
               </div>
-              <div className="border-l border-[#DCC7AF]/60 pl-4 text-left">
-                <span className="block text-sm font-mono text-[#3D5A40] font-bold">
+              <div className="border-l border-[#DCC7AF]/60 pl-3 sm:pl-4 text-left">
+                <span className="block text-xs sm:text-sm font-mono text-[#3D5A40] font-bold">
                   98% True to Size
                 </span>
-                <span className="block text-xs font-mono text-charcoal-subtle uppercase tracking-wider">
+                <span className="block text-[10px] sm:text-xs font-mono text-charcoal-subtle uppercase tracking-wider">
                   70+ Verified Buyers
                 </span>
               </div>
@@ -245,17 +245,17 @@ export default function VerifiedReviewsSellingSection({
                 type="button"
                 onClick={() => handleScroll("left")}
                 aria-label="Scroll reviews left"
-                className="w-10 h-10 rounded-full bg-white border border-[#DCC7AF] text-[#1F1E1D] flex items-center justify-center hover:bg-[#1F1E1D] hover:text-white transition-all shadow-xs cursor-pointer active:scale-95"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white border border-[#DCC7AF] text-[#1F1E1D] flex items-center justify-center hover:bg-[#1F1E1D] hover:text-white transition-all shadow-xs cursor-pointer active:scale-95"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button
                 type="button"
                 onClick={() => handleScroll("right")}
                 aria-label="Scroll reviews right"
-                className="w-10 h-10 rounded-full bg-white border border-[#DCC7AF] text-[#1F1E1D] flex items-center justify-center hover:bg-[#1F1E1D] hover:text-white transition-all shadow-xs cursor-pointer active:scale-95"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white border border-[#DCC7AF] text-[#1F1E1D] flex items-center justify-center hover:bg-[#1F1E1D] hover:text-white transition-all shadow-xs cursor-pointer active:scale-95"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
 
@@ -266,7 +266,7 @@ export default function VerifiedReviewsSellingSection({
         {/* 2. EDITORIAL SOCIAL PROOF HORIZONTAL CAROUSEL */}
         <div
           ref={scrollRef}
-          className="flex gap-6 sm:gap-7 overflow-x-auto no-scrollbar pb-4 pt-2 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 snap-x snap-mandatory"
+          className="flex gap-4 sm:gap-7 overflow-x-auto no-scrollbar pb-4 pt-2 -mx-3.5 px-3.5 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 snap-x snap-mandatory"
         >
           {filteredStories.map((story) => {
             const product = PRODUCTS.find((p) => p.id === story.productId);
@@ -277,7 +277,7 @@ export default function VerifiedReviewsSellingSection({
             return (
               <div
                 key={story.id}
-                className="w-[310px] sm:w-[360px] lg:w-[390px] shrink-0 bg-white rounded-3xl p-5 sm:p-6 border border-[#DCC7AF]/80 shadow-[0_10px_35px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_50px_rgba(0,0,0,0.08)] hover:border-[#C5A059] transition-all duration-300 flex flex-col justify-between space-y-5 snap-start group"
+                className="w-[84vw] max-w-[320px] sm:w-[360px] lg:w-[390px] shrink-0 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-[#DCC7AF]/80 shadow-[0_10px_35px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_50px_rgba(0,0,0,0.08)] hover:border-[#C5A059] transition-all duration-300 flex flex-col justify-between space-y-4 sm:space-y-5 snap-start group"
               >
                 {/* 1. LIFESTYLE PHOTO (SILHOUETTE IN THE WILD) */}
                 <Link

@@ -38,7 +38,7 @@ export default function TrustStrip() {
   const loopedBadges = [...trustBadges, ...trustBadges, ...trustBadges, ...trustBadges];
 
   return (
-    <section className="relative z-10 bg-[#FAF7F2]/95 backdrop-blur-sm border-b border-[#DCC7AF]/50 py-3 sm:py-3.5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] overflow-hidden">
+    <section className="relative z-10 bg-[#FAF7F2]/95 backdrop-blur-sm border-b border-[#DCC7AF]/50 py-2.5 sm:py-3.5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] overflow-hidden">
       <motion.div
         initial={{ x: "-50%" }}
         animate={{ x: ["-50%", "0%"] }}
@@ -47,20 +47,20 @@ export default function TrustStrip() {
           ease: "linear",
           duration: 35,
         }}
-        className="flex w-max items-center gap-6 sm:gap-8 whitespace-nowrap px-4"
+        className="flex w-max items-center gap-4 sm:gap-8 whitespace-nowrap px-4"
       >
         {loopedBadges.map((badge, idx) => {
           const Icon = badge.icon;
           return (
             <React.Fragment key={idx}>
-              <div className="flex items-center gap-2 flex-shrink-0 text-[#2B2927] hover:text-[#B86B4B] transition-colors">
-                <Icon className={`w-3.5 h-3.5 flex-shrink-0 ${badge.iconClass}`} />
-                <span className="text-sm sm:text-sm uppercase font-semibold tracking-[0.14em] font-medium">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 text-[#2B2927] hover:text-[#B86B4B] transition-colors">
+                <Icon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0 ${badge.iconClass}`} />
+                <span className="text-xs sm:text-sm uppercase font-semibold tracking-wider sm:tracking-[0.14em]">
                   {badge.text}
                 </span>
               </div>
               {idx < loopedBadges.length - 1 && (
-                <span className="text-[#DCC7AF] text-xs select-none flex-shrink-0" aria-hidden="true">
+                <span className="text-[#DCC7AF] text-[10px] sm:text-xs select-none flex-shrink-0" aria-hidden="true">
                   •
                 </span>
               )}

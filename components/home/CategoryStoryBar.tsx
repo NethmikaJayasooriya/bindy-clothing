@@ -79,23 +79,22 @@ export default function CategoryStoryBar({
   };
 
   return (
-    <div className="w-full py-4 mb-6">
-      <div className="flex items-center justify-start sm:justify-center gap-4 sm:gap-6 overflow-x-auto pb-3 pt-1 px-4 no-scrollbar">
+    <div className="w-full py-2 sm:py-4 mb-4 sm:mb-6">
+      <div className="flex items-center justify-start sm:justify-center gap-3 sm:gap-6 overflow-x-auto pb-3 pt-1 px-2 sm:px-4 no-scrollbar touch-pan-x">
         {stories.map((story) => {
           const isActive = activeCategory === story.id;
 
           return (
             <motion.button
               key={story.id}
-              type="button"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.96 }}
               onClick={() => handleClick(story)}
-              className="flex flex-col items-center gap-2 group flex-shrink-0 cursor-pointer focus:outline-none"
+              className="flex flex-col items-center gap-1.5 sm:gap-2 group flex-shrink-0 cursor-pointer focus:outline-none"
             >
               {/* Circular Story Bubble with Animated Ring */}
               <div
-                className={`relative w-18 h-18 sm:w-20 sm:h-20 rounded-full p-0.5 transition-all duration-300 ${
+                className={`relative w-16 h-16 sm:w-20 sm:h-20 rounded-full p-0.5 transition-all duration-300 ${
                   story.isSpecial
                     ? "bg-gradient-to-tr from-[#B86B4B] via-[#C5A059] to-[#B86B4B] shadow-[0_4px_18px_rgba(184,107,75,0.35)] animate-pulse"
                     : isActive
@@ -113,8 +112,8 @@ export default function CategoryStoryBar({
 
                   {/* Special Badge on Bubble */}
                   {story.badge && (
-                    <span className="absolute bottom-0 inset-x-0 bg-[#B86B4B] text-white text-xs font-mono uppercase tracking-widest text-center py-0.5 font-bold flex items-center justify-center gap-0.5">
-                      <Flame className="w-2.5 h-2.5 fill-white" />
+                    <span className="absolute bottom-0 inset-x-0 bg-[#B86B4B] text-white text-[9px] sm:text-xs font-mono uppercase tracking-widest text-center py-0.5 font-bold flex items-center justify-center gap-0.5">
+                      <Flame className="w-2 h-2 sm:w-2.5 sm:h-2.5 fill-white" />
                       {story.badge}
                     </span>
                   )}
@@ -123,7 +122,7 @@ export default function CategoryStoryBar({
                 {/* Micro Count Pill */}
                 {story.count !== undefined && (
                   <span
-                    className={`absolute -top-1 -right-1 px-1.5 py-0.2 text-xs font-mono rounded-full border shadow-sm ${
+                    className={`absolute -top-1 -right-1 px-1.5 py-0.2 text-[10px] sm:text-xs font-mono rounded-full border shadow-sm ${
                       isActive
                         ? "bg-[#1F1E1D] text-white border-[#C5A059]"
                         : "bg-white text-charcoal-subtle border-[#DCC7AF]"
@@ -137,7 +136,7 @@ export default function CategoryStoryBar({
               {/* Story Title */}
               <div className="text-center">
                 <span
-                  className={`text-sm sm:text-xs font-serif transition-colors block leading-tight ${
+                  className={`text-xs sm:text-xs font-serif transition-colors block leading-tight ${
                     isActive
                       ? "text-[#1F1E1D] font-bold underline underline-offset-4 decoration-[#C5A059]"
                       : "text-charcoal-subtle group-hover:text-[#1F1E1D] font-medium"

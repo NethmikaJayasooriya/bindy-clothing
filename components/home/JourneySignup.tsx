@@ -28,16 +28,16 @@ export default function JourneySignup() {
   };
 
   return (
-    <section className="relative py-20 sm:py-28 overflow-hidden bg-[#FAF7F2] border-t border-[#DCC7AF]/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-[32px] overflow-hidden bg-[#161513] text-white border border-[#C5A059]/40 shadow-2xl">
+    <section className="relative py-12 sm:py-28 overflow-hidden bg-[#FAF7F2] border-t border-[#DCC7AF]/60">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+        <div className="relative rounded-2xl sm:rounded-[32px] overflow-hidden bg-[#161513] text-white border border-[#C5A059]/40 shadow-2xl">
           
           {/* Subtle Ambient Gold Halo */}
           <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[400px] sm:min-h-[460px]">
             {/* Left Column: Image Background with Slow Fashion Quote */}
-            <div className="lg:col-span-5 relative min-h-[260px] lg:min-h-full">
+            <div className="lg:col-span-5 relative min-h-[190px] sm:min-h-[260px] lg:min-h-full">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/destinations/garden.jpg"
@@ -47,29 +47,29 @@ export default function JourneySignup() {
               />
               <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-[#161513] via-[#161513]/50 to-transparent" />
 
-              <div className="absolute bottom-6 left-6 right-6 lg:p-4 text-white">
-                <blockquote className="font-serif italic text-base sm:text-lg text-[#DCC7AF] font-light leading-relaxed">
+              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 lg:p-4 text-white">
+                <blockquote className="font-serif italic text-sm sm:text-lg text-[#DCC7AF] font-light leading-relaxed">
                   &ldquo;A living thread between two islands, woven at the pace of calm.&rdquo;
                 </blockquote>
-                <span className="block text-sm font-mono uppercase font-semibold tracking-wider text-[#C5A059] mt-2 font-semibold">
+                <span className="block text-xs sm:text-sm font-mono uppercase font-semibold tracking-wider text-[#C5A059] mt-1.5 sm:mt-2 font-semibold">
                   Two Islands • One Thread
                 </span>
               </div>
             </div>
 
             {/* Right Column: High-Converting VIP Privilege Box */}
-            <div className="lg:col-span-7 p-8 sm:p-12 lg:p-14 flex flex-col justify-center space-y-6">
-              <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-[#C5A059]/40 text-[#C5A059] text-xs font-mono tracking-wider uppercase font-semibold">
-                  <Gift className="w-3.5 h-3.5 text-[#C5A059]" />
+            <div className="lg:col-span-7 p-5 sm:p-12 lg:p-14 flex flex-col justify-center space-y-4 sm:space-y-6">
+              <div className="space-y-2 sm:space-y-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] border border-[#C5A059]/40 text-[#C5A059] text-[11px] sm:text-xs font-mono tracking-wider uppercase font-semibold">
+                  <Gift className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C5A059]" />
                   <span>First-Order Invitation</span>
                 </div>
 
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
+                <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
                   Unlock <span className="italic font-serif text-[#C5A059]">10% Off</span> Your First Silhouette
                 </h2>
 
-                <p className="font-serif italic text-sm sm:text-base text-[#DCC7AF]/85 font-light leading-relaxed max-w-lg">
+                <p className="font-serif italic text-xs sm:text-base text-[#DCC7AF]/85 font-light leading-relaxed max-w-lg">
                   Join our private client circle to receive immediate 10% savings on your first handloom purchase, private edition drop access, and artisan dispatches.
                 </p>
               </div>
