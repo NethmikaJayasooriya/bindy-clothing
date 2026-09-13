@@ -111,23 +111,23 @@ export default function JourneyTiles({
 
                 {/* Content Overlay */}
                 <div className="absolute inset-0 p-5 flex flex-col justify-end text-white">
-                  <span className="text-[9px] uppercase font-sans tracking-[0.25em] text-sand/80 font-medium">
+                  <span className="text-xs uppercase font-sans tracking-wider text-sand/80 font-medium">
                     Destination
                   </span>
                   <h3 className="font-serif text-xl sm:text-2xl font-normal leading-tight text-white group-hover:text-gold transition-colors">
                     {meta?.label}
                   </h3>
-                  <p className="text-[11px] font-sans text-sand/90 font-light mt-1">
+                  <p className="text-sm font-sans text-sand/90 font-light mt-1">
                     {meta?.tagline}
                   </p>
 
                   {/* Hover Caption */}
-                  <p className="text-[10px] font-serif italic text-white/90 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">
+                  <p className="text-xs font-serif italic text-white/90 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">
                     {HOVER_CAPTIONS[destKey]}
                   </p>
 
                   {/* Micro action arrow */}
-                  <div className="mt-3 flex items-center gap-1 text-[10px] uppercase font-sans tracking-widest text-gold font-semibold">
+                  <div className="mt-3 flex items-center gap-1 text-sm uppercase font-semibold font-sans tracking-widest text-gold font-semibold">
                     <span>Shop Journey</span>
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                   </div>

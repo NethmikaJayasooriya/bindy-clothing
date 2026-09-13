@@ -52,7 +52,7 @@ export default function RecentlyViewed({ currentProductId }: RecentlyViewedProps
 
           <Link
             href="/collection"
-            className="text-xs font-sans uppercase tracking-[0.2em] text-gold hover:text-cinnamon font-semibold transition-colors"
+            className="text-sm font-sans uppercase font-semibold tracking-[0.2em] text-gold hover:text-cinnamon font-semibold transition-colors"
           >
             Explore All →
           </Link>
@@ -73,7 +73,7 @@ export default function RecentlyViewed({ currentProductId }: RecentlyViewedProps
                 />
               </div>
 
-              <span className="text-[9px] uppercase font-sans tracking-widest text-gold font-semibold">
+              <span className="text-xs uppercase font-sans tracking-widest text-gold font-semibold">
                 {p.story}
               </span>
               <h4 className="font-serif text-sm font-medium text-charcoal group-hover:text-gold transition-colors truncate mt-0.5">

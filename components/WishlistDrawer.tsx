@@ -109,7 +109,7 @@ export default function WishlistDrawer({
                 Saved Pieces
               </h3>
               {items.length > 0 && (
-                <span className="px-2 py-0.5 rounded-full bg-gold/20 text-charcoal text-[10px] font-mono font-bold">
+                <span className="px-2 py-0.5 rounded-full bg-gold/20 text-charcoal text-xs font-mono font-bold">
                   {items.length}
                 </span>
               )}
@@ -129,7 +129,7 @@ export default function WishlistDrawer({
           {/* Items List / Empty State */}
           <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-4">
             {items.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center space-y-4 text-muted py-12">
+              <div className="h-full flex flex-col items-center justify-center text-center space-y-4 text-charcoal-subtle py-12">
                 <div className="w-16 h-16 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold shadow-sm">
                   <Heart className="w-8 h-8 stroke-[1.5]" />
                 </div>
@@ -137,7 +137,7 @@ export default function WishlistDrawer({
                   <p className="font-serif text-xl text-charcoal font-light">
                     Your Wishlist is Empty
                   </p>
-                  <p className="text-xs font-sans text-muted max-w-xs font-light leading-relaxed">
+                  <p className="text-xs font-sans text-charcoal-subtle max-w-xs font-light leading-relaxed">
                     Save pieces you love as you explore the collection to build your personal capsule.
                   </p>
                 </div>
@@ -150,7 +150,7 @@ export default function WishlistDrawer({
                       el?.scrollIntoView({ behavior: "smooth" });
                     }, 50);
                   }}
-                  className="px-7 py-3 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-bold hover:bg-cinnamon hover:text-white transition-all shadow-md cursor-pointer"
+                  className="px-7 py-3 rounded-full bg-gold text-charcoal font-sans text-sm uppercase font-semibold tracking-[0.2em] font-bold hover:bg-cinnamon hover:text-white transition-all shadow-md cursor-pointer"
                 >
                   Discover Collection 01
                 </button>
@@ -196,14 +196,14 @@ export default function WishlistDrawer({
                             </Link>
                             <button
                               onClick={() => handleRemove(product.id)}
-                              className="text-muted hover:text-terracotta transition-colors p-1 flex-shrink-0 cursor-pointer"
+                              className="text-charcoal-subtle hover:text-terracotta transition-colors p-1 flex-shrink-0 cursor-pointer"
                               title="Remove from saved"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </div>
 
-                          <p className="text-[11px] font-sans text-muted">
+                          <p className="text-sm font-sans text-charcoal-subtle">
                             {product.colorName} • {product.fabric}
                           </p>
 
@@ -214,14 +214,14 @@ export default function WishlistDrawer({
 
                         {/* Size selector pills */}
                         <div className="pt-2 flex items-center gap-1.5 flex-wrap">
-                          <span className="text-[9px] font-sans uppercase tracking-wider text-muted mr-1">
+                          <span className="text-xs font-sans uppercase tracking-wider text-charcoal-subtle mr-1">
                             Size:
                           </span>
                           {product.sizes.map((s) => (
                             <button
                               key={s}
                               onClick={() => handleSelectSize(product.id, s)}
-                              className={`px-2 py-0.5 rounded text-[10px] font-sans transition-colors cursor-pointer border ${
+                              className={`px-2 py-0.5 rounded text-xs font-sans transition-colors cursor-pointer border ${
                                 currentSize === s
                                   ? "bg-gold text-charcoal font-bold border-gold"
                                   : "bg-paper-light border-sand/40 text-charcoal hover:border-gold/50"
@@ -238,7 +238,7 @@ export default function WishlistDrawer({
                     <div className="pt-1 flex items-center gap-2">
                       <button
                         onClick={() => handleAddToCart(product)}
-                        className={`flex-1 py-2.5 rounded-full font-sans text-xs uppercase tracking-wider font-semibold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-sm ${
+                        className={`flex-1 py-2.5 rounded-full font-sans text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-sm ${
                           isAdded
                             ? "bg-green-600 text-white"
                             : "bg-gold hover:bg-cinnamon text-charcoal hover:text-white"
@@ -263,7 +263,7 @@ export default function WishlistDrawer({
                           document.body.style.overflow = "";
                           onClose();
                         }}
-                        className="px-3.5 py-2.5 rounded-full border border-sand/40 hover:border-gold text-charcoal hover:text-gold text-xs font-sans uppercase tracking-wider transition-colors flex items-center justify-center"
+                        className="px-3.5 py-2.5 rounded-full border border-sand/40 hover:border-gold text-charcoal hover:text-gold text-sm font-sans uppercase font-semibold tracking-wider transition-colors flex items-center justify-center"
                         title="View details"
                       >
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -278,11 +278,11 @@ export default function WishlistDrawer({
           {/* Footer Actions */}
           {items.length > 0 && (
             <div className="p-6 border-t border-sand/30 space-y-3.5 bg-paper-light">
-              <div className="flex items-center justify-between text-xs font-sans text-muted">
+              <div className="flex items-center justify-between text-xs font-sans text-charcoal-subtle">
                 <span>{items.length} {items.length === 1 ? "piece" : "pieces"} saved in your circle</span>
                 <button
                   onClick={handleClearAll}
-                  className="text-[11px] uppercase tracking-wider text-muted hover:text-terracotta transition-colors underline underline-offset-4 cursor-pointer"
+                  className="text-sm uppercase tracking-wider text-charcoal-subtle hover:text-terracotta transition-colors underline underline-offset-4 cursor-pointer"
                 >
                   Clear Wishlist
                 </button>
@@ -299,7 +299,7 @@ export default function WishlistDrawer({
                     onClose();
                     if (onOpenCart) onOpenCart();
                   }}
-                  className="w-full py-3.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-xl cursor-pointer"
+                  className="w-full py-3.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-sm uppercase font-semibold tracking-[0.2em] font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-xl cursor-pointer"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   <span>Add All to Bag</span>

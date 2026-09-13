@@ -41,7 +41,7 @@ export default function FoundersSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
                 {/* Top Corner: Sequence Badge */}
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md text-[9px] font-mono tracking-widest text-gold uppercase border border-white/15">
+                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md text-xs font-mono tracking-widest text-gold uppercase border border-white/15">
                   {founder.number} / 03
                 </div>
 
@@ -50,7 +50,7 @@ export default function FoundersSection() {
                   <span className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center font-display text-base text-charcoal font-semibold shadow-md">
                     {founder.monogram}
                   </span>
-                  <span className="text-[10px] font-sans uppercase tracking-wider text-white/90 bg-black/45 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15">
+                  <span className="text-sm font-sans uppercase font-semibold tracking-wider text-white/90 bg-black/45 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15">
                     {founder.location}
                   </span>
                 </div>
@@ -61,14 +61,14 @@ export default function FoundersSection() {
                 <h3 className="font-serif text-2xl text-charcoal-rich font-medium tracking-wide leading-snug group-hover:text-gold transition-colors">
                   {founder.name}
                 </h3>
-                <p className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.25em] text-gold font-semibold">
+                <p className="text-xs sm:text-sm font-sans uppercase tracking-wider text-gold font-semibold">
                   {founder.role}
                 </p>
               </div>
 
               {/* Emotional Centerpiece: Pull-Quote */}
               <div className="space-y-3 my-auto py-2">
-                <blockquote className="font-editorial-italic text-base text-charcoal font-light leading-relaxed border-l-2 border-gold/60 pl-3.5 py-0.5">
+                <blockquote className="font-serif text-base text-charcoal font-light leading-relaxed border-l-2 border-gold/60 pl-3.5 py-0.5">
                   &ldquo;{founder.quote}&rdquo;
                 </blockquote>
                 <p className="font-sans text-xs text-charcoal/80 font-light leading-relaxed line-clamp-4">
@@ -79,12 +79,12 @@ export default function FoundersSection() {
               {/* Focus Tags & Link to About */}
               <div className="pt-4 border-t border-sand/30 space-y-4">
                 <div className="space-y-1.5">
-                  <span className="text-[9px] uppercase font-sans tracking-[0.28em] text-muted block font-semibold">
+                  <span className="text-xs uppercase font-sans tracking-wider text-charcoal-subtle block font-semibold">
                     Focus Areas
                   </span>
                   <div className="text-xs font-sans text-charcoal font-light flex flex-wrap gap-1.5">
                     {founder.focus.slice(0, 3).map((f, i) => (
-                      <span key={i} className="text-[10px] bg-paper-dark px-2.5 py-0.5 rounded-full border border-sand/40 text-charcoal/80">
+                      <span key={i} className="text-xs bg-paper-dark px-2.5 py-0.5 rounded-full border border-sand/40 text-charcoal/80">
                         {f}
                       </span>
                     ))}
@@ -94,7 +94,7 @@ export default function FoundersSection() {
                 {/* Click-through to full founder bio on About page */}
                 <Link
                   href={`/about#${founder.id}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-[0.2em] text-gold hover:text-cinnamon font-semibold transition-colors pt-2 group"
+                  className="inline-flex items-center gap-1.5 text-sm font-sans uppercase font-semibold tracking-[0.2em] text-gold hover:text-cinnamon font-semibold transition-colors pt-2 group"
                 >
                   <span>Read Full Bio & Interview</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

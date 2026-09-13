@@ -24,7 +24,7 @@ function StarRatingBadge({ product }: { product: Product }) {
   const count = product.reviews?.length || 0;
   if (count === 0) {
     return (
-      <span className="inline-block mt-1.5 text-[11px] font-sans uppercase tracking-wider text-gold/90 font-medium">
+      <span className="inline-block mt-1.5 text-sm font-sans uppercase tracking-wider text-gold/90 font-medium">
         New Arrival
       </span>
     );
@@ -47,7 +47,7 @@ function StarRatingBadge({ product }: { product: Product }) {
         ))}
       </div>
       <span className="text-xs font-sans text-charcoal font-medium">
-        {rating.toFixed(1)} <span className="text-muted font-normal">({count})</span>
+        {rating.toFixed(1)} <span className="text-charcoal-subtle font-normal">({count})</span>
       </span>
     </div>
   );
@@ -131,13 +131,13 @@ export default function CollectionShowcase({
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
-          <span className="text-[11px] font-sans uppercase tracking-[0.35em] text-[#C5A059] font-semibold block">
+          <span className="text-sm font-sans uppercase tracking-wider text-[#C5A059] font-semibold block">
             Collection 01 • Serendipity
           </span>
           <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal-rich font-light tracking-wide leading-tight">
-            Simple pieces. <span className="font-editorial-italic text-[#C5A059]">Meaningful moments.</span>
+            Simple pieces. <span className="font-serif text-[#C5A059]">Meaningful moments.</span>
           </h2>
-          <p className="font-serif italic text-lg sm:text-xl text-muted font-light max-w-2xl mx-auto leading-relaxed">
+          <p className="font-serif italic text-lg sm:text-xl text-charcoal-subtle font-light max-w-2xl mx-auto leading-relaxed">
             Nineteen handcrafted styles — each one carrying a fragment of Sri Lanka into the Australian wardrobe.
           </p>
         </div>
@@ -146,7 +146,7 @@ export default function CollectionShowcase({
         <div className="mb-14">
           <div className="flex items-center justify-center gap-2 mb-6">
             <MapPin className="w-4 h-4 text-[#C5A059]" />
-            <span className="text-[11px] font-sans uppercase tracking-[0.32em] text-muted font-semibold">
+            <span className="text-sm font-sans uppercase tracking-wider text-charcoal-subtle font-semibold">
               Where will you wear it?
             </span>
           </div>
@@ -183,7 +183,7 @@ export default function CollectionShowcase({
                     <div className="font-serif text-[15px] leading-tight text-white font-medium drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]">
                       {label}
                     </div>
-                    <div className="text-[10px] font-sans mt-0.5 tracking-wide text-white/80 font-light">
+                    <div className="text-xs font-sans mt-0.5 tracking-wide text-white/80 font-light">
                       {tagline}
                     </div>
                   </div>
@@ -195,7 +195,7 @@ export default function CollectionShowcase({
 
         {/* ── CATEGORY TABS (bold, high-contrast) ── */}
         <div className="flex flex-col items-center gap-4 mb-14">
-          <span className="text-[10px] font-sans uppercase tracking-[0.32em] text-muted font-semibold">
+          <span className="text-sm font-sans uppercase font-semibold tracking-wider text-charcoal-subtle font-semibold">
             Browse by piece
           </span>
           <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
@@ -205,7 +205,7 @@ export default function CollectionShowcase({
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-2.5 rounded-full text-[11px] font-sans uppercase tracking-[0.24em] transition-all duration-300 border cursor-pointer ${
+                  className={`px-6 py-2.5 rounded-full text-sm font-sans uppercase tracking-wider transition-all duration-300 border cursor-pointer ${
                     active
                       ? "bg-[#C5A059] text-charcoal border-[#C5A059] font-bold shadow-[0_8px_24px_rgba(197,160,89,0.38)] scale-[1.04]"
                       : "bg-paper-light text-charcoal border-sand/40 hover:border-[#C5A059] hover:text-[#C5A059] font-medium shadow-sm hover:shadow"
@@ -271,7 +271,7 @@ export default function CollectionShowcase({
                   </Link>
 
                   {/* Colour dot + name */}
-                  <div className="absolute top-3 left-3 flex items-center space-x-2 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] text-white pointer-events-none">
+                  <div className="absolute top-3 left-3 flex items-center space-x-2 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full text-xs text-white pointer-events-none">
                     <span className="w-2.5 h-2.5 rounded-full border border-white/40" style={{ backgroundColor: product.colorHex }} />
                     <span className="font-sans uppercase tracking-wider">{product.colorName}</span>
                   </div>
@@ -279,7 +279,7 @@ export default function CollectionShowcase({
                   {/* Destination chips */}
                   <div className="absolute top-3 right-3 flex flex-col items-end gap-1 pointer-events-none">
                     {product.destinations.slice(0, 2).map((d) => (
-                      <span key={d} className="bg-white/85 text-[#1F1E1D] text-[9px] font-sans uppercase tracking-[0.18em] px-2 py-0.5 rounded-full shadow-sm">
+                      <span key={d} className="bg-white/85 text-[#1F1E1D] text-xs font-sans uppercase tracking-[0.18em] px-2 py-0.5 rounded-full shadow-sm">
                         {d}
                       </span>
                     ))}
@@ -287,7 +287,7 @@ export default function CollectionShowcase({
 
                   {/* "2nd look" hint */}
                   <div className="absolute bottom-3 left-3 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                    <span className="bg-black/55 backdrop-blur-md text-[#E7C989] text-[9px] font-sans uppercase tracking-[0.2em] px-2 py-0.5 rounded-full">
+                    <span className="bg-black/55 backdrop-blur-md text-[#E7C989] text-xs font-sans uppercase tracking-[0.2em] px-2 py-0.5 rounded-full">
                       Detail view
                     </span>
                   </div>
@@ -343,7 +343,7 @@ export default function CollectionShowcase({
                 {/* Product Info */}
                 <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
                   <div>
-                    <div className="text-[10px] uppercase font-sans tracking-[0.28em] text-[#C5A059] mb-1 font-semibold">
+                    <div className="text-sm uppercase font-semibold font-sans tracking-wider text-[#C5A059] mb-1 font-semibold">
                       {product.story}
                     </div>
                     <Link href={`/product/${product.id}`}>
@@ -351,7 +351,7 @@ export default function CollectionShowcase({
                         {product.name}
                       </h3>
                     </Link>
-                    <p className="text-xs font-sans text-muted mt-1 font-light">
+                    <p className="text-xs font-sans text-charcoal-subtle mt-1 font-light">
                       {product.fabric}
                     </p>
                     <StarRatingBadge product={product} />
@@ -359,11 +359,11 @@ export default function CollectionShowcase({
 
                   <div className="mt-4 pt-3.5 border-t border-sand/30 flex items-center justify-between">
                     <span className="font-serif text-lg text-charcoal font-semibold tracking-tight">
-                      ${product.priceAud} <span className="text-[11px] font-sans font-normal text-muted">AUD</span>
+                      ${product.priceAud} <span className="text-sm font-sans font-normal text-charcoal-subtle">AUD</span>
                     </span>
                     <Link
                       href={`/product/${product.id}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-[0.2em] text-charcoal hover:text-[#C5A059] font-semibold transition-colors"
+                      className="inline-flex items-center gap-1.5 text-sm font-sans uppercase font-semibold tracking-[0.2em] text-charcoal hover:text-[#C5A059] font-semibold transition-colors"
                     >
                       <span>Explore</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -376,7 +376,7 @@ export default function CollectionShowcase({
         </div>
 
         {filteredProducts.length === 0 && (
-          <div className="text-center py-20 text-muted font-serif italic">
+          <div className="text-center py-20 text-charcoal-subtle font-serif italic">
             No pieces match this journey yet — try another destination.
           </div>
         )}

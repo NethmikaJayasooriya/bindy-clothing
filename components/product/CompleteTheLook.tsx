@@ -56,13 +56,13 @@ export default function CompleteTheLook({
     <section className="py-20 sm:py-24 bg-paper border-b border-sand/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-          <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block">
+          <span className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold block">
             Curated Styling
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl text-charcoal-rich font-light">
-            Complete the <span className="font-editorial-italic text-gold">Look</span>
+            Complete the <span className="font-serif text-gold">Look</span>
           </h2>
-          <p className="font-serif italic text-base text-muted font-light">
+          <p className="font-serif italic text-base text-charcoal-subtle font-light">
             Silhouettes thoughtfully designed to pair together with natural harmony.
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function CompleteTheLook({
                     />
                   </div>
                   <div className="space-y-0.5 max-w-[130px] sm:max-w-[150px]">
-                    <span className="text-[9px] uppercase font-sans tracking-wider text-muted block">
+                    <span className="text-xs uppercase font-sans tracking-wider text-charcoal-subtle block">
                       This Item
                     </span>
                     <p className="font-serif text-xs sm:text-sm font-medium text-charcoal line-clamp-2">
@@ -113,7 +113,7 @@ export default function CompleteTheLook({
                     />
                   </div>
                   <div className="space-y-0.5 max-w-[130px] sm:max-w-[150px]">
-                    <span className="text-[9px] uppercase font-sans tracking-wider text-gold font-semibold block">
+                    <span className="text-xs uppercase font-sans tracking-wider text-gold font-semibold block">
                       Styled With
                     </span>
                     <p className="font-serif text-xs sm:text-sm font-medium text-charcoal group-hover:text-gold transition-colors line-clamp-2">
@@ -129,11 +129,11 @@ export default function CompleteTheLook({
               {/* Bundle Action Button */}
               <div className="flex flex-col sm:flex-row lg:flex-col items-center gap-3 w-full lg:w-auto shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 lg:border-l border-sand/30 lg:pl-8">
                 <div className="text-center lg:text-right">
-                  <span className="text-[10px] uppercase font-sans text-muted block tracking-wider">
+                  <span className="text-sm uppercase font-semibold font-sans text-charcoal-subtle block tracking-wider">
                     Total Bundle
                   </span>
                   <span className="font-serif text-2xl font-semibold text-charcoal">
-                    ${bundleTotal} <span className="text-xs font-sans text-muted">AUD</span>
+                    ${bundleTotal} <span className="text-xs font-sans text-charcoal-subtle">AUD</span>
                   </span>
                 </div>
 
@@ -175,20 +175,20 @@ export default function CompleteTheLook({
 
               <div className="space-y-1.5 flex flex-col justify-between flex-1">
                 <div>
-                  <span className="text-[10px] uppercase font-sans tracking-widest text-gold font-semibold">
+                  <span className="text-sm uppercase font-semibold font-sans tracking-widest text-gold font-semibold">
                     {p.story}
                   </span>
                   <h3 className="font-serif text-base text-charcoal font-medium group-hover:text-gold transition-colors leading-snug line-clamp-1">
                     {p.name}
                   </h3>
-                  <p className="text-xs font-sans text-muted font-light">{p.fabric}</p>
+                  <p className="text-xs font-sans text-charcoal-subtle font-light">{p.fabric}</p>
                 </div>
 
                 <div className="pt-2 border-t border-sand/30 flex items-center justify-between">
                   <span className="font-serif font-semibold text-charcoal text-base">
                     ${p.priceAud} AUD
                   </span>
-                  <span className="text-[10px] font-sans uppercase tracking-wider text-gold font-semibold flex items-center gap-1">
+                  <span className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold flex items-center gap-1">
                     <span>View Piece</span>
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                   </span>

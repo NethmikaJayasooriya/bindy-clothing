@@ -25,15 +25,15 @@ export default function Footer() {
               <BrandLogo size="lg" />
             </Link>
 
-            <p className="text-xs uppercase font-sans tracking-[0.35em] text-gold font-semibold">
+            <p className="text-sm uppercase font-semibold font-sans tracking-wider text-gold font-semibold">
               Two Islands • One Thread
             </p>
 
-            <p className="font-serif italic text-sm text-muted max-w-sm leading-relaxed">
+            <p className="font-serif italic text-sm text-charcoal-subtle max-w-sm leading-relaxed">
               Thoughtfully designed pieces that blend comfort, poetic storytelling, and authentic Sri Lankan handloom craftsmanship for the modern Australian wardrobe.
             </p>
 
-            <div className="pt-2 text-[11px] font-sans tracking-wider text-muted space-y-1">
+            <div className="pt-2 text-sm font-sans tracking-wider text-charcoal-subtle space-y-1">
               <p>Studios in Brisbane, Australia & Colombo, Sri Lanka</p>
               <p>contact@bindyclothing.com</p>
             </div>
@@ -41,10 +41,10 @@ export default function Footer() {
 
           {/* Shop Column (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-[10px] text-gold uppercase tracking-[0.35em] font-semibold mb-4">
+            <h4 className="text-xs text-gold uppercase tracking-wider font-semibold mb-4">
               Collection
             </h4>
-            <ul className="space-y-2.5 text-xs font-sans uppercase tracking-[0.18em] text-charcoal/80">
+            <ul className="space-y-2.5 text-sm font-sans uppercase font-semibold tracking-[0.18em] text-charcoal/80">
               <li>
                 <Link href="/collection" className="hover:text-gold transition-colors">
                   All Pieces
@@ -75,10 +75,10 @@ export default function Footer() {
 
           {/* Story & Craft Column (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-[10px] text-gold uppercase tracking-[0.35em] font-semibold mb-4">
+            <h4 className="text-xs text-gold uppercase tracking-wider font-semibold mb-4">
               Our World
             </h4>
-            <ul className="space-y-2.5 text-xs font-sans uppercase tracking-[0.18em] text-charcoal/80">
+            <ul className="space-y-2.5 text-sm font-sans uppercase font-semibold tracking-[0.18em] text-charcoal/80">
               <li>
                 <Link href="/about" className="hover:text-gold transition-colors">
                   Our Story & Founders
@@ -109,10 +109,10 @@ export default function Footer() {
 
           {/* Client Care Column (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-[10px] text-gold uppercase tracking-[0.35em] font-semibold mb-4">
+            <h4 className="text-xs text-gold uppercase tracking-wider font-semibold mb-4">
               Client Care
             </h4>
-            <ul className="space-y-2.5 text-xs font-sans uppercase tracking-[0.18em] text-charcoal/80">
+            <ul className="space-y-2.5 text-sm font-sans uppercase font-semibold tracking-[0.18em] text-charcoal/80">
               <li>
                 <Link href="/size-guide" className="hover:text-gold transition-colors">
                   Size Guide &amp; Fit
@@ -143,7 +143,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] font-sans text-muted tracking-wider gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-sm font-sans text-charcoal-subtle tracking-wider gap-4">
           <p>© {new Date().getFullYear()} BINDY CLOTHING. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/contact#privacy" className="hover:text-gold transition-colors">

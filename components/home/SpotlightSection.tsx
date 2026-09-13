@@ -50,7 +50,7 @@ export default function SpotlightSection({
           action={
             <a
               href="#browse-collection"
-              className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#1F1E1D] hover:text-[#B86B4B] transition-colors font-semibold group pb-1"
+              className="inline-flex items-center gap-2 text-sm font-mono uppercase font-semibold tracking-widest text-[#1F1E1D] hover:text-[#B86B4B] transition-colors font-semibold group pb-1"
             >
               <span>Explore All 28 Silhouettes</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -82,7 +82,7 @@ export default function SpotlightSection({
 
               {/* Bestseller Ribbon */}
               <div className="absolute top-4 left-4 z-10 flex flex-col gap-1">
-                <span className="px-3 py-1 rounded-full bg-[#1F1E1D] text-white text-[10px] font-mono uppercase tracking-wider font-bold shadow-md flex items-center gap-1">
+                <span className="px-3 py-1 rounded-full bg-[#1F1E1D] text-white text-sm font-mono uppercase font-semibold tracking-wider font-bold shadow-md flex items-center gap-1">
                   <Flame className="w-3 h-3 text-[#C5A059]" />
                   <span>Signature Hero</span>
                 </span>
@@ -102,7 +102,7 @@ export default function SpotlightSection({
             {/* Information & Direct Purchase Controls */}
             <div className="p-6 sm:p-8 md:w-1/2 flex flex-col justify-between space-y-5">
               <div className="space-y-3">
-                <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-[#C5A059] font-semibold">
+                <div className="flex items-center justify-between text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-semibold">
                   <span>{heroProduct.storyPlace}</span>
                   <div className="flex items-center gap-1 text-[#1F1E1D]">
                     <Star className="w-3.5 h-3.5 fill-[#C5A059] text-[#C5A059]" />
@@ -117,7 +117,7 @@ export default function SpotlightSection({
                   {heroProduct.name}
                 </Link>
 
-                <p className="text-xs font-sans text-[#78716A] leading-relaxed line-clamp-3 font-light">
+                <p className="text-xs font-sans text-charcoal-subtle leading-relaxed line-clamp-3 font-light">
                   {heroProduct.description}
                 </p>
 
@@ -125,7 +125,7 @@ export default function SpotlightSection({
                   <span className="font-serif text-2xl sm:text-3xl font-semibold text-[#1F1E1D]">
                     ${heroProduct.priceAud} AUD
                   </span>
-                  <span className="block text-[10px] font-mono text-[#78716A] uppercase tracking-wider mt-0.5">
+                  <span className="block text-xs font-mono text-charcoal-subtle uppercase tracking-wider mt-0.5">
                     {heroProduct.fabric} • Carbon-Neutral AU Shipping
                   </span>
                 </div>
@@ -134,8 +134,8 @@ export default function SpotlightSection({
               {/* In-Card Instant Size Selector */}
               <div className="space-y-4 pt-3 border-t border-[#DCC7AF]/50">
                 <div className="space-y-1.5">
-                  <div className="flex items-center justify-between text-[10px] font-mono">
-                    <span className="uppercase text-[#78716A]">Select Size:</span>
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="uppercase text-charcoal-subtle">Select Size:</span>
                     <span className="text-[#C5A059] font-medium">{heroSize}</span>
                   </div>
                   <div className="grid grid-cols-5 gap-1.5">
@@ -151,7 +151,7 @@ export default function SpotlightSection({
                           className={`py-2 text-xs font-mono rounded-xl border text-center transition-all ${
                             isSelected
                               ? "bg-[#1F1E1D] text-white border-[#1F1E1D] font-bold shadow-sm"
-                              : "bg-[#FAF7F2] text-[#78716A] border-[#DCC7AF]/60 hover:border-[#1F1E1D] hover:text-[#1F1E1D]"
+                              : "bg-[#FAF7F2] text-charcoal-subtle border-[#DCC7AF]/60 hover:border-[#1F1E1D] hover:text-[#1F1E1D]"
                           }`}
                         >
                           AU {short}
@@ -165,7 +165,7 @@ export default function SpotlightSection({
                 <button
                   type="button"
                   onClick={() => handleAdd(heroProduct, heroSize)}
-                  className={`w-full py-4 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md flex items-center justify-center gap-2 ${
+                  className={`w-full py-4 rounded-full font-mono text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 shadow-md flex items-center justify-center gap-2 ${
                     addedId === heroProduct.id
                       ? "bg-[#AFC8B1] text-[#2E4A32]"
                       : "bg-[#B86B4B] hover:bg-[#9E4D30] text-white"
@@ -215,7 +215,7 @@ export default function SpotlightSection({
                 {/* Details & Quick Add */}
                 <div className="min-w-0 flex-1 space-y-2">
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#C5A059] block truncate font-medium">
+                    <span className="text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] block truncate font-medium">
                       {product.story}
                     </span>
                     <Link
@@ -224,7 +224,7 @@ export default function SpotlightSection({
                     >
                       {product.name}
                     </Link>
-                    <p className="text-xs text-[#78716A] truncate font-light">
+                    <p className="text-xs text-charcoal-subtle truncate font-light">
                       {product.fabric}
                     </p>
                   </div>
@@ -245,7 +245,7 @@ export default function SpotlightSection({
                             key={sz}
                             type="button"
                             onClick={() => handleAdd(product, sz)}
-                            className="px-2.5 py-1 text-[10px] font-mono rounded-lg border border-[#DCC7AF] bg-[#FAF7F2] text-[#1F1E1D] hover:bg-[#B86B4B] hover:text-white hover:border-[#B86B4B] transition-colors cursor-pointer"
+                            className="px-2.5 py-1 text-xs font-mono rounded-lg border border-[#DCC7AF] bg-[#FAF7F2] text-[#1F1E1D] hover:bg-[#B86B4B] hover:text-white hover:border-[#B86B4B] transition-colors cursor-pointer"
                             title={`Quick add AU ${short}`}
                           >
                             AU {short}

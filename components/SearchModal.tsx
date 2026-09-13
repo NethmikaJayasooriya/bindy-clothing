@@ -282,13 +282,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     BINDY<span className="text-[#C5A059]">.</span>
                   </span>
                   <span className="text-[#DCC7AF] text-sm">•</span>
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-[#78716A]">
+                  <span className="text-sm font-mono uppercase tracking-widest text-charcoal-subtle">
                     Curated Catalogue &amp; Heritage Discoveries
                   </span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="hidden sm:inline-block px-2.5 py-1 rounded-lg bg-[#FAF7F2] border border-[#DCC7AF]/70 text-[10px] font-mono uppercase tracking-wider text-[#78716A]">
+                  <span className="hidden sm:inline-block px-2.5 py-1 rounded-lg bg-[#FAF7F2] border border-[#DCC7AF]/70 text-sm font-mono uppercase font-semibold tracking-wider text-charcoal-subtle">
                     ESC to close
                   </span>
                   <button
@@ -314,7 +314,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       setSelectedCategoryFilter("All");
                     }}
                     placeholder="Search dresses, handloom cotton, linen, stories, hues..."
-                    className="w-full bg-transparent font-serif text-lg sm:text-2xl text-[#1F1E1D] placeholder:text-[#78716A]/50 focus:outline-none tracking-normal"
+                    className="w-full bg-transparent font-serif text-lg sm:text-2xl text-[#1F1E1D] placeholder:text-charcoal-subtle/50 focus:outline-none tracking-normal"
                   />
                   {query && (
                     <button
@@ -324,7 +324,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         setSelectedCategoryFilter("All");
                         inputRef.current?.focus();
                       }}
-                      className="p-1.5 rounded-full hover:bg-[#FAF7F2] text-[#78716A] hover:text-[#1F1E1D] transition-colors mr-1 cursor-pointer"
+                      className="p-1.5 rounded-full hover:bg-[#FAF7F2] text-charcoal-subtle hover:text-[#1F1E1D] transition-colors mr-1 cursor-pointer"
                       title="Clear search query"
                     >
                       <X className="w-4 h-4" />
@@ -333,7 +333,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   {query.trim().length > 0 && (
                     <button
                       type="submit"
-                      className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1F1E1D] text-white text-[11px] font-mono tracking-wider uppercase hover:bg-[#C5A059] transition-colors ml-2"
+                      className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1F1E1D] text-white text-sm font-mono tracking-wider uppercase hover:bg-[#C5A059] transition-colors ml-2"
                     >
                       <span>Search</span>
                       <ArrowRight className="w-3 h-3" />
@@ -348,7 +348,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 {/* Recent Searches (if available) */}
                 {recentSearches.length > 0 && !cleanQuery && (
                   <div className="flex items-center flex-wrap gap-2 text-xs">
-                    <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-[#78716A] mr-1">
+                    <div className="flex items-center gap-1.5 text-sm font-mono uppercase font-semibold tracking-widest text-charcoal-subtle mr-1">
                       <Clock className="w-3 h-3 text-[#C5A059]" />
                       <span>Recent:</span>
                     </div>
@@ -365,7 +365,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         <button
                           type="button"
                           onClick={(e) => removeRecentSearch(term, e)}
-                          className="text-[#78716A] hover:text-red-700 opacity-60 group-hover:opacity-100 transition-opacity"
+                          className="text-charcoal-subtle hover:text-red-700 opacity-60 group-hover:opacity-100 transition-opacity"
                           title="Remove item"
                         >
                           <X className="w-3 h-3" />
@@ -375,7 +375,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     <button
                       type="button"
                       onClick={clearAllRecent}
-                      className="text-[10px] font-mono text-[#78716A] hover:text-[#1F1E1D] underline ml-1 cursor-pointer"
+                      className="text-xs font-mono text-charcoal-subtle hover:text-[#1F1E1D] underline ml-1 cursor-pointer"
                     >
                       Clear history
                     </button>
@@ -384,7 +384,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
                 {/* Trending Curated Tags */}
                 <div className="flex items-center flex-wrap gap-2 text-xs">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#78716A] mr-1 font-semibold hidden sm:inline">
+                  <span className="text-sm font-mono uppercase font-semibold tracking-widest text-charcoal-subtle mr-1 font-semibold hidden sm:inline">
                     Trending:
                   </span>
                   {TRENDING_TAGS.map((tag) => {
@@ -409,7 +409,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 {/* Sri Lankan Natural Dye & Mood Palette Swatches */}
                 {!cleanQuery && (
                   <div className="flex items-center flex-wrap gap-2 pt-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#78716A] mr-1 font-semibold flex items-center gap-1">
+                    <span className="text-sm font-mono uppercase font-semibold tracking-widest text-charcoal-subtle mr-1 font-semibold flex items-center gap-1">
                       <Palette className="w-3 h-3 text-[#C5A059]" />
                       <span>Natural Hues:</span>
                     </span>
@@ -429,7 +429,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             className="w-3 h-3 rounded-full border shadow-inner flex-shrink-0"
                             style={{ backgroundColor: palette.hex, borderColor: palette.border }}
                           />
-                          <span className="text-[11px] font-sans text-[#1F1E1D] group-hover:text-[#C5A059] transition-colors">
+                          <span className="text-sm font-sans text-[#1F1E1D] group-hover:text-[#C5A059] transition-colors">
                             {palette.name}
                           </span>
                         </button>
@@ -454,7 +454,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <h3 className="font-serif text-xl sm:text-2xl text-[#1F1E1D] font-normal">
                         Silhouettes for &ldquo;<span className="italic text-[#C5A059]">{query}</span>&rdquo;
                       </h3>
-                      <p className="text-xs font-mono uppercase tracking-wider text-[#78716A] mt-0.5">
+                      <p className="text-sm font-mono uppercase font-semibold tracking-wider text-charcoal-subtle mt-0.5">
                         {matchingProducts.length} {matchingProducts.length === 1 ? "Piece" : "Pieces"} in Current Weaver Allotment
                       </p>
                     </div>
@@ -469,10 +469,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               key={cat}
                               type="button"
                               onClick={() => setSelectedCategoryFilter(cat)}
-                              className={`px-2.5 py-1 rounded-lg text-xs font-mono uppercase tracking-wider transition-all ${
+                              className={`px-2.5 py-1 rounded-lg text-sm font-mono uppercase font-semibold tracking-wider transition-all ${
                                 selectedCategoryFilter === cat
                                   ? "bg-[#1F1E1D] text-white shadow-sm font-semibold"
-                                  : "text-[#78716A] hover:text-[#1F1E1D]"
+                                  : "text-charcoal-subtle hover:text-[#1F1E1D]"
                               }`}
                             >
                               {cat} ({count})
@@ -485,7 +485,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value as any)}
-                        className="px-3 py-1.5 rounded-xl bg-white border border-[#DCC7AF] text-xs font-mono uppercase tracking-wider text-[#1F1E1D] focus:outline-none focus:border-[#C5A059] cursor-pointer shadow-sm"
+                        className="px-3 py-1.5 rounded-xl bg-white border border-[#DCC7AF] text-sm font-mono uppercase font-semibold tracking-wider text-[#1F1E1D] focus:outline-none focus:border-[#C5A059] cursor-pointer shadow-sm"
                       >
                         <option value="featured">Sort: Recommended</option>
                         <option value="price-asc">Price: Low to High</option>
@@ -517,10 +517,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               className="absolute inset-0 w-full h-full object-cover object-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
                             />
                           )}
-                          <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-mono uppercase tracking-widest text-[#1F1E1D] font-medium border border-[#DCC7AF]/50">
+                          <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-xs font-mono uppercase tracking-widest text-[#1F1E1D] font-medium border border-[#DCC7AF]/50">
                             {product.category}
                           </div>
-                          <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-full bg-[#1F1E1D]/80 backdrop-blur-md text-white text-[10px] font-mono tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                          <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-full bg-[#1F1E1D]/80 backdrop-blur-md text-white text-xs font-mono tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                             <span>Inspect</span>
                             <ArrowUpRight className="w-3 h-3" />
                           </div>
@@ -529,13 +529,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         {/* Garment Info */}
                         <div className="space-y-1.5 flex-1 flex flex-col justify-between">
                           <div>
-                            <span className="text-[10px] font-mono uppercase tracking-widest text-[#C5A059] font-medium block">
+                            <span className="text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-medium block">
                               {product.story} • {product.storyPlace}
                             </span>
                             <h4 className="font-serif text-base sm:text-lg text-[#1F1E1D] font-medium group-hover:text-[#C5A059] transition-colors line-clamp-1">
                               {product.name}
                             </h4>
-                            <p className="text-xs text-[#78716A] line-clamp-1 font-light">
+                            <p className="text-xs text-charcoal-subtle line-clamp-1 font-light">
                               {product.fabric}
                             </p>
                           </div>
@@ -544,7 +544,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             <span className="font-serif text-base font-semibold text-[#1F1E1D]">
                               ${product.priceAud} AUD
                             </span>
-                            <span className="text-[11px] font-mono uppercase tracking-widest text-[#C5A059] flex items-center gap-1 group-hover:underline">
+                            <span className="text-sm font-mono uppercase tracking-widest text-[#C5A059] flex items-center gap-1 group-hover:underline">
                               <span>View Garment</span>
                               <ChevronRight className="w-3.5 h-3.5" />
                             </span>
@@ -566,14 +566,14 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     <h3 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] font-normal">
                       No silhouettes found for &ldquo;<span className="italic text-[#C5A059]">{query}</span>&rdquo;
                     </h3>
-                    <p className="font-serif italic text-sm text-[#78716A] leading-relaxed">
+                    <p className="font-serif italic text-sm text-charcoal-subtle leading-relaxed">
                       Our weavers haven&apos;t crafted a piece matching that exact phrase yet. Try searching by natural textile (&ldquo;Voile&rdquo;, &ldquo;Linen&rdquo;, &ldquo;Silk&rdquo;) or explore our iconic signatures below.
                     </p>
                   </div>
 
                   {/* Curated Fallback Recommendations */}
                   <div className="pt-4 border-t border-[#DCC7AF]/50 space-y-4">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#78716A] font-semibold block">
+                    <span className="text-sm font-mono uppercase font-semibold tracking-widest text-charcoal-subtle font-semibold block">
                       Recommended Signatures to Explore:
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -592,7 +592,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             <p className="font-serif text-xs text-[#1F1E1D] font-medium truncate group-hover:text-[#C5A059]">
                               {item.name}
                             </p>
-                            <p className="text-[11px] font-mono text-[#78716A]">
+                            <p className="text-sm font-mono text-charcoal-subtle">
                               ${item.priceAud} AUD
                             </p>
                           </div>
@@ -608,7 +608,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         onClose();
                         router.push("/collection");
                       }}
-                      className="px-6 py-3 rounded-full bg-[#1F1E1D] text-white hover:bg-[#C5A059] font-mono text-xs uppercase tracking-widest transition-all shadow-md cursor-pointer"
+                      className="px-6 py-3 rounded-full bg-[#1F1E1D] text-white hover:bg-[#C5A059] font-mono text-sm uppercase font-semibold tracking-widest transition-all shadow-md cursor-pointer"
                     >
                       Browse Entire Collection
                     </button>
@@ -629,7 +629,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           Browse by Signature Silhouettes
                         </h4>
                       </div>
-                      <span className="text-xs font-mono text-[#78716A]">
+                      <span className="text-xs font-mono text-charcoal-subtle">
                         {PRODUCTS.length} Total Handloom Pieces
                       </span>
                     </div>
@@ -656,7 +656,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5 group-hover:from-black/75 transition-colors" />
 
                             {/* Top Badge */}
-                            <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-widest text-[#C5A059] border border-white/15">
+                            <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full text-xs font-mono uppercase tracking-widest text-[#C5A059] border border-white/15">
                               {count} Styles
                             </div>
 
@@ -665,7 +665,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               <h5 className="font-serif text-lg sm:text-xl text-white font-medium group-hover:text-[#C5A059] transition-colors leading-tight">
                                 {cat.name}
                               </h5>
-                              <p className="text-[11px] font-sans text-white/80 line-clamp-1 font-light">
+                              <p className="text-sm font-sans text-white/80 line-clamp-1 font-light">
                                 {cat.tagline}
                               </p>
                             </div>
@@ -684,7 +684,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           Iconic Handloom Signatures
                         </h4>
                       </div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#C5A059] font-medium">
+                      <span className="text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-medium">
                         Origins 01 • Serendipity
                       </span>
                     </div>
@@ -704,13 +704,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             />
                           </div>
                           <div className="min-w-0 flex-1 space-y-0.5">
-                            <span className="text-[9px] font-mono uppercase tracking-widest text-[#C5A059] block truncate font-medium">
+                            <span className="text-xs font-mono uppercase tracking-widest text-[#C5A059] block truncate font-medium">
                               {item.storyPlace}
                             </span>
                             <p className="font-serif text-sm sm:text-base text-[#1F1E1D] font-medium truncate group-hover:text-[#C5A059] transition-colors">
                               {item.name}
                             </p>
-                            <p className="text-xs text-[#78716A] truncate">
+                            <p className="text-xs text-charcoal-subtle truncate">
                               {item.fabric}
                             </p>
                             <p className="font-serif text-sm font-semibold text-[#1F1E1D] pt-0.5">
@@ -728,7 +728,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </div>
 
             {/* 3. BOTTOM FOOTER REASSURANCE */}
-            <div className="px-4 sm:px-6 lg:px-8 py-3.5 bg-gradient-to-r from-[#FAF7F2] via-[#F4EFE6] to-[#FAF7F2] border-t border-[#DCC7AF]/60 flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono uppercase tracking-wider text-[#78716A]">
+            <div className="px-4 sm:px-6 lg:px-8 py-3.5 bg-gradient-to-r from-[#FAF7F2] via-[#F4EFE6] to-[#FAF7F2] border-t border-[#DCC7AF]/60 flex flex-wrap items-center justify-between gap-3 text-sm font-mono uppercase tracking-wider text-charcoal-subtle">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>Complimentary Carbon-Neutral AU Shipping Over $200</span>

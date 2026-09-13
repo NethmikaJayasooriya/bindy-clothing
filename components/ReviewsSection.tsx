@@ -257,7 +257,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
       {/* 1. SECTION HEADER */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
-          <div className="flex items-center gap-2 text-gold text-[11px] font-sans uppercase tracking-[0.3em] mb-2 font-semibold">
+          <div className="flex items-center gap-2 text-gold text-sm font-sans uppercase tracking-[0.3em] mb-2 font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Community Stories & Questions</span>
           </div>
@@ -265,7 +265,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
             Loved by Our Community
           </h2>
         </div>
-        <p className="font-serif italic text-sm sm:text-base text-muted max-w-md">
+        <p className="font-serif italic text-sm sm:text-base text-charcoal-subtle max-w-md">
           Honest stories, occasion notes, and mindful fit feedback from women wearing BINDY across
           Australia and beyond.
         </p>
@@ -276,7 +276,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
         <button
           type="button"
           onClick={() => setMainTab("reviews")}
-          className={`px-6 py-2.5 rounded-full text-xs font-sans uppercase tracking-[0.2em] font-semibold transition-all cursor-pointer ${
+          className={`px-6 py-2.5 rounded-full text-sm font-sans uppercase font-semibold tracking-[0.2em] font-semibold transition-all cursor-pointer ${
             mainTab === "reviews"
               ? "bg-charcoal text-paper-light shadow-md"
               : "bg-paper-light border border-sand/50 text-charcoal hover:border-gold hover:text-gold"
@@ -287,7 +287,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
         <button
           type="button"
           onClick={() => setMainTab("qa")}
-          className={`px-6 py-2.5 rounded-full text-xs font-sans uppercase tracking-[0.2em] font-semibold transition-all cursor-pointer ${
+          className={`px-6 py-2.5 rounded-full text-sm font-sans uppercase font-semibold tracking-[0.2em] font-semibold transition-all cursor-pointer ${
             mainTab === "qa"
               ? "bg-charcoal text-paper-light shadow-md"
               : "bg-paper-light border border-sand/50 text-charcoal hover:border-gold hover:text-gold"
@@ -311,7 +311,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
             <button
               type="button"
               onClick={() => setNewQuestion(newQuestion ? "" : "open")}
-              className="px-6 py-2.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white text-xs font-sans uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+              className="px-6 py-2.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white text-sm font-sans uppercase font-semibold tracking-wider font-semibold transition-colors cursor-pointer"
             >
               Ask a Question
             </button>
@@ -332,7 +332,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                 <button
                   type="button"
                   onClick={() => setNewQuestion("")}
-                  className="px-4 py-2 text-xs font-sans uppercase tracking-wider text-muted hover:text-charcoal cursor-pointer"
+                  className="px-4 py-2 text-sm font-sans uppercase font-semibold tracking-wider text-charcoal-subtle hover:text-charcoal cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -345,7 +345,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                       setNewQuestion("");
                     }, 2000);
                   }}
-                  className="px-6 py-2 rounded-full bg-gold text-charcoal text-xs font-sans uppercase tracking-wider font-semibold hover:bg-cinnamon hover:text-white transition-colors cursor-pointer"
+                  className="px-6 py-2 rounded-full bg-gold text-charcoal text-sm font-sans uppercase font-semibold tracking-wider font-semibold hover:bg-cinnamon hover:text-white transition-colors cursor-pointer"
                 >
                   {questionSubmitted ? "Submitted!" : "Submit Question"}
                 </button>
@@ -378,10 +378,10 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                   <div className="flex items-start gap-3 pl-9">
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-sans uppercase tracking-widest text-gold font-semibold">
+                        <span className="text-sm font-sans uppercase font-semibold tracking-widest text-gold font-semibold">
                           Answered by BINDY Atelier Team
                         </span>
-                        <span className="text-[10px] text-muted">• {item.date}</span>
+                        <span className="text-xs text-charcoal-subtle">• {item.date}</span>
                       </div>
                       <p className="text-xs font-sans text-charcoal/85 leading-relaxed font-light">
                         {item.a}
@@ -404,7 +404,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
               <span className="font-serif text-5xl sm:text-6xl font-light text-charcoal-rich">
                 {avgRating.toFixed(1)}
               </span>
-              <span className="font-sans text-sm uppercase tracking-widest text-muted font-medium">
+              <span className="font-sans text-sm uppercase tracking-widest text-charcoal-subtle font-medium">
                 / 5.0
               </span>
             </div>
@@ -413,11 +413,11 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
               <StarRating rating={avgRating} className="w-5 h-5" />
             </div>
 
-            <p className="mt-2 font-sans text-xs uppercase tracking-widest text-muted font-medium">
+            <p className="mt-2 font-sans text-sm uppercase font-semibold tracking-widest text-charcoal-subtle font-medium">
               Based on {totalCount} verified community reviews
             </p>
 
-            <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sage/15 border border-sage/40 text-charcoal text-[11px] font-sans tracking-wider font-medium">
+            <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sage/15 border border-sage/40 text-charcoal text-sm font-sans tracking-wider font-medium">
               <CheckCircle2 className="w-3.5 h-3.5 text-sage" />
               <span>100% Authentic Customer Feedback</span>
             </div>
@@ -425,7 +425,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
 
           {/* Center: Star Rating Breakdown Bar Chart (5 cols) */}
           <div className="lg:col-span-5 space-y-2.5">
-            <p className="text-[10px] font-sans uppercase tracking-[0.28em] text-muted mb-3 font-semibold">
+            <p className="text-sm font-sans uppercase font-semibold tracking-wider text-charcoal-subtle mb-3 font-semibold">
               Rating Distribution
             </p>
             {ratingDistribution.map(({ star, count, percentage }) => {
@@ -450,7 +450,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                       style={{ width: `${percentage}%` }}
                     />
                   </div>
-                  <span className="w-14 text-right text-[11px] text-muted font-sans font-medium">
+                  <span className="w-14 text-right text-sm text-charcoal-subtle font-sans font-medium">
                     {count} ({percentage}%)
                   </span>
                 </button>
@@ -461,10 +461,10 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
           {/* Right: Fit Feedback Bar (3 cols) */}
           <div className="lg:col-span-3 border-t lg:border-t-0 lg:border-l border-sand/30 pt-6 lg:pt-0 lg:pl-8 space-y-4">
             <div className="flex items-center justify-between">
-              <p className="text-[10px] font-sans uppercase tracking-[0.28em] text-muted font-semibold">
+              <p className="text-sm font-sans uppercase font-semibold tracking-wider text-charcoal-subtle font-semibold">
                 Fit Feedback
               </p>
-              <span className="text-[11px] font-sans font-semibold text-charcoal">
+              <span className="text-sm font-sans font-semibold text-charcoal">
                 {fitMetrics.true}% True to Size
               </span>
             </div>
@@ -494,7 +494,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
               )}
             </div>
 
-            <div className="grid grid-cols-3 text-[10px] font-sans text-muted text-center pt-1">
+            <div className="grid grid-cols-3 text-xs font-sans text-charcoal-subtle text-center pt-1">
               <div className="flex flex-col items-center">
                 <span className="w-2 h-2 rounded-full bg-terracotta mb-1" />
                 <span>Runs Small</span>
@@ -530,13 +530,13 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
           <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-6 border-b border-sand/30 pb-4">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-lotus" />
-              <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold">
+              <span className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold">
                 Featured Community Story
               </span>
             </div>
             <div className="flex items-center gap-3">
               <StarRating rating={featuredReview.rating} className="w-4 h-4" />
-              <span className="text-xs font-sans text-muted">{formatDate(featuredReview.date)}</span>
+              <span className="text-xs font-sans text-charcoal-subtle">{formatDate(featuredReview.date)}</span>
             </div>
           </div>
 
@@ -545,7 +545,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-start gap-3">
                 <Quote className="w-8 h-8 text-gold/40 flex-shrink-0 -mt-1" />
-                <h3 className="font-editorial-italic text-2xl sm:text-3xl font-light leading-snug text-charcoal-rich">
+                <h3 className="font-serif text-2xl sm:text-3xl font-light leading-snug text-charcoal-rich">
                   &ldquo;{featuredReview.title}&rdquo;
                 </h3>
               </div>
@@ -559,14 +559,14 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                   {featuredReview.reviewerName}
                 </span>
                 <span className="text-sand text-xs">•</span>
-                <span className="text-muted">{featuredReview.reviewerLocation}</span>
+                <span className="text-charcoal-subtle">{featuredReview.reviewerLocation}</span>
                 {featuredReview.verified && (
-                  <span className="inline-flex items-center gap-1 text-sage text-[11px] bg-sage/10 px-2.5 py-0.5 rounded-full border border-sage/30 font-medium">
+                  <span className="inline-flex items-center gap-1 text-sage text-sm bg-sage/10 px-2.5 py-0.5 rounded-full border border-sage/30 font-medium">
                     <Check className="w-3 h-3 text-sage" /> Verified Buyer
                   </span>
                 )}
                 <span className="text-sand text-xs">•</span>
-                <span className="text-xs text-muted">
+                <span className="text-xs text-charcoal-subtle">
                   Fit: {featuredReview.fit === "true" ? "True to Size" : `Runs ${featuredReview.fit}`}
                 </span>
               </div>
@@ -591,7 +591,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-3">
-                    <span className="text-[10px] font-sans uppercase tracking-wider text-white flex items-center gap-1.5">
+                    <span className="text-sm font-sans uppercase font-semibold tracking-wider text-white flex items-center gap-1.5">
                       <ImageIcon className="w-3.5 h-3.5 text-gold" /> View customer photo
                     </span>
                   </div>
@@ -611,7 +611,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
               setFilterType("all");
               setStarFilter(null);
             }}
-            className={`px-4 py-2 rounded-full text-xs font-sans uppercase tracking-[0.18em] transition-all border cursor-pointer ${
+            className={`px-4 py-2 rounded-full text-sm font-sans uppercase font-semibold tracking-[0.18em] transition-all border cursor-pointer ${
               filterType === "all" && starFilter === null
                 ? "bg-gold text-charcoal font-semibold border-gold shadow-sm"
                 : "bg-paper-light border-sand/40 text-charcoal/80 hover:border-gold hover:text-gold"
@@ -622,7 +622,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
 
           <button
             onClick={() => setFilterType(filterType === "verified" ? "all" : "verified")}
-            className={`px-4 py-2 rounded-full text-xs font-sans uppercase tracking-[0.18em] transition-all border flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-2 rounded-full text-sm font-sans uppercase font-semibold tracking-[0.18em] transition-all border flex items-center gap-1.5 cursor-pointer ${
               filterType === "verified"
                 ? "bg-gold text-charcoal font-semibold border-gold shadow-sm"
                 : "bg-paper-light border-sand/40 text-charcoal/80 hover:border-gold hover:text-gold"
@@ -634,7 +634,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
 
           <button
             onClick={() => setFilterType(filterType === "photos" ? "all" : "photos")}
-            className={`px-4 py-2 rounded-full text-xs font-sans uppercase tracking-[0.18em] transition-all border flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-2 rounded-full text-sm font-sans uppercase font-semibold tracking-[0.18em] transition-all border flex items-center gap-1.5 cursor-pointer ${
               filterType === "photos"
                 ? "bg-gold text-charcoal font-semibold border-gold shadow-sm"
                 : "bg-paper-light border-sand/40 text-charcoal/80 hover:border-gold hover:text-gold"
@@ -647,7 +647,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
           {starFilter !== null && (
             <button
               onClick={() => setStarFilter(null)}
-              className="px-3.5 py-2 rounded-full text-xs font-sans uppercase tracking-[0.15em] bg-gold text-charcoal font-semibold border border-gold flex items-center gap-1.5 shadow-sm cursor-pointer"
+              className="px-3.5 py-2 rounded-full text-sm font-sans uppercase font-semibold tracking-[0.15em] bg-gold text-charcoal font-semibold border border-gold flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
               <span>{starFilter} Stars Only</span>
               <X className="w-3 h-3" />
@@ -659,7 +659,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
         <div className="flex items-center gap-3 self-end sm:self-auto">
           <label
             htmlFor="reviews-sort"
-            className="text-[11px] font-sans uppercase tracking-[0.2em] text-muted whitespace-nowrap"
+            className="text-sm font-sans uppercase tracking-[0.2em] text-charcoal-subtle whitespace-nowrap"
           >
             Sort by:
           </label>
@@ -675,7 +675,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
               <option value="highest">Highest Rated</option>
               <option value="lowest">Lowest Rated</option>
             </select>
-            <ChevronDown className="w-3.5 h-3.5 text-muted absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <ChevronDown className="w-3.5 h-3.5 text-charcoal-subtle absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
         </div>
       </div>
@@ -683,11 +683,11 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
       {/* 5. REVIEWS GRID (Light Luxury Cards) */}
       {filteredReviews.length === 0 ? (
         <div className="text-center py-16 bg-paper-light rounded-3xl border border-sand/40 p-8 shadow-sm">
-          <Filter className="w-8 h-8 text-muted mx-auto mb-3" />
+          <Filter className="w-8 h-8 text-charcoal-subtle mx-auto mb-3" />
           <p className="font-serif text-xl text-charcoal">
             No reviews match your selected filter
           </p>
-          <p className="font-sans text-xs text-muted mt-1">
+          <p className="font-sans text-xs text-charcoal-subtle mt-1">
             Try resetting your filters or selecting a different star category.
           </p>
           <button
@@ -695,7 +695,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
               setFilterType("all");
               setStarFilter(null);
             }}
-            className="mt-4 px-5 py-2 rounded-full text-xs font-sans uppercase tracking-widest bg-gold text-charcoal font-semibold hover:bg-cinnamon hover:text-white transition-colors cursor-pointer"
+            className="mt-4 px-5 py-2 rounded-full text-sm font-sans uppercase font-semibold tracking-widest bg-gold text-charcoal font-semibold hover:bg-cinnamon hover:text-white transition-colors cursor-pointer"
           >
             Reset Filters
           </button>
@@ -719,7 +719,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                   <div className="flex items-center justify-between mb-3.5">
                     <div className="flex items-center gap-2.5">
                       <StarRating rating={review.rating} />
-                      <span className="text-[10px] font-sans uppercase tracking-wider text-charcoal/80 bg-sand/20 px-2.5 py-0.5 rounded-md font-medium">
+                      <span className="text-sm font-sans uppercase font-semibold tracking-wider text-charcoal/80 bg-sand/20 px-2.5 py-0.5 rounded-md font-medium">
                         Fit:{" "}
                         {review.fit === "true"
                           ? "True to size"
@@ -728,7 +728,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                           : "Runs large"}
                       </span>
                     </div>
-                    <span className="text-[11px] font-sans text-muted">
+                    <span className="text-sm font-sans text-charcoal-subtle">
                       {formatDate(review.date)}
                     </span>
                   </div>
@@ -776,13 +776,13 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                         {review.reviewerName}
                       </span>
                       {review.verified && (
-                        <span className="inline-flex items-center gap-0.5 text-[10px] text-sage font-medium">
+                        <span className="inline-flex items-center gap-0.5 text-xs text-sage font-medium">
                           <Check className="w-3 h-3 text-sage stroke-[2.5]" />
                           Verified
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] font-sans text-muted">
+                    <p className="text-sm font-sans text-charcoal-subtle">
                       {review.reviewerLocation}
                     </p>
                   </div>
@@ -793,12 +793,12 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-sans transition-all border cursor-pointer ${
                       hasVoted
                         ? "bg-gold/20 text-charcoal border-gold/50 shadow-sm"
-                        : "bg-paper border-sand/40 text-muted hover:bg-sand/15 hover:text-charcoal hover:border-sand/60"
+                        : "bg-paper border-sand/40 text-charcoal-subtle hover:bg-sand/15 hover:text-charcoal hover:border-sand/60"
                     }`}
                   >
                     <ThumbsUp
                       className={`w-3.5 h-3.5 ${
-                        hasVoted ? "fill-gold text-gold" : "text-muted"
+                        hasVoted ? "fill-gold text-gold" : "text-charcoal-subtle"
                       }`}
                     />
                     <span>{currentHelpfulCount}</span>
@@ -815,7 +815,7 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
         <div className="text-center mt-10">
           <button
             onClick={() => setVisibleCount((prev) => prev + 4)}
-            className="px-8 py-3.5 rounded-full border border-sand/40 bg-paper-light text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-gold hover:text-charcoal transition-all shadow-md cursor-pointer"
+            className="px-8 py-3.5 rounded-full border border-sand/40 bg-paper-light text-charcoal font-sans text-sm uppercase font-semibold tracking-wider font-semibold hover:bg-gold hover:text-charcoal transition-all shadow-md cursor-pointer"
           >
             Load More Stories ({filteredReviews.length - visibleCount} remaining)
           </button>
@@ -856,13 +856,13 @@ export default function ReviewsSection({ product }: ReviewsSectionProps) {
               </div>
 
               <div className="p-5 sm:p-6 bg-paper border-t border-sand/30">
-                <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold mb-1 font-semibold">
+                <p className="text-sm font-sans uppercase font-semibold tracking-[0.3em] text-gold mb-1 font-semibold">
                   Customer Experience
                 </p>
                 <h4 className="font-serif text-lg font-medium text-charcoal">
                   &ldquo;{activePhoto.reviewTitle}&rdquo;
                 </h4>
-                <p className="text-xs font-sans text-muted mt-1">{activePhoto.reviewer}</p>
+                <p className="text-xs font-sans text-charcoal-subtle mt-1">{activePhoto.reviewer}</p>
               </div>
             </motion.div>
           </div>

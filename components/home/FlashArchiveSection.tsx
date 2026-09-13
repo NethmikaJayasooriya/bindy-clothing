@@ -137,7 +137,7 @@ export default function FlashArchiveSection({
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 sm:gap-10 mb-16">
           {/* Left Title Area */}
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.04] border border-[#C5A059]/50 text-[#C5A059] text-[10px] font-mono tracking-[0.25em] uppercase font-semibold shadow-sm backdrop-blur-md">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.04] border border-[#C5A059]/50 text-[#C5A059] text-xs font-mono tracking-wider uppercase font-semibold shadow-sm backdrop-blur-md">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
               <Lock className="w-3 h-3 text-[#C5A059]" />
               <span>Curated Flash Privilege • Private Vault</span>
@@ -160,11 +160,11 @@ export default function FlashArchiveSection({
 
             <div className="relative bg-[#151412]/95 backdrop-blur-2xl border border-[#C5A059]/50 rounded-3xl p-5 sm:p-6 shadow-[0_16px_50px_rgba(0,0,0,0.8)] ring-1 ring-white/10 min-w-[280px] sm:min-w-[340px]">
               <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
-                <div className="flex items-center space-x-2 text-[10px] font-mono uppercase tracking-[0.25em] text-[#C5A059] font-bold">
+                <div className="flex items-center space-x-2 text-sm font-mono uppercase font-semibold tracking-wider text-[#C5A059] font-bold">
                   <Clock className="w-3.5 h-3.5 text-[#C5A059] animate-spin-slow" />
                   <span>Window Concludes In</span>
                 </div>
-                <span className="text-[9px] font-mono text-[#DCC7AF]/60 uppercase tracking-widest">
+                <span className="text-xs font-mono text-[#DCC7AF]/60 uppercase tracking-widest">
                   Live Allotment
                 </span>
               </div>
@@ -176,7 +176,7 @@ export default function FlashArchiveSection({
                   <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-[#C5A059]/40 text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-light shadow-inner">
                     <span className="tracking-tight font-serif">{formatDigit(timeLeft.hours)}</span>
                   </div>
-                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-[#DCC7AF]/70 mt-2 font-medium">
+                  <span className="text-xs font-mono tracking-[0.2em] uppercase text-[#DCC7AF]/70 mt-2 font-medium">
                     Hours
                   </span>
                 </div>
@@ -190,7 +190,7 @@ export default function FlashArchiveSection({
                   <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-[#C5A059]/40 text-white flex items-center justify-center font-serif text-2xl sm:text-3xl font-light shadow-inner">
                     <span className="tracking-tight font-serif">{formatDigit(timeLeft.minutes)}</span>
                   </div>
-                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-[#DCC7AF]/70 mt-2 font-medium">
+                  <span className="text-xs font-mono tracking-[0.2em] uppercase text-[#DCC7AF]/70 mt-2 font-medium">
                     Mins
                   </span>
                 </div>
@@ -204,7 +204,7 @@ export default function FlashArchiveSection({
                   <div className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-gradient-to-b from-[#C5A059]/25 to-[#C5A059]/10 border border-[#C5A059]/70 text-[#FCEAC7] flex items-center justify-center font-serif text-2xl sm:text-3xl font-medium shadow-inner ring-1 ring-[#C5A059]/40">
                     <span className="tracking-tight font-serif">{formatDigit(timeLeft.seconds)}</span>
                   </div>
-                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-[#C5A059] mt-2 font-bold">
+                  <span className="text-xs font-mono tracking-[0.2em] uppercase text-[#C5A059] mt-2 font-bold">
                     Secs
                   </span>
                 </div>
@@ -235,7 +235,7 @@ export default function FlashArchiveSection({
                 <div className="absolute -top-28 -right-28 w-56 h-56 bg-[#C5A059]/10 rounded-full blur-3xl group-hover:bg-[#C5A059]/20 transition-all duration-700 pointer-events-none" />
 
                 {/* Floating Archive Badge */}
-                <div className="absolute top-8 left-8 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#121110]/85 backdrop-blur-md border border-[#C5A059]/60 text-[#C5A059] text-[10px] font-mono tracking-wider uppercase font-bold shadow-lg">
+                <div className="absolute top-8 left-8 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#121110]/85 backdrop-blur-md border border-[#C5A059]/60 text-[#C5A059] text-xs font-mono tracking-wider uppercase font-bold shadow-lg">
                   <Sparkles className="w-3 h-3 text-[#C5A059]" />
                   <span>{deal.badge}</span>
                 </div>
@@ -275,7 +275,7 @@ export default function FlashArchiveSection({
                 {/* Garment Details & Editorial Hierarchy */}
                 <div className="space-y-3.5 flex-1 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-[#C5A059]/90 font-medium">
+                    <div className="flex items-center justify-between text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059]/90 font-medium">
                       <span>{product.storyPlace || "Artisan Atelier"}</span>
                       <span className="text-[#DCC7AF]/50">•</span>
                       <span className="truncate max-w-[140px] text-[#DCC7AF]/70">
@@ -310,12 +310,12 @@ export default function FlashArchiveSection({
 
                   {/* Scarcity / Weaver Dye-Lot Yardage Meter */}
                   <div className="space-y-1.5 pt-1">
-                    <div className="flex items-center justify-between text-[11px] font-mono">
+                    <div className="flex items-center justify-between text-sm font-mono">
                       <span className="text-[#C5A059] font-medium flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
                         <span>Reserve: Only {deal.stockLeft} Unallocated</span>
                       </span>
-                      <span className="text-[#DCC7AF]/60 text-[10px] uppercase tracking-wider">
+                      <span className="text-[#DCC7AF]/60 text-sm uppercase font-semibold tracking-wider">
                         {percentSold}% Claimed
                       </span>
                     </div>
@@ -330,10 +330,10 @@ export default function FlashArchiveSection({
                   {/* Tailor Size Selector Chips */}
                   <div className="pt-2 space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#DCC7AF]/70">
+                      <span className="text-sm font-mono uppercase font-semibold tracking-widest text-[#DCC7AF]/70">
                         Tailor Size:
                       </span>
-                      <span className="text-[10px] font-mono text-[#C5A059] font-semibold">
+                      <span className="text-xs font-mono text-[#C5A059] font-semibold">
                         {selectedSize}
                       </span>
                     </div>
@@ -348,7 +348,7 @@ export default function FlashArchiveSection({
                             onClick={() =>
                               setSelectedSizes((p) => ({ ...p, [deal.productId]: sz }))
                             }
-                            className={`py-2 text-[11px] font-mono rounded-xl border text-center transition-all duration-200 cursor-pointer ${
+                            className={`py-2 text-sm font-mono rounded-xl border text-center transition-all duration-200 cursor-pointer ${
                               isChosen
                                 ? "border-[#C5A059] bg-[#C5A059] text-[#121110] font-bold shadow-[0_0_15px_rgba(197,160,89,0.35)]"
                                 : "border-white/15 bg-white/[0.04] text-[#DCC7AF]/80 hover:border-[#C5A059]/60 hover:text-white"
@@ -366,7 +366,7 @@ export default function FlashArchiveSection({
                     <button
                       type="button"
                       onClick={() => handleClaimDeal(deal, product)}
-                      className={`w-full py-3.5 rounded-full font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 cursor-pointer ${
+                      className={`w-full py-3.5 rounded-full font-mono text-sm uppercase font-semibold tracking-[0.2em] font-bold transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 cursor-pointer ${
                         addedItem === deal.productId
                           ? "bg-[#3D5A40] text-white border border-[#5E8B63]"
                           : "bg-gradient-to-r from-[#C5A059] via-[#DFC285] to-[#C5A059] text-[#121110] hover:brightness-110 hover:shadow-[0_8px_30px_rgba(197,160,89,0.4)] active:scale-[0.98]"
@@ -392,7 +392,7 @@ export default function FlashArchiveSection({
         </div>
 
         {/* BOTTOM PRIVATE ARCHIVE GUARANTEES */}
-        <div className="mt-14 pt-8 border-t border-white/10 flex flex-wrap items-center justify-around gap-5 text-xs font-mono uppercase tracking-[0.16em] text-[#DCC7AF]/80">
+        <div className="mt-14 pt-8 border-t border-white/10 flex flex-wrap items-center justify-around gap-5 text-sm font-mono uppercase font-semibold tracking-[0.16em] text-[#DCC7AF]/80">
           <span className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
             <span>Handloom Guild Authenticity Certified</span>

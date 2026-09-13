@@ -70,7 +70,7 @@ export default function CommunityStoryCard({ product }: CommunityStoryCardProps)
     <section className="py-20 sm:py-24 bg-paper-dark/40 border-b border-sand/30">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
-          <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block">
+          <span className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold block">
             Community Spotlight
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl text-charcoal-rich font-light">
@@ -96,7 +96,7 @@ export default function CommunityStoryCard({ product }: CommunityStoryCardProps)
                   alt={activeStory.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 left-3 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full text-[9px] font-sans text-gold border border-white/10 uppercase tracking-wider">
+                <div className="absolute top-3 left-3 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-sans text-gold border border-white/10 uppercase tracking-wider">
                   Verified Muse
                 </div>
               </div>
@@ -104,7 +104,7 @@ export default function CommunityStoryCard({ product }: CommunityStoryCardProps)
               {/* Story Content (8 cols) */}
               <div className="md:col-span-8 space-y-5">
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-[10px] font-sans text-muted">
+                  <div className="flex items-center gap-2 text-xs font-sans text-charcoal-subtle">
                     <MapPin className="w-3.5 h-3.5 text-gold" />
                     <span>{activeStory.location}</span>
                     <span>•</span>
@@ -118,12 +118,12 @@ export default function CommunityStoryCard({ product }: CommunityStoryCardProps)
                   </h3>
                 </div>
 
-                <blockquote className="font-editorial-italic text-base sm:text-lg text-charcoal font-light leading-relaxed border-l-2 border-gold/70 pl-4 py-1">
+                <blockquote className="font-serif text-base sm:text-lg text-charcoal font-light leading-relaxed border-l-2 border-gold/70 pl-4 py-1">
                   &ldquo;{activeStory.quote}&rdquo;
                 </blockquote>
 
                 <div className="p-3.5 rounded-2xl bg-paper border border-sand/30 text-xs font-sans">
-                  <span className="font-semibold text-gold uppercase tracking-wider text-[10px] block mb-0.5">
+                  <span className="font-semibold text-gold uppercase tracking-wider text-xs block mb-0.5">
                     How She Styled It:
                   </span>
                   <p className="text-charcoal/85 font-light">{activeStory.stylingTip}</p>

@@ -41,13 +41,13 @@ export default function TrustStrip() {
           return (
             <React.Fragment key={idx}>
               {idx > 0 && (
-                <span className="text-[#DCC7AF] text-[10px] select-none flex-shrink-0" aria-hidden="true">
+                <span className="text-[#DCC7AF] text-xs select-none flex-shrink-0" aria-hidden="true">
                   •
                 </span>
               )}
               <div className="flex items-center gap-2 flex-shrink-0 text-[#2B2927] hover:text-[#B86B4B] transition-colors">
                 <Icon className={`w-3.5 h-3.5 flex-shrink-0 ${badge.iconClass}`} />
-                <span className="text-[11px] sm:text-xs uppercase tracking-[0.14em] font-medium">
+                <span className="text-sm sm:text-sm uppercase font-semibold tracking-[0.14em] font-medium">
                   {badge.text}
                 </span>
               </div>

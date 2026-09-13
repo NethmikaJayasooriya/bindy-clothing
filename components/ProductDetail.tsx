@@ -106,13 +106,13 @@ export default function ProductDetail({ product }: { product: Product }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex flex-col leading-none">
             <span className="font-display text-2xl tracking-[0.12em] text-charcoal">BINDY.</span>
-            <span className="text-[8px] font-sans uppercase tracking-[0.45em] text-gold mt-0.5 font-semibold">
+            <span className="text-xs font-sans uppercase tracking-widest text-gold mt-0.5 font-semibold">
               Clothing
             </span>
           </Link>
           <Link
             href="/#browse-collection"
-            className="flex items-center gap-2 text-[11px] font-sans uppercase tracking-[0.25em] text-charcoal/80 hover:text-gold transition-colors"
+            className="flex items-center gap-2 text-sm font-sans uppercase tracking-wider text-charcoal/80 hover:text-gold transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Back to collection
@@ -122,7 +122,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
       {/* BREADCRUMB */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <nav className="text-[11px] font-sans tracking-wide text-muted flex items-center gap-2">
+        <nav className="text-sm font-sans tracking-wide text-charcoal-subtle flex items-center gap-2">
           <Link href="/" className="hover:text-gold">Home</Link>
           <span>/</span>
           <Link href="/collection" className="hover:text-gold">Collection</Link>
@@ -180,7 +180,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             </AnimatePresence>
 
             {/* Color Swatch Badge */}
-            <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/55 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-white border border-white/15">
+            <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/55 backdrop-blur-md px-3 py-1 rounded-full text-xs text-white border border-white/15">
               <span
                 className="w-2.5 h-2.5 rounded-full border border-white/40"
                 style={{ backgroundColor: product.colorHex }}
@@ -189,7 +189,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             </div>
 
             {/* Click to Zoom Overlay Cue */}
-            <div className="absolute bottom-4 right-4 bg-black/50 hover:bg-black/75 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] text-white flex items-center gap-1.5 border border-white/15 transition-all opacity-0 group-hover:opacity-100">
+            <div className="absolute bottom-4 right-4 bg-black/50 hover:bg-black/75 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white flex items-center gap-1.5 border border-white/15 transition-all opacity-0 group-hover:opacity-100">
               <ZoomIn className="w-3.5 h-3.5 text-gold" />
               <span className="font-sans uppercase tracking-wider">Tap to Expand</span>
             </div>
@@ -199,7 +199,7 @@ export default function ProductDetail({ product }: { product: Product }) {
         {/* Buy Box Column (5 cols - Sticky on desktop scroll) */}
         <div className="lg:col-span-5 max-w-lg lg:sticky lg:top-24 space-y-6">
           <div>
-            <p className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold mb-2 flex items-center gap-2 font-semibold">
+            <p className="text-sm font-sans uppercase font-semibold tracking-wider text-gold mb-2 flex items-center gap-2 font-semibold">
               <MapPin className="w-3.5 h-3.5" />
               {product.story} · {product.storyPlace}
             </p>
@@ -209,13 +209,13 @@ export default function ProductDetail({ product }: { product: Product }) {
 
             <div className="mt-3 flex items-center gap-3">
               <Stars value={avg} />
-              <span className="text-xs text-muted font-sans font-medium">
+              <span className="text-xs text-charcoal-subtle font-sans font-medium">
                 {avg.toFixed(1)} · {product.reviews.length} customer reviews
               </span>
             </div>
 
             <div className="mt-4 font-serif text-2xl sm:text-3xl font-semibold text-charcoal-rich tracking-tight">
-              ${product.priceAud} <span className="text-sm font-sans text-muted font-normal">AUD</span>
+              ${product.priceAud} <span className="text-sm font-sans text-charcoal-subtle font-normal">AUD</span>
             </div>
 
             <p className="mt-4 text-[14px] sm:text-[15px] leading-relaxed text-charcoal/85 font-light">
@@ -225,7 +225,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
           {/* Color Story Swatches */}
           <div className="pt-2 border-t border-sand/30">
-            <p className="text-[10px] font-sans uppercase tracking-[0.28em] text-muted mb-2 font-semibold">
+            <p className="text-sm font-sans uppercase font-semibold tracking-wider text-charcoal-subtle mb-2 font-semibold">
               Natural Color Story
             </p>
             <div className="flex items-center gap-2.5">
@@ -237,7 +237,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                   title={hex}
                 />
               ))}
-              <span className="ml-2 text-xs text-muted font-sans font-medium">
+              <span className="ml-2 text-xs text-charcoal-subtle font-sans font-medium">
                 {product.colorName}
               </span>
             </div>
@@ -247,15 +247,15 @@ export default function ProductDetail({ product }: { product: Product }) {
           <div className="pt-2 border-t border-sand/30 space-y-2.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <p className="text-[10px] font-sans uppercase tracking-[0.28em] text-muted font-semibold">
+                <p className="text-sm font-sans uppercase font-semibold tracking-wider text-charcoal-subtle font-semibold">
                   Select Size
                 </p>
-                <span className="text-[11px] text-muted font-sans">• AU standard sizing</span>
+                <span className="text-sm text-charcoal-subtle font-sans">• AU standard sizing</span>
               </div>
               <button
                 type="button"
                 onClick={() => setShowSizeGuide(true)}
-                className="text-xs font-sans uppercase tracking-wider text-gold hover:text-cinnamon cursor-pointer font-semibold underline underline-offset-4"
+                className="text-sm font-sans uppercase font-semibold tracking-wider text-gold hover:text-cinnamon cursor-pointer font-semibold underline underline-offset-4"
               >
                 Size Guide
               </button>
@@ -285,7 +285,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                   >
                     <span>{s}</span>
                     {status === "low_stock" && (
-                      <span className="text-[8px] uppercase tracking-wider text-gold font-semibold -mt-0.5">
+                      <span className="text-xs uppercase tracking-wider text-gold font-semibold -mt-0.5">
                         Only 2 Left
                       </span>
                     )}
@@ -320,9 +320,9 @@ export default function ProductDetail({ product }: { product: Product }) {
             <button
               onClick={handleAdd}
               disabled={!size}
-              className={`flex-1 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5 transition-all py-4 min-h-[48px] ${
+              className={`flex-1 rounded-full font-sans text-sm uppercase font-semibold tracking-wider font-semibold flex items-center justify-center gap-2.5 transition-all py-4 min-h-[48px] ${
                 !size
-                  ? "bg-sand/20 text-muted border border-sand/30 cursor-not-allowed"
+                  ? "bg-sand/20 text-charcoal-subtle border border-sand/30 cursor-not-allowed"
                   : "bg-gold hover:bg-cinnamon text-charcoal hover:text-white shadow-luxury hover:shadow-luxury-hover cursor-pointer"
               }`}
             >
@@ -349,9 +349,9 @@ export default function ProductDetail({ product }: { product: Product }) {
           <button
             onClick={handleBuyNow}
             disabled={!size}
-            className={`w-full py-4 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5 transition-all border min-h-[48px] ${
+            className={`w-full py-4 rounded-full font-sans text-sm uppercase font-semibold tracking-wider font-semibold flex items-center justify-center gap-2.5 transition-all border min-h-[48px] ${
               !size
-                ? "bg-transparent text-muted/60 border-sand/30 cursor-not-allowed"
+                ? "bg-transparent text-charcoal-subtle/60 border-sand/30 cursor-not-allowed"
                 : "bg-paper-light border-gold text-charcoal hover:bg-gold hover:text-charcoal cursor-pointer shadow-sm hover:shadow-md"
             }`}
           >
@@ -360,7 +360,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           </button>
 
           {/* Value Highlights Strip */}
-          <div className="grid grid-cols-3 gap-2 text-[10px] font-sans text-muted pt-2 border-t border-sand/30">
+          <div className="grid grid-cols-3 gap-2 text-xs font-sans text-charcoal-subtle pt-2 border-t border-sand/30">
             <div className="flex items-center gap-1.5">
               <Truck className="w-3.5 h-3.5 text-gold shrink-0" />
               <span>Free AU $150+</span>

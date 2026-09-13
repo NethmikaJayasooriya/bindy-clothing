@@ -47,21 +47,21 @@ export default function NotifyModal({
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full text-muted hover:text-charcoal transition-colors cursor-pointer"
+            className="absolute top-4 right-4 p-2 rounded-full text-charcoal-subtle hover:text-charcoal transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-4 h-4" />
           </button>
 
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-semibold">
+            <div className="inline-flex items-center gap-2 text-sm font-sans uppercase font-semibold tracking-[0.3em] text-gold font-semibold">
               <Bell className="w-3.5 h-3.5 text-gold" />
               <span>Back in Stock Alert</span>
             </div>
             <h3 className="font-serif text-2xl text-charcoal font-light leading-snug">
               Notify Me When Available
             </h3>
-            <p className="text-xs font-sans text-muted">
+            <p className="text-xs font-sans text-charcoal-subtle">
               You will receive an email as soon as <strong className="text-charcoal font-medium">{productName}</strong> in size <strong className="text-gold font-medium">{size}</strong> is restocked by our weavers.
             </p>
           </div>
@@ -72,14 +72,14 @@ export default function NotifyModal({
                 <Check className="w-4 h-4" />
               </div>
               <h4 className="font-serif text-base font-medium">You&apos;re on the priority list</h4>
-              <p className="text-xs font-sans text-muted">
+              <p className="text-xs font-sans text-charcoal-subtle">
                 We will email {email} the moment a new loom batch arrives.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-[10px] uppercase font-sans tracking-widest text-muted font-semibold mb-1.5">
+                <label className="block text-sm uppercase font-semibold font-sans tracking-widest text-charcoal-subtle font-semibold mb-1.5">
                   Email Address
                 </label>
                 <input

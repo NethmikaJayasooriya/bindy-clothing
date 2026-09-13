@@ -40,13 +40,13 @@ export default function ArtisanCraft() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block">
+          <span className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold block">
             Fabric & Material Board
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-charcoal-rich font-light tracking-wide">
-            Crafted with Heart. <span className="font-editorial-italic text-[#C5A059]">Made to be Loved.</span>
+            Crafted with Heart. <span className="font-serif text-[#C5A059]">Made to be Loved.</span>
           </h2>
-          <p className="font-serif italic text-base sm:text-lg text-muted font-light leading-relaxed">
+          <p className="font-serif italic text-base sm:text-lg text-charcoal-subtle font-light leading-relaxed">
             Natural, breathable fabrics chosen to bring effortless comfort to warm Australian days.
           </p>
         </div>
@@ -59,13 +59,13 @@ export default function ArtisanCraft() {
               className="p-6 sm:p-7 rounded-3xl bg-paper-light border border-sand/40 hover:border-gold/70 transition-all duration-300 shadow-paper-card hover:shadow-luxury-hover space-y-3 flex flex-col justify-between"
             >
               <div className="space-y-2.5">
-                <span className="text-[9px] uppercase font-sans tracking-[0.22em] px-3 py-1 rounded-full bg-gold/15 text-gold font-semibold inline-block border border-gold/25">
+                <span className="text-xs uppercase font-sans tracking-wider px-3 py-1 rounded-full bg-gold/15 text-gold font-semibold inline-block border border-gold/25">
                   {mat.badge}
                 </span>
                 <h3 className="font-serif text-xl text-charcoal-rich font-medium">
                   {mat.title}
                 </h3>
-                <p className="text-xs font-sans text-muted font-light">
+                <p className="text-xs font-sans text-charcoal-subtle font-light">
                   {mat.subtitle}
                 </p>
               </div>
@@ -89,7 +89,7 @@ export default function ArtisanCraft() {
               ))}
             </div>
             <span className="text-xs font-sans text-charcoal font-semibold">
-              {averageRating} ★ <span className="text-muted font-normal">· Based on {totalReviews} verified customer reviews</span>
+              {averageRating} ★ <span className="text-charcoal-subtle font-normal">· Based on {totalReviews} verified customer reviews</span>
             </span>
           </div>
         </div>

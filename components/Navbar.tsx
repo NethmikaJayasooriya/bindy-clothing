@@ -107,7 +107,7 @@ export default function Navbar({
               : "max-h-11 opacity-100 bg-[#1F1E1D]/90 backdrop-blur-md border-b border-white/10 text-white/85 py-1.5"
           }`}
         >
-          <div className="max-w-[1540px] w-[96vw] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-[11px] font-mono">
+          <div className="max-w-[1540px] w-[96vw] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-sm font-mono">
             {/* Left: Free delivery & return assurance */}
             <div className="flex items-center gap-3">
               <span className="flex items-center gap-1.5 text-[#C5A059]">
@@ -224,7 +224,7 @@ export default function Navbar({
               >
                 <Link
                   href="/collection"
-                  className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors flex items-center gap-1.5 ${
+                  className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors flex items-center gap-1.5 ${
                     isScrolled
                       ? "text-white/90 hover:text-[#C5A059]"
                       : "text-[#1F1E1D] hover:text-[#B86B4B]"
@@ -254,11 +254,11 @@ export default function Navbar({
                           <div>
                             <Link
                               href="/collection?collection=Collection%2002"
-                              className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-semibold hover:underline block mb-1"
+                              className="text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-semibold hover:underline block mb-1"
                             >
                               ✦ Collection 02 (New)
                             </Link>
-                            <p className={`text-[11px] leading-relaxed ${isScrolled ? "text-white/60" : "text-[#78716A]"}`}>
+                            <p className={`text-sm leading-relaxed ${isScrolled ? "text-white/60" : "text-charcoal-subtle"}`}>
                               9 fresh silhouettes inspired by Ceylon flora &amp; ancient wonders.
                             </p>
                           </div>
@@ -266,13 +266,13 @@ export default function Navbar({
                           <div className={`pt-2 border-t ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/30"}`}>
                             <Link
                               href="/collection?parent=Resort%20Wear"
-                              className={`text-xs font-mono uppercase tracking-widest font-semibold block mb-1 ${
+                              className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold block mb-1 ${
                                 isScrolled ? "text-white hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                               }`}
                             >
                               Resort Wear
                             </Link>
-                            <p className={`text-[11px] leading-relaxed ${isScrolled ? "text-white/60" : "text-[#78716A]"}`}>
+                            <p className={`text-sm leading-relaxed ${isScrolled ? "text-white/60" : "text-charcoal-subtle"}`}>
                               Airy linens &amp; lightweight voile sets.
                             </p>
                           </div>
@@ -283,13 +283,13 @@ export default function Navbar({
                           <div>
                             <Link
                               href="/collection?parent=Tops"
-                              className={`text-xs font-mono uppercase tracking-widest font-semibold block mb-1.5 ${
+                              className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold block mb-1.5 ${
                                 isScrolled ? "text-white hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                               }`}
                             >
                               Tops
                             </Link>
-                            <ul className={`space-y-1.5 text-xs ${isScrolled ? "text-white/70" : "text-[#78716A]"}`}>
+                            <ul className={`space-y-1.5 text-xs ${isScrolled ? "text-white/70" : "text-charcoal-subtle"}`}>
                               <li>
                                 <Link
                                   href="/collection?parent=Tops&sub=Blouses%20%26%20Shirts"
@@ -312,13 +312,13 @@ export default function Navbar({
                           <div className={`pt-2 border-t ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/30"}`}>
                             <Link
                               href="/collection?parent=Bottoms"
-                              className={`text-xs font-mono uppercase tracking-widest font-semibold block mb-1.5 ${
+                              className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold block mb-1.5 ${
                                 isScrolled ? "text-white hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                               }`}
                             >
                               Bottoms
                             </Link>
-                            <ul className={`space-y-1.5 text-xs ${isScrolled ? "text-white/70" : "text-[#78716A]"}`}>
+                            <ul className={`space-y-1.5 text-xs ${isScrolled ? "text-white/70" : "text-charcoal-subtle"}`}>
                               <li>
                                 <Link
                                   href="/collection?parent=Bottoms&sub=Pants"
@@ -343,13 +343,13 @@ export default function Navbar({
                         <div className="space-y-1.5">
                           <Link
                             href="/collection?parent=Dresses"
-                            className={`text-xs font-mono uppercase tracking-widest font-semibold block mb-1.5 ${
+                            className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold block mb-1.5 ${
                               isScrolled ? "text-white hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                             }`}
                           >
                             Dresses
                           </Link>
-                          <ul className={`space-y-1.5 text-xs ${isScrolled ? "text-white/70" : "text-[#78716A]"}`}>
+                          <ul className={`space-y-1.5 text-xs ${isScrolled ? "text-white/70" : "text-charcoal-subtle"}`}>
                             <li>
                               <Link
                                 href="/collection?parent=Dresses&sub=Maxi"
@@ -387,10 +387,10 @@ export default function Navbar({
 
                         {/* Column 4: Occasion Tags */}
                         <div className={`space-y-2 border-l pl-4 ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/40"}`}>
-                          <p className={`text-xs font-mono uppercase tracking-widest font-semibold mb-1.5 ${isScrolled ? "text-[#C5A059]" : "text-[#1F1E1D]"}`}>
+                          <p className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold mb-1.5 ${isScrolled ? "text-[#C5A059]" : "text-[#1F1E1D]"}`}>
                             Occasion
                           </p>
-                          <ul className={`space-y-2 text-xs ${isScrolled ? "text-white/70" : "text-[#78716A]"}`}>
+                          <ul className={`space-y-2 text-xs ${isScrolled ? "text-white/70" : "text-charcoal-subtle"}`}>
                             {OCCASIONS.map((occ) => (
                               <li key={occ.name}>
                                 <Link
@@ -406,7 +406,7 @@ export default function Navbar({
                           <div className={`pt-3 border-t ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/30"}`}>
                             <Link
                               href="/collection"
-                              className="text-[11px] font-mono uppercase tracking-wider text-[#C5A059] font-semibold hover:underline flex items-center gap-1"
+                              className="text-sm font-mono uppercase tracking-wider text-[#C5A059] font-semibold hover:underline flex items-center gap-1"
                             >
                               <span>View All Pieces</span>
                               <ArrowRight className="w-3 h-3" />
@@ -421,7 +421,7 @@ export default function Navbar({
 
               <Link
                 href="/collection?filter=new"
-                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
+                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -429,7 +429,7 @@ export default function Navbar({
               </Link>
               <Link
                 href="/stories"
-                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
+                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -437,7 +437,7 @@ export default function Navbar({
               </Link>
               <Link
                 href="/about"
-                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
+                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -445,7 +445,7 @@ export default function Navbar({
               </Link>
               <Link
                 href="/craft"
-                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
+                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -453,7 +453,7 @@ export default function Navbar({
               </Link>
               <Link
                 href="/journal"
-                className={`text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
+                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
                   isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
                 }`}
               >
@@ -471,13 +471,13 @@ export default function Navbar({
                 className={`hidden md:flex items-center rounded-full px-4 py-2 transition-all text-xs cursor-pointer border ${
                   isScrolled
                     ? "bg-white/10 hover:bg-white/15 border-white/20 text-white/80 w-52 md:w-60 lg:w-72 xl:w-80 shadow-inner"
-                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-[#78716A] w-52 md:w-60 lg:w-72 xl:w-80 shadow-sm"
+                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-charcoal-subtle w-52 md:w-60 lg:w-72 xl:w-80 shadow-sm"
                 }`}
                 title="Search garments"
                 aria-label="Search garments"
               >
                 <div className="flex items-center gap-2.5 truncate w-full">
-                  <Search className={`w-3.5 h-3.5 shrink-0 ${isScrolled ? "text-[#C5A059]" : "text-[#78716A]"}`} />
+                  <Search className={`w-3.5 h-3.5 shrink-0 ${isScrolled ? "text-[#C5A059]" : "text-charcoal-subtle"}`} />
                   <span className="text-xs truncate font-sans text-left">Search collection, silk, dresses...</span>
                 </div>
               </button>
@@ -497,7 +497,7 @@ export default function Navbar({
               {/* Track Order Link (Styled with identical font and tracking to other nav items) */}
               <Link
                 href="/returns/start"
-                className={`hidden xl:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.22em] font-sans font-medium transition-colors ${
+                className={`hidden xl:inline-flex items-center gap-1.5 text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
                   isScrolled
                     ? "text-white/85 hover:text-[#C5A059]"
                     : "text-[#1F1E1D] hover:text-[#B86B4B]"
@@ -526,7 +526,7 @@ export default function Navbar({
                   }`}
                 />
                 {wishlistCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#C5A059] text-black text-[9px] font-mono font-bold flex items-center justify-center shadow-md">
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#C5A059] text-black text-xs font-mono font-bold flex items-center justify-center shadow-md">
                     {wishlistCount}
                   </span>
                 )}
@@ -546,7 +546,7 @@ export default function Navbar({
               >
                 <ShoppingBag className="w-5 h-5 transition-transform hover:scale-110" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#1F1E1D] border border-[#C5A059]/50 text-[#C5A059] text-[9px] font-mono font-bold flex items-center justify-center shadow-md">
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#1F1E1D] border border-[#C5A059]/50 text-[#C5A059] text-xs font-mono font-bold flex items-center justify-center shadow-md">
                     {cartCount}
                   </span>
                 )}
@@ -622,7 +622,7 @@ export default function Navbar({
               <Link
                 href="/collection"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex-1 py-2.5 px-4 rounded-full bg-[#B86B4B] text-white text-center font-mono text-xs uppercase tracking-wider font-semibold shadow-sm flex items-center justify-center gap-1.5"
+                className="flex-1 py-2.5 px-4 rounded-full bg-[#B86B4B] text-white text-center font-mono text-sm uppercase font-semibold tracking-wider font-semibold shadow-sm flex items-center justify-center gap-1.5"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Shop Collection</span>
@@ -630,7 +630,7 @@ export default function Navbar({
               <Link
                 href="/returns/start"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex-1 py-2.5 px-4 rounded-full border border-[#DCC7AF] bg-white text-[#1F1E1D] text-center font-mono text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-1.5"
+                className="flex-1 py-2.5 px-4 rounded-full border border-[#DCC7AF] bg-white text-[#1F1E1D] text-center font-mono text-sm uppercase font-semibold tracking-wider font-semibold flex items-center justify-center gap-1.5"
               >
                 <RotateCcw className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>Track Order</span>
@@ -660,11 +660,11 @@ export default function Navbar({
                 </button>
 
                 {mobileExpandedCat === "collection" && (
-                  <div className="pl-4 py-2 space-y-2.5 text-sm text-[#78716A] border-l-2 border-[#DCC7AF]/60 mt-1">
+                  <div className="pl-4 py-2 space-y-2.5 text-sm text-charcoal-subtle border-l-2 border-[#DCC7AF]/60 mt-1">
                     <Link
                       href="/collection?collection=Collection%2002"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block text-[#C5A059] font-mono text-xs uppercase tracking-wider font-semibold"
+                      className="block text-[#C5A059] font-mono text-sm uppercase font-semibold tracking-wider font-semibold"
                     >
                       ✦ Collection 02 (9 New Pieces)
                     </Link>
@@ -699,7 +699,7 @@ export default function Navbar({
                     <Link
                       href="/collection"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block text-[#B86B4B] font-mono text-xs uppercase tracking-wider font-semibold pt-1"
+                      className="block text-[#B86B4B] font-mono text-sm uppercase font-semibold tracking-wider font-semibold pt-1"
                     >
                       View All Pieces &rarr;
                     </Link>
@@ -766,7 +766,7 @@ export default function Navbar({
             </div>
 
             {/* Bottom Account Strip */}
-            <div className="pt-4 border-t border-[#DCC7AF]/50 flex items-center justify-between text-xs font-mono text-[#78716A]">
+            <div className="pt-4 border-t border-[#DCC7AF]/50 flex items-center justify-between text-xs font-mono text-charcoal-subtle">
               <span>Currency: {currency}</span>
               <Link
                 href="/account"

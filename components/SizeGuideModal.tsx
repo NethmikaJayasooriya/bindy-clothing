@@ -57,7 +57,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                   <h3 className="font-serif text-xl sm:text-2xl text-[#1F1E1D] font-normal">
                     Size &amp; Fit Guide
                   </h3>
-                  <p className="text-[11px] font-mono tracking-widest uppercase text-[#78716A]">
+                  <p className="text-sm font-mono tracking-widest uppercase text-charcoal-subtle">
                     BODY MEASUREMENTS &amp; CONVERSIONS
                   </p>
                 </div>
@@ -72,7 +72,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                     className={`px-3 py-1 text-xs font-mono rounded-full transition-all ${
                       unit === "cm"
                         ? "bg-[#1F1E1D] text-white shadow-sm"
-                        : "text-[#78716A] hover:text-[#1F1E1D]"
+                        : "text-charcoal-subtle hover:text-[#1F1E1D]"
                     }`}
                   >
                     CM
@@ -83,7 +83,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                     className={`px-3 py-1 text-xs font-mono rounded-full transition-all ${
                       unit === "in"
                         ? "bg-[#1F1E1D] text-white shadow-sm"
-                        : "text-[#78716A] hover:text-[#1F1E1D]"
+                        : "text-charcoal-subtle hover:text-[#1F1E1D]"
                     }`}
                   >
                     IN
@@ -93,7 +93,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                 <button
                   type="button"
                   onClick={onClose}
-                  className="w-9 h-9 rounded-full bg-white border border-[#DCC7AF]/60 flex items-center justify-center text-[#78716A] hover:text-[#1F1E1D] hover:border-[#1F1E1D] transition-colors"
+                  className="w-9 h-9 rounded-full bg-white border border-[#DCC7AF]/60 flex items-center justify-center text-charcoal-subtle hover:text-[#1F1E1D] hover:border-[#1F1E1D] transition-colors"
                   aria-label="Close size guide"
                 >
                   <X className="w-4 h-4" />
@@ -107,10 +107,10 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
               {/* BODY MEASUREMENTS TABLE (EXACT FROM CLIENT SPEC) */}
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-mono text-[11px] uppercase tracking-widest text-[#78716A] font-semibold">
+                  <h4 className="font-mono text-sm uppercase tracking-widest text-charcoal-subtle font-semibold">
                     BODY MEASUREMENTS ({unit.toUpperCase()})
                   </h4>
-                  <span className="text-[10px] text-[#78716A] italic">
+                  <span className="text-xs text-charcoal-subtle italic">
                     All measurements in {unit === "in" ? "inches" : "centimetres"}
                   </span>
                 </div>
@@ -118,7 +118,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                 <div className="overflow-x-auto rounded-2xl border border-[#DCC7AF]/60 bg-white">
                   <table className="w-full text-center border-collapse">
                     <thead>
-                      <tr className="bg-[#FAF7F2]/80 border-b border-[#DCC7AF]/40 text-[#78716A] font-mono text-[11px]">
+                      <tr className="bg-[#FAF7F2]/80 border-b border-[#DCC7AF]/40 text-charcoal-subtle font-mono text-sm">
                         <th className="py-3 px-3 sm:px-4 text-left font-medium uppercase tracking-wider sticky left-0 bg-[#FAF7F2]">
                           AUS / UK
                         </th>
@@ -131,7 +131,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                     </thead>
                     <tbody className="divide-y divide-[#DCC7AF]/20 text-[#1F1E1D]">
                       <tr>
-                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-white">
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-sm font-medium text-charcoal-subtle uppercase sticky left-0 bg-white">
                           Bust
                         </td>
                         {BODY_MEASUREMENTS.map((m) => (
@@ -141,7 +141,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                         ))}
                       </tr>
                       <tr className="bg-[#FAF7F2]/30">
-                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-[#FAF7F2]/30">
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-sm font-medium text-charcoal-subtle uppercase sticky left-0 bg-[#FAF7F2]/30">
                           Waist
                         </td>
                         {BODY_MEASUREMENTS.map((m) => (
@@ -151,7 +151,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                         ))}
                       </tr>
                       <tr>
-                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-white">
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-sm font-medium text-charcoal-subtle uppercase sticky left-0 bg-white">
                           Hip
                         </td>
                         {BODY_MEASUREMENTS.map((m) => (
@@ -167,13 +167,13 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
 
               {/* SIZE CONVERSION TABLE (EXACT FROM CLIENT SPEC) */}
               <div>
-                <h4 className="font-mono text-[11px] uppercase tracking-widest text-[#78716A] font-semibold mb-3">
+                <h4 className="font-mono text-sm uppercase tracking-widest text-charcoal-subtle font-semibold mb-3">
                   INTERNATIONAL SIZE CONVERSION
                 </h4>
                 <div className="overflow-x-auto rounded-2xl border border-[#DCC7AF]/60 bg-white">
                   <table className="w-full text-center border-collapse">
                     <thead>
-                      <tr className="bg-[#FAF7F2]/80 border-b border-[#DCC7AF]/40 text-[#78716A] font-mono text-[11px]">
+                      <tr className="bg-[#FAF7F2]/80 border-b border-[#DCC7AF]/40 text-charcoal-subtle font-mono text-sm">
                         <th className="py-3 px-3 sm:px-4 text-left font-medium uppercase tracking-wider sticky left-0 bg-[#FAF7F2]">
                           AUS / UK
                         </th>
@@ -186,7 +186,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                     </thead>
                     <tbody className="divide-y divide-[#DCC7AF]/20 text-[#1F1E1D]">
                       <tr>
-                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-white">
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-sm font-medium text-charcoal-subtle uppercase sticky left-0 bg-white">
                           USA
                         </td>
                         {SIZE_CONVERSIONS.map((c) => (
@@ -196,7 +196,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                         ))}
                       </tr>
                       <tr className="bg-[#FAF7F2]/30">
-                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-[11px] font-medium text-[#78716A] uppercase sticky left-0 bg-[#FAF7F2]/30">
+                        <td className="py-3 px-3 sm:px-4 text-left font-mono text-sm font-medium text-charcoal-subtle uppercase sticky left-0 bg-[#FAF7F2]/30">
                           EU
                         </td>
                         {SIZE_CONVERSIONS.map((c) => (
@@ -215,11 +215,11 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                 <h5 className="font-serif text-sm text-[#1F1E1D] font-medium">
                   How to Measure Accurately
                 </h5>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-[#78716A]">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-charcoal-subtle">
                   {MEASURING_GUIDE_TIPS.map((tip) => (
                     <div key={tip.title}>
                       <span className="font-medium text-[#1F1E1D] block mb-1">{tip.title}</span>
-                      <p className="leading-relaxed text-[11px]">{tip.desc}</p>
+                      <p className="leading-relaxed text-sm">{tip.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -239,7 +239,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 bg-[#1F1E1D] text-white rounded-full text-xs font-mono uppercase tracking-widest hover:bg-[#C5A059] transition-colors"
+                className="px-5 py-2.5 bg-[#1F1E1D] text-white rounded-full text-sm font-mono uppercase font-semibold tracking-widest hover:bg-[#C5A059] transition-colors"
               >
                 Done
               </button>

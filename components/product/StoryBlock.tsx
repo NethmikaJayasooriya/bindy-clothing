@@ -27,7 +27,7 @@ export default function StoryBlock({ product }: StoryBlockProps) {
 
             {/* Photo Caption Badge */}
             <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-              <span className="text-[9px] uppercase font-sans tracking-[0.25em] text-gold font-semibold flex items-center gap-1.5">
+              <span className="text-xs uppercase font-sans tracking-wider text-gold font-semibold flex items-center gap-1.5">
                 <MapPin className="w-3 h-3 text-gold" />
                 {product.storyPlace}
               </span>
@@ -40,7 +40,7 @@ export default function StoryBlock({ product }: StoryBlockProps) {
           {/* Narrative & Craft Details (7 cols) */}
           <div className="lg:col-span-7 space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold">
+              <div className="inline-flex items-center gap-2 text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold">
                 <Sparkles className="w-3.5 h-3.5 text-gold" />
                 <span>The Story</span>
               </div>
@@ -49,7 +49,7 @@ export default function StoryBlock({ product }: StoryBlockProps) {
                 An Ode to {product.storyPlace}
               </h2>
 
-              <blockquote className="font-editorial-italic text-xl sm:text-2xl text-charcoal font-light leading-relaxed border-l-2 border-gold/70 pl-5 py-1">
+              <blockquote className="font-serif text-xl sm:text-2xl text-charcoal font-light leading-relaxed border-l-2 border-gold/70 pl-5 py-1">
                 &ldquo;{product.quote}&rdquo;
               </blockquote>
 
@@ -60,7 +60,7 @@ export default function StoryBlock({ product }: StoryBlockProps) {
 
             {/* Thoughtful Details Checklist */}
             <div className="pt-6 border-t border-sand/30 space-y-4">
-              <h3 className="text-[11px] font-sans uppercase tracking-[0.28em] text-gold font-semibold">
+              <h3 className="text-sm font-sans uppercase tracking-wider text-gold font-semibold">
                 Thoughtful Handcrafted Details
               </h3>
 

@@ -35,12 +35,12 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-sans uppercase tracking-[0.22em] font-semibold transition-all duration-300 rounded-full cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 disabled:cursor-not-allowed disabled:opacity-50";
+    "inline-flex items-center justify-center font-sans uppercase tracking-wider font-semibold transition-all duration-300 rounded-full cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 disabled:cursor-not-allowed disabled:opacity-50";
 
   const sizeStyles: Record<ButtonSize, string> = {
-    sm: "text-[10px] px-4 py-2 gap-1.5 min-h-[36px]",
+    sm: "text-xs px-4 py-2 gap-1.5 min-h-[36px]",
     md: "text-xs px-6 py-3 gap-2 min-h-[44px]",
-    lg: "text-xs sm:text-sm px-8 py-4 gap-2.5 min-h-[50px] tracking-[0.25em]",
+    lg: "text-xs sm:text-sm px-8 py-4 gap-2.5 min-h-[50px] tracking-wider",
   };
 
   const variantStyles: Record<ButtonVariant, string> = {

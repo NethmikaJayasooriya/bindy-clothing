@@ -53,7 +53,7 @@ export default function FlashDiscountRibbon({
             repeat={4}
             className="bg-[#121110] text-[#FAF7F2] py-2.5 sm:py-3.5 border-y border-[#C5A059]/40 shadow-[0_14px_40px_rgba(0,0,0,0.7)]"
           >
-            <div className="flex items-center space-x-6 sm:space-x-8 px-4 text-xs sm:text-sm font-mono uppercase tracking-[0.22em]">
+            <div className="flex items-center space-x-6 sm:space-x-8 px-4 text-xs sm:text-sm font-mono uppercase tracking-wider">
               <span className="inline-flex items-center gap-1.5 text-[#C5A059] font-bold">
                 <Zap className="w-3.5 h-3.5 fill-[#C5A059] animate-pulse" />
                 <span>24-HOUR FLASH ARCHIVE</span>
@@ -71,7 +71,7 @@ export default function FlashDiscountRibbon({
               <button
                 type="button"
                 onClick={handleCopy}
-                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-[#C5A059] hover:text-black border border-[#C5A059]/50 transition-all duration-200 cursor-pointer text-[10px] sm:text-xs font-mono font-bold"
+                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-[#C5A059] hover:text-black border border-[#C5A059]/50 transition-all duration-200 cursor-pointer text-xs sm:text-xs font-mono font-bold"
                 title="Click to copy promo code"
               >
                 <Tag className="w-3 h-3 text-[#C5A059] group-hover:text-black" />
@@ -109,7 +109,7 @@ export default function FlashDiscountRibbon({
             repeat={4}
             className="bg-gradient-to-r from-[#C5A059] via-[#E2C37E] to-[#C5A059] text-[#141312] py-2 sm:py-3 shadow-[0_18px_48px_rgba(197,160,89,0.38)] border-y border-[#FFFFFF]/40"
           >
-            <div className="flex items-center space-x-6 sm:space-x-8 px-4 text-xs sm:text-sm font-serif font-bold uppercase tracking-[0.25em]">
+            <div className="flex items-center space-x-6 sm:space-x-8 px-4 text-xs sm:text-sm font-serif font-bold uppercase tracking-wider">
               <span className="inline-flex items-center gap-2">
                 <Sparkles className="w-3.5 h-3.5 fill-[#141312]" />
                 <span>LIMITED ARCHIVE PRIVILEGE</span>
@@ -123,7 +123,7 @@ export default function FlashDiscountRibbon({
 
               <span className="opacity-40">★</span>
 
-              <span className="font-mono text-[11px] sm:text-xs font-bold tracking-wider px-2 py-0.5 rounded bg-black/15">
+              <span className="font-mono text-sm sm:text-xs font-bold tracking-wider px-2 py-0.5 rounded bg-black/15">
                 AUSTRALIAN DIRECT DISPATCH
               </span>
 
@@ -133,7 +133,7 @@ export default function FlashDiscountRibbon({
 
               <span className="opacity-40">★</span>
 
-              <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-mono font-bold underline underline-offset-2">
+              <span className="inline-flex items-center gap-1 text-sm sm:text-xs font-mono font-bold underline underline-offset-2">
                 <span>SHOP DEALS</span>
                 <ArrowDownRight className="w-3.5 h-3.5" />
               </span>

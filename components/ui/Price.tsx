@@ -30,12 +30,12 @@ export default function Price({
       </span>
 
       {isSale && (
-        <span className="font-serif text-sm text-muted line-through opacity-70">
+        <span className="font-serif text-sm text-charcoal-subtle line-through opacity-70">
           ${compareAtAmount}
         </span>
       )}
 
-      <span className="text-[10px] sm:text-xs font-sans text-muted uppercase tracking-wider font-normal">
+      <span className="text-xs sm:text-xs font-sans text-charcoal-subtle uppercase tracking-wider font-normal">
         {currency}
       </span>
     </div>

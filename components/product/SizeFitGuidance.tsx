@@ -20,7 +20,7 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
           {/* Left Column: Model Specs & Fit Feedback Graphic (5 cols) */}
           <div className="lg:col-span-5 space-y-8">
             <div>
-              <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block mb-2">
+              <span className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold block mb-2">
                 Tailoring & Fit Experience
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-charcoal-rich font-light leading-tight">
@@ -30,14 +30,14 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
 
             {/* Model Spec Card */}
             <div className="p-6 rounded-3xl bg-paper border border-sand/40 space-y-3 shadow-sm">
-              <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-wider text-charcoal font-semibold">
+              <div className="flex items-center gap-2 text-sm font-sans uppercase font-semibold tracking-wider text-charcoal font-semibold">
                 <UserCheck className="w-4 h-4 text-gold" />
                 <span>Editorial Model Profile</span>
               </div>
               <p className="text-xs font-sans text-charcoal/85 leading-relaxed font-light">
                 Model is <strong className="font-medium text-charcoal">176cm / 5&apos;9&quot;</strong> tall with an 84cm bust, 66cm waist, and 92cm hips. She wears size <strong className="font-medium text-gold">AU 8 (S)</strong>.
               </p>
-              <div className="pt-2 text-[11px] font-sans text-muted font-light">
+              <div className="pt-2 text-sm font-sans text-charcoal-subtle font-light">
                 Silhouettes cut with gentle drape through the hips for optimal movement and comfort.
               </div>
             </div>
@@ -45,7 +45,7 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
             {/* Fit Feedback Visualization */}
             <div className="p-6 rounded-3xl bg-paper border border-sand/40 space-y-4 shadow-sm">
               <div className="flex items-center justify-between">
-                <h4 className="text-xs font-sans uppercase tracking-wider text-charcoal font-semibold">
+                <h4 className="text-sm font-sans uppercase font-semibold tracking-wider text-charcoal font-semibold">
                   Customer Fit Consensus
                 </h4>
                 <span className="text-xs font-sans font-bold text-gold">87% True to Size</span>
@@ -58,9 +58,9 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
                 <div className="bg-terracotta h-full" style={{ width: "4%" }} title="4% Runs Large" />
               </div>
 
-              <div className="grid grid-cols-3 text-center text-[10px] font-sans gap-2">
+              <div className="grid grid-cols-3 text-center text-xs font-sans gap-2">
                 <div>
-                  <span className="text-muted block">Runs Small</span>
+                  <span className="text-charcoal-subtle block">Runs Small</span>
                   <strong className="text-charcoal font-medium">9%</strong>
                 </div>
                 <div>
@@ -68,7 +68,7 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
                   <strong className="text-charcoal font-bold">87%</strong>
                 </div>
                 <div>
-                  <span className="text-muted block">Runs Large</span>
+                  <span className="text-charcoal-subtle block">Runs Large</span>
                   <strong className="text-charcoal font-medium">4%</strong>
                 </div>
               </div>
@@ -87,10 +87,10 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
                 <button
                   type="button"
                   onClick={() => setUnit("cm")}
-                  className={`px-3.5 py-1 rounded-full text-xs font-sans uppercase tracking-wider transition-all cursor-pointer ${
+                  className={`px-3.5 py-1 rounded-full text-sm font-sans uppercase font-semibold tracking-wider transition-all cursor-pointer ${
                     unit === "cm"
                       ? "bg-gold text-charcoal font-bold shadow-sm"
-                      : "text-muted hover:text-charcoal"
+                      : "text-charcoal-subtle hover:text-charcoal"
                   }`}
                 >
                   CM
@@ -98,10 +98,10 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
                 <button
                   type="button"
                   onClick={() => setUnit("in")}
-                  className={`px-3.5 py-1 rounded-full text-xs font-sans uppercase tracking-wider transition-all cursor-pointer ${
+                  className={`px-3.5 py-1 rounded-full text-sm font-sans uppercase font-semibold tracking-wider transition-all cursor-pointer ${
                     unit === "in"
                       ? "bg-gold text-charcoal font-bold shadow-sm"
-                      : "text-muted hover:text-charcoal"
+                      : "text-charcoal-subtle hover:text-charcoal"
                   }`}
                 >
                   INCHES
@@ -112,7 +112,7 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
             {/* Table */}
             <div className="overflow-x-auto rounded-2xl border border-sand/40 bg-paper shadow-sm">
               <table className="w-full text-left text-xs font-sans">
-                <thead className="bg-paper-dark border-b border-sand/40 text-[10px] uppercase tracking-wider text-muted font-semibold">
+                <thead className="bg-paper-dark border-b border-sand/40 text-sm uppercase font-semibold tracking-wider text-charcoal-subtle font-semibold">
                   <tr>
                     <th className="py-3.5 px-4">Size (AUS/UK)</th>
                     <th className="py-3.5 px-4">Bust ({unit})</th>
@@ -135,7 +135,7 @@ export default function SizeFitGuidance({ product }: SizeFitGuidanceProps) {
 
             {/* Full Size Guide Link */}
             <div className="flex items-center justify-between text-xs font-sans pt-2">
-              <span className="text-muted">Need personalised sizing advice?</span>
+              <span className="text-charcoal-subtle">Need personalised sizing advice?</span>
               <Link
                 href="/size-guide"
                 className="inline-flex items-center gap-1.5 text-gold hover:text-cinnamon font-semibold uppercase tracking-wider transition-colors"

@@ -48,7 +48,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
       <div className="bg-[#FAF7F2] border border-[#DCC7AF]/60 rounded-3xl p-8 sm:p-10 shadow-[0_10px_35px_rgba(0,0,0,0.04)] text-center transition-all duration-300">
         
         {/* HEADER MATCHING CLIENT SCREENSHOT */}
-        <p className="text-[11px] font-mono tracking-[0.3em] uppercase text-[#78716A] mb-2 font-medium">
+        <p className="text-sm font-mono tracking-[0.3em] uppercase text-charcoal-subtle mb-2 font-medium">
           RETURN &amp; EXCHANGE PORTAL
         </p>
         <h2 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] mb-6">
@@ -60,7 +60,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
           <form onSubmit={handleLookup} className="space-y-5 text-left">
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-medium text-[#78716A] tracking-wider uppercase">
+                <label className="text-xs font-medium text-charcoal-subtle tracking-wider uppercase">
                   Order Number
                 </label>
                 <div className="relative">
@@ -69,13 +69,13 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
                     onClick={() => setShowTooltip(!showTooltip)}
                     onMouseEnter={() => setShowTooltip(true)}
                     onMouseLeave={() => setShowTooltip(false)}
-                    className="text-[#78716A] hover:text-[#C5A059] transition-colors p-1"
+                    className="text-charcoal-subtle hover:text-[#C5A059] transition-colors p-1"
                     aria-label="Where to find order number"
                   >
                     <Info className="w-3.5 h-3.5" />
                   </button>
                   {showTooltip && (
-                    <div className="absolute right-0 bottom-full mb-2 w-56 p-2.5 bg-[#1F1E1D] text-white text-[11px] leading-relaxed rounded-xl shadow-lg z-20 pointer-events-none">
+                    <div className="absolute right-0 bottom-full mb-2 w-56 p-2.5 bg-[#1F1E1D] text-white text-sm leading-relaxed rounded-xl shadow-lg z-20 pointer-events-none">
                       Found in your order confirmation email (e.g. #BIN-84291)
                     </div>
                   )}
@@ -92,7 +92,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#78716A] tracking-wider uppercase mb-1.5">
+              <label className="block text-xs font-medium text-charcoal-subtle tracking-wider uppercase mb-1.5">
                 Email or Phone
               </label>
               <input
@@ -122,7 +122,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
               </button>
             </div>
 
-            <p className="text-center text-[11px] text-[#78716A] pt-2">
+            <p className="text-center text-sm text-charcoal-subtle pt-2">
               Need assistance? Email our concierge at{" "}
               <a href="mailto:care@bindyclothing.com" className="underline text-[#1F1E1D] hover:text-[#C5A059]">
                 care@bindyclothing.com
@@ -138,7 +138,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
               <AlertCircle className="w-6 h-6" />
             </div>
             <h3 className="font-serif text-lg text-[#1F1E1D]">We couldn&apos;t find that order</h3>
-            <p className="text-xs text-[#78716A] max-w-sm mx-auto leading-relaxed">
+            <p className="text-xs text-charcoal-subtle max-w-sm mx-auto leading-relaxed">
               Please verify your order number and the email or phone number used during checkout.
             </p>
             <button
@@ -156,17 +156,17 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
           <form onSubmit={handleProcessReturn} className="space-y-6 text-left pt-2">
             <div className="bg-white/80 p-4 rounded-2xl border border-[#DCC7AF]/50 flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-mono uppercase text-[#78716A]">Order Verified</p>
+                <p className="text-sm font-mono uppercase text-charcoal-subtle">Order Verified</p>
                 <p className="text-sm font-serif font-medium text-[#1F1E1D]">{orderNumber || "#BIN-84291"}</p>
               </div>
-              <span className="text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#AFC8B1]/25 text-[#2E4A32] font-medium">
+              <span className="text-sm uppercase font-semibold tracking-wider px-2.5 py-1 rounded-full bg-[#AFC8B1]/25 text-[#2E4A32] font-medium">
                 Within Return Window
               </span>
             </div>
 
             {/* ITEM SELECTOR */}
             <div>
-              <label className="block text-xs font-medium text-[#78716A] tracking-wider uppercase mb-2">
+              <label className="block text-xs font-medium text-charcoal-subtle tracking-wider uppercase mb-2">
                 Select Item to Return or Exchange
               </label>
               <div
@@ -189,7 +189,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
                   <p className="text-xs font-serif font-medium text-[#1F1E1D] truncate">
                     Lotus Memory Strapless Dress
                   </p>
-                  <p className="text-[11px] text-[#78716A]">Lotus Pink • AU 8 (S) • $240 AUD</p>
+                  <p className="text-sm text-charcoal-subtle">Lotus Pink • AU 8 (S) • $240 AUD</p>
                 </div>
                 <CheckCircle2
                   className={`w-4 h-4 ${
@@ -201,7 +201,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
 
             {/* RETURN OPTION */}
             <div>
-              <label className="block text-xs font-medium text-[#78716A] tracking-wider uppercase mb-2">
+              <label className="block text-xs font-medium text-charcoal-subtle tracking-wider uppercase mb-2">
                 Preferred Resolution
               </label>
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
@@ -217,7 +217,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
                     className={`p-3 rounded-xl border text-xs transition-all ${
                       returnType === opt.id
                         ? "border-[#1F1E1D] bg-[#1F1E1D] text-white"
-                        : "border-[#DCC7AF] bg-white text-[#78716A] hover:border-[#C5A059]"
+                        : "border-[#DCC7AF] bg-white text-charcoal-subtle hover:border-[#C5A059]"
                     }`}
                   >
                     {opt.label}
@@ -228,7 +228,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
 
             {/* REASON */}
             <div>
-              <label className="block text-xs font-medium text-[#78716A] tracking-wider uppercase mb-1.5">
+              <label className="block text-xs font-medium text-charcoal-subtle tracking-wider uppercase mb-1.5">
                 Reason for Return
               </label>
               <select
@@ -260,7 +260,7 @@ export default function ReturnPortalCard({ initialOrderNumber = "", isStandalone
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <h3 className="font-serif text-2xl text-[#1F1E1D]">Return Request Initiated</h3>
-            <p className="text-xs text-[#78716A] leading-relaxed max-w-sm mx-auto">
+            <p className="text-xs text-charcoal-subtle leading-relaxed max-w-sm mx-auto">
               Your return instructions and prepaid lodgment slip have been emailed to your account.
               Please allow 3 to 6 business days once received at our warehouse for processing.
             </p>

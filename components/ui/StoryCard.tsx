@@ -41,7 +41,7 @@ export default function StoryCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
         {/* Chapter Number Badge */}
-        <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-gold border border-white/10">
+        <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono tracking-widest text-gold border border-white/10">
           CHAPTER {number}
         </div>
 
@@ -61,7 +61,7 @@ export default function StoryCard({
       {/* Narrative Info */}
       <div className="p-6 sm:p-7 flex flex-col justify-between flex-1 space-y-4">
         <div className="space-y-2">
-          <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-semibold flex items-center gap-1.5">
+          <p className="text-sm font-sans uppercase font-semibold tracking-[0.3em] text-gold font-semibold flex items-center gap-1.5">
             <MapPin className="w-3 h-3" />
             {subtitle}
           </p>
@@ -76,7 +76,7 @@ export default function StoryCard({
         </div>
 
         {/* Footer Link */}
-        <div className="pt-3 border-t border-sand/30 flex items-center justify-between text-xs font-sans uppercase tracking-[0.22em] text-charcoal font-semibold group-hover:text-gold transition-colors">
+        <div className="pt-3 border-t border-sand/30 flex items-center justify-between text-sm font-sans uppercase font-semibold tracking-wider text-charcoal font-semibold group-hover:text-gold transition-colors">
           <span>Read Full Chapter</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
         </div>

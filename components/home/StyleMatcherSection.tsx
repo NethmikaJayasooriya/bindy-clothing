@@ -247,7 +247,7 @@ export default function StyleMatcherSection({
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/30 text-[#1F1E1D] text-[11px] font-mono tracking-widest uppercase font-semibold">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/30 text-[#1F1E1D] text-sm font-mono tracking-widest uppercase font-semibold">
               <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
               <span>Interactive Silhouette &amp; Occasion Stylist</span>
             </div>
@@ -259,7 +259,7 @@ export default function StyleMatcherSection({
               </span>
             </h2>
 
-            <p className="font-serif italic text-sm sm:text-base text-[#78716A] leading-relaxed">
+            <p className="font-serif italic text-sm sm:text-base text-charcoal-subtle leading-relaxed">
               Curated for the tropical warmth of Sri Lanka and the sunlit Australian lifestyle. Select your upcoming occasion, preferred drape, and climate to instantly reveal handcrafted matches.
             </p>
           </div>
@@ -270,13 +270,13 @@ export default function StyleMatcherSection({
               <button
                 type="button"
                 onClick={handleReset}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[#DCC7AF] text-[#78716A] hover:text-[#1F1E1D] hover:border-[#1F1E1D] text-xs font-mono uppercase tracking-wider transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[#DCC7AF] text-charcoal-subtle hover:text-[#1F1E1D] hover:border-[#1F1E1D] text-sm font-mono uppercase font-semibold tracking-wider transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reset Filters</span>
               </button>
             )}
-            <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-[#78716A]">
+            <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-charcoal-subtle">
               <span className="w-2 h-2 rounded-full bg-[#B86B4B] animate-pulse" />
               <span>{matchedProducts.length} Artisan Pieces Matched</span>
             </div>
@@ -290,14 +290,14 @@ export default function StyleMatcherSection({
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[#1F1E1D] text-white text-[11px] font-mono font-bold flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-[#1F1E1D] text-white text-sm font-mono font-bold flex items-center justify-center">
                   1
                 </span>
-                <span className="font-mono text-xs uppercase tracking-widest text-[#1F1E1D] font-bold">
+                <span className="font-mono text-sm uppercase font-semibold tracking-widest text-[#1F1E1D] font-bold">
                   Where Are You Heading? (Occasion)
                 </span>
               </div>
-              <span className="text-[11px] font-mono text-[#78716A] hidden sm:inline">
+              <span className="text-sm font-mono text-charcoal-subtle hidden sm:inline">
                 Selected:{" "}
                 <strong className="text-[#B86B4B]">
                   {OCCASIONS.find((o) => o.id === selectedOccasion)?.label}
@@ -339,8 +339,8 @@ export default function StyleMatcherSection({
                         {occ.label}
                       </div>
                       <div
-                        className={`text-[10px] font-sans line-clamp-1 mt-0.5 ${
-                          isActive ? "text-white/70" : "text-[#78716A]"
+                        className={`text-xs font-sans line-clamp-1 mt-0.5 ${
+                          isActive ? "text-white/70" : "text-charcoal-subtle"
                         }`}
                       >
                         {occ.sub}
@@ -358,10 +358,10 @@ export default function StyleMatcherSection({
             {/* STEP 2: SILHOUETTE (7 Cols) */}
             <div className="lg:col-span-7 space-y-3">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[#1F1E1D] text-white text-[11px] font-mono font-bold flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-[#1F1E1D] text-white text-sm font-mono font-bold flex items-center justify-center">
                   2
                 </span>
-                <span className="font-mono text-xs uppercase tracking-widest text-[#1F1E1D] font-bold">
+                <span className="font-mono text-sm uppercase font-semibold tracking-widest text-[#1F1E1D] font-bold">
                   Desired Silhouette &amp; Cut
                 </span>
               </div>
@@ -384,8 +384,8 @@ export default function StyleMatcherSection({
                         {sil.label}
                       </div>
                       <div
-                        className={`text-[10px] font-mono mt-1 line-clamp-1 ${
-                          isActive ? "text-white/80" : "text-[#78716A]"
+                        className={`text-xs font-mono mt-1 line-clamp-1 ${
+                          isActive ? "text-white/80" : "text-charcoal-subtle"
                         }`}
                       >
                         {sil.sub}
@@ -399,10 +399,10 @@ export default function StyleMatcherSection({
             {/* STEP 3: FABRIC & CLIMATE (5 Cols) */}
             <div className="lg:col-span-5 space-y-3">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[#1F1E1D] text-white text-[11px] font-mono font-bold flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-[#1F1E1D] text-white text-sm font-mono font-bold flex items-center justify-center">
                   3
                 </span>
-                <span className="font-mono text-xs uppercase tracking-widest text-[#1F1E1D] font-bold">
+                <span className="font-mono text-sm uppercase font-semibold tracking-widest text-[#1F1E1D] font-bold">
                   Climate &amp; Fabric Feel
                 </span>
               </div>
@@ -425,10 +425,10 @@ export default function StyleMatcherSection({
                         {fab.label}
                       </span>
                       <span
-                        className={`text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                        className={`text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded-full ${
                           isActive
                             ? "bg-[#C5A059] text-white font-bold"
-                            : "bg-white text-[#78716A] border border-[#DCC7AF]/60"
+                            : "bg-white text-charcoal-subtle border border-[#DCC7AF]/60"
                         }`}
                       >
                         {fab.badge}
@@ -443,14 +443,14 @@ export default function StyleMatcherSection({
 
           {/* Fallback Notice if exact combination was relaxed */}
           {isFallback && (
-            <div className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#DCC7AF] flex items-center justify-between text-xs text-[#78716A]">
+            <div className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#DCC7AF] flex items-center justify-between text-xs text-charcoal-subtle">
               <span className="font-serif italic">
                 Showing closest handcrafted alternatives matching your setting.
               </span>
               <button
                 type="button"
                 onClick={handleReset}
-                className="text-[#B86B4B] hover:underline font-mono text-[11px] uppercase tracking-wider font-semibold"
+                className="text-[#B86B4B] hover:underline font-mono text-sm uppercase tracking-wider font-semibold"
               >
                 Clear all filters
               </button>
@@ -465,7 +465,7 @@ export default function StyleMatcherSection({
             <h3 className="font-serif text-2xl text-[#1F1E1D] font-normal">
               Tailored Recommendations ({matchedProducts.length})
             </h3>
-            <span className="text-xs font-mono uppercase tracking-wider text-[#78716A]">
+            <span className="text-sm font-mono uppercase font-semibold tracking-wider text-charcoal-subtle">
               Free Carbon-Neutral AU Shipping Over $150
             </span>
           </div>
@@ -507,11 +507,11 @@ export default function StyleMatcherSection({
                       {/* Top Badges */}
                       <div className="absolute top-3.5 left-3.5 flex flex-col gap-1.5 z-10">
                         {product.badge && (
-                          <span className="px-2.5 py-1 rounded-full bg-[#1F1E1D] text-white text-[9px] font-mono uppercase tracking-widest font-bold shadow-sm">
+                          <span className="px-2.5 py-1 rounded-full bg-[#1F1E1D] text-white text-xs font-mono uppercase tracking-widest font-bold shadow-sm">
                             {product.badge}
                           </span>
                         )}
-                        <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#1F1E1D] text-[9px] font-mono uppercase tracking-wider font-semibold border border-white/60 shadow-sm">
+                        <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#1F1E1D] text-xs font-mono uppercase tracking-wider font-semibold border border-white/60 shadow-sm">
                           {product.category}
                         </span>
                       </div>
@@ -532,7 +532,7 @@ export default function StyleMatcherSection({
                     <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
                       <div className="space-y-2">
                         {/* Heritage origin line */}
-                        <div className="text-[11px] font-mono text-[#78716A] flex items-center justify-between">
+                        <div className="text-sm font-mono text-charcoal-subtle flex items-center justify-between">
                           <span className="truncate pr-2">
                             {product.storyPlace}
                           </span>
@@ -553,7 +553,7 @@ export default function StyleMatcherSection({
                           <span className="font-serif text-xl sm:text-2xl font-medium text-[#1F1E1D]">
                             ${product.priceAud} AUD
                           </span>
-                          <span className="text-[10px] font-mono text-[#78716A] uppercase">
+                          <span className="text-xs font-mono text-charcoal-subtle uppercase">
                             • {product.colorName}
                           </span>
                         </div>
@@ -561,8 +561,8 @@ export default function StyleMatcherSection({
 
                       {/* Size Selector Strip */}
                       <div className="space-y-2 pt-3 border-t border-[#DCC7AF]/50">
-                        <div className="flex items-center justify-between text-[11px] font-mono">
-                          <span className="uppercase text-[#78716A]">
+                        <div className="flex items-center justify-between text-sm font-mono">
+                          <span className="uppercase text-charcoal-subtle">
                             Size:
                           </span>
                           <span className="text-[#1F1E1D] font-medium">
@@ -588,7 +588,7 @@ export default function StyleMatcherSection({
                                 className={`py-1.5 text-xs font-mono rounded-lg border text-center transition-all cursor-pointer ${
                                   isChosen
                                     ? "bg-[#1F1E1D] text-white border-[#1F1E1D] font-bold shadow-sm"
-                                    : "bg-[#FAF7F2] text-[#78716A] border-[#DCC7AF]/60 hover:border-[#1F1E1D] hover:text-[#1F1E1D]"
+                                    : "bg-[#FAF7F2] text-charcoal-subtle border-[#DCC7AF]/60 hover:border-[#1F1E1D] hover:text-[#1F1E1D]"
                                 }`}
                               >
                                 {short}
@@ -603,7 +603,7 @@ export default function StyleMatcherSection({
                         <button
                           type="button"
                           onClick={() => handleAddProduct(product)}
-                          className={`flex-1 py-3 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-sm flex items-center justify-center gap-2 cursor-pointer ${
+                          className={`flex-1 py-3 rounded-full font-mono text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 shadow-sm flex items-center justify-center gap-2 cursor-pointer ${
                             isAdded
                               ? "bg-[#AFC8B1] text-[#2E4A32]"
                               : "bg-[#1F1E1D] hover:bg-[#B86B4B] text-white"
@@ -640,7 +640,7 @@ export default function StyleMatcherSection({
         </div>
 
         {/* Bottom Trust Guarantee Strip */}
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-[11px] font-mono uppercase tracking-widest text-[#78716A] pt-4">
+        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-sm font-mono uppercase tracking-widest text-charcoal-subtle pt-4">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
             <span>Ethically Woven in Sri Lanka</span>

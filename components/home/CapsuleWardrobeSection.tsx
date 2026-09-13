@@ -229,7 +229,7 @@ export default function CapsuleWardrobeSection({
         {/* Editorial Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/30 text-[#1F1E1D] text-[11px] font-mono tracking-widest uppercase font-semibold">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/30 text-[#1F1E1D] text-sm font-mono tracking-widest uppercase font-semibold">
               <Luggage className="w-3.5 h-3.5 text-[#B86B4B]" />
               <span>The Carry-On Masterclass • Slow Travel</span>
             </div>
@@ -241,7 +241,7 @@ export default function CapsuleWardrobeSection({
               </span>
             </h2>
 
-            <p className="font-serif italic text-sm sm:text-base text-[#78716A] leading-relaxed">
+            <p className="font-serif italic text-sm sm:text-base text-charcoal-subtle leading-relaxed">
               Designed for effortless island-hopping in Sri Lanka and sun-drenched Australian weekends. Four artisan-woven silhouettes that fold into one weekend tote—infinitely mixable, weightless, and wrinkle-forgiving.
             </p>
           </div>
@@ -270,15 +270,15 @@ export default function CapsuleWardrobeSection({
             {/* Luggage Tag Header */}
             <div className="flex items-center justify-between border-b border-[#DCC7AF]/60 pb-4">
               <div className="flex items-center gap-3">
-                <span className="px-2.5 py-1 rounded bg-[#1F1E1D] text-white text-[10px] font-mono uppercase tracking-widest font-bold">
+                <span className="px-2.5 py-1 rounded bg-[#1F1E1D] text-white text-sm font-mono uppercase font-semibold tracking-widest font-bold">
                   Voyage No. 04
                 </span>
-                <span className="text-xs font-serif italic text-[#78716A]">
+                <span className="text-xs font-serif italic text-charcoal-subtle">
                   Artisan Resort Wardrobe • Sri Lanka to Australia
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 text-[11px] font-mono text-[#B86B4B]">
+              <div className="flex items-center gap-2 text-sm font-mono text-[#B86B4B]">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Active Look Highlighted</span>
               </div>
@@ -308,12 +308,12 @@ export default function CapsuleWardrobeSection({
                     {/* Status Pill on Flatlay Piece */}
                     <div className="absolute top-3 left-3 z-10">
                       {isInCurrentLook ? (
-                        <span className="px-2 py-0.5 rounded-full bg-[#B86B4B] text-white text-[9px] font-mono uppercase tracking-wider font-bold shadow-sm flex items-center gap-1">
+                        <span className="px-2 py-0.5 rounded-full bg-[#B86B4B] text-white text-xs font-mono uppercase tracking-wider font-bold shadow-sm flex items-center gap-1">
                           <Check className="w-2.5 h-2.5" />
                           <span>In This Look</span>
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 rounded-full bg-[#FAF7F2] text-[#78716A] text-[9px] font-mono uppercase tracking-wider border border-[#DCC7AF]/60">
+                        <span className="px-2 py-0.5 rounded-full bg-[#FAF7F2] text-charcoal-subtle text-xs font-mono uppercase tracking-wider border border-[#DCC7AF]/60">
                           In Capsule
                         </span>
                       )}
@@ -343,7 +343,7 @@ export default function CapsuleWardrobeSection({
 
                     {/* Piece Details Card Strip */}
                     <div className="p-3.5 sm:p-4 space-y-1">
-                      <div className="flex items-center justify-between text-[10px] font-mono text-[#78716A]">
+                      <div className="flex items-center justify-between text-xs font-mono text-charcoal-subtle">
                         <span className="truncate pr-2">{piece.role}</span>
                         <span className="text-[#C5A059] font-medium whitespace-nowrap">
                           {piece.weightG}g
@@ -358,7 +358,7 @@ export default function CapsuleWardrobeSection({
                         </span>
                         <Link
                           href={`/product/${piece.id}`}
-                          className="text-[10px] font-mono text-[#B86B4B] hover:underline uppercase tracking-wider"
+                          className="text-xs font-mono text-[#B86B4B] hover:underline uppercase tracking-wider"
                         >
                           Details &rarr;
                         </Link>
@@ -370,7 +370,7 @@ export default function CapsuleWardrobeSection({
             </div>
 
             {/* Travel Flatlay Footer Pill */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-[#78716A] border-t border-[#DCC7AF]/60">
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm font-mono text-charcoal-subtle border-t border-[#DCC7AF]/60">
               <span className="flex items-center gap-1.5">
                 <Compass className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>One Carry-On Bag • Zero Checked Luggage Required</span>
@@ -387,7 +387,7 @@ export default function CapsuleWardrobeSection({
             
             {/* Step 1: Select Itinerary Moment */}
             <div className="space-y-3">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#1F1E1D] font-bold block">
+              <span className="font-mono text-sm uppercase font-semibold tracking-widest text-[#1F1E1D] font-bold block">
                 Select Your Holiday Moment:
               </span>
 
@@ -422,8 +422,8 @@ export default function CapsuleWardrobeSection({
                             {look.title}
                           </div>
                           <div
-                            className={`text-[10px] font-sans truncate ${
-                              isActive ? "text-white/70" : "text-[#78716A]"
+                            className={`text-xs font-sans truncate ${
+                              isActive ? "text-white/70" : "text-charcoal-subtle"
                             }`}
                           >
                             {look.setting}
@@ -433,8 +433,8 @@ export default function CapsuleWardrobeSection({
 
                       <div className="text-right flex-shrink-0 pl-2">
                         <span
-                          className={`text-[9px] font-mono uppercase tracking-wider block ${
-                            isActive ? "text-[#C5A059]" : "text-[#78716A]"
+                          className={`text-xs font-mono uppercase tracking-wider block ${
+                            isActive ? "text-[#C5A059]" : "text-charcoal-subtle"
                           }`}
                         >
                           {look.timeOfDay}
@@ -462,7 +462,7 @@ export default function CapsuleWardrobeSection({
                     <span className="text-[#B86B4B] uppercase tracking-wider font-semibold">
                       Featured Combination ({activeLook.pieceIds.length} Pieces)
                     </span>
-                    <span className="text-[#78716A]">{activeLook.tempVibe}</span>
+                    <span className="text-charcoal-subtle">{activeLook.tempVibe}</span>
                   </div>
                   <h3 className="font-serif text-xl text-[#1F1E1D] font-normal">
                     {activeLook.title}
@@ -471,7 +471,7 @@ export default function CapsuleWardrobeSection({
 
                 {/* Stylist Quote Box */}
                 <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#DCC7AF]/60 space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#B86B4B]">
+                  <div className="flex items-center gap-1.5 text-sm font-mono uppercase font-semibold tracking-wider text-[#B86B4B]">
                     <Quote className="w-3.5 h-3.5" />
                     <span>Stylist&apos;s Advice:</span>
                   </div>
@@ -482,7 +482,7 @@ export default function CapsuleWardrobeSection({
 
                 {/* Garments in this Look with Sizing & Add */}
                 <div className="space-y-3">
-                  <span className="text-xs font-mono uppercase tracking-wider text-[#78716A] font-semibold block">
+                  <span className="text-sm font-mono uppercase font-semibold tracking-wider text-charcoal-subtle font-semibold block">
                     Pieces in This Look:
                   </span>
 
@@ -510,7 +510,7 @@ export default function CapsuleWardrobeSection({
                               <h5 className="font-serif text-sm font-medium text-[#1F1E1D] truncate">
                                 {piece.name}
                               </h5>
-                              <span className="text-[11px] font-mono text-[#78716A]">
+                              <span className="text-sm font-mono text-charcoal-subtle">
                                 ${piece.priceAud} AUD • {piece.fabric}
                               </span>
                             </div>
@@ -537,7 +537,7 @@ export default function CapsuleWardrobeSection({
 
                         {/* Size Selector Strip */}
                         <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#DCC7AF]/40 text-xs font-mono">
-                          <span className="text-[10px] text-[#78716A] uppercase">
+                          <span className="text-xs text-charcoal-subtle uppercase">
                             Size: {chosenSize}
                           </span>
                           <div className="flex gap-1">
@@ -555,10 +555,10 @@ export default function CapsuleWardrobeSection({
                                       [pieceId]: sz,
                                     }))
                                   }
-                                  className={`px-2 py-0.5 text-[10px] font-mono rounded border transition-all cursor-pointer ${
+                                  className={`px-2 py-0.5 text-xs font-mono rounded border transition-all cursor-pointer ${
                                     isSelected
                                       ? "bg-[#1F1E1D] text-white border-[#1F1E1D] font-bold"
-                                      : "bg-white text-[#78716A] border-[#DCC7AF]/60 hover:text-[#1F1E1D]"
+                                      : "bg-white text-charcoal-subtle border-[#DCC7AF]/60 hover:text-[#1F1E1D]"
                                   }`}
                                 >
                                   {short}
@@ -576,7 +576,7 @@ export default function CapsuleWardrobeSection({
                 <button
                   type="button"
                   onClick={handleAddEntireLook}
-                  className={`w-full py-3.5 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer ${
+                  className={`w-full py-3.5 rounded-full font-mono text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer ${
                     isLookAdded
                       ? "bg-[#AFC8B1] text-[#2E4A32]"
                       : "bg-[#B86B4B] hover:bg-[#9E4D30] text-white"
@@ -610,7 +610,7 @@ export default function CapsuleWardrobeSection({
             </AnimatePresence>
 
             {/* Trust Assurance Strip */}
-            <div className="flex items-center justify-between text-[11px] font-mono text-[#78716A] px-2">
+            <div className="flex items-center justify-between text-sm font-mono text-charcoal-subtle px-2">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>Free Express AU Delivery</span>

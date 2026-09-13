@@ -33,7 +33,7 @@ export default function EditorialPhilosophyBanner() {
               {/* Floating Artisan Seal Badge */}
               <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-[#141312]/85 backdrop-blur-md border border-[#C5A059]/40 flex items-center justify-between shadow-xl">
                 <div className="space-y-0.5">
-                  <span className="block text-[9px] font-mono text-[#C5A059] uppercase tracking-[0.25em] font-bold">
+                  <span className="block text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
                     Ancestral Pit-Loom
                   </span>
                   <span className="block font-serif text-sm text-white font-medium">
@@ -46,7 +46,7 @@ export default function EditorialPhilosophyBanner() {
 
             {/* Subtle floating badge behind image */}
             <div className="hidden sm:flex absolute -top-4 -left-4 w-20 h-20 rounded-full border border-dashed border-[#C5A059]/40 items-center justify-center p-2 text-center pointer-events-none rotate-[-12deg]">
-              <span className="text-[8px] font-mono uppercase tracking-widest text-[#C5A059] font-bold leading-tight">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-bold leading-tight">
                 Slow Craft
               </span>
             </div>
@@ -56,7 +56,7 @@ export default function EditorialPhilosophyBanner() {
           <div className="lg:col-span-7 space-y-8 text-left">
             
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#C5A059]/40 text-[#C5A059] text-[10px] font-mono tracking-[0.25em] uppercase font-semibold">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#C5A059]/40 text-[#C5A059] text-xs font-mono tracking-wider uppercase font-semibold">
               <Sparkles className="w-3 h-3 text-[#C5A059]" />
               <span>Atelier Philosophy • Two Islands</span>
             </div>
@@ -77,7 +77,7 @@ export default function EditorialPhilosophyBanner() {
                 <span className="block font-serif text-2xl sm:text-3xl text-[#C5A059] font-light">
                   14 Days
                 </span>
-                <span className="block text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#DCC7AF]/70 font-medium">
+                <span className="block text-xs sm:text-sm font-mono uppercase tracking-wider text-[#DCC7AF]/70 font-medium">
                   Single Bolt Weave
                 </span>
               </div>
@@ -86,7 +86,7 @@ export default function EditorialPhilosophyBanner() {
                 <span className="block font-serif text-2xl sm:text-3xl text-[#C5A059] font-light">
                   100%
                 </span>
-                <span className="block text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#DCC7AF]/70 font-medium">
+                <span className="block text-xs sm:text-sm font-mono uppercase tracking-wider text-[#DCC7AF]/70 font-medium">
                   Natural Plant Dyes
                 </span>
               </div>
@@ -95,7 +95,7 @@ export default function EditorialPhilosophyBanner() {
                 <span className="block font-serif text-2xl sm:text-3xl text-[#C5A059] font-light">
                   0%
                 </span>
-                <span className="block text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#DCC7AF]/70 font-medium">
+                <span className="block text-xs sm:text-sm font-mono uppercase tracking-wider text-[#DCC7AF]/70 font-medium">
                   Plastic Polyester
                 </span>
               </div>
@@ -105,7 +105,7 @@ export default function EditorialPhilosophyBanner() {
             <div className="pt-2">
               <Link
                 href="/craft"
-                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#C5A059] hover:text-white transition-colors group font-semibold"
+                className="inline-flex items-center gap-2 text-sm font-mono uppercase font-semibold tracking-[0.2em] text-[#C5A059] hover:text-white transition-colors group font-semibold"
               >
                 <span>Read the Weaver&apos;s Guild Chronicle</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

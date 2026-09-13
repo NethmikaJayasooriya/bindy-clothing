@@ -12,7 +12,7 @@ export default function SocialProofStrip() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 1. Aggregate Rating Banner */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block">
+          <span className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold block">
             Community & Recognition
           </span>
 
@@ -24,7 +24,7 @@ export default function SocialProofStrip() {
             </div>
             <span className="text-xs font-sans text-charcoal font-semibold">
               {averageRating} ★{" "}
-              <span className="text-muted font-normal">
+              <span className="text-charcoal-subtle font-normal">
                 · Based on {totalReviews} verified customer reviews
               </span>
             </span>
@@ -47,10 +47,10 @@ export default function SocialProofStrip() {
                 &ldquo;{item.quote}&rdquo;
               </blockquote>
               <div className="pt-3 border-t border-sand/30">
-                <h4 className="font-sans uppercase text-[11px] tracking-[0.2em] text-gold font-semibold">
+                <h4 className="font-sans uppercase text-sm tracking-[0.2em] text-gold font-semibold">
                   {item.publication}
                 </h4>
-                <p className="text-[10px] font-sans text-muted">{item.location}</p>
+                <p className="text-xs font-sans text-charcoal-subtle">{item.location}</p>
               </div>
             </div>
           ))}
@@ -60,7 +60,7 @@ export default function SocialProofStrip() {
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-semibold">
+              <div className="flex items-center gap-2 text-sm font-sans uppercase font-semibold tracking-[0.3em] text-gold font-semibold">
                 <Camera className="w-3.5 h-3.5 text-gold" />
                 <span>#BindyJourneys</span>
               </div>
@@ -72,7 +72,7 @@ export default function SocialProofStrip() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-sans uppercase tracking-[0.2em] text-charcoal hover:text-gold transition-colors font-semibold"
+              className="text-sm font-sans uppercase font-semibold tracking-[0.2em] text-charcoal hover:text-gold transition-colors font-semibold"
             >
               Follow @bindyclothing →
             </a>
@@ -91,22 +91,22 @@ export default function SocialProofStrip() {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-3.5 flex flex-col justify-between text-white">
-                  <div className="flex items-center justify-between text-[10px] font-sans">
+                  <div className="flex items-center justify-between text-xs font-sans">
                     <span className="font-medium text-gold">{post.handle}</span>
-                    <span className="flex items-center gap-1 text-[9px]">
+                    <span className="flex items-center gap-1 text-xs">
                       <Heart className="w-3 h-3 fill-gold text-gold" />
                       {post.likes}
                     </span>
                   </div>
 
                   <div>
-                    <span className="text-[9px] uppercase tracking-wider text-sand/80 block">
+                    <span className="text-xs uppercase tracking-wider text-sand/80 block">
                       {post.garment}
                     </span>
-                    <p className="text-[10px] font-serif italic text-white/90 line-clamp-3 mt-1">
+                    <p className="text-xs font-serif italic text-white/90 line-clamp-3 mt-1">
                       &ldquo;{post.caption}&rdquo;
                     </p>
-                    <span className="text-[9px] text-muted block mt-1">
+                    <span className="text-xs text-charcoal-subtle block mt-1">
                       {post.location}
                     </span>
                   </div>

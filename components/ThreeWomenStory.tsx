@@ -56,13 +56,13 @@ export default function ThreeWomenStory() {
     <section id="about" className="py-24 sm:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Editorial Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-24 space-y-4">
-        <span className="text-[11px] font-sans uppercase tracking-[0.4em] text-gold font-medium">
+        <span className="text-sm font-sans uppercase tracking-[0.4em] text-gold font-medium">
           Our Origin • Three Women
         </span>
         <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal font-light tracking-wide">
           Three Women. <span className="italic font-serif">One Vision.</span>
         </h2>
-        <p className="font-serif italic text-base sm:text-lg text-muted font-light leading-relaxed">
+        <p className="font-serif italic text-base sm:text-lg text-charcoal-subtle font-light leading-relaxed">
           What began as one woman’s dream evolved into a shared journey between a mother and her two daughters, united by a passion for ethical slow fashion.
         </p>
       </div>
@@ -85,7 +85,7 @@ export default function ThreeWomenStory() {
                   <span className="font-display text-4xl sm:text-5xl text-gold tracking-wide font-normal select-none">
                     {person.monogram}
                   </span>
-                  <span className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase font-medium">
+                  <span className="font-mono text-xs tracking-[0.3em] text-charcoal-subtle uppercase font-medium">
                     {person.number} / 03
                   </span>
                 </div>
@@ -96,7 +96,7 @@ export default function ThreeWomenStory() {
                   <h3 className="font-serif text-2xl sm:text-3xl text-charcoal-rich font-medium tracking-wide leading-snug">
                     {person.name}
                   </h3>
-                  <p className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.28em] text-gold font-semibold mt-1">
+                  <p className="text-xs sm:text-sm font-sans uppercase tracking-wider text-gold font-semibold mt-1">
                     {person.role}
                   </p>
                 </div>
@@ -104,7 +104,7 @@ export default function ThreeWomenStory() {
 
               {/* 2. Emotional Centerpiece: Pull-Quote */}
               <div className="space-y-4 my-auto py-2">
-                <blockquote className="font-editorial-italic text-base sm:text-lg text-charcoal font-light leading-relaxed border-l-2 border-gold/60 pl-4 py-1">
+                <blockquote className="font-serif text-base sm:text-lg text-charcoal font-light leading-relaxed border-l-2 border-gold/60 pl-4 py-1">
                   &ldquo;{person.quote}&rdquo;
                 </blockquote>
                 <p className="font-sans text-xs sm:text-[13px] text-charcoal/85 font-light leading-relaxed">
@@ -114,7 +114,7 @@ export default function ThreeWomenStory() {
 
               {/* 3. Unboxed Editorial Focus Tags */}
               <div className="pt-6 border-t border-sand/30 space-y-2">
-                <span className="text-[9px] uppercase font-sans tracking-[0.28em] text-muted block font-semibold">
+                <span className="text-xs uppercase font-sans tracking-wider text-charcoal-subtle block font-semibold">
                   Focus Areas
                 </span>
                 <div className="text-xs font-sans text-charcoal font-light flex flex-wrap gap-x-2.5 gap-y-1">
@@ -122,7 +122,7 @@ export default function ThreeWomenStory() {
                     <span key={i} className="inline-flex items-center gap-2">
                       <span className="font-medium text-charcoal/90">{f}</span>
                       {i < person.focus.length - 1 && (
-                        <span className="text-gold/60 text-[10px]">•</span>
+                        <span className="text-gold/60 text-xs">•</span>
                       )}
                     </span>
                   ))}

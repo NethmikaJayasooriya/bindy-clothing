@@ -99,12 +99,12 @@ export default function CartDrawer({
               {/* Items List */}
               <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-4">
                 {items.length === 0 ? (
-                  <div className="h-full flex flex-col items-center justify-center text-center space-y-4 text-muted">
+                  <div className="h-full flex flex-col items-center justify-center text-center space-y-4 text-charcoal-subtle">
                     <ShoppingBag className="w-12 h-12 stroke-[1] text-gold" />
                     <p className="font-serif text-lg text-charcoal">Your bag is currently empty.</p>
                     <button
                       onClick={onClose}
-                      className="px-6 py-2.5 rounded-full border border-sand/60 text-xs font-sans uppercase tracking-widest text-charcoal hover:border-gold hover:text-gold transition-colors cursor-pointer"
+                      className="px-6 py-2.5 rounded-full border border-sand/60 text-sm font-sans uppercase font-semibold tracking-widest text-charcoal hover:border-gold hover:text-gold transition-colors cursor-pointer"
                     >
                       Discover Collection 01
                     </button>
@@ -125,7 +125,7 @@ export default function CartDrawer({
                           <h4 className="font-serif text-base text-charcoal font-medium">
                             {item.product.name}
                           </h4>
-                          <p className="text-[11px] font-sans text-muted">
+                          <p className="text-sm font-sans text-charcoal-subtle">
                             Size: {item.size} • {item.product.colorName}
                           </p>
                           <p className="font-serif text-sm font-semibold text-charcoal mt-0.5">
@@ -137,14 +137,14 @@ export default function CartDrawer({
                           <div className="flex items-center space-x-2 border border-sand/40 bg-paper-light rounded-lg px-2 py-0.5 text-xs text-charcoal">
                             <button
                               onClick={() => onUpdateQuantity(item.product.id, item.size, -1)}
-                              className="px-1 text-muted hover:text-charcoal cursor-pointer"
+                              className="px-1 text-charcoal-subtle hover:text-charcoal cursor-pointer"
                             >
                               -
                             </button>
                             <span className="px-1 font-mono font-medium">{item.quantity}</span>
                             <button
                               onClick={() => onUpdateQuantity(item.product.id, item.size, 1)}
-                              className="px-1 text-muted hover:text-charcoal cursor-pointer"
+                              className="px-1 text-charcoal-subtle hover:text-charcoal cursor-pointer"
                             >
                               +
                             </button>
@@ -152,7 +152,7 @@ export default function CartDrawer({
 
                           <button
                             onClick={() => onRemoveItem(item.product.id, item.size)}
-                            className="text-muted hover:text-terracotta transition-colors p-1 cursor-pointer"
+                            className="text-charcoal-subtle hover:text-terracotta transition-colors p-1 cursor-pointer"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -167,20 +167,20 @@ export default function CartDrawer({
               {items.length > 0 && (
                 <div className="p-6 border-t border-sand/30 space-y-4 bg-paper-light">
                   <div className="flex items-center justify-between font-serif text-lg">
-                    <span className="text-muted">Subtotal:</span>
+                    <span className="text-charcoal-subtle">Subtotal:</span>
                     <span className="text-xl font-bold text-charcoal">
                       ${subtotal} AUD
                     </span>
                   </div>
 
-                  <p className="text-[11px] font-sans text-muted text-center">
+                  <p className="text-sm font-sans text-charcoal-subtle text-center">
                     Taxes & shipping calculated at checkout. Small batch ethical guarantee.
                   </p>
 
                   <Link
                     href="/checkout"
                     onClick={onClose}
-                    className="w-full py-4 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl cursor-pointer"
+                    className="w-full py-4 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl cursor-pointer"
                   >
                     <span>Proceed to Checkout</span>
                     <ArrowRight className="w-4 h-4" />

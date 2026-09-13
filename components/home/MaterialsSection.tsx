@@ -27,7 +27,7 @@ export default function MaterialsSection() {
               className="p-6 sm:p-7 rounded-3xl bg-paper-light border border-sand/40 hover:border-gold/70 transition-all duration-300 shadow-paper-card hover:shadow-luxury flex flex-col justify-between space-y-4"
             >
               <div className="space-y-3">
-                <span className="text-[9px] uppercase font-sans tracking-[0.22em] px-3 py-1 rounded-full bg-gold/15 text-charcoal font-semibold inline-block border border-gold/25">
+                <span className="text-xs uppercase font-sans tracking-wider px-3 py-1 rounded-full bg-gold/15 text-charcoal font-semibold inline-block border border-gold/25">
                   {mat.badge}
                 </span>
 
@@ -35,7 +35,7 @@ export default function MaterialsSection() {
                   {mat.title}
                 </h3>
 
-                <p className="text-xs font-sans text-muted font-light">
+                <p className="text-xs font-sans text-charcoal-subtle font-light">
                   {mat.subtitle}
                 </p>
 
@@ -44,7 +44,7 @@ export default function MaterialsSection() {
                 </p>
               </div>
 
-              <div className="pt-2 text-[10px] font-sans text-gold font-medium uppercase tracking-wider">
+              <div className="pt-2 text-xs font-sans text-gold font-medium uppercase tracking-wider">
                 {mat.origin}
               </div>
             </div>
@@ -58,10 +58,10 @@ export default function MaterialsSection() {
               <span className="font-serif text-3xl sm:text-4xl text-gold font-light">
                 {p.stat}
               </span>
-              <h4 className="text-xs font-sans uppercase tracking-wider text-charcoal font-semibold">
+              <h4 className="text-sm font-sans uppercase font-semibold tracking-wider text-charcoal font-semibold">
                 {p.title}
               </h4>
-              <p className="text-[11px] font-sans text-muted font-light max-w-[200px] mx-auto">
+              <p className="text-sm font-sans text-charcoal-subtle font-light max-w-[200px] mx-auto">
                 {p.desc}
               </p>
             </div>
@@ -79,7 +79,7 @@ export default function MaterialsSection() {
               Learn About Our Fabrics & Artisan Process
             </Button>
           </Link>
-          <p className="text-xs font-sans text-muted font-light">
+          <p className="text-xs font-sans text-charcoal-subtle font-light">
             Read our sourcing standards, weaver fair wages, and natural plant-dyeing methods.
           </p>
         </div>

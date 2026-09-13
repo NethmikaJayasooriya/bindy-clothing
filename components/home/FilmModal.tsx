@@ -58,7 +58,7 @@ export default function FilmModal({ isOpen, onClose }: FilmModalProps) {
             {/* Top Bar */}
             <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between p-4 sm:p-6 bg-gradient-to-b from-black/80 to-transparent">
               <div className="space-y-0.5">
-                <div className="flex items-center gap-2 text-[10px] font-sans uppercase tracking-[0.3em] text-gold font-medium">
+                <div className="flex items-center gap-2 text-sm font-sans uppercase font-semibold tracking-[0.3em] text-gold font-medium">
                   <Sparkles className="w-3 h-3 text-gold" />
                   <span>Cinematic Short Film</span>
                 </div>
@@ -105,11 +105,11 @@ export default function FilmModal({ isOpen, onClose }: FilmModalProps) {
 
             {/* Bottom Caption */}
             <div className="p-4 sm:p-5 bg-charcoal-rich border-t border-sand/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-sand/80 font-sans">
-              <div className="flex items-center gap-2 text-[11px] tracking-wide">
+              <div className="flex items-center gap-2 text-sm tracking-wide">
                 <MapPin className="w-3.5 h-3.5 text-gold shrink-0" />
                 <span>Filmed on 35mm in Anuradhapura, Galle Fort & Brisbane</span>
               </div>
-              <p className="text-[11px] font-serif italic text-sand/60">
+              <p className="text-sm font-serif italic text-sand/60">
                 Direction by Vinudhi Ranasinghe · Soundscape by Sri Lankan Artisan Looms
               </p>
             </div>

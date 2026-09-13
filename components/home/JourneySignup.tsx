@@ -51,7 +51,7 @@ export default function JourneySignup() {
                 <blockquote className="font-serif italic text-base sm:text-lg text-[#DCC7AF] font-light leading-relaxed">
                   &ldquo;A living thread between two islands, woven at the pace of calm.&rdquo;
                 </blockquote>
-                <span className="block text-[10px] font-mono uppercase tracking-[0.25em] text-[#C5A059] mt-2 font-semibold">
+                <span className="block text-sm font-mono uppercase font-semibold tracking-wider text-[#C5A059] mt-2 font-semibold">
                   Two Islands • One Thread
                 </span>
               </div>
@@ -60,7 +60,7 @@ export default function JourneySignup() {
             {/* Right Column: High-Converting VIP Privilege Box */}
             <div className="lg:col-span-7 p-8 sm:p-12 lg:p-14 flex flex-col justify-center space-y-6">
               <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-[#C5A059]/40 text-[#C5A059] text-[10px] font-mono tracking-[0.25em] uppercase font-semibold">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-[#C5A059]/40 text-[#C5A059] text-xs font-mono tracking-wider uppercase font-semibold">
                   <Gift className="w-3.5 h-3.5 text-[#C5A059]" />
                   <span>First-Order Invitation</span>
                 </div>
@@ -76,7 +76,7 @@ export default function JourneySignup() {
 
               {submitted ? (
                 <div className="p-6 rounded-2xl bg-white/[0.05] border border-[#C5A059]/60 text-white space-y-4 animate-in fade-in zoom-in-95 duration-300">
-                  <div className="flex items-center gap-2 text-[#AFC8B1] font-mono text-xs uppercase tracking-wider font-semibold">
+                  <div className="flex items-center gap-2 text-[#AFC8B1] font-mono text-sm uppercase font-semibold tracking-wider font-semibold">
                     <Check className="w-4 h-4 text-[#AFC8B1]" />
                     <span>Welcome. Your 10% Privilege Is Active</span>
                   </div>
@@ -84,7 +84,7 @@ export default function JourneySignup() {
                   {/* Copyable Code Box */}
                   <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#0E0D0C] border border-[#C5A059]/50">
                     <div className="space-y-0.5">
-                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#DCC7AF]/60 block">
+                      <span className="text-xs font-mono uppercase tracking-widest text-[#DCC7AF]/60 block">
                         VIP Checkout Code
                       </span>
                       <span className="font-mono text-xl sm:text-2xl font-bold tracking-[0.15em] text-[#C5A059]">
@@ -95,7 +95,7 @@ export default function JourneySignup() {
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="px-4 py-2 rounded-lg bg-[#C5A059] text-[#161513] font-mono text-xs uppercase tracking-wider font-bold hover:bg-[#E2C78E] transition-all flex items-center gap-1.5 cursor-pointer"
+                      className="px-4 py-2 rounded-lg bg-[#C5A059] text-[#161513] font-mono text-sm uppercase font-semibold tracking-wider font-bold hover:bg-[#E2C78E] transition-all flex items-center gap-1.5 cursor-pointer"
                     >
                       {copied ? (
                         <>
@@ -115,12 +115,12 @@ export default function JourneySignup() {
                     <button
                       type="button"
                       onClick={handleScrollToCollection}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#161513] font-mono text-xs uppercase tracking-wider font-bold hover:bg-[#C5A059] transition-colors cursor-pointer shadow-md"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#161513] font-mono text-sm uppercase font-semibold tracking-wider font-bold hover:bg-[#C5A059] transition-colors cursor-pointer shadow-md"
                     >
                       <ArrowUp className="w-3.5 h-3.5" />
                       <span>Shop Now with 10% Off</span>
                     </button>
-                    <span className="text-[11px] font-mono text-[#DCC7AF]/70">
+                    <span className="text-sm font-mono text-[#DCC7AF]/70">
                       Applied automatically at checkout
                     </span>
                   </div>
@@ -141,12 +141,12 @@ export default function JourneySignup() {
                     </div>
                     <button
                       type="submit"
-                      className="px-7 py-3.5 rounded-full bg-[#C5A059] text-[#161513] font-mono text-xs uppercase tracking-[0.18em] font-bold hover:bg-[#E2C78E] transition-all shadow-md cursor-pointer shrink-0"
+                      className="px-7 py-3.5 rounded-full bg-[#C5A059] text-[#161513] font-mono text-sm uppercase font-semibold tracking-[0.18em] font-bold hover:bg-[#E2C78E] transition-all shadow-md cursor-pointer shrink-0"
                     >
                       Claim 10% Code
                     </button>
                   </div>
-                  <p className="text-[10px] font-mono text-[#DCC7AF]/60 tracking-wider">
+                  <p className="text-xs font-mono text-[#DCC7AF]/60 tracking-wider">
                     Instant voucher code revealed upon submission • Valid across all pieces
                   </p>
                 </form>

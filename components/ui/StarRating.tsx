@@ -63,7 +63,7 @@ export default function StarRating({
       )}
 
       {typeof count === "number" && (
-        <span className="text-[11px] font-sans text-muted font-normal">
+        <span className="text-sm font-sans text-charcoal-subtle font-normal">
           ({count})
         </span>
       )}

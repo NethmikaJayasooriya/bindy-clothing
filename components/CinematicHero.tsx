@@ -783,19 +783,19 @@ export default function CinematicHero({
                   }`}
                 >
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-[9px] sm:text-[10px] font-sans uppercase tracking-[0.2em] text-[#C5A059] font-bold truncate">
+                    <span className="text-xs sm:text-sm font-sans uppercase font-semibold tracking-[0.2em] text-[#C5A059] font-bold truncate">
                       {activeLook.name}
                     </span>
-                    <span className="font-mono text-[9px] sm:text-[10px] text-[#FAF7F2] font-semibold flex-shrink-0">
+                    <span className="font-mono text-xs sm:text-xs text-[#FAF7F2] font-semibold flex-shrink-0">
                       ${activeLook.priceAud} AUD
                     </span>
                   </div>
                   <div className="flex items-center justify-between mt-0.5">
-                    <span className="text-[8px] sm:text-[9px] text-[#DCC7AF]/90 truncate font-light">
+                    <span className="text-xs sm:text-xs text-[#DCC7AF]/90 truncate font-light">
                       {activeLook.origin} • {activeLook.category}
                     </span>
                     <span
-                      className={`text-[8px] sm:text-[9px] font-sans tracking-wider uppercase text-[#FAF7F2] font-semibold inline-flex items-center gap-0.5 transition-opacity ${
+                      className={`text-xs sm:text-xs font-sans tracking-wider uppercase text-[#FAF7F2] font-semibold inline-flex items-center gap-0.5 transition-opacity ${
                         isHovered ? "opacity-100" : "opacity-0"
                       }`}
                     >
@@ -846,7 +846,7 @@ export default function CinematicHero({
                   key={col.id}
                   type="button"
                   onClick={() => transitionToSection(cIdx, 0)}
-                  className={`relative px-3.5 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.22em] font-medium transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
+                  className={`relative px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-sans uppercase tracking-wider font-medium transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
                     isColActive
                       ? "bg-[#C5A059] text-black font-bold shadow-[0_2px_12px_rgba(197,160,89,0.4)]"
                       : "text-[#DCC7AF]/80 hover:text-white hover:bg-white/10"
@@ -880,7 +880,7 @@ export default function CinematicHero({
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 8 }}
                   transition={{ duration: 0.25 }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-[#C5A059]/50 text-[#FAF7F2] text-[10px] sm:text-xs font-sans uppercase font-bold tracking-[0.2em] shadow-md"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-[#C5A059]/50 text-[#FAF7F2] text-xs sm:text-sm font-sans uppercase font-semibold font-bold tracking-[0.2em] shadow-md"
                 >
                   <Tag className="w-3 h-3 text-[#C5A059]" />
                   <span>{currentCampaign.tag}</span>
@@ -953,7 +953,7 @@ export default function CinematicHero({
               <a
                 href={currentCampaign.primaryCtaHref}
                 onClick={onExploreCollection}
-                className="group/btn inline-flex items-center justify-center space-x-2.5 px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-[#C5A059] hover:bg-[#FAF7F2] text-black font-sans text-xs uppercase tracking-[0.25em] font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.45)] hover:shadow-[0_8px_35px_rgba(255,255,255,0.5)] hover:scale-[1.02] cursor-pointer"
+                className="group/btn inline-flex items-center justify-center space-x-2.5 px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-[#C5A059] hover:bg-[#FAF7F2] text-black font-sans text-sm uppercase font-semibold tracking-wider font-bold transition-all duration-300 shadow-[0_6px_30px_rgba(197,160,89,0.45)] hover:shadow-[0_8px_35px_rgba(255,255,255,0.5)] hover:scale-[1.02] cursor-pointer"
               >
                 <span>{currentCampaign.primaryCtaText}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1.5 transition-transform duration-300" />
@@ -963,7 +963,7 @@ export default function CinematicHero({
               <a
                 href={currentCampaign.secondaryCtaHref}
                 onClick={onExploreCollection}
-                className="inline-flex items-center justify-center space-x-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white hover:text-[#C5A059] font-sans text-xs uppercase tracking-[0.22em] font-semibold transition-all duration-300 border border-white/25 hover:border-[#C5A059] cursor-pointer"
+                className="inline-flex items-center justify-center space-x-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white hover:text-[#C5A059] font-sans text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 border border-white/25 hover:border-[#C5A059] cursor-pointer"
               >
                 <span>{currentCampaign.secondaryCtaText}</span>
               </a>
@@ -976,11 +976,11 @@ export default function CinematicHero({
                 title="Click to copy discount code"
               >
                 <Tag className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span className="text-[11px] sm:text-xs font-mono uppercase text-[#DCC7AF]">
+                <span className="text-sm sm:text-sm font-mono uppercase font-semibold text-[#DCC7AF]">
                   Code: <strong className="text-white font-bold">{currentCampaign.promoCode}</strong>
                 </span>
                 {copiedCode === currentCampaign.promoCode ? (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400 font-bold pl-1">
+                  <span className="inline-flex items-center gap-1 text-sm font-mono text-emerald-400 font-bold pl-1">
                     <Check className="w-3 h-3" /> Copied
                   </span>
                 ) : (
@@ -1057,7 +1057,7 @@ export default function CinematicHero({
                       {/* Number Badge Overlay on inactive cards */}
                       {!isActive && (
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                          <span className="font-mono text-[9px] text-[#FAF7F2] font-bold">
+                          <span className="font-mono text-xs text-[#FAF7F2] font-bold">
                             {scene.num}
                           </span>
                         </div>
@@ -1075,14 +1075,14 @@ export default function CinematicHero({
                           className="overflow-hidden whitespace-nowrap pl-2 flex flex-col items-start text-left"
                         >
                           <div className="flex items-center gap-1">
-                            <span className="font-mono text-[9px] text-[#C5A059] font-bold leading-none">
+                            <span className="font-mono text-xs text-[#C5A059] font-bold leading-none">
                               {scene.num}
                             </span>
-                            <span className="text-[10px] font-sans uppercase tracking-[0.18em] text-[#FAF7F2] font-bold leading-none">
+                            <span className="text-sm font-sans uppercase font-semibold tracking-[0.18em] text-[#FAF7F2] font-bold leading-none">
                               {scene.name}
                             </span>
                           </div>
-                          <span className="text-[8px] font-sans uppercase tracking-wider text-[#DCC7AF]/80 leading-none pt-0.5">
+                          <span className="text-xs font-sans uppercase tracking-wider text-[#DCC7AF]/80 leading-none pt-0.5">
                             {scene.subtitle}
                           </span>
 
@@ -1138,7 +1138,7 @@ export default function CinematicHero({
             initial={{ opacity: 0, x: 15 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="hidden lg:flex items-center gap-3 pb-1 text-[10px] font-sans uppercase tracking-[0.35em] text-[#DCC7AF]/70 font-light select-none"
+            className="hidden lg:flex items-center gap-3 pb-1 text-sm font-sans uppercase font-semibold tracking-wider text-[#DCC7AF]/70 font-light select-none"
           >
             <span>Scroll to Discover</span>
             <div className="w-4 h-8 rounded-full border border-[#DCC7AF]/40 flex items-start justify-center p-0.5">

@@ -100,7 +100,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
               <path d="M12 21C17 19 21 15 21 11C21 8 19 6 18 5C18 5 18 10 12 14" />
             </svg>
           </div>
-          <span className="text-[10px] sm:text-[11px] font-sans tracking-[0.35em] text-[#C5A059] uppercase block text-center pl-[0.35em] font-semibold">
+          <span className="text-xs sm:text-sm font-sans tracking-wider text-[#C5A059] uppercase block text-center pl-[0.35em] font-semibold">
             Collection 01 • Origins
           </span>
         </motion.div>
@@ -116,7 +116,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           <p className="mt-4 font-serif italic text-lg sm:text-2xl text-charcoal/85 tracking-wide font-light text-center">
             Wear Your Calm, Feel Your Story
           </p>
-          <p className="mt-2 text-[11px] sm:text-[12px] font-sans uppercase tracking-[0.4em] pl-[0.4em] text-muted text-center font-medium">
+          <p className="mt-2 text-sm sm:text-[12px] font-sans uppercase tracking-[0.4em] pl-[0.4em] text-charcoal-subtle text-center font-medium">
             Two Islands • One Thread
           </p>
         </motion.div>
@@ -157,7 +157,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           </svg>
 
           {/* Symmetrically balanced status row */}
-          <div className="grid grid-cols-3 w-full px-1 text-[10px] sm:text-[11px] font-sans tracking-[0.25em] text-charcoal/70 uppercase mt-1 font-medium">
+          <div className="grid grid-cols-3 w-full px-1 text-xs sm:text-sm font-sans tracking-wider text-charcoal/70 uppercase mt-1 font-medium">
             <span className="text-left">Weaving</span>
             <span className="text-center text-[#C5A059] font-mono font-bold">{progress}%</span>
             <span className="text-right">Heritage</span>
@@ -176,7 +176,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
             disabled={!isReady && progress < 30}
             className="group relative px-8 py-3.5 rounded-full border border-[#C5A059]/60 bg-[#FFFDF9] hover:bg-[#C5A059] transition-all duration-500 shadow-md hover:shadow-lg flex items-center space-x-3 cursor-pointer mx-auto"
           >
-            <span className="text-xs uppercase font-sans tracking-[0.35em] pl-[0.35em] text-charcoal group-hover:text-charcoal transition-colors duration-300 font-semibold">
+            <span className="text-sm uppercase font-semibold font-sans tracking-wider pl-[0.35em] text-charcoal group-hover:text-charcoal transition-colors duration-300 font-semibold">
               {isReady ? "Unveil Experience" : "Unravelling Thread..."}
             </span>
             <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] group-hover:text-charcoal group-hover:translate-x-1.5 transition-transform duration-300" />
@@ -184,7 +184,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         </motion.div>
 
         {/* Footer Credit & Origin - Symmetrically Centered */}
-        <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center space-x-4 text-[10px] uppercase font-sans tracking-[0.3em] pl-[0.3em] text-muted font-medium">
+        <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center space-x-4 text-sm uppercase font-semibold font-sans tracking-[0.3em] pl-[0.3em] text-charcoal-subtle font-medium">
           <span>Designed in Australia</span>
           <span className="text-[#C5A059]">•</span>
           <span>Inspired by Sri Lanka</span>

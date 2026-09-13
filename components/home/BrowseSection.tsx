@@ -75,15 +75,15 @@ export default function BrowseSection({
                   setActiveCollection(col.key as any);
                   setVisibleCount(12);
                 }}
-                className={`relative px-4 sm:px-5 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none ${
+                className={`relative px-4 sm:px-5 py-2 rounded-full text-sm font-mono uppercase font-semibold tracking-wider transition-all duration-300 border cursor-pointer select-none ${
                   active
                     ? "bg-[#1F1E1D] text-white border-[#1F1E1D] shadow-md font-semibold"
-                    : "bg-white/80 text-[#78716A] border-[#DCC7AF]/60 hover:text-[#1F1E1D] hover:border-[#1F1E1D]"
+                    : "bg-white/80 text-charcoal-subtle border-[#DCC7AF]/60 hover:text-[#1F1E1D] hover:border-[#1F1E1D]"
                 }`}
               >
                 <span>{col.label}</span>
                 {col.isNew && (
-                  <span className="ml-1.5 px-1.5 py-0.2 text-[9px] rounded-full bg-[#C5A059] text-white font-bold">
+                  <span className="ml-1.5 px-1.5 py-0.2 text-xs rounded-full bg-[#C5A059] text-white font-bold">
                     NEW
                   </span>
                 )}
@@ -95,7 +95,7 @@ export default function BrowseSection({
         {/* Active Journey Filter Chip (if selected from Journey Tiles) */}
         {selectedJourney !== "All" && (
           <div className="flex items-center justify-center gap-2 mb-6">
-            <span className="text-xs font-sans text-muted">Filtered by journey:</span>
+            <span className="text-xs font-sans text-charcoal-subtle">Filtered by journey:</span>
             <span className="inline-flex items-center gap-2 bg-gold/15 border border-gold/30 px-3.5 py-1 rounded-full text-xs font-sans font-semibold text-charcoal">
               <span>{selectedJourney}</span>
               <button
@@ -150,7 +150,7 @@ export default function BrowseSection({
             <p className="font-serif italic text-xl text-charcoal">
               Your story hasn&apos;t started here yet.
             </p>
-            <p className="text-xs font-sans text-muted">
+            <p className="text-xs font-sans text-charcoal-subtle">
               No pieces match this category and journey combination. Try selecting All to explore our complete collection.
             </p>
             <div className="pt-2">

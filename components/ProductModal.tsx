@@ -90,10 +90,10 @@ export default function ProductModal({
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute top-4 left-4 flex flex-col gap-2">
-              <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] uppercase tracking-[0.2em] text-[#FAF7F2] border border-white/20">
+              <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-sm uppercase font-semibold tracking-[0.2em] text-[#FAF7F2] border border-white/20">
                 {product.category}
               </span>
-              <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] uppercase tracking-[0.2em] text-[#1F1E1D] font-medium shadow-sm border border-sand/30">
+              <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-sm uppercase font-semibold tracking-[0.2em] text-[#1F1E1D] font-medium shadow-sm border border-sand/30">
                 {product.storyPlace}
               </span>
             </div>
@@ -117,7 +117,7 @@ export default function ProductModal({
           <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div>
-                <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-[#C5A059] font-semibold mb-1">
+                <p className="text-sm font-sans uppercase font-semibold tracking-[0.3em] text-[#C5A059] font-semibold mb-1">
                   {product.story}
                 </p>
                 <div className="flex items-start justify-between gap-3">
@@ -129,7 +129,7 @@ export default function ProductModal({
                     className={`p-2 rounded-full border transition-colors cursor-pointer flex-shrink-0 ${
                       isInWishlist(product.id)
                         ? "border-gold bg-gold/15 text-gold"
-                        : "border-sand/40 text-muted hover:border-gold hover:text-gold"
+                        : "border-sand/40 text-charcoal-subtle hover:border-gold hover:text-gold"
                     }`}
                     title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
                     aria-label="Wishlist toggle"
@@ -143,11 +143,11 @@ export default function ProductModal({
               </div>
 
               <div className="space-y-1.5 text-xs">
-                <p className="text-muted">
+                <p className="text-charcoal-subtle">
                   <span className="font-medium text-charcoal">Fabric: </span>
                   {product.fabric}
                 </p>
-                <p className="text-muted">
+                <p className="text-charcoal-subtle">
                   <span className="font-medium text-charcoal">Color: </span>
                   {product.colorName}
                 </p>
@@ -160,7 +160,7 @@ export default function ProductModal({
               <Link
                 href={`/product/${product.id}`}
                 onClick={onClose}
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-[0.2em] text-[#C5A059] hover:text-[#A46446] font-semibold transition-colors pt-0.5"
+                className="inline-flex items-center gap-1.5 text-sm font-sans uppercase font-semibold tracking-[0.2em] text-[#C5A059] hover:text-[#A46446] font-semibold transition-colors pt-0.5"
               >
                 <span>View Full Piece & Heritage Story</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -169,12 +169,12 @@ export default function ProductModal({
               {/* Size Selector */}
               <div className="pt-2">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-[11px] font-sans uppercase tracking-wider text-charcoal font-medium">
+                  <span className="text-sm font-sans uppercase tracking-wider text-charcoal font-medium">
                     Select AU Size:
                   </span>
                   <button
                     onClick={() => setShowSizeGuide(true)}
-                    className="text-[11px] font-sans text-gold hover:underline cursor-pointer font-medium"
+                    className="text-sm font-sans text-gold hover:underline cursor-pointer font-medium"
                   >
                     Size Guide
                   </button>
@@ -203,9 +203,9 @@ export default function ProductModal({
               <button
                 onClick={handleAdd}
                 disabled={!selectedSize}
-                className={`w-full py-3.5 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
+                className={`w-full py-3.5 rounded-full font-sans text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
                   !selectedSize
-                    ? "bg-sand/20 text-muted border border-sand/30 cursor-not-allowed"
+                    ? "bg-sand/20 text-charcoal-subtle border border-sand/30 cursor-not-allowed"
                     : "bg-gold hover:bg-cinnamon text-charcoal hover:text-white shadow-xl cursor-pointer"
                 }`}
               >
@@ -227,9 +227,9 @@ export default function ProductModal({
               <button
                 onClick={handleBuyNow}
                 disabled={!selectedSize}
-                className={`w-full py-3.5 rounded-full font-sans text-xs uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border ${
+                className={`w-full py-3.5 rounded-full font-sans text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border ${
                   !selectedSize
-                    ? "bg-transparent text-muted/60 border-sand/30 cursor-not-allowed"
+                    ? "bg-transparent text-charcoal-subtle/60 border-sand/30 cursor-not-allowed"
                     : "bg-transparent border-gold text-gold hover:bg-gold hover:text-charcoal shadow-md cursor-pointer"
                 }`}
               >

@@ -113,7 +113,7 @@ export default function CategoryStoryBar({
 
                   {/* Special Badge on Bubble */}
                   {story.badge && (
-                    <span className="absolute bottom-0 inset-x-0 bg-[#B86B4B] text-white text-[8px] font-mono uppercase tracking-widest text-center py-0.5 font-bold flex items-center justify-center gap-0.5">
+                    <span className="absolute bottom-0 inset-x-0 bg-[#B86B4B] text-white text-xs font-mono uppercase tracking-widest text-center py-0.5 font-bold flex items-center justify-center gap-0.5">
                       <Flame className="w-2.5 h-2.5 fill-white" />
                       {story.badge}
                     </span>
@@ -123,10 +123,10 @@ export default function CategoryStoryBar({
                 {/* Micro Count Pill */}
                 {story.count !== undefined && (
                   <span
-                    className={`absolute -top-1 -right-1 px-1.5 py-0.2 text-[9px] font-mono rounded-full border shadow-sm ${
+                    className={`absolute -top-1 -right-1 px-1.5 py-0.2 text-xs font-mono rounded-full border shadow-sm ${
                       isActive
                         ? "bg-[#1F1E1D] text-white border-[#C5A059]"
-                        : "bg-white text-[#78716A] border-[#DCC7AF]"
+                        : "bg-white text-charcoal-subtle border-[#DCC7AF]"
                     }`}
                   >
                     {story.count}
@@ -137,10 +137,10 @@ export default function CategoryStoryBar({
               {/* Story Title */}
               <div className="text-center">
                 <span
-                  className={`text-[11px] sm:text-xs font-serif transition-colors block leading-tight ${
+                  className={`text-sm sm:text-xs font-serif transition-colors block leading-tight ${
                     isActive
                       ? "text-[#1F1E1D] font-bold underline underline-offset-4 decoration-[#C5A059]"
-                      : "text-[#78716A] group-hover:text-[#1F1E1D] font-medium"
+                      : "text-charcoal-subtle group-hover:text-[#1F1E1D] font-medium"
                   }`}
                 >
                   {story.name}

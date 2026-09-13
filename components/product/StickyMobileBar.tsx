@@ -64,7 +64,7 @@ export default function StickyMobileBar({
           <select
             value={selectedSize || ""}
             onChange={(e) => onSelectSize(e.target.value)}
-            className="bg-paper border border-sand/60 rounded-full px-2.5 py-2 text-[11px] font-sans text-charcoal focus:outline-none focus:border-gold"
+            className="bg-paper border border-sand/60 rounded-full px-2.5 py-2 text-sm font-sans text-charcoal focus:outline-none focus:border-gold"
           >
             <option value="" disabled>
               Size

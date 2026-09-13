@@ -63,22 +63,22 @@ export default function TestimonialCard({
       </div>
 
       {/* Footer: Reviewer Info + Garment */}
-      <div className="pt-3 border-t border-sand/30 flex items-center justify-between text-[11px] font-sans">
+      <div className="pt-3 border-t border-sand/30 flex items-center justify-between text-sm font-sans">
         <div>
           <div className="flex items-center gap-1.5 font-medium text-charcoal">
             <span>{reviewerName}</span>
             {verified && (
-              <span className="inline-flex items-center gap-0.5 text-gold text-[10px]" title="Verified Buyer">
+              <span className="inline-flex items-center gap-0.5 text-gold text-xs" title="Verified Buyer">
                 <CheckCircle2 className="w-3 h-3 text-gold" />
-                <span className="font-normal text-[9px] uppercase tracking-wider">Verified</span>
+                <span className="font-normal text-xs uppercase tracking-wider">Verified</span>
               </span>
             )}
           </div>
-          <p className="text-[10px] text-muted font-light">{reviewerLocation}</p>
+          <p className="text-xs text-charcoal-subtle font-light">{reviewerLocation}</p>
         </div>
 
         {productName && (
-          <span className="text-[10px] text-gold font-medium uppercase tracking-wider text-right max-w-[120px] truncate">
+          <span className="text-xs text-gold font-medium uppercase tracking-wider text-right max-w-[120px] truncate">
             {productName}
           </span>
         )}

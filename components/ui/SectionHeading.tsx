@@ -35,7 +35,7 @@ export default function SectionHeading({
       return (
         <>
           {title}{" "}
-          <span className="font-editorial-italic font-light text-gold">
+          <span className="font-serif font-light text-gold">
             {italicWord}
           </span>
         </>
@@ -45,7 +45,7 @@ export default function SectionHeading({
     return (
       <>
         {parts[0]}
-        <span className="font-editorial-italic font-light text-gold">
+        <span className="font-serif font-light text-gold">
           {italicWord}
         </span>
         {parts[1]}
@@ -62,7 +62,7 @@ export default function SectionHeading({
       <div className={`space-y-3.5 ${isCenter ? "" : "max-w-2xl"}`}>
         {eyebrow && (
           <div
-            className={`inline-flex items-center gap-2 text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold ${
+            className={`inline-flex items-center gap-2 text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold ${
               isCenter ? "justify-center" : ""
             }`}
           >
@@ -76,7 +76,7 @@ export default function SectionHeading({
         </h2>
 
         {description && (
-          <p className="font-serif italic text-base sm:text-lg text-muted font-light leading-relaxed max-w-2xl mx-auto">
+          <p className="font-serif italic text-base sm:text-lg text-charcoal-subtle font-light leading-relaxed max-w-2xl mx-auto">
             {description}
           </p>
         )}

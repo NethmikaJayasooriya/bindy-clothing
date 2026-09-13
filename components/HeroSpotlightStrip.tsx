@@ -29,21 +29,21 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
         {/* Section Heading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-4">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 text-[10px] font-sans uppercase tracking-[0.32em] text-gold font-semibold">
+            <div className="inline-flex items-center gap-2 text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold">
               <Sparkles className="w-3 h-3 text-gold" />
               <span>Curated Selection</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl text-charcoal-rich font-light tracking-wide">
               This Week&apos;s Spotlight
             </h2>
-            <p className="font-serif italic text-base text-muted font-light max-w-xl leading-relaxed">
+            <p className="font-serif italic text-base text-charcoal-subtle font-light max-w-xl leading-relaxed">
               Three signature silhouettes embodying natural Sri Lankan handloom and pure cotton drape.
             </p>
           </div>
 
           <a
             href="#collection"
-            className="inline-flex items-center gap-2 text-xs font-sans uppercase tracking-[0.22em] text-charcoal hover:text-gold transition-colors self-start md:self-end pb-1 font-semibold group"
+            className="inline-flex items-center gap-2 text-sm font-sans uppercase font-semibold tracking-wider text-charcoal hover:text-gold transition-colors self-start md:self-end pb-1 font-semibold group"
           >
             <span>Explore Full Collection</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -65,7 +65,7 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
 
-                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[9px] font-sans uppercase tracking-[0.25em] text-[#DFC182] border border-white/15 font-medium">
+                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-sans uppercase tracking-wider text-[#DFC182] border border-white/15 font-medium">
                   {product.destinations[0] || "Everyday"}
                 </div>
 
@@ -92,7 +92,7 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
                 </button>
 
                 <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                  <span className="px-4 py-2 rounded-full bg-paper-light text-charcoal font-sans text-[10px] uppercase tracking-[0.22em] font-semibold flex items-center gap-1.5 shadow-lg">
+                  <span className="px-4 py-2 rounded-full bg-paper-light text-charcoal font-sans text-sm uppercase font-semibold tracking-wider font-semibold flex items-center gap-1.5 shadow-lg">
                     <Eye className="w-3.5 h-3.5 text-gold" />
                     Quick View
                   </span>
@@ -100,7 +100,7 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
               </div>
 
               <div className="space-y-2">
-                <p className="text-[10px] font-sans uppercase tracking-[0.25em] text-gold font-semibold">
+                <p className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold">
                   {product.colorName} • {product.fabric}
                 </p>
                 <div className="flex items-baseline justify-between gap-2">
@@ -108,10 +108,10 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
                     {product.name}
                   </h3>
                   <span className="font-serif text-lg font-semibold text-charcoal flex-shrink-0">
-                    ${product.priceAud} <span className="text-[11px] font-sans font-normal text-muted">AUD</span>
+                    ${product.priceAud} <span className="text-sm font-sans font-normal text-charcoal-subtle">AUD</span>
                   </span>
                 </div>
-                <p className="text-xs font-sans text-muted line-clamp-2 leading-relaxed font-light">
+                <p className="text-xs font-sans text-charcoal-subtle line-clamp-2 leading-relaxed font-light">
                   {product.description}
                 </p>
               </div>

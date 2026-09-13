@@ -71,7 +71,7 @@ export default function LightboxModal({
         {/* Top bar controls */}
         <div className="absolute top-4 inset-x-4 sm:inset-x-8 z-20 flex items-center justify-between text-white">
           <div className="space-y-0.5">
-            <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-gold font-semibold">
+            <span className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold">
               Editorial Lightbox • {currentIndex + 1} of {images.length}
             </span>
             <h4 className="font-serif text-sm sm:text-base text-white/90 font-light truncate max-w-[240px] sm:max-w-md">
