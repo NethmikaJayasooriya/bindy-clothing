@@ -138,6 +138,11 @@ export default function Footer() {
                   Frequently Asked Questions
                 </Link>
               </li>
+              <li>
+                <Link href="/admin" className="text-gold hover:underline font-mono text-xs uppercase tracking-wider block pt-1">
+                  ✦ Atelier Seller Portal &rarr;
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -146,6 +151,9 @@ export default function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-sm font-sans text-charcoal-subtle tracking-wider gap-4">
           <p>© {new Date().getFullYear()} BINDY CLOTHING. All rights reserved.</p>
           <div className="flex items-center gap-6">
+            <Link href="/admin" className="text-gold/90 hover:text-gold font-mono text-xs uppercase tracking-wider transition-colors">
+              Seller Hub
+            </Link>
             <Link href="/contact#privacy" className="hover:text-gold transition-colors">
               Privacy Policy
             </Link>

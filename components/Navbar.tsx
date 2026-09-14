@@ -194,6 +194,16 @@ export default function Navbar({
                 <User className="w-3.5 h-3.5" />
                 <span>{account ? account.name.split(" ")[0] : "Account"}</span>
               </Link>
+
+              {/* Atelier Seller Portal */}
+              <Link
+                href="/admin"
+                className="hidden md:flex items-center gap-1.5 text-[#DFBF7A] hover:text-white transition-colors"
+                title="Seller & Admin Dashboard"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />
+                <span className="font-semibold tracking-wider">Seller Portal</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -763,18 +773,36 @@ export default function Navbar({
                 Contact &amp; Concierge
               </Link>
 
+              <Link
+                href="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-lg font-serif text-[#C5A059] py-1.5 border-t border-[#DCC7AF]/30 font-semibold"
+              >
+                ✦ Atelier Seller Portal &rarr;
+              </Link>
+
             </div>
 
             {/* Bottom Account Strip */}
             <div className="pt-4 border-t border-[#DCC7AF]/50 flex items-center justify-between text-xs font-mono text-charcoal-subtle">
               <span>Currency: {currency}</span>
-              <Link
-                href="/account"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-[#1F1E1D] font-semibold"
-              >
-                {account ? account.name : "Sign In / Register"}
-              </Link>
+              <div className="flex items-center space-x-3">
+                <Link
+                  href="/admin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-[#C5A059] font-semibold"
+                >
+                  Seller Hub
+                </Link>
+                <span>•</span>
+                <Link
+                  href="/account"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-[#1F1E1D] font-semibold"
+                >
+                  {account ? account.name : "Sign In"}
+                </Link>
+              </div>
             </div>
 
           </motion.div>
