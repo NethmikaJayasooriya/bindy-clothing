@@ -11,10 +11,10 @@ interface ScrollRevealProps {
 export default function ScrollReveal({ children, className = "" }: ScrollRevealProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+      viewport={{ once: true, margin: "60px" }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
       className={className}
     >
       {children}

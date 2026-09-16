@@ -80,7 +80,7 @@ export default function CategoryStoryBar({
 
   return (
     <div className="w-full py-2 sm:py-4 mb-4 sm:mb-6">
-      <div className="flex items-center justify-start sm:justify-center gap-3 sm:gap-6 overflow-x-auto pb-3 pt-1 px-2 sm:px-4 no-scrollbar touch-pan-x">
+      <div className="flex items-center justify-start sm:justify-center gap-3 sm:gap-6 overflow-x-auto pb-3 pt-1 px-2 sm:px-4 no-scrollbar">
         {stories.map((story) => {
           const isActive = activeCategory === story.id;
 

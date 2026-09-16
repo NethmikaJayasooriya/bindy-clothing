@@ -124,11 +124,10 @@ export default function BrowseSection({
           <AnimatePresence mode="popLayout">
             {displayedProducts.map((product) => (
               <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
                 key={product.id}
               >
                 <ProductCard

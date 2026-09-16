@@ -34,7 +34,7 @@ export default function ProductCard({
   const [, setWishlistTick] = useState(0);
   const [added, setAdded] = useState(false);
   const [addedSize, setAddedSize] = useState<string | null>(null);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isCardHovered, setIsCardHovered] = useState(false);
 
   useEffect(() => {
     const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
@@ -64,21 +64,8 @@ export default function ProductCard({
       {/* Image & Media Frame */}
       <div
         className="relative aspect-[3/4] w-full overflow-hidden bg-paper-dark"
-        onMouseEnter={(e) => {
-          const v = e.currentTarget.querySelector("video");
-          if (v) {
-            v.currentTime = 0;
-            v.play().catch(() => {});
-            setIsVideoPlaying(true);
-          }
-        }}
-        onMouseLeave={(e) => {
-          const v = e.currentTarget.querySelector("video");
-          if (v) {
-            v.pause();
-            setIsVideoPlaying(false);
-          }
-        }}
+        onMouseEnter={() => setIsCardHovered(true)}
+        onMouseLeave={() => setIsCardHovered(false)}
       >
         <Link href={`/product/${product.id}`} className="block absolute inset-0" aria-label={`View ${product.name}`}>
           {/* Primary image */}
@@ -89,17 +76,18 @@ export default function ProductCard({
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0"
           />
 
-          {/* Hover video or secondary image */}
-          {product.videoHover ? (
+          {/* Hover video or secondary image (only loads video on actual hover) */}
+          {isCardHovered && product.videoHover ? (
             <video
               src={product.videoHover}
               poster={product.imageHover}
+              autoPlay
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="auto"
               aria-hidden
-              className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100"
+              className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-500 ease-in-out"
             />
           ) : (
             <img

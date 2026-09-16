@@ -34,12 +34,23 @@ export default function Home() {
   const [isFilmModalOpen, setIsFilmModalOpen] = useState(false);
   const [selectedJourney, setSelectedJourney] = useState<Destination | "All">("All");
   const [showStickyMobile, setShowStickyMobile] = useState(false);
+  const [isHeroOffscreen, setIsHeroOffscreen] = useState(false);
 
-  // Track scroll position for sticky mobile CTA bar
+  // Track scroll position for sticky mobile CTA bar & offscreen hero deactivation
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (typeof window !== "undefined") {
-        setShowStickyMobile(window.scrollY > window.innerHeight * 0.7);
+      if (!ticking && typeof window !== "undefined") {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const h = window.innerHeight;
+          const shouldSticky = scrollY > h * 0.7;
+          const offscreen = scrollY > h * 1.05;
+          setShowStickyMobile((prev) => (prev !== shouldSticky ? shouldSticky : prev));
+          setIsHeroOffscreen((prev) => (prev !== offscreen ? offscreen : prev));
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -140,7 +151,12 @@ export default function Home() {
       />
 
       {/* 3. HERO (SECTION 1) — fixed behind; the shop rises up and covers it */}
-      <div className="fixed inset-0 h-screen z-0">
+      <div
+        className={`fixed inset-0 h-screen z-0 ${
+          isHeroOffscreen ? "invisible pointer-events-none" : "visible pointer-events-auto"
+        }`}
+        aria-hidden={isHeroOffscreen}
+      >
         <CinematicHero
           onExploreCollection={() => {
             const el = document.getElementById("browse-collection");

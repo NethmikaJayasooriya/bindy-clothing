@@ -266,7 +266,7 @@ export default function VerifiedReviewsSellingSection({
         {/* 2. EDITORIAL SOCIAL PROOF HORIZONTAL CAROUSEL */}
         <div
           ref={scrollRef}
-          className="flex gap-4 sm:gap-7 overflow-x-auto no-scrollbar pb-4 pt-2 -mx-3.5 px-3.5 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 snap-x snap-mandatory"
+          className="flex gap-4 sm:gap-7 overflow-x-auto no-scrollbar pb-4 pt-2 -mx-3.5 px-3.5 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 snap-x snap-proximity overscroll-x-contain"
         >
           {filteredStories.map((story) => {
             const product = PRODUCTS.find((p) => p.id === story.productId);
