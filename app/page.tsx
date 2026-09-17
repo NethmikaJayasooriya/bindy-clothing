@@ -22,6 +22,7 @@ import ProductModal from "@/components/ProductModal";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import SocialProofToast from "@/components/ui/SocialProofToast";
 import { ambientPlayer } from "@/lib/ambientSound";
 import type { Destination } from "@/data/products";
 
@@ -217,21 +218,24 @@ export default function Home() {
           onAddToCart={handleAddToCart}
         />
 
-        {/* SECTION 6: LOVED ACROSS AUSTRALIA — VERIFIED REVIEWS THAT SELL */}
-        <VerifiedReviewsSellingSection
-          onQuickView={(prod) => setQuickViewProduct(prod)}
-          onAddToCart={handleAddToCart}
-        />
+        {/* BELOW-THE-FOLD SECTIONS (High-Performance content-visibility: auto) */}
+        <div className="content-auto">
+          {/* SECTION 6: LOVED ACROSS AUSTRALIA — VERIFIED REVIEWS THAT SELL */}
+          <VerifiedReviewsSellingSection
+            onQuickView={(prod) => setQuickViewProduct(prod)}
+            onAddToCart={handleAddToCart}
+          />
 
-        {/* SECTION 7: VIP FIRST-ORDER PRIVILEGE (Instant 10% Off Activation) */}
-        <ScrollReveal>
-          <JourneySignup />
-        </ScrollReveal>
+          {/* SECTION 7: VIP FIRST-ORDER PRIVILEGE (Instant 10% Off Activation) */}
+          <ScrollReveal>
+            <JourneySignup />
+          </ScrollReveal>
 
-        {/* SECTION 11: FOOTER (full sitemap) */}
-        <ScrollReveal>
-          <Footer />
-        </ScrollReveal>
+          {/* SECTION 11: FOOTER (full sitemap) */}
+          <ScrollReveal>
+            <Footer />
+          </ScrollReveal>
+        </div>
       </div>
 
       {/* FILM MODAL */}
@@ -303,6 +307,9 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* BOUTIQUE LIVE SOCIAL PROOF TOAST */}
+      <SocialProofToast />
     </main>
   );
 }

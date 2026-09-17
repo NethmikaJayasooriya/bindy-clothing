@@ -73,6 +73,8 @@ export default function ProductCard({
             src={product.image}
             alt={product.name}
             loading="lazy"
+            decoding="async"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0"
           />
 
@@ -94,6 +96,8 @@ export default function ProductCard({
               src={product.imageHover || product.image}
               alt={`${product.name} alternate view`}
               loading="lazy"
+              decoding="async"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100"
             />
           )}

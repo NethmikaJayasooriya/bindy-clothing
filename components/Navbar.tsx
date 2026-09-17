@@ -65,15 +65,33 @@ export default function Navbar({
     };
   }, []);
 
+  const ANNOUNCEMENTS = [
+    { icon: Truck, highlight: "Free AU Courier $150+", text: "30-Day Easy Australian Returns" },
+    { icon: Sparkles, highlight: "Ethical Sri Lankan Handloom", text: "Two Islands, One Thread" },
+    { icon: Package, highlight: "VIP Privilege", text: "10% Off First Order with code WELCOME10" },
+  ];
+  const [announcementIdx, setAnnouncementIdx] = useState(0);
+
   useEffect(() => {
+    const timer = setInterval(() => {
+      setAnnouncementIdx((prev) => (prev + 1) % ANNOUNCEMENTS.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [ANNOUNCEMENTS.length]);
+
+  useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      if (!ticking && typeof window !== "undefined") {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 40;
+          setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -108,14 +126,31 @@ export default function Navbar({
           }`}
         >
           <div className="max-w-[1540px] w-[96vw] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-sm font-mono">
-            {/* Left: Free delivery & return assurance */}
-            <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1.5 text-[#C5A059]">
-                <Truck className="w-3.5 h-3.5" />
-                <span className="font-semibold uppercase tracking-wider">Free AU Courier $150+</span>
-              </span>
-              <span className="text-white/30 hidden sm:inline">•</span>
-              <span className="text-white/70 hidden sm:inline">30-Day Easy Australian Returns</span>
+            {/* Left: Dynamic rotating luxury value announcements */}
+            <div className="flex items-center gap-3 overflow-hidden h-6">
+              <AnimatePresence mode="wait">
+                {(() => {
+                  const item = ANNOUNCEMENTS[announcementIdx];
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={announcementIdx}
+                      initial={{ opacity: 0, y: 7 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -7 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-center gap-2"
+                    >
+                      <span className="flex items-center gap-1.5 text-[#C5A059]">
+                        <Icon className="w-3.5 h-3.5 flex-shrink-0" />
+                        <span className="font-semibold uppercase tracking-wider">{item.highlight}</span>
+                      </span>
+                      <span className="text-white/30 hidden sm:inline">•</span>
+                      <span className="text-white/70 hidden sm:inline">{item.text}</span>
+                    </motion.div>
+                  );
+                })()}
+              </AnimatePresence>
             </div>
 
             {/* Right: Premium utilities with standard iconography */}
@@ -556,9 +591,14 @@ export default function Navbar({
               >
                 <ShoppingBag className="w-5 h-5 transition-transform hover:scale-110" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#1F1E1D] border border-[#C5A059]/50 text-[#C5A059] text-xs font-mono font-bold flex items-center justify-center shadow-md">
+                  <motion.span
+                    key={cartCount}
+                    initial={{ scale: 0.6 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#1F1E1D] border border-[#C5A059]/50 text-[#C5A059] text-xs font-mono font-bold flex items-center justify-center shadow-md animate-pulse"
+                  >
                     {cartCount}
-                  </span>
+                  </motion.span>
                 )}
               </button>
 
