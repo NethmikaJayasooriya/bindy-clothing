@@ -148,7 +148,7 @@ export default function BrowseSection({
                     onQuickAdd={onAddToCart}
                     stockStatus={product.inventoryStatus}
                     stockText={product.inventoryStatus === "low_stock" ? "Low Stock" : undefined}
-                    className="h-full"
+                    className={`h-full ${index === 10 ? '!rounded-none' : ''}`}
                   />
                 )}
               </motion.div>
