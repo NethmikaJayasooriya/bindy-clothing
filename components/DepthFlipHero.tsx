@@ -14,6 +14,7 @@ import {
   Layers,
   ChevronRight,
 } from "lucide-react";
+import { flushSync } from "react-dom";
 
 export interface DepthFlipHeroProps {
   onExploreCollection?: () => void;
@@ -39,7 +40,7 @@ const HERO_IMAGES = [
   },
 ];
 
-const STRIP_COUNT = 15;
+const STRIP_COUNT = 30;
 
 export default function DepthFlipHero({
   onExploreCollection,
@@ -50,7 +51,7 @@ export default function DepthFlipHero({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [direction, setDirection] = useState<"horizontal" | "vertical">("horizontal");
+  const [direction, setDirection] = useState<"horizontal" | "vertical">("vertical");
 
   const containerRef = useRef<HTMLDivElement>(null);
   const currentStripsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -62,7 +63,17 @@ export default function DepthFlipHero({
   const currentScene = HERO_IMAGES[activeIndex];
   const nextScene = HERO_IMAGES[nextIndex];
 
-  // Core 15-strip 3D Depth Flip execution
+  // Preload high-res editorial beach hero images for instant 3D flips
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      HERO_IMAGES.forEach((img) => {
+        const image = new window.Image();
+        image.src = img.src;
+      });
+    }
+  }, []);
+
+  // Core 30-strip 3D Depth Flip execution
   const execute3DFlip = useCallback(
     (targetIndex?: number) => {
       if (isFlipping) return;
@@ -72,12 +83,12 @@ export default function DepthFlipHero({
       const container = containerRef.current;
       if (!container) return;
 
-      const { clientWidth, clientHeight } = container;
+      const { clientHeight } = container;
       const isHoriz = direction === "horizontal";
 
-      // Depth offset calculation: half of strip dimension recessed in -Z axis
-      const stripDimension = isHoriz ? clientHeight / STRIP_COUNT : clientWidth / STRIP_COUNT;
-      const faceOffset = stripDimension / 2;
+      // Depth offset calculation: half of rotating height recessed in -Z axis
+      // For UP flip, height is clientHeight. For horizontal rolling slices, it's clientHeight / STRIP_COUNT.
+      const faceOffset = isHoriz ? (clientHeight / STRIP_COUNT) / 2 : clientHeight / 2;
 
       const currentStrips = currentStripsRef.current.filter(Boolean) as HTMLDivElement[];
       const nextStrips = nextStripsRef.current.filter(Boolean) as HTMLDivElement[];
@@ -91,76 +102,47 @@ export default function DepthFlipHero({
         force3D: true,
       };
 
-      if (isHoriz) {
-        gsap.set(currentStrips, { ...faceProps, rotationX: 0, opacity: 1 });
-        gsap.set(nextStrips, { ...faceProps, rotationX: -90, opacity: 1 });
-      } else {
-        gsap.set(currentStrips, { ...faceProps, rotationY: 0, opacity: 1 });
-        gsap.set(nextStrips, { ...faceProps, rotationY: -90, opacity: 1 });
-      }
+      // Both directions now flip UP (rotationX)
+      gsap.set(currentStrips, { ...faceProps, rotationX: 0, opacity: 1 });
+      gsap.set(nextStrips, { ...faceProps, rotationX: -90, opacity: 1 });
 
       gsap.set(currentShadows, { opacity: 0 });
       gsap.set(nextShadows, { opacity: 0.7 });
 
       const tl = gsap.timeline({
         onComplete: () => {
-          setActiveIndex(targetNext);
-          setIsFlipping(false);
+          flushSync(() => {
+            setActiveIndex(targetNext);
+            setIsFlipping(false);
+          });
 
           // Reset faces for the next cycle
-          if (isHoriz) {
-            gsap.set(currentStrips, { rotationX: 0 });
-            gsap.set(nextStrips, { rotationX: -90 });
-          } else {
-            gsap.set(currentStrips, { rotationY: 0 });
-            gsap.set(nextStrips, { rotationY: -90 });
-          }
+          gsap.set(currentStrips, { rotationX: 0 });
+          gsap.set(nextStrips, { rotationX: -90 });
           gsap.set(currentShadows, { opacity: 0 });
           gsap.set(nextShadows, { opacity: 0.7 });
         },
       });
 
-      if (isHoriz) {
-        tl.to(
-          currentStrips,
-          {
-            rotationX: 90,
-            duration: 1.35,
-            ease: "power4.inOut",
-            stagger: 0.032,
-          },
-          0
-        ).to(
-          nextStrips,
-          {
-            rotationX: 0,
-            duration: 1.35,
-            ease: "power4.inOut",
-            stagger: 0.032,
-          },
-          0
-        );
-      } else {
-        tl.to(
-          currentStrips,
-          {
-            rotationY: 90,
-            duration: 1.35,
-            ease: "power4.inOut",
-            stagger: 0.032,
-          },
-          0
-        ).to(
-          nextStrips,
-          {
-            rotationY: 0,
-            duration: 1.35,
-            ease: "power4.inOut",
-            stagger: 0.032,
-          },
-          0
-        );
-      }
+      tl.to(
+        currentStrips,
+        {
+          rotationX: 90,
+          duration: 1.35,
+          ease: "power4.inOut",
+          stagger: 0.032,
+        },
+        0
+      ).to(
+        nextStrips,
+        {
+          rotationX: 0,
+          duration: 1.35,
+          ease: "power4.inOut",
+          stagger: 0.032,
+        },
+        0
+      );
 
       // 3D Shadow lighting gradient during turn
       tl.to(
@@ -205,7 +187,7 @@ export default function DepthFlipHero({
       aria-label="BINDY 3D Depth Flip Hero Showcase"
     >
       {/* ========================================================================= */}
-      {/* LAYER 1: 15-STRIP 3D KINETIC FLIP VISUAL CANVAS                           */}
+      {/* LAYER 1: 30-STRIP 3D KINETIC FLIP VISUAL CANVAS                           */}
       {/* ========================================================================= */}
       <div
         className="absolute inset-0 w-full h-full z-0 overflow-hidden"
@@ -218,14 +200,14 @@ export default function DepthFlipHero({
                 top: `${(index / STRIP_COUNT) * 100}%`,
                 left: 0,
                 width: "100%",
-                height: `${100 / STRIP_COUNT + 0.05}%`, // minor subpixel bleed
+                height: `${100 / STRIP_COUNT}%`,
                 overflow: "hidden",
               }
             : {
                 position: "absolute",
                 top: 0,
                 left: `${(index / STRIP_COUNT) * 100}%`,
-                width: `${100 / STRIP_COUNT + 0.05}%`,
+                width: `${100 / STRIP_COUNT}%`,
                 height: "100%",
                 overflow: "hidden",
               };
@@ -238,6 +220,7 @@ export default function DepthFlipHero({
                 width: "100%",
                 height: `${STRIP_COUNT * 100}%`,
                 objectFit: "cover",
+                maxWidth: "none",
               }
             : {
                 position: "absolute",
@@ -246,6 +229,7 @@ export default function DepthFlipHero({
                 width: `${STRIP_COUNT * 100}%`,
                 height: "100%",
                 objectFit: "cover",
+                maxWidth: "none",
               };
 
           return (
@@ -256,7 +240,12 @@ export default function DepthFlipHero({
                   currentStripsRef.current[index] = el;
                 }}
                 className="absolute inset-0 w-full h-full overflow-hidden"
-                style={{ transformStyle: "preserve-3d" }}
+                style={{ 
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
+                  transform: "translateZ(0)",
+                  willChange: "transform"
+                }}
               >
                 <img
                   src={currentScene.src}
@@ -280,7 +269,12 @@ export default function DepthFlipHero({
                   nextStripsRef.current[index] = el;
                 }}
                 className="absolute inset-0 w-full h-full overflow-hidden"
-                style={{ transformStyle: "preserve-3d" }}
+                style={{ 
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
+                  transform: "translateZ(0)",
+                  willChange: "transform"
+                }}
               >
                 <img
                   src={nextScene.src}
@@ -320,7 +314,7 @@ export default function DepthFlipHero({
           </div>
 
           <div className="hidden sm:flex items-center space-x-3 text-xs font-mono text-white/80">
-            <span className="text-[#C5A059]">✦ 15-Strip 3D Flip Active</span>
+            <span className="text-[#C5A059]">✦ 30-Strip 3D Flip Active</span>
             <span>•</span>
             <span>{currentScene.location}</span>
           </div>
@@ -376,7 +370,7 @@ export default function DepthFlipHero({
               onClick={() => execute3DFlip()}
               disabled={isFlipping}
               className="inline-flex items-center space-x-2 px-4 py-3.5 rounded-xl bg-black/40 hover:bg-black/60 backdrop-blur-md border border-[#C5A059]/50 text-[#DFBF7A] font-mono text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer"
-              title="Trigger 15-strip 3D depth flip"
+              title="Trigger 30-strip 3D depth flip"
             >
               <RotateCw className={`w-3.5 h-3.5 text-[#C5A059] ${isFlipping ? "animate-spin" : ""}`} />
               <span>Flip Scene 3D</span>
@@ -426,7 +420,7 @@ export default function DepthFlipHero({
             >
               <Layers className="w-3.5 h-3.5 text-[#C5A059]" />
               <span className="text-[11px] uppercase tracking-wider">
-                15 {direction === "horizontal" ? "Rolling" : "Shutter"} Slices
+                30 {direction === "horizontal" ? "Rolling" : "Shutter"} Slices
               </span>
             </button>
 

@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, ExternalLink } from "lucide-react";
+import { ShoppingBag, ExternalLink, ArrowLeft, FlaskConical } from "lucide-react";
 import { getCart, saveCart } from "@/lib/cart";
 import { type Product } from "@/data/products";
 import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
-import CinematicHero from "@/components/CinematicHero";
+import DepthFlipHero from "@/components/DepthFlipHero";
 import HeritageTicker from "@/components/HeritageTicker";
 import TrustStrip from "@/components/home/TrustStrip";
 import SpotlightSection from "@/components/home/SpotlightSection";
@@ -26,8 +27,8 @@ import SocialProofToast from "@/components/ui/SocialProofToast";
 import { ambientPlayer } from "@/lib/ambientSound";
 import type { Destination } from "@/data/products";
 
-export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
+export default function TestHomePage() {
+  const [showSplash, setShowSplash] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -36,7 +37,6 @@ export default function Home() {
   const [selectedJourney, setSelectedJourney] = useState<Destination | "All">("All");
   const [showStickyMobile, setShowStickyMobile] = useState(false);
   const [isHeroOffscreen, setIsHeroOffscreen] = useState(false);
-  const [testCount, setTestCount] = useState(0);
 
   // Track scroll position for sticky mobile CTA bar & offscreen hero deactivation
   useEffect(() => {
@@ -57,16 +57,6 @@ export default function Home() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Check if splash screen was already viewed in this browser session
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const seen = sessionStorage.getItem("bindy_splash_seen");
-      if (seen) {
-        setShowSplash(false);
-      }
-    }
   }, []);
 
   // Hydrate the cart from localStorage
@@ -132,13 +122,30 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-paper text-charcoal selection:bg-gold selection:text-white">
-      {/* 1. SPLASH SCREEN (Once per session) */}
+      {/* 0. TESTING SANDBOX BANNER */}
+      <div className="fixed top-2.5 left-1/2 -translate-x-1/2 z-50 pointer-events-auto">
+        <div className="bg-[#1F1E1D]/95 text-white backdrop-blur-xl border border-[#C5A059]/60 px-4 py-1.5 rounded-full text-xs font-mono shadow-2xl flex items-center gap-2.5 select-none">
+          <span className="flex items-center gap-1.5 text-[#C5A059] font-bold">
+            <FlaskConical className="w-3.5 h-3.5" />
+            <span>TESTING SANDBOX</span>
+          </span>
+          <span className="text-white/40">•</span>
+          <span className="text-white/80 hidden sm:inline">Route: /test</span>
+          <span className="text-white/40 hidden sm:inline">•</span>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1 text-[#C5A059] hover:underline font-semibold ml-1"
+          >
+            <ArrowLeft className="w-3 h-3" />
+            <span>Live Home</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* 1. SPLASH SCREEN (Disabled on test route for immediate inspection) */}
       {showSplash && (
         <SplashScreen
           onComplete={() => {
-            if (typeof window !== "undefined") {
-              sessionStorage.setItem("bindy_splash_seen", "true");
-            }
             setShowSplash(false);
           }}
         />
@@ -152,14 +159,14 @@ export default function Home() {
         onOpenCart={() => setIsCartOpen(true)}
       />
 
-      {/* 3. HERO (SECTION 1) — fixed behind; the shop rises up and covers it */}
+      {/* 3. HERO (SECTION 1) — 15-strip 3D Depth Flip with new-hero beach editorial images */}
       <div
         className={`fixed inset-0 h-screen z-0 ${
           isHeroOffscreen ? "invisible pointer-events-none" : "visible pointer-events-auto"
         }`}
         aria-hidden={isHeroOffscreen}
       >
-        <CinematicHero
+        <DepthFlipHero
           onExploreCollection={() => {
             const el = document.getElementById("browse-collection");
             el?.scrollIntoView({ behavior: "smooth" });
@@ -181,24 +188,6 @@ export default function Home() {
         {/* SECTION 2: TRUST / VALUE STRIP */}
         <TrustStrip />
 
-        {/* TEST BUTTON (Opens Testing Sandbox at /test in a new tab) */}
-        <div className="flex justify-center py-6 bg-paper">
-          <button
-            type="button"
-            id="test-button"
-            onClick={() => window.open("/test", "_blank")}
-            className="px-8 py-3 rounded-full bg-[#1F1E1D] hover:bg-[#C5A059] text-white font-mono text-xs uppercase tracking-widest font-semibold border border-[#C5A059]/60 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer flex items-center gap-2.5 select-none"
-            title="Open Sandbox Testing Home Screen in a new window (/test)"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
-            <span>Test</span>
-            <span className="text-[11px] text-[#C5A059] font-normal normal-case font-sans hidden sm:inline">
-              (Open Sandbox)
-            </span>
-            <ExternalLink className="w-3.5 h-3.5 text-[#C5A059]" />
-          </button>
-        </div>
-
         {/* SECTION 5: BROWSE BY PIECE (grid, filter pills, micro-badges, load more) */}
         <BrowseSection
           onQuickView={(prod) => setQuickViewProduct(prod)}
@@ -210,8 +199,8 @@ export default function Home() {
         {/* ELEGANT DIVIDER BETWEEN BROWSE AND SPOTLIGHT */}
         <ScrollReveal>
           <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <hr className="border-t border-sand/40 my-8 sm:my-12" />
-        </div>
+            <hr className="border-t border-sand/40 my-8 sm:my-12" />
+          </div>
         </ScrollReveal>
 
         {/* SECTION 3: THIS WEEK'S SPOTLIGHT (Curated Top Silhouettes + 1-Tap Size Add) */}
@@ -279,7 +268,7 @@ export default function Home() {
         onRemoveItem={handleRemoveItem}
       />
 
-      {/* STICKY MOBILE CONVERSION BAR (Section 7.8) */}
+      {/* STICKY MOBILE CONVERSION BAR */}
       <AnimatePresence>
         {showStickyMobile && (
           <motion.div
