@@ -9,9 +9,9 @@ import { type Product } from "@/data/products";
 import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
 import DepthFlipHero from "@/components/DepthFlipHero";
-import HeroTactileLoupe from "@/components/heroes/HeroTactileLoupe";
-import HeroPanoramaFilmstrip from "@/components/heroes/HeroPanoramaFilmstrip";
-import HeroAtelierCollage from "@/components/heroes/HeroAtelierCollage";
+import HeroJacquemusKinetic from "@/components/heroes/HeroJacquemusKinetic";
+import HeroLoeweCarousel from "@/components/heroes/HeroLoeweCarousel";
+import HeroLemaireSplit from "@/components/heroes/HeroLemaireSplit";
 import HeroCraftCurtain from "@/components/heroes/HeroCraftCurtain";
 import HeroShopHotspot from "@/components/heroes/HeroShopHotspot";
 import HeroStyleControlSection from "@/components/home/HeroStyleControlSection";
@@ -231,7 +231,7 @@ export default function TestHomePage() {
           />
         )}
         {heroStyle === 2 && (
-          <HeroTactileLoupe
+          <HeroJacquemusKinetic
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");
               el?.scrollIntoView({ behavior: "smooth" });
@@ -242,7 +242,7 @@ export default function TestHomePage() {
           />
         )}
         {heroStyle === 3 && (
-          <HeroPanoramaFilmstrip
+          <HeroLoeweCarousel
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");
               el?.scrollIntoView({ behavior: "smooth" });
@@ -253,7 +253,7 @@ export default function TestHomePage() {
           />
         )}
         {heroStyle === 4 && (
-          <HeroAtelierCollage
+          <HeroLemaireSplit
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");
               el?.scrollIntoView({ behavior: "smooth" });
