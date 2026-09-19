@@ -28,15 +28,27 @@ export default function BrowseSection({
 }: BrowseSectionProps) {
   const [activeCollection, setActiveCollection] = useState<"All" | "Serendipity" | "Collection 02">("All");
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
-  const [visibleCount, setVisibleCount] = useState(12);
+  const [visibleCount, setVisibleCount] = useState(22);
 
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((p) => {
+    const list = PRODUCTS.filter((p) => {
       const matchCat = activeCategory === "All" || p.category === activeCategory;
       const matchJourney = selectedJourney === "All" || p.destinations.includes(selectedJourney);
       const matchCol = activeCollection === "All" || p.collectionName === activeCollection;
       return matchCat && matchJourney && matchCol;
     });
+
+    // In test environment "All" view, pad up to 22 so all 20 creative styles + 2 preserved cards are shown
+    if (activeCollection === "All" && activeCategory === "All" && selectedJourney === "All" && list.length < 22) {
+      const padded = [...list];
+      let i = 0;
+      while (padded.length < 22 && list.length > 0) {
+        padded.push({ ...list[i % list.length], id: `${list[i % list.length].id}-clone-${padded.length}` });
+        i++;
+      }
+      return padded;
+    }
+    return list;
   }, [activeCategory, selectedJourney, activeCollection]);
 
   const displayedProducts = filteredProducts.slice(0, visibleCount);
@@ -133,9 +145,42 @@ export default function BrowseSection({
                 className="h-full"
               >
                 {index < 10 ? (
+                  // Styles 0 to 9 (First 10 Creative Styles)
                   <CreativeProductCard
                     product={product}
                     index={index}
+                    styleVariant={index}
+                    onQuickView={onQuickView}
+                    onQuickAdd={onAddToCart}
+                    stockStatus={product.inventoryStatus}
+                    stockText={product.inventoryStatus === "low_stock" ? "Low Stock" : undefined}
+                  />
+                ) : index === 10 ? (
+                  // Card 11: PRESERVED UNTOUCHED (ProductCard with !rounded-none)
+                  <ProductCard
+                    product={product}
+                    onQuickView={onQuickView}
+                    onQuickAdd={onAddToCart}
+                    stockStatus={product.inventoryStatus}
+                    stockText={product.inventoryStatus === "low_stock" ? "Low Stock" : undefined}
+                    className="h-full !rounded-none"
+                  />
+                ) : index === 11 ? (
+                  // Card 12: PRESERVED UNTOUCHED (Standard ProductCard)
+                  <ProductCard
+                    product={product}
+                    onQuickView={onQuickView}
+                    onQuickAdd={onAddToCart}
+                    stockStatus={product.inventoryStatus}
+                    stockText={product.inventoryStatus === "low_stock" ? "Low Stock" : undefined}
+                    className="h-full"
+                  />
+                ) : index < 22 ? (
+                  // Styles 10 to 19 (Second 10 Creative Styles, reaching 20 total styles!)
+                  <CreativeProductCard
+                    product={product}
+                    index={index}
+                    styleVariant={index - 2}
                     onQuickView={onQuickView}
                     onQuickAdd={onAddToCart}
                     stockStatus={product.inventoryStatus}
@@ -148,7 +193,7 @@ export default function BrowseSection({
                     onQuickAdd={onAddToCart}
                     stockStatus={product.inventoryStatus}
                     stockText={product.inventoryStatus === "low_stock" ? "Low Stock" : undefined}
-                    className={`h-full ${index === 10 ? '!rounded-none' : ''}`}
+                    className="h-full"
                   />
                 )}
               </motion.div>

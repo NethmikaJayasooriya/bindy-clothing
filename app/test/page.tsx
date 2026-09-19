@@ -9,7 +9,6 @@ import { type Product } from "@/data/products";
 import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
 import DepthFlipHero from "@/components/DepthFlipHero";
-import HeroSwitcherBar from "@/components/heroes/HeroSwitcherBar";
 import HeroTactileLoupe from "@/components/heroes/HeroTactileLoupe";
 import HeroPanoramaFilmstrip from "@/components/heroes/HeroPanoramaFilmstrip";
 import HeroAtelierCollage from "@/components/heroes/HeroAtelierCollage";
@@ -30,7 +29,6 @@ import ProductModal from "@/components/ProductModal";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import SocialProofToast from "@/components/ui/SocialProofToast";
 import { ambientPlayer } from "@/lib/ambientSound";
 import type { Destination } from "@/data/products";
 
@@ -46,28 +44,6 @@ export default function TestHomePage() {
   const [showStickyMobile, setShowStickyMobile] = useState(false);
   const [isHeroOffscreen, setIsHeroOffscreen] = useState(false);
 
-  // Sync heroStyle from URL query or localStorage on mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const urlParams = new URLSearchParams(window.location.search);
-      const queryStyle = urlParams.get("hero");
-      if (queryStyle) {
-        const parsed = parseInt(queryStyle, 10);
-        if (parsed >= 1 && parsed <= 6) {
-          setHeroStyle(parsed);
-          return;
-        }
-      }
-      const saved = localStorage.getItem("bindy_test_hero_style");
-      if (saved) {
-        const parsed = parseInt(saved, 10);
-        if (parsed >= 1 && parsed <= 6) {
-          setHeroStyle(parsed);
-        }
-      }
-    }
-  }, []);
-
   const handleSelectHeroStyle = (style: number) => {
     setHeroStyle(style);
     if (typeof window !== "undefined") {
@@ -77,6 +53,43 @@ export default function TestHomePage() {
       window.history.replaceState({}, "", url.toString());
     }
   };
+
+  // Sync heroStyle from URL query or localStorage on mount & keyboard 1-6 toggle
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryStyle = urlParams.get("hero");
+      if (queryStyle) {
+        const parsed = parseInt(queryStyle, 10);
+        if (parsed >= 1 && parsed <= 6) {
+          setHeroStyle(parsed);
+        }
+      } else {
+        const saved = localStorage.getItem("bindy_test_hero_style");
+        if (saved) {
+          const parsed = parseInt(saved, 10);
+          if (parsed >= 1 && parsed <= 6) {
+            setHeroStyle(parsed);
+          }
+        }
+      }
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (
+          document.activeElement?.tagName === "INPUT" ||
+          document.activeElement?.tagName === "TEXTAREA"
+        ) {
+          return;
+        }
+        const num = parseInt(e.key, 10);
+        if (num >= 1 && num <= 6) {
+          handleSelectHeroStyle(num);
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, []);
 
   // Track scroll position for sticky mobile CTA bar & offscreen hero deactivation
   useEffect(() => {
@@ -181,12 +194,6 @@ export default function TestHomePage() {
           </Link>
         </div>
       </div>
-
-      {/* 0.1 LIVE HERO STYLE SWITCHER */}
-      <HeroSwitcherBar
-        currentStyle={heroStyle}
-        onSelectStyle={handleSelectHeroStyle}
-      />
 
       {/* 1. SPLASH SCREEN (Disabled on test route for immediate inspection) */}
       {showSplash && (
@@ -429,9 +436,6 @@ export default function TestHomePage() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* BOUTIQUE LIVE SOCIAL PROOF TOAST */}
-      <SocialProofToast />
     </main>
   );
 }
