@@ -15,6 +15,7 @@ import HeroPanoramaFilmstrip from "@/components/heroes/HeroPanoramaFilmstrip";
 import HeroAtelierCollage from "@/components/heroes/HeroAtelierCollage";
 import HeroCraftCurtain from "@/components/heroes/HeroCraftCurtain";
 import HeroShopHotspot from "@/components/heroes/HeroShopHotspot";
+import HeroStyleControlSection from "@/components/home/HeroStyleControlSection";
 import HeritageTicker from "@/components/HeritageTicker";
 import TrustStrip from "@/components/home/TrustStrip";
 import SpotlightSection from "@/components/home/SpotlightSection";
@@ -291,6 +292,15 @@ export default function TestHomePage() {
 
         {/* SECTION 2: TRUST / VALUE STRIP */}
         <TrustStrip />
+
+        {/* STYLE CHANGING SECTION: HERO & DESIGN LAB CONTROL */}
+        <HeroStyleControlSection
+          currentStyle={heroStyle}
+          onSelectStyle={handleSelectHeroStyle}
+          onScrollToHero={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        />
 
         {/* SECTION 5: BROWSE BY PIECE (grid, filter pills, micro-badges, load more) */}
         <BrowseSection

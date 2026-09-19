@@ -2,13 +2,25 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Heart, Eye, ArrowRight, ShoppingBag, Plus, Sparkles, Tag, ChevronDown, MoveDown, Focus } from "lucide-react";
+import Image from "next/image";
+import {
+  Heart,
+  Eye,
+  ShoppingBag,
+  Plus,
+  Sparkles,
+  Check,
+  Compass,
+  Layers,
+  Star,
+  ShieldCheck,
+  Scissors,
+  Bookmark,
+} from "lucide-react";
 import type { Product } from "@/data/products";
 import { getAverageRating } from "@/lib/products";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 import { addToCart } from "@/lib/cart";
-import StarRating from "./StarRating";
-import Price from "./Price";
 
 export interface CreativeProductCardProps {
   product: Product;
@@ -61,303 +73,554 @@ export default function CreativeProductCard({
 
   const styleIndex = index % 10;
 
+  const sharedProps = {
+    product,
+    inWishlist,
+    handleWishlist,
+    handleQuickAdd,
+    handleQuickView,
+    stockStatus,
+    stockText,
+  };
+
   switch (styleIndex) {
-    case 0: return <Style0Lookbook product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    case 1: return <Style1Acetate product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    case 2: return <Style2EInkTag product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    case 3: return <Style3Dashboard product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    case 4: return <Style4Holographic product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    case 5: return <Style5Accordion product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    case 6: return <Style6Cinematic product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    case 7: return <Style7Blueprint product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    case 8: return <Style8Drawer product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    case 9: return <Style9Ticket product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
-    default: return <Style0Lookbook product={product} handleWishlist={handleWishlist} inWishlist={inWishlist} handleQuickAdd={handleQuickAdd} handleQuickView={handleQuickView} />;
+    case 0:
+      return <Style0SculptedArch {...sharedProps} />;
+    case 1:
+      return <Style1TactileSwatch {...sharedProps} />;
+    case 2:
+      return <Style2BoutiqueHangtag {...sharedProps} />;
+    case 3:
+      return <Style3DualPerspective {...sharedProps} />;
+    case 4:
+      return <Style4GlassmorphicLuxe {...sharedProps} />;
+    case 5:
+      return <Style5QuickSizeGlider {...sharedProps} />;
+    case 6:
+      return <Style6EditorialPlate {...sharedProps} />;
+    case 7:
+      return <Style7AuthenticitySeal {...sharedProps} />;
+    case 8:
+      return <Style8SlideUpDrawer {...sharedProps} />;
+    case 9:
+      return <Style9AtelierSpec {...sharedProps} />;
+    default:
+      return <Style0SculptedArch {...sharedProps} />;
   }
 }
 
-// ----------------------------------------------------------------------
-// STYLE 0: The Interactive Lookbook
-// ----------------------------------------------------------------------
-function Style0Lookbook({ product, handleWishlist, inWishlist, handleQuickView, handleQuickAdd }: any) {
+// ======================================================================
+// STYLE 0: The Sculpted Editorial Arch (Totême / The Row style)
+// ======================================================================
+function Style0SculptedArch({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [selectedSize, setSelectedSize] = useState("AU 8 (S)");
+
   return (
-    <div className="group relative flex flex-col bg-gray-100 overflow-hidden h-full min-h-[400px]">
-      <Link href={`/product/${product.id}`} className="absolute inset-0 block">
-        <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-      </Link>
-      
-      {/* Pulsing Hotspots (Only visible on hover) */}
-      <div className="absolute top-[40%] left-[30%] w-3 h-3 bg-white/80 rounded-full shadow-[0_0_15px_white] opacity-0 group-hover:opacity-100 transition-opacity delay-100">
-        <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-75" />
-      </div>
-      <div className="absolute top-[60%] right-[25%] w-3 h-3 bg-white/80 rounded-full shadow-[0_0_15px_white] opacity-0 group-hover:opacity-100 transition-opacity delay-300">
-        <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-75" />
-      </div>
-
-      <button onClick={handleWishlist} className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white transition-colors">
-        <Heart className={`w-4 h-4 ${inWishlist ? "fill-red-500 text-red-500" : "text-white"}`} />
-      </button>
-
-      {/* Floating Glass Pill */}
-      <div className="absolute bottom-4 inset-x-4 bg-black/40 backdrop-blur-xl border border-white/20 rounded-full p-2 pl-4 flex items-center justify-between shadow-2xl opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-        <div className="flex-1 min-w-0 pr-2">
-          <h3 className="font-sans text-xs text-white font-medium truncate">{product.name}</h3>
-          <span className="font-mono text-[10px] text-[#C5A059] block">${product.priceAud}</span>
-        </div>
-        <button onClick={(e) => handleQuickAdd(e)} className="w-8 h-8 flex-shrink-0 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform text-black">
-          <Plus className="w-4 h-4" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// ----------------------------------------------------------------------
-// STYLE 1: The Layered Acetate
-// ----------------------------------------------------------------------
-function Style1Acetate({ product, handleWishlist, inWishlist, handleQuickAdd }: any) {
-  return (
-    <div className="group relative flex flex-col h-full overflow-hidden bg-[#FAF7F2]">
-      <Link href={`/product/${product.id}`} className="block relative h-full">
-        <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover" />
-      </Link>
-      
-      {/* Translucent Acetate Layer */}
-      <div className="absolute inset-0 bg-white/30 backdrop-blur-md border-t border-white/50 opacity-0 group-hover:opacity-100 translate-y-full group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] p-5 flex flex-col">
-        <div className="flex justify-between items-start mb-4">
-          <button onClick={handleWishlist} className="bg-white p-2 rounded-full shadow-sm">
-            <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : "text-gray-900"}`} />
-          </button>
-          <div className="text-right">
-            <h3 className="font-serif text-lg text-gray-900 leading-tight">{product.name}</h3>
-            <Price amount={product.priceAud} size="sm" />
-          </div>
-        </div>
-        
-        <div className="flex-1 overflow-y-auto no-scrollbar">
-          <p className="text-xs font-sans text-gray-800 leading-relaxed italic border-l-2 border-[#B86B4B] pl-2 mb-4">
-            "{product.story}"
-          </p>
-          <div className="space-y-1 mb-4">
-            <span className="text-[10px] font-mono text-gray-500 uppercase block">Fabric</span>
-            <span className="text-xs font-sans text-gray-900 block">{product.fabric}</span>
-          </div>
-        </div>
-        
-        <div className="mt-auto pt-4 border-t border-gray-900/10 flex gap-2">
-          {product.sizes.slice(0,3).map((sz: string) => (
-            <button key={sz} onClick={(e) => handleQuickAdd(e, sz)} className="flex-1 py-2 bg-gray-900 text-white text-[10px] font-mono hover:bg-[#B86B4B] transition-colors rounded">
-              {sz.split(" ")[0]}
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ----------------------------------------------------------------------
-// STYLE 2: The E-Ink Garment Tag
-// ----------------------------------------------------------------------
-function Style2EInkTag({ product, handleWishlist, inWishlist, handleQuickAdd }: any) {
-  return (
-    <div className="group relative flex h-full bg-[#1F1E1D] overflow-hidden p-1 gap-1 border border-[#DCC7AF]/20 hover:border-[#C5A059] transition-colors">
-      {/* The Paper Tag */}
-      <div className="w-16 bg-[#F4F4F5] flex flex-col items-center py-4 relative shadow-[inset_-2px_0_5px_rgba(0,0,0,0.05)] border-r border-dashed border-gray-400">
-        <div className="w-2 h-2 rounded-full bg-gray-800 mb-6 shadow-inner" />
-        <div className="writing-vertical-rl text-[9px] font-mono uppercase text-gray-600 tracking-[0.2em] mb-4">
-          {product.collectionName}
-        </div>
-        <div className="writing-vertical-rl text-xs font-mono font-bold text-black tracking-widest mt-auto">
-          ${product.priceAud}
-        </div>
-      </div>
-      
-      {/* The Image */}
-      <Link href={`/product/${product.id}`} className="flex-1 relative bg-gray-100">
-        <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover filter brightness-95 group-hover:brightness-105 transition-all" />
-      </Link>
-
-      {/* Hover Overlay Details */}
-      <div className="absolute top-4 right-4 z-10 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        <button onClick={handleWishlist} className="w-8 h-8 bg-white text-black rounded flex items-center justify-center shadow-lg hover:bg-black hover:text-white transition-colors">
-          <Heart className={`w-4 h-4 ${inWishlist ? "fill-current" : ""}`} />
-        </button>
-        <button onClick={handleQuickAdd} className="w-8 h-8 bg-[#C5A059] text-white rounded flex items-center justify-center shadow-lg hover:bg-white hover:text-[#C5A059] transition-colors">
-          <Plus className="w-5 h-5" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// ----------------------------------------------------------------------
-// STYLE 3: The Mini Dashboard
-// ----------------------------------------------------------------------
-function Style3Dashboard({ product, handleWishlist, inWishlist, handleQuickAdd }: any) {
-  const rating = getAverageRating(product);
-  return (
-    <div className="group relative flex flex-col h-full bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300">
-      <Link href={`/product/${product.id}`} className="block relative aspect-[4/5] bg-gray-100 overflow-hidden">
-        <img src={product.imageHover || product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-      </Link>
-      
-      {/* The Dashboard */}
-      <div className="p-3 flex flex-col flex-1 bg-white relative z-10">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="font-sans font-semibold text-sm text-gray-900 leading-tight line-clamp-2 pr-4">{product.name}</h3>
-          <button onClick={handleWishlist} className="flex-shrink-0 mt-0.5">
-            <Heart className={`w-4 h-4 ${inWishlist ? "fill-red-500 text-red-500" : "text-gray-400 hover:text-gray-900"}`} />
-          </button>
-        </div>
-        
-        <div className="flex items-center gap-2 mb-3">
-          <span className="w-3 h-3 rounded-full border border-gray-300 shadow-inner" style={{ backgroundColor: product.colorHex }} title={product.colorName} />
-          <StarRating value={rating} count={product.reviews.length} size="sm" />
-        </div>
-        
-        <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
-          <span className="font-mono text-sm font-bold text-gray-900">${product.priceAud}</span>
-          <button onClick={handleQuickAdd} className="bg-black text-white px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest hover:bg-[#C5A059] transition-colors">
-            Add
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ----------------------------------------------------------------------
-// STYLE 4: The Holographic Foil
-// ----------------------------------------------------------------------
-function Style4Holographic({ product, handleWishlist, inWishlist, handleQuickView }: any) {
-  return (
-    <div className="group relative flex flex-col h-full p-[2px] rounded-xl overflow-hidden bg-gradient-to-br from-gray-200 via-gray-100 to-gray-300 hover:from-[#EADCC8] hover:via-[#FAF7F2] hover:to-[#DCC7AF] transition-all duration-700 shadow-md hover:shadow-2xl">
-      <div className="flex flex-col h-full bg-white rounded-[10px] overflow-hidden">
-        <Link href={`/product/${product.id}`} className="block relative aspect-[4/5]">
-          <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover" />
-          <button onClick={handleWishlist} className="absolute top-3 right-3 z-10">
-            <Heart className={`w-5 h-5 ${inWishlist ? "fill-gold text-gold" : "text-white hover:text-gold"} drop-shadow-md`} />
-          </button>
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-t-[28px] rounded-b-2xl overflow-hidden border border-[#DCC7AF]/60 shadow-sm hover:shadow-xl transition-all duration-500 select-none"
+    >
+      {/* Image Frame with Architectural Arch */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={isHovered && product.imageHover ? product.imageHover : product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
         </Link>
-        <div className="p-3 text-center grid grid-cols-1 gap-1 relative z-10 bg-white">
-          <h3 className="font-serif text-sm text-gray-800 line-clamp-1">{product.name}</h3>
-          <span className="font-mono text-[11px] text-[#C5A059] uppercase tracking-widest">${product.priceAud} AUD</span>
-          
-          <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-center">
-            <button onClick={handleQuickView} className="px-6 py-2 border border-[#C5A059] text-[#C5A059] text-xs font-mono uppercase hover:bg-[#C5A059] hover:text-white transition-colors">
-              Explore Piece
-            </button>
+
+        {/* Style Badge */}
+        <div className="absolute top-3 left-3 bg-[#1F1E1D]/80 backdrop-blur-md text-[#C5A059] px-2.5 py-1 rounded-full text-[9px] font-mono tracking-widest uppercase border border-[#C5A059]/30">
+          01 • Sculpted Arch
+        </div>
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#1F1E1D] hover:scale-110 shadow-sm transition-transform"
+          aria-label="Wishlist"
+        >
+          <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
+        </button>
+
+        {/* Slide-Up Size Bar on Hover */}
+        <div className="absolute bottom-2 inset-x-2 bg-[#1F1E1D]/90 backdrop-blur-xl border border-white/20 rounded-xl p-2 flex items-center justify-between opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-300 shadow-2xl">
+          <div className="flex items-center gap-1">
+            {product.sizes.slice(0, 4).map((sz: string) => (
+              <button
+                key={sz}
+                type="button"
+                onClick={(e) => {
+                  setSelectedSize(sz);
+                  handleQuickAdd(e, sz);
+                }}
+                className="px-2 py-1 rounded bg-white/10 hover:bg-[#C5A059] text-white hover:text-black text-[9px] font-mono font-bold transition-colors"
+                title={`Quick Add size ${sz}`}
+              >
+                {sz.split(" ")[0]}
+              </button>
+            ))}
           </div>
+          <button
+            type="button"
+            onClick={handleQuickView}
+            className="p-1 text-white/70 hover:text-white"
+            title="Quick View"
+          >
+            <Eye className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Info Section */}
+      <div className="p-3.5 flex flex-col flex-1 justify-between bg-[#FAF7F2]">
+        <div>
+          <span className="text-[10px] font-mono uppercase tracking-wider text-[#78716A]">
+            {product.category} • {product.fabric.split(" ")[0]}
+          </span>
+          <Link href={`/product/${product.id}`}>
+            <h3 className="font-serif text-sm font-medium text-[#1F1E1D] hover:text-[#B86B4B] transition-colors line-clamp-1 mt-0.5">
+              {product.name}
+            </h3>
+          </Link>
+        </div>
+        <div className="flex items-center justify-between pt-2 border-t border-[#DCC7AF]/40 mt-2">
+          <span className="font-mono text-xs font-bold text-[#1F1E1D]">
+            ${product.priceAud} AUD
+          </span>
+          <span className="text-[10px] font-mono text-[#B86B4B] font-semibold">
+            Handcrafted
+          </span>
         </div>
       </div>
     </div>
   );
 }
 
-// ----------------------------------------------------------------------
-// STYLE 5: The Expanding Accordion
-// ----------------------------------------------------------------------
-function Style5Accordion({ product, handleWishlist, inWishlist, handleQuickAdd }: any) {
+// ======================================================================
+// STYLE 1: The Tactile Swatch & Origin (Jacquemus / Loewe style)
+// ======================================================================
+function Style1TactileSwatch({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
+  const [activeImg, setActiveImg] = useState(product.image);
+
   return (
-    <div className="group relative flex flex-col h-full bg-white border border-[#DCC7AF]/40">
-      <Link href={`/product/${product.id}`} className="block relative aspect-[3/4] group-hover:aspect-video transition-all duration-500 overflow-hidden bg-gray-100 origin-top">
-        <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover" />
-        <button onClick={handleWishlist} className="absolute top-3 right-3 z-10 bg-white/50 backdrop-blur p-1.5 rounded-sm">
-          <Heart className={`w-3.5 h-3.5 ${inWishlist ? "fill-black text-black" : "text-gray-900"}`} />
-        </button>
-      </Link>
-      
-      <div className="p-3 flex flex-col flex-1 bg-white">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="font-sans font-medium text-sm text-gray-900 line-clamp-1">{product.name}</h3>
-          <span className="font-mono text-sm">${product.priceAud}</span>
+    <div className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-[#DCC7AF]/70 shadow-sm hover:shadow-xl transition-all duration-300">
+      {/* Photo Frame */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={activeImg}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Style Tag */}
+        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-mono text-[#1F1E1D] font-bold tracking-wider uppercase border border-black/10">
+          02 • Tactile Swatch
         </div>
-        
-        {/* Accordion Content reveals on hover */}
-        <div className="overflow-hidden max-h-0 group-hover:max-h-[150px] transition-all duration-500 ease-in-out opacity-0 group-hover:opacity-100 flex flex-col gap-3">
-          <p className="text-[10px] font-sans text-gray-500 leading-relaxed border-l-2 border-gray-200 pl-2">
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#1F1E1D] hover:scale-110 shadow-sm transition-transform"
+        >
+          <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
+        </button>
+
+        {/* Swatch Switcher Pill on image */}
+        <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-full flex items-center gap-1.5 shadow-sm border border-black/5">
+          <span
+            className="w-3.5 h-3.5 rounded-full border border-black/20 shadow-inner"
+            style={{ backgroundColor: product.colorHex || "#C5A059" }}
+            title={product.colorName}
+          />
+          <span className="text-[9px] font-mono text-black font-medium">{product.colorName}</span>
+        </div>
+
+        {/* Hover Quick Add */}
+        <button
+          type="button"
+          onClick={(e) => handleQuickAdd(e)}
+          className="absolute bottom-3 right-3 bg-[#1F1E1D] hover:bg-[#C5A059] text-white hover:text-black px-3 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold shadow-lg transition-all opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0"
+        >
+          + Quick Add
+        </button>
+      </div>
+
+      {/* Info Section */}
+      <div className="p-3.5 flex flex-col flex-1 justify-between">
+        <div>
+          <div className="flex items-center justify-between text-[10px] font-mono text-[#78716A] mb-1">
+            <span>{product.storyPlace || "Southern Coast"}</span>
+            <span className="text-[#C5A059]">★ 4.9</span>
+          </div>
+          <Link href={`/product/${product.id}`}>
+            <h3 className="font-serif text-sm font-medium text-[#1F1E1D] hover:text-[#C5A059] transition-colors line-clamp-1">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-[11px] font-sans text-[#78716A] truncate mt-0.5">
             {product.fabric}
           </p>
+        </div>
+
+        <div className="flex items-center justify-between pt-2 border-t border-gray-100 mt-2">
+          <span className="font-mono text-xs font-bold text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <button
+            type="button"
+            onClick={handleQuickView}
+            className="text-[10px] font-mono text-[#78716A] hover:text-[#1F1E1D] underline"
+          >
+            Quick View
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ======================================================================
+// STYLE 2: The Boutique Linen Hangtag (Bode / Story mfg style)
+// ======================================================================
+function Style2BoutiqueHangtag({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
+  return (
+    <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border border-[#C5A059]/40 shadow-sm hover:shadow-xl transition-all duration-300">
+      {/* Top Image Frame */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Tactile Hangtag (pinned to top corner) */}
+        <div className="absolute top-2 left-2 bg-[#F3ECE1] text-[#1F1E1D] px-2.5 py-1 rounded shadow-md border-t-2 border-l-2 border-[#C5A059] font-mono text-[8px] uppercase tracking-wider flex items-center gap-1">
+          <Scissors className="w-2.5 h-2.5 text-[#B86B4B]" />
+          <span>Batch 04 • Pit Loom</span>
+        </div>
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#1F1E1D] hover:scale-110 shadow-sm transition-transform"
+        >
+          <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
+        </button>
+
+        {/* Hover Quick Drawer */}
+        <div className="absolute inset-x-2 bottom-2 bg-[#1F1E1D]/90 backdrop-blur-md rounded-xl p-2 flex items-center justify-between text-white opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-[10px] font-mono text-[#DCC7AF]">AU 6 - AU 14</span>
+          <button
+            type="button"
+            onClick={(e) => handleQuickAdd(e)}
+            className="px-3 py-1 bg-[#C5A059] text-black font-mono text-[9px] uppercase font-bold rounded-lg hover:bg-white transition-colors"
+          >
+            Add to Bag
+          </button>
+        </div>
+      </div>
+
+      {/* Info Section */}
+      <div className="p-3 flex flex-col flex-1 justify-between bg-[#FAF7F2]">
+        <div>
+          <span className="text-[9px] font-mono uppercase tracking-widest text-[#B86B4B] font-bold">
+            03 • Boutique Tag
+          </span>
+          <Link href={`/product/${product.id}`}>
+            <h3 className="font-serif text-sm font-medium text-[#1F1E1D] line-clamp-1 mt-0.5">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-[10px] font-mono text-[#78716A] truncate">
+            {product.destinations?.[0] || "Resort"} Edition
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between pt-2 border-t border-[#DCC7AF]/60 mt-2">
+          <span className="font-mono text-xs font-bold text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <button
+            type="button"
+            onClick={handleQuickView}
+            className="text-[10px] font-mono text-[#B86B4B] hover:underline"
+          >
+            Inspect
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ======================================================================
+// STYLE 3: The Dual Perspective Front/Back (Loewe / Bottega style)
+// ======================================================================
+function Style3DualPerspective({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
+  const [viewAngle, setViewAngle] = useState<"front" | "back">("front");
+
+  return (
+    <div className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300">
+      {/* Photo Frame */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={viewAngle === "back" && product.imageHover ? product.imageHover : product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Style Tag */}
+        <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-white px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider">
+          04 • Dual View
+        </div>
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#1F1E1D] hover:scale-110 shadow-sm transition-transform"
+        >
+          <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
+        </button>
+
+        {/* Angle Toggles Pill */}
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md px-1 py-1 rounded-full flex items-center gap-1 shadow-md border border-black/10">
+          <button
+            type="button"
+            onClick={() => setViewAngle("front")}
+            className={`px-2 py-0.5 rounded-full text-[9px] font-mono uppercase transition-colors ${
+              viewAngle === "front" ? "bg-black text-white font-bold" : "text-gray-700 hover:text-black"
+            }`}
+          >
+            Front
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewAngle("back")}
+            className={`px-2 py-0.5 rounded-full text-[9px] font-mono uppercase transition-colors ${
+              viewAngle === "back" ? "bg-black text-white font-bold" : "text-gray-700 hover:text-black"
+            }`}
+          >
+            Detail
+          </button>
+        </div>
+      </div>
+
+      {/* Info Section */}
+      <div className="p-3.5 flex flex-col flex-1 justify-between bg-white">
+        <div>
+          <Link href={`/product/${product.id}`}>
+            <h3 className="font-serif text-sm font-medium text-[#1F1E1D] line-clamp-1">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-[10px] font-mono text-[#78716A] truncate mt-0.5">
+            {product.fabric}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between pt-2 border-t border-gray-100 mt-2">
+          <span className="font-mono text-xs font-bold text-black">${product.priceAud} AUD</span>
+          <button
+            type="button"
+            onClick={(e) => handleQuickAdd(e)}
+            className="px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#C5A059] text-white hover:text-black rounded text-[9px] font-mono font-bold uppercase transition-colors"
+          >
+            + Add
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ======================================================================
+// STYLE 4: The Floating Glassmorphic Luxe (Saint Laurent / Khaite style)
+// ======================================================================
+function Style4GlassmorphicLuxe({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
+  return (
+    <div className="group relative flex flex-col h-full bg-[#11100F] rounded-2xl overflow-hidden border border-[#C5A059]/30 shadow-lg hover:shadow-2xl transition-all duration-500">
+      {/* Edge-to-Edge Image Frame */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Dark Vignette */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
+
+        {/* Style Tag */}
+        <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-[#C5A059] px-2.5 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-widest border border-[#C5A059]/30">
+          05 • Glass Luxe
+        </div>
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center hover:scale-110 transition-transform"
+        >
+          <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#C5A059] text-[#C5A059]" : ""}`} />
+        </button>
+
+        {/* Floating Glassmorphic Dock */}
+        <div className="absolute bottom-3 inset-x-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-3 text-white shadow-2xl transition-transform duration-300">
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="font-serif text-xs font-semibold text-white truncate max-w-[70%]">
+              {product.name}
+            </h3>
+            <span className="font-mono text-xs font-bold text-[#C5A059]">
+              ${product.priceAud}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between pt-1 border-t border-white/10">
+            <span className="text-[9px] font-mono text-white/60 truncate">
+              {product.fabric.split(" ")[0]}
+            </span>
+            <button
+              type="button"
+              onClick={(e) => handleQuickAdd(e)}
+              className="px-2.5 py-1 rounded bg-[#C5A059] hover:bg-white text-black text-[9px] font-mono font-bold uppercase transition-colors"
+            >
+              Add To Bag
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ======================================================================
+// STYLE 5: The Interactive Size Glider (Zara Studio / Mango Luxury)
+// ======================================================================
+function Style5QuickSizeGlider({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
+  const [justAdded, setJustAdded] = useState<string | null>(null);
+
+  const handleAddWithSize = (e: React.MouseEvent, sz: string) => {
+    handleQuickAdd(e, sz);
+    setJustAdded(sz);
+    setTimeout(() => setJustAdded(null), 1500);
+  };
+
+  return (
+    <div className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300">
+      {/* Image Area */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Style Tag */}
+        <div className="absolute top-3 left-3 bg-[#FAF7F2] text-[#1F1E1D] px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider font-bold border border-gray-200">
+          06 • Size Glider
+        </div>
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-black hover:scale-110 shadow-sm transition-transform"
+        >
+          <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
+        </button>
+
+        {/* 1-Tap Inline Size Selector Glider (Slides up on card hover) */}
+        <div className="absolute inset-x-2 bottom-2 bg-white/95 backdrop-blur-md border border-gray-200 rounded-xl p-2 shadow-xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+          <div className="flex items-center justify-between text-[9px] font-mono text-gray-500 mb-1 px-1">
+            <span>Select Size & Add:</span>
+            {justAdded && <span className="text-emerald-600 font-bold">Added {justAdded}!</span>}
+          </div>
           <div className="grid grid-cols-4 gap-1">
-            {product.sizes.slice(0,4).map((sz: string) => (
-              <button key={sz} onClick={(e) => handleQuickAdd(e, sz)} className="py-1 bg-gray-100 hover:bg-black hover:text-white text-[9px] font-mono transition-colors text-center">
+            {product.sizes.slice(0, 4).map((sz: string) => (
+              <button
+                key={sz}
+                type="button"
+                onClick={(e) => handleAddWithSize(e, sz)}
+                className="py-1 rounded bg-gray-100 hover:bg-black hover:text-white text-[9px] font-mono font-bold transition-colors text-center"
+              >
                 {sz.split(" ")[0]}
               </button>
             ))}
           </div>
         </div>
       </div>
-    </div>
-  );
-}
 
-// ----------------------------------------------------------------------
-// STYLE 6: The Cinematic Typewriter
-// ----------------------------------------------------------------------
-function Style6Cinematic({ product, handleWishlist, inWishlist, handleQuickAdd }: any) {
-  return (
-    <div className="group relative flex flex-col h-full bg-black overflow-hidden border border-gray-800">
-      <Link href={`/product/${product.id}`} className="absolute inset-0 block">
-        <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-30 transition-opacity duration-700" />
-      </Link>
-      
-      <button onClick={handleWishlist} className="absolute top-4 right-4 z-10 text-white/50 hover:text-white transition-colors">
-        <Heart className={`w-5 h-5 ${inWishlist ? "fill-white" : ""}`} />
-      </button>
-
-      {/* Typewriter Story */}
-      <div className="absolute inset-0 p-6 flex flex-col justify-center items-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-        <Sparkles className="w-5 h-5 text-[#C5A059] mb-3" />
-        <h3 className="font-serif text-white text-xl mb-3 leading-tight drop-shadow-lg">{product.name}</h3>
-        <p className="font-mono text-xs text-white/80 leading-loose max-w-[80%] uppercase tracking-widest line-clamp-4">
-          {product.story}
-        </p>
-      </div>
-
-      <div className="absolute bottom-0 inset-x-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
-        <button onClick={handleQuickAdd} className="w-full py-3 bg-white text-black font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition-colors">
-          Add To Bag — ${product.priceAud}
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// ----------------------------------------------------------------------
-// STYLE 7: The Technical Blueprint
-// ----------------------------------------------------------------------
-function Style7Blueprint({ product, handleWishlist, inWishlist, handleQuickAdd }: any) {
-  return (
-    <div className="group relative flex flex-col h-full bg-white border border-blue-900/10 hover:border-blue-900/30 transition-colors p-3">
-      <Link href={`/product/${product.id}`} className="block relative aspect-[4/5] bg-[#F8FAFC] overflow-hidden mb-3">
-        {/* Crosshairs */}
-        <Focus className="absolute top-2 left-2 w-4 h-4 text-blue-900/40 pointer-events-none z-10" />
-        <Focus className="absolute top-2 right-2 w-4 h-4 text-blue-900/40 pointer-events-none z-10" />
-        <Focus className="absolute bottom-2 left-2 w-4 h-4 text-blue-900/40 pointer-events-none z-10" />
-        <Focus className="absolute bottom-2 right-2 w-4 h-4 text-blue-900/40 pointer-events-none z-10" />
-        
-        <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-contain p-4 group-hover:scale-95 transition-transform duration-700" />
-        
-        {/* Technical Annotations */}
-        <div className="absolute top-1/4 left-0 w-8 border-b border-blue-900/40 border-dashed opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <span className="absolute top-[22%] left-9 text-[8px] font-mono text-blue-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">COLLAR</span>
-        
-        <div className="absolute bottom-1/4 right-0 w-8 border-b border-blue-900/40 border-dashed opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <span className="absolute bottom-[23%] right-9 text-[8px] font-mono text-blue-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">HEM</span>
-      </Link>
-      
-      <div className="flex flex-col flex-1">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="font-mono text-[11px] font-bold text-gray-900 uppercase leading-snug pr-2 line-clamp-2">{product.name}</h3>
-          <button onClick={handleWishlist}>
-            <Heart className={`w-4 h-4 ${inWishlist ? "fill-blue-900 text-blue-900" : "text-gray-400"}`} />
-          </button>
+      {/* Info Section */}
+      <div className="p-3.5 flex flex-col flex-1 justify-between bg-white">
+        <div>
+          <Link href={`/product/${product.id}`}>
+            <h3 className="font-serif text-sm font-medium text-[#1F1E1D] hover:text-[#B86B4B] transition-colors line-clamp-1">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-[11px] font-sans text-gray-500 truncate mt-0.5">
+            {product.story}
+          </p>
         </div>
-        <div className="mt-auto flex items-center justify-between border-t border-blue-900/10 pt-2">
-          <span className="font-mono text-xs text-blue-900 font-bold">${product.priceAud}</span>
-          <button onClick={handleQuickAdd} className="bg-blue-900 text-white text-[9px] font-mono uppercase px-3 py-1 hover:bg-blue-800 transition-colors">
-            Init Cart
+
+        <div className="flex items-center justify-between pt-2 border-t border-gray-100 mt-2">
+          <span className="font-mono text-xs font-bold text-black">${product.priceAud} AUD</span>
+          <button
+            type="button"
+            onClick={handleQuickView}
+            className="text-[10px] font-mono text-[#B86B4B] hover:underline"
+          >
+            Details
           </button>
         </div>
       </div>
@@ -365,73 +628,324 @@ function Style7Blueprint({ product, handleWishlist, inWishlist, handleQuickAdd }
   );
 }
 
-// ----------------------------------------------------------------------
-// STYLE 8: The Sliding Drawer
-// ----------------------------------------------------------------------
-function Style8Drawer({ product, handleWishlist, inWishlist, handleQuickView }: any) {
+// ======================================================================
+// STYLE 6: The Editorial Runway Plate (Vogue Runway / Gentle Monster)
+// ======================================================================
+function Style6EditorialPlate({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
   return (
-    <div className="group relative flex flex-col h-full bg-[#1F1E1D] overflow-hidden rounded-lg shadow-lg">
-      {/* Hidden Compartment */}
-      <div className="absolute inset-x-0 bottom-0 p-4 h-1/3 bg-[#1F1E1D] flex flex-col justify-end">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-[10px] font-mono text-white/50 uppercase">Origin</span>
-          <span className="text-[10px] font-mono text-[#C5A059] uppercase">{product.destinations[0]}</span>
-        </div>
-        <div className="flex justify-between items-center mb-4">
-          <span className="text-[10px] font-mono text-white/50 uppercase">Stock</span>
-          <span className="text-[10px] font-mono text-white uppercase">{product.inventoryStatus.replace("_", " ")}</span>
-        </div>
-        <button onClick={handleQuickView} className="w-full bg-[#C5A059] text-white text-xs font-mono uppercase py-2 hover:bg-white hover:text-black transition-colors">
-          View Details
-        </button>
+    <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border border-[#1F1E1D]/20 shadow-sm hover:shadow-xl transition-all duration-300">
+      {/* Plate Header Strip */}
+      <div className="px-3 py-1.5 bg-[#1F1E1D] text-white flex items-center justify-between text-[8px] font-mono uppercase tracking-widest">
+        <span>07 • RUNWAY ARCHIVE</span>
+        <span className="text-[#C5A059]">PLATE 07/26</span>
       </div>
 
-      {/* Main Card (Slides up on hover) */}
-      <div className="relative flex flex-col h-full bg-white group-hover:-translate-y-1/3 transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] rounded-b-xl shadow-2xl z-10">
-        <Link href={`/product/${product.id}`} className="block relative aspect-[4/5] bg-gray-100">
-          <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover" />
-          <button onClick={handleWishlist} className="absolute top-3 right-3 z-10">
-            <Heart className={`w-5 h-5 ${inWishlist ? "fill-red-500 text-red-500" : "text-gray-900 hover:scale-110"}`} />
-          </button>
+      {/* Image Frame */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
         </Link>
-        <div className="p-3 text-center flex flex-col flex-1 justify-center bg-white rounded-b-xl relative">
-          <h3 className="font-sans font-medium text-sm text-gray-900 mb-1">{product.name}</h3>
-          <Price amount={product.priceAud} size="sm" />
-          {/* Drawer Handle Indicator */}
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-gray-300">
-            <ChevronDown className="w-4 h-4" />
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-black hover:scale-110 shadow-sm transition-transform"
+        >
+          <Heart className={`w-3.5 h-3.5 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
+        </button>
+
+        {/* Quick Add Pill */}
+        <button
+          type="button"
+          onClick={(e) => handleQuickAdd(e)}
+          className="absolute bottom-3 inset-x-4 py-2 rounded-full bg-white/95 text-black font-mono text-[10px] uppercase tracking-wider font-bold shadow-xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all text-center hover:bg-[#C5A059]"
+        >
+          Instant Reserve • ${product.priceAud}
+        </button>
+      </div>
+
+      {/* Info Section */}
+      <div className="p-3 flex flex-col flex-1 justify-between bg-[#FAF7F2]">
+        <div>
+          <Link href={`/product/${product.id}`}>
+            <h3 className="font-serif text-sm font-medium text-[#1F1E1D] line-clamp-1">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-[10px] font-mono text-gray-600 truncate mt-0.5">
+            Weft: {product.fabric}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between pt-2 border-t border-[#DCC7AF]/60 mt-2 text-xs font-mono">
+          <span className="font-bold text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <button
+            type="button"
+            onClick={handleQuickView}
+            className="text-[10px] text-[#B86B4B] hover:underline"
+          >
+            Plate Notes
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ======================================================================
+// STYLE 7: The Authenticity Wax Seal (Aesop / Studio Nicholson)
+// ======================================================================
+function Style7AuthenticitySeal({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
+  return (
+    <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border border-[#C5A059]/40 shadow-sm hover:shadow-xl transition-all duration-300">
+      {/* Image Area */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Seal Badge */}
+        <div className="absolute top-3 left-3 bg-[#1F1E1D] text-[#C5A059] px-2 py-1 rounded-md text-[8px] font-mono uppercase tracking-widest flex items-center gap-1 border border-[#C5A059]/40 shadow-md">
+          <ShieldCheck className="w-3 h-3 text-[#C5A059]" />
+          <span>08 • Certified Loom</span>
+        </div>
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-black hover:scale-110 shadow-sm transition-transform"
+        >
+          <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
+        </button>
+
+        {/* Quick View Button */}
+        <button
+          type="button"
+          onClick={handleQuickView}
+          className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider text-black font-semibold shadow opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          Inspect Craft
+        </button>
+      </div>
+
+      {/* Info Section */}
+      <div className="p-3.5 flex flex-col flex-1 justify-between bg-[#FAF7F2]">
+        <div>
+          <div className="text-[9px] font-mono text-[#78716A] uppercase tracking-wider mb-0.5">
+            Ethical Pit-Loom Archive
+          </div>
+          <Link href={`/product/${product.id}`}>
+            <h3 className="font-serif text-sm font-medium text-[#1F1E1D] line-clamp-1">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-[10px] font-mono text-[#B86B4B] mt-0.5 truncate">
+            Natural Dye: Wild Cinnamon & Salt
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between pt-2 border-t border-[#DCC7AF]/60 mt-2">
+          <span className="font-mono text-xs font-bold text-black">${product.priceAud} AUD</span>
+          <button
+            type="button"
+            onClick={(e) => handleQuickAdd(e)}
+            className="px-3 py-1 bg-[#1F1E1D] hover:bg-[#C5A059] text-white hover:text-black rounded text-[9px] font-mono font-bold uppercase transition-colors"
+          >
+            Add to Bag
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ======================================================================
+// STYLE 8: The Slide-Up Wardrobe Drawer (Aritzia / Reformation style)
+// ======================================================================
+function Style8SlideUpDrawer({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300"
+    >
+      {/* Image Area */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={isHovered && product.imageHover ? product.imageHover : product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Style Tag */}
+        <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-wider">
+          09 • Wardrobe Drawer
+        </div>
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-black hover:scale-110 shadow-sm transition-transform"
+        >
+          <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
+        </button>
+
+        {/* Full Size Drawer that slides up seamlessly */}
+        <div className="absolute inset-x-0 bottom-0 bg-white/95 backdrop-blur-md border-t border-gray-200 p-2.5 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out shadow-2xl">
+          <div className="flex items-center justify-between text-[9px] font-mono text-gray-500">
+            <span>QUICK ADD SIZE:</span>
+            <span className="text-black font-semibold">${product.priceAud} AUD</span>
+          </div>
+          <div className="flex items-center gap-1">
+            {product.sizes.slice(0, 4).map((sz: string) => (
+              <button
+                key={sz}
+                type="button"
+                onClick={(e) => handleQuickAdd(e, sz)}
+                className="flex-1 py-1 bg-gray-100 hover:bg-black hover:text-white rounded text-[9px] font-mono font-bold transition-colors text-center"
+              >
+                {sz.split(" ")[0]}
+              </button>
+            ))}
           </div>
         </div>
       </div>
+
+      {/* Info Section */}
+      <div className="p-3.5 flex flex-col flex-1 justify-between bg-white">
+        <div>
+          <Link href={`/product/${product.id}`}>
+            <h3 className="font-serif text-sm font-medium text-[#1F1E1D] line-clamp-1">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-[11px] font-sans text-gray-500 truncate mt-0.5">
+            {product.fabric}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between pt-2 border-t border-gray-100 mt-2 text-xs font-mono">
+          <span className="font-bold text-black">${product.priceAud} AUD</span>
+          <button
+            type="button"
+            onClick={handleQuickView}
+            className="text-[10px] text-gray-500 hover:text-black underline"
+          >
+            Quick View
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 
-// ----------------------------------------------------------------------
-// STYLE 9: The First-Class Ticket
-// ----------------------------------------------------------------------
-function Style9Ticket({ product, handleQuickAdd }: any) {
+// ======================================================================
+// STYLE 9: The Atelier Specification Card (Aimé Leon Dore / Lemaire)
+// ======================================================================
+function Style9AtelierSpec({
+  product,
+  inWishlist,
+  handleWishlist,
+  handleQuickAdd,
+  handleQuickView,
+}: any) {
   return (
-    <div className="group relative flex flex-col h-full bg-white rounded-2xl shadow-sm border border-gray-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
-      <Link href={`/product/${product.id}`} className="block relative aspect-[4/5] bg-gray-100 overflow-hidden">
-        <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-      </Link>
-      
-      {/* Ticket Tear Section */}
-      <div className="relative border-t-2 border-dashed border-gray-300 mx-2 p-3 flex items-center justify-between bg-white">
-        {/* Fake Cutouts for ticket look */}
-        <div className="absolute -top-3 -left-2 w-4 h-4 bg-paper rounded-full border-b border-r border-gray-200" />
-        <div className="absolute -top-3 -right-2 w-4 h-4 bg-paper rounded-full border-b border-l border-gray-200" />
-        
-        <div className="flex-1 min-w-0 pr-2">
-          <h3 className="font-mono text-[10px] font-bold text-gray-900 uppercase truncate mb-0.5">{product.name}</h3>
-          <span className="font-mono text-sm font-bold text-[#B86B4B]">${product.priceAud}</span>
-        </div>
-        
-        <button onClick={handleQuickAdd} className="flex flex-col items-center justify-center p-2 bg-[#FAF7F2] hover:bg-[#1F1E1D] hover:text-white border border-[#DCC7AF]/50 rounded text-gray-900 transition-colors shrink-0">
-          <MoveDown className="w-3 h-3 mb-0.5" />
-          <span className="text-[8px] font-mono uppercase font-bold tracking-widest">Tear<br/>Add</span>
+    <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#1F1E1D] shadow-md hover:shadow-2xl transition-all duration-300">
+      {/* Top Spec Header */}
+      <div className="bg-[#1F1E1D] text-white px-3 py-1 flex items-center justify-between text-[8px] font-mono uppercase tracking-widest">
+        <span>10 • SPEC ARCHIVE</span>
+        <span className="text-[#C5A059]">BINDY ATELIER</span>
+      </div>
+
+      {/* Image Area */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
+        <Link href={`/product/${product.id}`} className="block relative w-full h-full">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Wishlist */}
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white flex items-center justify-center text-black hover:scale-110 shadow transition-transform"
+        >
+          <Heart className={`w-3.5 h-3.5 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
+
+        {/* Quick View */}
+        <button
+          type="button"
+          onClick={handleQuickView}
+          className="absolute bottom-2.5 left-2.5 bg-black/80 backdrop-blur-md text-white px-2.5 py-1 rounded text-[9px] font-mono uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          View Specs
+        </button>
+      </div>
+
+      {/* Info Section */}
+      <div className="p-3 flex flex-col flex-1 justify-between bg-[#FAF7F2]">
+        <div>
+          <div className="flex items-center justify-between text-[9px] font-mono text-[#78716A]">
+            <span>{product.collectionName || "Collection 01"}</span>
+            <span className="text-[#B86B4B] font-semibold">In Stock</span>
+          </div>
+          <Link href={`/product/${product.id}`}>
+            <h3 className="font-serif text-sm font-semibold text-[#1F1E1D] line-clamp-1 mt-0.5">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-[10px] font-mono text-[#78716A] truncate">
+            {product.fabric}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between pt-2 border-t border-black/10 mt-2">
+          <span className="font-mono text-xs font-bold text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <button
+            type="button"
+            onClick={(e) => handleQuickAdd(e)}
+            className="px-3 py-1 bg-[#1F1E1D] hover:bg-[#C5A059] text-white hover:text-black rounded text-[9px] font-mono font-bold uppercase transition-colors"
+          >
+            Add to Bag
+          </button>
+        </div>
       </div>
     </div>
   );
