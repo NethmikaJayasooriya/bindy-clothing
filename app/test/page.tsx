@@ -9,6 +9,12 @@ import { type Product } from "@/data/products";
 import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
 import DepthFlipHero from "@/components/DepthFlipHero";
+import HeroSwitcherBar from "@/components/heroes/HeroSwitcherBar";
+import HeroTactileLoupe from "@/components/heroes/HeroTactileLoupe";
+import HeroPanoramaFilmstrip from "@/components/heroes/HeroPanoramaFilmstrip";
+import HeroAtelierCollage from "@/components/heroes/HeroAtelierCollage";
+import HeroCraftCurtain from "@/components/heroes/HeroCraftCurtain";
+import HeroShopHotspot from "@/components/heroes/HeroShopHotspot";
 import HeritageTicker from "@/components/HeritageTicker";
 import TrustStrip from "@/components/home/TrustStrip";
 import SpotlightSection from "@/components/home/SpotlightSection";
@@ -28,6 +34,7 @@ import { ambientPlayer } from "@/lib/ambientSound";
 import type { Destination } from "@/data/products";
 
 export default function TestHomePage() {
+  const [heroStyle, setHeroStyle] = useState<number>(1);
   const [showSplash, setShowSplash] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -37,6 +44,38 @@ export default function TestHomePage() {
   const [selectedJourney, setSelectedJourney] = useState<Destination | "All">("All");
   const [showStickyMobile, setShowStickyMobile] = useState(false);
   const [isHeroOffscreen, setIsHeroOffscreen] = useState(false);
+
+  // Sync heroStyle from URL query or localStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryStyle = urlParams.get("hero");
+      if (queryStyle) {
+        const parsed = parseInt(queryStyle, 10);
+        if (parsed >= 1 && parsed <= 6) {
+          setHeroStyle(parsed);
+          return;
+        }
+      }
+      const saved = localStorage.getItem("bindy_test_hero_style");
+      if (saved) {
+        const parsed = parseInt(saved, 10);
+        if (parsed >= 1 && parsed <= 6) {
+          setHeroStyle(parsed);
+        }
+      }
+    }
+  }, []);
+
+  const handleSelectHeroStyle = (style: number) => {
+    setHeroStyle(style);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("bindy_test_hero_style", style.toString());
+      const url = new URL(window.location.href);
+      url.searchParams.set("hero", style.toString());
+      window.history.replaceState({}, "", url.toString());
+    }
+  };
 
   // Track scroll position for sticky mobile CTA bar & offscreen hero deactivation
   useEffect(() => {
@@ -142,6 +181,12 @@ export default function TestHomePage() {
         </div>
       </div>
 
+      {/* 0.1 LIVE HERO STYLE SWITCHER */}
+      <HeroSwitcherBar
+        currentStyle={heroStyle}
+        onSelectStyle={handleSelectHeroStyle}
+      />
+
       {/* 1. SPLASH SCREEN (Disabled on test route for immediate inspection) */}
       {showSplash && (
         <SplashScreen
@@ -159,22 +204,81 @@ export default function TestHomePage() {
         onOpenCart={() => setIsCartOpen(true)}
       />
 
-      {/* 3. HERO (SECTION 1) — 15-strip 3D Depth Flip with new-hero beach editorial images */}
+      {/* 3. HERO (SECTION 1) — Dynamically switched between 6 Luxury Styles */}
       <div
         className={`fixed inset-0 h-screen z-0 ${
           isHeroOffscreen ? "invisible pointer-events-none" : "visible pointer-events-auto"
         }`}
         aria-hidden={isHeroOffscreen}
       >
-        <DepthFlipHero
-          onExploreCollection={() => {
-            const el = document.getElementById("browse-collection");
-            el?.scrollIntoView({ behavior: "smooth" });
-          }}
-          onWatchFilm={() => setIsFilmModalOpen(true)}
-          isMuted={isMuted}
-          toggleAudio={toggleAudio}
-        />
+        {heroStyle === 1 && (
+          <DepthFlipHero
+            onExploreCollection={() => {
+              const el = document.getElementById("browse-collection");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            onWatchFilm={() => setIsFilmModalOpen(true)}
+            isMuted={isMuted}
+            toggleAudio={toggleAudio}
+          />
+        )}
+        {heroStyle === 2 && (
+          <HeroTactileLoupe
+            onExploreCollection={() => {
+              const el = document.getElementById("browse-collection");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            onWatchFilm={() => setIsFilmModalOpen(true)}
+            isMuted={isMuted}
+            toggleAudio={toggleAudio}
+          />
+        )}
+        {heroStyle === 3 && (
+          <HeroPanoramaFilmstrip
+            onExploreCollection={() => {
+              const el = document.getElementById("browse-collection");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            onWatchFilm={() => setIsFilmModalOpen(true)}
+            isMuted={isMuted}
+            toggleAudio={toggleAudio}
+          />
+        )}
+        {heroStyle === 4 && (
+          <HeroAtelierCollage
+            onExploreCollection={() => {
+              const el = document.getElementById("browse-collection");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            onWatchFilm={() => setIsFilmModalOpen(true)}
+            isMuted={isMuted}
+            toggleAudio={toggleAudio}
+          />
+        )}
+        {heroStyle === 5 && (
+          <HeroCraftCurtain
+            onExploreCollection={() => {
+              const el = document.getElementById("browse-collection");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            onWatchFilm={() => setIsFilmModalOpen(true)}
+            isMuted={isMuted}
+            toggleAudio={toggleAudio}
+          />
+        )}
+        {heroStyle === 6 && (
+          <HeroShopHotspot
+            onExploreCollection={() => {
+              const el = document.getElementById("browse-collection");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            onWatchFilm={() => setIsFilmModalOpen(true)}
+            onAddToCart={handleAddToCart}
+            onQuickView={(prod) => setQuickViewProduct(prod)}
+            isMuted={isMuted}
+            toggleAudio={toggleAudio}
+          />
+        )}
       </div>
 
       {/* Spacer to dock flush at bottom edge of hero */}
