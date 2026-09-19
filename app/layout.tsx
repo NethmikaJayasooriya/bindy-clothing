@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, League_Spartan } from "next/font/google";
+import { Fraunces, Inter, League_Spartan, Poppins, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -18,6 +18,26 @@ const leagueSpartan = League_Spartan({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-logo",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-poppins",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-outfit",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
@@ -47,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${fraunces.variable} ${leagueSpartan.variable} antialiased bg-[#FAF7F2] text-[#1F1E1D] overflow-x-hidden selection:bg-[#C5A059] selection:text-white font-sans`}
+        className={`${inter.variable} ${fraunces.variable} ${leagueSpartan.variable} ${poppins.variable} ${outfit.variable} ${playfair.variable} antialiased bg-[#FAF7F2] text-[#1F1E1D] overflow-x-hidden selection:bg-[#C5A059] selection:text-white font-sans`}
       >
         {children}
       </body>
