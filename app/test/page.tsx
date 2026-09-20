@@ -14,6 +14,7 @@ import HeroPanoramaFilmstrip from "@/components/heroes/HeroPanoramaFilmstrip";
 import HeroAtelierCollage from "@/components/heroes/HeroAtelierCollage";
 import HeroCraftCurtain from "@/components/heroes/HeroCraftCurtain";
 import HeroShopHotspot from "@/components/heroes/HeroShopHotspot";
+import HeroCinematicFilm from "@/components/heroes/HeroCinematicFilm";
 import HeroStyleControlSection from "@/components/home/HeroStyleControlSection";
 import HeritageTicker from "@/components/HeritageTicker";
 import TrustStrip from "@/components/home/TrustStrip";
@@ -61,14 +62,14 @@ export default function TestHomePage() {
       const queryStyle = urlParams.get("hero");
       if (queryStyle) {
         const parsed = parseInt(queryStyle, 10);
-        if (parsed >= 1 && parsed <= 6) {
+        if (parsed >= 1 && parsed <= 7) {
           setHeroStyle(parsed);
         }
       } else {
         const saved = localStorage.getItem("bindy_test_hero_style");
         if (saved) {
           const parsed = parseInt(saved, 10);
-          if (parsed >= 1 && parsed <= 6) {
+          if (parsed >= 1 && parsed <= 7) {
             setHeroStyle(parsed);
           }
         }
@@ -82,7 +83,7 @@ export default function TestHomePage() {
           return;
         }
         const num = parseInt(e.key, 10);
-        if (num >= 1 && num <= 6) {
+        if (num >= 1 && num <= 7) {
           handleSelectHeroStyle(num);
         }
       };
@@ -287,6 +288,19 @@ export default function TestHomePage() {
             toggleAudio={toggleAudio}
           />
         )}
+        {heroStyle === 7 && (
+          <HeroCinematicFilm
+            onExploreCollection={() => {
+              const el = document.getElementById("browse-collection");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            onWatchFilm={() => setIsFilmModalOpen(true)}
+            onAddToCart={handleAddToCart}
+            onQuickView={(prod) => setQuickViewProduct(prod)}
+            isMuted={isMuted}
+            toggleAudio={toggleAudio}
+          />
+        )}
       </div>
 
       {/* Spacer to dock flush at bottom edge of hero */}
@@ -311,6 +325,7 @@ export default function TestHomePage() {
 
         {/* SECTION 5: BROWSE BY PIECE (grid, filter pills, micro-badges, load more) */}
         <BrowseSection
+          isTest={true}
           onQuickView={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
           selectedJourney={selectedJourney}

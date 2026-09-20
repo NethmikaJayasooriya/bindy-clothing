@@ -5,16 +5,12 @@ import Link from "next/link";
 import {
   Heart,
   Eye,
-  Plus,
-  Sparkles,
   Scissors,
   Sun,
   Wind,
   Leaf,
   Flame,
   ShieldCheck,
-  Check,
-  Tag,
 } from "lucide-react";
 import type { Product } from "@/data/products";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
@@ -109,7 +105,9 @@ export default function CreativeProductCard({
 }
 
 // ======================================================================
-// STYLE 01: The Sculpted Arch Gallery (Totême — Bold Serif & Outfit Font)
+// STYLE 01: The Sculpted Arch Gallery (Totême — Bold Outfit Font)
+// Mobile: Visible bottom size tray
+// PC: Clean photography, tray reveals exclusively on mouse hover
 // ======================================================================
 function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
   const [isHovered, setIsHovered] = useState(false);
@@ -140,8 +138,8 @@ function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAd
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
 
-        {/* Action Tray: Visible on mobile, slides up on desktop hover */}
-        <div className="absolute bottom-2 inset-x-2 bg-[#1F1E1D]/95 backdrop-blur-xl border border-white/20 rounded-xl p-2.5 flex items-center justify-between sm:opacity-0 sm:group-hover:opacity-100 translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 transition-all duration-300 shadow-2xl">
+        {/* Mobile: visible. PC: hidden until hover */}
+        <div className="absolute bottom-2 inset-x-2 bg-[#1F1E1D]/95 backdrop-blur-xl border border-white/20 rounded-xl p-2.5 flex items-center justify-between opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all duration-300 shadow-2xl">
           <div className="flex items-center gap-1.5 flex-1">
             {product.sizes.slice(0, 4).map((sz: string) => (
               <button
@@ -182,6 +180,8 @@ function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAd
 
 // ======================================================================
 // STYLE 02: The Tactile Swatch Bar (Jacquemus — Bold Poppins Font)
+// Mobile: Visible + Quick Add button
+// PC: Clean photography, + Quick Add reveals on hover
 // ======================================================================
 function Style1TactileSwatch({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
   return (
@@ -200,19 +200,24 @@ function Style1TactileSwatch({ product, inWishlist, handleWishlist, handleQuickA
           <span className="w-4 h-4 rounded-full border border-black/20 shadow-inner" style={{ backgroundColor: product.colorHex || "#C5A059" }} />
           <span className="text-xs font-poppins font-bold text-black">{product.colorName}</span>
         </div>
+        {/* Mobile: visible. PC: hover reveal */}
         <button
           type="button"
           onClick={(e) => handleQuickAdd(e)}
-          className="absolute bottom-3 right-3 bg-[#1F1E1D] hover:bg-[#C5A059] text-white hover:text-black px-3.5 py-1.5 rounded-full text-xs font-poppins font-bold uppercase tracking-wider shadow-lg transition-all"
+          className="absolute bottom-3 right-3 bg-[#1F1E1D] hover:bg-[#C5A059] text-white hover:text-black px-3.5 py-1.5 rounded-full text-xs font-poppins font-bold uppercase tracking-wider shadow-lg transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0"
         >
           + Quick Add
         </button>
       </div>
       <div className="p-4 flex flex-col flex-1 justify-between">
         <div>
-          <div className="flex items-center justify-between text-xs font-mono font-bold text-[#78716A] mb-1">
-            <span>{product.storyPlace || "Southern Coast"}</span>
-            <span className="text-[#C5A059] font-poppins font-bold">★ 4.9 (28 Reviews)</span>
+          <div className="flex items-center justify-between gap-2 text-xs mb-1.5">
+            <span className="font-mono font-bold text-[#78716A] truncate text-[11px] uppercase tracking-wider">
+              {product.storyPlace || "Southern Coast"}
+            </span>
+            <span className="text-[#C5A059] font-poppins font-bold text-xs whitespace-nowrap flex-shrink-0">
+              ★ 4.9 (28 Reviews)
+            </span>
           </div>
           <Link href={`/product/${product.id}`}>
             <h3 className="font-poppins text-base sm:text-lg font-bold text-[#1F1E1D] hover:text-[#C5A059] transition-colors line-clamp-1 leading-snug">
@@ -232,6 +237,8 @@ function Style1TactileSwatch({ product, inWishlist, handleWishlist, handleQuickA
 
 // ======================================================================
 // STYLE 03: The Boutique Linen Hangtag (Bode — Playfair Display Font)
+// Mobile: Visible size/add tray
+// PC: Clean photography, tray reveals on hover
 // ======================================================================
 function Style2BoutiqueHangtag({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
   return (
@@ -247,7 +254,8 @@ function Style2BoutiqueHangtag({ product, inWishlist, handleWishlist, handleQuic
         <button type="button" onClick={handleWishlist} className="absolute top-2.5 right-2.5 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-[#1F1E1D] hover:scale-110 shadow-md transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <div className="absolute inset-x-2.5 bottom-2.5 bg-[#1F1E1D]/95 backdrop-blur-md rounded-xl p-2.5 flex items-center justify-between text-white shadow-xl">
+        {/* Mobile: visible. PC: hidden until hover */}
+        <div className="absolute inset-x-2.5 bottom-2.5 bg-[#1F1E1D]/95 backdrop-blur-md rounded-xl p-2.5 flex items-center justify-between text-white shadow-xl opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all duration-300">
           <span className="text-xs font-mono font-bold text-[#DCC7AF]">Sizes: AU 6 – 14</span>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-3.5 py-1.5 bg-[#C5A059] text-black font-mono text-xs font-bold uppercase rounded-lg hover:bg-white transition-colors">Add to Bag</button>
         </div>
@@ -271,6 +279,8 @@ function Style2BoutiqueHangtag({ product, inWishlist, handleWishlist, handleQuic
 
 // ======================================================================
 // STYLE 04: The Dual-Perspective Angle (Loewe — Bold Modern Sans)
+// Mobile: Visible view angle toggle
+// PC: Clean photography, toggle reveals on hover
 // ======================================================================
 function Style3DualPerspective({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   const [viewAngle, setViewAngle] = useState<"front" | "back">("front");
@@ -287,9 +297,26 @@ function Style3DualPerspective({ product, inWishlist, handleWishlist, handleQuic
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-[#1F1E1D] hover:scale-110 shadow-md transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md p-1 rounded-full flex items-center gap-1 shadow-lg border border-black/10">
-          <button type="button" onClick={() => setViewAngle("front")} className={`px-3 py-1 rounded-full text-xs font-sans font-bold uppercase transition-colors ${viewAngle === "front" ? "bg-black text-white" : "text-gray-700 hover:text-black"}`}>Front View</button>
-          <button type="button" onClick={() => setViewAngle("back")} className={`px-3 py-1 rounded-full text-xs font-sans font-bold uppercase transition-colors ${viewAngle === "back" ? "bg-black text-white" : "text-gray-700 hover:text-black"}`}>Detail</button>
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md p-1 rounded-full flex items-center flex-nowrap gap-1 shadow-lg border border-black/10 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto transition-all whitespace-nowrap z-10">
+          <button
+            type="button"
+            onClick={() => setViewAngle("front")}
+            className={`px-3 py-1 rounded-full text-xs font-sans font-bold uppercase tracking-wider whitespace-nowrap transition-colors ${
+              viewAngle === "front" ? "bg-black text-white shadow-sm" : "text-gray-700 hover:text-black"
+            }`}
+          >
+            Front View
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewAngle("back")}
+            className={`px-3 py-1 rounded-full text-xs font-sans font-bold uppercase tracking-wider whitespace-nowrap transition-colors ${
+              viewAngle === "back" ? "bg-black text-white shadow-sm" : "text-gray-700 hover:text-black"
+            }`}
+          >
+            Detail
+          </button>
         </div>
       </div>
       <div className="p-4 flex flex-col flex-1 justify-between bg-white">
@@ -310,6 +337,8 @@ function Style3DualPerspective({ product, inWishlist, handleWishlist, handleQuic
 
 // ======================================================================
 // STYLE 05: The Floating Glassmorphic Luxe (Khaite — Outfit Font)
+// Mobile: Visible bottom glass bar
+// PC: Clean photography, glass bar reveals and lifts on hover
 // ======================================================================
 function Style4GlassmorphicLuxe({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -325,7 +354,8 @@ function Style4GlassmorphicLuxe({ product, inWishlist, handleWishlist, handleQui
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md text-white flex items-center justify-center hover:scale-110 transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#C5A059] text-[#C5A059]" : ""}`} />
         </button>
-        <div className="absolute bottom-3 inset-x-3 bg-white/15 backdrop-blur-xl border border-white/30 rounded-xl p-3.5 text-white shadow-2xl">
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute bottom-3 inset-x-3 bg-white/15 backdrop-blur-xl border border-white/30 rounded-xl p-3.5 text-white shadow-2xl transition-all duration-300 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0">
           <div className="flex items-center justify-between mb-1.5">
             <h3 className="font-outfit text-base font-bold text-white truncate max-w-[70%]">{product.name}</h3>
             <span className="font-outfit text-base font-black text-[#C5A059]">${product.priceAud}</span>
@@ -342,6 +372,8 @@ function Style4GlassmorphicLuxe({ product, inWishlist, handleWishlist, handleQui
 
 // ======================================================================
 // STYLE 06: The Instant Size Glider (Zara Studio — Bold Poppins Font)
+// Mobile: Visible size selector glider
+// PC: Clean photography, glider reveals on hover
 // ======================================================================
 function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
   const [justAdded, setJustAdded] = useState<string | null>(null);
@@ -359,8 +391,8 @@ function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuic
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
 
-        {/* 1-Tap Size Buttons (Visible on mobile & desktop) */}
-        <div className="absolute inset-x-2.5 bottom-2.5 bg-white/95 backdrop-blur-md border border-gray-200 rounded-xl p-2.5 shadow-xl">
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute inset-x-2.5 bottom-2.5 bg-white/98 backdrop-blur-md border border-gray-200 rounded-xl p-2.5 shadow-xl opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all duration-300">
           <div className="flex items-center justify-between text-xs font-poppins font-bold text-gray-700 mb-1.5 px-1">
             <span>Select Size & Add:</span>
             {justAdded && <span className="text-emerald-600 font-bold">Added {justAdded}!</span>}
@@ -401,6 +433,8 @@ function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuic
 
 // ======================================================================
 // STYLE 07: The Runway Archive Plate (Vogue Runway — Playfair Font)
+// Mobile: Visible reserve button
+// PC: Clean photography, reserve button reveals on hover
 // ======================================================================
 function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
   return (
@@ -416,7 +450,12 @@ function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuick
         <button type="button" onClick={handleWishlist} className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <button type="button" onClick={(e) => handleQuickAdd(e)} className="absolute bottom-3 inset-x-4 py-2.5 rounded-full bg-white/95 text-black font-outfit text-xs uppercase tracking-wider font-extrabold shadow-xl hover:bg-[#C5A059] text-center transition-all">
+        {/* Mobile: visible. PC: hover reveal */}
+        <button
+          type="button"
+          onClick={(e) => handleQuickAdd(e)}
+          className="absolute bottom-3 inset-x-4 py-2.5 rounded-full bg-white/95 text-black font-outfit text-xs uppercase tracking-wider font-extrabold shadow-xl hover:bg-[#C5A059] text-center transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0"
+        >
           Instant Reserve • ${product.priceAud} AUD
         </button>
       </div>
@@ -438,6 +477,8 @@ function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuick
 
 // ======================================================================
 // STYLE 08: The Certified Pit-Loom Seal (Studio Nicholson — Sans / Serif)
+// Mobile: Visible Inspect Craft button
+// PC: Clean photography, button reveals on hover
 // ======================================================================
 function Style7AuthenticitySeal({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
   return (
@@ -453,7 +494,12 @@ function Style7AuthenticitySeal({ product, inWishlist, handleWishlist, handleQui
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow-md transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <button type="button" onClick={handleQuickView} className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-sans font-bold uppercase tracking-wider text-black shadow-md">
+        {/* Mobile: visible. PC: hover reveal */}
+        <button
+          type="button"
+          onClick={handleQuickView}
+          className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-sans font-bold uppercase tracking-wider text-black shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto transition-opacity"
+        >
           Inspect Craft
         </button>
       </div>
@@ -476,6 +522,8 @@ function Style7AuthenticitySeal({ product, inWishlist, handleWishlist, handleQui
 
 // ======================================================================
 // STYLE 09: The Slide-Up Wardrobe Drawer (Reformation — Poppins Font)
+// Mobile: Visible quick add drawer
+// PC: Clean photography, drawer slides up on hover
 // ======================================================================
 function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
   const [isHovered, setIsHovered] = useState(false);
@@ -492,7 +540,8 @@ function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickA
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow-md transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <div className="absolute inset-x-0 bottom-0 bg-white/98 backdrop-blur-md border-t border-gray-200 p-3 flex flex-col gap-2 shadow-2xl">
+        {/* Mobile: visible. PC: slides up on hover */}
+        <div className="absolute inset-x-0 bottom-0 bg-white/98 backdrop-blur-md border-t border-gray-200 p-3 flex flex-col gap-2 shadow-2xl opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-full sm:group-hover:translate-y-0 transition-transform duration-300 ease-out">
           <div className="flex items-center justify-between text-xs font-poppins font-bold text-gray-700">
             <span>QUICK ADD SIZE:</span>
             <span className="text-black font-extrabold">${product.priceAud} AUD</span>
@@ -524,13 +573,15 @@ function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickA
 
 // ======================================================================
 // STYLE 10: The Atelier Specification Grid (Aimé Leon Dore — Monospace/Serif)
+// Mobile: Visible View Specs button
+// PC: Clean photography, button reveals on hover
 // ======================================================================
 function Style9AtelierSpec({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#1E293B] shadow-md hover:shadow-2xl transition-all duration-300 font-sans">
-      <div className="bg-[#1E293B] text-white px-3.5 py-1.5 flex items-center justify-between text-xs font-mono font-bold uppercase tracking-widest">
-        <span>10 • AIMÉ LEON DORE SPEC</span>
-        <span className="text-[#C5A059]">ARCHIVE #01</span>
+      <div className="bg-[#1E293B] text-white px-3 py-1.5 flex items-center justify-between gap-1.5 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap flex-nowrap">
+        <span className="truncate">10 • AIMÉ LEON DORE SPEC</span>
+        <span className="text-[#C5A059] flex-shrink-0">ARCHIVE #01</span>
       </div>
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
@@ -539,7 +590,12 @@ function Style9AtelierSpec({ product, inWishlist, handleWishlist, handleQuickAdd
         <button type="button" onClick={handleWishlist} className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white flex items-center justify-center text-black hover:scale-110 shadow transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <button type="button" onClick={handleQuickView} className="absolute bottom-2.5 left-2.5 bg-[#1E293B] text-white px-3 py-1.5 rounded text-xs font-mono font-bold uppercase tracking-wider">
+        {/* Mobile: visible. PC: hover reveal */}
+        <button
+          type="button"
+          onClick={handleQuickView}
+          className="absolute bottom-2.5 left-2.5 bg-[#1E293B] text-white px-3 py-1.5 rounded text-xs font-mono font-bold uppercase tracking-wider opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto transition-opacity"
+        >
           View Specs
         </button>
       </div>
@@ -565,6 +621,8 @@ function Style9AtelierSpec({ product, inWishlist, handleWishlist, handleQuickAdd
 
 // ======================================================================
 // STYLE 11: The Coastal Tide & Sun Meter (Matteau — Outfit Font)
+// Mobile: Visible weather info & reserve button
+// PC: Clean photography, bar reveals on hover
 // ======================================================================
 function Style10CoastalTide({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -580,10 +638,11 @@ function Style10CoastalTide({ product, inWishlist, handleWishlist, handleQuickAd
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow-md transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <div className="absolute bottom-3 inset-x-3 bg-black/80 backdrop-blur-md rounded-xl p-2.5 text-white flex items-center justify-between text-xs font-mono">
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute bottom-3 inset-x-3 bg-black/80 backdrop-blur-md rounded-xl p-2.5 text-white flex items-center justify-between text-xs font-mono opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all">
           <div className="flex items-center gap-1.5 text-[#DCC7AF]">
             <Wind className="w-3.5 h-3.5" />
-            <span className="font-bold">Bentota • 28°C Low Tide</span>
+            <span className="font-bold">Bentota • 28°C</span>
           </div>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-3 py-1 bg-[#C5A059] text-black font-bold uppercase rounded hover:bg-white transition-colors">
             Reserve
@@ -608,6 +667,7 @@ function Style10CoastalTide({ product, inWishlist, handleWishlist, handleQuickAd
 
 // ======================================================================
 // STYLE 12: The Artisan Postcard Provenance (Posse — Fraunces & Mono)
+// Mobile & PC: Clean vintage postcard presentation with artisan provenance
 // ======================================================================
 function Style11ArtisanPostcard({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -645,6 +705,8 @@ function Style11ArtisanPostcard({ product, inWishlist, handleWishlist, handleQui
 
 // ======================================================================
 // STYLE 13: The Asymmetric Split Cutout (Sir The Label — Inter Bold)
+// Mobile: Visible 120 GSM Voile & Loupe bar
+// PC: Clean photography, bar reveals on hover
 // ======================================================================
 function Style12AsymmetricSplit({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
   return (
@@ -659,7 +721,8 @@ function Style12AsymmetricSplit({ product, inWishlist, handleWishlist, handleQui
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow-md transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <div className="absolute bottom-3 inset-x-3 flex items-center justify-between">
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute bottom-3 inset-x-3 flex items-center justify-between opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all">
           <span className="bg-white/95 px-3 py-1 rounded text-xs font-mono font-bold text-black shadow">120 GSM Voile</span>
           <button type="button" onClick={handleQuickView} className="p-2.5 rounded bg-black/90 text-white hover:bg-black transition-colors" title="Loupe View">
             <Eye className="w-4 h-4" />
@@ -684,6 +747,8 @@ function Style12AsymmetricSplit({ product, inWishlist, handleWishlist, handleQui
 
 // ======================================================================
 // STYLE 14: The Pure Minimalist Whisper (The Row — Clean Outfit Font)
+// Mobile: Visible size selection glider
+// PC: Clean photography, size glider reveals on hover
 // ======================================================================
 function Style13PureMinimalist({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -698,7 +763,8 @@ function Style13PureMinimalist({ product, inWishlist, handleWishlist, handleQuic
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 text-black/70 hover:text-black transition-colors">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-black text-black" : ""}`} />
         </button>
-        <div className="absolute bottom-2.5 inset-x-2.5 bg-white/95 backdrop-blur-md rounded-xl p-2.5 flex items-center justify-between shadow-xl">
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute bottom-2.5 inset-x-2.5 bg-white/95 backdrop-blur-md rounded-xl p-2.5 flex items-center justify-between shadow-xl opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all">
           <span className="text-xs font-outfit font-bold text-gray-700">Select Size:</span>
           <div className="flex gap-1.5">
             {["XS", "S", "M", "L"].map((s) => (
@@ -719,6 +785,8 @@ function Style13PureMinimalist({ product, inWishlist, handleWishlist, handleQuic
 
 // ======================================================================
 // STYLE 15: The Sculptural Hardware Frame (Cult Gaia — Playfair Display)
+// Mobile: Visible shell reserve bar
+// PC: Clean photography, bar reveals on hover
 // ======================================================================
 function Style14SculpturalHardware({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -733,7 +801,8 @@ function Style14SculpturalHardware({ product, inWishlist, handleWishlist, handle
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 text-[#C5A059] flex items-center justify-center hover:scale-110 transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#C5A059]" : ""}`} />
         </button>
-        <div className="absolute bottom-3 inset-x-3 bg-black/85 backdrop-blur-md border border-[#C5A059]/40 rounded-xl p-3 flex items-center justify-between">
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute bottom-3 inset-x-3 bg-black/85 backdrop-blur-md border border-[#C5A059]/40 rounded-xl p-3 flex items-center justify-between opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all">
           <span className="text-xs font-mono font-bold text-[#DCC7AF]">Hand-Carved Shell</span>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-3.5 py-1.5 bg-[#C5A059] text-black font-mono text-xs font-bold uppercase rounded-lg hover:bg-white transition-colors">Reserve</button>
         </div>
@@ -756,6 +825,8 @@ function Style14SculpturalHardware({ product, inWishlist, handleWishlist, handle
 
 // ======================================================================
 // STYLE 16: The Eco-Provenance & Carbon Metric (Nanushka — Poppins Font)
+// Mobile: Visible biodegradable add button
+// PC: Clean photography, button reveals on hover
 // ======================================================================
 function Style15EcoCarbonMetric({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -771,7 +842,12 @@ function Style15EcoCarbonMetric({ product, inWishlist, handleWishlist, handleQui
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow-md transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <button type="button" onClick={(e) => handleQuickAdd(e)} className="absolute bottom-3 inset-x-4 py-2.5 bg-[#4E6349] text-white rounded-full font-poppins text-xs uppercase font-bold shadow-lg text-center hover:bg-black transition-all">
+        {/* Mobile: visible. PC: hover reveal */}
+        <button
+          type="button"
+          onClick={(e) => handleQuickAdd(e)}
+          className="absolute bottom-3 inset-x-4 py-2.5 bg-[#4E6349] text-white rounded-full font-poppins text-xs uppercase font-bold shadow-lg text-center hover:bg-black transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0"
+        >
           100% Biodegradable • Add to Bag
         </button>
       </div>
@@ -793,6 +869,8 @@ function Style15EcoCarbonMetric({ product, inWishlist, handleWishlist, handleQui
 
 // ======================================================================
 // STYLE 17: The Botanical Dye Recipe Vat (Lemaire — Serif & Warm Earth)
+// Mobile: Visible dye spec and add button
+// PC: Clean photography, bar reveals on hover
 // ======================================================================
 function Style16BotanicalDyeVat({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -808,7 +886,8 @@ function Style16BotanicalDyeVat({ product, inWishlist, handleWishlist, handleQui
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:scale-110 transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#C5A059] text-[#C5A059]" : ""}`} />
         </button>
-        <div className="absolute bottom-2.5 inset-x-2.5 bg-black/85 backdrop-blur-md rounded-xl p-2.5 text-xs font-mono text-[#DCC7AF] flex items-center justify-between">
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute bottom-2.5 inset-x-2.5 bg-black/85 backdrop-blur-md rounded-xl p-2.5 text-xs font-mono text-[#DCC7AF] flex items-center justify-between opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all">
           <span className="truncate pr-2 font-bold">Cinnamon Bark & Indigo</span>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-3 py-1.5 bg-[#C5A059] text-black font-bold uppercase rounded hover:bg-white transition-colors">Add</button>
         </div>
@@ -831,6 +910,8 @@ function Style16BotanicalDyeVat({ product, inWishlist, handleWishlist, handleQui
 
 // ======================================================================
 // STYLE 18: The Romantic Heirloom Poetry (Dôen — Playfair Italic)
+// Mobile: Visible gather button
+// PC: Clean photography, gather button reveals on hover
 // ======================================================================
 function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -845,7 +926,12 @@ function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQu
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow-md transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <button type="button" onClick={(e) => handleQuickAdd(e)} className="absolute bottom-3 inset-x-4 py-2.5 bg-[#1F1E1D] text-white rounded-full font-outfit text-xs uppercase font-extrabold shadow-lg text-center hover:bg-[#B86B4B] transition-all">
+        {/* Mobile: visible. PC: hover reveal */}
+        <button
+          type="button"
+          onClick={(e) => handleQuickAdd(e)}
+          className="absolute bottom-3 inset-x-4 py-2.5 bg-[#1F1E1D] text-white rounded-full font-outfit text-xs uppercase font-extrabold shadow-lg text-center hover:bg-[#B86B4B] transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0"
+        >
           Gather Piece • ${product.priceAud} AUD
         </button>
       </div>
@@ -867,6 +953,8 @@ function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQu
 
 // ======================================================================
 // STYLE 19: The Textile Density Spec (Marle — Poppins & Monospace)
+// Mobile: Visible weft density specs
+// PC: Clean photography, specs reveal on hover
 // ======================================================================
 function Style18TextileDensity({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -881,7 +969,8 @@ function Style18TextileDensity({ product, inWishlist, handleWishlist, handleQuic
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow-md transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
-        <div className="absolute bottom-2.5 inset-x-2.5 bg-white/95 backdrop-blur-md rounded-xl p-2.5 text-xs font-mono text-black grid grid-cols-2 gap-1.5 border border-gray-200 shadow-md">
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute bottom-2.5 inset-x-2.5 bg-white/95 backdrop-blur-md rounded-xl p-2.5 text-xs font-mono text-black grid grid-cols-2 gap-1.5 border border-gray-200 shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all">
           <div><strong className="block text-[10px] text-gray-500">WEFT DENSITY:</strong> 60s Pit-Loom</div>
           <div><strong className="block text-[10px] text-gray-500">YARN ORIGIN:</strong> Unbleached Voile</div>
         </div>
@@ -904,6 +993,8 @@ function Style18TextileDensity({ product, inWishlist, handleWishlist, handleQuic
 
 // ======================================================================
 // STYLE 20: The Private Vault Capsule (SSENSE — Bold Outfit Font)
+// Mobile: Visible scarcity badge & Quick Add
+// PC: Clean photography, scarcity & Quick Add reveal on hover
 // ======================================================================
 function Style19PrivateVault({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
   return (
@@ -919,7 +1010,8 @@ function Style19PrivateVault({ product, inWishlist, handleWishlist, handleQuickA
         <button type="button" onClick={handleWishlist} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/10 backdrop-blur-md text-white flex items-center justify-center hover:scale-110 transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#C5A059] text-[#C5A059]" : ""}`} />
         </button>
-        <div className="absolute bottom-3 inset-x-3 flex items-center justify-between">
+        {/* Mobile: visible. PC: hover reveal */}
+        <div className="absolute bottom-3 inset-x-3 flex items-center justify-between opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all">
           <span className="bg-red-600 text-white px-2.5 py-1 rounded text-xs font-mono uppercase font-bold tracking-wider animate-pulse shadow">
             Only 2 Left
           </span>
