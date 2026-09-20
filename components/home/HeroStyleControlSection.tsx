@@ -10,12 +10,12 @@ export interface HeroStyleControlSectionProps {
 }
 
 const HERO_MINIMAL_OPTIONS = [
-  { id: 1, name: "3D Slice Flip", brand: "Preserved Flip" },
-  { id: 2, name: "Kinetic Silk", brand: "Jacquemus" },
-  { id: 3, name: "3D Carousel Orbit", brand: "Loewe" },
-  { id: 4, name: "Dual Horizon Split", brand: "Lemaire" },
-  { id: 5, name: "Craft Curtain", brand: "Dior" },
-  { id: 6, name: "Runway Hotspots", brand: "Coperni" },
+  { id: 1, name: "3D Slice Flip", brand: "Issey Miyake" },
+  { id: 2, name: "Tactile Loupe", brand: "Loewe" },
+  { id: 3, name: "Panorama Strip", brand: "Bottega" },
+  { id: 4, name: "Atelier Moodboard", brand: "Bode" },
+  { id: 5, name: "Craft Curtain", brand: "Lemaire" },
+  { id: 6, name: "Runway Hotspots", brand: "Aimé Leon Dore" },
 ];
 
 export default function HeroStyleControlSection({
