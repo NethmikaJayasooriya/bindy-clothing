@@ -118,39 +118,34 @@
 }
 
 /* Staggered Haute-Couture Text Reveal */
-.content > .eyebrowWrapper {
-  animation: heroRise 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.04s;
-}
-
 .title .titleLead {
   animation: coutureReveal 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.12s;
+  animation-delay: 0.05s;
 }
 
 .title .titleItalic {
   animation: coutureReveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.22s;
+  animation-delay: 0.16s;
 }
 
 .content > .note {
   animation: heroRise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.34s;
+  animation-delay: 0.28s;
 }
 
 .content > .actions {
   animation: heroRise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.46s;
+  animation-delay: 0.40s;
 }
 
 .grandReveal .film {
   animation: heroRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.54s;
+  animation-delay: 0.48s;
 }
 
 .grandReveal .bottom {
   animation: heroRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.60s;
+  animation-delay: 0.54s;
 }
 
 @keyframes coutureReveal {

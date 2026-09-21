@@ -169,14 +169,6 @@ export default function EditorialHero({
       {revealed && <div className={styles.introSheen} aria-hidden="true" />}
       <span className={styles.sideNote}>SRI LANKAN SOUL. A WORLD OF POSSIBILITY.</span>
       <div className={styles.content} key={`copy-${active}-${revealed}`}>
-        <div className={styles.eyebrowWrapper}>
-          <span className={styles.eyebrowBadge}>
-            <span className={styles.eyebrowDot} />
-            <span>CHAPTER 0{active + 1}</span>
-          </span>
-          <span className={styles.eyebrowLine} />
-          <p className={styles.eyebrow}>{chapter.label}</p>
-        </div>
         <h1 className={styles.title}>
           <span className={styles.titleLead}>{chapter.title}</span>
           <em className={styles.titleItalic}>{chapter.italic}</em>
