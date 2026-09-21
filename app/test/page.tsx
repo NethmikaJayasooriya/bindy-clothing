@@ -8,6 +8,7 @@ import { getCart, saveCart } from "@/lib/cart";
 import { type Product } from "@/data/products";
 import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
+import CinematicHero from "@/components/CinematicHero";
 import DepthFlipHero from "@/components/DepthFlipHero";
 import HeroTactileLoupe from "@/components/heroes/HeroTactileLoupe";
 import HeroPanoramaFilmstrip from "@/components/heroes/HeroPanoramaFilmstrip";
@@ -62,14 +63,14 @@ export default function TestHomePage() {
       const queryStyle = urlParams.get("hero");
       if (queryStyle) {
         const parsed = parseInt(queryStyle, 10);
-        if (parsed >= 1 && parsed <= 7) {
+        if (parsed >= 1 && parsed <= 8) {
           setHeroStyle(parsed);
         }
       } else {
         const saved = localStorage.getItem("bindy_test_hero_style");
         if (saved) {
           const parsed = parseInt(saved, 10);
-          if (parsed >= 1 && parsed <= 7) {
+          if (parsed >= 1 && parsed <= 8) {
             setHeroStyle(parsed);
           }
         }
@@ -83,7 +84,7 @@ export default function TestHomePage() {
           return;
         }
         const num = parseInt(e.key, 10);
-        if (num >= 1 && num <= 7) {
+        if (num >= 1 && num <= 8) {
           handleSelectHeroStyle(num);
         }
       };
@@ -221,7 +222,7 @@ export default function TestHomePage() {
         aria-hidden={isHeroOffscreen}
       >
         {heroStyle === 1 && (
-          <DepthFlipHero
+          <CinematicHero
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");
               el?.scrollIntoView({ behavior: "smooth" });
@@ -232,7 +233,7 @@ export default function TestHomePage() {
           />
         )}
         {heroStyle === 2 && (
-          <HeroTactileLoupe
+          <DepthFlipHero
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");
               el?.scrollIntoView({ behavior: "smooth" });
@@ -243,7 +244,7 @@ export default function TestHomePage() {
           />
         )}
         {heroStyle === 3 && (
-          <HeroPanoramaFilmstrip
+          <HeroTactileLoupe
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");
               el?.scrollIntoView({ behavior: "smooth" });
@@ -254,7 +255,7 @@ export default function TestHomePage() {
           />
         )}
         {heroStyle === 4 && (
-          <HeroAtelierCollage
+          <HeroPanoramaFilmstrip
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");
               el?.scrollIntoView({ behavior: "smooth" });
@@ -265,7 +266,7 @@ export default function TestHomePage() {
           />
         )}
         {heroStyle === 5 && (
-          <HeroCraftCurtain
+          <HeroAtelierCollage
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");
               el?.scrollIntoView({ behavior: "smooth" });
@@ -276,6 +277,17 @@ export default function TestHomePage() {
           />
         )}
         {heroStyle === 6 && (
+          <HeroCraftCurtain
+            onExploreCollection={() => {
+              const el = document.getElementById("browse-collection");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            onWatchFilm={() => setIsFilmModalOpen(true)}
+            isMuted={isMuted}
+            toggleAudio={toggleAudio}
+          />
+        )}
+        {heroStyle === 7 && (
           <HeroShopHotspot
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");
@@ -288,7 +300,7 @@ export default function TestHomePage() {
             toggleAudio={toggleAudio}
           />
         )}
-        {heroStyle === 7 && (
+        {heroStyle === 8 && (
           <HeroCinematicFilm
             onExploreCollection={() => {
               const el = document.getElementById("browse-collection");

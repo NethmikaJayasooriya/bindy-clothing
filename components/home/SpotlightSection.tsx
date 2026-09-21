@@ -52,7 +52,7 @@ export default function SpotlightSection({
               href="#browse-collection"
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono uppercase font-semibold tracking-widest text-[#1F1E1D] hover:text-[#B86B4B] transition-colors font-semibold group pb-1"
             >
-              <span>Explore All 28 Silhouettes</span>
+              <span>Explore All 17 Silhouettes</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </a>
           }

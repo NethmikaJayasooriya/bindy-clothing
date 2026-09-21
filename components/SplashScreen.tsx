@@ -1,194 +1,235 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import BrandLogo from "@/components/BrandLogo";
+import React, { useEffect, useRef } from "react";
+import styles from "./SplashScreen.module.css";
 
 interface SplashScreenProps {
   onComplete: () => void;
+  onLift?: () => void;
 }
 
-export default function SplashScreen({ onComplete }: SplashScreenProps) {
-  const [progress, setProgress] = useState(0);
-  const [isOpening, setIsOpening] = useState(false);
-  const [isReady, setIsReady] = useState(false);
+const BUTTONS = [
+  "/images/splash/button-1.webp",
+  "/images/splash/button-2.webp",
+  "/images/splash/button-3.webp",
+  "/images/splash/button-4.webp",
+];
+
+const TIMING = {
+  entranceDelay: 850,
+  fall: 640,
+  hop: 560,
+  toPeriod: 520,
+  sink: 400,
+  stagger: 360,
+};
+
+const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+export default function SplashScreen({ onComplete, onLift }: SplashScreenProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const layerRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const wordmarkRef = useRef<HTMLDivElement>(null);
+  const periodRef = useRef<HTMLSpanElement>(null);
+  const threadRef = useRef<HTMLSpanElement>(null);
+  const letterRefs = useRef<HTMLSpanElement[]>([]);
+  const started = useRef(false);
+  const finished = useRef(false);
+  const skipRef = useRef<() => void>(() => {});
 
   useEffect(() => {
-    // Smooth progress simulation
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setIsReady(true);
-          return 100;
-        }
-        const increment = Math.floor(Math.random() * 8) + 4;
-        return Math.min(prev + increment, 100);
-      });
-    }, 85);
+    if (started.current) return;
+    started.current = true;
 
-    return () => clearInterval(interval);
+    const root = rootRef.current!;
+    const layer = layerRef.current!;
+    const logo = logoRef.current!;
+    const wordmark = wordmarkRef.current!;
+    const period = periodRef.current!;
+    const thread = threadRef.current!;
+    const letters = letterRefs.current.filter(Boolean);
+
+    let periodFilled = false;
+    let landedInPeriod = 0; // dot reveals only after the LAST button lands
+
+    const rel = (el: Element, host: DOMRect) => {
+      const r = el.getBoundingClientRect();
+      return { centerX: r.left + r.width / 2 - host.left, top: r.top - host.top, height: r.height };
+    };
+    const restart = (el: HTMLElement, cls: string) => {
+      el.classList.remove(cls);
+      void el.offsetWidth;
+      el.classList.add(cls);
+    };
+    const growThread = (toIndex: number) => {
+      const wm = wordmark.getBoundingClientRect();
+      const target = toIndex < 0 ? period : letters[toIndex];
+      const r = target.getBoundingClientRect();
+      thread.style.width = Math.max(0, r.left + r.width / 2 - wm.left) + "px";
+    };
+    const fillPeriod = () => {
+      if (periodFilled) return;
+      periodFilled = true;
+      period.classList.add(styles.filled);
+      growThread(-1);
+    };
+
+    const fallTo = (pos: HTMLElement, y: number, dur: number) =>
+      new Promise<void>((res) => {
+        pos.style.setProperty("--fall-dur", dur + "ms");
+        // heavier gravity: slow release, hard acceleration into the letter
+        pos.style.transition = `top ${dur}ms cubic-bezier(.64,.02,.9,.34)`;
+        pos.classList.add(styles.falling);
+        requestAnimationFrame(() => { pos.style.top = y + "px"; });
+        setTimeout(() => { pos.classList.remove(styles.falling); res(); }, dur);
+      });
+    const hopTo = (pos: HTMLElement, x: number, y: number, dur: number) =>
+      new Promise<void>((res) => {
+        pos.style.setProperty("--hop-dur", dur + "ms");
+        pos.style.transition = `left ${dur}ms cubic-bezier(.65,0,.35,1), top ${dur}ms cubic-bezier(.65,0,.35,1)`;
+        restart(pos, styles.hopArc);
+        requestAnimationFrame(() => { pos.style.left = x + "px"; pos.style.top = y + "px"; });
+        setTimeout(() => { pos.classList.remove(styles.hopArc); res(); }, dur);
+      });
+    const sink = (img: HTMLElement, dur: number) =>
+      new Promise<void>((res) => {
+        img.style.transition = `transform ${dur}ms cubic-bezier(.22,1,.36,1), opacity ${dur}ms ease`;
+        requestAnimationFrame(() => { img.style.transform = "scale(.15)"; img.style.opacity = "0"; });
+        setTimeout(res, dur);
+      });
+    const imgReady = (img: HTMLImageElement) =>
+      img.complete && img.naturalWidth
+        ? Promise.resolve()
+        : new Promise<void>((res) => { img.onload = () => res(); img.onerror = () => res(); });
+
+    async function runButton(src: string, index: number) {
+      const pos = document.createElement("div");
+      pos.className = styles.btnPos;
+      pos.style.setProperty("--spin-dir", index % 2 === 0 ? "1" : "-1");
+      const lift = document.createElement("div");
+      lift.className = styles.btnLift;
+      const img = document.createElement("img");
+      img.className = styles.btnImg;
+      img.src = src; img.alt = "";
+      const shadow = document.createElement("div");
+      shadow.className = styles.btnShadow;
+      lift.appendChild(img);
+      pos.appendChild(shadow);
+      pos.appendChild(lift);
+      layer.appendChild(pos);
+
+      await imgReady(img);
+      if (finished.current) return;
+
+      const host = root.getBoundingClientRect();
+      const lr = letters.map((l) => rel(l, host));
+      const pr = rel(period, host);
+      const btnW = img.getBoundingClientRect().width;
+      const btnH = img.getBoundingClientRect().height || btnW;
+      // land on the ACTUAL glyph top of each letter. x-height letters (n, y) have
+      // no ascender, so their glyph sits lower — drop the button down onto them
+      // instead of floating at the tall-letter line.
+      const fs = parseFloat(getComputedStyle(letters[0]).fontSize) || btnH * 3;
+      const CAP_GAP = fs * 0.14; // box-top -> top of tall glyphs (b, d, i)
+      const X_DROP = fs * 0.25;  // extra drop so buttons rest on n / y
+      const word = "bindy";
+      const landY = (i: number) => {
+        const short = word[i] === "n" || word[i] === "y";
+        const glyphTop = lr[i].top + CAP_GAP + (short ? X_DROP : 0);
+        return glyphTop - btnH * 0.9;
+      };
+      const place = (cx: number, ty: number) => { pos.style.left = cx - btnW / 2 + "px"; pos.style.top = ty + "px"; };
+
+      pos.style.transition = "none";
+      place(lr[0].centerX, -(btnH + 60));
+      void pos.offsetWidth;
+
+      await fallTo(pos, landY(0), TIMING.fall);
+      if (finished.current) { pos.remove(); return; }
+      restart(letters[0], styles.squish); restart(img, styles.impact); growThread(0);
+
+      for (let i = 1; i < letters.length; i++) {
+        if (finished.current) { pos.remove(); return; }
+        await hopTo(pos, lr[i].centerX, landY(i), TIMING.hop);
+        restart(letters[i], styles.squish); restart(img, styles.impact); growThread(i);
+      }
+
+      await hopTo(pos, pr.centerX, pr.top + pr.height * 0.5 - btnH * 0.3, TIMING.toPeriod);
+      // the dot is only revealed once the FINAL button has dropped into the period
+      landedInPeriod += 1;
+      if (landedInPeriod >= BUTTONS.length) fillPeriod();
+      await sink(img, TIMING.sink);
+      pos.remove();
+    }
+
+    async function finish(fast = false) {
+      if (finished.current) return;
+      finished.current = true;
+      fillPeriod();
+      logo.classList.add(styles.done);
+      try { sessionStorage.setItem("bindy-splash-seen", "1"); } catch {}
+      await wait(fast ? 200 : 850);
+      onLift?.();
+      root.classList.add(styles.lift);
+      await wait(fast ? 450 : 750);
+      onComplete();
+    }
+    skipRef.current = () => finish(true);
+
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape" || e.key === "Enter") finish(true); };
+    window.addEventListener("keydown", onKey);
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    async function play() {
+      if (document.fonts?.ready) { try { await document.fonts.ready; } catch {} }
+      await wait(60);
+      logo.classList.add(styles.in);
+
+      if (reduced) { await wait(520); finish(); return; }
+
+      await wait(TIMING.entranceDelay);
+      const runs: Promise<void>[] = [];
+      for (let i = 0; i < BUTTONS.length; i++) {
+        if (finished.current) break;
+        runs.push(runButton(BUTTONS[i], i));
+        if (i < BUTTONS.length - 1) await wait(TIMING.stagger);
+      }
+      await Promise.all(runs);
+      finish();
+    }
+
+    play();
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleEnter = () => {
-    if (isOpening) return;
-    setIsOpening(true);
-    setTimeout(() => {
-      onComplete();
-    }, 1600);
-  };
-
-  // Auto trigger after reaching 100% and delay
-  useEffect(() => {
-    if (isReady) {
-      const timer = setTimeout(() => {
-        handleEnter();
-      }, 1200);
-      return () => clearTimeout(timer);
-    }
-  }, [isReady]);
+  const setLetter = (i: number) => (el: HTMLSpanElement | null) => { if (el) letterRefs.current[i] = el; };
 
   return (
-    <div
-      className={`fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto flex items-center justify-center ${isOpening ? "curtains-open" : ""
-        }`}
-    >
-      {/* LEFT SILK CURTAIN PANEL */}
-      <div
-        className={`curtain-left absolute top-0 left-0 w-1/2 h-full bg-[#FAF7F2] z-20 overflow-hidden shadow-[10px_0_50px_rgba(0,0,0,0.12)]`}
-      >
-        {/* Symmetrical Fabric Shading */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#EFE7DC]/50 to-[#DCC7AF]/40" />
-        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_30%_50%,rgba(197,160,89,0.25)_0%,transparent_70%)]" />
+    <div ref={rootRef} className={styles.splash}>
+      <div ref={layerRef} className={styles.buttonsLayer} />
+
+      <div ref={logoRef} className={styles.logoWrap}>
+        <div ref={wordmarkRef} className={styles.wordmark}>
+          {["b", "i", "n", "d", "y"].map((ch, i) => (
+            <span key={ch} ref={setLetter(i)} className={styles.letter}>{ch}</span>
+          ))}
+          <span ref={periodRef} className={styles.period} />
+          <span ref={threadRef} className={styles.thread} />
+          <span className={styles.sheen} />
+        </div>
+        <div className={styles.subline}>clothing</div>
+        <div className={styles.tagline}>Two Islands. One Thread.</div>
       </div>
 
-      {/* RIGHT SILK CURTAIN PANEL */}
-      <div
-        className={`curtain-right absolute top-0 right-0 w-1/2 h-full bg-[#FAF7F2] z-20 overflow-hidden shadow-[-10px_0_50px_rgba(0,0,0,0.12)]`}
-      >
-        {/* Symmetrical Fabric Shading */}
-        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#EFE7DC]/50 to-[#DCC7AF]/40" />
-        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_70%_50%,rgba(197,160,89,0.25)_0%,transparent_70%)]" />
-      </div>
+      <button type="button" className={styles.skip} onClick={() => skipRef.current()}>
+        Skip intro
+      </button>
 
-      {/* CENTER STAGE CONTENT - ABSOLUTELY CENTERED ON SCREEN */}
-      <div
-        className={`absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 transition-all duration-1000 ${isOpening ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"
-          }`}
-      >
-        {/* Perfectly Centered Radial Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-[#C5A059]/15 via-[#A46446]/10 to-transparent blur-3xl animate-pulse-glow pointer-events-none" />
-
-        {/* Brand Crest & Lotus Motif */}
-        <motion.div
-          initial={{ opacity: 0, y: -15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="flex flex-col items-center justify-center space-y-3 mb-6"
-        >
-          <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full border border-[#C5A059]/50 flex items-center justify-center bg-[#FFFDF9] backdrop-blur-md shadow-[0_2px_15px_rgba(197,160,89,0.2)] mx-auto">
-            <svg
-              className="w-6 h-6 sm:w-7 sm:h-7 text-[#C5A059]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.2"
-            >
-              <path d="M12 2C12 2 7 7 7 12C7 15.5 9.5 18 12 21C14.5 18 17 15.5 17 12C17 7 12 2 12 2Z" />
-              <path d="M12 21C7 19 3 15 3 11C3 8 5 6 6 5C6 5 6 10 12 14" />
-              <path d="M12 21C17 19 21 15 21 11C21 8 19 6 18 5C18 5 18 10 12 14" />
-            </svg>
-          </div>
-          <span className="text-xs sm:text-sm font-sans tracking-wider text-[#C5A059] uppercase block text-center pl-[0.35em] font-semibold">
-            Collection 01 • Origins
-          </span>
-        </motion.div>
-
-        {/* Big Editorial Logo Title - Optical Centering Applied */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.2 }}
-          className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto"
-        >
-          <BrandLogo size="hero" align="center" className="drop-shadow-[0_2px_15px_rgba(0,0,0,0.08)] mb-2" />
-          <p className="mt-4 font-serif italic text-lg sm:text-2xl text-charcoal/85 tracking-wide font-light text-center">
-            Wear Your Calm, Feel Your Story
-          </p>
-          <p className="mt-2 text-sm sm:text-[12px] font-sans uppercase tracking-[0.4em] pl-[0.4em] text-charcoal-subtle text-center font-medium">
-            Two Islands • One Thread
-          </p>
-        </motion.div>
-
-        {/* UNRAVELLING GOLDEN THREAD ANIMATION - Symmetrical Centered Box */}
-        <div className="w-72 sm:w-96 my-8 flex flex-col items-center justify-center mx-auto">
-          <svg
-            className="w-full h-10 overflow-visible"
-            viewBox="0 0 380 30"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Background guide line */}
-            <path
-              d="M 10 15 Q 95 -2, 190 15 T 370 15"
-              stroke="rgba(197, 160, 89, 0.25)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            {/* Active Unravelling Silk Thread */}
-            <motion.path
-              d="M 10 15 Q 95 -2, 190 15 T 370 15"
-              stroke="url(#threadGradient)"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: progress / 100 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-            />
-            {/* Thread Gradient */}
-            <defs>
-              <linearGradient id="threadGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#A46446" />
-                <stop offset="50%" stopColor="#C5A059" />
-                <stop offset="100%" stopColor="#1F1E1D" />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          {/* Symmetrically balanced status row */}
-          <div className="grid grid-cols-3 w-full px-1 text-xs sm:text-sm font-sans tracking-wider text-charcoal/70 uppercase mt-1 font-medium">
-            <span className="text-left">Weaving</span>
-            <span className="text-center text-[#C5A059] font-mono font-bold">{progress}%</span>
-            <span className="text-right">Heritage</span>
-          </div>
-        </div>
-
-        {/* ENTER GATE BUTTON */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: isReady ? 1 : 0.6, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex justify-center"
-        >
-          <button
-            onClick={handleEnter}
-            disabled={!isReady && progress < 30}
-            className="group relative px-8 py-3.5 rounded-full border border-[#C5A059]/60 bg-[#FFFDF9] hover:bg-[#C5A059] transition-all duration-500 shadow-md hover:shadow-lg flex items-center space-x-3 cursor-pointer mx-auto"
-          >
-            <span className="text-sm uppercase font-semibold font-sans tracking-wider pl-[0.35em] text-charcoal group-hover:text-charcoal transition-colors duration-300 font-semibold">
-              {isReady ? "Unveil Experience" : "Unravelling Thread..."}
-            </span>
-            <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] group-hover:text-charcoal group-hover:translate-x-1.5 transition-transform duration-300" />
-          </button>
-        </motion.div>
-
-        {/* Footer Credit & Origin - Symmetrically Centered */}
-        <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center space-x-4 text-sm uppercase font-semibold font-sans tracking-[0.3em] pl-[0.3em] text-charcoal-subtle font-medium">
-          <span>Designed in Australia</span>
-          <span className="text-[#C5A059]">•</span>
-          <span>Inspired by Sri Lanka</span>
-        </div>
+      <div className={styles.origin}>
+        <span>Designed in Australia</span><b>•</b><span>Inspired by Sri Lanka</span>
       </div>
     </div>
   );

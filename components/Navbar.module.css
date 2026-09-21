@@ -1,0 +1,552 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  background: #f8f5ee;
+  color: #38382f;
+  border-bottom: 1px solid #dcd4c5;
+  box-shadow: 0 6px 22px rgba(31, 30, 29, 0.05);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.immersive.header {
+  box-shadow: none;
+}
+
+.announcement {
+  height: 31px;
+  padding: 0 4.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e9e2d6;
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.announcement > span:nth-child(2) {
+  font-size: 8px;
+  letter-spacing: 0.18em;
+}
+
+.announcement i {
+  margin: 0 10px;
+  font-style: normal;
+  color: #C5A059;
+}
+
+.announcement a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nav {
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4.5%;
+  position: relative;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.navCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.wordmark {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 2px;
+  flex: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.wordmark > span {
+  font-family: var(--font-logo), 'League Spartan', sans-serif;
+  font-size: 37px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
+}
+
+.wordmark .logoDot {
+  margin-left: 0;
+  font-weight: 700;
+  color: #181614;
+  transition: color 0.3s ease;
+}
+
+.wordmark small {
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 6.5px;
+  letter-spacing: 0.52em;
+  margin-top: 5px;
+  text-transform: lowercase;
+  color: #9a8f7a;
+  padding-left: 2px;
+}
+
+.desktopLinks {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.desktopLinks > a,
+.shopMenu summary {
+  font-family: var(--font-outfit), var(--font-sans), sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  padding: 8px 0;
+  transition: color 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.desktopLinks > a:hover,
+.shopMenu summary:hover {
+  color: #967858;
+}
+
+.chevron {
+  transition: transform 0.25s ease;
+}
+
+.shopMenu[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.shopMenu {
+  position: relative;
+  list-style: none;
+}
+
+.shopMenu summary {
+  list-style: none;
+}
+
+.shopMenu summary::-webkit-details-marker {
+  display: none;
+}
+
+.shopPanel {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(100% + 12px);
+  width: 550px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  padding: 26px;
+  gap: 28px;
+  background: #FAF7F2;
+  border: 1px solid #dcd4c5;
+  box-shadow: 0 20px 45px rgba(31, 30, 29, 0.12);
+  border-radius: 4px;
+  z-index: 50;
+  color: #38382f;
+}
+
+.shopPanel p {
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  color: #786f60;
+}
+
+.shopPanel a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 12.5px;
+  color: #38382f;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.shopPanel a:hover {
+  color: #967858;
+}
+
+.shopStory {
+  background: #ebe3d5;
+  padding: 22px;
+  border-radius: 2px;
+}
+
+.shopStory > span {
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #786f60;
+}
+
+.shopStory h2 {
+  font-family: var(--font-cormorant), var(--font-playfair), Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin: 16px 0 10px;
+}
+
+.shopStory p {
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #555048;
+}
+
+.shopStory a {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 18px;
+}
+
+.icon {
+  width: 40px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.icon:hover {
+  color: #967858;
+}
+
+.bag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  min-height: 40px;
+  padding: 0 14px;
+  margin-left: 8px;
+  border-radius: 9999px;
+  border: 1px solid rgba(220, 199, 175, 0.6);
+  background: rgba(242, 236, 225, 0.5);
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.bag:hover {
+  border-color: #967858;
+  color: #967858;
+  background: rgba(242, 236, 225, 0.9);
+}
+
+.badge {
+  position: absolute;
+  right: 4px;
+  top: 6px;
+  font-size: 8px;
+  font-weight: 700;
+  background: #C5A059;
+  color: #FFF;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: grid;
+  place-items: center;
+}
+
+.header a:hover,
+.header button:hover,
+.shopMenu summary:hover {
+  color: #967858;
+}
+
+.header :focus-visible,
+.mobileDialog :focus-visible {
+  outline: 2px solid #967858;
+  outline-offset: 4px;
+}
+
+.mobileMenu {
+  display: none;
+}
+
+.mobileDialog {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: min(430px, 100%);
+  height: 100dvh;
+  max-height: 100dvh;
+  max-width: 100%;
+  margin: 0;
+  padding: 24px;
+  border: 0;
+  background: #f5f0e6;
+  color: #36382f;
+  overflow-y: auto;
+}
+
+.mobileDialog::backdrop {
+  background: rgba(40, 39, 32, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.menuTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menuTop > span {
+  font-family: var(--font-logo), 'League Spartan', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
+}
+
+.menuLabel {
+  margin: 30px 0 15px;
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #8b7960;
+  text-transform: uppercase;
+}
+
+.mobileCategories a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-cormorant), var(--font-playfair), Georgia, serif;
+  font-size: 26px;
+  padding: 10px 0;
+  border-bottom: 1px solid #dfd5c5;
+  color: inherit;
+  text-decoration: none;
+}
+
+.mobileStories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 28px 0;
+  font-size: 12px;
+}
+
+.mobileStories a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.menuUtilities {
+  border-top: 1px solid #dfd5c5;
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+  font-size: 10px;
+}
+
+.menuUtilities button,
+.menuUtilities a {
+  text-align: left;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  color: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.menuBottom {
+  margin-top: 32px;
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.17em;
+  color: #8b7960;
+}
+
+/* Immersive Hero Header (over photography) */
+.immersive {
+  color: #FAF7F2;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.immersive .announcement {
+  background: transparent;
+  color: rgba(255, 250, 240, 0.75);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.immersive .wordmark > span {
+  font-size: 38px;
+  color: #FFFDF9;
+}
+
+.immersive .wordmark .logoDot {
+  color: #FFFFFF;
+}
+
+.immersive .wordmark small {
+  color: rgba(244, 234, 214, 0.8);
+}
+
+.immersive .desktopLinks > a:hover,
+.immersive .shopMenu summary:hover,
+.immersive a:hover,
+.immersive button:hover {
+  color: #E6C98A;
+}
+
+.immersive .bag {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  color: #FFFDF9;
+}
+
+.immersive .bag:hover {
+  border-color: #E6C98A;
+  color: #FFFFFF;
+  background: rgba(230, 201, 138, 0.22);
+}
+
+.immersive .shopPanel {
+  background: #FAF7F2;
+  color: #38382f;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+}
+
+.immersive .shopPanel a:hover {
+  color: #967858;
+}
+
+.immersive :focus-visible {
+  outline-color: #E6C98A;
+}
+
+/* Breakpoint rules */
+@media (max-width: 1100px) {
+  .desktopLinks {
+    gap: 20px;
+  }
+  .desktopLinks > a,
+  .shopMenu summary {
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+  }
+}
+
+@media (max-width: 860px) {
+  .desktopLinks,
+  .navCenter {
+    display: none;
+  }
+  .mobileMenu {
+    display: inline-flex;
+  }
+  .saved,
+  .account {
+    display: none;
+  }
+  .announcement > span:first-child {
+    display: none;
+  }
+  .bag > span {
+    display: none;
+  }
+  .bag {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .announcement {
+    height: 28px;
+    justify-content: center;
+    font-size: 8px;
+  }
+  .announcement > a {
+    display: none;
+  }
+  .nav {
+    height: 68px;
+    padding: 0 16px;
+  }
+  .wordmark > span {
+    font-size: 30px;
+  }
+  .wordmark small {
+    font-size: 5.5px;
+  }
+  .immersive .announcement {
+    display: none;
+  }
+  .immersive .nav {
+    height: 76px;
+    padding: 0 16px;
+  }
+  .immersive .wordmark > span {
+    font-size: 32px;
+  }
+}

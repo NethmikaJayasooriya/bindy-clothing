@@ -247,18 +247,17 @@ export default function CollectionShowcase({
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                     {product.videoHover ? (
                       <video
                         src={product.videoHover}
-                        poster={product.imageHover}
                         muted
                         loop
                         playsInline
                         preload="metadata"
                         aria-hidden
-                        className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100"
+                        className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 pointer-events-none"
                       />
                     ) : (
                       <img

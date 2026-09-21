@@ -336,3 +336,7 @@ html, body {
 }
 
 
+
+/* Keep collection headings visible beneath the fixed navigation. */
+#browse-collection { scroll-margin-top: 125px; }
+@media (max-width: 700px) { #browse-collection { scroll-margin-top: 105px; } }

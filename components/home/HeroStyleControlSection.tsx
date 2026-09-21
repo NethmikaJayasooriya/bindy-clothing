@@ -10,13 +10,14 @@ export interface HeroStyleControlSectionProps {
 }
 
 const HERO_MINIMAL_OPTIONS = [
-  { id: 1, name: "3D Slice Flip", brand: "Issey Miyake" },
-  { id: 2, name: "Tactile Loupe", brand: "Loewe" },
-  { id: 3, name: "Panorama Strip", brand: "Bottega" },
-  { id: 4, name: "Atelier Moodboard", brand: "Bode" },
-  { id: 5, name: "Craft Curtain", brand: "Lemaire" },
-  { id: 6, name: "Runway Hotspots", brand: "Aimé Leon Dore" },
-  { id: 7, name: "Cinematic Film", brand: "Jacquemus Runway", isVideo: true },
+  { id: 1, name: "Editorial Stories", brand: "5 Looks + 4K Video", isVideo: true },
+  { id: 2, name: "3D Slice Flip", brand: "Issey Miyake" },
+  { id: 3, name: "Tactile Loupe", brand: "Loewe" },
+  { id: 4, name: "Panorama Strip", brand: "Bottega" },
+  { id: 5, name: "Atelier Moodboard", brand: "Bode" },
+  { id: 6, name: "Craft Curtain", brand: "Lemaire" },
+  { id: 7, name: "Runway Hotspots", brand: "Aimé Leon Dore" },
+  { id: 8, name: "Cinematic Film", brand: "Jacquemus Runway", isVideo: true },
 ];
 
 export default function HeroStyleControlSection({
@@ -41,7 +42,7 @@ export default function HeroStyleControlSection({
           <div className="flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-[#B86B4B]" />
             <span className="font-mono text-xs uppercase tracking-wider text-[#1F1E1D] font-bold">
-              Hero Concept (1–7):
+              Hero Concept (1–8):
             </span>
           </div>
           <span className="text-[10px] font-mono text-[#78716A] md:hidden">

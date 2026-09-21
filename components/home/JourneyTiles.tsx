@@ -32,7 +32,7 @@ const DEST_IMAGES: Record<Destination | "All", string> = {
 };
 
 const HOVER_CAPTIONS: Record<Destination | "All", string> = {
-  All: "Explore all 19 handcrafted silhouettes",
+  All: "Explore all 17 handcrafted silhouettes",
   Beach: "Breezy handloom linens and oceanic hues",
   Party: "Liquid silk drapery under golden evening lights",
   City: "Architectural gingham and easy shirting structure",

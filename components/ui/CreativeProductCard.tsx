@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   Heart,
@@ -15,6 +15,73 @@ import {
 import type { Product } from "@/data/products";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 import { addToCart } from "@/lib/cart";
+
+// Shared hover-video overlay: plays a short clip on card hover, falls back to the
+// static image when a product has no videoHover. Listens on the closest `.group`
+// card so overlay layers never block the hover event.
+function HoverVideo({ src }: { src?: string; poster?: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const isHovered = useRef(false);
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    const card = v.closest(".group");
+    if (!card) return;
+
+    const play = () => {
+      isHovered.current = true;
+      if (v.readyState >= 3) {
+        setIsPlaying(true);
+      }
+      const pr = v.play();
+      if (pr) {
+        pr.then(() => {
+          if (isHovered.current) setIsPlaying(true);
+        }).catch(() => {});
+      }
+    };
+
+    const stop = () => {
+      isHovered.current = false;
+      setIsPlaying(false);
+      setTimeout(() => {
+        if (!isHovered.current && v) {
+          v.pause();
+          v.currentTime = 0;
+        }
+      }, 400);
+    };
+
+    card.addEventListener("mouseenter", play);
+    card.addEventListener("mouseleave", stop);
+    return () => {
+      card.removeEventListener("mouseenter", play);
+      card.removeEventListener("mouseleave", stop);
+    };
+  }, [src]);
+
+  if (!src) return null;
+  return (
+    <video
+      ref={ref}
+      src={src}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden
+      onPlaying={() => {
+        if (isHovered.current) setIsPlaying(true);
+      }}
+      className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-500 ease-out ${
+        isPlaying ? "opacity-100" : "opacity-0"
+      }`}
+    />
+  );
+}
+
 
 export interface CreativeProductCardProps {
   product: Product;
@@ -126,6 +193,7 @@ function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAd
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1F1E1D]/90 backdrop-blur-md text-[#C5A059] px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest uppercase border border-[#C5A059]/40 shadow-sm">
           01 • Totême Arch
         </div>
@@ -190,6 +258,7 @@ function Style1TactileSwatch({ product, inWishlist, handleWishlist, handleQuickA
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#FAF7F2] text-[#1F1E1D] px-3 py-1 rounded-full text-xs font-poppins font-bold tracking-wider uppercase border border-black/10 shadow-sm">
           02 • Jacquemus Swatch
         </div>
@@ -247,6 +316,7 @@ function Style2BoutiqueHangtag({ product, inWishlist, handleWishlist, handleQuic
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-2.5 left-2.5 bg-[#F4EDE2] text-[#1F1E1D] px-3 py-1 rounded shadow-md border-t-2 border-l-2 border-[#C5A059] font-mono text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
           <Scissors className="w-3 h-3 text-[#B86B4B]" />
           <span>03 • Bode Hangtag #04</span>
@@ -291,6 +361,7 @@ function Style3DualPerspective({ product, inWishlist, handleWishlist, handleQuic
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={viewAngle === "back" && product.imageHover ? product.imageHover : product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1E3A8A] text-white px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider shadow">
           04 • Loewe Dual Angle
         </div>
@@ -347,6 +418,7 @@ function Style4GlassmorphicLuxe({ product, inWishlist, handleWishlist, handleQui
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30 pointer-events-none" />
         <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-[#C5A059] px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest border border-[#C5A059]/40">
           05 • Khaite Glass Luxe
@@ -384,6 +456,7 @@ function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuic
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#FAF7F2] text-[#1F1E1D] px-3 py-1 rounded-full text-xs font-poppins font-bold uppercase tracking-wider border border-gray-300 shadow-sm">
           06 • Zara Glider
         </div>
@@ -447,6 +520,7 @@ function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuick
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <button type="button" onClick={handleWishlist} className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
@@ -487,6 +561,7 @@ function Style7AuthenticitySeal({ product, inWishlist, handleWishlist, handleQui
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1F1E1D] text-[#C5A059] px-3 py-1 rounded-md text-[10px] font-mono font-bold uppercase tracking-widest flex items-center gap-1.5 border border-[#C5A059]/40 shadow-md">
           <ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" />
           <span>08 • Studio Nicholson Seal</span>
@@ -534,6 +609,7 @@ function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickA
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={isHovered && product.imageHover ? product.imageHover : product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1F1E1D]/90 text-white px-3 py-1 rounded-full text-xs font-poppins font-bold uppercase tracking-wider shadow">
           09 • Reformation Drawer
         </div>
@@ -587,6 +663,7 @@ function Style9AtelierSpec({ product, inWishlist, handleWishlist, handleQuickAdd
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <button type="button" onClick={handleWishlist} className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white flex items-center justify-center text-black hover:scale-110 shadow transition-transform">
           <Heart className={`w-4 h-4 ${inWishlist ? "fill-[#B86B4B] text-[#B86B4B]" : ""}`} />
         </button>
@@ -631,6 +708,7 @@ function Style10CoastalTide({ product, inWishlist, handleWishlist, handleQuickAd
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#FAF7F2]/95 backdrop-blur-md text-[#1F1E1D] px-3 py-1 rounded-full text-xs font-outfit font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm border border-black/10">
           <Sun className="w-3.5 h-3.5 text-[#B86B4B]" />
           <span>11 • Matteau Tide</span>
@@ -676,6 +754,7 @@ function Style11ArtisanPostcard({ product, inWishlist, handleWishlist, handleQui
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-2.5 left-2.5 bg-[#FAF7F2] text-[#1F1E1D] px-2.5 py-1 rounded shadow text-[10px] font-mono font-bold uppercase tracking-widest border border-[#B86B4B]/40">
           12 • Posse Postcard
         </div>
@@ -715,6 +794,7 @@ function Style12AsymmetricSplit({ product, inWishlist, handleWishlist, handleQui
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1F1E1D] text-white px-3 py-1 rounded-sm text-xs font-mono font-bold uppercase tracking-widest">
           13 • Sir The Label
         </div>
@@ -757,6 +837,7 @@ function Style13PureMinimalist({ product, inWishlist, handleWishlist, handleQuic
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 text-[10px] font-mono font-bold tracking-widest text-[#1F1E1D] uppercase bg-white/80 px-2.5 py-0.5 rounded">
           14 • The Row Minimal
         </div>
@@ -795,6 +876,7 @@ function Style14SculpturalHardware({ product, inWishlist, handleWishlist, handle
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#C5A059] text-black px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest uppercase shadow">
           15 • Cult Gaia Brass
         </div>
@@ -835,6 +917,7 @@ function Style15EcoCarbonMetric({ product, inWishlist, handleWishlist, handleQui
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#4E6349] text-white px-3 py-1 rounded-full text-xs font-poppins font-bold uppercase tracking-wider flex items-center gap-1.5 shadow">
           <Leaf className="w-3.5 h-3.5" />
           <span>16 • Nanushka (-1.4kg CO₂)</span>
@@ -879,6 +962,7 @@ function Style16BotanicalDyeVat({ product, inWishlist, handleWishlist, handleQui
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#B86B4B] text-white px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest flex items-center gap-1.5 shadow">
           <Flame className="w-3.5 h-3.5" />
           <span>17 • Lemaire Vat (62°C)</span>
@@ -920,6 +1004,7 @@ function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQu
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#FAF7F2] px-3 py-1 rounded-full text-xs font-serif text-[#B86B4B] font-bold uppercase tracking-widest shadow-sm">
           18 • Dôen Heirloom
         </div>
@@ -963,6 +1048,7 @@ function Style18TextileDensity({ product, inWishlist, handleWishlist, handleQuic
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1F1E1D] text-[#FAF7F2] px-3 py-1 rounded text-xs font-mono font-bold uppercase tracking-widest">
           19 • Marle Yarn Spec
         </div>
@@ -1003,6 +1089,7 @@ function Style19PrivateVault({ product, inWishlist, handleWishlist, handleQuickA
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
+        <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none" />
         <div className="absolute top-3 left-3 bg-[#C5A059] text-black px-3 py-1 rounded text-xs font-mono font-bold uppercase tracking-widest shadow">
           20 • SSENSE Vault

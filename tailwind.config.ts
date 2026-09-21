@@ -78,6 +78,7 @@ const config: Config = {
         poppins: ["var(--font-poppins)", "Poppins", "sans-serif"],
         outfit: ["var(--font-outfit)", "Outfit", "sans-serif"],
         playfair: ["var(--font-playfair)", "'Playfair Display'", "Georgia", "serif"],
+        cormorant: ["var(--font-cormorant)", "'Cormorant Garamond'", "Georgia", "serif"],
         logo: ["var(--font-logo)", "'League Spartan'", "sans-serif"],
         spartan: ["'League Spartan'", "sans-serif"],
       },

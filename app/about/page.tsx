@@ -57,7 +57,7 @@ export default function AboutPage() {
       year: "2024",
       title: "Launch of Collection 01 • Serendipity",
       subtitle: "Australian Wardrobe Debut",
-      desc: "Our inaugural capsule of nineteen handcrafted silhouettes launched across Australia. Featured in Vogue Australia and Broadsheet for its poetic storytelling and uncompromising slow-fashion integrity.",
+      desc: "Our inaugural capsule of seventeen handcrafted silhouettes launched across Australia. Featured in Vogue Australia and Broadsheet for its poetic storytelling and uncompromising slow-fashion integrity.",
     },
     {
       year: "Today",
@@ -461,7 +461,7 @@ export default function AboutPage() {
           </h2>
 
           <p className="font-serif italic text-base sm:text-lg text-muted font-light max-w-xl mx-auto">
-            Discover nineteen handcrafted silhouettes woven from ancestral Sri Lankan memory for the modern Australian wardrobe.
+            Discover seventeen handcrafted silhouettes woven from ancestral Sri Lankan memory for the modern Australian wardrobe.
           </p>
 
           <div className="pt-4">

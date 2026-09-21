@@ -16,26 +16,26 @@ export default function Price({
   className = "",
 }: PriceProps) {
   const sizeStyles = {
-    sm: "text-sm",
-    md: "text-lg sm:text-xl",
+    sm: "text-[17px] sm:text-[19px]",
+    md: "text-xl sm:text-2xl",
     lg: "text-2xl sm:text-3xl",
   };
 
   const isSale = compareAtAmount && compareAtAmount > amount;
 
   return (
-    <div className={`inline-flex items-baseline gap-2 ${className}`}>
-      <span className={`font-serif font-semibold text-charcoal tracking-tight ${sizeStyles[size]}`}>
+    <div className={`inline-flex items-baseline gap-1.5 ${className}`}>
+      <span className={`font-outfit font-semibold text-[#181614] tracking-tight ${sizeStyles[size]}`}>
         ${amount}
       </span>
 
       {isSale && (
-        <span className="font-serif text-sm text-charcoal-subtle line-through opacity-70">
+        <span className="font-outfit text-xs sm:text-sm text-charcoal/40 line-through">
           ${compareAtAmount}
         </span>
       )}
 
-      <span className="text-xs sm:text-xs font-sans text-charcoal-subtle uppercase tracking-wider font-normal">
+      <span className="text-[10.5px] sm:text-[11px] font-sans text-charcoal/55 uppercase tracking-widest font-medium">
         {currency}
       </span>
     </div>

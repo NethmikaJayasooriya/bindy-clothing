@@ -1,853 +1,99 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  ShoppingBag,
-  Search,
-  Heart,
-  Volume2,
-  VolumeX,
-  Menu,
-  X,
-  ChevronDown,
-  User,
-  Sparkles,
-  ArrowRight,
-  Truck,
-  RotateCcw,
-  Globe,
-  Package,
-} from "lucide-react";
+import { ArrowUpRight, ChevronDown, Heart, Menu, Search, ShoppingBag, User, Volume2, VolumeX, X } from "lucide-react";
 import SearchModal from "@/components/SearchModal";
 import WishlistDrawer from "@/components/WishlistDrawer";
-import BrandLogo from "@/components/BrandLogo";
 import { getAccount, subscribeAccount, type UserAccount } from "@/lib/account";
 import { getWishlistCount, subscribeWishlist } from "@/lib/wishlist";
+import styles from "./Navbar.module.css";
 
-interface NavbarProps {
-  isMuted: boolean;
-  toggleAudio: () => void;
-  cartCount?: number;
-  onOpenCart?: () => void;
-}
+interface NavbarProps { immersive?: boolean; isMuted: boolean; toggleAudio: () => void; cartCount?: number; onOpenCart?: () => void; }
+const categories = [
+  ["All pieces", "/collection"], ["Dresses", "/collection?parent=Dresses"],
+  ["Tops & blouses", "/collection?parent=Tops"], ["Skirts & pants", "/collection?parent=Bottoms"],
+  ["Resort wear", "/collection?parent=Resort%20Wear"], ["New arrivals", "/collection?filter=new"],
+];
+const stories = [["Style Studio", "/build-your-set"], ["Our story", "/about"], ["The craft", "/craft"], ["Stories", "/stories"], ["Journal", "/journal"]];
 
-export default function Navbar({
-  isMuted,
-  toggleAudio,
-  cartCount = 0,
-  onOpenCart,
-}: NavbarProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart, immersive = false }: NavbarProps) {
+  const [overHero, setOverHero] = useState(immersive);
+  useEffect(() => {
+    if (!immersive) return;
+    const update = () => {
+      const hero = document.querySelector("[data-campaign-hero]");
+      setOverHero(Boolean(hero && hero.getBoundingClientRect().bottom > 120));
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+  }, [immersive]);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [wishlistOpen, setWishlistOpen] = useState(false);
   const [wishlistCount, setWishlistCount] = useState(0);
   const [account, setAccount] = useState<UserAccount | null>(null);
-  const [currency, setCurrency] = useState("AUD $");
-  const [isCurrencyDropdown, setIsCurrencyDropdown] = useState(false);
-  const [isCollectionHovered, setIsCollectionHovered] = useState(false);
-  const [mobileExpandedCat, setMobileExpandedCat] = useState<string | null>(null);
-
+  const menuRef = useRef<HTMLDialogElement>(null);
+  const shopRef = useRef<HTMLDetailsElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    setAccount(getAccount());
-    setWishlistCount(getWishlistCount());
-    const unsub = subscribeAccount(() => {
-      setAccount(getAccount());
-    });
-    const unsubWish = subscribeWishlist(() => {
-      setWishlistCount(getWishlistCount());
-    });
-    return () => {
-      unsub();
-      unsubWish();
-    };
+    const sync = () => { setWishlistCount(getWishlistCount()); setAccount(getAccount()); };
+    sync();
+    const offAccount = subscribeAccount(sync), offWishlist = subscribeWishlist(sync);
+    const dismiss = (event: MouseEvent) => { if (shopRef.current && !shopRef.current.contains(event.target as Node)) shopRef.current.open = false; };
+    const escape = (event: KeyboardEvent) => { if (event.key === "Escape" && shopRef.current?.open) { shopRef.current.open = false; shopRef.current.querySelector("summary")?.focus(); } };
+    document.addEventListener("click", dismiss);
+    document.addEventListener("keydown", escape);
+    return () => { offAccount(); offWishlist(); document.removeEventListener("click", dismiss); document.removeEventListener("keydown", escape); document.body.style.overflow = ""; };
   }, []);
-
-  const ANNOUNCEMENTS = [
-    { icon: Truck, highlight: "Free AU Courier $150+", text: "30-Day Easy Australian Returns" },
-    { icon: Sparkles, highlight: "Ethical Sri Lankan Handloom", text: "Two Islands, One Thread" },
-    { icon: Package, highlight: "VIP Privilege", text: "10% Off First Order with code WELCOME10" },
-  ];
-  const [announcementIdx, setAnnouncementIdx] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setAnnouncementIdx((prev) => (prev + 1) % ANNOUNCEMENTS.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [ANNOUNCEMENTS.length]);
-
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking && typeof window !== "undefined") {
-        window.requestAnimationFrame(() => {
-          const scrolled = window.scrollY > 40;
-          setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const currencies = ["AUD $", "USD $", "GBP £", "LKR Rs"];
-
-  const getInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((w) => w[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
-  };
-
-  const OCCASIONS = [
-    { name: "Beach & Coast", href: "/collection?occasion=Beach%20%26%20Coast" },
-    { name: "Evening & Party", href: "/collection?occasion=Evening%20%26%20Party" },
-    { name: "Everyday Calm", href: "/collection?occasion=Everyday%20Calm" },
-    { name: "Garden & High Tea", href: "/collection?occasion=Garden%20%26%20High%20Tea" },
-  ];
-
-  return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300 pointer-events-none">
-        
-        {/* 1. TOP UTILITY STRIP (Wide, refined announcement & secondary utilities) */}
-        <div
-          className={`pointer-events-auto transition-all duration-300 overflow-hidden ${
-            isScrolled
-              ? "max-h-0 opacity-0 -translate-y-2"
-              : "max-h-11 opacity-100 bg-[#1F1E1D]/90 backdrop-blur-md border-b border-white/10 text-white/85 py-1.5"
-          }`}
-        >
-          <div className="max-w-[1540px] w-[96vw] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-sm font-mono">
-            {/* Left: Dynamic rotating luxury value announcements */}
-            <div className="flex items-center gap-3 overflow-hidden h-6">
-              <AnimatePresence mode="wait">
-                {(() => {
-                  const item = ANNOUNCEMENTS[announcementIdx];
-                  const Icon = item.icon;
-                  return (
-                    <motion.div
-                      key={announcementIdx}
-                      initial={{ opacity: 0, y: 7 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -7 }}
-                      transition={{ duration: 0.3 }}
-                      className="flex items-center gap-2"
-                    >
-                      <span className="flex items-center gap-1.5 text-[#C5A059]">
-                        <Icon className="w-3.5 h-3.5 flex-shrink-0" />
-                        <span className="font-semibold uppercase tracking-wider">{item.highlight}</span>
-                      </span>
-                      <span className="text-white/30 hidden sm:inline">•</span>
-                      <span className="text-white/70 hidden sm:inline">{item.text}</span>
-                    </motion.div>
-                  );
-                })()}
-              </AnimatePresence>
-            </div>
-
-            {/* Right: Premium utilities with standard iconography */}
-            <div className="flex items-center gap-4 text-white/80">
-              {/* Currency Selector with Globe Icon */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setIsCurrencyDropdown(!isCurrencyDropdown)}
-                  className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
-                  title="Change Currency"
-                >
-                  <Globe className="w-3.5 h-3.5 text-[#C5A059]" />
-                  <span>{currency}</span>
-                  <ChevronDown className="w-3 h-3 opacity-60" />
-                </button>
-
-                {isCurrencyDropdown && (
-                  <div className="absolute right-0 mt-1.5 w-28 bg-[#FFFDF9] border border-[#DCC7AF]/50 rounded-xl shadow-xl py-1 z-50 text-[#1F1E1D]">
-                    {currencies.map((c) => (
-                      <button
-                        key={c}
-                        type="button"
-                        onClick={() => {
-                          setCurrency(c);
-                          setIsCurrencyDropdown(false);
-                        }}
-                        className={`w-full text-left px-3 py-1.5 text-xs font-sans tracking-wider hover:bg-[#C5A059]/15 hover:text-[#C5A059] ${
-                          currency === c ? "text-[#C5A059] font-medium" : "text-[#1F1E1D]"
-                        }`}
-                      >
-                        {c}
-                      </button>
-                    ))}
-                  </div>
-                )}
+  const closeMenu = () => { menuRef.current?.close(); document.body.style.overflow = ""; menuButton.current?.focus(); };
+  const closeShop = () => { if (shopRef.current) shopRef.current.open = false; };
+  return <>
+    <header className={`${styles.header} ${immersive && overHero ? styles.immersive : ""}`}>
+      <div className={styles.announcement}><span>Thoughtfully designed. Quietly special.</span><span>SRI LANKA <i>↔</i> AUSTRALIA</span><Link href="/about">Two islands. One thread. <ArrowUpRight size={11} /></Link></div>
+      <nav className={styles.nav} aria-label="Main navigation">
+        <div className={styles.navLeft}>
+          <button className={`${styles.icon} ${styles.mobileMenu}`} ref={menuButton} aria-label="Open navigation menu" aria-haspopup="dialog" onClick={() => { menuRef.current?.showModal(); document.body.style.overflow = "hidden"; }}><Menu size={21} strokeWidth={1.4} /></button>
+          <Link href="/" className={styles.wordmark} aria-label="bindy clothing home"><span>bindy<span className={styles.logoDot}>.</span></span><small>c l o t h i n g</small></Link>
+        </div>
+        <div className={styles.navCenter}>
+          <div className={styles.desktopLinks}>
+            <details ref={shopRef} className={styles.shopMenu}>
+              <summary>Shop <ChevronDown size={12} className={styles.chevron} /></summary>
+              <div className={styles.shopPanel}>
+                <div><p>THE WARDROBE</p>{categories.map(([label, href]) => <Link key={href} href={href} onClick={closeShop}>{label}<ArrowUpRight size={13} /></Link>)}</div>
+                <div className={styles.shopStory}><span>COLLECTION 01</span><h2>Serendipity.</h2><p>The beauty of<br />unexpected discovery.</p><Link href="/collection" onClick={closeShop}>Discover the collection <ArrowUpRight size={14} /></Link></div>
               </div>
-
-              {/* Sound Toggle */}
-              <button
-                type="button"
-                onClick={toggleAudio}
-                className="hidden sm:flex items-center gap-1.5 hover:text-[#C5A059] transition-colors cursor-pointer"
-                title={isMuted ? "Unmute Ambient Sound" : "Mute Ambient Sound"}
-              >
-                {isMuted ? (
-                  <>
-                    <VolumeX className="w-3.5 h-3.5 text-white/50" />
-                    <span>Sound Off</span>
-                  </>
-                ) : (
-                  <>
-                    <Volume2 className="w-3.5 h-3.5 text-[#C5A059]" />
-                    <span className="text-[#C5A059]">Sound On</span>
-                  </>
-                )}
-              </button>
-
-              {/* Saved Pieces / Wishlist */}
-              <button
-                type="button"
-                onClick={() => setIsWishlistOpen(true)}
-                className="hidden sm:flex items-center gap-1.5 hover:text-[#C5A059] transition-colors cursor-pointer"
-                title="View Saved Pieces"
-              >
-                <Heart className={`w-3.5 h-3.5 ${wishlistCount > 0 ? "fill-[#C5A059] text-[#C5A059]" : ""}`} />
-                <span>Saved ({wishlistCount})</span>
-              </button>
-
-              {/* Account / Login */}
-              <Link
-                href="/account"
-                className="hover:text-white flex items-center gap-1.5 transition-colors"
-                title="Account Login"
-              >
-                <User className="w-3.5 h-3.5" />
-                <span>{account ? account.name.split(" ")[0] : "Account"}</span>
-              </Link>
-
-              {/* Atelier Seller Portal */}
-              <Link
-                href="/admin"
-                className="hidden md:flex items-center gap-1.5 text-[#DFBF7A] hover:text-white transition-colors"
-                title="Seller & Admin Dashboard"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />
-                <span className="font-semibold tracking-wider">Seller Portal</span>
-              </Link>
-            </div>
+            </details>
+            <Link href="/collection?filter=new">New arrivals</Link>
+            <Link href="/build-your-set">Style Studio</Link>
+            <Link href="/about">Our story</Link>
+            <Link href="/craft">The craft</Link>
           </div>
         </div>
-
-        {/* 2. FLOATING PILL CAPSULE (Wide luxury span + CRIB.lk morphing states + premium standard icons) */}
-        <div className="max-w-[1540px] w-[96vw] mx-auto px-2 sm:px-4 lg:px-6 mt-2.5 sm:mt-3">
-          <nav
-            className={`pointer-events-auto rounded-full transition-all duration-300 flex items-center justify-between border ${
-              isScrolled
-                ? "bg-[#1F1E1D]/95 backdrop-blur-xl border-white/15 text-white py-2 px-5 sm:px-8 shadow-[0_16px_45px_rgba(0,0,0,0.25)]"
-                : "bg-white/95 backdrop-blur-xl border-[#DCC7AF]/70 text-[#1F1E1D] py-2.5 sm:py-3 px-5 sm:px-8 shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
-            }`}
-          >
-            {/* ZONE 1: BRAND IDENTITY (League Spartan brand logo) */}
-            <div className="flex-shrink-0 mr-6 sm:mr-8 xl:mr-10 pt-1">
-              <Link href="/" className="inline-block text-left group">
-                <BrandLogo size="md" isScrolled={isScrolled} />
-              </Link>
-            </div>
-
-            {/* ZONE 2: PRIMARY NAVIGATION (Centered with comfortable breathing room) */}
-            <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-              {/* Collection Dropdown */}
-              <div
-                className="relative py-2"
-                onMouseEnter={() => setIsCollectionHovered(true)}
-                onMouseLeave={() => setIsCollectionHovered(false)}
-              >
-                <Link
-                  href="/collection"
-                  className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors flex items-center gap-1.5 ${
-                    isScrolled
-                      ? "text-white/90 hover:text-[#C5A059]"
-                      : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                  }`}
-                >
-                  <span>Collection</span>
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isCollectionHovered ? "rotate-180 text-[#C5A059]" : "opacity-60"}`} />
-                </Link>
-
-                {/* Desktop Mega-Menu Dropdown */}
-                <AnimatePresence>
-                  {isCollectionHovered && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.2 }}
-                      className={`absolute left-0 top-full mt-2 w-[720px] rounded-3xl p-7 shadow-2xl z-50 border text-left ${
-                        isScrolled
-                          ? "bg-[#1F1E1D] border-white/15 text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-                          : "bg-[#FAF7F2] border-[#DCC7AF] text-[#1F1E1D]"
-                      }`}
-                    >
-                      <div className="grid grid-cols-4 gap-6 text-left">
-                        {/* Column 1: New Arrivals & Featured */}
-                        <div className={`space-y-4 border-r pr-4 ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/40"}`}>
-                          <div>
-                            <Link
-                              href="/collection?collection=Collection%2002"
-                              className="text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-semibold hover:underline block mb-1"
-                            >
-                              ✦ Collection 02 (New)
-                            </Link>
-                            <p className={`text-sm leading-relaxed ${isScrolled ? "text-white/60" : "text-charcoal-subtle"}`}>
-                              9 fresh silhouettes inspired by Ceylon flora &amp; ancient wonders.
-                            </p>
-                          </div>
-
-                          <div className={`pt-2 border-t ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/30"}`}>
-                            <Link
-                              href="/collection?parent=Resort%20Wear"
-                              className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold block mb-1 ${
-                                isScrolled ? "text-white hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                              }`}
-                            >
-                              Resort Wear
-                            </Link>
-                            <p className={`text-sm leading-relaxed ${isScrolled ? "text-white/60" : "text-charcoal-subtle"}`}>
-                              Airy linens &amp; lightweight voile sets.
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Column 2: Tops & Bottoms */}
-                        <div className="space-y-4">
-                          <div>
-                            <Link
-                              href="/collection?parent=Tops"
-                              className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold block mb-1.5 ${
-                                isScrolled ? "text-white hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                              }`}
-                            >
-                              Tops
-                            </Link>
-                            <ul className={`space-y-1.5 text-xs ${isScrolled ? "text-white/70" : "text-charcoal-subtle"}`}>
-                              <li>
-                                <Link
-                                  href="/collection?parent=Tops&sub=Blouses%20%26%20Shirts"
-                                  className={`transition-colors ${isScrolled ? "hover:text-white" : "hover:text-[#1F1E1D]"}`}
-                                >
-                                  Blouses &amp; Shirts
-                                </Link>
-                              </li>
-                              <li>
-                                <Link
-                                  href="/collection?parent=Tops&sub=Crop%20Tops"
-                                  className={`transition-colors ${isScrolled ? "hover:text-white" : "hover:text-[#1F1E1D]"}`}
-                                >
-                                  Crop Tops
-                                </Link>
-                              </li>
-                            </ul>
-                          </div>
-
-                          <div className={`pt-2 border-t ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/30"}`}>
-                            <Link
-                              href="/collection?parent=Bottoms"
-                              className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold block mb-1.5 ${
-                                isScrolled ? "text-white hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                              }`}
-                            >
-                              Bottoms
-                            </Link>
-                            <ul className={`space-y-1.5 text-xs ${isScrolled ? "text-white/70" : "text-charcoal-subtle"}`}>
-                              <li>
-                                <Link
-                                  href="/collection?parent=Bottoms&sub=Pants"
-                                  className={`transition-colors ${isScrolled ? "hover:text-white" : "hover:text-[#1F1E1D]"}`}
-                                >
-                                  Pants
-                                </Link>
-                              </li>
-                              <li>
-                                <Link
-                                  href="/collection?parent=Bottoms&sub=Skirts"
-                                  className={`transition-colors ${isScrolled ? "hover:text-white" : "hover:text-[#1F1E1D]"}`}
-                                >
-                                  Skirts
-                                </Link>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-
-                        {/* Column 3: Dresses */}
-                        <div className="space-y-1.5">
-                          <Link
-                            href="/collection?parent=Dresses"
-                            className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold block mb-1.5 ${
-                              isScrolled ? "text-white hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                            }`}
-                          >
-                            Dresses
-                          </Link>
-                          <ul className={`space-y-1.5 text-xs ${isScrolled ? "text-white/70" : "text-charcoal-subtle"}`}>
-                            <li>
-                              <Link
-                                href="/collection?parent=Dresses&sub=Maxi"
-                                className={`transition-colors ${isScrolled ? "hover:text-white" : "hover:text-[#1F1E1D]"}`}
-                              >
-                                Maxi Dresses
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                href="/collection?parent=Dresses&sub=Mini"
-                                className={`transition-colors ${isScrolled ? "hover:text-white" : "hover:text-[#1F1E1D]"}`}
-                              >
-                                Mini &amp; Midi
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                href="/collection?parent=Dresses&sub=Linen"
-                                className={`transition-colors ${isScrolled ? "hover:text-white" : "hover:text-[#1F1E1D]"}`}
-                              >
-                                Linen &amp; Voile
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                href="/collection?parent=Dresses&sub=Formal"
-                                className={`transition-colors ${isScrolled ? "hover:text-white" : "hover:text-[#1F1E1D]"}`}
-                              >
-                                Formal &amp; Party
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
-
-                        {/* Column 4: Occasion Tags */}
-                        <div className={`space-y-2 border-l pl-4 ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/40"}`}>
-                          <p className={`text-sm font-mono uppercase font-semibold tracking-widest font-semibold mb-1.5 ${isScrolled ? "text-[#C5A059]" : "text-[#1F1E1D]"}`}>
-                            Occasion
-                          </p>
-                          <ul className={`space-y-2 text-xs ${isScrolled ? "text-white/70" : "text-charcoal-subtle"}`}>
-                            {OCCASIONS.map((occ) => (
-                              <li key={occ.name}>
-                                <Link
-                                  href={occ.href}
-                                  className={`transition-colors block ${isScrolled ? "hover:text-white" : "hover:text-[#B86B4B]"}`}
-                                >
-                                  {occ.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-
-                          <div className={`pt-3 border-t ${isScrolled ? "border-white/10" : "border-[#DCC7AF]/30"}`}>
-                            <Link
-                              href="/collection"
-                              className="text-sm font-mono uppercase tracking-wider text-[#C5A059] font-semibold hover:underline flex items-center gap-1"
-                            >
-                              <span>View All Pieces</span>
-                              <ArrowRight className="w-3 h-3" />
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              <Link
-                href="/collection?filter=new"
-                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
-                  isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                }`}
-              >
-                New Arrivals
-              </Link>
-              <Link
-                href="/stories"
-                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
-                  isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                }`}
-              >
-                Stories
-              </Link>
-              <Link
-                href="/about"
-                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
-                  isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                }`}
-              >
-                Our Story
-              </Link>
-              <Link
-                href="/craft"
-                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
-                  isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                }`}
-              >
-                Craft
-              </Link>
-              <Link
-                href="/journal"
-                className={`text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
-                  isScrolled ? "text-white/90 hover:text-[#C5A059]" : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                }`}
-              >
-                Journal
-              </Link>
-            </div>
-
-            {/* ZONE 3: SEARCH & PREMIUM ACTIONS (Spacious search, Track Order, Heart & Bag icons) */}
-            <div className="flex items-center gap-2 sm:gap-3 xl:gap-4">
-              
-              {/* Spacious Search Bar (Expanded width with standard icon) */}
-              <button
-                type="button"
-                onClick={() => setIsSearchOpen(true)}
-                className={`hidden md:flex items-center rounded-full px-4 py-2 transition-all text-xs cursor-pointer border ${
-                  isScrolled
-                    ? "bg-white/10 hover:bg-white/15 border-white/20 text-white/80 w-52 md:w-60 lg:w-72 xl:w-80 shadow-inner"
-                    : "bg-[#FAF7F2] hover:bg-white border-[#DCC7AF] text-charcoal-subtle w-52 md:w-60 lg:w-72 xl:w-80 shadow-sm"
-                }`}
-                title="Search garments"
-                aria-label="Search garments"
-              >
-                <div className="flex items-center gap-2.5 truncate w-full">
-                  <Search className={`w-3.5 h-3.5 shrink-0 ${isScrolled ? "text-[#C5A059]" : "text-charcoal-subtle"}`} />
-                  <span className="text-xs truncate font-sans text-left">Search collection, silk, dresses...</span>
-                </div>
-              </button>
-
-              {/* Mobile Search Icon */}
-              <button
-                type="button"
-                onClick={() => setIsSearchOpen(true)}
-                className={`md:hidden p-2 rounded-full transition-colors cursor-pointer ${
-                  isScrolled ? "text-white hover:bg-white/10" : "text-[#1F1E1D] hover:bg-[#FAF7F2]"
-                }`}
-                aria-label="Search collection"
-              >
-                <Search className="w-4 h-4" />
-              </button>
-
-              {/* Track Order Link (Styled with identical font and tracking to other nav items) */}
-              <Link
-                href="/returns/start"
-                className={`hidden xl:inline-flex items-center gap-1.5 text-sm uppercase font-semibold tracking-wider font-sans font-medium transition-colors ${
-                  isScrolled
-                    ? "text-white/85 hover:text-[#C5A059]"
-                    : "text-[#1F1E1D] hover:text-[#B86B4B]"
-                }`}
-                title="Track order or returns"
-              >
-                <RotateCcw className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span>Track Order</span>
-              </Link>
-
-              {/* Wishlist / Saved Heart Icon Button */}
-              <button
-                type="button"
-                onClick={() => setIsWishlistOpen(true)}
-                className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-200 cursor-pointer flex items-center justify-center ${
-                  isScrolled
-                    ? "text-white/90 hover:text-[#C5A059] hover:bg-white/10"
-                    : "text-[#1F1E1D] hover:text-[#B86B4B] hover:bg-black/5"
-                }`}
-                aria-label={`Saved pieces (${wishlistCount})`}
-                title="View Saved Pieces"
-              >
-                <Heart
-                  className={`w-5 h-5 transition-transform hover:scale-110 ${
-                    wishlistCount > 0 ? "fill-[#C5A059] text-[#C5A059]" : ""
-                  }`}
-                />
-                {wishlistCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#C5A059] text-black text-xs font-mono font-bold flex items-center justify-center shadow-md">
-                    {wishlistCount}
-                  </span>
-                )}
-              </button>
-
-              {/* Shopping Bag Icon Button (Standard premium icon with counter badge) */}
-              <button
-                type="button"
-                onClick={onOpenCart}
-                className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-200 cursor-pointer flex items-center justify-center ${
-                  isScrolled
-                    ? "text-white/90 hover:text-[#C5A059] hover:bg-white/10"
-                    : "text-[#1F1E1D] hover:text-[#B86B4B] hover:bg-black/5"
-                }`}
-                aria-label={`Shopping bag with ${cartCount} items`}
-                title="View Shopping Bag"
-              >
-                <ShoppingBag className="w-5 h-5 transition-transform hover:scale-110" />
-                {cartCount > 0 && (
-                  <motion.span
-                    key={cartCount}
-                    initial={{ scale: 0.6 }}
-                    animate={{ scale: 1 }}
-                    className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#1F1E1D] border border-[#C5A059]/50 text-[#C5A059] text-xs font-mono font-bold flex items-center justify-center shadow-md animate-pulse"
-                  >
-                    {cartCount}
-                  </motion.span>
-                )}
-              </button>
-
-              {/* Mobile Hamburger Menu Toggle */}
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(true)}
-                className={`lg:hidden p-2 rounded-full transition-colors cursor-pointer ml-0.5 ${
-                  isScrolled ? "text-white hover:bg-white/10" : "text-[#1F1E1D] hover:bg-[#FAF7F2]"
-                }`}
-                aria-label="Open mobile menu"
-              >
-                <Menu className="w-5 h-5" />
-              </button>
-
-            </div>
-
-          </nav>
+        <div className={styles.navRight}>
+          <button className={styles.icon} aria-label="Search garments" onClick={() => setSearchOpen(true)}><Search size={19} strokeWidth={1.35} /></button>
+          <Link className={`${styles.icon} ${styles.account}`} href="/account" aria-label={account ? `Account for ${account.name}` : "Account sign in"}><User size={19} strokeWidth={1.35} /></Link>
+          <button className={`${styles.icon} ${styles.saved}`} aria-label={`Saved pieces (${wishlistCount})`} onClick={() => setWishlistOpen(true)}><Heart size={18} strokeWidth={1.35} />{wishlistCount > 0 && <span className={styles.badge}>{wishlistCount}</span>}</button>
+          {onOpenCart ? <button className={styles.bag} aria-label={`Shopping bag with ${cartCount} items`} onClick={onOpenCart}><ShoppingBag size={18} strokeWidth={1.35} /><span>Bag ({cartCount})</span></button> : <Link className={styles.bag} href="/checkout" aria-label="Shopping bag"><ShoppingBag size={18} strokeWidth={1.35} /><span>Bag ({cartCount})</span></Link>}
         </div>
-
-      </header>
-
-      {/* SEARCH MODAL */}
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-
-      {/* WISHLIST DRAWER */}
-      <WishlistDrawer isOpen={isWishlistOpen} onClose={() => setIsWishlistOpen(false)} />
-
-      {/* MOBILE FULL-SCREEN NAVIGATION DRAWER */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed inset-0 z-50 bg-[#FAF7F2] flex flex-col p-6 overflow-y-auto"
-          >
-            {/* Top Bar */}
-            <div className="flex items-center justify-between pb-5 border-b border-[#DCC7AF]/60">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="inline-block text-left"
-              >
-                <BrandLogo size="md" />
-              </Link>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={toggleAudio}
-                  className="p-2 rounded-full border border-[#DCC7AF] text-[#1F1E1D]"
-                  title="Toggle Sound"
-                >
-                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#C5A059]" />}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 rounded-full bg-[#1F1E1D] text-white"
-                  aria-label="Close menu"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="py-4 border-b border-[#DCC7AF]/40 flex gap-3">
-              <Link
-                href="/collection"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex-1 py-2.5 px-4 rounded-full bg-[#B86B4B] text-white text-center font-mono text-sm uppercase font-semibold tracking-wider font-semibold shadow-sm flex items-center justify-center gap-1.5"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Shop Collection</span>
-              </Link>
-              <Link
-                href="/returns/start"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex-1 py-2.5 px-4 rounded-full border border-[#DCC7AF] bg-white text-[#1F1E1D] text-center font-mono text-sm uppercase font-semibold tracking-wider font-semibold flex items-center justify-center gap-1.5"
-              >
-                <RotateCcw className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span>Track Order</span>
-              </Link>
-            </div>
-
-            {/* Primary Nav Links */}
-            <div className="py-6 space-y-4 text-left flex-1">
-              
-              {/* Collection Accordion */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setMobileExpandedCat(
-                      mobileExpandedCat === "collection" ? null : "collection"
-                    )
-                  }
-                  className="w-full flex items-center justify-between text-lg font-serif text-[#1F1E1D] py-1.5"
-                >
-                  <span>Collection</span>
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform ${
-                      mobileExpandedCat === "collection" ? "rotate-180 text-[#B86B4B]" : ""
-                    }`}
-                  />
-                </button>
-
-                {mobileExpandedCat === "collection" && (
-                  <div className="pl-4 py-2 space-y-2.5 text-sm text-charcoal-subtle border-l-2 border-[#DCC7AF]/60 mt-1">
-                    <Link
-                      href="/collection?collection=Collection%2002"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block text-[#C5A059] font-mono text-sm uppercase font-semibold tracking-wider font-semibold"
-                    >
-                      ✦ Collection 02 (9 New Pieces)
-                    </Link>
-                    <Link
-                      href="/collection?parent=Dresses"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block hover:text-[#1F1E1D]"
-                    >
-                      Dresses (Maxi, Mini, Linen)
-                    </Link>
-                    <Link
-                      href="/collection?parent=Tops"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block hover:text-[#1F1E1D]"
-                    >
-                      Tops &amp; Blouses
-                    </Link>
-                    <Link
-                      href="/collection?parent=Bottoms"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block hover:text-[#1F1E1D]"
-                    >
-                      Bottoms (Pants, Skirts)
-                    </Link>
-                    <Link
-                      href="/collection?parent=Resort%20Wear"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block hover:text-[#1F1E1D]"
-                    >
-                      Resort Wear
-                    </Link>
-                    <Link
-                      href="/collection"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block text-[#B86B4B] font-mono text-sm uppercase font-semibold tracking-wider font-semibold pt-1"
-                    >
-                      View All Pieces &rarr;
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              <Link
-                href="/stories"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-lg font-serif text-[#1F1E1D] py-1.5 border-t border-[#DCC7AF]/30"
-              >
-                Heritage Stories
-              </Link>
-
-              <Link
-                href="/about"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-lg font-serif text-[#1F1E1D] py-1.5 border-t border-[#DCC7AF]/30"
-              >
-                Our Story (About BINDY)
-              </Link>
-
-              <Link
-                href="/craft"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-lg font-serif text-[#1F1E1D] py-1.5 border-t border-[#DCC7AF]/30"
-              >
-                Artisan Craft &amp; Sustainability
-              </Link>
-
-              <Link
-                href="/journal"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-lg font-serif text-[#1F1E1D] py-1.5 border-t border-[#DCC7AF]/30"
-              >
-                Field Notes &amp; Journal
-              </Link>
-
-              <Link
-                href="/size-guide"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-lg font-serif text-[#1F1E1D] py-1.5 border-t border-[#DCC7AF]/30"
-              >
-                Size Guide &amp; Fit Measurements
-              </Link>
-
-              <Link
-                href="/returns"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-lg font-serif text-[#1F1E1D] py-1.5 border-t border-[#DCC7AF]/30"
-              >
-                Returns &amp; Exchanges Policy
-              </Link>
-
-              <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-lg font-serif text-[#1F1E1D] py-1.5 border-t border-[#DCC7AF]/30"
-              >
-                Contact &amp; Concierge
-              </Link>
-
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-lg font-serif text-[#C5A059] py-1.5 border-t border-[#DCC7AF]/30 font-semibold"
-              >
-                ✦ Atelier Seller Portal &rarr;
-              </Link>
-
-            </div>
-
-            {/* Bottom Account Strip */}
-            <div className="pt-4 border-t border-[#DCC7AF]/50 flex items-center justify-between text-xs font-mono text-charcoal-subtle">
-              <span>Currency: {currency}</span>
-              <div className="flex items-center space-x-3">
-                <Link
-                  href="/admin"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-[#C5A059] font-semibold"
-                >
-                  Seller Hub
-                </Link>
-                <span>•</span>
-                <Link
-                  href="/account"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-[#1F1E1D] font-semibold"
-                >
-                  {account ? account.name : "Sign In"}
-                </Link>
-              </div>
-            </div>
-
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
+      </nav>
+    </header>
+    <dialog className={styles.mobileDialog} ref={menuRef} aria-label="Navigation menu" onClose={() => { document.body.style.overflow = ""; }} onClick={e => { if (e.target === e.currentTarget) closeMenu(); }}>
+      <div className={styles.menuTop}><span>bindy.</span><button className={styles.icon} aria-label="Close navigation menu" onClick={closeMenu}><X size={24} /></button></div>
+      <p className={styles.menuLabel}>FIND YOUR EVERYDAY</p>
+      <div className={styles.mobileCategories}>{categories.map(([label, href]) => <Link key={href} href={href} onClick={closeMenu}>{label}<ArrowUpRight size={18} /></Link>)}</div>
+      <div className={styles.mobileStories}>{stories.map(([label, href]) => <Link key={href} href={href} onClick={closeMenu}>{label}</Link>)}</div>
+      <div className={styles.menuUtilities}>
+        <Link href="/account" onClick={closeMenu}>My account</Link>
+        <button onClick={() => { closeMenu(); setWishlistOpen(true); }}>Saved pieces ({wishlistCount})</button>
+        <Link href="/size-guide" onClick={closeMenu}>Size guide</Link><Link href="/returns/start" onClick={closeMenu}>Track order & returns</Link><Link href="/contact" onClick={closeMenu}>Contact us</Link>
+        <button onClick={toggleAudio}>{isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />} Sound {isMuted ? "off" : "on"}</button>
+      </div>
+      <p className={styles.menuBottom}>SRI LANKA ↔ AUSTRALIA</p>
+    </dialog>
+    <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+    <WishlistDrawer isOpen={wishlistOpen} onClose={() => setWishlistOpen(false)} onOpenCart={onOpenCart} />
+  </>;
 }

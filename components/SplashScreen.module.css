@@ -1,0 +1,292 @@
+/* ============================================================
+   BINDY. — Button-Assembles-the-Logo Splash
+   Wood/pearl garment buttons fall, hop across b-i-n-d-y, and
+   sink into the period. Enhanced: gold stitch-thread trail,
+   shimmer sweep, tagline reveal, curtain-lift exit.
+   ============================================================ */
+
+.splash {
+  --bg: #F4EFE4;
+  --ink: #1F1E1D;
+  --gold: #C5A059;
+  --ink-soft: rgba(31, 30, 29, .16);
+  --wordmark-size: clamp(88px, 20vw, 240px);
+  --button-size: clamp(24px, 5.4vw, 58px);
+
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg);
+  user-select: none;
+  transition: opacity .75s cubic-bezier(.16, 1, .3, 1), transform .75s cubic-bezier(.16, 1, .3, 1);
+}
+.splash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(31, 30, 29, .05), transparent 60%),
+    radial-gradient(circle at 50% 46%, rgba(197, 160, 89, .10), transparent 55%);
+  pointer-events: none;
+}
+/* faint paper grain */
+.splash::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Exit: whole splash lifts away to reveal the site */
+.lift {
+  opacity: 0;
+  transform: translateY(-3%) scale(1.03);
+  pointer-events: none;
+}
+
+.buttonsLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.logoWrap {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(14px) scale(.97);
+  transition: opacity .7s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1);
+}
+.logoWrap.in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.wordmark {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-end;
+  font-family: var(--font-logo), 'League Spartan', sans-serif;
+  font-weight: 800;
+  font-size: var(--wordmark-size);
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+
+.letter {
+  display: inline-block;
+  transform-origin: bottom center;
+}
+.squish { animation: letterSquish 620ms linear; }
+@keyframes letterSquish {
+  0%   { transform: scaleY(1)   scaleX(1)    translateY(0);   animation-timing-function: cubic-bezier(.2,.85,.3,1); }
+  30%  { transform: scaleY(.62) scaleX(1.14) translateY(11%); animation-timing-function: cubic-bezier(.34,1.4,.64,1); }
+  60%  { transform: scaleY(1.07) scaleX(.97) translateY(-3%); animation-timing-function: ease-out; }
+  100% { transform: scaleY(1)   scaleX(1)    translateY(0); }
+}
+
+.period {
+  width: calc(var(--wordmark-size) * .3);
+  height: calc(var(--wordmark-size) * .3);
+  margin-left: calc(var(--wordmark-size) * .045);
+  margin-bottom: calc(var(--wordmark-size) * .02);
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: calc(var(--wordmark-size) * .045) solid transparent;
+  background: rgba(31, 30, 29, .13); /* soft shadow-tone placeholder before the final button lands */
+  transition: background-color .45s ease, border-color .45s ease, box-shadow .45s ease;
+  flex: none;
+}
+.filled {
+  background: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 0 8px 18px rgba(31, 30, 29, .35);
+  animation: periodPop 420ms cubic-bezier(.34, 1.56, .64, 1);
+}
+@keyframes periodPop {
+  0%   { transform: scale(.7); }
+  55%  { transform: scale(1.16); }
+  100% { transform: scale(1); }
+}
+
+/* gold "stitch" thread that sews left->right under the word as buttons progress */
+.thread {
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--wordmark-size) * .04);
+  height: 2px;
+  width: 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #A46446, var(--gold) 55%, rgba(197,160,89,0));
+  box-shadow: 0 0 10px rgba(197, 160, 89, .5);
+  transition: width .5s cubic-bezier(.65, 0, .35, 1);
+  pointer-events: none;
+}
+
+/* one-pass light sheen across the wordmark when the logo completes */
+.sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 252, 240, .85) 50%, transparent 62%);
+  background-size: 260% 100%;
+  background-position: 180% 0;
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+.done .sheen { animation: sheenSweep 1.15s cubic-bezier(.4, 0, .2, 1) .1s 1; }
+@keyframes sheenSweep {
+  0%   { opacity: 0; background-position: 180% 0; }
+  20%  { opacity: 1; }
+  100% { opacity: 0; background-position: -80% 0; }
+}
+
+.subline {
+  margin-top: calc(var(--wordmark-size) * .1);
+  margin-left: 22%;
+  font-family: var(--font-logo), 'League Spartan', sans-serif;
+  font-weight: 500;
+  font-size: calc(var(--wordmark-size) * .155);
+  letter-spacing: .4em;
+  color: var(--ink);
+  opacity: .82;
+  text-transform: lowercase;
+}
+
+/* tagline appears once the logo is assembled */
+.tagline {
+  margin-top: calc(var(--wordmark-size) * .13);
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(13px, 1.5vw, 20px);
+  letter-spacing: .04em;
+  color: #5b544a;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.done .tagline { opacity: .95; transform: translateY(0); }
+
+/* falling / hopping buttons */
+.btnPos {
+  position: absolute;
+  top: 0; left: 0;
+  width: var(--button-size);
+  will-change: left, top;
+}
+.btnLift {
+  position: relative;
+  transform-origin: center;
+  will-change: transform;
+}
+.btnPos.falling > .btnLift { animation: fallStretch var(--fall-dur, 640ms) ease-in forwards; }
+@keyframes fallStretch {
+  0%   { transform: scaleY(1)   scaleX(1); }
+  72%  { transform: scaleY(1.2) scaleX(.87); }
+  100% { transform: scaleY(1)   scaleX(1); }
+}
+.btnPos.hopArc > .btnLift { animation: hopArc var(--hop-dur, 520ms) linear forwards; }
+@keyframes hopArc {
+  0%   { transform: translateY(0)     rotate(calc(var(--spin-dir, 1) * 0deg));   animation-timing-function: ease-out; }
+  50%  { transform: translateY(-150%) rotate(calc(var(--spin-dir, 1) * 190deg)); animation-timing-function: ease-in; }
+  100% { transform: translateY(0)     rotate(calc(var(--spin-dir, 1) * 360deg)); }
+}
+
+.btnShadow {
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  width: 74%;
+  height: 24%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(31, 30, 29, .4), rgba(31, 30, 29, 0) 72%);
+  transform: translateX(-50%) scale(.25);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.btnPos.falling > .btnShadow {
+  opacity: .5;
+  transform: translateX(-50%) scale(1);
+  transition: opacity var(--fall-dur, 640ms) ease, transform var(--fall-dur, 640ms) ease;
+}
+.btnPos.hopArc > .btnShadow { animation: shadowPulse var(--hop-dur, 520ms) linear forwards; }
+@keyframes shadowPulse {
+  0%   { opacity: .5;  transform: translateX(-50%) scale(1);   animation-timing-function: ease-out; }
+  50%  { opacity: .16; transform: translateX(-50%) scale(.48); animation-timing-function: ease-in; }
+  100% { opacity: .5;  transform: translateX(-50%) scale(1); }
+}
+
+.btnImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 3px 5px rgba(40, 26, 12, .25));
+}
+.impact { animation: btnImpact 320ms cubic-bezier(.33, 0, .2, 1); }
+@keyframes btnImpact {
+  0%   { transform: scale(1, 1); }
+  32%  { transform: scale(1.14, .84); }
+  62%  { transform: scale(.96, 1.05); }
+  100% { transform: scale(1, 1); }
+}
+
+/* skip control */
+.skip {
+  position: absolute;
+  right: max(20px, 3vw);
+  bottom: max(20px, 3vh);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid rgba(31, 30, 29, .18);
+  border-radius: 999px;
+  background: rgba(255, 253, 249, .7);
+  backdrop-filter: blur(4px);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #5b544a;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+.skip:hover { border-color: var(--gold); color: var(--ink); background: #fff; }
+
+.origin {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: max(20px, 3vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #8a8072;
+  opacity: 0;
+  transition: opacity .8s ease .2s;
+  pointer-events: none;
+}
+.done .origin { opacity: 1; }
+.origin b { color: var(--gold); font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) {
+  .logoWrap, .tagline, .splash { transition: none; }
+}

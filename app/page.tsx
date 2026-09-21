@@ -2,14 +2,13 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, ExternalLink } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { getCart, saveCart } from "@/lib/cart";
 import { type Product } from "@/data/products";
 import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
-import CinematicHero from "@/components/CinematicHero";
+import EditorialHero from "@/components/EditorialHero";
 import HeritageTicker from "@/components/HeritageTicker";
-import TrustStrip from "@/components/home/TrustStrip";
 import SpotlightSection from "@/components/home/SpotlightSection";
 import FlashArchiveSection from "@/components/home/FlashArchiveSection";
 import FlashDiscountRibbon from "@/components/home/FlashDiscountRibbon";
@@ -17,28 +16,24 @@ import BrowseSection from "@/components/home/BrowseSection";
 import ShopTheLookSection from "@/components/home/ShopTheLookSection";
 import VerifiedReviewsSellingSection from "@/components/home/VerifiedReviewsSellingSection";
 import JourneySignup from "@/components/home/JourneySignup";
-import FilmModal from "@/components/home/FilmModal";
 import ProductModal from "@/components/ProductModal";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import SocialProofToast from "@/components/ui/SocialProofToast";
 import { ambientPlayer } from "@/lib/ambientSound";
 import type { Destination } from "@/data/products";
 
 export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
+  const [isSplashLifting, setIsSplashLifting] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
-  const [isFilmModalOpen, setIsFilmModalOpen] = useState(false);
   const [selectedJourney, setSelectedJourney] = useState<Destination | "All">("All");
   const [showStickyMobile, setShowStickyMobile] = useState(false);
-  const [isHeroOffscreen, setIsHeroOffscreen] = useState(false);
-  const [testCount, setTestCount] = useState(0);
 
-  // Track scroll position for sticky mobile CTA bar & offscreen hero deactivation
+  // Track scroll position for the sticky mobile shopping controls
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -47,9 +42,7 @@ export default function Home() {
           const scrollY = window.scrollY;
           const h = window.innerHeight;
           const shouldSticky = scrollY > h * 0.7;
-          const offscreen = scrollY > h * 1.05;
           setShowStickyMobile((prev) => (prev !== shouldSticky ? shouldSticky : prev));
-          setIsHeroOffscreen((prev) => (prev !== offscreen ? offscreen : prev));
           ticking = false;
         });
         ticking = true;
@@ -57,16 +50,6 @@ export default function Home() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Check if splash screen was already viewed in this browser session
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const seen = sessionStorage.getItem("bindy_splash_seen");
-      if (seen) {
-        setShowSplash(false);
-      }
-    }
   }, []);
 
   // Hydrate the cart from localStorage
@@ -132,13 +115,12 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-paper text-charcoal selection:bg-gold selection:text-white">
-      {/* 1. SPLASH SCREEN (Once per session) */}
+      {/* 1. SPLASH — garment buttons assemble the bindy. logo */}
       {showSplash && (
         <SplashScreen
+          onLift={() => setIsSplashLifting(true)}
           onComplete={() => {
-            if (typeof window !== "undefined") {
-              sessionStorage.setItem("bindy_splash_seen", "true");
-            }
+            setIsSplashLifting(true);
             setShowSplash(false);
           }}
         />
@@ -146,58 +128,24 @@ export default function Home() {
 
       {/* 2. NAVBAR */}
       <Navbar
+        immersive
         isMuted={isMuted}
         toggleAudio={toggleAudio}
         cartCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}
       />
 
-      {/* 3. HERO (SECTION 1) — fixed behind; the shop rises up and covers it */}
-      <div
-        className={`fixed inset-0 h-screen z-0 ${
-          isHeroOffscreen ? "invisible pointer-events-none" : "visible pointer-events-auto"
-        }`}
-        aria-hidden={isHeroOffscreen}
-      >
-        <CinematicHero
-          onExploreCollection={() => {
-            const el = document.getElementById("browse-collection");
-            el?.scrollIntoView({ behavior: "smooth" });
-          }}
-          onWatchFilm={() => setIsFilmModalOpen(true)}
-          isMuted={isMuted}
-          toggleAudio={toggleAudio}
-        />
-      </div>
+      <EditorialHero
+        isSplashActive={showSplash && !isSplashLifting}
+        onExploreCollection={() => {
+          document.getElementById("browse-collection")?.scrollIntoView({
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+          });
+        }}
+      />
 
-      {/* Spacer to dock flush at bottom edge of hero */}
-      <div className="h-[calc(100dvh-52px)] sm:h-[calc(100vh-58px)]" aria-hidden />
-
-      {/* Everything below rises up over the fixed hero in 11 sharp modules */}
-      <div className="relative z-10 bg-paper shadow-[0_-20px_50px_rgba(0,0,0,0.15)]">
-        {/* HERITAGE TICKER */}
+      <div className="relative bg-paper">
         <HeritageTicker />
-
-        {/* SECTION 2: TRUST / VALUE STRIP */}
-        <TrustStrip />
-
-        {/* TEST BUTTON (Opens Testing Sandbox at /test in a new tab) */}
-        <div className="flex justify-center py-6 bg-paper">
-          <button
-            type="button"
-            id="test-button"
-            onClick={() => window.open("/test", "_blank")}
-            className="px-8 py-3 rounded-full bg-[#1F1E1D] hover:bg-[#C5A059] text-white font-mono text-xs uppercase tracking-widest font-semibold border border-[#C5A059]/60 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer flex items-center gap-2.5 select-none"
-            title="Open Sandbox Testing Home Screen in a new window (/test)"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
-            <span>Test</span>
-            <span className="text-[11px] text-[#C5A059] font-normal normal-case font-sans hidden sm:inline">
-              (Open Sandbox)
-            </span>
-            <ExternalLink className="w-3.5 h-3.5 text-[#C5A059]" />
-          </button>
-        </div>
 
         {/* SECTION 5: BROWSE BY PIECE (grid, filter pills, micro-badges, load more) */}
         <BrowseSection
@@ -256,12 +204,6 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </div>
-
-      {/* FILM MODAL */}
-      <FilmModal
-        isOpen={isFilmModalOpen}
-        onClose={() => setIsFilmModalOpen(false)}
-      />
 
       {/* PRODUCT QUICK VIEW MODAL */}
       <ProductModal
@@ -327,8 +269,6 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* BOUTIQUE LIVE SOCIAL PROOF TOAST */}
-      <SocialProofToast />
     </main>
   );
 }

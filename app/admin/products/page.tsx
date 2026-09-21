@@ -29,7 +29,7 @@ export default function AdminProductsPage() {
     fabric: "100% Organic Handloom Cotton",
     originWorkshop: "Kirindiwela Weaving Center",
     artisanMaster: "Dayawathi Gunasekara",
-    image: "/images/products/dress-1.jpg",
+    image: "/images/serendipity/lotus-memory-dress.jpg",
     stock: {
       "AU 6": 4,
       "AU 8": 6,
@@ -81,7 +81,7 @@ export default function AdminProductsPage() {
       fabric: "100% Organic Handloom Cotton",
       originWorkshop: "Kirindiwela Weaving Center",
       artisanMaster: "Dayawathi Gunasekara",
-      image: "/images/products/dress-1.jpg",
+      image: "/images/serendipity/lotus-memory-dress.jpg",
       stock: {
         "AU 6": 4,
         "AU 8": 6,

@@ -123,7 +123,7 @@ export default function HeritageTicker() {
                       <span className="block text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
                         100% Natural Fastener
                       </span>
-                      <span className="block text-sm font-sans uppercase font-semibold tracking-[0.15em] text-[#FAF7F2] font-semibold">
+                      <span className="block text-sm font-sans uppercase font-semibold tracking-[0.15em] text-[#FAF7F2]">
                         {item.button.name}
                       </span>
                       <span className="block text-xs font-sans text-[#DCC7AF]/85">
