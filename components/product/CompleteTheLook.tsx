@@ -19,7 +19,12 @@ export default function CompleteTheLook({
   const [bundleAdded, setBundleAdded] = useState(false);
 
   // Pick a natural styling pair (different category if possible)
+  const preferredPair = currentProduct.styleWith?.find((id) =>
+    PRODUCTS.some((product) => product.id === id)
+  );
+
   const pairedProduct =
+    (preferredPair ? PRODUCTS.find((product) => product.id === preferredPair) : undefined) ||
     PRODUCTS.find(
       (p) =>
         p.id !== currentProduct.id &&

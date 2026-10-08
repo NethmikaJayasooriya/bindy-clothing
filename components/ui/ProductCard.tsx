@@ -266,6 +266,12 @@ export default function ProductCard({
             )}
           </div>
 
+          {product.soldSeparately && (
+            <span className="inline-flex w-fit items-center border border-[#5E6C52]/35 bg-[#5E6C52]/10 px-2 py-0.5 text-[9px] font-sans font-semibold uppercase tracking-[0.16em] text-[#5E6C52]">
+              Sold Separately · Mix &amp; Match
+            </span>
+          )}
+
           {/* Product Title */}
           <Link href={`/product/${product.id}`} className="block">
             <h3 className="font-serif text-[15.5px] sm:text-[17.5px] text-charcoal font-normal group-hover:text-[#8E6E34] transition-colors leading-snug line-clamp-1">
@@ -280,11 +286,17 @@ export default function ProductCard({
 
           {/* Rating & Bestseller Badge */}
           <div className="pt-0.5 flex items-center justify-between">
-            <StarRating
-              value={rating}
-              count={product.reviews.length}
-              size="sm"
-            />
+            {product.reviews.length > 0 ? (
+              <StarRating
+                value={rating}
+                count={product.reviews.length}
+                size="sm"
+              />
+            ) : (
+              <span className="text-[10px] font-sans font-medium uppercase tracking-[0.16em] text-charcoal/55">
+                New arrival
+              </span>
+            )}
             {product.id.includes("lotus") || product.id.includes("cinnamon") ? (
               <span className="flex items-center gap-1 text-[10px] sm:text-[10.5px] font-sans uppercase tracking-wider text-[#A46446] font-medium">
                 <Flame className="w-2.5 h-2.5 fill-[#A46446]" />

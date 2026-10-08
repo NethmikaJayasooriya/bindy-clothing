@@ -444,6 +444,25 @@ function CollectionContent() {
                   <span className="text-[#C5A059] text-xs">✓</span>
                 )}
               </button>
+              <button
+                type="button"
+                onClick={() =>
+                  setSelectedCollection(selectedCollection === "Atelier Separates" ? null : "Atelier Separates")
+                }
+                className={`w-full text-left py-2 px-3 rounded-lg text-xs transition-colors flex items-center justify-between ${
+                  selectedCollection === "Atelier Separates"
+                    ? "bg-[#C5A059]/15 text-[#1F1E1D] font-semibold border border-[#C5A059]/40"
+                    : "text-[#78716A] hover:bg-[#FAF7F2] hover:text-[#1F1E1D]"
+                }`}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span>Atelier Separates</span>
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#5E6C52] text-white font-mono uppercase font-bold">Mix &amp; Match</span>
+                </div>
+                {selectedCollection === "Atelier Separates" && (
+                  <span className="text-[#C5A059] text-xs">✓</span>
+                )}
+              </button>
             </div>
 
             {mobileFilterOpen && (

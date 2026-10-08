@@ -115,6 +115,9 @@ export function matchScore(top: StudioPiece, bottom: StudioPiece): number {
   const colB = (bottom as Product & { collectionName?: string }).collectionName;
   if (colT && colT === colB) score += 10;
 
+  // Curated pairings supplied with a product should lead the recommendations.
+  if (top.styleWith?.includes(bottom.sourceId) || bottom.styleWith?.includes(top.sourceId)) score += 18;
+
   // palette harmony
   const cT = hexToHsl(top.colorHex || "#C5A059");
   const cB = hexToHsl(bottom.colorHex || "#C5A059");

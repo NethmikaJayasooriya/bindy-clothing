@@ -52,7 +52,7 @@ const VERIFIED_STORIES: CustomerReviewItem[] = [
     quoteTitle: "Feels like a quiet dream on skin",
     reviewText:
       "The lightweight cotton voile is so featherlight I forget I'm wearing it. Wore it to a botanical lunch in New Farm and three women asked where it was from. The drape falls effortlessly.",
-    lifestyleImage: "/images/serendipity/lotus-memory-dress-hover.jpg",
+    lifestyleImage: "/images/serendipity/lotus-memory-dress-detail.jpg",
     verified: true,
   },
   {
@@ -67,7 +67,7 @@ const VERIFIED_STORIES: CustomerReviewItem[] = [
     quoteTitle: "The cutwork lace is museum quality",
     reviewText:
       "The hand-carved mother-of-pearl buttons catch the golden-hour light so subtly. You can immediately tell this was woven on an artisan pit-loom rather than run through a factory line.",
-    lifestyleImage: "/images/serendipity/serendib-pearl-dress-hover.jpg",
+    lifestyleImage: "/images/serendipity/serendib-pearl-dress-detail.jpg",
     verified: true,
   },
   {
@@ -97,7 +97,7 @@ const VERIFIED_STORIES: CustomerReviewItem[] = [
     quoteTitle: "The cinnamon wash is gorgeous",
     reviewText:
       "Fluid bias drape that pairs with everything from a linen crop to a casual white tee. The hand-loomed texture has an earthy luxury that fast-fashion brands simply cannot replicate.",
-    lifestyleImage: "/images/serendipity/cinnamon-flow-skirt-hover.jpg",
+    lifestyleImage: "/images/serendipity/cinnamon-flow-skirt-detail.jpg",
     verified: true,
   },
   {
@@ -112,7 +112,7 @@ const VERIFIED_STORIES: CustomerReviewItem[] = [
     quoteTitle: "Pure green linen poetry",
     reviewText:
       "Wore this for a weekend getaway in Burleigh Heads. The deep tea leaf hue and delicate coconut shell buttons feel grounded and deeply mindful. Highest rotation piece in my wardrobe.",
-    lifestyleImage: "/images/serendipity/tea-leaf-two-piece-hover.jpg",
+    lifestyleImage: "/images/serendipity/tea-leaf-two-piece-detail.jpg",
     verified: true,
   },
   {
@@ -127,7 +127,7 @@ const VERIFIED_STORIES: CustomerReviewItem[] = [
     quoteTitle: "The architectural collar turns heads",
     reviewText:
       "A striking candy-stripe gingham that feels smart enough for art gallery openings and relaxed enough for weekend coffee in Paddington. In love with the covered buttons.",
-    lifestyleImage: "/images/serendipity/pettah-check-dress-hover.jpg",
+    lifestyleImage: "/images/serendipity/pettah-check-dress-detail.jpg",
     verified: true,
   },
 ];

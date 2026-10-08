@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, ArrowRight, Filter, RefreshCw } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import {
   PRODUCTS,
   type Category,
@@ -34,7 +34,6 @@ export default function BrowseSection({
 
   const [activeCollection, setActiveCollection] = useState<"All" | "Serendipity" | "Collection 02">("All");
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
-  const [visibleCount, setVisibleCount] = useState(isTestMode ? 22 : 12);
 
   const filteredProducts = useMemo(() => {
     const list = PRODUCTS.filter((p) => {
@@ -57,8 +56,7 @@ export default function BrowseSection({
     return list;
   }, [activeCategory, selectedJourney, activeCollection, isTestMode]);
 
-  const displayedProducts = filteredProducts.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredProducts.length;
+  const displayedProducts = filteredProducts;
 
   return (
     <section id="browse-collection" className="relative pt-8 sm:pt-14 pb-12 sm:pb-16 px-3 sm:px-6 lg:px-8 bg-paper">
@@ -92,7 +90,6 @@ export default function BrowseSection({
                 type="button"
                 onClick={() => {
                   setActiveCollection(col.key as any);
-                  setVisibleCount(12);
                 }}
                 className={`relative px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none whitespace-nowrap flex-shrink-0 ${
                   active
@@ -134,7 +131,6 @@ export default function BrowseSection({
           activeCategory={activeCategory}
           onSelectCategory={(cat) => {
             setActiveCategory(cat);
-            setVisibleCount(12);
           }}
         />
 
@@ -238,20 +234,6 @@ export default function BrowseSection({
                 Reset Filters
               </Button>
             </div>
-          </div>
-        )}
-
-        {/* "Load More" Pagination or View Full Collection */}
-        {hasMore && (
-          <div className="text-center mt-14 sm:mt-16 space-y-3">
-            <Button
-              variant="secondary"
-              size="md"
-              onClick={() => setVisibleCount((prev) => prev + 4)}
-              leftIcon={<RefreshCw className="w-3.5 h-3.5 text-gold" />}
-            >
-              Load More Pieces ({filteredProducts.length - visibleCount} Remaining)
-            </Button>
           </div>
         )}
       </div>

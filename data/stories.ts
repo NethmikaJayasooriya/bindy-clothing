@@ -47,7 +47,7 @@ export const STORIES: StoryChapter[] = [
     ],
     image: "/images/serendipity/lotus-memory-dress.jpg",
     moodboardImages: [
-      "/images/serendipity/lotus-memory-dress-hover.jpg",
+      "/images/serendipity/lotus-memory-dress-detail.jpg",
       "/images/serendipity/lotus-memory-dress-full.jpg",
       "/images/destinations/garden.jpg",
     ],
@@ -78,7 +78,7 @@ export const STORIES: StoryChapter[] = [
     ],
     image: "/images/serendipity/serendib-pearl-dress.jpg",
     moodboardImages: [
-      "/images/serendipity/serendib-pearl-dress-hover.jpg",
+      "/images/serendipity/serendib-pearl-dress-detail.jpg",
       "/images/serendipity/serendib-pearl-dress-full.jpg",
       "/images/destinations/beach.jpg",
     ],
@@ -109,7 +109,7 @@ export const STORIES: StoryChapter[] = [
     ],
     image: "/images/serendipity/pettah-check-dress.jpg",
     moodboardImages: [
-      "/images/serendipity/pettah-check-dress-hover.jpg",
+      "/images/serendipity/pettah-check-dress-detail.jpg",
       "/images/serendipity/pettah-check-dress-full.jpg",
       "/images/destinations/city.jpg",
     ],
@@ -140,7 +140,7 @@ export const STORIES: StoryChapter[] = [
     ],
     image: "/images/serendipity/celestial-terracotta-skirt.jpg",
     moodboardImages: [
-      "/images/serendipity/celestial-terracotta-skirt-hover.jpg",
+      "/images/serendipity/celestial-terracotta-skirt-detail.jpg",
       "/images/serendipity/celestial-terracotta-skirt-full.jpg",
       "/images/destinations/party.jpg",
     ],
@@ -171,7 +171,7 @@ export const STORIES: StoryChapter[] = [
     ],
     image: "/images/serendipity/tea-leaf-two-piece.jpg",
     moodboardImages: [
-      "/images/serendipity/tea-leaf-two-piece-hover.jpg",
+      "/images/serendipity/tea-leaf-two-piece-detail.jpg",
       "/images/serendipity/tea-leaf-two-piece-full.jpg",
       "/images/destinations/everyday.jpg",
     ],

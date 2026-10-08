@@ -31,7 +31,7 @@ import {
   Clock,
   Share2,
 } from "lucide-react";
-import { PRODUCTS, getAverageRating, type Product } from "@/lib/products";
+import { PRODUCTS, getAverageRating, type Category, type Product } from "@/lib/products";
 import {
   getCart,
   saveCart,
@@ -79,6 +79,13 @@ function Stars({ value, className = "" }: { value: number; className?: string })
     </span>
   );
 }
+
+const CATEGORY_SLUGS: Record<Category, string> = {
+  Dresses: "dresses",
+  "Tops & Blouses": "tops-and-blouses",
+  "Skirts & Pants": "skirts-and-pants",
+  "Two Piece Sets": "two-piece-sets",
+};
 
 export default function ProductDetail({ product }: { product: Product }) {
   const router = useRouter();
@@ -128,6 +135,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
   const avg = useMemo(() => getAverageRating(product), [product]);
   const installment = useMemo(() => (product.priceAud / 4).toFixed(2), [product.priceAud]);
+  const galleryImages = product.gallery;
 
   // Inventory logic per size
   const sizeAvailability = useMemo(() => {
@@ -193,11 +201,11 @@ export default function ProductDetail({ product }: { product: Product }) {
   };
 
   const prevImage = () => {
-    setActiveImg((i) => (i === 0 ? product.gallery.length - 1 : i - 1));
+    setActiveImg((i) => (i === 0 ? galleryImages.length - 1 : i - 1));
   };
 
   const nextImage = () => {
-    setActiveImg((i) => (i === product.gallery.length - 1 ? 0 : i + 1));
+    setActiveImg((i) => (i === galleryImages.length - 1 ? 0 : i + 1));
   };
 
   const toggleAccordion = (key: "fit" | "fabric" | "shipping") => {
@@ -208,7 +216,7 @@ export default function ProductDetail({ product }: { product: Product }) {
     <main className="min-h-screen bg-paper text-charcoal selection:bg-gold/20">
       {/* 1. LUXURY BOUTIQUE HEADER */}
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-paper/95 border-b border-sand/40 transition-all duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
           {/* Brand Logo with deliberate spacing */}
           <Link
             href="/"
@@ -287,7 +295,7 @@ export default function ProductDetail({ product }: { product: Product }) {
       </header>
 
       {/* 2. BREADCRUMB & BACK LINK */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10">
         <nav className="text-xs font-sans tracking-wide text-charcoal-subtle flex items-center gap-2 overflow-x-auto whitespace-nowrap">
           <Link href="/" className="hover:text-gold transition-colors">
             Home
@@ -298,7 +306,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           </Link>
           <span>/</span>
           <Link
-            href={`/collection/${product.category.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}`}
+            href={`/collection/${CATEGORY_SLUGS[product.category]}`}
             className="hover:text-gold transition-colors"
           >
             {product.category}
@@ -309,12 +317,12 @@ export default function ProductDetail({ product }: { product: Product }) {
       </div>
 
       {/* 3. HERO SHOWCASE: GALLERY (7 COLS) + BUY BOX (5 COLS) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
         {/* Gallery Column (7 cols) */}
         <div className="lg:col-span-7 flex flex-col-reverse sm:flex-row gap-4 lg:sticky lg:top-24 self-start w-full">
           {/* Thumbnail Rail */}
-          <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 no-scrollbar">
-            {product.gallery.map((src, i) => (
+          <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-y-auto sm:overflow-x-hidden sm:max-h-[min(75vh,700px)] pb-2 sm:pb-0 sm:pr-1 no-scrollbar">
+            {galleryImages.map((src, i) => (
               <button
                 key={src}
                 onMouseEnter={() => setActiveImg(i)}
@@ -344,7 +352,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeImg}
-                src={product.gallery[activeImg] || product.image}
+                src={galleryImages[activeImg] || product.image}
                 alt={product.name}
                 initial={{ opacity: 0, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -379,7 +387,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             </div>
 
             {/* Prev / Next Chevrons */}
-            {product.gallery.length > 1 && (
+            {galleryImages.length > 1 && (
               <>
                 <button
                   type="button"
@@ -408,7 +416,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
             {/* Bottom Left: Image Counter (e.g., 2 / 4) */}
             <div className="absolute bottom-4 left-4 z-10 bg-black/55 backdrop-blur-md px-3 py-1 rounded-full text-xs text-white/90 font-mono border border-white/15">
-              {activeImg + 1} / {product.gallery.length}
+              {activeImg + 1} / {galleryImages.length}
             </div>
 
             {/* Bottom Right: Click to Zoom Cue */}
@@ -439,14 +447,22 @@ export default function ProductDetail({ product }: { product: Product }) {
               {product.name}
             </h1>
 
+            {product.soldSeparately && (
+              <div className="mt-3 inline-flex items-center gap-2 border border-sage/35 bg-sage/10 px-3 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.18em] text-sage-dark">
+                Sold Separately · Build Your Own Set
+              </div>
+            )}
+
             {/* Rating Anchor Link */}
             <div className="mt-3 flex items-center gap-3">
-              <Stars value={avg} />
+              {product.reviews.length > 0 && <Stars value={avg} />}
               <a
                 href="#reviews"
                 className="text-xs text-charcoal-subtle hover:text-gold font-sans font-medium transition-colors underline underline-offset-2"
               >
-                {avg.toFixed(1)} · {product.reviews.length} Verified Customer Reviews
+                {product.reviews.length > 0
+                  ? `${avg.toFixed(1)} · ${product.reviews.length} Verified Customer Reviews`
+                  : "New arrival · Be the first to review"}
               </a>
             </div>
 
@@ -808,7 +824,24 @@ export default function ProductDetail({ product }: { product: Product }) {
 
       {/* 7. SECTION 5: REVIEWS + Q&A SUB-TAB */}
       <div id="reviews">
-        <ReviewsSection product={product} />
+        {product.reviews.length > 0 ? (
+          <ReviewsSection product={product} />
+        ) : (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-sand/40 text-charcoal">
+            <div className="rounded-3xl border border-sand/40 bg-paper-light px-6 py-12 text-center shadow-paper-card sm:px-10">
+              <Sparkles className="mx-auto mb-4 h-5 w-5 text-gold" />
+              <p className="mb-2 text-sm font-sans font-semibold uppercase tracking-[0.25em] text-gold">
+                New Arrival
+              </p>
+              <h2 className="font-serif text-3xl font-light tracking-wide sm:text-4xl">
+                Be the first to share your story
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-charcoal-subtle">
+                This atelier piece has just arrived. Once customers begin wearing it, their verified fit notes and reviews will appear here.
+              </p>
+            </div>
+          </section>
+        )}
       </div>
 
       {/* 8. SECTION 6: FEATURED COMMUNITY STORY CAROUSEL */}
@@ -854,7 +887,7 @@ export default function ProductDetail({ product }: { product: Product }) {
       <LightboxModal
         isOpen={isLightboxOpen}
         onClose={() => setIsLightboxOpen(false)}
-        images={product.gallery}
+        images={galleryImages}
         initialIndex={activeImg}
         productName={product.name}
       />

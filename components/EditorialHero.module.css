@@ -26,10 +26,14 @@
 .sceneImage {
   object-fit: cover;
   object-position: var(--scene-position);
+  transform: none;
+  filter: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .entering {
-  animation: sceneIn 1.15s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  animation: sceneIn 0.9s ease-out both;
 }
 
 .shade {
@@ -69,23 +73,20 @@
   display: none;
 }
 .primed .sceneImage[data-first="true"] {
-  transform: scale(1.10);
-  filter: brightness(0.88);
+  opacity: 0.92;
 }
 
 /* Grand Cinematic Entrance: Triggered when splash curtain lifts */
 .grandReveal .sceneImage[data-first="true"] {
-  animation: grandKenBurns 2.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: grandImageReveal 1.1s ease-out both;
 }
 
-@keyframes grandKenBurns {
+@keyframes grandImageReveal {
   0% {
-    transform: scale(1.10);
-    filter: brightness(0.85);
+    opacity: 0.92;
   }
   100% {
-    transform: scale(1);
-    filter: brightness(1);
+    opacity: 1;
   }
 }
 
@@ -736,11 +737,9 @@
 @keyframes sceneIn {
   from {
     opacity: 0;
-    transform: scale(1.035);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 

@@ -51,7 +51,7 @@ const CAPSULE_PIECES: CapsulePiece[] = [
     fabric: "Hand-spun Cotton Voile",
     weightG: 110,
     image: "/images/serendipity/shore-traces-blouse.jpg",
-    imageHover: "/images/serendipity/shore-traces-blouse-hover.jpg",
+    imageHover: "/images/serendipity/shore-traces-blouse-detail.jpg",
     priceAud: 185,
   },
   {
@@ -62,7 +62,7 @@ const CAPSULE_PIECES: CapsulePiece[] = [
     fabric: "Habarana Silk-Rayon Weave",
     weightG: 180,
     image: "/images/serendipity/cinnamon-flow-skirt.jpg",
-    imageHover: "/images/serendipity/cinnamon-flow-skirt-hover.jpg",
+    imageHover: "/images/serendipity/cinnamon-flow-skirt-detail.jpg",
     priceAud: 210,
   },
   {
@@ -73,7 +73,7 @@ const CAPSULE_PIECES: CapsulePiece[] = [
     fabric: "Fine Handloom Voile",
     weightG: 240,
     image: "/images/serendipity/lotus-memory-dress.jpg",
-    imageHover: "/images/serendipity/lotus-memory-dress-hover.jpg",
+    imageHover: "/images/generated-product-angles/lotus-memory-back.webp",
     priceAud: 240,
   },
   {
@@ -84,7 +84,7 @@ const CAPSULE_PIECES: CapsulePiece[] = [
     fabric: "Handloom Cotton-Linen",
     weightG: 290,
     image: "/images/serendipity/tea-leaf-two-piece.jpg",
-    imageHover: "/images/serendipity/tea-leaf-two-piece-hover.jpg",
+    imageHover: "/images/serendipity/tea-leaf-two-piece-detail.jpg",
     priceAud: 290,
   },
 ];

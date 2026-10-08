@@ -15,7 +15,7 @@ export interface EnrichedProduct extends BaseProduct {
   originDistrict?: string;
   parentCategory: "Tops" | "Bottoms" | "Dresses" | "Resort Wear";
   subCategory: string;
-  collectionName: "Serendipity" | "Collection 02";
+  collectionName: "Serendipity" | "Collection 02" | "Atelier Separates";
   occasions: string[];
 }
 
@@ -114,6 +114,23 @@ const TAXONOMY_MAP: Record<
     sub: "Maxi",
     occasions: ["Beach & Coast", "Everyday Calm"],
   },
+  "ivory-tiered-maxi-skirt": { parent: "Bottoms", sub: "Skirts", occasions: ["Beach & Coast", "Everyday Calm", "Garden & High Tea"] },
+  "ivory-eyelet-mini-skirt": { parent: "Bottoms", sub: "Skirts", occasions: ["Beach & Coast", "Garden & High Tea"] },
+  "cacao-satin-cami": { parent: "Tops", sub: "Crop Tops", occasions: ["Evening & Party", "Everyday Calm"] },
+  "botanic-rose-trousers": { parent: "Bottoms", sub: "Pants", occasions: ["Garden & High Tea", "Evening & Party"] },
+  "rose-stripe-shirt": { parent: "Tops", sub: "Blouses & Shirts", occasions: ["Beach & Coast", "Everyday Calm"] },
+  "moonflower-halter-top": { parent: "Tops", sub: "Crop Tops", occasions: ["Evening & Party", "Garden & High Tea"] },
+  "sunlit-paisley-shirt": { parent: "Tops", sub: "Blouses & Shirts", occasions: ["Beach & Coast", "Everyday Calm"] },
+  "sunlit-paisley-shorts": { parent: "Bottoms", sub: "Shorts", occasions: ["Beach & Coast", "Everyday Calm"] },
+  "botanic-rose-cami": { parent: "Tops", sub: "Crop Tops", occasions: ["Garden & High Tea", "Evening & Party"] },
+  "ivory-crochet-bralette": { parent: "Tops", sub: "Crop Tops", occasions: ["Beach & Coast", "Evening & Party"] },
+  "gingham-wander-maxi-skirt": { parent: "Bottoms", sub: "Skirts", occasions: ["Everyday Calm", "Beach & Coast"] },
+  "sage-shirt-maxi-dress": { parent: "Dresses", sub: "Maxi", occasions: ["Everyday Calm", "Garden & High Tea"] },
+  "monochrome-breeze-maxi-dress": { parent: "Dresses", sub: "Maxi", occasions: ["Beach & Coast", "Evening & Party"] },
+  "rose-stripe-strapless-dress": { parent: "Dresses", sub: "Casual", occasions: ["Garden & High Tea", "Evening & Party"] },
+  "rose-dot-corset-top": { parent: "Tops", sub: "Crop Tops", occasions: ["Evening & Party", "Garden & High Tea"] },
+  "midnight-flow-maxi-skirt": { parent: "Bottoms", sub: "Skirts", occasions: ["Evening & Party", "Everyday Calm"] },
+  "pearl-lace-blouse": { parent: "Tops", sub: "Blouses & Shirts", occasions: ["Garden & High Tea", "Everyday Calm"] },
 };
 
 const COLLECTION_02_IDS = new Set([
@@ -128,11 +145,32 @@ const COLLECTION_02_IDS = new Set([
   "tropic-lagoon-dress",
 ]);
 
+const ATELIER_SEPARATE_IDS = new Set([
+  "ivory-tiered-maxi-skirt",
+  "ivory-eyelet-mini-skirt",
+  "cacao-satin-cami",
+  "botanic-rose-trousers",
+  "rose-stripe-shirt",
+  "moonflower-halter-top",
+  "sunlit-paisley-shirt",
+  "sunlit-paisley-shorts",
+  "botanic-rose-cami",
+  "ivory-crochet-bralette",
+  "gingham-wander-maxi-skirt",
+  "sage-shirt-maxi-dress",
+  "monochrome-breeze-maxi-dress",
+  "rose-stripe-strapless-dress",
+  "rose-dot-corset-top",
+  "midnight-flow-maxi-skirt",
+  "pearl-lace-blouse",
+]);
+
 // Enrich each product with realistic luxury stock, origin, and taxonomy data
 export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
   const stockStatuses: ("in_stock" | "low_stock" | "in_stock")[] = ["in_stock", "low_stock", "in_stock"];
   const inventoryCounts = [14, 2, 8, 19, 3, 11, 4, 16, 12, 7, 5, 18, 9, 6, 11, 4, 15];
   const isCol2 = COLLECTION_02_IDS.has(p.id);
+  const isAtelierSeparate = ATELIER_SEPARATE_IDS.has(p.id);
 
   const col2Badges: ("NEW" | "LIMITED EDITION")[] = [
     "NEW",
@@ -177,7 +215,9 @@ export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
     occasions: ["Everyday Calm"],
   };
 
-  const badge = isCol2
+  const badge = isAtelierSeparate
+    ? "NEW"
+    : isCol2
     ? col2Badges[idx % col2Badges.length]
     : badges[idx % badges.length];
 
@@ -190,7 +230,7 @@ export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
     originDistrict: origins[idx % origins.length],
     parentCategory: taxonomy.parent,
     subCategory: taxonomy.sub,
-    collectionName: isCol2 ? "Collection 02" : "Serendipity",
+    collectionName: isAtelierSeparate ? "Atelier Separates" : isCol2 ? "Collection 02" : "Serendipity",
     occasions: taxonomy.occasions,
   };
 });

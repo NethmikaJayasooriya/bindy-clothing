@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 
 const FASHN_ENDPOINT = "https://fal.run/fal-ai/fashn/tryon/v1.6";
 const CACHE_DIR = path.join(process.cwd(), "public", "images", "tryon");
+const BASE_MODEL = "/images/style-studio/bindy-fit-model.png";
 
 const MIME: Record<string, string> = {
   ".webp": "image/webp", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png",
@@ -22,9 +23,41 @@ async function toDataUri(publicPath: string): Promise<string> {
 
 const keyFor = (a: string, b: string) => `${a}__${b}`.replace(/[^a-z0-9]+/gi, "_").toLowerCase();
 
+async function runTryOn(modelImage: string, garmentImage: string, category: "tops" | "bottoms") {
+  const res = await fetch(FASHN_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Key ${process.env.FAL_KEY}` },
+    body: JSON.stringify({
+      model_image: modelImage,
+      garment_image: garmentImage,
+      category,
+      garment_photo_type: "model",
+      mode: "balanced",
+      output_format: "jpeg",
+    }),
+  });
+  if (!res.ok) {
+    const detail = await res.text();
+    console.error("[style-studio] try-on service error", res.status, detail);
+    throw new Error(`Try-on service error (${res.status})`);
+  }
+  const json = await res.json() as { images?: { url: string }[] };
+  const url = json.images?.[0]?.url;
+  if (!url) throw new Error("No image returned by try-on service");
+  return url;
+}
+
+async function cacheRemoteImage(url: string, outFile: string) {
+  const image = await fetch(url);
+  if (!image.ok) throw new Error(`Could not download try-on result (${image.status})`);
+  await fs.mkdir(CACHE_DIR, { recursive: true });
+  await fs.writeFile(outFile, Buffer.from(await image.arrayBuffer()));
+}
+
 /**
  * POST /api/tryon  { topId, bottomId }
- *   → renders the chosen top + skirt worn on the model (FASHN v1.6), caches the
+ *   → dresses the fixed BINDY fitting-room character in the chosen top, then
+ *     applies the chosen bottom in a second pass. Both stages are cached.
  *     result on disk, and returns its URL. Cached combos return instantly.
  */
 export async function POST(req: NextRequest) {
@@ -48,50 +81,32 @@ export async function POST(req: NextRequest) {
   // 1. serve from cache if we've rendered this pairing before (free + instant)
   try { await fs.access(outFile); return NextResponse.json({ url: publicUrl, cached: true }); } catch { /* not cached */ }
 
-  // 2. render: model already wears the top → apply the chosen skirt onto it
-  let modelImage: string, garmentImage: string;
+  // 2. Build the outfit on one consistent fitting-room character.
+  let baseModel: string, topGarment: string, bottomGarment: string;
   try {
-    modelImage = await toDataUri(top.image);
-    garmentImage = await toDataUri(bottom.image);
+    baseModel = await toDataUri(BASE_MODEL);
+    topGarment = await toDataUri(top.image);
+    bottomGarment = await toDataUri(bottom.image);
   } catch {
     return NextResponse.json({ error: "Could not read source images" }, { status: 500 });
   }
 
-  let falJson: { images?: { url: string }[]; detail?: unknown };
   try {
-    const res = await fetch(FASHN_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Key ${FAL_KEY}` },
-      body: JSON.stringify({
-        model_image: modelImage,
-        garment_image: garmentImage,
-        category: "bottoms",
-        garment_photo_type: "model",
-        mode: "balanced",
-        output_format: "jpeg",
-      }),
-    });
-    if (!res.ok) {
-      const detail = await res.text();
-      return NextResponse.json({ error: "Try-on service error", status: res.status, detail }, { status: 502 });
+    const topStageFile = path.join(CACHE_DIR, `top_${keyFor(top.id, "character")}.jpg`);
+    let dressedTop: string;
+    try {
+      await fs.access(topStageFile);
+      dressedTop = await toDataUri(`/images/tryon/${path.basename(topStageFile)}`);
+    } catch {
+      dressedTop = await runTryOn(baseModel, topGarment, "tops");
+      await cacheRemoteImage(dressedTop, topStageFile);
+      dressedTop = await toDataUri(`/images/tryon/${path.basename(topStageFile)}`);
     }
-    falJson = await res.json();
+
+    const completeLook = await runTryOn(dressedTop, bottomGarment, "bottoms");
+    await cacheRemoteImage(completeLook, outFile);
   } catch (e) {
-    return NextResponse.json({ error: "Try-on request failed", detail: String(e) }, { status: 502 });
-  }
-
-  const resultUrl = falJson.images?.[0]?.url;
-  if (!resultUrl) return NextResponse.json({ error: "No image returned", detail: falJson }, { status: 502 });
-
-  // 3. cache the render to disk so future requests are free
-  try {
-    const img = await fetch(resultUrl);
-    const buf = Buffer.from(await img.arrayBuffer());
-    await fs.mkdir(CACHE_DIR, { recursive: true });
-    await fs.writeFile(outFile, buf);
-  } catch {
-    // caching failed (e.g. read-only FS in prod) — still return the live URL
-    return NextResponse.json({ url: resultUrl, cached: false });
+    return NextResponse.json({ error: "Virtual fitting room is temporarily unavailable", detail: String(e) }, { status: 502 });
   }
 
   return NextResponse.json({ url: publicUrl, cached: false });
