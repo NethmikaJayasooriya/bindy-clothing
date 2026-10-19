@@ -10,11 +10,26 @@ export const COOKIE = "bindy_admin_session";
 interface Owner { name: string; email: string; salt: string; passwordHash: string; sessions: { hash: string; expires: number }[] }
 let authQueue: Promise<unknown> = Promise.resolve();
 const digest = (value: string) => createHash("sha256").update(value).digest("hex");
+let memoryOwner: Owner | null = null;
 async function readOwner(): Promise<Owner | null> {
   try { return JSON.parse(await fs.readFile(FILE, "utf8")); }
-  catch (e) { if ((e as NodeJS.ErrnoException).code === "ENOENT") return null; throw e; }
+  catch (e) {
+    if ((e as NodeJS.ErrnoException).code === "ENOENT") return memoryOwner;
+    console.warn("[admin-auth] Error reading owner:", e);
+    return memoryOwner;
+  }
 }
-async function writeOwner(owner: Owner) { await fs.mkdir(STORE_DIR, { recursive: true }); const tmp = path.join(STORE_DIR, `owner-${randomBytes(12).toString("hex")}.tmp`); await fs.writeFile(tmp, JSON.stringify(owner), { mode: 0o600 }); await fs.rename(tmp, FILE); }
+async function writeOwner(owner: Owner) {
+  memoryOwner = owner;
+  try {
+    await fs.mkdir(STORE_DIR, { recursive: true });
+    const tmp = path.join(STORE_DIR, `owner-${randomBytes(12).toString("hex")}.tmp`);
+    await fs.writeFile(tmp, JSON.stringify(owner), { mode: 0o600 });
+    await fs.rename(tmp, FILE);
+  } catch (err) {
+    console.warn("[admin-auth] Could not persist owner to disk:", err);
+  }
+}
 function locked<T>(fn: () => Promise<T>): Promise<T> { const task = authQueue.then(fn); authQueue = task.catch(() => {}); return task; }
 export async function sessionOwner() {
   const owner = await readOwner(); const token = cookies().get(COOKIE)?.value;

@@ -5,9 +5,16 @@ import { randomUUID } from "node:crypto";
 import { PRODUCTS } from "@/data/products";
 import { DEFAULT_HERO, DEFAULT_SETTINGS, type StoreState, type StoreProduct, type PublicStore, type PublicProduct } from "@/lib/store-types";
 
-export const STORE_DIR = path.resolve(process.env.BINDY_DATA_DIR || path.join(process.cwd(), ".store"));
+import os from "node:os";
+
+// On Vercel / serverless runtimes, process.cwd() is read-only (/var/task). /tmp is writable.
+export const STORE_DIR = path.resolve(
+  process.env.BINDY_DATA_DIR ||
+  (process.env.VERCEL ? path.join(os.tmpdir(), ".store") : path.join(process.cwd(), ".store"))
+);
 const FILE = path.join(STORE_DIR, "store.json");
 let queue: Promise<unknown> = Promise.resolve();
+let inMemoryStore: StoreState | null = null;
 export class StoreError extends Error { constructor(message: string, public status = 400) { super(message); } }
 export function seedStore(): StoreState {
   const now = new Date().toISOString();
@@ -23,19 +30,47 @@ export function seedStore(): StoreState {
   ], discounts: [{ id: randomUUID(), code: "WELCOME10", type: "percentage", value: 10, minimum: 0, startsAt: "", endsAt: "", usageLimit: 0, used: 0, active: true }], settings: DEFAULT_SETTINGS, activity: [], updatedAt: now };
 }
 async function atomicWrite(state: StoreState) {
-  await fs.mkdir(STORE_DIR, { recursive: true });
-  const tmp = path.join(STORE_DIR, `store-${randomUUID()}.tmp`);
-  await fs.writeFile(tmp, JSON.stringify(state, null, 2), { mode: 0o600 });
-  await fs.rename(tmp, FILE);
+  try {
+    await fs.mkdir(STORE_DIR, { recursive: true });
+    const tmp = path.join(STORE_DIR, `store-${randomUUID()}.tmp`);
+    await fs.writeFile(tmp, JSON.stringify(state, null, 2), { mode: 0o600 });
+    await fs.rename(tmp, FILE);
+  } catch (err) {
+    console.warn("[store-repository] atomicWrite failed (read-only filesystem or permissions):", err);
+  }
 }
 let initializing: Promise<void> | undefined;
 export async function readStore(): Promise<StoreState> {
-  try { const state = JSON.parse(await fs.readFile(FILE, "utf8")); return { ...state, messages: state.messages ?? [], subscribers: state.subscribers ?? [] }; }
-  catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-    if (!initializing) initializing = (async () => {
-      try { await fs.access(FILE); } catch { await atomicWrite(seedStore()); }
-    })().catch(e => { initializing = undefined; throw e; });
-    await initializing; return JSON.parse(await fs.readFile(FILE, "utf8")); }
+  if (inMemoryStore) return inMemoryStore;
+  try {
+    const state = JSON.parse(await fs.readFile(FILE, "utf8"));
+    return { ...state, messages: state.messages ?? [], subscribers: state.subscribers ?? [] };
+  } catch (error) {
+    const isEnoent = (error as NodeJS.ErrnoException).code === "ENOENT";
+    if (!isEnoent) console.warn("[store-repository] Error reading store from disk:", error);
+    const seeded = seedStore();
+    try {
+      if (!initializing) {
+        initializing = (async () => {
+          try {
+            await fs.access(FILE);
+          } catch {
+            await atomicWrite(seeded);
+          }
+        })().catch(e => {
+          initializing = undefined;
+          console.warn("[store-repository] Initializing store failed:", e);
+        });
+      }
+      await initializing;
+      const data = await fs.readFile(FILE, "utf8");
+      return JSON.parse(data);
+    } catch {
+      // In read-only or serverless environments where writing fails, fallback to inMemoryStore
+      inMemoryStore = seeded;
+      return inMemoryStore;
+    }
+  }
 }
 export async function mutateStore<T>(revision: number | undefined, description: string, mutate: (state: StoreState) => T | Promise<T>): Promise<{ state: StoreState; result: T }> {
   const task = queue.then(async () => {
@@ -45,6 +80,7 @@ export async function mutateStore<T>(revision: number | undefined, description: 
     state.revision++; state.updatedAt = new Date().toISOString();
     state.activity.unshift({ id: randomUUID(), description, createdAt: state.updatedAt });
     state.activity = state.activity.slice(0, 150);
+    inMemoryStore = state;
     await atomicWrite(state);
     return { state, result };
   });

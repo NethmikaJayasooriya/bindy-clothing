@@ -80,12 +80,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let initialStore;
+  try {
+    initialStore = await readPublicStore();
+  } catch (err) {
+    console.warn("[layout] Could not load initial store, using fallback:", err);
+  }
+
   return (
     <html lang="en">
       <body
         className={`${inter.variable} ${fraunces.variable} ${leagueSpartan.variable} ${poppins.variable} ${outfit.variable} ${playfair.variable} ${cormorant.variable} antialiased bg-[#FAF7F2] text-[#1F1E1D] overflow-x-hidden selection:bg-[#C5A059] selection:text-white font-sans`}
       >
-        <StorefrontProvider initial={await readPublicStore()}>{children}</StorefrontProvider>
+        <StorefrontProvider initial={initialStore}>{children}</StorefrontProvider>
       </body>
     </html>
   );

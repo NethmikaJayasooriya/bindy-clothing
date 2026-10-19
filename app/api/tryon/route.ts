@@ -48,10 +48,14 @@ async function runTryOn(modelImage: string, garmentImage: string, category: "top
 }
 
 async function cacheRemoteImage(url: string, outFile: string) {
-  const image = await fetch(url);
-  if (!image.ok) throw new Error(`Could not download try-on result (${image.status})`);
-  await fs.mkdir(CACHE_DIR, { recursive: true });
-  await fs.writeFile(outFile, Buffer.from(await image.arrayBuffer()));
+  try {
+    const image = await fetch(url);
+    if (!image.ok) return;
+    await fs.mkdir(CACHE_DIR, { recursive: true });
+    await fs.writeFile(outFile, Buffer.from(await image.arrayBuffer()));
+  } catch (err) {
+    console.warn("[tryon] Could not cache tryon image locally:", err);
+  }
 }
 
 /**
