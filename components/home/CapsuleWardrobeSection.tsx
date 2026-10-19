@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -66,15 +67,15 @@ const CAPSULE_PIECES: CapsulePiece[] = [
     priceAud: 210,
   },
   {
-    id: "lotus-memory-dress",
-    name: "Lotus Memory Strapless Dress",
-    shortName: "Lotus Strapless Dress",
+    id: "rose-stripe-strapless-dress",
+    name: "Rose Stripe Strapless Midi Dress",
+    shortName: "Rose Stripe Dress",
     role: "The Showstopper",
-    fabric: "Fine Handloom Voile",
+    fabric: "Striped Cotton Poplin",
     weightG: 240,
-    image: "/images/serendipity/lotus-memory-dress.jpg",
-    imageHover: "/images/generated-product-angles/lotus-memory-back.webp",
-    priceAud: 240,
+    image: "/images/bindi-real/rose-stripe-strapless-dress-card-v2.webp",
+    imageHover: "/images/bindi-real/rose-stripe-strapless-dress-hover-v2.webp",
+    priceAud: 235,
   },
   {
     id: "tea-leaf-two-piece",
@@ -117,7 +118,7 @@ const CAPSULE_LOOKS: CapsuleLook[] = [
     title: "Twilight Ocean Cocktails",
     setting: "Sunken Bastion Lounge & Clifftop Spritz",
     icon: Sunset,
-    pieceIds: ["lotus-memory-dress"],
+    pieceIds: ["rose-stripe-strapless-dress"],
     stylingAdvice:
       "Let the sculpted strapless bodice make the statement. Swirl the gathered petal skirt along the boardwalk as twilight softens over the Indian Ocean.",
     tempVibe: "25°C • Golden Hour",
@@ -162,11 +163,12 @@ export default function CapsuleWardrobeSection({
   onQuickView,
   onAddToCart,
 }: CapsuleWardrobeSectionProps) {
+  const {products:PRODUCTS}=useStorefront();
   const [activeLookId, setActiveLookId] = useState<string>("galle-promenade");
   const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({
     "shore-traces-blouse": "AU 8 (S)",
     "cinnamon-flow-skirt": "AU 8 (S)",
-    "lotus-memory-dress": "AU 8 (S)",
+    "rose-stripe-strapless-dress": "AU 8 (S)",
     "tea-leaf-two-piece": "AU 8 (S)",
   });
   const [addedItems, setAddedItems] = useState<Record<string, boolean>>({});

@@ -1,5 +1,5 @@
 // Lightweight localStorage-backed Wishlist / Favorites manager for BINDY Clothing.
-import { PRODUCTS, type Product } from "@/lib/products";
+import { getCanonicalProductId, getProduct, type Product } from "@/lib/products";
 
 const KEY = "bindy-wishlist";
 const EVT = "bindy-wishlist-change";
@@ -11,12 +11,13 @@ export function getWishlist(): Product[] {
     if (!raw) return [];
     const parsed = JSON.parse(raw) as (string | Product)[];
     // Rehydrate full product data to keep in sync with catalog
-    return parsed
+    const products = parsed
       .map((item) => {
         const id = typeof item === "string" ? item : item.id;
-        return PRODUCTS.find((p) => p.id === id) || (typeof item === "object" ? item : null);
+        return getProduct(id) || (typeof item === "object" ? item : null);
       })
       .filter(Boolean) as Product[];
+    return products.filter((product, index) => products.findIndex((entry) => entry.id === product.id) === index);
   } catch {
     return [];
   }
@@ -25,7 +26,7 @@ export function getWishlist(): Product[] {
 export function saveWishlist(items: Product[]): void {
   if (typeof window === "undefined") return;
   try {
-    const ids = items.map((p) => p.id);
+    const ids = Array.from(new Set(items.map((p) => getCanonicalProductId(p.id))));
     window.localStorage.setItem(KEY, JSON.stringify(ids));
     window.dispatchEvent(new CustomEvent(EVT));
   } catch {
@@ -36,10 +37,11 @@ export function saveWishlist(items: Product[]): void {
 export function isInWishlist(productId: string): boolean {
   if (typeof window === "undefined") return false;
   const items = getWishlist();
-  return items.some((p) => p.id === productId);
+  return items.some((p) => p.id === getCanonicalProductId(productId));
 }
 
 export function toggleWishlist(product: Product): boolean {
+  product = getProduct(product.id) ?? product;
   const items = getWishlist();
   const index = items.findIndex((p) => p.id === product.id);
   let isNowInWishlist = false;
@@ -57,6 +59,7 @@ export function toggleWishlist(product: Product): boolean {
 }
 
 export function addToWishlist(product: Product): void {
+  product = getProduct(product.id) ?? product;
   const items = getWishlist();
   if (!items.some((p) => p.id === product.id)) {
     items.push(product);
@@ -66,7 +69,7 @@ export function addToWishlist(product: Product): void {
 
 export function removeFromWishlist(productId: string): void {
   const items = getWishlist();
-  const filtered = items.filter((p) => p.id !== productId);
+  const filtered = items.filter((p) => p.id !== getCanonicalProductId(productId));
   saveWishlist(filtered);
 }
 

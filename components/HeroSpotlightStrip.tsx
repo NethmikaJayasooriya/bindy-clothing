@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -11,6 +12,7 @@ interface HeroSpotlightStripProps {
 }
 
 export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStripProps) {
+  const {products:PRODUCTS}=useStorefront();
   const [, setWishlistTick] = useState(0);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
     return () => unsub();
   }, []);
 
-  const spotlightIds = ["lotus-memory-dress", "cinnamon-flow-skirt", "pettah-check-dress"];
+  const spotlightIds = ["rose-stripe-strapless-dress", "cinnamon-flow-skirt", "pettah-check-dress"];
   const spotlightProducts = spotlightIds
     .map((id) => PRODUCTS.find((p) => p.id === id))
     .filter(Boolean) as Product[];

@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
@@ -28,6 +29,7 @@ const CATEGORY_SLUG_MAP: Record<string, Category> = {
 };
 
 export default function CategoryPage() {
+  const { products: PRODUCTS } = useStorefront();
   const params = useParams();
   const slug = params?.category as string;
   const categoryName = CATEGORY_SLUG_MAP[slug];

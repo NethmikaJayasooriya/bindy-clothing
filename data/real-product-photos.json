@@ -1,0 +1,278 @@
+{
+  "cacao-satin-cami": {
+    "image": "/images/bindi-real/cacao-satin-cami-card-v2.webp",
+    "imageHover": "/images/bindi-real/cacao-satin-cami-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/cacao-satin-cami-01.webp",
+      "/images/bindi-real/cacao-satin-cami-02.webp",
+      "/images/bindi-real/cacao-satin-cami-03.webp",
+      "/images/bindi-real/cacao-satin-cami-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/cacao-satin-cami-01-zoom.webp",
+      "/images/bindi-real/cacao-satin-cami-02-zoom.webp",
+      "/images/bindi-real/cacao-satin-cami-03-zoom.webp",
+      "/images/bindi-real/cacao-satin-cami-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Styled with ivory",
+      "Satin & neckline",
+      "The complete look"
+    ],
+    "imageSource": "photography"
+  },
+  "ivory-tiered-maxi-skirt": {
+    "image": "/images/bindi-real/ivory-tiered-maxi-skirt-card-v2.webp",
+    "imageHover": "/images/bindi-real/ivory-tiered-maxi-skirt-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/ivory-tiered-maxi-skirt-01.webp",
+      "/images/bindi-real/ivory-tiered-maxi-skirt-02.webp",
+      "/images/bindi-real/ivory-tiered-maxi-skirt-03.webp",
+      "/images/bindi-real/ivory-tiered-maxi-skirt-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/ivory-tiered-maxi-skirt-01-zoom.webp",
+      "/images/bindi-real/ivory-tiered-maxi-skirt-02-zoom.webp",
+      "/images/bindi-real/ivory-tiered-maxi-skirt-03-zoom.webp",
+      "/images/bindi-real/ivory-tiered-maxi-skirt-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Movement & drape",
+      "Waist & tier detail",
+      "Ruffles & texture"
+    ],
+    "imageSource": "photography"
+  },
+  "monochrome-breeze-maxi-dress": {
+    "image": "/images/bindi-real/monochrome-breeze-maxi-dress-card-v2.webp",
+    "imageHover": "/images/bindi-real/monochrome-breeze-maxi-dress-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/monochrome-breeze-maxi-dress-01.webp",
+      "/images/bindi-real/monochrome-breeze-maxi-dress-02.webp",
+      "/images/bindi-real/monochrome-breeze-maxi-dress-03.webp",
+      "/images/bindi-real/monochrome-breeze-maxi-dress-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/monochrome-breeze-maxi-dress-01-zoom.webp",
+      "/images/bindi-real/monochrome-breeze-maxi-dress-02-zoom.webp",
+      "/images/bindi-real/monochrome-breeze-maxi-dress-03-zoom.webp",
+      "/images/bindi-real/monochrome-breeze-maxi-dress-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "The full silhouette",
+      "Bodice & lace seam",
+      "Walking view"
+    ],
+    "imageSource": "photography"
+  },
+  "pearl-lace-blouse": {
+    "image": "/images/bindi-real/pearl-lace-blouse-card-v2.webp",
+    "imageHover": "/images/bindi-real/pearl-lace-blouse-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/pearl-lace-blouse-01.webp",
+      "/images/bindi-real/pearl-lace-blouse-02.webp",
+      "/images/bindi-real/pearl-lace-blouse-03.webp",
+      "/images/bindi-real/pearl-lace-blouse-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/pearl-lace-blouse-01-zoom.webp",
+      "/images/bindi-real/pearl-lace-blouse-02-zoom.webp",
+      "/images/bindi-real/pearl-lace-blouse-03-zoom.webp",
+      "/images/bindi-real/pearl-lace-blouse-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Front view",
+      "Side & fit",
+      "Buttons & lace finish"
+    ],
+    "imageSource": "photography"
+  },
+  "sage-shirt-maxi-dress": {
+    "image": "/images/bindi-real/sage-shirt-maxi-dress-card-v2.webp",
+    "imageHover": "/images/bindi-real/sage-shirt-maxi-dress-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/sage-shirt-maxi-dress-01.webp",
+      "/images/bindi-real/sage-shirt-maxi-dress-02.webp",
+      "/images/bindi-real/sage-shirt-maxi-dress-03.webp",
+      "/images/bindi-real/sage-shirt-maxi-dress-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/sage-shirt-maxi-dress-01-zoom.webp",
+      "/images/bindi-real/sage-shirt-maxi-dress-02-zoom.webp",
+      "/images/bindi-real/sage-shirt-maxi-dress-03-zoom.webp",
+      "/images/bindi-real/sage-shirt-maxi-dress-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Side & movement",
+      "Gathering & buttons",
+      "Back view"
+    ],
+    "imageSource": "photography"
+  },
+  "botanic-rose-cami": {
+    "image": "/images/bindi-real/botanic-rose-cami-card-v2.webp",
+    "imageHover": "/images/bindi-real/botanic-rose-cami-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/botanic-rose-cami-01.webp",
+      "/images/bindi-real/botanic-rose-cami-02.webp",
+      "/images/bindi-real/botanic-rose-cami-03.webp",
+      "/images/bindi-real/botanic-rose-cami-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/botanic-rose-cami-01-zoom.webp",
+      "/images/bindi-real/botanic-rose-cami-02-zoom.webp",
+      "/images/bindi-real/botanic-rose-cami-03-zoom.webp",
+      "/images/bindi-real/botanic-rose-cami-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Print & neckline",
+      "Back & straps",
+      "Styled in the city"
+    ],
+    "imageSource": "photography"
+  },
+  "botanic-rose-trousers": {
+    "image": "/images/bindi-real/botanic-rose-trousers-card-v2.webp",
+    "imageHover": "/images/bindi-real/botanic-rose-trousers-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/botanic-rose-trousers-01.webp",
+      "/images/bindi-real/botanic-rose-trousers-02.webp",
+      "/images/bindi-real/botanic-rose-trousers-03.webp",
+      "/images/bindi-real/botanic-rose-trousers-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/botanic-rose-trousers-01-zoom.webp",
+      "/images/bindi-real/botanic-rose-trousers-02-zoom.webp",
+      "/images/bindi-real/botanic-rose-trousers-03-zoom.webp",
+      "/images/bindi-real/botanic-rose-trousers-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Waist & floral print",
+      "Another angle",
+      "Back & drape"
+    ],
+    "imageSource": "photography"
+  },
+  "ivory-eyelet-mini-skirt": {
+    "image": "/images/bindi-real/ivory-eyelet-mini-skirt-card-v2.webp",
+    "imageHover": "/images/bindi-real/ivory-eyelet-mini-skirt-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/ivory-eyelet-mini-skirt-01.webp",
+      "/images/bindi-real/ivory-eyelet-mini-skirt-02.webp",
+      "/images/bindi-real/ivory-eyelet-mini-skirt-03.webp",
+      "/images/bindi-real/ivory-eyelet-mini-skirt-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/ivory-eyelet-mini-skirt-01-zoom.webp",
+      "/images/bindi-real/ivory-eyelet-mini-skirt-02-zoom.webp",
+      "/images/bindi-real/ivory-eyelet-mini-skirt-03-zoom.webp",
+      "/images/bindi-real/ivory-eyelet-mini-skirt-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Side & silhouette",
+      "Eyelet & waistband",
+      "Floral cutwork detail"
+    ],
+    "imageSource": "photography"
+  },
+  "moonflower-halter-top": {
+    "image": "/images/bindi-real/moonflower-halter-top-card-v2.webp",
+    "imageHover": "/images/bindi-real/moonflower-halter-top-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/moonflower-halter-top-01.webp",
+      "/images/bindi-real/moonflower-halter-top-02.webp",
+      "/images/bindi-real/moonflower-halter-top-03.webp",
+      "/images/bindi-real/moonflower-halter-top-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/moonflower-halter-top-01-zoom.webp",
+      "/images/bindi-real/moonflower-halter-top-02-zoom.webp",
+      "/images/bindi-real/moonflower-halter-top-03-zoom.webp",
+      "/images/bindi-real/moonflower-halter-top-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Back & halter tie",
+      "Embroidery & tie",
+      "Eyelet back detail"
+    ],
+    "imageSource": "photography"
+  },
+  "midnight-flow-maxi-skirt": {
+    "image": "/images/bindi-real/midnight-flow-maxi-skirt-card-v2.webp",
+    "imageHover": "/images/bindi-real/midnight-flow-maxi-skirt-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/midnight-flow-maxi-skirt-01.webp",
+      "/images/bindi-real/midnight-flow-maxi-skirt-02.webp",
+      "/images/bindi-real/midnight-flow-maxi-skirt-03.webp",
+      "/images/bindi-real/midnight-flow-maxi-skirt-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/midnight-flow-maxi-skirt-01-zoom.webp",
+      "/images/bindi-real/midnight-flow-maxi-skirt-02-zoom.webp",
+      "/images/bindi-real/midnight-flow-maxi-skirt-03-zoom.webp",
+      "/images/bindi-real/midnight-flow-maxi-skirt-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Back view",
+      "Gathering & drape",
+      "Hem & movement"
+    ],
+    "imageSource": "photography"
+  },
+  "rose-dot-corset-top": {
+    "image": "/images/bindi-real/rose-dot-corset-top-card-v3.webp",
+    "imageHover": "/images/bindi-real/rose-dot-corset-top-hover-v3.webp",
+    "gallery": [
+      "/images/bindi-real/rose-dot-corset-top-retouched-01.webp",
+      "/images/bindi-real/rose-dot-corset-top-retouched-02.webp",
+      "/images/bindi-real/rose-dot-corset-top-retouched-03.webp",
+      "/images/bindi-real/rose-dot-corset-top-retouched-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/rose-dot-corset-top-retouched-01-zoom.webp",
+      "/images/bindi-real/rose-dot-corset-top-retouched-02-zoom.webp",
+      "/images/bindi-real/rose-dot-corset-top-retouched-03-zoom.webp",
+      "/images/bindi-real/rose-dot-corset-top-retouched-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Back view",
+      "Dots & button detail",
+      "Bodice finish"
+    ],
+    "imageSource": "photography"
+  },
+  "rose-stripe-strapless-dress": {
+    "image": "/images/bindi-real/rose-stripe-strapless-dress-card-v2.webp",
+    "imageHover": "/images/bindi-real/rose-stripe-strapless-dress-hover-v2.webp",
+    "gallery": [
+      "/images/bindi-real/rose-stripe-strapless-dress-01.webp",
+      "/images/bindi-real/rose-stripe-strapless-dress-02.webp",
+      "/images/bindi-real/rose-stripe-strapless-dress-03.webp",
+      "/images/bindi-real/rose-stripe-strapless-dress-04.webp"
+    ],
+    "galleryZoom": [
+      "/images/bindi-real/rose-stripe-strapless-dress-01-zoom.webp",
+      "/images/bindi-real/rose-stripe-strapless-dress-02-zoom.webp",
+      "/images/bindi-real/rose-stripe-strapless-dress-03-zoom.webp",
+      "/images/bindi-real/rose-stripe-strapless-dress-04-zoom.webp"
+    ],
+    "galleryLabels": [
+      "On the model",
+      "Garden silhouette",
+      "Stripes & bodice",
+      "A little movement"
+    ],
+    "imageSource": "photography"
+  }
+}

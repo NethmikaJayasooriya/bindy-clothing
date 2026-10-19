@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useMemo, useEffect, Suspense } from "react";
 import Link from "next/link";
@@ -44,6 +45,7 @@ const OCCASIONS_LIST = [
 ];
 
 function CollectionContent() {
+  const { products: PRODUCTS } = useStorefront();
   const searchParams = useSearchParams();
 
   // Read initial params
@@ -108,7 +110,7 @@ function CollectionContent() {
       if (sortBy === "rating") return (b.reviews?.length || 0) - (a.reviews?.length || 0);
       return 0;
     });
-  }, [selectedParent, selectedSub, selectedOccasion, selectedCollection, filterNewOnly, sortBy]);
+  }, [selectedParent, selectedSub, selectedOccasion, selectedCollection, filterNewOnly, sortBy, PRODUCTS]);
 
   const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 

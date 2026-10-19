@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
@@ -152,6 +153,7 @@ export default function StyleMatcherSection({
   onQuickView,
   onAddToCart,
 }: StyleMatcherSectionProps) {
+  const { products: PRODUCTS } = useStorefront();
   const [selectedOccasion, setSelectedOccasion] = useState<OccasionKey>("resort");
   const [selectedSilhouette, setSelectedSilhouette] = useState<SilhouetteKey>("all");
   const [selectedFabric, setSelectedFabric] = useState<FabricKey>("all");
@@ -210,7 +212,7 @@ export default function StyleMatcherSection({
     }
 
     return { matchedProducts: filtered, isFallback: false };
-  }, [selectedOccasion, selectedSilhouette, selectedFabric]);
+  }, [selectedOccasion, selectedSilhouette, selectedFabric, PRODUCTS]);
 
   const handleAddProduct = (product: Product) => {
     const size = selectedSizes[product.id] || "AU 8 (S)";

@@ -28,3 +28,9 @@ yarn-error.log*
 next-env.d.ts
 
 .next-build/
+.store/
+public/uploads/
+
+.store-qa/
+.next-admin-check/
+.next-admin-qa/

@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -19,6 +20,7 @@ export default function CompleteTheLook({
   const [bundleAdded, setBundleAdded] = useState(false);
 
   // Pick a natural styling pair (different category if possible)
+  const { products: PRODUCTS } = useStorefront();
   const preferredPair = currentProduct.styleWith?.find((id) =>
     PRODUCTS.some((product) => product.id === id)
   );
@@ -42,6 +44,7 @@ export default function CompleteTheLook({
   const bundleTotal = currentProduct.priceAud + (pairedProduct?.priceAud || 0);
 
   const handleAddBundle = () => {
+    if (!pairedProduct) return;
     const currentSize = currentProduct.sizes[1] || currentProduct.sizes[0] || "AU 8 (S)";
     const pairedSize = pairedProduct.sizes[1] || pairedProduct.sizes[0] || "AU 8 (S)";
 

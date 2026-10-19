@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React from "react";
 import Link from "next/link";
@@ -6,6 +7,7 @@ import { ArrowRight, Mail } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 
 export default function Footer() {
+  const { settings, pages } = useStorefront();
   return (
     <footer className="bg-paper-dark text-charcoal border-t border-sand/40 pt-16 sm:pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,14 +33,14 @@ export default function Footer() {
               </p>
               <p>
                 <a
-                  href="mailto:contact@bindyclothing.com"
+                  href={`mailto:${settings.email}`}
                   className="inline-flex items-center gap-2 text-charcoal/80 hover:text-[#8E6E34] transition-colors duration-200 group"
                 >
                   <Mail className="w-3.5 h-3.5 text-[#8E6E34]/80 group-hover:text-[#8E6E34] transition-colors" />
                   <span className="underline decoration-sand/60 underline-offset-4 group-hover:decoration-[#8E6E34]">
-                    contact@bindyclothing.com
+                    {settings.email}
                   </span>
-                </a>
+                </a>{settings.instagram&&<a href={settings.instagram} target="_blank" rel="noreferrer" className="block mt-3 text-xs underline">Follow BINDY on Instagram</a>}
               </p>
             </div>
           </div>
@@ -123,7 +125,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
+                <Link href="/pages/returns" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
                   Returns &amp; Exchanges Policy
                 </Link>
               </li>
@@ -142,18 +144,6 @@ export default function Footer() {
                   Frequently Asked Questions
                 </Link>
               </li>
-              <li className="pt-2">
-                <Link
-                  href="/admin"
-                  className="inline-flex items-center gap-1.5 text-[13px] font-sans font-medium text-[#8E6E34] hover:text-charcoal-rich transition-colors duration-200 group"
-                >
-                  <span className="text-[10px] text-gold">✦</span>
-                  <span className="underline decoration-gold/40 underline-offset-4 group-hover:decoration-charcoal-rich">
-                    Atelier Seller Portal
-                  </span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-200" />
-                </Link>
-              </li>
             </ul>
           </div>
         </div>
@@ -162,20 +152,13 @@ export default function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-sans text-charcoal/60 tracking-wider gap-4">
           <p>© {new Date().getFullYear()} BINDY CLOTHING. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-sans text-charcoal/60">
-            <Link
-              href="/admin"
-              className="text-[#8E6E34] hover:text-charcoal-rich font-medium transition-colors"
-            >
-              Seller Hub
-            </Link>
-            <span className="text-sand/60 hidden sm:inline">•</span>
-            <Link href="/contact#privacy" className="hover:text-charcoal-rich transition-colors">
+            {pages.some(p=>p.slug==="privacy") && <Link href="/pages/privacy" className="hover:text-charcoal-rich transition-colors">
               Privacy Policy
-            </Link>
+            </Link>}
             <span className="text-sand/60 hidden sm:inline">•</span>
-            <Link href="/contact#terms" className="hover:text-charcoal-rich transition-colors">
+            {pages.some(p=>p.slug==="terms") && <Link href="/pages/terms" className="hover:text-charcoal-rich transition-colors">
               Terms of Service
-            </Link>
+            </Link>}
             <span className="text-sand/60 hidden sm:inline">•</span>
             <span className="font-serif italic text-[#8E6E34] tracking-normal">
               Two Islands, One Thread

@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect } from "react";
 import { Mail, MapPin, Phone, Send, Check, ChevronDown, Sparkles } from "lucide-react";
@@ -11,10 +12,13 @@ import { FAQ_DATA } from "@/data/faq";
 import { Button, SectionHeading } from "@/components/ui";
 
 export default function ContactPage() {
+  const { settings } = useStorefront();
   const [isMuted, setIsMuted] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<string | null>("0-0");
+  const [sending,setSending]=useState(false);
+  const [sendError,setSendError]=useState("");
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -33,10 +37,11 @@ export default function ContactPage() {
     setIsMuted(muted);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    setSubmitted(true);
+    setSending(true);setSendError("");
+    try{const response=await fetch("/api/storefront/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(formData)});const data=await response.json();if(!response.ok)throw new Error(data.error);setSubmitted(true);}catch(error){setSendError((error as Error).message);}finally{setSending(false);}
   };
 
   const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -93,12 +98,12 @@ export default function ContactPage() {
                 <span>Brisbane Studio & Client Care</span>
               </div>
               <p className="text-xs font-sans text-charcoal/85 leading-relaxed font-light">
-                New Farm, Brisbane QLD 4005, Australia<br />
+                <span className="whitespace-pre-line">{settings.address}</span><br />
                 Fulfillment, sizing appointments & local returns
               </p>
               <div className="pt-2 text-[11px] font-sans text-muted space-y-1">
                 <p>Hours: Monday – Friday, 9am – 5pm AEST</p>
-                <p>care@bindyclothing.com</p>
+                <p><a href={`mailto:${settings.email}`}>{settings.email}</a></p>{settings.phone&&<p><a href={`tel:${settings.phone}`}>{settings.phone}</a></p>}
               </div>
             </div>
 
@@ -139,7 +144,7 @@ export default function ContactPage() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">{sendError&&<p role="alert" className="text-red-700">{sendError}</p>}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[10px] uppercase font-sans tracking-widest text-muted font-semibold mb-1.5">
@@ -201,7 +206,7 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <Button type="submit" variant="primary" size="md" rightIcon={<Send className="w-3.5 h-3.5" />}>
+                <Button disabled={sending} type="submit" variant="primary" size="md" rightIcon={<Send className="w-3.5 h-3.5" />}>
                   Send Message
                 </Button>
               </form>

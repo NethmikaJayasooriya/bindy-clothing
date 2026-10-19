@@ -34,10 +34,10 @@ const ACTIVITIES: ActivityItem[] = [
     name: "Chloe M.",
     city: "Gold Coast",
     state: "QLD",
-    item: "Lotus Memory Strapless Dress",
+    item: "Rose Stripe Strapless Midi Dress",
     size: "AU 8 (S)",
-    image: "/images/serendipity/lotus-memory-dress.jpg",
-    href: "/product/lotus-memory-dress",
+    image: "/images/bindi-real/rose-stripe-strapless-dress-card-v2.webp",
+    href: "/product/rose-stripe-strapless-dress",
     timeAgo: "8m ago",
   },
   {

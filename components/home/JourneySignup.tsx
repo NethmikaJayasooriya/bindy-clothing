@@ -5,15 +5,19 @@ import { Mail, Check, Sparkles, Copy, ArrowUp, Lock, Gift } from "lucide-react";
 
 export default function JourneySignup() {
   const [email, setEmail] = useState("");
+  const [sending,setSending]=useState(false);
+  const [error,setError]=useState("");
+  const [consent,setConsent]=useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const PROMO_CODE = "CALM10";
+  const PROMO_CODE = "WELCOME10";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    setSubmitted(true);
+    setSending(true);setError("");
+    try{const response=await fetch("/api/storefront/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,consent})});const data=await response.json();if(!response.ok)throw new Error(data.error);setSubmitted(true);}catch(e){setError((e as Error).message);}finally{setSending(false);}
   };
 
   const handleCopy = () => {
@@ -121,12 +125,12 @@ export default function JourneySignup() {
                       <span>Shop Now with 10% Off</span>
                     </button>
                     <span className="text-sm font-mono text-[#DCC7AF]/70">
-                      Applied automatically at checkout
+                      Enter this code at checkout
                     </span>
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-3.5 max-w-lg">
+                <form onSubmit={handleSubmit} className="space-y-3.5 max-w-lg">{error&&<p role="alert" className="text-red-200 text-sm">{error}</p>}<label className="flex items-center gap-2 text-xs text-white/80"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} required/>I’d like to receive BINDY news and offers by email.</label>
                   <div className="flex flex-col sm:flex-row gap-2.5">
                     <div className="relative flex-1">
                       <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#DCC7AF]/60" />
@@ -140,7 +144,7 @@ export default function JourneySignup() {
                       />
                     </div>
                     <button
-                      type="submit"
+                      type="submit" disabled={sending}
                       className="px-7 py-3.5 rounded-full bg-[#C5A059] text-[#161513] font-mono text-sm uppercase font-semibold tracking-[0.18em] font-bold hover:bg-[#E2C78E] transition-all shadow-md cursor-pointer shrink-0"
                     >
                       Claim 10% Code

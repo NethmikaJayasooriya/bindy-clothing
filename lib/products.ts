@@ -1,5 +1,6 @@
 // Central catalogue for the BINDY — Serendipity collection.
 // One shared source of truth for the shop grid, quick-view modal and product pages.
+import realProductPhotos from "@/data/real-product-photos.json";
 
 export type Category =
   | "Dresses"
@@ -40,6 +41,9 @@ export interface Product {
   imageHover: string; // shown on card hover
   videoHover?: string; // optional short clip played on card hover (falls back to imageHover)
   gallery: string[]; // full gallery for the product page (incl. image + hover)
+  galleryZoom?: string[];
+  galleryLabels?: string[];
+  imageSource?: "photography";
   sizes: string[];
   description: string; // short card / modal blurb
   heritage: string; // long narrative for the product page
@@ -47,6 +51,7 @@ export interface Product {
   craftDetails: string[];
   care: string[];
   reviews: Review[];
+  stock?: Record<string, number>;
   soldSeparately?: boolean;
   styleWith?: string[];
 }
@@ -69,6 +74,7 @@ type CapsulePieceSeed = {
   description: string;
   craftDetails: string[];
   styleWith?: string[];
+  stock?: Record<string, number>;
   soldSeparately?: boolean;
 };
 
@@ -394,7 +400,7 @@ const CAPSULE_PRODUCTS: Product[] = [
   }),
 ];
 
-export const PRODUCTS: Product[] = [
+const CATALOGUE_PRODUCTS: Product[] = [
   {
     id: "lotus-memory-dress",
     name: "Lotus Memory Strapless Dress",
@@ -1989,6 +1995,29 @@ export const PRODUCTS: Product[] = [
   ...CAPSULE_PRODUCTS,
 ];
 
+// Apply real photographs at the shared source so cards, modals, and product
+// pages all show the same garment. Unmatched catalogue pieces keep their images.
+const PRODUCT_ALIASES: Record<string, string> = {
+  "lotus-memory-dress": "rose-stripe-strapless-dress",
+};
+
+export function getCanonicalProductId(id: string): string {
+  return Object.prototype.hasOwnProperty.call(PRODUCT_ALIASES, id) ? PRODUCT_ALIASES[id] : id;
+}
+
+const PRODUCTS_WITH_PHOTOS: Product[] = CATALOGUE_PRODUCTS.map((product) => {
+  const photos = (realProductPhotos as Record<string, Omit<Partial<Product>, "id">>)[product.id];
+  return photos ? { ...product, ...photos, videoHover: undefined } : product;
+}).sort((a, b) => Number(b.imageSource === "photography") - Number(a.imageSource === "photography"));
+
+// Keep seeded stock and badges stable when an old duplicate is retired.
+const PRODUCT_SEED_INDICES = new Map(PRODUCTS_WITH_PHOTOS.map((product, index) => [product.id, index]));
+export function getProductSeedIndex(id: string): number | undefined {
+  return PRODUCT_SEED_INDICES.get(id);
+}
+
+export const PRODUCTS = PRODUCTS_WITH_PHOTOS.filter((product) => getCanonicalProductId(product.id) === product.id);
+
 export const CATEGORIES: (Category | "All")[] = [
   "All",
   "Dresses",
@@ -2012,7 +2041,7 @@ export const DESTINATIONS: DestinationMeta[] = [
 ];
 
 export function getProduct(slug: string): Product | undefined {
-  return PRODUCTS.find((p) => p.id === slug);
+  return PRODUCTS.find((p) => p.id === getCanonicalProductId(slug));
 }
 
 export function getAverageRating(product: Product): number {

@@ -51,7 +51,7 @@ export const STORIES: StoryChapter[] = [
       "/images/serendipity/lotus-memory-dress-full.jpg",
       "/images/destinations/garden.jpg",
     ],
-    inspiredProductIds: ["lotus-memory-dress", "shore-traces-blouse"],
+    inspiredProductIds: ["rose-stripe-strapless-dress", "shore-traces-blouse"],
     artisanTechnique: "Hand-pleated organic voile with concealed seam finishes.",
   },
   {

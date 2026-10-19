@@ -1,0 +1,688 @@
+{
+  "products": {
+    "cacao-satin-cami": [
+      {
+        "file": "20261001_145459(0).jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.15,
+          1,
+          0.9
+        ]
+      },
+      {
+        "file": "20261001_145457.jpg",
+        "label": "Styled with ivory",
+        "box": [
+          0,
+          0.15,
+          1,
+          0.9
+        ]
+      },
+      {
+        "file": "20261001_145848.jpg",
+        "label": "Satin & neckline",
+        "box": [
+          0.12,
+          0.12,
+          0.91,
+          0.87
+        ]
+      },
+      {
+        "file": "20261001_145633.jpg",
+        "label": "The complete look",
+        "box": null
+      }
+    ],
+    "ivory-tiered-maxi-skirt": [
+      {
+        "file": "20261001_145633.jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.23,
+          1,
+          0.98
+        ]
+      },
+      {
+        "file": "20261001_145459(0).jpg",
+        "label": "Movement & drape",
+        "box": [
+          0,
+          0.22,
+          1,
+          0.97
+        ]
+      },
+      {
+        "file": "20261001_145743.jpg",
+        "label": "Waist & tier detail",
+        "box": null
+      },
+      {
+        "file": "20261001_145743.jpg",
+        "label": "Ruffles & texture",
+        "box": [
+          0.15,
+          0.3,
+          0.87,
+          0.84
+        ]
+      }
+    ],
+    "monochrome-breeze-maxi-dress": [
+      {
+        "file": "20261001_150822.jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.2,
+          1,
+          0.95
+        ]
+      },
+      {
+        "file": "20261001_151107.jpg",
+        "label": "The full silhouette",
+        "box": [
+          0,
+          0.22,
+          1,
+          0.97
+        ]
+      },
+      {
+        "file": "20261001_150923.jpg",
+        "label": "Bodice & lace seam",
+        "box": [
+          0.12,
+          0.1,
+          0.91,
+          0.85
+        ]
+      },
+      {
+        "file": "20261001_151419(0).jpg",
+        "label": "Walking view",
+        "box": [
+          0,
+          0.12,
+          1,
+          0.97
+        ]
+      }
+    ],
+    "pearl-lace-blouse": [
+      {
+        "file": "20261001_152238.jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.12,
+          1,
+          0.87
+        ]
+      },
+      {
+        "file": "20261001_152142.jpg",
+        "label": "Front view",
+        "box": [
+          0,
+          0.12,
+          1,
+          0.87
+        ]
+      },
+      {
+        "file": "20261001_152338.jpg",
+        "label": "Side & fit",
+        "box": [
+          0,
+          0.14,
+          1,
+          0.89
+        ]
+      },
+      {
+        "file": "20261001_152142.jpg",
+        "label": "Buttons & lace finish",
+        "box": [
+          0.17,
+          0.45,
+          0.82,
+          0.88
+        ]
+      }
+    ],
+    "sage-shirt-maxi-dress": [
+      {
+        "file": "20261001_154737(0).jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.12,
+          1,
+          0.97
+        ]
+      },
+      {
+        "file": "20261001_154540(0).jpg",
+        "label": "Side & movement",
+        "box": [
+          0,
+          0.12,
+          1,
+          0.97
+        ]
+      },
+      {
+        "file": "20261001_154548(0).jpg",
+        "label": "Gathering & buttons",
+        "box": [
+          0.12,
+          0.36,
+          0.87,
+          0.92
+        ]
+      },
+      {
+        "file": "20261001_160419.jpg",
+        "label": "Back view",
+        "box": [
+          0.23,
+          0.17,
+          0.51,
+          0.99
+        ]
+      }
+    ],
+    "botanic-rose-cami": [
+      {
+        "file": "20261001_155528.jpg",
+        "label": "On the model",
+        "box": [
+          0.08,
+          0.15,
+          0.94,
+          0.8
+        ]
+      },
+      {
+        "file": "20261001_155528.jpg",
+        "label": "Print & neckline",
+        "box": [
+          0.19,
+          0.29,
+          0.8,
+          0.61
+        ]
+      },
+      {
+        "file": "20261001_160436.jpg",
+        "label": "Back & straps",
+        "box": [
+          0.42,
+          0.2,
+          0.68,
+          0.77
+        ]
+      },
+      {
+        "file": "20261001_155902 (1).jpg",
+        "label": "Styled in the city",
+        "box": [
+          0.4,
+          0.33,
+          0.61,
+          0.99
+        ]
+      }
+    ],
+    "botanic-rose-trousers": [
+      {
+        "file": "20261001_155528.jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.2,
+          1,
+          0.98
+        ]
+      },
+      {
+        "file": "20261001_155528.jpg",
+        "label": "Waist & floral print",
+        "box": [
+          0.2,
+          0.49,
+          0.78,
+          0.95
+        ]
+      },
+      {
+        "file": "20261001_155902 (1).jpg",
+        "label": "Another angle",
+        "box": [
+          0.4,
+          0.33,
+          0.61,
+          0.99
+        ]
+      },
+      {
+        "file": "20261001_160419.jpg",
+        "label": "Back & drape",
+        "box": [
+          0.41,
+          0.34,
+          0.67,
+          0.99
+        ]
+      }
+    ],
+    "ivory-eyelet-mini-skirt": [
+      {
+        "file": "20261005_141019.jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.19,
+          1,
+          0.94
+        ]
+      },
+      {
+        "file": "20261005_141041(0).jpg",
+        "label": "Side & silhouette",
+        "box": [
+          0,
+          0.19,
+          1,
+          0.94
+        ]
+      },
+      {
+        "file": "20261005_141128.jpg",
+        "label": "Eyelet & waistband",
+        "box": null
+      },
+      {
+        "file": "20261005_141128.jpg",
+        "label": "Floral cutwork detail",
+        "box": [
+          0.13,
+          0.43,
+          0.9,
+          0.82
+        ]
+      }
+    ],
+    "moonflower-halter-top": [
+      {
+        "file": "20261005_142323 (1).jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.14,
+          1,
+          0.89
+        ]
+      },
+      {
+        "file": "20261005_142358.jpg",
+        "label": "Back & halter tie",
+        "box": [
+          0,
+          0.14,
+          1,
+          0.89
+        ]
+      },
+      {
+        "file": "20261005_142323 (1).jpg",
+        "label": "Embroidery & tie",
+        "box": [
+          0.17,
+          0.29,
+          0.85,
+          0.69
+        ]
+      },
+      {
+        "file": "20261005_142358.jpg",
+        "label": "Eyelet back detail",
+        "box": [
+          0.2,
+          0.34,
+          0.87,
+          0.7
+        ]
+      }
+    ],
+    "midnight-flow-maxi-skirt": [
+      {
+        "file": "20261005_142323 (1).jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.22,
+          1,
+          0.97
+        ]
+      },
+      {
+        "file": "20261005_142358.jpg",
+        "label": "Back view",
+        "box": [
+          0,
+          0.22,
+          1,
+          0.97
+        ]
+      },
+      {
+        "file": "20261005_142323 (1).jpg",
+        "label": "Gathering & drape",
+        "box": [
+          0.18,
+          0.5,
+          0.87,
+          0.93
+        ]
+      },
+      {
+        "file": "20261005_142358.jpg",
+        "label": "Hem & movement",
+        "box": [
+          0.22,
+          0.55,
+          0.87,
+          0.97
+        ]
+      }
+    ],
+    "rose-dot-corset-top": [
+      {
+        "file": "assets/retouched/rose-dot-button-waterfront.png",
+        "label": "On the model",
+        "box": [
+          0.28,
+          0.32,
+          0.66,
+          0.99
+        ]
+      },
+      {
+        "file": "20261005_150600.jpg",
+        "label": "Back view",
+        "box": [
+          0.32,
+          0.34,
+          0.59,
+          0.99
+        ]
+      },
+      {
+        "file": "assets/retouched/rose-dot-button-closeup.png",
+        "label": "Dots & button detail",
+        "box": null
+      },
+      {
+        "file": "assets/retouched/rose-dot-button-closeup.png",
+        "label": "Bodice finish",
+        "box": [
+          0.1,
+          0.25,
+          0.89,
+          0.89
+        ]
+      }
+    ],
+    "rose-stripe-strapless-dress": [
+      {
+        "file": "20261005_172136.jpg",
+        "label": "On the model",
+        "box": [
+          0,
+          0.18,
+          1,
+          0.98
+        ]
+      },
+      {
+        "file": "20261005_171437.jpg",
+        "label": "Garden silhouette",
+        "box": [
+          0.49,
+          0.17,
+          0.78,
+          0.99
+        ]
+      },
+      {
+        "file": "20261005_165721.jpg",
+        "label": "Stripes & bodice",
+        "box": null
+      },
+      {
+        "file": "20261005_172125.jpg",
+        "label": "A little movement",
+        "box": [
+          0.39,
+          0.4,
+          0.61,
+          0.99
+        ]
+      }
+    ]
+  },
+  "listingCrops": {
+    "cacao-satin-cami": [
+      {
+        "file": "20261001_145848.jpg",
+        "label": "Camisole",
+        "box": [
+          0,
+          0.07,
+          1,
+          0.82
+        ]
+      },
+      {
+        "file": "20261001_145459(0).jpg",
+        "label": "Camisole alternate",
+        "box": [
+          0.15,
+          0.24,
+          0.88,
+          0.63
+        ]
+      }
+    ],
+    "ivory-tiered-maxi-skirt": [
+      {
+        "file": "20261001_145633.jpg",
+        "label": "Skirt",
+        "box": [
+          0.16,
+          0.51,
+          0.9,
+          0.99
+        ]
+      },
+      {
+        "file": "20261001_145743.jpg",
+        "label": "Skirt detail",
+        "box": [
+          0,
+          0.08,
+          1,
+          0.98
+        ]
+      }
+    ],
+    "botanic-rose-cami": [
+      {
+        "file": "20261001_155902 (1).jpg",
+        "label": "Camisole",
+        "box": [
+          0.415,
+          0.38,
+          0.575,
+          0.73
+        ]
+      },
+      {
+        "file": "20261001_155528.jpg",
+        "label": "Camisole alternate",
+        "box": [
+          0.32,
+          0.35,
+          0.72,
+          0.58
+        ]
+      }
+    ],
+    "botanic-rose-trousers": [
+      {
+        "file": "20261001_155528.jpg",
+        "label": "Trousers",
+        "box": [
+          0.34,
+          0.52,
+          0.72,
+          0.84
+        ]
+      },
+      {
+        "file": "20261001_160419.jpg",
+        "label": "Trousers back",
+        "box": [
+          0.43,
+          0.59,
+          0.66,
+          0.99
+        ]
+      }
+    ],
+    "ivory-eyelet-mini-skirt": [
+      {
+        "file": "20261005_141128.jpg",
+        "label": "Mini skirt",
+        "box": [
+          0.05,
+          0.25,
+          0.95,
+          0.91
+        ]
+      },
+      {
+        "file": "20261005_141041(0).jpg",
+        "label": "Mini skirt alternate",
+        "box": [
+          0.26,
+          0.51,
+          0.75,
+          0.8
+        ]
+      }
+    ],
+    "moonflower-halter-top": [
+      {
+        "file": "20261005_142323 (1).jpg",
+        "label": "Halter top",
+        "box": [
+          0.24,
+          0.25,
+          0.77,
+          0.65
+        ]
+      },
+      {
+        "file": "20261005_142358.jpg",
+        "label": "Halter back",
+        "box": [
+          0.22,
+          0.32,
+          0.84,
+          0.69
+        ]
+      }
+    ],
+    "midnight-flow-maxi-skirt": [
+      {
+        "file": "20261005_142323 (1).jpg",
+        "label": "Black skirt",
+        "box": [
+          0.23,
+          0.49,
+          0.77,
+          0.94
+        ]
+      },
+      {
+        "file": "20261005_142358.jpg",
+        "label": "Black skirt alternate",
+        "box": [
+          0.23,
+          0.5,
+          0.8,
+          0.95
+        ]
+      }
+    ],
+    "rose-dot-corset-top": [
+      {
+        "file": "assets/retouched/rose-dot-button-closeup.png",
+        "label": "Button-front top",
+        "box": [
+          0,
+          0.25,
+          1,
+          0.87
+        ]
+      },
+      {
+        "file": "assets/retouched/rose-dot-button-waterfront.png",
+        "label": "Waterfront view",
+        "box": [
+          0.33,
+          0.39,
+          0.61,
+          0.99
+        ]
+      }
+    ]
+  },
+  "campaigns": [
+    [
+      "together",
+      "20261001_155954.jpg",
+      null
+    ],
+    [
+      "waterfront",
+      "20261005_150612.jpg",
+      null
+    ],
+    [
+      "city",
+      "20261001_152722 (1).jpg",
+      null
+    ],
+    [
+      "slow-days",
+      "20261005_141339.jpg",
+      null
+    ],
+    [
+      "garden",
+      "20261005_171104.jpg",
+      null
+    ]
+  ]
+}

@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -49,90 +50,43 @@ interface EnsembleConfig {
   stylingNote: string;
 }
 
+function weaveFor(id: string) {
+  const product = PRODUCTS.find((piece) => piece.id === id)!;
+  return {
+    count: product.fabric,
+    dye: product.colorName,
+    weight: "See the fabric and care details on the product page",
+    handfeel: product.description,
+  };
+}
+
 const ENSEMBLES: EnsembleConfig[] = [
   {
-    id: "sunset-duo",
-    tabLabel: "01 • Sunset Gala Duo",
-    badge: "Curated Ensemble 01",
-    title: "The Galle Sunset Duo",
-    subtitle: "Structured Lotus Voile Bodice paired with Fluid Cinnamon Bias Silk",
-    p1Id: "lotus-memory-dress",
-    p2Id: "cinnamon-flow-skirt",
-    p1Role: "Piece 01 • Bodice Dress",
-    p2Role: "Piece 02 • Bias Skirt",
-    savings: 45,
-    p1DetailImg: "/images/serendipity/lotus-memory-dress-detail.jpg",
-    p2DetailImg: "/images/serendipity/cinnamon-flow-skirt-detail.jpg",
-    p1Weave: {
-      count: "60s Count Single-Ply Pit-Loom Voile",
-      dye: "Botanical Madder Root & Lotus Petal Steep",
-      weight: "110 GSM (Airy & Non-Translucent)",
-      handfeel: "Whisper-light with natural petal crinkle memory",
-    },
-    p2Weave: {
-      count: "45° True Bias Fluid Twill Weave",
-      dye: "Highland Ceylon Cinnamon Bark Pigment",
-      weight: "140 GSM (Substantial Liquid Drape)",
-      handfeel: "Subtle satin sheen that ripples with movement",
-    },
-    stylingNote:
-      "Sculpted corset seams balance the fluid diagonal drape of the bias skirt, creating an elongated silhouette tailored for twilight terrace cocktails and coastal dinners.",
+    id: "cacao-ivory", tabLabel: "01 • Cacao & Ivory", badge: "The Real Life Edit 01",
+    title: "The Cacao & Ivory Duo", subtitle: "A satin camisole with softly textured ivory tiers",
+    p1Id: "cacao-satin-cami", p2Id: "ivory-tiered-maxi-skirt", p1Role: "Piece 01 • Satin Camisole", p2Role: "Piece 02 • Tiered Skirt", savings: 45,
+    p1DetailImg: PRODUCTS.find((p) => p.id === "cacao-satin-cami")!.gallery[2],
+    p2DetailImg: PRODUCTS.find((p) => p.id === "ivory-tiered-maxi-skirt")!.gallery[3],
+    p1Weave: weaveFor("cacao-satin-cami"), p2Weave: weaveFor("ivory-tiered-maxi-skirt"),
+    stylingNote: "Warm cacao satin and airy ivory tiers — two independent pieces, photographed together on a relaxed city afternoon.",
   },
   {
-    id: "pearl-suite",
-    tabLabel: "02 • Coastal Pearl Suite",
-    badge: "Curated Ensemble 02",
-    title: "The Coastal Pearl Suite",
-    subtitle: "Hand-Cut Scallop Cutwork Maxi paired with Botanical Sand Peplum",
-    p1Id: "serendib-pearl-dress",
-    p2Id: "shore-traces-blouse",
-    p1Role: "Piece 01 • Cutwork Maxi",
-    p2Role: "Piece 02 • Peplum Blouse",
-    savings: 45,
-    p1DetailImg: "/images/serendipity/serendib-pearl-dress-detail.jpg",
-    p2DetailImg: "/images/serendipity/shore-traces-blouse-detail.jpg",
-    p1Weave: {
-      count: "Pit-Loom Unbleached Raw Cotton",
-      dye: "Sun-Washed Natural Ecru (Zero Synthetic Bleach)",
-      weight: "135 GSM (Crisp Heirloom Drape)",
-      handfeel: "Breathable open-cell cotton with hand-chiseled cutwork lace",
-    },
-    p2Weave: {
-      count: "Fine Handloom Micro-Check Weave",
-      dye: "Steeped Ceylon Tea Leaf Infusion",
-      weight: "125 GSM (Supple Breathable Voile)",
-      handfeel: "Soft textured check with genuine mother-of-pearl buttons",
-    },
-    stylingNote:
-      "The flared peplum silhouette layers seamlessly over the floor-sweeping cutwork maxi, offering refined coastal modesty with romantic, breezy movement.",
+    id: "moonflower-midnight", tabLabel: "02 • Moonflower & Midnight", badge: "The Real Life Edit 02",
+    title: "The Moonflower & Midnight Duo", subtitle: "Delicate white embroidery with a flowing black skirt",
+    p1Id: "moonflower-halter-top", p2Id: "midnight-flow-maxi-skirt", p1Role: "Piece 01 • Eyelet Halter", p2Role: "Piece 02 • Black Maxi Skirt", savings: 45,
+    p1DetailImg: PRODUCTS.find((p) => p.id === "moonflower-halter-top")!.gallery[2],
+    p2DetailImg: PRODUCTS.find((p) => p.id === "midnight-flow-maxi-skirt")!.gallery[2],
+    p1Weave: weaveFor("moonflower-halter-top"), p2Weave: weaveFor("midnight-flow-maxi-skirt"),
+    stylingNote: "A light embroidered halter and a deep black skirt. Wear them together by the water, then style each piece your own way.",
   },
   {
-    id: "terracotta-heritage",
-    tabLabel: "03 • Terracotta Heritage Set",
-    badge: "Curated Ensemble 03",
-    title: "The Terracotta Heritage Set",
-    subtitle: "Architectural Colombo Gingham Dress paired with Mineral Pleated Maxi",
-    p1Id: "pettah-check-dress",
-    p2Id: "celestial-terracotta-skirt",
-    p1Role: "Piece 01 • Check Dress",
-    p2Role: "Piece 02 • Pleated Skirt",
-    savings: 45,
-    p1DetailImg: "/images/serendipity/pettah-check-dress-detail.jpg",
-    p2DetailImg: "/images/serendipity/celestial-terracotta-skirt-detail.jpg",
-    p1Weave: {
-      count: "Architectural Yarn-Dyed Gingham Weave",
-      dye: "Mineral Red Oxide & Wild Madder",
-      weight: "145 GSM (Structured Tailored Cotton)",
-      handfeel: "Crisp architectural hand with covered fabric buttons",
-    },
-    p2Weave: {
-      count: "Crinkled Handloom Linen-Cotton Warp",
-      dye: "Sigiriya Earth Clay Rock Pigments",
-      weight: "150 GSM (Natural Dimensional Crinkle)",
-      handfeel: "Naturally wrinkle-forgiving with organic textured ripple",
-    },
-    stylingNote:
-      "Tailored lapel plackets harmonize with flowing pleated tiers, uniting architectural mid-century structure with grounded mineral earth pigments.",
+    id: "pearl-eyelet", tabLabel: "03 • Pearl & Eyelet", badge: "The Real Life Edit 03",
+    title: "The Everyday Pearl Duo", subtitle: "Lace-trim cotton and a gathered cutwork mini",
+    p1Id: "pearl-lace-blouse", p2Id: "ivory-eyelet-mini-skirt", p1Role: "Piece 01 • Lace Blouse", p2Role: "Piece 02 • Eyelet Mini", savings: 45,
+    p1DetailImg: PRODUCTS.find((p) => p.id === "pearl-lace-blouse")!.gallery[3],
+    p2DetailImg: PRODUCTS.find((p) => p.id === "ivory-eyelet-mini-skirt")!.gallery[3],
+    p1Weave: weaveFor("pearl-lace-blouse"), p2Weave: weaveFor("ivory-eyelet-mini-skirt"),
+    stylingNote: "A fresh take on tonal dressing. The blouse's fine lace trim echoes the skirt's floral cutwork for a soft, easy afternoon look.",
   },
 ];
 
@@ -140,6 +94,7 @@ export default function ShopTheLookSection({
   onQuickView,
   onAddToCart,
 }: ShopTheLookSectionProps) {
+  const { products: PRODUCTS } = useStorefront();
   const [activeLookIndex, setActiveLookIndex] = useState(0);
   const [size1, setSize1] = useState("AU 8 (S)");
   const [size2, setSize2] = useState("AU 8 (S)");
@@ -153,16 +108,16 @@ export default function ShopTheLookSection({
   if (!p1 || !p2) return null;
 
   const originalTotal = p1.priceAud + p2.priceAud;
-  const bundlePrice = originalTotal - activeLook.savings;
+  const bundlePrice = originalTotal;
 
   const handleAddBundle = () => {
     const discountedP1: Product = {
       ...p1,
-      priceAud: p1.priceAud - Math.round(activeLook.savings * 0.55),
+      priceAud: p1.priceAud,
     };
     const discountedP2: Product = {
       ...p2,
-      priceAud: p2.priceAud - Math.round(activeLook.savings * 0.45),
+      priceAud: p2.priceAud,
     };
 
     addToCart(discountedP1, size1, 1);
@@ -185,7 +140,7 @@ export default function ShopTheLookSection({
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1F1E1D] text-[#DFC285] text-xs font-mono tracking-wider uppercase font-semibold shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
-            <span>Curated Styling Duos • Save $45 AUD</span>
+            <span>Curated Styling Duos · Made to Pair</span>
           </div>
 
           <h2 className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] font-light leading-tight">
@@ -419,7 +374,7 @@ export default function ShopTheLookSection({
             <div className="space-y-2 max-w-xl">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C5A059]/20 text-[#DFC285] text-sm font-mono uppercase font-semibold tracking-wider font-bold">
                 <Sparkles className="w-3 h-3 text-[#C5A059]" />
-                <span>Dual Silhouette Privilege • Save $45 AUD Automatically</span>
+                <span>Two Favourite Pieces · One Complete Look</span>
               </div>
               <h3 className="font-serif text-2xl sm:text-3xl font-light text-white leading-tight">
                 {activeLook.title}
@@ -437,7 +392,7 @@ export default function ShopTheLookSection({
                   Complete Duo Price
                 </span>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-xs text-[#DCC7AF]/50 line-through font-mono">
+                  <span className="text-xs text-[#DCC7AF]/50  font-mono">
                     ${originalTotal} AUD
                   </span>
                   <span className="font-serif text-3xl font-normal text-white">
@@ -446,7 +401,7 @@ export default function ShopTheLookSection({
                   </span>
                 </div>
                 <span className="text-xs font-mono text-[#DFC285] font-bold block">
-                  You Save $45 AUD
+                  Two pieces, styled together
                 </span>
               </div>
 
@@ -521,13 +476,13 @@ export default function ShopTheLookSection({
               <div className="space-y-1">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C5A059]/15 text-[#1F1E1D] text-sm font-mono uppercase font-semibold tracking-wider font-semibold">
                   <Sparkles className="w-3 h-3 text-[#C5A059]" />
-                  <span>Tactile Fabric Architecture • 200% Optical Macro</span>
+                  <span>A Closer Look • Real Garment Details</span>
                 </div>
                 <h3 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] font-light">
                   {activeWeaveModal === "p1" ? p1.name : p2.name}
                 </h3>
                 <p className="font-mono text-xs text-charcoal-subtle">
-                  Authentic pit-loom organic cotton &amp; natural botanicals. Zero polyester, zero synthetic nylon.
+                  Explore the texture and finish in our original campaign photographs.
                 </p>
               </div>
 
@@ -548,11 +503,11 @@ export default function ShopTheLookSection({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                     <span className="text-white text-xs font-mono tracking-widest uppercase">
-                      Hover to zoom into yarn slub
+                      Explore the garment detail
                     </span>
                   </div>
                   <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/75 text-white text-xs font-mono uppercase font-semibold backdrop-blur-xs">
-                    Optical Macro View
+                    Garment Close-Up
                   </div>
                 </div>
 
@@ -562,7 +517,7 @@ export default function ShopTheLookSection({
                     <>
                       <div className="p-3 rounded-xl bg-white border border-[#DCC7AF]/60">
                         <span className="text-xs text-charcoal-subtle uppercase tracking-wider block font-semibold">
-                          Loom Type &amp; Thread Count
+                          Fabric
                         </span>
                         <span className="text-[#1F1E1D] font-bold text-sm block mt-0.5">
                           {activeLook.p1Weave.count}
@@ -571,7 +526,7 @@ export default function ShopTheLookSection({
 
                       <div className="p-3 rounded-xl bg-white border border-[#DCC7AF]/60">
                         <span className="text-xs text-charcoal-subtle uppercase tracking-wider block font-semibold">
-                          Natural Botanical Dye
+                          Colour
                         </span>
                         <span className="text-[#1F1E1D] font-bold text-sm block mt-0.5">
                           {activeLook.p1Weave.dye}
@@ -580,7 +535,7 @@ export default function ShopTheLookSection({
 
                       <div className="p-3 rounded-xl bg-white border border-[#DCC7AF]/60">
                         <span className="text-xs text-charcoal-subtle uppercase tracking-wider block font-semibold">
-                          Fabric Weight &amp; Breathability
+                          Fabric &amp; Care
                         </span>
                         <span className="text-[#1F1E1D] font-bold text-sm block mt-0.5">
                           {activeLook.p1Weave.weight}
@@ -589,7 +544,7 @@ export default function ShopTheLookSection({
 
                       <div className="p-3 rounded-xl bg-white border border-[#DCC7AF]/60">
                         <span className="text-xs text-charcoal-subtle uppercase tracking-wider block font-semibold">
-                          Tactile Skin Sensation
+                          The Details
                         </span>
                         <span className="text-[#1F1E1D] text-xs font-serif italic block mt-0.5">
                           &ldquo;{activeLook.p1Weave.handfeel}&rdquo;
@@ -600,7 +555,7 @@ export default function ShopTheLookSection({
                     <>
                       <div className="p-3 rounded-xl bg-white border border-[#DCC7AF]/60">
                         <span className="text-xs text-charcoal-subtle uppercase tracking-wider block font-semibold">
-                          Loom Type &amp; Thread Count
+                          Fabric
                         </span>
                         <span className="text-[#1F1E1D] font-bold text-sm block mt-0.5">
                           {activeLook.p2Weave.count}
@@ -609,7 +564,7 @@ export default function ShopTheLookSection({
 
                       <div className="p-3 rounded-xl bg-white border border-[#DCC7AF]/60">
                         <span className="text-xs text-charcoal-subtle uppercase tracking-wider block font-semibold">
-                          Natural Botanical Dye
+                          Colour
                         </span>
                         <span className="text-[#1F1E1D] font-bold text-sm block mt-0.5">
                           {activeLook.p2Weave.dye}
@@ -618,7 +573,7 @@ export default function ShopTheLookSection({
 
                       <div className="p-3 rounded-xl bg-white border border-[#DCC7AF]/60">
                         <span className="text-xs text-charcoal-subtle uppercase tracking-wider block font-semibold">
-                          Fabric Weight &amp; Breathability
+                          Fabric &amp; Care
                         </span>
                         <span className="text-[#1F1E1D] font-bold text-sm block mt-0.5">
                           {activeLook.p2Weave.weight}
@@ -627,7 +582,7 @@ export default function ShopTheLookSection({
 
                       <div className="p-3 rounded-xl bg-white border border-[#DCC7AF]/60">
                         <span className="text-xs text-charcoal-subtle uppercase tracking-wider block font-semibold">
-                          Tactile Skin Sensation
+                          The Details
                         </span>
                         <span className="text-[#1F1E1D] text-xs font-serif italic block mt-0.5">
                           &ldquo;{activeLook.p2Weave.handfeel}&rdquo;

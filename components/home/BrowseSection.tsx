@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useMemo } from "react";
 import { usePathname } from "next/navigation";
@@ -29,6 +30,7 @@ export default function BrowseSection({
   onClearJourney,
   isTest,
 }: BrowseSectionProps) {
+  const { products: PRODUCTS } = useStorefront();
   const pathname = usePathname();
   const isTestMode = isTest || pathname === "/test";
 
@@ -54,7 +56,7 @@ export default function BrowseSection({
       return padded;
     }
     return list;
-  }, [activeCategory, selectedJourney, activeCollection, isTestMode]);
+  }, [activeCategory, selectedJourney, activeCollection, isTestMode, PRODUCTS]);
 
   const displayedProducts = filteredProducts;
 

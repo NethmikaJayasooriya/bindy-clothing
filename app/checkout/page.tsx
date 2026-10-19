@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
@@ -104,18 +105,12 @@ const isShippingComplete = (s: ShippingData): boolean => {
   );
 };
 
-const isPaymentComplete = (p: PaymentData): boolean => {
-  const cleanCard = p.cardNumber.replace(/\s+/g, "");
-  return Boolean(
-    cleanCard.length >= 15 &&
-    p.cardName.trim() &&
-    p.expiry.includes("/") &&
-    p.expiry.length >= 4 &&
-    p.cvc.trim().length >= 3
-  );
-};
+const isPaymentComplete = (_p: PaymentData): boolean => true;
 
 export default function CheckoutPage() {
+  const { settings, products } = useStorefront();
+  const requestIdRef = useRef("");
+  const [orderError, setOrderError] = useState("");
   const router = useRouter();
   const [items, setItems] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -153,7 +148,7 @@ export default function CheckoutPage() {
 
   // Promo Code State
   const [promoInput, setPromoInput] = useState("");
-  const [appliedPromo, setAppliedPromo] = useState<{ code: string; discountPercent: number } | null>(null);
+  const [appliedPromo, setAppliedPromo] = useState<{ code: string; type: string; value: number } | null>(null);
   const [promoError, setPromoError] = useState("");
 
   // Validation Errors State
@@ -199,13 +194,10 @@ export default function CheckoutPage() {
           setShipping(initialShipping);
         }
 
-        const savedPaymentRaw = sessionStorage.getItem("bindy_checkout_payment");
-        let initialPayment = payment;
-        if (savedPaymentRaw) {
-          const parsedPayment = JSON.parse(savedPaymentRaw);
-          initialPayment = { ...payment, ...parsedPayment };
-          setPayment(initialPayment);
-        }
+        sessionStorage.removeItem("bindy_checkout_payment");
+        const initialPayment = payment;
+        requestIdRef.current = sessionStorage.getItem("bindy_order_request") || crypto.randomUUID();
+        sessionStorage.setItem("bindy_order_request", requestIdRef.current);
 
         // Validate step transition integrity
         const savedStep = sessionStorage.getItem("bindy_checkout_step") as CheckoutStep | null;
@@ -248,13 +240,15 @@ export default function CheckoutPage() {
     if (typeof window !== "undefined" && isLoaded && step !== "confirmation") {
       try {
         sessionStorage.setItem("bindy_checkout_shipping", JSON.stringify(shipping));
-        sessionStorage.setItem("bindy_checkout_payment", JSON.stringify(payment));
+        sessionStorage.removeItem("bindy_checkout_payment");
         sessionStorage.setItem("bindy_checkout_step", step);
       } catch {
         /* ignore quota issues */
       }
     }
   }, [shipping, payment, step, isLoaded]);
+
+  useEffect(() => { if(step !== "confirmation") setItems(current => current.map(item => ({...item,product:products.find(p=>p.id===item.product.id) ?? item.product}))); }, [products]);
 
   // Cart financial calculations
   const subtotal = useMemo(() => {
@@ -265,20 +259,10 @@ export default function CheckoutPage() {
     return items.reduce((sum, i) => sum + i.quantity, 0);
   }, [items]);
 
-  const freeShippingThreshold = 250;
+  const freeShippingThreshold = settings.freeShippingThreshold;
   const isFreeShipping = subtotal >= freeShippingThreshold;
-
-  const shippingFee = useMemo(() => {
-    if (shipping.method === "express") {
-      return 18;
-    }
-    return isFreeShipping ? 0 : 12;
-  }, [shipping.method, isFreeShipping]);
-
-  const discountAmount = useMemo(() => {
-    if (!appliedPromo) return 0;
-    return Math.round((subtotal * appliedPromo.discountPercent) / 100);
-  }, [subtotal, appliedPromo]);
+  const shippingFee = isFreeShipping || appliedPromo?.type === "shipping" ? 0 : shipping.method === "express" ? settings.expressShipping : settings.standardShipping;
+  const discountAmount = appliedPromo ? Math.round(Math.min(subtotal, appliedPromo.type === "percentage" ? subtotal * appliedPromo.value / 100 : appliedPromo.type === "fixed" ? appliedPromo.value : 0) * 100) / 100 : 0;
 
   const total = Math.max(0, subtotal - discountAmount + shippingFee);
 
@@ -322,22 +306,13 @@ export default function CheckoutPage() {
   };
 
   // Promo application
-  const handleApplyPromo = (e: React.FormEvent) => {
-    e.preventDefault();
-    setPromoError("");
-    const cleaned = promoInput.trim().toUpperCase().slice(0, 20);
-    if (!cleaned) {
-      setPromoError("Please enter a discount code first");
-      return;
-    }
-
-    if (cleaned === "BINDY20") {
-      setAppliedPromo({ code: cleaned, discountPercent: 20 });
-      setPromoInput("");
-    } else {
-      setAppliedPromo({ code: cleaned, discountPercent: 10 });
-      setPromoInput("");
-    }
+  const handleApplyPromo = async (e: React.FormEvent) => {
+    e.preventDefault(); setPromoError("");
+    try {
+      const response = await fetch("/api/storefront/discount", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code:promoInput.trim(),subtotal,shipping:shippingFee})});
+      const data = await response.json(); if(!response.ok) throw new Error(data.error);
+      setAppliedPromo({code:data.code,type:data.type,value:data.value});setPromoInput("");
+    } catch(error) { setPromoError(error instanceof Error ? error.message : "Unable to check this code."); }
   };
 
   // Step 1 Validation
@@ -358,19 +333,7 @@ export default function CheckoutPage() {
   };
 
   // Step 2 Validation
-  const validatePayment = (): boolean => {
-    const errs: Record<string, string> = {};
-    const cleanNum = payment.cardNumber.replace(/\s+/g, "");
-    if (!cleanNum || cleanNum.length < 15) errs.cardNumber = "Please enter a valid 16-digit card number";
-    if (!payment.cardName.trim()) errs.cardName = "Please enter the name on card";
-    if (!payment.expiry.trim() || !payment.expiry.includes("/") || payment.expiry.length < 5) {
-      errs.expiry = "MM/YY format required";
-    }
-    if (!payment.cvc.trim() || payment.cvc.length < 3) errs.cvc = "3 or 4-digit CVC required";
-
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  };
+  const validatePayment = (): boolean => true;
 
   const handleNextToPayment = (e: React.FormEvent) => {
     e.preventDefault();
@@ -403,14 +366,18 @@ export default function CheckoutPage() {
   };
 
   // Step 3 -> 4 "Place Order" with Buy Now awareness & double-submit protection
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (!agreedToTerms || isSubmitting || submittingRef.current) return;
 
     submittingRef.current = true;
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      const mockId = `BDY-${Math.floor(10000 + Math.random() * 90000)}`;
+    setOrderError("");
+    try {
+      if (!requestIdRef.current) requestIdRef.current = crypto.randomUUID();
+      const response = await fetch("/api/storefront/orders", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestId:requestIdRef.current,customer:{name:`${shipping.firstName} ${shipping.lastName}`,email:shipping.email,phone:shipping.phone,address:[shipping.address,shipping.apartment,`${shipping.suburb}, ${shipping.state} ${shipping.postcode}`,shipping.country].filter(Boolean).join("\n")},items:items.map(i=>({productId:i.product.id,size:i.size,quantity:i.quantity})),shippingMethod:shipping.method,discountCode:appliedPromo?.code||""})});
+      const placed = await response.json(); if(!response.ok) throw new Error(placed.error || "Unable to save your order.");
+      const mockId = placed.number;
       const now = new Date();
       const dateStr = now.toLocaleDateString("en-AU", {
         day: "numeric",
@@ -422,10 +389,10 @@ export default function CheckoutPage() {
         orderId: mockId,
         orderDate: dateStr,
         items: [...items],
-        subtotal,
-        shippingFee,
-        discountAmount,
-        total,
+        subtotal: placed.subtotal,
+        shippingFee: placed.shipping,
+        discountAmount: placed.discount,
+        total: placed.total,
         shippingAddress: { ...shipping },
         isBuyNow: isBuyNowMode,
       };
@@ -464,6 +431,7 @@ export default function CheckoutPage() {
           sessionStorage.removeItem("bindy_checkout_shipping");
           sessionStorage.removeItem("bindy_checkout_payment");
           sessionStorage.removeItem("bindy_checkout_step");
+          sessionStorage.removeItem("bindy_order_request");
         } catch {
           /* ignore */
         }
@@ -480,7 +448,8 @@ export default function CheckoutPage() {
       setIsSubmitting(false);
       setStep("confirmation");
       window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 1200);
+    } catch(error) { setOrderError(error instanceof Error ? error.message : "Unable to save your order. Please try again."); }
+    finally { submittingRef.current = false; setIsSubmitting(false); }
   };
 
   // Safe Step Indicator navigation
@@ -629,7 +598,7 @@ export default function CheckoutPage() {
           <div className="flex items-center justify-between text-xs text-sage bg-sage/15 border border-sage/30 px-3 py-2 rounded-xl text-charcoal">
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="text-base leading-none">✓</span>
-              <span className="truncate">Code &lsquo;{appliedPromo.code}&rsquo; applied • {appliedPromo.discountPercent}% Off</span>
+              <span className="truncate">Code &lsquo;{appliedPromo.code}&rsquo; applied • {appliedPromo.type === "percentage" ? `${appliedPromo.value}% off` : appliedPromo.type === "shipping" ? "Free shipping" : `$${appliedPromo.value} off`}</span>
             </div>
             <button
               type="button"
@@ -719,6 +688,7 @@ export default function CheckoutPage() {
       </header>
 
       {/* 2. CLICKABLE PROGRESS STEPPER (Steps 1–3) */}
+      {orderError && <div role="alert" className="max-w-5xl mx-auto my-5 p-4 border border-red-300 bg-red-50 text-red-800 rounded-xl">{orderError}</div>}
       {step !== "confirmation" && (
         <div className="border-b border-sand/40 bg-paper-dark/60 py-3.5 px-4 sm:px-6">
           <div className="max-w-xl mx-auto flex items-center justify-between">
@@ -897,7 +867,7 @@ export default function CheckoutPage() {
                 </h1>
 
                 <p className="font-serif italic text-sm sm:text-lg text-muted font-normal max-w-lg mx-auto leading-relaxed">
-                  Your pieces are being prepared with mindful care in Brisbane. We have sent a confirmation email with tracking details to{" "}
+                  Your order has been received. Payment is pending. Our team can contact you at{" "}
                   <strong className="text-gold font-semibold break-all">{orderSummary.shippingAddress.email}</strong>.
                 </p>
 
@@ -927,7 +897,7 @@ export default function CheckoutPage() {
                     : "3 – 5 Business Days (Standard Tracked)"}
                 </p>
                 <p className="text-xs font-sans text-muted">
-                  Australia Post Carbon Neutral Tracked Delivery with signature on arrival.
+                  Delivery details and tracking will be provided after dispatch.
                 </p>
               </div>
 
@@ -1003,7 +973,7 @@ export default function CheckoutPage() {
                   <span className="text-charcoal font-medium">{orderSummary.shippingFee === 0 ? "FREE" : `$${orderSummary.shippingFee} AUD`}</span>
                 </div>
                 <div className="flex justify-between text-base font-serif text-charcoal font-bold pt-3 border-t border-sand/30">
-                  <span>Total Paid</span>
+                  <span>Order total · payment pending</span>
                   <span className="text-charcoal text-xl">${orderSummary.total} AUD</span>
                 </div>
               </div>
@@ -1385,178 +1355,12 @@ export default function CheckoutPage() {
                 )}
 
                 {step === "payment" && (
-                  /* STEP 2: PAYMENT (DEMO) */
-                  <motion.div
-                    key="step-payment"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="space-y-6 sm:space-y-8"
-                  >
-                    <div>
-                      <span className="text-xs font-sans uppercase tracking-[0.35em] text-gold font-semibold block mb-1">
-                        Step 2 of 3
-                      </span>
-                      <h2 className="font-serif text-2xl sm:text-4xl text-charcoal font-normal">
-                        Payment & Billing
-                      </h2>
-                    </div>
-
-                    {/* Demo Disclaimer Box */}
-                    <div className="bg-gold/10 border border-gold/30 rounded-2xl p-4 sm:p-5 flex items-start gap-3">
-                      <span className="text-base leading-none">⚠</span>
-                      <div className="text-xs font-sans text-charcoal/85 space-y-1">
-                        <p className="font-medium text-gold">Demo Checkout Demonstration</p>
-                        <p>
-                          This checkout is running in mock presentation mode. No actual charge will be made to any credit card entered.
-                        </p>
-                      </div>
-                    </div>
-
-                    <form onSubmit={handleNextToReview} className="space-y-6">
-                      <div className="bg-paper-light border border-sand/40 rounded-3xl p-5 sm:p-8 space-y-5 shadow-sm">
-                        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-sand/30 pb-4">
-                          <h3 className="font-serif text-lg sm:text-xl font-medium text-charcoal">
-                            Credit or Debit Card
-                          </h3>
-                          {/* Payment method trust badges */}
-                          <div className="flex items-center gap-1.5">
-                            <span className="px-2 py-1 rounded-md bg-sand/20 border border-sand/40 text-xs font-sans font-black italic tracking-tight text-charcoal">
-                              VISA
-                            </span>
-                            <span className="flex items-center -space-x-1 px-2 py-1 rounded-md bg-sand/20 border border-sand/40">
-                              <span className="w-2.5 h-2.5 rounded-full bg-[#EB001B] opacity-90 inline-block" />
-                              <span className="w-2.5 h-2.5 rounded-full bg-[#F79E1B] opacity-90 inline-block" />
-                            </span>
-                            <span className="px-2 py-1 rounded-md bg-white border border-sand/40 text-xs font-sans font-bold uppercase tracking-tight text-[#006FCF]">
-                              AMEX
-                            </span>
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
-                            Cardholder Name *
-                          </label>
-                          <input
-                            type="text"
-                            maxLength={60}
-                            value={payment.cardName}
-                            onChange={(e) => {
-                              setPayment({ ...payment, cardName: e.target.value });
-                              if (errors.cardName) setErrors((prev) => ({ ...prev, cardName: "" }));
-                            }}
-                            placeholder="Name as it appears on card"
-                            className={`w-full bg-sand/10 border ${
-                              errors.cardName ? "border-terracotta/80" : "border-sand/40"
-                            } rounded-xl px-4 py-3 text-sm text-charcoal placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
-                          />
-                          {errors.cardName && (
-                            <p className="text-sm font-sans text-terracotta mt-1.5 flex items-center gap-1">
-                              <span className="text-base leading-none">⚠</span>
-                              {errors.cardName}
-                            </p>
-                          )}
-                        </div>
-
-                        <div>
-                          <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
-                            Card Number *
-                          </label>
-                          <input
-                            type="text"
-                            value={payment.cardNumber}
-                            onChange={handleCardNumberChange}
-                            placeholder="4532 1234 5678 9012"
-                            className={`w-full bg-sand/10 border ${
-                              errors.cardNumber ? "border-terracotta/80" : "border-sand/40"
-                            } rounded-xl px-4 py-3 text-sm text-charcoal font-mono placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
-                          />
-                          {errors.cardNumber && (
-                            <p className="text-sm font-sans text-terracotta mt-1.5 flex items-center gap-1">
-                              <span className="text-base leading-none">⚠</span>
-                              {errors.cardNumber}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                          <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
-                              Expiry Date (MM/YY) *
-                            </label>
-                            <input
-                              type="text"
-                              maxLength={5}
-                              value={payment.expiry}
-                              onChange={handleExpiryChange}
-                              placeholder="08/28"
-                              className={`w-full bg-sand/10 border ${
-                                errors.expiry ? "border-terracotta/80" : "border-sand/40"
-                              } rounded-xl px-4 py-3 text-sm text-charcoal font-mono placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
-                            />
-                            {errors.expiry && (
-                              <p className="text-sm font-sans text-terracotta mt-1.5 flex items-center gap-1">
-                                <span className="text-base leading-none">⚠</span>
-                                {errors.expiry}
-                              </p>
-                            )}
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-sans uppercase tracking-wider text-muted font-medium mb-1.5">
-                              Security Code (CVC) *
-                            </label>
-                            <input
-                              type="password"
-                              maxLength={4}
-                              value={payment.cvc}
-                              onChange={handleCvcChange}
-                              placeholder="123"
-                              className={`w-full bg-sand/10 border ${
-                                errors.cvc ? "border-terracotta/80" : "border-sand/40"
-                              } rounded-xl px-4 py-3 text-sm text-charcoal font-mono placeholder:text-muted/60 focus:outline-none focus:border-gold transition-colors min-h-[46px]`}
-                            />
-                            {errors.cvc && (
-                              <p className="text-sm font-sans text-terracotta mt-1.5 flex items-center gap-1">
-                                <span className="text-base leading-none">⚠</span>
-                                {errors.cvc}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-
-                        <label className="flex items-center gap-2.5 pt-2 text-xs font-sans text-muted cursor-pointer select-none min-h-[44px]">
-                          <input
-                            type="checkbox"
-                            checked={payment.sameAsShipping}
-                            onChange={(e) => setPayment({ ...payment, sameAsShipping: e.target.checked })}
-                            className="accent-[#C5A059] rounded w-4 h-4 cursor-pointer"
-                          />
-                          <span>Billing address matches Australian shipping address</span>
-                        </label>
-                      </div>
-
-                      {/* Navigation buttons */}
-                      <div className="flex items-center gap-3 sm:gap-4">
-                        <button
-                          type="button"
-                          onClick={() => setStep("shipping")}
-                          className="px-6 py-4 rounded-full border border-sand/40 text-charcoal font-sans text-xs uppercase tracking-[0.2em] hover:border-gold bg-paper transition-colors min-h-[48px] cursor-pointer font-medium"
-                        >
-                          Back
-                        </button>
-                        <button
-                          type="submit"
-                          className="flex-1 py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-cinnamon hover:text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-lg cursor-pointer min-h-[48px]"
-                        >
-                          <span>Review Order</span>
-                          <span className="text-base leading-none">→</span>
-                        </button>
-                      </div>
-                    </form>
-                  </motion.div>
+                  <div className="space-y-6">
+                    <span className="text-xs uppercase tracking-widest text-gold">Payment arrangements</span>
+                    <h2 className="font-serif text-3xl">Confirm now. Pay after confirmation.</h2>
+                    <div className="p-6 rounded-2xl border border-sand bg-white leading-7 text-sm">Your order will be saved with payment pending. Our team will contact you using your order details to arrange payment. No card details are collected here.</div>
+                    <div className="flex gap-3"><button type="button" onClick={()=>setStep("shipping")} className="px-6 py-4 border rounded-full">Back</button><button type="button" onClick={()=>setStep("review")} className="px-8 py-4 rounded-full bg-gold">Review order →</button></div>
+                  </div>
                 )}
 
                 {step === "review" && (
@@ -1614,13 +1418,13 @@ export default function CheckoutPage() {
                             Payment Method:
                           </span>
                           <p className="text-charcoal font-medium">
-                            Card ending in {payment.cardNumber.replace(/\s+/g, "").slice(-4) || "8921"}
+                            Pay after confirmation
                           </p>
                           <p className="text-muted truncate">
-                            Cardholder: {payment.cardName} • Exp: {payment.expiry}
+                            Payment pending · Our team will contact you to arrange payment.
                           </p>
                           <span className="inline-block text-xs uppercase tracking-wider text-green-700 bg-green-500/15 border border-green-500/30 px-2 py-0.5 rounded mt-1 font-semibold">
-                            Demo Mode Verified
+                            Payment pending
                           </span>
                         </div>
                         <button

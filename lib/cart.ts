@@ -1,5 +1,5 @@
 // Tiny localStorage-backed cart shared between the homepage and product pages.
-import type { Product } from "@/lib/products";
+import { getCanonicalProductId, getProduct, type Product } from "@/lib/products";
 
 export interface CartItem {
   product: Product;
@@ -10,11 +10,23 @@ export interface CartItem {
 const KEY = "bindy-cart";
 const EVT = "bindy-cart-change";
 
+function normalizeItems(items: CartItem[]): CartItem[] {
+  const normalized: CartItem[] = [];
+  for (const item of items) {
+    const id = getCanonicalProductId(item.product.id);
+    const product = id === item.product.id ? item.product : getProduct(id) ?? item.product;
+    const existing = normalized.find((entry) => entry.product.id === product.id && entry.size === item.size);
+    if (existing) existing.quantity += item.quantity;
+    else normalized.push({ ...item, product });
+  }
+  return normalized;
+}
+
 export function getCart(): CartItem[] {
   if (typeof window === "undefined") return [];
   try {
     const raw = window.localStorage.getItem(KEY);
-    return raw ? (JSON.parse(raw) as CartItem[]) : [];
+    return raw ? normalizeItems(JSON.parse(raw) as CartItem[]) : [];
   } catch {
     return [];
   }
@@ -23,7 +35,7 @@ export function getCart(): CartItem[] {
 export function saveCart(items: CartItem[]) {
   if (typeof window === "undefined") return;
   try {
-    window.localStorage.setItem(KEY, JSON.stringify(items));
+    window.localStorage.setItem(KEY, JSON.stringify(normalizeItems(items)));
     window.dispatchEvent(new CustomEvent(EVT));
   } catch {
     /* ignore quota / serialisation errors */
@@ -31,6 +43,7 @@ export function saveCart(items: CartItem[]) {
 }
 
 export function addToCart(product: Product, size: string, qty = 1): CartItem[] {
+  if (getCanonicalProductId(product.id) !== product.id) product = getProduct(product.id) ?? product;
   const items = getCart();
   const existing = items.find(
     (i) => i.product.id === product.id && i.size === size
@@ -68,7 +81,7 @@ const BUY_NOW_KEY = "bindy-buy-now-item";
 export function setBuyNowItem(product: Product, size: string, quantity = 1): void {
   if (typeof window === "undefined") return;
   try {
-    sessionStorage.setItem(BUY_NOW_KEY, JSON.stringify({ product, size, quantity }));
+    sessionStorage.setItem(BUY_NOW_KEY, JSON.stringify(normalizeItems([{ product, size, quantity }])[0]));
   } catch {
     /* ignore */
   }
@@ -78,7 +91,7 @@ export function getBuyNowItem(): CartItem | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = sessionStorage.getItem(BUY_NOW_KEY);
-    return raw ? (JSON.parse(raw) as CartItem) : null;
+    return raw ? normalizeItems([JSON.parse(raw) as CartItem])[0] : null;
   } catch {
     return null;
   }

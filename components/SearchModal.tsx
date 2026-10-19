@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
@@ -32,7 +33,7 @@ interface SearchModalProps {
 const STORAGE_KEY = "bindy_recent_searches";
 
 const TRENDING_TAGS = [
-  { label: "Lotus Memory", query: "Lotus Memory", icon: Sparkles },
+  { label: "Rose Stripe", query: "Rose Stripe", icon: Sparkles },
   { label: "Handloom Cotton", query: "Handloom Cotton", icon: Tag },
   { label: "Resort Wear", query: "Resort Wear", icon: Sun },
   { label: "Pure Linen", query: "Linen", icon: Feather },
@@ -42,7 +43,7 @@ const TRENDING_TAGS = [
 ];
 
 const COLOR_PALETTES = [
-  { name: "Lotus Pink", hex: "#E8B4B8", query: "Lotus Pink", border: "#D48D93" },
+  { name: "Rose Pink", hex: "#E8B4B8", query: "Rose", border: "#D48D93" },
   { name: "Cinnamon", hex: "#B86B4B", query: "Cinnamon", border: "#8C4E34" },
   { name: "Ivory Pearl", hex: "#FAF7F2", query: "Ivory", border: "#DCC7AF" },
   { name: "Sigiriya Ochre", hex: "#C5A059", query: "Ochre", border: "#A0803A" },
@@ -54,7 +55,7 @@ const CATEGORY_CARDS = [
   {
     name: "Dresses",
     tagline: "Airy silhouettes & gathered drape",
-    image: "/images/serendipity/lotus-memory-dress.jpg",
+    image: "/images/categories/dresses-v1.webp",
     categoryFilter: "Dresses",
   },
   {
@@ -78,6 +79,7 @@ const CATEGORY_CARDS = [
 ];
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
+  const { products: PRODUCTS } = useStorefront();
   const [query, setQuery] = useState("");
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc">("featured");
@@ -227,7 +229,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     }
 
     return filtered;
-  }, [cleanQuery, selectedCategoryFilter, sortBy]);
+  }, [cleanQuery, selectedCategoryFilter, sortBy, PRODUCTS]);
 
   // Unique category counts within current matching results
   const categoryCounts = useMemo(() => {
@@ -248,7 +250,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       counts[p.category] = (counts[p.category] || 0) + 1;
     });
     return counts;
-  }, [cleanQuery]);
+  }, [cleanQuery, PRODUCTS]);
 
   return (
     <AnimatePresence>

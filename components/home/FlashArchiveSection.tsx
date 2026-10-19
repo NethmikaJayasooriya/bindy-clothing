@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -36,13 +37,13 @@ interface FlashDealItem {
 
 const FLASH_DEALS: FlashDealItem[] = [
   {
-    productId: "lotus-memory-dress",
+    productId: "rose-stripe-strapless-dress",
     flashPriceAud: 185,
-    originalPriceAud: 240,
+    originalPriceAud: 235,
     stockLeft: 4,
     totalAllotment: 24,
-    badge: "SAVE $55 AUD",
-    artisanNote: "Handloom Cotton • Madder Root Dye",
+    badge: "SAVE $50 AUD",
+    artisanNote: "Striped Cotton Poplin • Structured Strapless Bodice",
   },
   {
     productId: "serendib-pearl-dress",
@@ -68,6 +69,7 @@ export default function FlashArchiveSection({
   onQuickView,
   onAddToCart,
 }: FlashArchiveSectionProps) {
+  const {products:PRODUCTS}=useStorefront();
   // 14 hours countdown simulation that updates every second
   const [timeLeft, setTimeLeft] = useState({
     hours: 14,
@@ -76,7 +78,7 @@ export default function FlashArchiveSection({
   });
 
   const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({
-    "lotus-memory-dress": "AU 8 (S)",
+    "rose-stripe-strapless-dress": "AU 8 (S)",
     "serendib-pearl-dress": "AU 8 (S)",
     "cinnamon-flow-skirt": "AU 8 (S)",
   });

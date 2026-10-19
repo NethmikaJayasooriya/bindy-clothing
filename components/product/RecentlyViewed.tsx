@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -12,6 +13,7 @@ export interface RecentlyViewedProps {
 const STORAGE_KEY = "bindy-recently-viewed";
 
 export default function RecentlyViewed({ currentProductId }: RecentlyViewedProps) {
+  const {products:PRODUCTS}=useStorefront();
   const [recentProducts, setRecentProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function RecentlyViewed({ currentProductId }: RecentlyViewedProps
     } catch {
       /* ignore quota errors */
     }
-  }, [currentProductId]);
+  }, [currentProductId, PRODUCTS]);
 
   if (recentProducts.length === 0) return null;
 

@@ -1,6 +1,8 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Check, Sparkles } from "lucide-react";
 import { PRODUCTS, type Category } from "@/data/products";
@@ -21,35 +23,36 @@ export default function CategoryStoryBar({
   activeCategory,
   onSelectCategory,
 }: CategoryStoryBarProps) {
+  const { products: PRODUCTS } = useStorefront();
   const stories: StoryItem[] = [
     {
       id: "All",
       name: "All Pieces",
-      image: "/images/campaign/together.webp",
+      image: "/images/categories/all-pieces-v1.webp",
       count: PRODUCTS.length,
     },
     {
       id: "Dresses",
       name: "Dresses",
-      image: "/images/customer-capsule/editorial/rose-stripe-strapless-dress.webp",
+      image: "/images/categories/dresses-v1.webp",
       count: PRODUCTS.filter((p) => p.category === "Dresses").length,
     },
     {
       id: "Tops & Blouses",
       name: "Tops & Blouses",
-      image: "/images/customer-capsule/editorial/cacao-satin-cami.webp",
+      image: "/images/categories/tops-blouses-v1.webp",
       count: PRODUCTS.filter((p) => p.category === "Tops & Blouses").length,
     },
     {
       id: "Skirts & Pants",
       name: "Skirts & Pants",
-      image: "/images/customer-capsule/editorial/ivory-tiered-maxi-skirt.webp",
+      image: "/images/categories/skirts-pants-v1.webp",
       count: PRODUCTS.filter((p) => p.category === "Skirts & Pants").length,
     },
     {
       id: "Two Piece Sets",
       name: "Two-Piece Sets",
-      image: "/images/serendipity/tea-leaf-two-piece.jpg",
+      image: "/images/categories/two-piece-sets-v1.webp",
       count: PRODUCTS.filter((p) => p.category === "Two Piece Sets").length,
     },
   ];
@@ -71,7 +74,7 @@ export default function CategoryStoryBar({
           </h3>
         </div>
         <p className="hidden max-w-sm text-right text-xs leading-relaxed text-charcoal-subtle md:block">
-          Choose a chapter to reveal every available piece instantly.
+          Choose a category. Find your next favourite piece.
         </p>
       </div>
 
@@ -85,32 +88,35 @@ export default function CategoryStoryBar({
               whileHover={{ y: -4 }}
               whileTap={{ scale: 0.985 }}
               onClick={() => handleClick(story)}
+              type="button"
               aria-pressed={isActive}
-              className={`group relative min-h-[168px] overflow-hidden rounded-[1.2rem] border text-left shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059] sm:min-h-[220px] ${
+              className={`group relative overflow-hidden rounded-xl border text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059] focus-visible:ring-offset-4 ${
                 isActive
-                  ? "border-[#C5A059] ring-2 ring-[#C5A059]/45 shadow-[0_14px_34px_rgba(31,30,29,0.18)]"
-                  : "border-white/70 hover:border-[#C5A059]/70 hover:shadow-[0_14px_30px_rgba(31,30,29,0.14)]"
+                  ? "border-[#242721] ring-1 ring-[#242721] shadow-[0_10px_26px_rgba(31,30,29,0.10)]"
+                  : "border-[#DCC7AF]/60 bg-white hover:border-[#9A7535] hover:shadow-[0_10px_26px_rgba(31,30,29,0.08)]"
               }`}
             >
-              <img
-                src={story.image}
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/18 to-black/5" />
-              <div className="absolute inset-x-0 bottom-0 p-3.5 text-white sm:p-5">
-                <div className="mb-1.5 flex items-center justify-between gap-2">
-                  <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-white/75 sm:text-[10px]">
+              <div className="relative aspect-[4/3.8] overflow-hidden bg-[#EEE9E1]">
+                <Image
+                  src={story.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 250px"
+                  className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                />
+              </div>
+              <div className={`relative flex min-h-[85px] items-center justify-between gap-2 border-t p-3.5 transition-colors sm:px-4 ${isActive ? "border-[#242721] bg-[#242721] text-[#FFFCF5]" : "border-[#DCC7AF]/35 bg-[#FFFCF8] text-[#242721]"}`}>
+                <div className="min-w-0">
+                  <span className={`mb-1.5 block text-[9px] font-medium uppercase tracking-[0.15em] ${isActive ? "text-[#DED2B9]" : "text-[#8B795B]"}`}>
                     {story.count} pieces
                   </span>
-                  <span className={`grid h-7 w-7 place-items-center rounded-full border transition-colors ${isActive ? "border-[#E6C98A] bg-[#C5A059] text-[#1F1E1D]" : "border-white/45 bg-black/20 text-white"}`}>
-                    {isActive ? <Check className="h-3.5 w-3.5" /> : <ArrowUpRight className="h-3.5 w-3.5" />}
+                  <span className="block text-sm font-medium leading-snug tracking-[-0.02em] sm:text-base" style={{ fontFamily: "var(--font-outfit), sans-serif" }}>
+                    {story.name}
                   </span>
                 </div>
-                <span className="block font-serif text-lg leading-tight sm:text-2xl">
-                  {story.name}
+                <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border transition-colors ${isActive ? "border-[#E6C98A] bg-[#D4B67A] text-[#242721]" : "border-[#DCC7AF] text-[#6C624F] group-hover:border-[#9A7535]"}`}>
+                  {isActive ? <Check className="h-3.5 w-3.5" /> : <ArrowUpRight className="h-3.5 w-3.5" />}
                 </span>
-                <span className={`mt-2 block h-px transition-all duration-500 ${isActive ? "w-full bg-[#E6C98A]" : "w-8 bg-white/65 group-hover:w-full"}`} />
               </div>
             </motion.button>
           );

@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
@@ -87,7 +88,9 @@ const CATEGORY_SLUGS: Record<Category, string> = {
   "Two Piece Sets": "two-piece-sets",
 };
 
-export default function ProductDetail({ product }: { product: Product }) {
+export default function ProductDetail({ product: initialProduct }: { product: Product }) {
+  const {products,settings}=useStorefront();
+  const product=products.find(p=>p.id===initialProduct.id) ?? initialProduct;
   const router = useRouter();
   const [activeImg, setActiveImg] = useState(0);
   const [size, setSize] = useState<string | null>(product.sizes[1] || product.sizes[0] || null);
@@ -136,16 +139,14 @@ export default function ProductDetail({ product }: { product: Product }) {
   const avg = useMemo(() => getAverageRating(product), [product]);
   const installment = useMemo(() => (product.priceAud / 4).toFixed(2), [product.priceAud]);
   const galleryImages = product.gallery;
+  const galleryLabels = product.galleryLabels;
 
   // Inventory logic per size
   const sizeAvailability = useMemo(() => {
     const map: Record<string, "in_stock" | "low_stock" | "sold_out"> = {};
-    product.sizes.forEach((s, idx) => {
-      if (idx === product.sizes.length - 1 && product.id.includes("dress")) {
-        map[s] = "low_stock";
-      } else {
-        map[s] = "in_stock";
-      }
+    product.sizes.forEach(s => {
+      const units = product.stock?.[s];
+      map[s] = units === undefined ? "in_stock" : units === 0 ? "sold_out" : units <= 3 ? "low_stock" : "in_stock";
     });
     return map;
   }, [product]);
@@ -176,7 +177,7 @@ export default function ProductDetail({ product }: { product: Product }) {
   };
 
   const handleAdd = () => {
-    if (!size) return;
+    if (!size || sizeAvailability[size] === "sold_out" || (product.stock?.[size] !== undefined && qty > product.stock[size])) return;
     addToCart(product, size, qty);
     setAdded(true);
     // Smoothly open cart drawer after micro-feedback
@@ -187,7 +188,7 @@ export default function ProductDetail({ product }: { product: Product }) {
   };
 
   const handleBuyNow = () => {
-    if (!size) return;
+    if (!size || sizeAvailability[size] === "sold_out" || (product.stock?.[size] !== undefined && qty > product.stock[size])) return;
     setBuyNowItem(product, size, qty);
     router.push("/checkout?mode=buynow");
   };
@@ -228,7 +229,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           {/* Center Announcement Ticker (Desktop only) */}
           <div className="hidden md:flex items-center gap-2 text-xs font-sans text-charcoal/80 uppercase tracking-widest">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <span>Complimentary AU Express Shipping on Orders $150+</span>
+            <span>{settings.announcement}</span>
           </div>
 
           {/* Right Navigation Utilities */}
@@ -332,12 +333,14 @@ export default function ProductDetail({ product }: { product: Product }) {
                     ? "border-gold ring-2 ring-gold/70 shadow-md scale-102"
                     : "border-sand/40 hover:border-gold/60 opacity-80 hover:opacity-100"
                 }`}
-                aria-label={`Select photo ${i + 1}`}
+                aria-label={`Select photo ${i + 1}${galleryLabels?.[i] ? `: ${galleryLabels[i]}` : ""}`}
+                title={galleryLabels?.[i] || `View ${i + 1}`}
               >
                 <img
                   src={src}
-                  alt={`${product.name} thumbnail ${i + 1}`}
+                  alt={`${product.name} — ${galleryLabels?.[i] || `view ${i + 1}`}`}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 {activeImg === i && (
                   <div className="absolute inset-x-0 bottom-0 h-1 bg-gold" />
@@ -353,12 +356,12 @@ export default function ProductDetail({ product }: { product: Product }) {
               <motion.img
                 key={activeImg}
                 src={galleryImages[activeImg] || product.image}
-                alt={product.name}
+                alt={`${product.name} — ${galleryLabels?.[activeImg] || `view ${activeImg + 1}`}`}
                 initial={{ opacity: 0, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="absolute inset-0 w-full h-full object-cover cursor-zoom-in"
+                className={`absolute inset-0 w-full h-full ${product.imageSource === "photography" ? "object-contain bg-[#ede8e0]" : "object-cover"} cursor-zoom-in`}
                 onClick={() => setIsLightboxOpen(true)}
               />
             </AnimatePresence>
@@ -368,22 +371,24 @@ export default function ProductDetail({ product }: { product: Product }) {
             <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/10 to-transparent pointer-events-none" />
 
             {/* Top Left Craft Heritage Badge */}
-            <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5 bg-black/55 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs text-white border border-white/20 shadow-md">
+            <div className="absolute top-4 inset-x-4 z-10 flex items-center justify-between gap-2 pointer-events-none">
+            <div className="flex min-w-0 max-w-[62%] items-center gap-1.5 bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white border border-white/20 shadow-md">
               <Sparkles className="w-3.5 h-3.5 text-gold" />
-              <span className="font-sans font-medium tracking-wide">
-                100% Handloom · {product.storyPlace.split(",")[0] || "Sri Lanka"}
+              <span className="font-sans font-medium tracking-wide truncate text-[10px] sm:text-[11px]">
+                {product.imageSource === "photography" ? "The BINDY real life edit" : `100% Handloom · ${product.storyPlace.split(",")[0] || "Sri Lanka"}`}
               </span>
             </div>
 
             {/* Top Right Color Swatch Badge */}
-            <div className="absolute top-4 right-4 z-10 flex items-center gap-2 bg-black/55 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white border border-white/20 shadow-md">
+            <div className="flex min-w-0 max-w-[40%] items-center gap-2 bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white border border-white/20 shadow-md">
               <span
                 className="w-3 h-3 rounded-full border border-white/60 shadow-sm"
                 style={{ backgroundColor: product.colorHex }}
               />
-              <span className="font-sans uppercase font-medium tracking-wider text-[11px]">
+              <span className="font-sans uppercase font-medium tracking-wider text-[10px] sm:text-[11px] truncate">
                 {product.colorName}
               </span>
+            </div>
             </div>
 
             {/* Prev / Next Chevrons */}
@@ -417,6 +422,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             {/* Bottom Left: Image Counter (e.g., 2 / 4) */}
             <div className="absolute bottom-4 left-4 z-10 bg-black/55 backdrop-blur-md px-3 py-1 rounded-full text-xs text-white/90 font-mono border border-white/15">
               {activeImg + 1} / {galleryImages.length}
+              {galleryLabels?.[activeImg] && <span className="ml-2 font-sans">{galleryLabels[activeImg]}</span>}
             </div>
 
             {/* Bottom Right: Click to Zoom Cue */}
@@ -678,7 +684,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-sans text-charcoal-subtle pt-3 border-t border-sand/30">
             <div className="flex items-center gap-1.5 p-2 rounded-xl bg-paper-light border border-sand/30">
               <Truck className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span className="leading-tight">Free AU $150+</span>
+              <span className="leading-tight">Free AU ${settings.freeShippingThreshold}+</span>
             </div>
             <div className="flex items-center gap-1.5 p-2 rounded-xl bg-paper-light border border-sand/30">
               <RefreshCw className="w-3.5 h-3.5 text-gold shrink-0" />
@@ -780,7 +786,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 className="w-full py-3.5 flex items-center justify-between text-left text-charcoal hover:text-gold transition-colors font-medium cursor-pointer"
               >
                 <span className="uppercase font-bold tracking-wider">
-                  Complimentary Shipping & 30-Day Returns
+                  Shipping & {settings.returnsDays}-Day Returns
                 </span>
                 <ChevronDown
                   className={`w-4 h-4 transition-transform duration-200 ${
@@ -800,10 +806,10 @@ export default function ProductDetail({ product }: { product: Product }) {
                       • <strong>Dispatch:</strong> Same-day dispatch from Melbourne on orders placed before 1 PM AEST.
                     </p>
                     <p>
-                      • <strong>Shipping:</strong> Free Australia Post Express on orders over $150 AUD. Standard delivery 2–4 business days.
+                      • <strong>Shipping:</strong> Free delivery on orders from ${settings.freeShippingThreshold} AUD. Delivery details are provided after dispatch.
                     </p>
                     <p>
-                      • <strong>Returns:</strong> Hassle-free 30-day return or exchange policy in original condition with tags intact.
+                      • <strong>Returns:</strong> {settings.returnsDays}-day return or exchange policy in original condition with tags intact.
                     </p>
                   </motion.div>
                 )}
@@ -887,7 +893,9 @@ export default function ProductDetail({ product }: { product: Product }) {
       <LightboxModal
         isOpen={isLightboxOpen}
         onClose={() => setIsLightboxOpen(false)}
-        images={galleryImages}
+        images={product.galleryZoom || galleryImages}
+        thumbnails={galleryImages}
+        imageLabels={galleryLabels}
         initialIndex={activeImg}
         productName={product.name}
       />

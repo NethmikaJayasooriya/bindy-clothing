@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Sparkles, ArrowRight, Check, ShoppingBag, Flame, Eye, Star } from "lucide-react";
+import { useStorefront } from "@/components/StorefrontProvider";
 import { getFeaturedSpotlightProducts, type Product } from "@/data/products";
 import { addToCart } from "@/lib/cart";
 import { SectionHeading } from "@/components/ui";
@@ -16,7 +17,8 @@ export default function SpotlightSection({
   onSelectProduct,
   onAddToCart,
 }: SpotlightSectionProps) {
-  const spotlightProducts = getFeaturedSpotlightProducts();
+  const { products } = useStorefront();
+  const spotlightProducts = products.slice(0, 3);
   const heroProduct = spotlightProducts[0];
   const sideProducts = spotlightProducts.slice(1);
 
@@ -42,17 +44,17 @@ export default function SpotlightSection({
         {/* Section Header */}
         <SectionHeading
           align="left"
-          eyebrow="Editorial Curation • Serendipity"
+          eyebrow="The Real Life Edit • BINDY"
           eyebrowIcon={<Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />}
           title="This Week's Spotlight"
           italicWord="Spotlight"
-          description="Three iconic silhouettes embodying natural Sri Lankan pit-loom weave and fluid Australian drape."
+          description="Three favourite pieces, photographed in the moments they were made for."
           action={
             <a
               href="#browse-collection"
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono uppercase font-semibold tracking-widest text-[#1F1E1D] hover:text-[#B86B4B] transition-colors font-semibold group pb-1"
             >
-              <span>Explore All 17 Silhouettes</span>
+              <span>Explore the collection</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </a>
           }
@@ -104,10 +106,10 @@ export default function SpotlightSection({
               <div className="space-y-2 sm:space-y-3">
                 <div className="flex items-center justify-between text-xs sm:text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-semibold">
                   <span>{heroProduct.storyPlace}</span>
-                  <div className="flex items-center gap-1 text-[#1F1E1D]">
+                  {heroProduct.reviews.length > 0 ? <div className="flex items-center gap-1 text-[#1F1E1D]">
                     <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-[#C5A059] text-[#C5A059]" />
-                    <span>4.9 (28 reviews)</span>
-                  </div>
+                    <span>{(heroProduct.reviews.reduce((sum, review) => sum + review.rating, 0) / heroProduct.reviews.length).toFixed(1)} ({heroProduct.reviews.length} reviews)</span>
+                  </div> : <span className="text-[9px] text-[#78716A]">Campaign favourite</span>}
                 </div>
 
                 <Link

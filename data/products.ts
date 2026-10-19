@@ -3,7 +3,7 @@
  * Seed data structured for easy future swap with headless commerce backends (Shopify, Sanity, Swell).
  */
 
-import { PRODUCTS as RAW_PRODUCTS, type Product as BaseProduct, type Review, type Category, type Destination } from "@/lib/products";
+import { PRODUCTS as RAW_PRODUCTS, getCanonicalProductId, getProductSeedIndex, type Product as BaseProduct, type Review, type Category, type Destination } from "@/lib/products";
 
 export type { Product, Review, Category, Destination } from "@/lib/products";
 
@@ -165,8 +165,16 @@ const ATELIER_SEPARATE_IDS = new Set([
   "pearl-lace-blouse",
 ]);
 
-// Enrich each product with realistic luxury stock, origin, and taxonomy data
-export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
+const FEATURED_PIECES = [
+  "pearl-lace-blouse",
+  "sage-shirt-maxi-dress",
+  "monochrome-breeze-maxi-dress",
+  "rose-stripe-strapless-dress",
+];
+
+// Enrich before merchandising so changing display order preserves item metadata.
+export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map<EnrichedProduct>((p, index) => {
+  const idx = getProductSeedIndex(p.id) ?? index;
   const stockStatuses: ("in_stock" | "low_stock" | "in_stock")[] = ["in_stock", "low_stock", "in_stock"];
   const inventoryCounts = [14, 2, 8, 19, 3, 11, 4, 16, 12, 7, 5, 18, 9, 6, 11, 4, 15];
   const isCol2 = COLLECTION_02_IDS.has(p.id);
@@ -233,10 +241,20 @@ export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map((p, idx) => {
     collectionName: isAtelierSeparate ? "Atelier Separates" : isCol2 ? "Collection 02" : "Serendipity",
     occasions: taxonomy.occasions,
   };
+}).sort((a, b) => {
+  const photography = Number(b.imageSource === "photography") - Number(a.imageSource === "photography");
+  if (photography) return photography;
+  const aFeatured = FEATURED_PIECES.indexOf(a.id);
+  const bFeatured = FEATURED_PIECES.indexOf(b.id);
+  if (aFeatured !== -1 || bFeatured !== -1) {
+    return (aFeatured === -1 ? FEATURED_PIECES.length : aFeatured) - (bFeatured === -1 ? FEATURED_PIECES.length : bFeatured);
+  }
+  // Lead with complete outfits and upper pieces, followed by separate bottoms.
+  return Number(a.category === "Skirts & Pants") - Number(b.category === "Skirts & Pants");
 });
 
 export function getProduct(slug: string): EnrichedProduct | undefined {
-  return PRODUCTS.find((p) => p.id === slug);
+  return PRODUCTS.find((p) => p.id === getCanonicalProductId(slug));
 }
 
 export function getProductsByCategory(category: Category | "All"): EnrichedProduct[] {
@@ -263,7 +281,7 @@ export function getProductsByDestination(destination: Destination | "All"): Enri
 }
 
 export function getFeaturedSpotlightProducts(): EnrichedProduct[] {
-  const spotlightIds = ["lotus-memory-dress", "cinnamon-flow-skirt", "pettah-check-dress"];
+  const spotlightIds = ["sage-shirt-maxi-dress", "cacao-satin-cami", "rose-stripe-strapless-dress"];
   return spotlightIds.map((id) => PRODUCTS.find((p) => p.id === id)).filter(Boolean) as EnrichedProduct[];
 }
 

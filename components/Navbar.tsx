@@ -1,4 +1,5 @@
 "use client";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -18,6 +19,7 @@ const categories = [
 const stories = [["Style Studio", "/build-your-set"], ["Our story", "/about"], ["The craft", "/craft"], ["Stories", "/stories"], ["Journal", "/journal"]];
 
 export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart, immersive = false }: NavbarProps) {
+  const { settings } = useStorefront();
   const [overHero, setOverHero] = useState(immersive);
   useEffect(() => {
     if (!immersive) return;
@@ -51,7 +53,7 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
   const closeShop = () => { if (shopRef.current) shopRef.current.open = false; };
   return <>
     <header className={`${styles.header} ${immersive && overHero ? styles.immersive : ""}`}>
-      <div className={styles.announcement}><span>Thoughtfully designed. Quietly special.</span><span>SRI LANKA <i>↔</i> AUSTRALIA</span><Link href="/about">Two islands. One thread. <ArrowUpRight size={11} /></Link></div>
+      <div className={styles.announcement}><span>{settings.announcement}</span><span>SRI LANKA <i>↔</i> AUSTRALIA</span><Link href="/about">Two islands. One thread. <ArrowUpRight size={11} /></Link></div>
       <nav className={styles.nav} aria-label="Main navigation">
         <div className={styles.navLeft}>
           <button className={`${styles.icon} ${styles.mobileMenu}`} ref={menuButton} aria-label="Open navigation menu" aria-haspopup="dialog" onClick={() => { menuRef.current?.showModal(); document.body.style.overflow = "hidden"; }}><Menu size={21} strokeWidth={1.4} /></button>

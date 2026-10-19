@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, League_Spartan, Poppins, Outfit, Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import { readPublicStore } from "@/lib/server/store-repository";
+import { StorefrontProvider } from "@/components/StorefrontProvider";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -52,6 +54,8 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "BINDY. — Wear Your Calm, Feel Your Story | Luxury Australian-Sri Lankan Fashion",
   description:
@@ -71,7 +75,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -81,7 +85,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${fraunces.variable} ${leagueSpartan.variable} ${poppins.variable} ${outfit.variable} ${playfair.variable} ${cormorant.variable} antialiased bg-[#FAF7F2] text-[#1F1E1D] overflow-x-hidden selection:bg-[#C5A059] selection:text-white font-sans`}
       >
-        {children}
+        <StorefrontProvider initial={await readPublicStore()}>{children}</StorefrontProvider>
       </body>
     </html>
   );
