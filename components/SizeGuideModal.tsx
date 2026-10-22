@@ -29,7 +29,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-2 sm:p-6 select-none">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -41,37 +41,37 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
 
           {/* Modal Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 12 }}
+            initial={{ opacity: 0, scale: 0.95, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 12 }}
+            exit={{ opacity: 0, scale: 0.95, y: 16 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="relative z-10 max-w-3xl w-full bg-[#FAF7F2] text-[#1F1E1D] rounded-3xl overflow-hidden border border-[#DCC7AF]/60 shadow-2xl max-h-[92vh] flex flex-col"
+            className="relative z-10 max-w-3xl w-full bg-[#FAF7F2] text-[#1F1E1D] rounded-[24px] sm:rounded-3xl overflow-hidden border border-[#DCC7AF]/60 shadow-2xl max-h-[92dvh] sm:max-h-[92vh] flex flex-col"
           >
             {/* Header */}
-            <div className="p-5 sm:p-6 border-b border-[#DCC7AF]/40 flex items-center justify-between bg-white/70">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/30 flex items-center justify-center text-[#C5A059]">
-                  <Ruler className="w-5 h-5 stroke-[1.5]" />
+            <div className="p-3.5 sm:p-6 border-b border-[#DCC7AF]/40 flex items-center justify-between gap-2 bg-white/70">
+              <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/30 flex items-center justify-center text-[#C5A059] flex-shrink-0">
+                  <Ruler className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />
                 </div>
-                <div>
-                  <h3 className="font-serif text-xl sm:text-2xl text-[#1F1E1D] font-normal">
+                <div className="min-w-0">
+                  <h3 className="font-serif text-lg sm:text-2xl text-[#1F1E1D] font-normal truncate">
                     Size &amp; Fit Guide
                   </h3>
-                  <p className="text-sm font-mono tracking-widest uppercase text-charcoal-subtle">
+                  <p className="text-[10px] sm:text-xs font-mono tracking-widest uppercase text-charcoal-subtle truncate">
                     BODY MEASUREMENTS &amp; CONVERSIONS
                   </p>
                 </div>
               </div>
 
-              {/* UNIT TOGGLE (CM / IN) */}
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center bg-[#FAF7F2] p-1 rounded-full border border-[#DCC7AF]/80">
+              {/* UNIT TOGGLE (CM / IN) & CLOSE */}
+              <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+                <div className="flex items-center bg-[#FAF7F2] p-0.5 sm:p-1 rounded-full border border-[#DCC7AF]/80">
                   <button
                     type="button"
                     onClick={() => setUnit("cm")}
-                    className={`px-3 py-1 text-xs font-mono rounded-full transition-all ${
+                    className={`px-2.5 sm:px-3 py-0.5 sm:py-1 text-[11px] sm:text-xs font-mono rounded-full transition-all ${
                       unit === "cm"
-                        ? "bg-[#1F1E1D] text-white shadow-sm"
+                        ? "bg-[#1F1E1D] text-white shadow-sm font-semibold"
                         : "text-charcoal-subtle hover:text-[#1F1E1D]"
                     }`}
                   >
@@ -80,9 +80,9 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                   <button
                     type="button"
                     onClick={() => setUnit("in")}
-                    className={`px-3 py-1 text-xs font-mono rounded-full transition-all ${
+                    className={`px-2.5 sm:px-3 py-0.5 sm:py-1 text-[11px] sm:text-xs font-mono rounded-full transition-all ${
                       unit === "in"
-                        ? "bg-[#1F1E1D] text-white shadow-sm"
+                        ? "bg-[#1F1E1D] text-white shadow-sm font-semibold"
                         : "text-charcoal-subtle hover:text-[#1F1E1D]"
                     }`}
                   >
@@ -93,7 +93,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
                 <button
                   type="button"
                   onClick={onClose}
-                  className="w-9 h-9 rounded-full bg-white border border-[#DCC7AF]/60 flex items-center justify-center text-charcoal-subtle hover:text-[#1F1E1D] hover:border-[#1F1E1D] transition-colors"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border border-[#DCC7AF]/60 flex items-center justify-center text-charcoal-subtle hover:text-[#1F1E1D] hover:border-[#1F1E1D] transition-colors"
                   aria-label="Close size guide"
                 >
                   <X className="w-4 h-4" />
@@ -102,7 +102,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
             </div>
 
             {/* Scrollable Content */}
-            <div className="p-5 sm:p-7 overflow-y-auto space-y-8 text-xs sm:text-sm custom-scrollbar">
+            <div className="p-3.5 sm:p-7 overflow-y-auto space-y-6 sm:space-y-8 text-xs sm:text-sm custom-scrollbar touch-pan-y">
               
               {/* BODY MEASUREMENTS TABLE (EXACT FROM CLIENT SPEC) */}
               <div>
@@ -227,11 +227,11 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 sm:p-5 border-t border-[#DCC7AF]/40 bg-white/70 flex items-center justify-between text-xs">
+            <div className="p-3.5 sm:p-5 border-t border-[#DCC7AF]/40 bg-white/70 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 text-xs pb-[max(0.875rem,env(safe-area-inset-bottom,0.875rem))]">
               <Link
                 href="/size-guide"
                 onClick={onClose}
-                className="text-[#C5A059] hover:underline flex items-center space-x-1 font-medium"
+                className="text-[#C5A059] hover:underline flex items-center space-x-1 font-medium text-center sm:text-left py-1"
               >
                 <span>View Full Standalone Size Guide</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -239,7 +239,7 @@ export default function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps)
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 bg-[#1F1E1D] text-white rounded-full text-sm font-mono uppercase font-semibold tracking-widest hover:bg-[#C5A059] transition-colors"
+                className="w-full sm:w-auto px-6 py-2.5 bg-[#1F1E1D] text-white rounded-full text-xs sm:text-sm font-mono uppercase font-semibold tracking-widest hover:bg-[#C5A059] transition-colors cursor-pointer"
               >
                 Done
               </button>

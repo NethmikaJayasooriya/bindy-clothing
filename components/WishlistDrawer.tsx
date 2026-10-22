@@ -93,7 +93,7 @@ export default function WishlistDrawer({
         }
       }}
     >
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <motion.div
           initial={{ x: "100%" }}
           animate={{ x: 0 }}
@@ -102,7 +102,7 @@ export default function WishlistDrawer({
           className="w-screen max-w-md bg-paper-light border-l border-sand/40 shadow-2xl flex flex-col justify-between text-charcoal"
         >
           {/* Header */}
-          <div className="p-6 border-b border-sand/30 flex items-center justify-between bg-paper">
+          <div className="p-4 sm:p-6 border-b border-sand/30 flex items-center justify-between bg-paper">
             <div className="flex items-center space-x-2.5">
               <Heart className="w-5 h-5 text-gold fill-gold" />
               <h3 className="font-serif text-2xl text-charcoal font-medium">
@@ -277,7 +277,7 @@ export default function WishlistDrawer({
 
           {/* Footer Actions */}
           {items.length > 0 && (
-            <div className="p-6 border-t border-sand/30 space-y-3.5 bg-paper-light">
+            <div className="p-4 sm:p-6 border-t border-sand/30 space-y-3.5 bg-paper-light pb-[max(1.25rem,env(safe-area-inset-bottom,1.25rem))]">
               <div className="flex items-center justify-between text-xs font-sans text-charcoal-subtle">
                 <span>{items.length} {items.length === 1 ? "piece" : "pieces"} saved in your circle</span>
                 <button
@@ -299,7 +299,7 @@ export default function WishlistDrawer({
                     onClose();
                     if (onOpenCart) onOpenCart();
                   }}
-                  className="w-full py-3.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-sm uppercase font-semibold tracking-[0.2em] font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-xl cursor-pointer"
+                  className="w-full py-3 sm:py-3.5 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs sm:text-sm uppercase font-semibold tracking-[0.2em] font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-xl cursor-pointer"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   <span>Add All to Bag</span>

@@ -81,6 +81,7 @@ export default function CategoryStoryBar({
       <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
         {stories.map((story) => {
           const isActive = activeCategory === story.id;
+          const isOddLast = story.id === "Two Piece Sets";
 
           return (
             <motion.button
@@ -91,6 +92,8 @@ export default function CategoryStoryBar({
               type="button"
               aria-pressed={isActive}
               className={`group relative overflow-hidden rounded-xl border text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059] focus-visible:ring-offset-4 ${
+                isOddLast ? "col-span-2 sm:col-span-1" : ""
+              } ${
                 isActive
                   ? "border-[#242721] ring-1 ring-[#242721] shadow-[0_10px_26px_rgba(31,30,29,0.10)]"
                   : "border-[#DCC7AF]/60 bg-white hover:border-[#9A7535] hover:shadow-[0_10px_26px_rgba(31,30,29,0.08)]"

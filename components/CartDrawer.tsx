@@ -50,16 +50,16 @@ export default function CartDrawer({
           />
 
           {/* Drawer Panel */}
-          <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+          <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
               className="w-screen max-w-md bg-paper-light border-l border-sand/40 shadow-2xl flex flex-col justify-between"
             >
               {/* Drawer Header */}
-              <div className="p-6 border-b border-sand/30 flex items-center justify-between">
+              <div className="p-4 sm:p-6 border-b border-sand/30 flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <ShoppingBag className="w-5 h-5 text-gold" />
                   <h3 className="font-serif text-2xl text-charcoal font-medium">
@@ -165,7 +165,7 @@ export default function CartDrawer({
 
               {/* Drawer Footer */}
               {items.length > 0 && (
-                <div className="p-6 border-t border-sand/30 space-y-4 bg-paper-light">
+                <div className="p-4 sm:p-6 border-t border-sand/30 space-y-3 sm:space-y-4 bg-paper-light pb-[max(1.25rem,env(safe-area-inset-bottom,1.25rem))]">
                   <div className="flex items-center justify-between font-serif text-lg">
                     <span className="text-charcoal-subtle">Subtotal:</span>
                     <span className="text-xl font-bold text-charcoal">
@@ -173,14 +173,14 @@ export default function CartDrawer({
                     </span>
                   </div>
 
-                  <p className="text-sm font-sans text-charcoal-subtle text-center">
+                  <p className="text-xs sm:text-sm font-sans text-charcoal-subtle text-center">
                     Taxes & shipping calculated at checkout. Small batch ethical guarantee.
                   </p>
 
                   <Link
                     href="/checkout"
                     onClick={onClose}
-                    className="w-full py-4 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-sm uppercase font-semibold tracking-wider font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl cursor-pointer"
+                    className="w-full py-3.5 sm:py-4 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs sm:text-sm uppercase font-semibold tracking-wider transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl cursor-pointer"
                   >
                     <span>Proceed to Checkout</span>
                     <ArrowRight className="w-4 h-4" />

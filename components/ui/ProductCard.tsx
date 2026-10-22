@@ -254,7 +254,7 @@ export default function ProductCard({
       </div>
 
       {/* Card Information (Crisp Box Panel) */}
-      <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 space-y-3 bg-white">
+      <div className="p-3 sm:p-5 flex flex-col justify-between flex-1 space-y-2.5 sm:space-y-3 bg-white">
         <div className="space-y-1.5">
           {/* Origin Story Eyebrow */}
           <div className="flex items-center justify-between text-[10px] sm:text-[10.5px] uppercase font-semibold font-sans tracking-[0.2em] text-[#8E6E34]">
@@ -274,7 +274,7 @@ export default function ProductCard({
 
           {/* Product Title */}
           <Link href={`/product/${product.id}`} className="block">
-            <h3 className="font-serif text-[15.5px] sm:text-[17.5px] text-charcoal font-normal group-hover:text-[#8E6E34] transition-colors leading-snug line-clamp-1">
+            <h3 className="font-serif text-[14.5px] sm:text-[17.5px] text-charcoal font-normal group-hover:text-[#8E6E34] transition-colors leading-snug line-clamp-1">
               {product.name}
             </h3>
           </Link>
@@ -307,14 +307,14 @@ export default function ProductCard({
         </div>
 
         {/* Prominent Price & Architectural Action Button */}
-        <div className="pt-3 border-t border-sand/30 flex items-center justify-between gap-2">
+        <div className="pt-2.5 sm:pt-3 border-t border-sand/30 flex items-center justify-between gap-1.5 sm:gap-2">
           {/* High-visibility prominent price */}
           <Price amount={product.priceAud} size="sm" />
 
           {/* Clean architectural CTA */}
           <Link
             href={`/product/${product.id}`}
-            className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 border border-charcoal/70 hover:border-charcoal hover:bg-charcoal text-charcoal hover:text-white text-[11px] font-sans uppercase tracking-[0.16em] font-medium transition-all duration-200 group/btn"
+            className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 border border-charcoal/70 hover:border-charcoal hover:bg-charcoal text-charcoal hover:text-white text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.12em] sm:tracking-[0.16em] font-medium transition-all duration-200 group/btn shrink-0"
           >
             <span>Explore</span>
             <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform" />

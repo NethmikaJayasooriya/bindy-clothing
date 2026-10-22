@@ -331,10 +331,16 @@
   max-width: 100%;
   margin: 0;
   padding: 24px;
+  padding-top: max(24px, env(safe-area-inset-top, 24px));
+  padding-bottom: max(32px, env(safe-area-inset-bottom, 32px));
+  padding-left: max(20px, env(safe-area-inset-left, 20px));
+  padding-right: max(20px, env(safe-area-inset-right, 20px));
   border: 0;
   background: #f5f0e6;
   color: #36382f;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobileDialog::backdrop {
@@ -548,5 +554,31 @@
   }
   .immersive .wordmark > span {
     font-size: 32px;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav {
+    padding: 0 12px;
+  }
+  .wordmark > span {
+    font-size: 26px;
+  }
+  .wordmark small {
+    font-size: 5px;
+    letter-spacing: 0.4em;
+  }
+  .mobileCategories a {
+    font-size: 22px;
+    padding: 8px 0;
+  }
+  .mobileStories {
+    gap: 12px;
+    padding: 20px 0;
+    font-size: 11px;
+  }
+  .menuUtilities {
+    gap: 12px;
+    font-size: 9.5px;
   }
 }

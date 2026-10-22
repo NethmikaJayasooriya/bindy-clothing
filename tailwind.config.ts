@@ -95,6 +95,9 @@ const config: Config = {
         'gold-glow': '0 0 30px -4px rgba(197, 160, 89, 0.28)',
         'gold-glow-lg': '0 0 45px 0 rgba(197, 160, 89, 0.35)',
       },
+      screens: {
+        'xs': '375px',
+      },
     },
   },
   plugins: [],

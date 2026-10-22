@@ -241,11 +241,10 @@
   100% { transform: scale(1, 1); }
 }
 
-/* skip control */
 .skip {
   position: absolute;
   right: max(20px, 3vw);
-  bottom: max(20px, 3vh);
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
   z-index: 5;
   display: inline-flex;
   align-items: center;
@@ -269,7 +268,7 @@
 .origin {
   position: absolute;
   left: 0; right: 0;
-  bottom: max(20px, 3vh);
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -286,6 +285,22 @@
 }
 .done .origin { opacity: 1; }
 .origin b { color: var(--gold); font-weight: 700; }
+
+@media (max-width: 640px) {
+  .skip {
+    top: max(16px, env(safe-area-inset-top, 16px));
+    bottom: auto;
+    right: 16px;
+    padding: 7px 13px;
+    font-size: 9px;
+  }
+  .origin {
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    font-size: 8px;
+    letter-spacing: .2em;
+    padding-inline: 16px;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .logoWrap, .tagline, .splash { transition: none; }

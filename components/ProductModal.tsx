@@ -56,7 +56,7 @@ export default function ProductModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
+      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 select-none">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -68,33 +68,33 @@ export default function ProductModal({
 
         {/* Modal Window */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 16 }}
+          initial={{ opacity: 0, scale: 0.96, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 16 }}
+          exit={{ opacity: 0, scale: 0.96, y: 24 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="relative z-10 w-full max-w-4xl bg-paper-light text-charcoal rounded-3xl overflow-hidden shadow-2xl border border-sand/40 flex flex-col md:flex-row max-h-[90vh] overflow-y-auto custom-scrollbar"
+          className="relative z-10 w-full max-w-4xl bg-paper-light text-charcoal rounded-t-[28px] sm:rounded-3xl overflow-hidden shadow-2xl border-t sm:border border-sand/40 flex flex-col md:flex-row max-h-[92dvh] sm:max-h-[90vh] overflow-y-auto custom-scrollbar touch-pan-y"
         >
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 p-2 rounded-full bg-paper/80 backdrop-blur-md hover:bg-paper text-charcoal transition-colors cursor-pointer border border-sand/40 shadow-sm"
+            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-20 p-2 sm:p-2.5 rounded-full bg-paper/85 backdrop-blur-md hover:bg-paper text-charcoal transition-colors cursor-pointer border border-sand/40 shadow-sm"
             aria-label="Close"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
           {/* Left Column: Image */}
-          <div className="md:w-1/2 relative min-h-[350px] md:min-h-[500px] bg-paper-dark">
+          <div className="md:w-1/2 relative h-56 xs:h-64 sm:h-80 md:h-auto md:min-h-[500px] bg-paper-dark flex-shrink-0">
             <img
               src={product.image}
               alt={product.name}
               className="w-full h-full object-cover object-center"
             />
-            <div className="absolute top-4 left-4 flex flex-col gap-2">
-              <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-xs uppercase font-bold tracking-wider text-[#FAF7F2] border border-white/20">
+            <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 flex flex-col gap-1.5 sm:gap-2">
+              <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] sm:text-xs uppercase font-bold tracking-wider text-[#FAF7F2] border border-white/20">
                 {product.category}
               </span>
-              <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-xs uppercase font-bold tracking-wider text-charcoal shadow-sm border border-sand/40 flex items-center gap-1">
+              <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] sm:text-xs uppercase font-bold tracking-wider text-charcoal shadow-sm border border-sand/40 flex items-center gap-1">
                 <MapPin className="w-3 h-3 text-gold" />
                 {product.storyPlace}
               </span>
@@ -103,7 +103,7 @@ export default function ProductModal({
             {/* Wishlist button over image */}
             <button
               onClick={() => toggleWishlist(product)}
-              className={`absolute bottom-4 left-4 p-3 rounded-full backdrop-blur-md transition-all duration-200 cursor-pointer shadow-md ${
+              className={`absolute bottom-3.5 left-3.5 sm:bottom-4 sm:left-4 p-2.5 sm:p-3 rounded-full backdrop-blur-md transition-all duration-200 cursor-pointer shadow-md ${
                 isInWishlist(product.id)
                   ? "bg-gold text-charcoal scale-105"
                   : "bg-black/60 hover:bg-black text-white hover:text-gold"
@@ -116,7 +116,7 @@ export default function ProductModal({
           </div>
 
           {/* Right Column: Details & Selection */}
-          <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between space-y-5">
+          <div className="md:w-1/2 p-4 sm:p-6 md:p-8 flex flex-col justify-between space-y-4 sm:space-y-5">
             <div className="space-y-4">
               <div>
                 <span className="text-xs font-sans uppercase font-bold tracking-widest text-gold block mb-1">
@@ -175,13 +175,13 @@ export default function ProductModal({
                   </button>
                 </div>
 
-                <div className="grid grid-cols-5 gap-1.5">
+                <div className="grid grid-cols-5 gap-1 sm:gap-1.5">
                   {sizes.map((s) => (
                     <button
                       key={s}
                       type="button"
                       onClick={() => setSelectedSize(s)}
-                      className={`h-11 rounded-xl text-xs font-sans transition-all border cursor-pointer flex items-center justify-center p-1 ${
+                      className={`h-10 sm:h-11 rounded-lg sm:rounded-xl text-[10.5px] xs:text-xs font-sans transition-all border cursor-pointer flex items-center justify-center p-0.5 sm:p-1 ${
                         selectedSize === s
                           ? "border-charcoal bg-charcoal text-paper-light font-bold shadow-sm"
                           : "border-sand/50 bg-paper hover:border-gold text-charcoal font-medium"
@@ -195,12 +195,12 @@ export default function ProductModal({
             </div>
 
             {/* Action Buttons */}
-            <div className="pt-3 border-t border-sand/30 space-y-2.5">
+            <div className="pt-3 border-t border-sand/30 space-y-2 sm:space-y-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom,0.75rem))] sm:pb-0">
               <button
                 type="button"
                 onClick={handleAdd}
                 disabled={!selectedSize}
-                className={`w-full py-3.5 rounded-2xl font-sans text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 ${
+                className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 ${
                   !selectedSize
                     ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
                     : "bg-gold hover:bg-[#B38F46] text-charcoal hover:text-white shadow-luxury cursor-pointer active:scale-[0.99]"
@@ -225,7 +225,7 @@ export default function ProductModal({
                 type="button"
                 onClick={handleBuyNow}
                 disabled={!selectedSize}
-                className={`w-full py-3.5 rounded-2xl font-sans text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 border ${
+                className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 border ${
                   !selectedSize
                     ? "bg-transparent text-charcoal-subtle/50 border-sand/30 cursor-not-allowed"
                     : "bg-charcoal text-paper-light hover:bg-black cursor-pointer shadow-sm hover:shadow-md"

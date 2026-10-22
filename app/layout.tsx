@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter, League_Spartan, Poppins, Outfit, Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { readPublicStore } from "@/lib/server/store-repository";
@@ -55,6 +55,14 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const dynamic = "force-dynamic";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: "#FAF7F2",
+};
 
 export const metadata: Metadata = {
   title: "BINDY. — Wear Your Calm, Feel Your Story | Luxury Australian-Sri Lankan Fashion",

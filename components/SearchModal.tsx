@@ -271,31 +271,31 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.97, y: -16, opacity: 0 }}
             transition={{ type: "spring", damping: 26, stiffness: 320 }}
-            className="w-full max-w-5xl bg-[#FAF7F2] border border-[#DCC7AF]/80 rounded-[28px] sm:rounded-[36px] shadow-[0_30px_90px_rgba(0,0,0,0.22)] flex flex-col overflow-hidden my-auto max-h-[92vh]"
+            className="w-full max-w-5xl bg-[#FAF7F2] border border-[#DCC7AF]/80 rounded-[24px] sm:rounded-[36px] shadow-[0_30px_90px_rgba(0,0,0,0.22)] flex flex-col overflow-hidden my-auto max-h-[92dvh] sm:max-h-[92vh]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* 1. TOP HEADER & HERO SEARCH CAPSULE */}
-            <div className="p-4 sm:p-6 lg:p-8 border-b border-[#DCC7AF]/60 bg-gradient-to-b from-white/95 to-[#FAF7F2]/90 backdrop-blur-md">
+            <div className="p-3.5 sm:p-6 lg:p-8 border-b border-[#DCC7AF]/60 bg-gradient-to-b from-white/95 to-[#FAF7F2]/90 backdrop-blur-md">
               
               {/* Top Row: Brand Label & Quick Close */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <span className="font-serif text-lg sm:text-xl text-[#1F1E1D] font-medium tracking-tight">
+              <div className="flex items-center justify-between mb-3.5 sm:mb-4">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="font-serif text-lg sm:text-xl text-[#1F1E1D] font-medium tracking-tight flex-shrink-0">
                     BINDY<span className="text-[#C5A059]">.</span>
                   </span>
-                  <span className="text-[#DCC7AF] text-sm">•</span>
-                  <span className="text-sm font-mono uppercase tracking-widest text-charcoal-subtle">
-                    Curated Catalogue &amp; Heritage Discoveries
+                  <span className="text-[#DCC7AF] text-sm hidden xs:inline">•</span>
+                  <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-charcoal-subtle hidden xs:inline truncate">
+                    Curated Catalogue
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-shrink-0">
                   <span className="hidden sm:inline-block px-2.5 py-1 rounded-lg bg-[#FAF7F2] border border-[#DCC7AF]/70 text-sm font-mono uppercase font-semibold tracking-wider text-charcoal-subtle">
                     ESC to close
                   </span>
                   <button
                     onClick={onClose}
-                    className="w-9 h-9 rounded-full bg-[#FAF7F2] hover:bg-[#1F1E1D] hover:text-white border border-[#DCC7AF] text-[#1F1E1D] transition-all flex items-center justify-center cursor-pointer shadow-sm"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF7F2] hover:bg-[#1F1E1D] hover:text-white border border-[#DCC7AF] text-[#1F1E1D] transition-all flex items-center justify-center cursor-pointer shadow-sm"
                     aria-label="Close search"
                   >
                     <X className="w-4 h-4" />
@@ -305,8 +305,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
               {/* Elevated Pill Search Container */}
               <form onSubmit={handleSearchSubmit} className="relative">
-                <div className="relative flex items-center rounded-2xl sm:rounded-3xl bg-white border border-[#DCC7AF] hover:border-[#C5A059] focus-within:border-[#C5A059] focus-within:ring-4 focus-within:ring-[#C5A059]/15 transition-all duration-300 shadow-sm px-4 sm:px-6 py-3.5 sm:py-4">
-                  <Search className="w-5 h-5 sm:w-6 sm:h-6 text-[#C5A059] flex-shrink-0 mr-3.5" />
+                <div className="relative flex items-center rounded-2xl sm:rounded-3xl bg-white border border-[#DCC7AF] hover:border-[#C5A059] focus-within:border-[#C5A059] focus-within:ring-4 focus-within:ring-[#C5A059]/15 transition-all duration-300 shadow-sm px-3.5 sm:px-6 py-2.5 sm:py-4">
+                  <Search className="w-4 h-4 sm:w-6 sm:h-6 text-[#C5A059] flex-shrink-0 mr-2.5 sm:mr-3.5" />
                   <input
                     ref={inputRef}
                     type="text"
@@ -315,8 +315,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       setQuery(e.target.value);
                       setSelectedCategoryFilter("All");
                     }}
-                    placeholder="Search dresses, handloom cotton, linen, stories, hues..."
-                    className="w-full bg-transparent font-serif text-lg sm:text-2xl text-[#1F1E1D] placeholder:text-charcoal-subtle/50 focus:outline-none tracking-normal"
+                    placeholder="Search dresses, handloom, linen, hues..."
+                    className="w-full bg-transparent font-serif text-base sm:text-2xl text-[#1F1E1D] placeholder:text-charcoal-subtle/50 focus:outline-none tracking-normal"
                   />
                   {query && (
                     <button
