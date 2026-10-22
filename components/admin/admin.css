@@ -8,3 +8,4 @@
 @media(prefers-reduced-motion:reduce){.admin-root *{animation:none!important;transition:none!important}}
 
 @media(max-width:800px){.admin-sidebar:not(.open){visibility:hidden}.admin-sidebar.open{visibility:visible}}
+.admin-btn.danger:hover{background:#fde8e3;border-color:#e4aca0;color:#8d3826}

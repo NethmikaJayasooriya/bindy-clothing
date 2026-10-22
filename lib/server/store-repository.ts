@@ -82,6 +82,21 @@ export async function mutateStore<T>(revision: number | undefined, description: 
     state.activity = state.activity.slice(0, 150);
     inMemoryStore = state;
     await atomicWrite(state);
+    // Background sync to Supabase (bindy schema)
+    import("./supabase-sync").then(({ syncStoreStateToSupabase, syncProductToSupabase, syncOrderToSupabase, deleteProductFromSupabase }) => {
+      syncStoreStateToSupabase(state).catch(() => {});
+      if (result && typeof result === "object") {
+        if ("deletedId" in result && typeof (result as any).deletedId === "string") {
+          deleteProductFromSupabase((result as any).deletedId).catch(() => {});
+        } else if ("deletedIds" in result && Array.isArray((result as any).deletedIds)) {
+          deleteProductFromSupabase((result as any).deletedIds).catch(() => {});
+        } else if ("stock" in result && "priceAud" in result) {
+          syncProductToSupabase(result as any).catch(() => {});
+        } else if ("number" in result && "items" in result) {
+          syncOrderToSupabase(result as any).catch(() => {});
+        }
+      }
+    }).catch(() => {});
     return { state, result };
   });
   queue = task.catch(() => {});

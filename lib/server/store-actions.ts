@@ -83,6 +83,19 @@ export function createOrder(state: StoreState, input: Input): StoreOrder {
 export function applyAction(state: StoreState, action: string, v: Input): unknown {
   switch (action) {
     case "save-product": return saveProduct(state, v);
+    case "delete-product": {
+      const id = required(v.id || v.slug, "Product ID");
+      const idx = state.products.findIndex(p => p.id === id);
+      if (idx === -1) throw new StoreError("Product not found.", 404);
+      const [removed] = state.products.splice(idx, 1);
+      return { deletedId: removed.id, deleted: true, name: removed.name };
+    }
+    case "delete-products": {
+      const ids = strings(v.ids, 200);
+      if (!ids.length) throw new StoreError("Select products to delete.");
+      state.products = state.products.filter(p => !ids.includes(p.id));
+      return { deletedIds: ids, deletedCount: ids.length };
+    }
     case "product-status": {
       const ids = strings(v.ids, 200); const status = choice(v.status, ["active", "draft", "archived"] as const, "status");
       if (!ids.length || ids.some(id => !state.products.some(p => p.id === id))) throw new StoreError("Select products to update.");
