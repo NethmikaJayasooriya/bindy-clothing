@@ -6,6 +6,7 @@
 - Saved store products, review photos and order thumbnails pass through the same media normalization, keeping gallery/zoom/caption indexes aligned. Old cart image URLs also resolve through the replacement map. No products, stock, prices, orders or customer records were deleted.
 - Generated responsive WebP derivatives for 238 referenced images, including 160px thumbnails and larger gallery/zoom variants. Original model photos remain intact. The 960px derivative totals are 22.9 MB versus 74.0 MB for their source files (69% less); this is an asset comparison, not a claim about a single page's transfer size.
 - Native image views use responsive `srcset`, appropriate sizes, asynchronous decoding and lazy loading. The active hero/product image loads eagerly. Hero slides warm progressively after the first photograph loads, and card video metadata no longer downloads upfront.
+- Campaign hero photos now have dedicated quality-90 WebP variants exported directly from the 4000 × 2252 client originals. Portrait phone crops preserve the full original height and focal point; landscape/desktop views retain the complete photograph. Cover-aware `sizes` accounts for image height and the opening slide's 70% phone height, preventing a small landscape variant from being stretched across a tall phone screen. CMS image/focal-point changes retain a full-image fallback.
 - Content-addressed derivative URLs have immutable one-year caching. Changing the source photo produces a new URL.
 - The intro uses transform/opacity animation and finishes within 1.95 seconds. It is claimed before playback and skipped on back navigation/reload in the same tab. A memory guard handles blocked storage; reduced-motion users skip it.
 - Product links warm on pointer/keyboard intent and have a route loading view and immediate progress feedback. Gallery arrows no longer wait through sequential fade animations. Add to Bag opens the cart immediately rather than after a 450ms delay. Hidden card actions cannot intercept mobile taps.
@@ -15,7 +16,9 @@
 
 ```powershell
 python scripts/optimize-images.py
+python scripts/prepare-hero-images.py
 node scripts/check-performance.cjs
+node scripts/check-hero-quality.cjs
 node output/review/check-product-consolidation.cjs
 $env:NEXT_BUILD_DIR='.next-performance'; npm run build
 $env:NEXT_BUILD_DIR='.next-performance'; npm run start -- -p 3001
@@ -27,6 +30,8 @@ The optimizer preserves source images, reuses already generated files, and write
 ## Validation
 
 - 18 media/session regression checks passed.
+- 19 hero asset checks passed, including native resolution, no upscaling, existing variants, responsive crop bounds and a 450 KB ceiling for each 1080px phone crop.
+- At a 390 × 844 browser viewport, the old garden hero selected a 640 × 360 landscape asset. The corrected version selected a 768 × 1024 portrait asset. All four phone slides loaded their dedicated crops; a 1440 × 900 viewport selected the full landscape source. These are browser viewport checks, not tests on physical phones.
 - Existing catalogue/cart/buy-now/wishlist consolidation checks passed.
 - Production build and type checking passed.
 - Five read-only production HTTP checks passed, including sanitized public data, rendered responsive images, immutable asset caching and a 404 for the retired mannequin photo.

@@ -46,3 +46,4 @@ output/release/
 output/security/
 output/performance/
 assets/client-source-documents/
+.next-images/

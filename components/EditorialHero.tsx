@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "@/components/ResponsiveImage";
+import HeroImage from "@/components/HeroImage";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useStorefront } from "@/components/StorefrontProvider";
@@ -46,7 +46,7 @@ export default function EditorialHero({ isSplashActive = false, onExploreCollect
       <div className={styles.photographs}>
         {chapters.map((item, index) => (
           <div key={item.id} className={`${styles.scene} ${index === active ? styles.activeScene : ""}`} aria-hidden={index !== active}>
-            {(index === active || (photoReady && index === (active + 1) % chapters.length)) && <Image src={item.image} alt={item.alt} loading={index === active ? "eager" : "lazy"} fetchPriority={index === active ? "high" : "low"} onLoad={() => { if(index === active) setPhotoReady(true); }} sizes="100vw" className={`absolute inset-0 h-full w-full ${styles.sceneImage}`} style={{ "--position": item.position, "--mobile-position": item.mobile } as React.CSSProperties} />}
+            {(index === active || (photoReady && index === (active + 1) % chapters.length)) && <HeroImage src={item.image} opening={index===0} mobilePosition={item.mobile} alt={item.alt} loading={index === active ? "eager" : "lazy"} fetchPriority={index === active ? "high" : "low"} onLoad={() => { if(index === active) setPhotoReady(true); }} className={`absolute inset-0 h-full w-full ${styles.sceneImage}`} style={{ "--position": item.position, "--mobile-position": item.mobile } as React.CSSProperties} />}
           </div>
         ))}
         <span className={styles.photoNote}>A BINDY MOMENT. BEAUTIFULLY YOURS.</span>
