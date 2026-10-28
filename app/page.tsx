@@ -23,8 +23,10 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { ambientPlayer } from "@/lib/ambientSound";
 import type { Destination } from "@/data/products";
+import { useStorefront } from "@/components/StorefrontProvider";
 
 export default function Home() {
+  const { homepage } = useStorefront();
   const [showSplash, setShowSplash] = useState(false);
   const [isSplashLifting, setIsSplashLifting] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -158,24 +160,16 @@ export default function Home() {
           onClearJourney={() => setSelectedJourney("All")}
         />
 
-        {/* ELEGANT DIVIDER BETWEEN BROWSE AND SPOTLIGHT */}
-        <ScrollReveal>
-          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <hr className="border-t border-sand/40 my-8 sm:my-12" />
-        </div>
-        </ScrollReveal>
-
-        {/* SECTION 3: THIS WEEK'S SPOTLIGHT (Curated Top Silhouettes + 1-Tap Size Add) */}
-        <DeferredSection><SpotlightSection
+        {homepage?.spotlight.published && <DeferredSection><SpotlightSection
           onSelectProduct={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
-        /></DeferredSection>
+        /></DeferredSection>}
 
         {/* SECTION 4: SHOP THE LOOK / EDITORIAL STYLING HOTSPOTS (AOV Bundle Booster) */}
-        <DeferredSection><ShopTheLookSection
+        {homepage?.shopTheLook.published && <DeferredSection><ShopTheLookSection
           onQuickView={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
-        /></DeferredSection>
+        /></DeferredSection>}
 
         <PublishedPromotions/>
 
@@ -184,9 +178,9 @@ export default function Home() {
           {/* SECTION 6: LOVED ACROSS AUSTRALIA — VERIFIED REVIEWS THAT SELL */}
 
           {/* SECTION 7: VIP FIRST-ORDER PRIVILEGE (Instant 10% Off Activation) */}
-          <ScrollReveal>
+          {homepage?.newsletter.published && <ScrollReveal>
             <DeferredSection><JourneySignup /></DeferredSection>
-          </ScrollReveal>
+          </ScrollReveal>}
 
           {/* SECTION 11: FOOTER (full sitemap) */}
           <ScrollReveal>

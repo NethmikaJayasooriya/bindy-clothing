@@ -47,3 +47,6 @@ output/security/
 output/performance/
 assets/client-source-documents/
 .next-images/
+
+.next-content/
+.store-content-qa/

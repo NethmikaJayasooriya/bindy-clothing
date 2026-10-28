@@ -1,0 +1,31 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),ts=require('typescript');
+const cache=new Map();function load(name){if(name==='server-only')return {};if(name==='react')return {cache:fn=>fn};if(name==='@/lib/supabase/server')return {getSupabaseAdmin:()=>null};let f=name.startsWith('@/')?path.join(process.cwd(),name.slice(2)):name;if(!path.isAbsolute(f))return require(f);if(!path.extname(f))f+='.ts';if(f.endsWith('.json'))return JSON.parse(fs.readFileSync(f,'utf8'));if(cache.has(f))return cache.get(f).exports;const m={exports:{}};cache.set(f,m);new Function('require','module','exports',ts.transpileModule(fs.readFileSync(f,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText)(s=>load(s.startsWith('.')?path.resolve(path.dirname(f),s):s),m,m.exports);return m.exports;}
+const repo=load('@/lib/server/store-repository'),{applyAction}=load('@/lib/server/store-actions'),{DEFAULT_HOMEPAGE}=load('@/lib/store-types'),{homepageProducts}=load('@/lib/homepage-content'),{phoneLink}=load('@/lib/contact-details');
+let checks=0;function check(name,fn){fn();checks++;console.log('PASS '+name);}
+const state=repo.seedStore(),ids=state.products.slice(0,3).map(p=>p.id),draft=structuredClone(DEFAULT_HOMEPAGE);
+check('Existing stores start with all optional sections hidden',()=>assert(Object.values(repo.publicStore(state).homepage).every(s=>!s.published)));
+draft.spotlight={published:false,title:'Private draft heading',description:'Private draft caption',eyebrow:'Studio picks',productIds:ids};
+applyAction(state,'homepage',{homepage:draft});
+check('Draft content is saved for the owner',()=>assert.equal(state.homepage.spotlight.title,'Private draft heading'));
+check('Draft headings, captions and product selections stay out of public data',()=>assert(!JSON.stringify(repo.publicStore(state).homepage).includes('Private draft')));
+const published=structuredClone(draft);published.spotlight.published=true;
+applyAction(state,'homepage',{homepage:published});
+check('Publishing displays exactly the selected products in selected order',()=>assert.deepEqual(repo.publicStore(state).homepage.spotlight.productIds,ids));
+check('Section products use live catalogue prices',()=>{const products=repo.publicStore(state).products;products.find(p=>p.id===ids[0]).priceAud=199;assert.equal(homepageProducts(ids,products)[0].priceAud,199);});
+check('Publishing without a heading is rejected',()=>{const value=structuredClone(published);value.spotlight.title=' ';assert.throws(()=>applyAction(state,'homepage',{homepage:value}));});
+check('Publishing an empty product section is rejected',()=>{const value=structuredClone(published);value.spotlight.productIds=[];assert.throws(()=>applyAction(state,'homepage',{homepage:value}));});
+check('Duplicate selections are rejected',()=>{const value=structuredClone(published);value.spotlight.productIds=[ids[0],ids[0]];assert.throws(()=>applyAction(state,'homepage',{homepage:value}));});
+check('Unknown products cannot be published',()=>{const value=structuredClone(published);value.spotlight.productIds=['not-a-real-product'];assert.throws(()=>applyAction(state,'homepage',{homepage:value}));});
+check('More than three spotlight products are rejected',()=>{const value=structuredClone(published);value.spotlight.productIds=[...ids,state.products[3].id];assert.throws(()=>applyAction(state,'homepage',{homepage:value}));});
+check('Shop the Look needs two products',()=>{const value=structuredClone(published);value.shopTheLook={...value.shopTheLook,published:true,title:'A look',productIds:[ids[0]]};assert.throws(()=>applyAction(state,'homepage',{homepage:value}));});
+const both=structuredClone(published);both.shopTheLook={published:true,title:'Owner look',description:'Owner caption',eyebrow:'',productIds:ids.slice(0,2)};both.newsletter={published:true,title:'Studio letters',description:'Subscribe for studio updates',eyebrow:'News',productIds:[]};applyAction(state,'homepage',{homepage:both});
+check('Custom looks and newsletter can publish together',()=>{const data=repo.publicStore(state).homepage;assert(data.shopTheLook.published&&data.newsletter.published);assert.equal(data.shopTheLook.title,'Owner look');});
+state.products[0].status='draft';
+check('Draft products are omitted and incomplete paired looks are hidden',()=>{const data=repo.publicStore(state).homepage;assert(!data.spotlight.productIds.includes(ids[0]));assert.equal(data.shopTheLook.published,false);});
+check('Publishing inactive products is rejected',()=>assert.throws(()=>applyAction(state,'homepage',{homepage:both})));
+state.products[0].status='active';applyAction(state,'homepage',{homepage:both});
+check('Hero changes preserve independently managed homepage sections',()=>{applyAction(state,'content',{hero:state.hero,pages:state.pages});assert.equal(state.homepage.shopTheLook.title,'Owner look');});
+const hidden=structuredClone(both);Object.values(hidden).forEach(s=>s.published=false);applyAction(state,'homepage',{homepage:hidden});
+check('Unpublishing hides sections while retaining editable drafts',()=>{assert(Object.values(repo.publicStore(state).homepage).every(s=>!s.published));assert.equal(state.homepage.shopTheLook.title,'Owner look');});
+check('Contact number displays locally and dials internationally',()=>{assert.equal(state.settings.phone,'0766655550');assert.equal(phoneLink(state.settings.phone),'tel:+94766655550');assert.equal(phoneLink('+61 400 123 456'),'tel:+61400123456');});
+console.log(checks+' homepage/contact checks passed.');

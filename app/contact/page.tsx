@@ -1,5 +1,6 @@
 "use client";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { phoneLink } from "@/lib/contact-details";
 
 import React, { useState, useEffect } from "react";
 import { Mail, MapPin, Phone, Send, Check, ChevronDown, Sparkles } from "lucide-react";
@@ -103,7 +104,7 @@ export default function ContactPage() {
               </p>
               <div className="pt-2 text-[11px] font-sans text-muted space-y-1">
                 <p>Hours: Monday – Friday, 9am – 5pm AEST</p>
-                <p><a href={`mailto:${settings.email}`}>{settings.email}</a></p>{settings.phone&&<p><a href={`tel:${settings.phone}`}>{settings.phone}</a></p>}
+                <p><a href={`mailto:${settings.email}`}>{settings.email}</a></p>{settings.phone&&<p><a href={phoneLink(settings.phone)}>{settings.phone}</a></p>}
               </div>
             </div>
 

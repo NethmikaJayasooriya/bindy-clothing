@@ -47,3 +47,11 @@ The old apex/www A record was `27.124.125.171`, TTL 300. Replace only the web re
 ## Vercel agent setup
 
 Official CLI installed globally (65.5.0), authenticated and linked to the existing project. The official Vercel plugin was installed in user scope; no standalone duplicate skill pack was installed. Shared MCP endpoint `https://mcp.vercel.com` was added to user Codex configuration and OAuth completed. The current chat must reload its tools before MCP `search_vercel_documentation` and authenticated `list_teams` can be verified. Keep human approval for MCP mutations.
+
+## Owner-managed homepage sections
+
+- Open **Admin → Store content → Homepage sections**. Product Spotlight, Shop the Look and Newsletter start hidden, including on stores created before these controls existed. There is no sample editorial copy to publish accidentally.
+- Enter a heading and optional label/caption. Select up to three products for Spotlight or exactly two for Shop the Look. Product images and prices come from the live catalogue.
+- Select **Publish this section**, then **Save homepage sections**. Uncheck and save to hide a section while retaining its draft. Draft copy is excluded from the public API; unpublished/inactive products cannot be promoted.
+- Phone details are managed in **Admin → Settings → Contact phone** and appear in the footer and Contact page. The supplied `0766655550` displays locally and dials as `+94766655550` for international visitors.
+- Validation: `node scripts/check-homepage.cjs` covers 17 content/contact cases. Isolated HTTP and browser checks verified owner authentication, save/publish, persistence after reload, unpublish, public rendering and anonymous write rejection. No test editorial content was published to production.

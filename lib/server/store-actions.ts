@@ -1,7 +1,7 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
 import { getCanonicalProductId } from "@/lib/products";
-import type { StoreState, StoreProduct, StoreOrder, Discount, Customer, StoreReturn } from "@/lib/store-types";
+import type { StoreState, StoreProduct, StoreOrder, Discount, Customer, StoreReturn, HomepageContent } from "@/lib/store-types";
 import { StoreError } from "./store-repository";
 import { expirePendingOrders } from "./payhere";
 type Input = Record<string, unknown>;
@@ -173,6 +173,26 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       s.freeShippingThreshold = number(v.freeShippingThreshold); s.standardShipping = number(v.standardShipping); s.expressShipping = number(v.expressShipping); s.returnsDays = integer(v.returnsDays, 365); s.lowStockThreshold = integer(v.lowStockThreshold, 1000); s.acceptingOrders = v.acceptingOrders === true;
       s.instagram = text(v.instagram, 300); if (s.instagram && !/^https:\/\/(www\.)?instagram\.com\//.test(s.instagram)) throw new StoreError("Use a full Instagram profile URL.");
       s.orderPrefix = required(v.orderPrefix, "Order prefix", 10).replace(/[^A-Za-z0-9]/g, "").toUpperCase(); if (!s.orderPrefix) throw new StoreError("Use letters or numbers for the order prefix."); return;
+    }
+    case "homepage": {
+      const input = object(v.homepage);
+      const homepage = {} as HomepageContent;
+      for (const key of ["spotlight", "shopTheLook", "newsletter"] as const) {
+        const section = object(input[key]);
+        const published = section.published === true;
+        const title = text(section.title, 100);
+        const productIds = key === "newsletter" ? [] : strings(section.productIds, key === "spotlight" ? 3 : 2);
+        if (new Set(productIds).size !== productIds.length) throw new StoreError("Choose each product only once in a section.");
+        if (productIds.some(id => !state.products.some(p => p.id === id && p.status !== "archived"))) throw new StoreError("A selected product is unavailable. Choose another product.");
+        if (published) {
+          if (!title) throw new StoreError("Add a heading before publishing a homepage section.");
+          if (key !== "newsletter" && productIds.length < (key === "shopTheLook" ? 2 : 1)) throw new StoreError(key === "shopTheLook" ? "Choose two products before publishing Shop the Look." : "Choose at least one spotlight product before publishing.");
+          if (productIds.some(id => !state.products.some(p => p.id === id && p.status === "active"))) throw new StoreError("Only active products can appear in a published section.");
+        }
+        homepage[key] = { published, title, eyebrow: text(section.eyebrow, 100), description: text(section.description, 500), productIds };
+      }
+      state.homepage = homepage;
+      return;
     }
     case "content": {
       if (!Array.isArray(v.hero) || !v.hero.length || v.hero.length > 8) throw new StoreError("Use between 1 and 8 hero slides.");

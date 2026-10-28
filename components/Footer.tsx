@@ -3,7 +3,8 @@ import { useStorefront } from "@/components/StorefrontProvider";
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Mail, Phone } from "lucide-react";
+import { phoneLink } from "@/lib/contact-details";
 import BrandLogo from "@/components/BrandLogo";
 
 export default function Footer() {
@@ -42,6 +43,7 @@ export default function Footer() {
                   </span>
                 </a>{settings.instagram&&<a href={settings.instagram} target="_blank" rel="noreferrer" className="block mt-3 text-xs underline">Follow BINDY on Instagram</a>}
               </p>
+              {settings.phone && <p><a href={phoneLink(settings.phone)} className="inline-flex items-center gap-2 text-charcoal/80 hover:text-[#8E6E34] transition-colors"><Phone className="w-3.5 h-3.5 text-[#8E6E34]/80"/><span className="underline decoration-sand/60 underline-offset-4">{settings.phone}</span></a></p>}
             </div>
           </div>
 

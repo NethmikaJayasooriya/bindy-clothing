@@ -3,9 +3,10 @@ import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Sparkles, ArrowRight, Check, ShoppingBag, Flame, Eye, Star } from "lucide-react";
+import { Sparkles, ArrowRight, Check, ShoppingBag, Eye, Star } from "lucide-react";
 import { useStorefront } from "@/components/StorefrontProvider";
-import { getFeaturedSpotlightProducts, type Product } from "@/data/products";
+import { type Product } from "@/data/products";
+import { homepageProducts } from "@/lib/homepage-content";
 import { addToCart } from "@/lib/cart";
 import { SectionHeading } from "@/components/ui";
 
@@ -18,8 +19,9 @@ export default function SpotlightSection({
   onSelectProduct,
   onAddToCart,
 }: SpotlightSectionProps) {
-  const { products } = useStorefront();
-  const spotlightProducts = products.slice(0, 3);
+  const { products, homepage } = useStorefront();
+  const content = homepage?.spotlight;
+  const spotlightProducts = homepageProducts(content?.productIds ?? [], products);
   const heroProduct = spotlightProducts[0];
   const sideProducts = spotlightProducts.slice(1);
 
@@ -36,7 +38,7 @@ export default function SpotlightSection({
     setTimeout(() => setAddedId(null), 2000);
   };
 
-  if (!heroProduct) return null;
+  if (!content?.published || !heroProduct) return null;
 
   return (
     <section className="relative pt-6 pb-16 sm:pt-12 sm:pb-28 px-3 sm:px-6 lg:px-8 border-b border-[#DCC7AF]/50 bg-gradient-to-b from-[#FAF7F2] via-white to-[#FAF7F2]">
@@ -45,11 +47,10 @@ export default function SpotlightSection({
         {/* Section Header */}
         <SectionHeading
           align="left"
-          eyebrow="The Real Life Edit • BINDY"
+          eyebrow={content.eyebrow}
           eyebrowIcon={<Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />}
-          title="This Week's Spotlight"
-          italicWord="Spotlight"
-          description="Three favourite pieces, photographed in the moments they were made for."
+          title={content.title}
+          description={content.description}
           action={
             <a
               href="#browse-collection"
@@ -83,14 +84,6 @@ export default function SpotlightSection({
                 />
               )}
 
-              {/* Bestseller Ribbon */}
-              <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 flex flex-col gap-1">
-                <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#1F1E1D] text-white text-xs sm:text-sm font-mono uppercase font-semibold tracking-wider font-bold shadow-md flex items-center gap-1">
-                  <Flame className="w-3 h-3 text-[#C5A059]" />
-                  <span>Signature Hero</span>
-                </span>
-              </div>
-
               {/* Quick Inspect Button */}
               <button
                 type="button"
@@ -110,7 +103,7 @@ export default function SpotlightSection({
                   {heroProduct.reviews.length > 0 ? <div className="flex items-center gap-1 text-[#1F1E1D]">
                     <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-[#C5A059] text-[#C5A059]" />
                     <span>{(heroProduct.reviews.reduce((sum, review) => sum + review.rating, 0) / heroProduct.reviews.length).toFixed(1)} ({heroProduct.reviews.length} reviews)</span>
-                  </div> : <span className="text-[9px] text-[#78716A]">Campaign favourite</span>}
+                  </div> : <span className="text-[9px] text-[#78716A]">Selected piece</span>}
                 </div>
 
                 <Link
@@ -129,7 +122,7 @@ export default function SpotlightSection({
                     ${heroProduct.priceAud} AUD
                   </span>
                   <span className="block text-[11px] sm:text-xs font-mono text-charcoal-subtle uppercase tracking-wider mt-0.5">
-                    {heroProduct.fabric} • Carbon-Neutral AU Shipping
+                    {heroProduct.fabric}
                   </span>
                 </div>
               </div>
@@ -182,7 +175,7 @@ export default function SpotlightSection({
                   ) : (
                     <>
                       <ShoppingBag className="w-4 h-4" />
-                      <span>Add Signature to Bag</span>
+                      <span>Add to Bag</span>
                     </>
                   )}
                 </button>
