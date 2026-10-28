@@ -1,7 +1,14 @@
 import "server-only";
+import { cache } from "react";
+import { cleanProductMedia, currentImageSource } from "@/lib/product-media";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
+import { hasDatabase, productionStorageRequired, readDocument, writeDocument } from "./durable-storage";
+import { RequestError as StoreError } from "./request-security";
+import { publishedPromotions } from "@/lib/promotions";
+import { payhereMode,payhereReady } from "./payhere";
+export { RequestError as StoreError } from "./request-security";
 import { PRODUCTS } from "@/data/products";
 import { DEFAULT_HERO, DEFAULT_SETTINGS, type StoreState, type StoreProduct, type PublicStore, type PublicProduct } from "@/lib/store-types";
 
@@ -15,7 +22,6 @@ export const STORE_DIR = path.resolve(
 const FILE = path.join(STORE_DIR, "store.json");
 let queue: Promise<unknown> = Promise.resolve();
 let inMemoryStore: StoreState | null = null;
-export class StoreError extends Error { constructor(message: string, public status = 400) { super(message); } }
 export function seedStore(): StoreState {
   const now = new Date().toISOString();
   return { version: 1, revision: 0, products: PRODUCTS.map((p, i) => {
@@ -35,19 +41,26 @@ async function atomicWrite(state: StoreState) {
     const tmp = path.join(STORE_DIR, `store-${randomUUID()}.tmp`);
     await fs.writeFile(tmp, JSON.stringify(state, null, 2), { mode: 0o600 });
     await fs.rename(tmp, FILE);
-  } catch (err) {
-    console.warn("[store-repository] atomicWrite failed (read-only filesystem or permissions):", err);
-  }
+  } catch { throw new StoreError("Store data could not be saved. Please try again.",503); }
 }
 let initializing: Promise<void> | undefined;
+function cleanStoreMedia(state: StoreState): StoreState {
+  return {...state, products:state.products.map(cleanProductMedia), media:state.media.filter(m=>currentImageSource(m.url)===m.url), orders:state.orders.map(o=>({...o,items:o.items.map(i=>({...i,image:currentImageSource(i.image)}))}))};
+}
 export async function readStore(): Promise<StoreState> {
-  if (inMemoryStore) return inMemoryStore;
+  if (hasDatabase()) {
+    const document = await readDocument<StoreState>("store");
+    return cleanStoreMedia(document ? {...document.value, revision:document.revision} : seedStore());
+  }
+  // Serverless writes must never use ephemeral disk. Catalogue stays available during setup.
+  if (productionStorageRequired()) return cleanStoreMedia(seedStore());
+  if (inMemoryStore) return cleanStoreMedia(inMemoryStore);
   try {
     const state = JSON.parse(await fs.readFile(FILE, "utf8"));
-    return { ...state, messages: state.messages ?? [], subscribers: state.subscribers ?? [] };
+    return cleanStoreMedia({ ...state, messages: state.messages ?? [], subscribers: state.subscribers ?? [] });
   } catch (error) {
     const isEnoent = (error as NodeJS.ErrnoException).code === "ENOENT";
-    if (!isEnoent) console.warn("[store-repository] Error reading store from disk:", error);
+    if (!isEnoent) throw new StoreError("Store data could not be read. Restore or check the server backup before continuing.",503);
     const seeded = seedStore();
     try {
       if (!initializing) {
@@ -64,7 +77,7 @@ export async function readStore(): Promise<StoreState> {
       }
       await initializing;
       const data = await fs.readFile(FILE, "utf8");
-      return JSON.parse(data);
+      return cleanStoreMedia(JSON.parse(data));
     } catch {
       // In read-only or serverless environments where writing fails, fallback to inMemoryStore
       inMemoryStore = seeded;
@@ -74,41 +87,30 @@ export async function readStore(): Promise<StoreState> {
 }
 export async function mutateStore<T>(revision: number | undefined, description: string, mutate: (state: StoreState) => T | Promise<T>): Promise<{ state: StoreState; result: T }> {
   const task = queue.then(async () => {
-    const state = await readStore();
+    if (!hasDatabase() && productionStorageRequired()) throw new StoreError("Checkout and store updates are unavailable until the database is configured.",503);
+    const state = structuredClone(await readStore());
+    const previousRevision = state.revision;
     if (revision !== undefined && revision !== state.revision) throw new StoreError("This page is out of date. Your latest store data has been loaded; please try again.", 409);
     const result = await mutate(state);
     state.revision++; state.updatedAt = new Date().toISOString();
     state.activity.unshift({ id: randomUUID(), description, createdAt: state.updatedAt });
     state.activity = state.activity.slice(0, 150);
-    inMemoryStore = state;
-    await atomicWrite(state);
-    // Background sync to Supabase (bindy schema)
-    import("./supabase-sync").then(({ syncStoreStateToSupabase, syncProductToSupabase, syncOrderToSupabase, deleteProductFromSupabase }) => {
-      syncStoreStateToSupabase(state).catch(() => {});
-      if (result && typeof result === "object") {
-        if ("deletedId" in result && typeof (result as any).deletedId === "string") {
-          deleteProductFromSupabase((result as any).deletedId).catch(() => {});
-        } else if ("deletedIds" in result && Array.isArray((result as any).deletedIds)) {
-          deleteProductFromSupabase((result as any).deletedIds).catch(() => {});
-        } else if ("stock" in result && "priceAud" in result) {
-          syncProductToSupabase(result as any).catch(() => {});
-        } else if ("number" in result && "items" in result) {
-          syncOrderToSupabase(result as any).catch(() => {});
-        }
-      }
-    }).catch(() => {});
+    if (hasDatabase()) {
+      if (!await writeDocument("store",state,previousRevision)) throw new StoreError("The store changed while saving. Please try again.",409);
+    } else { await atomicWrite(state); inMemoryStore=state; }
     return { state, result };
   });
   queue = task.catch(() => {});
   return task;
 }
 export function publicStore(state: StoreState): PublicStore {
-  return { revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: state.settings,
+  const paymentEnabled=hasDatabase()&&payhereReady();
+  return { revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: {...state.settings,acceptingOrders:state.settings.acceptingOrders&&paymentEnabled},promotions:publishedPromotions(state),payments:{enabled:paymentEnabled,mode:payhereMode()},
     products: state.products.filter(p => p.status === "active").map((p): PublicProduct => {
       const { sku, costAud, status, featured, updatedAt, lowStockThreshold, ...product } = p;
       const total = Object.values(p.stock).reduce((sum, n) => sum + n, 0);
       return { ...product, inventoryCount: total, inventoryStatus: total === 0 ? "sold_out" : total <= p.lowStockThreshold ? "low_stock" : "in_stock" };
     }).sort((a, b) => Number(state.products.find(p => p.id === b.id)?.featured) - Number(state.products.find(p => p.id === a.id)?.featured)) };
 }
-export async function readPublicStore() { return publicStore(await readStore()); }
+export const readPublicStore = cache(async () => publicStore(await readStore()));
 export function productTotal(p: StoreProduct) { return Object.values(p.stock).reduce((sum, n) => sum + n, 0); }

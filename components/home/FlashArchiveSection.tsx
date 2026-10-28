@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect } from "react";
@@ -246,7 +247,7 @@ export default function FlashArchiveSection({
                 <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-[#1D1C1A] mb-5 border border-white/10 group-hover:border-[#C5A059]/40 transition-colors">
                   {/* Primary Image */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <ResponsiveImage
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:opacity-0"
@@ -255,7 +256,7 @@ export default function FlashArchiveSection({
                   {/* Secondary Image Reveal on Hover */}
                   {product.imageHover && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img
+                    <ResponsiveImage
                       src={product.imageHover}
                       alt={`${product.name} alternate`}
                       className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-105"

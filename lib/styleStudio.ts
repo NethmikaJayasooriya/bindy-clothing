@@ -21,7 +21,7 @@ export interface StudioPiece extends Product {
   isSplit: boolean;        // true when derived from a two-piece set
 }
 
-const BUNDLE_RATE = 0.1;   // 10% off when two pieces are bought as a styled set
+const BUNDLE_RATE = 0; // Promotions are applied and validated at checkout.
 
 /* ------------------------------------------------------------------ */
 /* Piece derivation                                                    */

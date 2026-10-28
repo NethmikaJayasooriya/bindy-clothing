@@ -56,7 +56,10 @@ export function getAccount(): UserAccount | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = window.localStorage.getItem(ACCOUNT_KEY);
-    return raw ? (JSON.parse(raw) as UserAccount) : null;
+    if(!raw)return null;
+    const account=JSON.parse(raw) as UserAccount;
+    if("password" in account){delete account.password;window.localStorage.setItem(ACCOUNT_KEY,JSON.stringify(account));}
+    return account;
   } catch {
     return null;
   }
@@ -65,6 +68,7 @@ export function getAccount(): UserAccount | null {
 export function saveAccount(account: UserAccount): void {
   if (typeof window === "undefined") return;
   try {
+    account={...account}; delete account.password;
     if (!account.memberSince) {
       account.memberSince = new Date().toLocaleDateString("en-AU", {
         month: "long",

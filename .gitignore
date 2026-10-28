@@ -34,3 +34,15 @@ public/uploads/
 .store-qa/
 .next-admin-check/
 .next-admin-qa/
+
+.next-performance/
+.vercel
+.env*
+
+.next-release/
+!.env.example
+supabase/.temp/
+output/release/
+output/security/
+output/performance/
+assets/client-source-documents/

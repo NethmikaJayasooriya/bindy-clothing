@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -85,7 +86,7 @@ export default function ProductModal({
 
           {/* Left Column: Image */}
           <div className="md:w-1/2 relative h-56 xs:h-64 sm:h-80 md:h-auto md:min-h-[500px] bg-paper-dark flex-shrink-0">
-            <img
+            <ResponsiveImage
               src={product.image}
               alt={product.name}
               className="w-full h-full object-cover object-center"

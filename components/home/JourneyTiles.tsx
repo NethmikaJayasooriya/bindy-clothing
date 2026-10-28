@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React from "react";
 import Link from "next/link";
@@ -93,7 +94,7 @@ export default function JourneyTiles({
                 }`}
               >
                 {/* Background Image */}
-                <img
+                <ResponsiveImage
                   src={DEST_IMAGES[destKey]}
                   alt={meta?.label || destKey}
                   loading="lazy"

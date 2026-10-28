@@ -4,14 +4,18 @@ import path from "node:path";
 import { scryptSync, timingSafeEqual, randomBytes, createHash } from "node:crypto";
 import { cookies } from "next/headers";
 import { STORE_DIR, StoreError } from "./store-repository";
+import { hasDatabase, productionStorageRequired, readDocument, writeDocument } from "./durable-storage";
+import { rateLimit } from "./request-security";
 
 const FILE = path.join(STORE_DIR, "owner.json");
 export const COOKIE = "bindy_admin_session";
-interface Owner { name: string; email: string; salt: string; passwordHash: string; sessions: { hash: string; expires: number }[] }
+interface Owner { name: string; email: string; salt: string; passwordHash: string; sessions: { hash: string; expires: number }[]; revision?:number }
 let authQueue: Promise<unknown> = Promise.resolve();
 const digest = (value: string) => createHash("sha256").update(value).digest("hex");
 let memoryOwner: Owner | null = null;
 async function readOwner(): Promise<Owner | null> {
+  if (hasDatabase()) { const doc=await readDocument<Owner>("owner"); return doc?{...doc.value,revision:doc.revision}:null; }
+  if (productionStorageRequired()) throw new StoreError("Admin access requires the production database to be configured.",503);
   try { return JSON.parse(await fs.readFile(FILE, "utf8")); }
   catch (e) {
     if ((e as NodeJS.ErrnoException).code === "ENOENT") return memoryOwner;
@@ -20,19 +24,19 @@ async function readOwner(): Promise<Owner | null> {
   }
 }
 async function writeOwner(owner: Owner) {
-  memoryOwner = owner;
+  if (hasDatabase()) { if(!await writeDocument("owner",owner,owner.revision??0)) throw new StoreError("Your account was updated in another session. Please retry.",409); return; }
+  if (productionStorageRequired()) throw new StoreError("Admin access requires durable storage.",503);
   try {
     await fs.mkdir(STORE_DIR, { recursive: true });
     const tmp = path.join(STORE_DIR, `owner-${randomBytes(12).toString("hex")}.tmp`);
     await fs.writeFile(tmp, JSON.stringify(owner), { mode: 0o600 });
     await fs.rename(tmp, FILE);
-  } catch (err) {
-    console.warn("[admin-auth] Could not persist owner to disk:", err);
-  }
+    memoryOwner = owner;
+  } catch { throw new StoreError("Your account could not be saved.",503); }
 }
 function locked<T>(fn: () => Promise<T>): Promise<T> { const task = authQueue.then(fn); authQueue = task.catch(() => {}); return task; }
 export async function sessionOwner() {
-  const owner = await readOwner(); const token = cookies().get(COOKIE)?.value;
+  const owner = await readOwner(); const token = (await cookies()).get(COOKIE)?.value;
   if (!owner || !token || !owner.sessions.some(s => s.hash === digest(token) && s.expires > Date.now())) return null;
   return { name: owner.name, email: owner.email };
 }
@@ -44,11 +48,13 @@ export function checkOrigin(request: Request) {
 }
 const attempts = new Map<string, { count: number; until: number }>();
 export async function signIn(email: string, password: string, key: string) {
+  await rateLimit("admin-login",key,5,900);
   return locked(async () => {
     const limit = attempts.get(key);
     if (limit && limit.until > Date.now() && limit.count >= 5) throw new StoreError("Too many attempts. Try again in 15 minutes.", 429);
     const owner = await readOwner();
-    const valid = owner && email.toLowerCase() === owner.email && timingSafeEqual(scryptSync(password, owner.salt, 64), Buffer.from(owner.passwordHash, "hex"));
+    const candidate=scryptSync(password,owner?.salt??"bindy-invalid-login",64);
+    const valid = owner && timingSafeEqual(candidate,Buffer.from(owner.passwordHash,"hex")) && email.toLowerCase() === owner.email;
     if (!valid) { attempts.set(key, { count: limit && limit.until > Date.now() ? limit.count + 1 : 1, until: Date.now() + 15 * 60000 }); throw new StoreError("The email or password is incorrect.", 401); }
     attempts.delete(key); return issueSession(owner);
   });
@@ -69,7 +75,7 @@ export async function setupOwner(input: { name: string; email: string; password:
     return issueSession({ name: input.name.trim(), email: input.email.trim().toLowerCase(), salt, passwordHash: scryptSync(input.password, salt, 64).toString("hex"), sessions: [] });
   });
 }
-export async function signOut() { return locked(async () => { const owner = await readOwner(); const token = cookies().get(COOKIE)?.value; if (owner && token) { owner.sessions = owner.sessions.filter(s => s.hash !== digest(token)); await writeOwner(owner); } }); }
+export async function signOut() { return locked(async () => { const owner = await readOwner(); const token = (await cookies()).get(COOKIE)?.value; if (owner && token) { owner.sessions = owner.sessions.filter(s => s.hash !== digest(token)); await writeOwner(owner); } }); }
 export async function changePassword(current: string, next: string) {
   await requireAdmin();
   return locked(async () => {

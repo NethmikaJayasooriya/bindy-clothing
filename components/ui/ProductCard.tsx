@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -108,7 +109,7 @@ export default function ProductCard({
       >
         <Link href={`/product/${product.id}`} className="block absolute inset-0" aria-label={`View ${product.name}`}>
           {/* Primary image (Always present underneath as solid base — prevents any blank/flash) */}
-          <img
+          <ResponsiveImage
             src={product.image}
             alt={product.name}
             loading="lazy"
@@ -125,7 +126,7 @@ export default function ProductCard({
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               aria-hidden
               onPlaying={() => {
                 if (isHoveredRef.current) setIsVideoPlaying(true);
@@ -141,8 +142,8 @@ export default function ProductCard({
             />
           ) : (
             /* Fallback secondary image only if product has no videoHover */
-            product.imageHover && (
-              <img
+            product.imageHover && isCardHovered && (
+              <ResponsiveImage
                 src={product.imageHover}
                 alt={`${product.name} alternate view`}
                 loading="lazy"
@@ -200,7 +201,7 @@ export default function ProductCard({
         </div>
 
         {/* Hover Quick Size Selector Drawer (Box Style) */}
-        <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-auto bg-white/95 backdrop-blur-md p-2.5 sm:p-3 border-t border-[#DCC7AF]/80 shadow-lg flex flex-col gap-1.5 z-20">
+        <div className="product-quick-actions absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150 pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto bg-white/95 backdrop-blur-md p-2.5 sm:p-3 border-t border-[#DCC7AF]/80 shadow-lg flex flex-col gap-1.5 z-20">
           <div className="flex items-center justify-between px-0.5 text-[10.5px] sm:text-xs font-sans">
             <span className="uppercase tracking-[0.14em] text-charcoal-subtle font-semibold">Quick Add:</span>
             {onQuickView && (
@@ -297,12 +298,7 @@ export default function ProductCard({
                 New arrival
               </span>
             )}
-            {product.id.includes("lotus") || product.id.includes("cinnamon") ? (
-              <span className="flex items-center gap-1 text-[10px] sm:text-[10.5px] font-sans uppercase tracking-wider text-[#A46446] font-medium">
-                <Flame className="w-2.5 h-2.5 fill-[#A46446]" />
-                <span>Bestseller</span>
-              </span>
-            ) : null}
+
           </div>
         </div>
 

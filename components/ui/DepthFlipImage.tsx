@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import gsap from "gsap";
@@ -265,7 +266,7 @@ export default function DepthFlipImage({
               className="absolute inset-0 w-full h-full overflow-hidden"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <img
+              <ResponsiveImage
                 src={currentImage}
                 alt={`${alt} slice ${index + 1}`}
                 style={innerImageStyle}
@@ -288,7 +289,7 @@ export default function DepthFlipImage({
               className="absolute inset-0 w-full h-full overflow-hidden"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <img
+              <ResponsiveImage
                 src={nextImage}
                 alt={`${alt} next slice ${index + 1}`}
                 style={innerImageStyle}

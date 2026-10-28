@@ -1,0 +1,3 @@
+export default function ProductLoading() {
+  return <main aria-busy="true" aria-label="Opening product" className="min-h-screen bg-paper px-5 py-8 sm:px-10"><div className="h-12 border-b border-sand/40"><span className="font-logo text-3xl font-bold">bindy.</span></div><div className="mx-auto mt-12 grid max-w-7xl gap-8 lg:grid-cols-2"><div className="aspect-[3/4] max-h-[76vh] rounded-3xl bg-[#eee8df] animate-pulse"/><div className="space-y-7 py-4"><div className="h-3 w-32 rounded bg-sand/40"/><div className="h-12 w-4/5 rounded bg-sand/40"/><div className="h-6 w-24 rounded bg-sand/40"/><div className="h-20 rounded bg-sand/20"/><p className="text-sm text-muted" role="status">Opening your piece…</p></div></div></main>;
+}

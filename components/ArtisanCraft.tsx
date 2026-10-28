@@ -78,7 +78,7 @@ export default function ArtisanCraft() {
         </div>
 
         {/* ── 3. HOMEPAGE TRUST SIGNAL (Connected to live review system) ── */}
-        <div className="mt-20 pt-10 border-t border-sand/30 text-center space-y-2.5">
+        {totalReviews>0&&<div className="mt-20 pt-10 border-t border-sand/30 text-center space-y-2.5">
           <p className="font-serif italic text-lg sm:text-xl text-charcoal font-light tracking-wide">
             Loved by customers across Australia
           </p>
@@ -92,7 +92,7 @@ export default function ArtisanCraft() {
               {averageRating} ★ <span className="text-charcoal-subtle font-normal">· Based on {totalReviews} verified customer reviews</span>
             </span>
           </div>
-        </div>
+        </div>}
       </div>
     </section>
   );

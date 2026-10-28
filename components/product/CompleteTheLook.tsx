@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState } from "react";
@@ -84,7 +85,7 @@ export default function CompleteTheLook({
                 {/* Current Product */}
                 <div className="flex items-center gap-3">
                   <div className="w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden bg-paper-dark shrink-0 border border-sand/40">
-                    <img
+                    <ResponsiveImage
                       src={currentProduct.image}
                       alt={currentProduct.name}
                       className="w-full h-full object-cover"
@@ -114,7 +115,7 @@ export default function CompleteTheLook({
                   className="flex items-center gap-3 group"
                 >
                   <div className="w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden bg-paper-dark shrink-0 border border-sand/40 group-hover:border-gold transition-colors">
-                    <img
+                    <ResponsiveImage
                       src={pairedProduct.image}
                       alt={pairedProduct.name}
                       className="w-full h-full object-cover"
@@ -174,7 +175,7 @@ export default function CompleteTheLook({
               className="group flex flex-col bg-paper-light rounded-3xl overflow-hidden border border-sand/40 hover:border-gold/60 transition-all p-4 shadow-paper-card hover:shadow-luxury"
             >
               <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-paper-dark mb-4">
-                <img
+                <ResponsiveImage
                   src={p.image}
                   alt={p.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"

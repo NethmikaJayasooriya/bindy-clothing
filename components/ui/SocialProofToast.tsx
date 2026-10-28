@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -126,7 +127,7 @@ export default function SocialProofToast() {
               href={current.href}
               className="relative w-12 h-14 sm:w-13 sm:h-15 rounded-xl overflow-hidden bg-black/40 flex-shrink-0 border border-white/15 block group-hover:border-[#C5A059] transition-colors"
             >
-              <img
+              <ResponsiveImage
                 src={current.image}
                 alt={current.item}
                 loading="lazy"

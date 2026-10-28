@@ -1,3 +1,4 @@
+import ResponsiveImage from "@/components/ResponsiveImage";
 import React from "react";
 import { Star, Camera, Heart, Sparkles, Quote } from "lucide-react";
 import { PRESS_QUOTES, UGC_POSTS } from "@/data/socialProof";
@@ -84,7 +85,7 @@ export default function SocialProofStrip() {
                 key={post.id}
                 className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-paper-dark border border-sand/40 shadow-sm"
               >
-                <img
+                <ResponsiveImage
                   src={post.image}
                   alt={post.garment}
                   loading="lazy"

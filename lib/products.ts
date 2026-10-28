@@ -1,5 +1,6 @@
 // Central catalogue for the BINDY — Serendipity collection.
 // One shared source of truth for the shop grid, quick-view modal and product pages.
+import { cleanProductMedia } from "@/lib/product-media";
 import realProductPhotos from "@/data/real-product-photos.json";
 
 export type Category =
@@ -121,7 +122,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Textured Cotton Crinkle",
     priceAud: 175,
     image: "/images/customer-capsule/editorial/ivory-tiered-maxi-skirt.webp",
-    detailImages: ["/images/customer-capsule/source/ivory-tiered-maxi-skirt-detail.jpg"],
+    detailImages: ["/images/bindi-real/ivory-tiered-maxi-skirt-03.webp"],
     description: "A drawstring maxi skirt with three softly gathered tiers and delicate lettuce-edge seams.",
     craftDetails: ["Flexible drawstring waist", "Three full movement tiers", "Fine lettuce-edge seam finish"],
     styleWith: ["cacao-satin-cami", "pearl-lace-blouse"],
@@ -138,7 +139,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Cotton Poplin with Cutwork Lace",
     priceAud: 145,
     image: "/images/customer-capsule/editorial/ivory-eyelet-mini-skirt.webp",
-    detailImages: ["/images/customer-capsule/source/ivory-eyelet-mini-skirt-detail.jpg"],
+    detailImages: ["/images/bindi-real/ivory-eyelet-mini-skirt-03.webp"],
     description: "A breezy gathered mini finished with a wide floral eyelet-cutwork hem.",
     craftDetails: ["Comfort gathered waistband", "Wide floral cutwork border", "Soft cotton lining"],
     styleWith: ["rose-stripe-shirt", "botanic-rose-cami"],
@@ -155,7 +156,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Fluid Plant-Based Satin",
     priceAud: 125,
     image: "/images/customer-capsule/editorial/cacao-satin-cami.webp",
-    detailImages: ["/images/customer-capsule/source/cacao-satin-cami-styled.jpg"],
+    detailImages: ["/images/bindi-real/cacao-satin-cami-03.webp"],
     description: "A fluid V-neck camisole with fine straps and a relaxed light-catching drape.",
     craftDetails: ["Fine adjustable straps", "Soft V neckline", "French-seamed interior"],
     styleWith: ["ivory-tiered-maxi-skirt", "gingham-wander-maxi-skirt"],
@@ -172,7 +173,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Printed Cotton Sateen",
     priceAud: 185,
     image: "/images/customer-capsule/editorial/botanic-rose-trousers.webp",
-    detailImages: ["/images/customer-capsule/source/botanic-rose-trousers-detail.jpg", "/images/customer-capsule/source/botanic-rose-cami-styled.jpg"],
+    detailImages: ["/images/bindi-real/botanic-rose-trousers-02.webp", "/images/bindi-real/botanic-rose-cami-02.webp"],
     description: "High-waisted wide-leg trousers in a deep forest botanical print with dusty-rose blooms.",
     craftDetails: ["High tailored waistband", "Relaxed wide leg", "Exclusive botanical placement print"],
     styleWith: ["botanic-rose-cami", "moonflower-halter-top"],
@@ -189,7 +190,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Lightweight Striped Cotton",
     priceAud: 155,
     image: "/images/customer-capsule/editorial/rose-stripe-shirt.webp",
-    detailImages: ["/images/customer-capsule/source/rose-stripe-shirt-detail.jpg"],
+    detailImages: ["/images/customer-capsule/editorial/rose-stripe-shirt-back.webp"],
     description: "An airy long-sleeve button shirt with a relaxed body, pointed collar and curved hem.",
     craftDetails: ["Relaxed oversized cut", "Shell-style button front", "Curved shirt-tail hem"],
     styleWith: ["ivory-eyelet-mini-skirt", "midnight-flow-maxi-skirt"],
@@ -206,7 +207,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Embroidered Cotton Voile",
     priceAud: 165,
     image: "/images/customer-capsule/editorial/moonflower-halter-top.webp",
-    detailImages: ["/images/customer-capsule/source/moonflower-halter-styled.jpg"],
+    detailImages: ["/images/bindi-real/moonflower-halter-top-03.webp"],
     description: "A deep-V halter top with tonal floral embroidery, waist tie and a soft two-tier peplum.",
     craftDetails: ["Tonal floral embroidery", "Adjustable halter and waist ties", "Soft gathered peplum tiers"],
     styleWith: ["botanic-rose-trousers", "midnight-flow-maxi-skirt"],
@@ -223,7 +224,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Printed Cotton Poplin",
     priceAud: 150,
     image: "/images/customer-capsule/editorial/sunlit-paisley-shirt.webp",
-    detailImages: ["/images/customer-capsule/source/sunlit-paisley-coord-detail.jpg"],
+    detailImages: ["/images/customer-capsule/editorial/sunlit-paisley-shirt-back.webp"],
     description: "A relaxed short-sleeve resort shirt in a butter-yellow and lagoon-blue paisley print.",
     craftDetails: ["Relaxed boxy fit", "Pointed collar", "Matched print button placket"],
     styleWith: ["sunlit-paisley-shorts", "ivory-tiered-maxi-skirt"],
@@ -240,7 +241,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Printed Cotton Poplin",
     priceAud: 130,
     image: "/images/customer-capsule/editorial/sunlit-paisley-shorts.webp",
-    detailImages: ["/images/customer-capsule/source/sunlit-paisley-coord-detail.jpg"],
+    detailImages: ["/images/customer-capsule/editorial/sunlit-paisley-shirt-back.webp"],
     description: "Easy tailored resort shorts in the signature butter-yellow and lagoon paisley print.",
     craftDetails: ["Relaxed tailored leg", "Comfort waistband", "Practical side pockets"],
     styleWith: ["sunlit-paisley-shirt", "cacao-satin-cami"],
@@ -257,7 +258,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Printed Cotton Sateen",
     priceAud: 135,
     image: "/images/customer-capsule/editorial/botanic-rose-cami.webp",
-    detailImages: ["/images/customer-capsule/source/botanic-rose-cami-styled.jpg"],
+    detailImages: ["/images/bindi-real/botanic-rose-cami-02.webp"],
     description: "A relaxed V-neck camisole in the signature forest botanical print with rose-pink blooms.",
     craftDetails: ["Fine shoulder straps", "Soft V neckline", "Exclusive botanical placement print"],
     styleWith: ["botanic-rose-trousers", "ivory-eyelet-mini-skirt"],
@@ -274,7 +275,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Hand-Crocheted Cotton",
     priceAud: 120,
     image: "/images/customer-capsule/editorial/ivory-crochet-bralette.webp",
-    detailImages: ["/images/customer-capsule/source/ivory-crochet-bralette-detail.jpg", "/images/customer-capsule/source/crochet-bralette-gingham-skirt-styled.jpg"],
+    detailImages: ["/images/customer-capsule/editorial/ivory-crochet-bralette-back.webp", "/images/customer-capsule/editorial/gingham-wander-maxi-skirt-back.webp"],
     description: "An artisan crochet halter bralette with triangular cups and fine adjustable ties.",
     craftDetails: ["Hand-shaped crochet cups", "Adjustable neck and back ties", "Supportive under-bust band"],
     styleWith: ["gingham-wander-maxi-skirt", "ivory-tiered-maxi-skirt"],
@@ -291,7 +292,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Micro-Gingham Cotton",
     priceAud: 180,
     image: "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp",
-    detailImages: ["/images/customer-capsule/source/crochet-bralette-gingham-skirt-styled.jpg"],
+    detailImages: ["/images/customer-capsule/editorial/gingham-wander-maxi-skirt-back.webp"],
     description: "A full gathered maxi skirt in timeless black-and-ivory micro gingham.",
     craftDetails: ["Wide shaped waistband", "Generously gathered A-line body", "Full ankle-length sweep"],
     styleWith: ["ivory-crochet-bralette", "pearl-lace-blouse"],
@@ -308,7 +309,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Washed Cotton Poplin",
     priceAud: 265,
     image: "/images/customer-capsule/editorial/sage-shirt-maxi-dress.webp",
-    detailImages: ["/images/customer-capsule/source/sage-shirt-maxi-detail.jpg"],
+    detailImages: ["/images/bindi-real/sage-shirt-maxi-dress-03.webp"],
     description: "A relaxed button-front shirt maxi with a pointed collar and sweeping gathered tiers.",
     craftDetails: ["Full shell-style button front", "Relaxed dropped waist", "Three softly gathered skirt tiers"],
     soldSeparately: false,
@@ -325,7 +326,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Cotton Poplin & Soft Sateen",
     priceAud: 275,
     image: "/images/customer-capsule/editorial/monochrome-breeze-maxi-dress.webp",
-    detailImages: ["/images/customer-capsule/source/monochrome-maxi-front-detail.jpg", "/images/customer-capsule/source/monochrome-maxi-back-detail.jpg"],
+    detailImages: ["/images/bindi-real/monochrome-breeze-maxi-dress-03.webp", "/images/bindi-real/monochrome-breeze-maxi-dress-04.webp"],
     description: "A black slim-strap bodice meets a full ivory skirt at a delicate lace-trimmed empire seam.",
     craftDetails: ["Square-neck fitted bodice", "Lace-trimmed empire seam", "Full gathered ivory skirt"],
     soldSeparately: false,
@@ -342,7 +343,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Striped Cotton Poplin",
     priceAud: 235,
     image: "/images/customer-capsule/editorial/rose-stripe-strapless-dress.webp",
-    detailImages: ["/images/customer-capsule/source/rose-stripe-dress-detail.jpg"],
+    detailImages: ["/images/bindi-real/rose-stripe-strapless-dress-03.webp"],
     description: "A strapless pinstripe midi with an elongated fitted bodice and softly gathered skirt.",
     craftDetails: ["Secure elasticated neckline", "Sculpted pointed waist seam", "Softly gathered midi skirt"],
     soldSeparately: false,
@@ -359,7 +360,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Printed Cotton Sateen",
     priceAud: 150,
     image: "/images/customer-capsule/editorial/rose-dot-corset-top.webp",
-    detailImages: ["/images/customer-capsule/source/rose-dot-corset-styled.jpg"],
+    detailImages: ["/images/bindi-real/rose-dot-corset-top-retouched-03.webp"],
     description: "A rose-polka-dot strapless corset top with a button front and sharply shaped hem.",
     craftDetails: ["Structured strapless neckline", "Functional silver-tone buttons", "Sculpted pointed hem"],
     styleWith: ["midnight-flow-maxi-skirt", "botanic-rose-trousers"],
@@ -376,7 +377,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Lightweight Cotton Sateen",
     priceAud: 175,
     image: "/images/customer-capsule/editorial/midnight-flow-maxi-skirt.webp",
-    detailImages: ["/images/customer-capsule/source/midnight-maxi-skirt-detail.jpg", "/images/customer-capsule/source/rose-dot-corset-styled.jpg", "/images/customer-capsule/source/pearl-lace-blouse-styled.jpg"],
+    detailImages: ["/images/bindi-real/midnight-flow-maxi-skirt-03.webp", "/images/bindi-real/rose-dot-corset-top-retouched-03.webp", "/images/bindi-real/pearl-lace-blouse-04.webp"],
     description: "A sweeping black maxi skirt with a broad waistband and softly gathered volume.",
     craftDetails: ["Broad shaped waistband", "Softly gathered full skirt", "Fluid ankle-length movement"],
     styleWith: ["rose-dot-corset-top", "pearl-lace-blouse", "moonflower-halter-top"],
@@ -393,7 +394,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     fabric: "Fine Cotton with Crochet Lace",
     priceAud: 160,
     image: "/images/customer-capsule/editorial/pearl-lace-blouse.webp",
-    detailImages: ["/images/customer-capsule/source/pearl-lace-blouse-styled.jpg"],
+    detailImages: ["/images/bindi-real/pearl-lace-blouse-04.webp"],
     description: "A shaped short-sleeve button blouse edged with delicate crochet lace at collar, sleeves and hem.",
     craftDetails: ["Lace-edged pointed collar", "Shaped waist seams", "Crochet trim at sleeves and hem"],
     styleWith: ["midnight-flow-maxi-skirt", "gingham-wander-maxi-skirt"],
@@ -2016,7 +2017,7 @@ export function getProductSeedIndex(id: string): number | undefined {
   return PRODUCT_SEED_INDICES.get(id);
 }
 
-export const PRODUCTS = PRODUCTS_WITH_PHOTOS.filter((product) => getCanonicalProductId(product.id) === product.id);
+export const PRODUCTS = PRODUCTS_WITH_PHOTOS.filter((product) => getCanonicalProductId(product.id) === product.id).map(cleanProductMedia);
 
 export const CATEGORIES: (Category | "All")[] = [
   "All",
@@ -2056,6 +2057,6 @@ export function getStoreReviewsAggregate(): { averageRating: number; totalReview
   const averageRating =
     totalReviews > 0
       ? Number((allReviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews).toFixed(1))
-      : 4.9;
+      : 0;
   return { averageRating, totalReviews };
 }

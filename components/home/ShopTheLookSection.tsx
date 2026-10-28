@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState } from "react";
@@ -209,7 +210,7 @@ export default function ShopTheLookSection({
               className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#DCC7AF]/40 block cursor-pointer"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <ResponsiveImage
                 src={p1.image}
                 alt={p1.name}
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
@@ -298,7 +299,7 @@ export default function ShopTheLookSection({
               className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#DCC7AF]/40 block cursor-pointer"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <ResponsiveImage
                 src={p2.image}
                 alt={p2.name}
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
@@ -492,7 +493,7 @@ export default function ShopTheLookSection({
                 {/* Texture Visual */}
                 <div className="relative aspect-square rounded-2xl overflow-hidden border-2 border-white shadow-xl bg-white group">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <ResponsiveImage
                     src={
                       activeWeaveModal === "p1"
                         ? activeLook.p1DetailImg

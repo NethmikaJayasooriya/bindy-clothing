@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -410,7 +411,7 @@ export default function HeroCinematicFilm({
                         className="flex items-center justify-between gap-3 p-1.5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5"
                       >
                         <div className="flex items-center gap-2">
-                          <img
+                          <ResponsiveImage
                             src={prod.image}
                             alt={prod.name}
                             className="w-10 h-12 object-cover rounded-lg bg-black/40 border border-white/10"

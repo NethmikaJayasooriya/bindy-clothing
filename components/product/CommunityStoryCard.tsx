@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -91,7 +92,7 @@ export default function CommunityStoryCard({ product }: CommunityStoryCardProps)
             >
               {/* Thumbnail (4 cols) */}
               <div className="md:col-span-4 relative aspect-[3/4] rounded-2xl overflow-hidden bg-paper-dark border border-sand/40 shadow-md">
-                <img
+                <ResponsiveImage
                   src={activeStory.image}
                   alt={activeStory.name}
                   className="w-full h-full object-cover"

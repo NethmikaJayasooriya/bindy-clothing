@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -156,7 +157,7 @@ export default function HeritageStories() {
             {/* Story Visual Frame (5 cols) */}
             <div className="lg:col-span-5 relative">
               <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border border-sand/40 shadow-luxury bg-paper">
-                <img
+                <ResponsiveImage
                   src={activeStory.image}
                   alt={activeStory.title}
                   className="w-full h-full object-cover"

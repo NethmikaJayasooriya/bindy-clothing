@@ -2,7 +2,7 @@
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React from "react";
-import Image from "next/image";
+import Image from "@/components/ResponsiveImage";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Check, Sparkles } from "lucide-react";
 import { PRODUCTS, type Category } from "@/data/products";
@@ -103,9 +103,8 @@ export default function CategoryStoryBar({
                 <Image
                   src={story.image}
                   alt=""
-                  fill
                   sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 250px"
-                  className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                  className="absolute inset-0 h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.025]"
                 />
               </div>
               <div className={`relative flex min-h-[85px] items-center justify-between gap-2 border-t p-3.5 transition-colors sm:px-4 ${isActive ? "border-[#242721] bg-[#242721] text-[#FFFCF5]" : "border-[#DCC7AF]/35 bg-[#FFFCF8] text-[#242721]"}`}>

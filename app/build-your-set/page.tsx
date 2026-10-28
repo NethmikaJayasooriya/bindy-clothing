@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
@@ -134,7 +135,7 @@ export default function BuildYourSetPage() {
           Build your <span className="italic">own set.</span>
         </h1>
         <p className="mt-4 font-serif italic text-base sm:text-lg text-charcoal/70 max-w-xl mx-auto">
-          Choose a top and bottom, then see both pieces fitted automatically on one BINDY model — styled sets come with 10% off.
+          Choose a top and bottom, then see both pieces fitted automatically on one BINDY model.
         </p>
         <button
           onClick={surprise}
@@ -163,7 +164,7 @@ export default function BuildYourSetPage() {
                     topId === t.id ? "border-gold ring-2 ring-gold/40" : "border-sand/40 hover:border-gold/60"
                   }`}
                 >
-                  <img src={t.image} alt={t.name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+                  <ResponsiveImage src={t.image} alt={t.name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
                   <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-2 pb-2 pt-8 text-left text-[9px] font-sans font-medium leading-tight text-white sm:text-[10px]">
                     {t.name.replace(" — Top", "")}
                   </span>
@@ -182,17 +183,17 @@ export default function BuildYourSetPage() {
             <div className="rounded-3xl border border-sand/50 bg-white/50 overflow-hidden shadow-[0_14px_50px_rgba(31,30,29,0.08)]">
               <div className="relative aspect-[3/4] overflow-hidden bg-[#EAE2D6]">
                 {tryUrl && !tryErr ? (
-                  <img src={tryUrl} alt={`${top?.name} styled with ${bottom?.name}`} className="h-full w-full object-cover object-top" />
+                  <ResponsiveImage src={tryUrl} alt={`${top?.name} styled with ${bottom?.name}`} className="h-full w-full object-cover object-top" />
                 ) : (
                   <div className="relative h-full bg-[#eee8df]">
-                    <img
+                    <ResponsiveImage
                       src={tryErr && bottom ? bottom.image : "/images/style-studio/bindy-fit-model.png"}
                       alt={tryErr && bottom ? bottom.name : "BINDY virtual fitting model"}
                       className="h-full w-full object-cover object-top"
                     />
                     <div className="absolute inset-x-3 bottom-3 grid grid-cols-2 gap-2">
-                      {top && <div className="flex items-center gap-2 rounded-xl border border-white/70 bg-paper/90 p-2 shadow-lg backdrop-blur-md"><img src={top.image} alt="" className="h-11 w-9 rounded-lg object-cover object-top"/><span className="line-clamp-2 text-[9px] font-sans font-bold uppercase tracking-[0.08em]">{top.name}</span></div>}
-                      {bottom && <div className="flex items-center gap-2 rounded-xl border border-white/70 bg-paper/90 p-2 shadow-lg backdrop-blur-md"><img src={bottom.image} alt="" className="h-11 w-9 rounded-lg object-cover object-top"/><span className="line-clamp-2 text-[9px] font-sans font-bold uppercase tracking-[0.08em]">{bottom.name}</span></div>}
+                      {top && <div className="flex items-center gap-2 rounded-xl border border-white/70 bg-paper/90 p-2 shadow-lg backdrop-blur-md"><ResponsiveImage src={top.image} alt="" className="h-11 w-9 rounded-lg object-cover object-top"/><span className="line-clamp-2 text-[9px] font-sans font-bold uppercase tracking-[0.08em]">{top.name}</span></div>}
+                      {bottom && <div className="flex items-center gap-2 rounded-xl border border-white/70 bg-paper/90 p-2 shadow-lg backdrop-blur-md"><ResponsiveImage src={bottom.image} alt="" className="h-11 w-9 rounded-lg object-cover object-top"/><span className="line-clamp-2 text-[9px] font-sans font-bold uppercase tracking-[0.08em]">{bottom.name}</span></div>}
                     </div>
                   </div>
                 )}
@@ -211,7 +212,7 @@ export default function BuildYourSetPage() {
                   </div>
                 )}
 
-                {tryErr && !trying && <span className="sr-only">{tryErr}</span>}
+                {tryErr && !trying && <p role="status" className="absolute bottom-3 inset-x-3 z-30 rounded-xl bg-paper/95 text-charcoal p-3 text-xs leading-5">{tryErr}</p>}
 
                 {top && bottom && (
                   <span className="absolute right-3 top-3 z-20 rounded-full bg-gold px-3 py-1.5 text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-black shadow-lg">{score}% · {scoreLabel(score)}</span>
@@ -227,9 +228,9 @@ export default function BuildYourSetPage() {
                   </div>
                   {pricing && (
                     <div className="text-right shrink-0">
-                      <div className="text-xs text-charcoal/45 line-through">${pricing.subtotal} AUD</div>
+                      {pricing.savings>0&&<div className="text-xs text-charcoal/45 line-through">${pricing.subtotal} AUD</div>}
                       <div className="font-serif text-2xl font-semibold text-charcoal">${pricing.total} AUD</div>
-                      <div className="text-[11px] font-sans uppercase tracking-wide text-gold font-semibold">Save ${pricing.savings}</div>
+                      {pricing.savings>0&&<div className="text-[11px] font-sans uppercase tracking-wide text-gold font-semibold">Save ${pricing.savings}</div>}
                     </div>
                   )}
                 </div>
@@ -282,7 +283,7 @@ export default function BuildYourSetPage() {
                   }`}
                 >
                   <div className="relative aspect-[3/4] overflow-hidden">
-                    <img src={piece.image} alt={piece.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <ResponsiveImage src={piece.image} alt={piece.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <span className="absolute top-1.5 left-1.5 bg-black/60 backdrop-blur-md text-gold text-[10px] font-sans font-bold px-2 py-0.5 rounded-full">{s}%</span>
                     {bottomId === piece.id && (
                       <span className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-gold text-black grid place-items-center shadow"><Check className="w-3 h-3" /></span>

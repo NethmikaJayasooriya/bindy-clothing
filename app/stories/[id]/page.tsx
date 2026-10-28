@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -108,7 +109,7 @@ export default function StoryDetailPage() {
 
         {/* Hero Visual Frame */}
         <div className="relative aspect-[16/9] sm:aspect-[21/9] rounded-3xl overflow-hidden bg-paper-dark border border-sand/40 shadow-2xl mb-16">
-          <img
+          <ResponsiveImage
             src={story.image}
             alt={story.title}
             className="w-full h-full object-cover"

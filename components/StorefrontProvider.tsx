@@ -6,7 +6,7 @@ const fallback: PublicStore = { products: PRODUCTS, hero: DEFAULT_HERO, settings
 const StorefrontContext = createContext(fallback);
 export function StorefrontProvider({ children, initial }: { children: React.ReactNode; initial?: PublicStore }) {
   const [store, setStore] = useState(initial ?? fallback);
-  const refresh = useCallback(() => { fetch("/api/storefront", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(data => { if (data) setStore(current=>current.revision===data.revision?current:data); }).catch(() => {}); }, []);
+  const refresh = useCallback(() => { fetch("/api/storefront", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(data => { if (data) setStore(current=>JSON.stringify(current)===JSON.stringify(data)?current:data); }).catch(() => {}); }, []);
   useEffect(() => { refresh(); const timer = setInterval(refresh, 60000); window.addEventListener("focus", refresh); return () => { clearInterval(timer); window.removeEventListener("focus", refresh); }; }, [refresh]);
   return <StorefrontContext.Provider value={store}>{children}</StorefrontContext.Provider>;
 }

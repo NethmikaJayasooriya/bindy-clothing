@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useRef } from "react";
 import Link from "next/link";
@@ -285,7 +286,7 @@ export default function VerifiedReviewsSellingSection({
                   className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#DCC7AF]/40 block cursor-pointer"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <ResponsiveImage
                     src={story.lifestyleImage}
                     alt={story.quoteTitle}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -356,7 +357,7 @@ export default function VerifiedReviewsSellingSection({
                   >
                     <div className="w-12 h-14 rounded-xl overflow-hidden bg-white shrink-0 border border-[#DCC7AF]/40">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <ResponsiveImage
                         src={product.image}
                         alt={product.name}
                         className="w-full h-full object-cover"

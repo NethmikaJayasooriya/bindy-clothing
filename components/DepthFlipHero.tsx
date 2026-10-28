@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
@@ -247,7 +248,7 @@ export default function DepthFlipHero({
                   willChange: "transform"
                 }}
               >
-                <img
+                <ResponsiveImage
                   src={currentScene.src}
                   alt={`Hero ${currentScene.title} slice ${index + 1}`}
                   style={innerImageStyle}
@@ -276,7 +277,7 @@ export default function DepthFlipHero({
                   willChange: "transform"
                 }}
               >
-                <img
+                <ResponsiveImage
                   src={nextScene.src}
                   alt={`Hero ${nextScene.title} slice ${index + 1}`}
                   style={innerImageStyle}

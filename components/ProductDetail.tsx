@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useMemo, useState, useEffect } from "react";
@@ -181,10 +182,8 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
     addToCart(product, size, qty);
     setAdded(true);
     // Smoothly open cart drawer after micro-feedback
-    setTimeout(() => {
-      setAdded(false);
-      setIsCartOpen(true);
-    }, 450);
+    setIsCartOpen(true);
+    setTimeout(() => setAdded(false), 450);
   };
 
   const handleBuyNow = () => {
@@ -336,10 +335,11 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                 aria-label={`Select photo ${i + 1}${galleryLabels?.[i] ? `: ${galleryLabels[i]}` : ""}`}
                 title={galleryLabels?.[i] || `View ${i + 1}`}
               >
-                <img
+                <ResponsiveImage
                   src={src}
                   alt={`${product.name} — ${galleryLabels?.[i] || `view ${i + 1}`}`}
                   className="w-full h-full object-cover"
+                  sizes="96px"
                   loading="lazy"
                 />
                 {activeImg === i && (
@@ -352,19 +352,13 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
           {/* Main Hero Stage */}
           <div className="relative flex-1 aspect-[3/4] w-full min-h-[420px] sm:min-h-[550px] rounded-3xl overflow-hidden bg-paper-dark border border-sand/40 shadow-xl group select-none">
             {/* Background Image with Crossfade */}
-            <AnimatePresence mode="wait">
-              <motion.img
+            <ResponsiveImage
                 key={activeImg}
                 src={galleryImages[activeImg] || product.image}
                 alt={`${product.name} — ${galleryLabels?.[activeImg] || `view ${activeImg + 1}`}`}
-                initial={{ opacity: 0, scale: 1.02 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
                 className={`absolute inset-0 w-full h-full ${product.imageSource === "photography" ? "object-contain bg-[#ede8e0]" : "object-cover"} cursor-zoom-in`}
                 onClick={() => setIsLightboxOpen(true)}
-              />
-            </AnimatePresence>
+               loading="eager" sizes="(max-width: 1024px) 100vw, 55vw"/>
 
             {/* Subtle Gradient Overlays for High-Contrast Text Badges */}
             <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 via-black/10 to-transparent pointer-events-none" />
@@ -486,19 +480,6 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                 </span>
               </div>
 
-              {/* Installment Badge */}
-              <p className="text-xs font-sans text-charcoal-subtle mt-1.5 flex items-center gap-1.5">
-                <span>or 4 interest-free payments of</span>
-                <strong className="text-charcoal font-semibold">${installment}</strong>
-                <span>with</span>
-                <span className="font-semibold text-charcoal border-b border-charcoal/40">
-                  Afterpay
-                </span>
-                <span>or</span>
-                <span className="font-semibold text-charcoal border-b border-charcoal/40">
-                  Klarna
-                </span>
-              </p>
             </div>
 
             {/* Description */}

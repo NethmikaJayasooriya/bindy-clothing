@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
@@ -174,7 +175,7 @@ export default function WishlistDrawer({
                         }}
                         className="relative w-20 h-26 rounded-xl overflow-hidden bg-paper-dark flex-shrink-0 border border-sand/30 group"
                       >
-                        <img
+                        <ResponsiveImage
                           src={product.image}
                           alt={product.name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

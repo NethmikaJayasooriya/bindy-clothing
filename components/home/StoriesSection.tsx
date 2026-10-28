@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -59,7 +60,7 @@ export default function StoriesSection() {
             >
               {/* Left Column: Visual Artwork (5 cols) */}
               <div className="lg:col-span-5 relative aspect-[3/4] rounded-2xl overflow-hidden bg-paper-dark border border-sand/40 shadow-lg">
-                <img
+                <ResponsiveImage
                   src={activeStory.image}
                   alt={activeStory.title}
                   className="w-full h-full object-cover"

@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState } from "react";
@@ -336,7 +337,7 @@ export default function CapsuleWardrobeSection({
 
                     {/* Image */}
                     <div className="relative aspect-[4/5] overflow-hidden bg-[#FAF7F2]">
-                      <img
+                      <ResponsiveImage
                         src={piece.image}
                         alt={piece.name}
                         className="w-full h-full object-cover object-center group-hover:scale-104 transition-transform duration-500 ease-out"
@@ -503,7 +504,7 @@ export default function CapsuleWardrobeSection({
                       >
                         <div className="flex items-center justify-between gap-3">
                           <div className="flex items-center gap-3 min-w-0">
-                            <img
+                            <ResponsiveImage
                               src={piece.image}
                               alt={piece.name}
                               className="w-12 h-14 rounded-lg object-cover border border-[#DCC7AF]/50 flex-shrink-0"

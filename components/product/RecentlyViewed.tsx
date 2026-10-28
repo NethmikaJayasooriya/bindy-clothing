@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect } from "react";
@@ -68,7 +69,7 @@ export default function RecentlyViewed({ currentProductId }: RecentlyViewedProps
               className="group flex flex-col bg-paper rounded-2xl overflow-hidden border border-sand/40 hover:border-gold/60 p-3 sm:p-4 transition-all shadow-sm hover:shadow-md"
             >
               <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-paper-dark mb-3">
-                <img
+                <ResponsiveImage
                   src={p.image}
                   alt={p.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

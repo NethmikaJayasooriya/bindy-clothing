@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useMemo } from "react";
@@ -491,7 +492,7 @@ export default function StyleMatcherSection({
                   >
                     {/* Image Box */}
                     <div className="relative aspect-[3/4] overflow-hidden bg-[#FAF7F2]">
-                      <img
+                      <ResponsiveImage
                         src={product.image}
                         alt={product.name}
                         className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -499,7 +500,7 @@ export default function StyleMatcherSection({
 
                       {/* Hover Overlay Second Image if available */}
                       {product.imageHover && (
-                        <img
+                        <ResponsiveImage
                           src={product.imageHover}
                           alt={`${product.name} alternate angle`}
                           className="absolute inset-0 w-full h-full object-cover object-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out pointer-events-none"

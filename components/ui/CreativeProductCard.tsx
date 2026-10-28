@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -187,7 +188,7 @@ function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAd
     >
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img
+          <ResponsiveImage
             src={isHovered && product.imageHover ? product.imageHover : product.image}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -256,7 +257,7 @@ function Style1TactileSwatch({ product, inWishlist, handleWishlist, handleQuickA
     <div className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border-2 border-[#DCC7AF] shadow-sm hover:shadow-xl transition-all duration-300 font-poppins">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#FAF7F2] text-[#1F1E1D] px-3 py-1 rounded-full text-xs font-poppins font-bold tracking-wider uppercase border border-black/10 shadow-sm">
@@ -314,7 +315,7 @@ function Style2BoutiqueHangtag({ product, inWishlist, handleWishlist, handleQuic
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#C5A059]/60 shadow-sm hover:shadow-xl transition-all duration-300 font-playfair">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-2.5 left-2.5 bg-[#F4EDE2] text-[#1F1E1D] px-3 py-1 rounded shadow-md border-t-2 border-l-2 border-[#C5A059] font-mono text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
@@ -359,7 +360,7 @@ function Style3DualPerspective({ product, inWishlist, handleWishlist, handleQuic
     <div className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border-2 border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 font-sans">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={viewAngle === "back" && product.imageHover ? product.imageHover : product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <ResponsiveImage src={viewAngle === "back" && product.imageHover ? product.imageHover : product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1E3A8A] text-white px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider shadow">
@@ -416,7 +417,7 @@ function Style4GlassmorphicLuxe({ product, inWishlist, handleWishlist, handleQui
     <div className="group relative flex flex-col h-full bg-[#11100F] rounded-2xl overflow-hidden border-2 border-[#C5A059]/40 shadow-xl hover:shadow-2xl transition-all duration-500 font-outfit">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30 pointer-events-none" />
@@ -454,7 +455,7 @@ function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuic
     <div className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border-2 border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 font-poppins">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#FAF7F2] text-[#1F1E1D] px-3 py-1 rounded-full text-xs font-poppins font-bold uppercase tracking-wider border border-gray-300 shadow-sm">
@@ -518,7 +519,7 @@ function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuick
       </div>
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <button type="button" onClick={handleWishlist} className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/95 flex items-center justify-center text-black hover:scale-110 shadow transition-transform">
@@ -559,7 +560,7 @@ function Style7AuthenticitySeal({ product, inWishlist, handleWishlist, handleQui
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#C5A059]/60 shadow-sm hover:shadow-xl transition-all duration-300 font-sans">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1F1E1D] text-[#C5A059] px-3 py-1 rounded-md text-[10px] font-mono font-bold uppercase tracking-widest flex items-center gap-1.5 border border-[#C5A059]/40 shadow-md">
@@ -607,7 +608,7 @@ function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickA
     <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border-2 border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 font-poppins">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={isHovered && product.imageHover ? product.imageHover : product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={isHovered && product.imageHover ? product.imageHover : product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1F1E1D]/90 text-white px-3 py-1 rounded-full text-xs font-poppins font-bold uppercase tracking-wider shadow">
@@ -661,7 +662,7 @@ function Style9AtelierSpec({ product, inWishlist, handleWishlist, handleQuickAdd
       </div>
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <button type="button" onClick={handleWishlist} className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white flex items-center justify-center text-black hover:scale-110 shadow transition-transform">
@@ -706,7 +707,7 @@ function Style10CoastalTide({ product, inWishlist, handleWishlist, handleQuickAd
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#DCC7AF] shadow-sm hover:shadow-xl transition-all duration-300 font-outfit">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#FAF7F2]/95 backdrop-blur-md text-[#1F1E1D] px-3 py-1 rounded-full text-xs font-outfit font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm border border-black/10">
@@ -752,7 +753,7 @@ function Style11ArtisanPostcard({ product, inWishlist, handleWishlist, handleQui
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] p-2.5 rounded-2xl border-2 border-dashed border-[#DCC7AF] shadow-sm hover:shadow-xl transition-all duration-300 font-sans">
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-2.5 left-2.5 bg-[#FAF7F2] text-[#1F1E1D] px-2.5 py-1 rounded shadow text-[10px] font-mono font-bold uppercase tracking-widest border border-[#B86B4B]/40">
@@ -792,7 +793,7 @@ function Style12AsymmetricSplit({ product, inWishlist, handleWishlist, handleQui
     <div className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border-2 border-gray-200 shadow-sm hover:shadow-2xl transition-all duration-300 font-sans">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-gray-100">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1F1E1D] text-white px-3 py-1 rounded-sm text-xs font-mono font-bold uppercase tracking-widest">
@@ -835,7 +836,7 @@ function Style13PureMinimalist({ product, inWishlist, handleWishlist, handleQuic
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] p-1.5 rounded-2xl hover:bg-white transition-colors duration-500 border-2 border-transparent hover:border-[#DCC7AF] font-outfit">
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#EBE5DC]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 text-[10px] font-mono font-bold tracking-widest text-[#1F1E1D] uppercase bg-white/80 px-2.5 py-0.5 rounded">
@@ -874,7 +875,7 @@ function Style14SculpturalHardware({ product, inWishlist, handleWishlist, handle
     <div className="group relative flex flex-col h-full bg-[#1F1E1D] text-white rounded-2xl overflow-hidden border-2 border-[#C5A059]/60 shadow-xl hover:shadow-2xl transition-all duration-300 font-playfair">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-black/40">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#C5A059] text-black px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest uppercase shadow">
@@ -915,7 +916,7 @@ function Style15EcoCarbonMetric({ product, inWishlist, handleWishlist, handleQui
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#4E6349] shadow-sm hover:shadow-xl transition-all duration-300 font-poppins">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#EAE8E2]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#4E6349] text-white px-3 py-1 rounded-full text-xs font-poppins font-bold uppercase tracking-wider flex items-center gap-1.5 shadow">
@@ -960,7 +961,7 @@ function Style16BotanicalDyeVat({ product, inWishlist, handleWishlist, handleQui
     <div className="group relative flex flex-col h-full bg-[#1C1A18] text-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#C5A059]/40 shadow-lg hover:shadow-2xl transition-all duration-300 font-serif">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-black/50">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#B86B4B] text-white px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-widest flex items-center gap-1.5 shadow">
@@ -1002,7 +1003,7 @@ function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQu
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] p-2.5 rounded-3xl border-2 border-[#DCC7AF] shadow-sm hover:shadow-xl transition-all duration-300 font-playfair">
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#FAF7F2] px-3 py-1 rounded-full text-xs font-serif text-[#B86B4B] font-bold uppercase tracking-widest shadow-sm">
@@ -1046,7 +1047,7 @@ function Style18TextileDensity({ product, inWishlist, handleWishlist, handleQuic
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#1F1E1D] shadow-sm hover:shadow-xl transition-all duration-300 font-poppins">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute top-3 left-3 bg-[#1F1E1D] text-[#FAF7F2] px-3 py-1 rounded text-xs font-mono font-bold uppercase tracking-widest">
@@ -1087,7 +1088,7 @@ function Style19PrivateVault({ product, inWishlist, handleWishlist, handleQuickA
     <div className="group relative flex flex-col h-full bg-[#0E0D0C] text-white rounded-2xl overflow-hidden border-2 border-white/30 shadow-2xl hover:border-[#C5A059] transition-all duration-300 font-outfit">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
         <Link href={`/product/${product.id}`} className="block relative w-full h-full">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ResponsiveImage src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         </Link>
         <HoverVideo src={product.videoHover} poster={product.imageHover} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none" />

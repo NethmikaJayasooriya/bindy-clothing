@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -166,7 +167,7 @@ export default function CollectionShowcase({
                   }`}
                 >
                   {/* bg image */}
-                  <img
+                  <ResponsiveImage
                     src={DEST_IMG[k]}
                     alt={label}
                     className={`absolute inset-0 w-full h-full object-cover object-[center_20%] transition-transform duration-[1.4s] ease-out ${
@@ -244,7 +245,7 @@ export default function CollectionShowcase({
                   }}
                 >
                   <Link href={`/product/${product.id}`} className="block absolute inset-0" aria-label={`View ${product.name}`}>
-                    <img
+                    <ResponsiveImage
                       src={product.image}
                       alt={product.name}
                       className="absolute inset-0 w-full h-full object-cover"
@@ -260,7 +261,7 @@ export default function CollectionShowcase({
                         className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 pointer-events-none"
                       />
                     ) : (
-                      <img
+                      <ResponsiveImage
                         src={product.imageHover}
                         alt={`${product.name} detail`}
                         className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100"

@@ -138,13 +138,9 @@ export default function BrowseSection({
 
         {/* Products Grid: 2-columns on mobile, 4-columns on desktop */}
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 auto-rows-fr">
-          <AnimatePresence mode="popLayout">
+          <>
             {displayedProducts.map((product, index) => (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
+              <div
                 key={product.id}
                 className="h-full"
               >
@@ -210,9 +206,9 @@ export default function BrowseSection({
                     stockText={product.inventoryStatus === "low_stock" ? "Low Stock" : undefined}
                   />
                 )}
-              </motion.div>
+              </div>
             ))}
-          </AnimatePresence>
+          </>
         </div>
 
         {/* Empty State */}

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 import { getPiece } from "@/lib/styleStudio";
+import { checkOrigin,requireAdmin } from "@/lib/server/admin-auth";
+import { limitedJson,rateLimit,requestIdentity,RequestError } from "@/lib/server/request-security";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -65,13 +67,11 @@ async function cacheRemoteImage(url: string, outFile: string) {
  *     result on disk, and returns its URL. Cached combos return instantly.
  */
 export async function POST(req: NextRequest) {
+  try {checkOrigin(req);await rateLimit("tryon",requestIdentity(req),6,600);}catch(e){return NextResponse.json({error:e instanceof RequestError?e.message:"Try-on is temporarily unavailable."},{status:e instanceof RequestError?e.status:503});}
   const FAL_KEY = process.env.FAL_KEY;
-  if (!FAL_KEY) {
-    return NextResponse.json({ error: "FAL_KEY not configured on the server." }, { status: 500 });
-  }
 
   let body: { topId?: string; bottomId?: string };
-  try { body = await req.json(); } catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
+  try { body = await limitedJson(req,2000) as typeof body; } catch { return NextResponse.json({ error: "Invalid request" }, { status: 400 }); }
 
   const top = body.topId ? getPiece(body.topId) : undefined;
   const bottom = body.bottomId ? getPiece(body.bottomId) : undefined;
@@ -84,6 +84,10 @@ export async function POST(req: NextRequest) {
 
   // 1. serve from cache if we've rendered this pairing before (free + instant)
   try { await fs.access(outFile); return NextResponse.json({ url: publicUrl, cached: true }); } catch { /* not cached */ }
+
+  // Public visitors can view prepared combinations. New paid renders require an owner session.
+  if(process.env.TRYON_GENERATION_ENABLED!=="true"||!FAL_KEY||process.env.VERCEL)return NextResponse.json({error:"This combination is not prepared yet. Choose another outfit or contact the store."},{status:503});
+  try{await requireAdmin();}catch{return NextResponse.json({error:"This combination is not prepared yet."},{status:403});}
 
   // 2. Build the outfit on one consistent fitting-room character.
   let baseModel: string, topGarment: string, bottomGarment: string;

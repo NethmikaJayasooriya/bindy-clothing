@@ -1,0 +1,13 @@
+.env*
+!.env.example
+.store*
+.next*
+node_modules
+output
+assets
+Bindi
+scripts
+.git
+*.log
+*.tsbuildinfo
+*.md

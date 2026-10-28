@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect } from "react";
@@ -61,7 +62,7 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
               className="group relative bg-paper-light rounded-3xl overflow-hidden border border-sand/40 hover:border-gold/70 transition-all duration-400 p-4 sm:p-5 flex flex-col justify-between shadow-paper-card hover:shadow-luxury-hover cursor-pointer"
             >
               <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-paper-dark mb-4">
-                <img
+                <ResponsiveImage
                   src={product.image}
                   alt={product.name}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"

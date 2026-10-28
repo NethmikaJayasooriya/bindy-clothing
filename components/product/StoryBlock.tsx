@@ -1,3 +1,4 @@
+import ResponsiveImage from "@/components/ResponsiveImage";
 import React from "react";
 import { MapPin, Check, Sparkles, Award } from "lucide-react";
 import type { Product } from "@/lib/products";
@@ -17,7 +18,7 @@ export default function StoryBlock({ product }: StoryBlockProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* Inspiration Photo Frame with Editorial Border (5 cols) */}
           <div className="lg:col-span-5 relative aspect-[3/4] sm:aspect-[4/5] rounded-3xl overflow-hidden bg-paper shadow-2xl border border-sand/50 group">
-            <img
+            <ResponsiveImage
               src={inspirationPhoto}
               alt={`${product.story} inspiration`}
               loading="lazy"

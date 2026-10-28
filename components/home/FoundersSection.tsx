@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React from "react";
 import Link from "next/link";
@@ -33,7 +34,7 @@ export default function FoundersSection() {
             >
               {/* Top: Editorial Portrait Photo */}
               <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-paper-dark border border-sand/40 group-hover:border-gold/60 transition-all duration-500 shadow-sm">
-                <img
+                <ResponsiveImage
                   src={founder.image}
                   alt={founder.name}
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"

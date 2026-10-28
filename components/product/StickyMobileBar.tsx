@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import { ShoppingBag, Check } from "lucide-react";
@@ -43,7 +44,7 @@ export default function StickyMobileBar({
         {/* Thumbnail & Title */}
         <div className="flex items-center gap-2.5 min-w-0">
           <div className="w-11 h-13 rounded-xl overflow-hidden bg-paper-dark border border-sand/40 shrink-0">
-            <img
+            <ResponsiveImage
               src={product.image}
               alt={product.name}
               className="w-full h-full object-cover"

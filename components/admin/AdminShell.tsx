@@ -5,13 +5,13 @@ import { usePathname } from "next/navigation";
 import { LayoutDashboard, Shirt, Package, ShoppingBag, Users, TicketPercent, Image, PanelsTopLeft, RotateCcw, Inbox, ChartNoAxesCombined, Settings, ExternalLink, LogOut, Menu, X, Bell, RefreshCw, ArrowUpRight, Search } from "lucide-react";
 import { useAdmin } from "./AdminProvider";
 const links = [
-  ["Overview", "/admin", LayoutDashboard], ["Orders", "/admin/orders", ShoppingBag], ["Products", "/admin/products", Shirt], ["Inventory", "/admin/inventory", Package], ["Customers", "/admin/customers", Users], ["Inbox", "/admin/inbox", Inbox], ["Discounts", "/admin/discounts", TicketPercent], ["Returns", "/admin/returns", RotateCcw], ["Store content", "/admin/content", PanelsTopLeft], ["Media library", "/admin/media", Image], ["Reports", "/admin/reports", ChartNoAxesCombined], ["Settings", "/admin/settings", Settings],
+  ["Overview", "/admin", LayoutDashboard], ["Orders", "/admin/orders", ShoppingBag], ["Products", "/admin/products", Shirt], ["Inventory", "/admin/inventory", Package], ["Customers", "/admin/customers", Users], ["Inbox", "/admin/inbox", Inbox], ["Discounts", "/admin/discounts", TicketPercent], ["Promotions", "/admin/promotions", TicketPercent], ["Returns", "/admin/returns", RotateCcw], ["Store content", "/admin/content", PanelsTopLeft], ["Media library", "/admin/media", Image], ["Reports", "/admin/reports", ChartNoAxesCombined], ["Settings", "/admin/settings", Settings],
 ] as const;
 export default function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname(); const { store, owner, logout, refresh, notify, busy } = useAdmin(); const [open, setOpen] = useState(false); const [notifications, setNotifications] = useState(false);
   useEffect(() => { setOpen(false); setNotifications(false); refresh().catch(e=>notify(e.message,true)); }, [pathname, refresh, notify]);
   useEffect(() => {
-    if (["/admin/content","/admin/settings"].includes(pathname)) return;
+    if (["/admin/content","/admin/settings","/admin/promotions"].includes(pathname)) return;
     const update=()=>{if(!busy && !document.hidden)refresh(true).catch(()=>{});};
     const timer=setInterval(update,30000);window.addEventListener("focus",update);
     return()=>{clearInterval(timer);window.removeEventListener("focus",update);};

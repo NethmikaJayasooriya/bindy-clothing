@@ -23,14 +23,11 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
   const [overHero, setOverHero] = useState(immersive);
   useEffect(() => {
     if (!immersive) return;
-    const update = () => {
-      const hero = document.querySelector("[data-campaign-hero]");
-      setOverHero(Boolean(hero && hero.getBoundingClientRect().bottom > 120));
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+    const hero = document.querySelector("[data-campaign-hero]");
+    if (!hero) return;
+    const observer = new IntersectionObserver(([entry])=>setOverHero(entry.isIntersecting),{rootMargin:"-120px 0px 0px",threshold:0});
+    observer.observe(hero);
+    return () => observer.disconnect();
   }, [immersive]);
   const [searchOpen, setSearchOpen] = useState(false);
   const [wishlistOpen, setWishlistOpen] = useState(false);

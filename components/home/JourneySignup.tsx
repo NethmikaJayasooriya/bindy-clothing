@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState } from "react";
 import { Mail, Check, Sparkles, Copy, ArrowUp, Lock, Gift } from "lucide-react";
@@ -43,7 +44,7 @@ export default function JourneySignup() {
             {/* Left Column: Image Background with Slow Fashion Quote */}
             <div className="lg:col-span-5 relative min-h-[190px] sm:min-h-[260px] lg:min-h-full">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <ResponsiveImage
                 src="/images/destinations/garden.jpg"
                 alt="Sri Lankan courtyard morning light"
                 loading="lazy"

@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import { useEffect, useRef, useState } from "react";
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react";
@@ -57,7 +58,7 @@ export default function LightboxModal({ isOpen, onClose, images, thumbnails, ima
         </header>
         <div ref={frame} className={`absolute inset-x-4 bottom-36 top-28 sm:inset-x-24 ${isZoomed ? "overflow-auto overscroll-contain" : "overflow-hidden"}`}>
           <div style={{ width: isZoomed ? "220%" : "100%", height: isZoomed ? "220%" : "100%" }}>
-            <img key={images[currentIndex]} src={images[currentIndex]} alt={`${productName} — ${imageLabels?.[currentIndex] || `view ${currentIndex + 1}`}`} className={`h-full w-full object-contain ${isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"}`} onClick={() => setIsZoomed(!isZoomed)} />
+            <ResponsiveImage loading="eager" sizes={isZoomed ? "220vw" : "100vw"} key={images[currentIndex]} src={images[currentIndex]} alt={`${productName} — ${imageLabels?.[currentIndex] || `view ${currentIndex + 1}`}`} className={`h-full w-full object-contain ${isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"}`} onClick={() => setIsZoomed(!isZoomed)} />
           </div>
         </div>
         {images.length > 1 && <>
@@ -67,7 +68,7 @@ export default function LightboxModal({ isOpen, onClose, images, thumbnails, ima
         <div className="absolute inset-x-0 bottom-0 flex h-32 flex-col items-center justify-center gap-3 border-t border-white/10 px-4">
           <p aria-live="polite" className="text-[10px] tracking-wider text-white/75">{imageLabels?.[currentIndex] || `View ${currentIndex + 1}`}{isZoomed && " · Scroll to explore the detail"}</p>
           <div className="flex max-w-full gap-2 overflow-x-auto px-1 py-1">
-            {images.map((src, index) => <button key={src} onClick={() => select(index)} aria-label={`Show ${imageLabels?.[index] || `view ${index + 1}`}`} aria-pressed={index === currentIndex} className={`h-16 w-12 shrink-0 overflow-hidden rounded border ${index === currentIndex ? "border-[#e1c9a4] ring-1 ring-[#e1c9a4]" : "border-white/20 opacity-60 hover:opacity-100"}`}><img src={thumbnails?.[index] || src} alt="" className="h-full w-full object-cover" loading="lazy"/></button>)}
+            {images.map((src, index) => <button key={src} onClick={() => select(index)} aria-label={`Show ${imageLabels?.[index] || `view ${index + 1}`}`} aria-pressed={index === currentIndex} className={`h-16 w-12 shrink-0 overflow-hidden rounded border ${index === currentIndex ? "border-[#e1c9a4] ring-1 ring-[#e1c9a4]" : "border-white/20 opacity-60 hover:opacity-100"}`}><ResponsiveImage sizes="64px" src={thumbnails?.[index] || src} alt="" className="h-full w-full object-cover" loading="lazy"/></button>)}
           </div>
         </div>
       </>}

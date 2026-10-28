@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -22,7 +23,6 @@ import { getCart, saveCart } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
 import { FOUNDERS } from "@/data/founders";
 import { CRAFT_PROCESS_STEPS, ETHICAL_PILLARS } from "@/data/craft";
-import { PRESS_QUOTES } from "@/data/socialProof";
 import { Button, SectionHeading } from "@/components/ui";
 
 export default function AboutPage() {
@@ -146,7 +146,7 @@ export default function AboutPage() {
 
             {/* Right: Evocative Location Image (5 cols) */}
             <div className="lg:col-span-5 relative aspect-[4/5] rounded-3xl overflow-hidden bg-paper shadow-luxury border border-sand/40">
-              <img
+              <ResponsiveImage
                 src="/images/destinations/garden.jpg"
                 alt="Sri Lankan courtyard colonial doorway"
                 className="w-full h-full object-cover"
@@ -226,7 +226,7 @@ export default function AboutPage() {
                 {/* Portrait (4 cols) */}
                 <div className="lg:col-span-4 space-y-4">
                   <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-paper-dark border border-sand/40 shadow-md">
-                    <img
+                    <ResponsiveImage
                       src={founder.image}
                       alt={founder.name}
                       className="w-full h-full object-cover"
@@ -415,36 +415,6 @@ export default function AboutPage() {
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. PRESS RECOGNITION STRIP */}
-      <section className="py-20 bg-paper border-b border-sand/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block">
-              In The Press
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PRESS_QUOTES.map((item, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-2xl bg-paper-light border border-sand/40 shadow-sm space-y-3"
-              >
-                <blockquote className="font-serif italic text-xs sm:text-sm text-charcoal leading-relaxed">
-                  &ldquo;{item.quote}&rdquo;
-                </blockquote>
-                <div className="pt-2 border-t border-sand/30 flex items-center justify-between text-[11px] font-sans">
-                  <span className="font-semibold text-gold uppercase tracking-wider">
-                    {item.publication}
-                  </span>
-                  <span className="text-muted">{item.location}</span>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

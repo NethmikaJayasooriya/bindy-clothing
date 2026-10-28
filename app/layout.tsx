@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter, League_Spartan, Poppins, Outfit, Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import NavigationFeedback from "@/components/NavigationFeedback";
 import { readPublicStore } from "@/lib/server/store-repository";
 import { StorefrontProvider } from "@/components/StorefrontProvider";
 
@@ -28,6 +29,7 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
+  preload: false,
   variable: "--font-poppins",
 });
 
@@ -35,6 +37,7 @@ const outfit = Outfit({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
+  preload: false,
   variable: "--font-outfit",
 });
 
@@ -43,6 +46,7 @@ const playfair = Playfair_Display({
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
+  preload: false,
   variable: "--font-playfair",
 });
 
@@ -51,6 +55,7 @@ const cormorant = Cormorant_Garamond({
   weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
+  preload: false,
   variable: "--font-cormorant",
 });
 
@@ -65,6 +70,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase:new URL(process.env.SITE_URL||"https://bindyclothing.com.au"),
   title: "BINDY. — Wear Your Calm, Feel Your Story | Luxury Australian-Sri Lankan Fashion",
   description:
     "Two Islands, One Thread. BINDY Clothing crafts thoughtful, limited edition womenswear blending timeless Sri Lankan heritage with modern Australian living.",
@@ -100,7 +106,7 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} ${fraunces.variable} ${leagueSpartan.variable} ${poppins.variable} ${outfit.variable} ${playfair.variable} ${cormorant.variable} antialiased bg-[#FAF7F2] text-[#1F1E1D] overflow-x-hidden selection:bg-[#C5A059] selection:text-white font-sans`}
       >
-        <StorefrontProvider initial={initialStore}>{children}</StorefrontProvider>
+        <StorefrontProvider initial={initialStore}><NavigationFeedback/>{children}</StorefrontProvider>
       </body>
     </html>
   );

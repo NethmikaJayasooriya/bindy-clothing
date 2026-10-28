@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useEffect, useState } from "react";
 import { Plus, Download, Archive, ArrowUpRight, ImagePlus, ArrowLeft, ArrowRight, Save, Package, Trash2 } from "lucide-react";
 import { useAdmin } from "./AdminProvider";
@@ -239,7 +240,7 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
             <div className="admin-image-list">
               {p.gallery.map((url, i) => (
                 <div className="admin-image-item" key={`${url}-${i}`}>
-                  <img src={url} alt={`Product image ${i + 1}`} />
+                  <ResponsiveImage src={url} alt={`Product image ${i + 1}`} />
                   <button type="button" aria-label={`Remove image ${i + 1}`} onClick={() => update("gallery", p.gallery.filter((_, n) => n !== i))}>×</button>
                   <small>{i === 0 ? "Main image" : i === 1 ? "Hover image" : `Image ${i + 1}`}</small>
                   <div className="admin-inline" style={{ justifyContent: "center", marginTop: 5 }}>

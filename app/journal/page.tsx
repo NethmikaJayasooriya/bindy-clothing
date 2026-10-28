@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -89,7 +90,7 @@ export default function JournalPage() {
         <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-sand/30">
           <div className="p-8 sm:p-12 rounded-3xl bg-paper-light border border-sand/40 shadow-paper-card grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-6 relative aspect-[16/10] rounded-2xl overflow-hidden bg-paper-dark">
-              <img
+              <ResponsiveImage
                 src={featuredArticle.image}
                 alt={featuredArticle.title}
                 className="w-full h-full object-cover"
@@ -143,7 +144,7 @@ export default function JournalPage() {
             >
               <div className="space-y-4">
                 <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-paper-dark">
-                  <img
+                  <ResponsiveImage
                     src={article.image}
                     alt={article.title}
                     className="w-full h-full object-cover"

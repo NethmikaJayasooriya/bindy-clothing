@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React from "react";
 import Link from "next/link";
@@ -115,7 +116,7 @@ export default function CartDrawer({
                       key={`${item.product.id}-${item.size}-${idx}`}
                       className="flex space-x-4 p-3 rounded-2xl bg-paper border border-sand/30"
                     >
-                      <img
+                      <ResponsiveImage sizes="96px"
                         src={item.product.image}
                         alt={item.product.name}
                         className="w-20 h-24 object-cover rounded-xl bg-paper-dark"

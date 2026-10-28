@@ -1,0 +1,26 @@
+const fs=require('node:fs');const path=require('node:path');const assert=require('node:assert/strict');const ts=require('typescript');const root=process.cwd();
+function loader(window={},sessionStorage={getItem:()=>null,setItem:()=>{}}){const cache=new Map();function load(file){if(file.startsWith('@/'))file=path.join(root,file.slice(2));if(!path.extname(file))file+='.ts';if(file.endsWith('.json'))return JSON.parse(fs.readFileSync(file,'utf8'));if(cache.has(file))return cache.get(file).exports;const m={exports:{}};cache.set(file,m);const code=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,esModuleInterop:true}}).outputText;new Function('require','module','exports','window','sessionStorage',code)(load,m,m.exports,window,sessionStorage);return m.exports;}return load;}
+let checks=0;const check=(v,name)=>{assert.ok(v,name);checks++;console.log('PASS '+name)};
+const load=loader();const {PRODUCTS}=load('@/lib/products');const {cleanProductMedia}=load('@/lib/product-media');const retired=JSON.parse(fs.readFileSync('data/retired-product-images.json','utf8'));const manifest=JSON.parse(fs.readFileSync('data/image-manifest.json','utf8'));
+check(PRODUCTS.length===33,'Product catalogue still has 33 unique products');
+const media=p=>[p.image,p.imageHover,...p.gallery,...(p.galleryZoom??[]),...(p.reviews??[]).flatMap(r=>r.photos??[])];
+check(PRODUCTS.every(p=>media(p).every(url=>!retired[url])),'No reference / mannequin photos remain in seeded product views');
+check(Object.keys(retired).every(url=>!fs.existsSync(path.join(root,'public',url))),'Retired reference photos are no longer public assets');
+check(Object.values(retired).every(url=>fs.existsSync(path.join(root,'public',url))),'Every replacement model photo exists');
+const persisted=JSON.parse(fs.readFileSync('.store/store.json','utf8')).products.map(cleanProductMedia);
+check(persisted.every(p=>media(p).every(url=>!retired[url])),'Previously saved product galleries are sanitized too');
+check(persisted.every(p=>!p.galleryZoom||p.galleryZoom.length===p.gallery.length),'Zoom photos keep their gallery indexes');
+check(persisted.every(p=>!p.galleryLabels||p.galleryLabels.length===p.gallery.length),'Gallery captions remain aligned after deduplication');
+check(PRODUCTS.every(p=>media(p).filter(url=>url.startsWith('/images/')).every(url=>fs.existsSync(path.join(root,'public',url)))),'All catalogue media URLs still resolve to real files');
+check(Object.keys(manifest).length>=200,'Responsive variants cover at least 200 referenced site images');
+check(Object.values(manifest).every(entry=>entry.srcSet.split(', ').every(v=>fs.existsSync(path.join(root,'public',v.split(' ')[0])))),'Every responsive srcset variant exists');
+const before=Object.values(manifest).reduce((s,v)=>s+v.originalBytes,0),after=Object.values(manifest).reduce((s,v)=>s+v.defaultBytes,0);check(after<before*.4,'Responsive 960px assets reduce aggregate image bytes by over 60%');
+const values=new Map();const storage={getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};const browser={matchMedia:()=>({matches:false})};const session=loader(browser,storage)('@/lib/splash-session');
+check(session.claimSplash()===true&&session.claimSplash()===false,'Intro is claimed once per SPA session');
+check(loader(browser,storage)('@/lib/splash-session').claimSplash()===false,'Reloads and back navigation cannot replay a seen intro');
+const blocked=loader(browser,{getItem:()=>{throw new Error('disabled')},setItem:()=>{throw new Error('disabled')}})('@/lib/splash-session');check(blocked.claimSplash()===true&&blocked.claimSplash()===false,'Blocked browser storage still prevents repeated intros');
+check(loader({matchMedia:()=>({matches:true})},{getItem:()=>null,setItem:()=>{}})('@/lib/splash-session').claimSplash()===false,'Reduced-motion preference skips the intro');
+check(!fs.readFileSync('components/SplashScreen.tsx','utf8').includes('getBoundingClientRect'),'Splash no longer measures layout during animation');
+check(!fs.readFileSync('components/ui/ProductCard.tsx','utf8').includes('preload="metadata"'),'Product-card videos do not download metadata upfront');
+check(fs.existsSync('app/product/[slug]/loading.tsx'),'Product navigation has an immediate loading view');
+fs.mkdirSync('output/performance',{recursive:true});fs.writeFileSync('output/performance/regression-checks.json',JSON.stringify({checks,passed:true,images:Object.keys(manifest).length,originalBytes:before,responsive960Bytes:after},null,2));console.log(`${checks} performance/photo regression checks passed.`);

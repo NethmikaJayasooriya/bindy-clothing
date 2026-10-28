@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { publicInput } from "@/lib/server/public-requests";
 import { getPiece, matchScore, outfitPricing } from "@/lib/styleStudio";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 /**
  * POST /api/outfit  { topId, bottomId }
@@ -10,7 +11,7 @@ export const dynamic = "force-static";
 export async function POST(req: NextRequest) {
   let body: { topId?: string; bottomId?: string };
   try {
-    body = await req.json();
+    body = await publicInput(req,"outfit");
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }

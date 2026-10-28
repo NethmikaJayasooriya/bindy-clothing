@@ -1,5 +1,8 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import DeferredSection from "@/components/DeferredSection";
+import { claimSplash } from "@/lib/splash-session";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
@@ -9,13 +12,11 @@ import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
 import EditorialHero from "@/components/EditorialHero";
 import HeritageTicker from "@/components/HeritageTicker";
-import SpotlightSection from "@/components/home/SpotlightSection";
-import FlashArchiveSection from "@/components/home/FlashArchiveSection";
-import FlashDiscountRibbon from "@/components/home/FlashDiscountRibbon";
+const SpotlightSection = dynamic(() => import("@/components/home/SpotlightSection"));
+import PublishedPromotions from "@/components/home/PublishedPromotions";
 import BrowseSection from "@/components/home/BrowseSection";
-import ShopTheLookSection from "@/components/home/ShopTheLookSection";
-import VerifiedReviewsSellingSection from "@/components/home/VerifiedReviewsSellingSection";
-import JourneySignup from "@/components/home/JourneySignup";
+const ShopTheLookSection = dynamic(() => import("@/components/home/ShopTheLookSection"));
+const JourneySignup = dynamic(() => import("@/components/home/NewsletterSignup"));
 import ProductModal from "@/components/ProductModal";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
@@ -24,7 +25,7 @@ import { ambientPlayer } from "@/lib/ambientSound";
 import type { Destination } from "@/data/products";
 
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
   const [isSplashLifting, setIsSplashLifting] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -32,6 +33,8 @@ export default function Home() {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [selectedJourney, setSelectedJourney] = useState<Destination | "All">("All");
   const [showStickyMobile, setShowStickyMobile] = useState(false);
+
+  useEffect(() => { if (claimSplash()) setShowSplash(true); }, []);
 
   // Track scroll position for the sticky mobile shopping controls
   useEffect(() => {
@@ -163,39 +166,26 @@ export default function Home() {
         </ScrollReveal>
 
         {/* SECTION 3: THIS WEEK'S SPOTLIGHT (Curated Top Silhouettes + 1-Tap Size Add) */}
-        <SpotlightSection
+        <DeferredSection><SpotlightSection
           onSelectProduct={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
-        />
+        /></DeferredSection>
 
         {/* SECTION 4: SHOP THE LOOK / EDITORIAL STYLING HOTSPOTS (AOV Bundle Booster) */}
-        <ShopTheLookSection
+        <DeferredSection><ShopTheLookSection
           onQuickView={(prod) => setQuickViewProduct(prod)}
           onAddToCart={handleAddToCart}
-        />
+        /></DeferredSection>
 
-        {/* DYNAMIC DISCOUNT INFINITE RIBBON */}
-        <ScrollReveal>
-          <FlashDiscountRibbon />
-        </ScrollReveal>
-
-        {/* SECTION 5: LIMITED 24-HOUR ARCHIVE WINDOW (Obsidian Private Vault) */}
-        <FlashArchiveSection
-          onQuickView={(prod) => setQuickViewProduct(prod)}
-          onAddToCart={handleAddToCart}
-        />
+        <PublishedPromotions/>
 
         {/* BELOW-THE-FOLD SECTIONS (High-Performance content-visibility: auto) */}
         <div className="content-auto">
           {/* SECTION 6: LOVED ACROSS AUSTRALIA — VERIFIED REVIEWS THAT SELL */}
-          <VerifiedReviewsSellingSection
-            onQuickView={(prod) => setQuickViewProduct(prod)}
-            onAddToCart={handleAddToCart}
-          />
 
           {/* SECTION 7: VIP FIRST-ORDER PRIVILEGE (Instant 10% Off Activation) */}
           <ScrollReveal>
-            <JourneySignup />
+            <DeferredSection><JourneySignup /></DeferredSection>
           </ScrollReveal>
 
           {/* SECTION 11: FOOTER (full sitemap) */}

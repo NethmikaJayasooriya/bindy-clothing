@@ -1,3 +1,4 @@
+import ResponsiveImage from "@/components/ResponsiveImage";
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, MapPin } from "lucide-react";
@@ -32,7 +33,7 @@ export default function StoryCard({
     >
       {/* Image Banner */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-paper-dark">
-        <img
+        <ResponsiveImage
           src={image}
           alt={title}
           loading="lazy"

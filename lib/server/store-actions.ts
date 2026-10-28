@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { getCanonicalProductId } from "@/lib/products";
 import type { StoreState, StoreProduct, StoreOrder, Discount, Customer, StoreReturn } from "@/lib/store-types";
 import { StoreError } from "./store-repository";
+import { expirePendingOrders } from "./payhere";
 type Input = Record<string, unknown>;
 export function object(value: unknown): Input { if (!value || typeof value !== "object" || Array.isArray(value)) throw new StoreError("The submitted data is invalid."); return value as Input; }
 export function text(value: unknown, max = 2000): string { if (value === undefined || value === null) return ""; if (typeof value !== "string" || value.length > max) throw new StoreError(`Text fields must contain no more than ${max} characters.`); return value.trim(); }
@@ -10,7 +11,7 @@ function required(value: unknown, label: string, max = 200) { const v = text(val
 export function number(value: unknown, max = 10000000): number { const n = Number(value); if (!Number.isFinite(n) || n < 0 || n > max) throw new StoreError("Enter a valid positive amount."); return Math.round(n * 100) / 100; }
 function integer(value: unknown, max = 1000000) { const n = number(value, max); if (!Number.isInteger(n)) throw new StoreError("Stock and quantities must be whole numbers."); return n; }
 function choice<T extends string>(value: unknown, values: readonly T[], label: string): T { if (!values.includes(value as T)) throw new StoreError(`Choose a valid ${label}.`); return value as T; }
-export function imagePath(value: unknown) { const v = required(value, "Image", 500); if (!/^\/(images|uploads)\/[\w\s./()…-]+$/.test(v) || v.includes("..")) throw new StoreError("Choose an image from your media library."); return v; }
+export function imagePath(value: unknown) { const v = required(value, "Image", 500);const mediaOrigin=process.env.NEXT_PUBLIC_SUPABASE_URL; if(mediaOrigin){try{const u=new URL(v);if(u.protocol==="https:"&&u.origin===new URL(mediaOrigin).origin&&u.pathname.startsWith("/storage/v1/object/public/bindy-media/")&&!u.search&&!u.hash)return v;}catch{}} if (!/^\/(images|uploads)\/[\w\s./()…-]+$/.test(v) || v.includes("..")) throw new StoreError("Choose an image from your media library."); return v; }
 function strings(value: unknown, max = 20): string[] { if (!Array.isArray(value) || value.length > max) throw new StoreError("The list contains too many items."); return value.map(v => required(v, "Value", 200)); }
 function email(value: unknown) { const v = required(value, "Email").toLowerCase(); if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) throw new StoreError("Enter a valid email address."); return v; }
 function optionalDate(value: unknown) { const v = text(value, 30); if (v && !/^\d{4}-\d{2}-\d{2}$/.test(v)) throw new StoreError("Enter a valid date."); return v; }
@@ -49,10 +50,11 @@ export function discountTotal(state: StoreState, code: string, subtotal: number,
   return { discount: Math.round(Math.min(subtotal, d.type === "percentage" ? subtotal * d.value / 100 : d.type === "fixed" ? d.value : 0) * 100) / 100, shipping: d.type === "shipping" ? 0 : shipping, coupon: d };
 }
 export function createOrder(state: StoreState, input: Input): StoreOrder {
+  expirePendingOrders(state);
   if (!state.settings.acceptingOrders) throw new StoreError("The store is temporarily not accepting new orders.");
   const requestId = required(input.requestId, "Request reference", 100);
-  const prior = state.orders.find(o => o.requestId === requestId); if (prior) return prior;
   const person = object(input.customer); const customerEmail = email(person.email); const customerName = required(person.name, "Customer name");
+  const prior = state.orders.find(o => o.requestId === requestId); if (prior) { if(prior.email!==customerEmail) throw new StoreError("This order reference cannot be reused.",409); return prior; }
   const address = required(person.address, "Shipping address", 1500); const phone = text(person.phone, 60);
   if (!Array.isArray(input.items) || !input.items.length || input.items.length > 50) throw new StoreError("Add between 1 and 50 order items.");
   const grouped = new Map<string, { productId: string; size: string; quantity: number }>();
@@ -82,6 +84,10 @@ export function createOrder(state: StoreState, input: Input): StoreOrder {
 }
 export function applyAction(state: StoreState, action: string, v: Input): unknown {
   switch (action) {
+    case "promotions": {
+      if(!Array.isArray(v.promotions)||v.promotions.length>12) throw new StoreError("Use up to 12 promotions.");
+      state.promotions=v.promotions.map(raw=>{const p=object(raw);const link=required(p.link,"Promotion link",300);if(!/^\/(?!\/)/.test(link)||link.includes("\\")) throw new StoreError("Use a link to a page on this store."); const startsAt=optionalDate(p.startsAt),endsAt=optionalDate(p.endsAt);if(startsAt&&endsAt&&endsAt<startsAt)throw new StoreError("The end date must follow the start date.");const code=text(p.code,30).toUpperCase();if(code&&!state.discounts.some(d=>d.code===code&&d.active))throw new StoreError("Choose an active discount code, or leave the code blank.");return {id:text(p.id,100)||randomUUID(),title:required(p.title,"Promotion title",100),description:text(p.description,300),code,link,startsAt,endsAt,published:p.published===true};});return;
+    }
     case "save-product": return saveProduct(state, v);
     case "delete-product": {
       const id = required(v.id || v.slug, "Product ID");
@@ -118,6 +124,8 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
         for (const item of order.items) { const p = state.products.find(p => p.id === item.productId); if (p) p.stock[item.size] = (p.stock[item.size] ?? 0) + item.quantity; }
       }
       const payment = choice(v.payment, ["unpaid", "paid", "refunded"] as const, "payment status");
+      if(order.gateway && payment!==order.payment) throw new StoreError("PayHere payment status is updated by verified gateway notifications. Record refunds in PayHere first.");
+      if(["packed","shipped","delivered"].includes(status)&&order.payment!=="paid") throw new StoreError("Confirm payment before preparing or dispatching this order.");
       if (payment === "refunded" && order.payment === "unpaid") throw new StoreError("Only a paid order can be marked as refunded.");
       if (order.payment === "refunded" && payment !== "refunded") throw new StoreError("A refunded payment cannot be changed.");
       order.fulfillment = status; order.payment = payment; order.tracking = text(v.tracking, 150); order.carrier = text(v.carrier, 100); order.notes = text(v.notes, 5000); order.updatedAt = new Date().toISOString(); return order;

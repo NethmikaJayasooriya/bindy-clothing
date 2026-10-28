@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
@@ -108,7 +109,7 @@ const isShippingComplete = (s: ShippingData): boolean => {
 const isPaymentComplete = (_p: PaymentData): boolean => true;
 
 export default function CheckoutPage() {
-  const { settings, products } = useStorefront();
+  const { settings, products, payments } = useStorefront();
   const requestIdRef = useRef("");
   const [orderError, setOrderError] = useState("");
   const router = useRouter();
@@ -368,6 +369,7 @@ export default function CheckoutPage() {
   // Step 3 -> 4 "Place Order" with Buy Now awareness & double-submit protection
   const handlePlaceOrder = async () => {
     if (!agreedToTerms || isSubmitting || submittingRef.current) return;
+    if(!settings.acceptingOrders || !payments?.enabled){setOrderError("Online checkout is being prepared. Please contact the store.");return;}
 
     submittingRef.current = true;
     setIsSubmitting(true);
@@ -375,79 +377,15 @@ export default function CheckoutPage() {
     setOrderError("");
     try {
       if (!requestIdRef.current) requestIdRef.current = crypto.randomUUID();
-      const response = await fetch("/api/storefront/orders", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestId:requestIdRef.current,customer:{name:`${shipping.firstName} ${shipping.lastName}`,email:shipping.email,phone:shipping.phone,address:[shipping.address,shipping.apartment,`${shipping.suburb}, ${shipping.state} ${shipping.postcode}`,shipping.country].filter(Boolean).join("\n")},items:items.map(i=>({productId:i.product.id,size:i.size,quantity:i.quantity})),shippingMethod:shipping.method,discountCode:appliedPromo?.code||""})});
+      const response = await fetch("/api/storefront/orders", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestId:requestIdRef.current,customer:{name:`${shipping.firstName} ${shipping.lastName}`,email:shipping.email,phone:shipping.phone,firstName:shipping.firstName,lastName:shipping.lastName,street:shipping.address,city:shipping.suburb,address:[shipping.address,shipping.apartment,`${shipping.suburb}, ${shipping.state} ${shipping.postcode}`,shipping.country].filter(Boolean).join("\n")},items:items.map(i=>({productId:i.product.id,size:i.size,quantity:i.quantity})),shippingMethod:shipping.method,discountCode:appliedPromo?.code||""})});
       const placed = await response.json(); if(!response.ok) throw new Error(placed.error || "Unable to save your order.");
-      const mockId = placed.number;
-      const now = new Date();
-      const dateStr = now.toLocaleDateString("en-AU", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-
-      const finalOrder: CompletedOrder = {
-        orderId: mockId,
-        orderDate: dateStr,
-        items: [...items],
-        subtotal: placed.subtotal,
-        shippingFee: placed.shipping,
-        discountAmount: placed.discount,
-        total: placed.total,
-        shippingAddress: { ...shipping },
-        isBuyNow: isBuyNowMode,
-      };
-
-      setOrderSummary(finalOrder);
-
-      // Persist order to account order history (localStorage)
-      saveOrder({
-        orderRef: mockId,
-        date: dateStr,
-        items: finalOrder.items.map((i) => ({
-          productId: i.product.id,
-          name: i.product.name,
-          size: i.size,
-          quantity: i.quantity,
-          priceAud: i.product.priceAud,
-          image: i.product.image,
-        })),
-        itemCount: finalOrder.items.reduce((s, i) => s + i.quantity, 0),
-        total: finalOrder.total,
-        shippingAddress: {
-          address: shipping.address,
-          apartment: shipping.apartment,
-          suburb: shipping.suburb,
-          state: shipping.state,
-          postcode: shipping.postcode,
-          country: shipping.country || "Australia",
-        },
-        status: "Confirmed",
-      });
-
-      // Store completed order separately in sessionStorage
-      if (typeof window !== "undefined") {
-        try {
-          sessionStorage.setItem("bindy_last_order", JSON.stringify(finalOrder));
-          sessionStorage.removeItem("bindy_checkout_shipping");
-          sessionStorage.removeItem("bindy_checkout_payment");
-          sessionStorage.removeItem("bindy_checkout_step");
-          sessionStorage.removeItem("bindy_order_request");
-        } catch {
-          /* ignore */
-        }
-      }
-
-      // If in Buy Now mode: only clear the temporary buy-now item (preserves regular cart!)
-      if (isBuyNowMode) {
-        clearBuyNowItem();
-      } else {
-        clearCart();
-      }
-
-      submittingRef.current = false;
-      setIsSubmitting(false);
-      setStep("confirmation");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if(!placed.checkout?.action || !placed.checkout?.fields) throw new Error("Payment session could not be opened.");
+      const allowed=["https://www.payhere.lk/pay/checkout","https://sandbox.payhere.lk/pay/checkout"];
+      if(!allowed.includes(placed.checkout.action)) throw new Error("Invalid payment destination.");
+      sessionStorage.setItem(`bindy_payment_cart_${placed.checkout.fields.custom_1}`,JSON.stringify({isBuyNow:isBuyNowMode,items:items.map(i=>({id:i.product.id,size:i.size,quantity:i.quantity}))}));
+      const form=document.createElement("form");form.method="POST";form.action=placed.checkout.action;
+      for(const [key,value] of Object.entries(placed.checkout.fields)){const input=document.createElement("input");input.type="hidden";input.name=key;input.value=String(value);form.appendChild(input);}
+      document.body.appendChild(form);form.submit();
     } catch(error) { setOrderError(error instanceof Error ? error.message : "Unable to save your order. Please try again."); }
     finally { submittingRef.current = false; setIsSubmitting(false); }
   };
@@ -537,7 +475,7 @@ export default function CheckoutPage() {
         {items.map((item, idx) => (
           <div key={`${item.product.id}-${item.size}-${idx}`} className="flex items-center gap-3 py-1.5">
             <div className="relative w-14 h-16 rounded-xl overflow-hidden bg-paper-dark border border-sand/40 flex-shrink-0">
-              <img
+              <ResponsiveImage
                 src={item.product.image}
                 alt={item.product.name}
                 className="w-full h-full object-cover"
@@ -935,7 +873,7 @@ export default function CheckoutPage() {
                 {orderSummary.items.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between gap-3 sm:gap-4 py-2 border-b border-sand/20 last:border-0">
                     <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                      <img
+                      <ResponsiveImage
                         src={item.product.image}
                         alt={item.product.name}
                         className="w-14 h-16 sm:w-16 sm:h-20 object-cover rounded-xl bg-paper-dark border border-sand/40 flex-shrink-0"
@@ -1357,8 +1295,8 @@ export default function CheckoutPage() {
                 {step === "payment" && (
                   <div className="space-y-6">
                     <span className="text-xs uppercase tracking-widest text-gold">Payment arrangements</span>
-                    <h2 className="font-serif text-3xl">Confirm now. Pay after confirmation.</h2>
-                    <div className="p-6 rounded-2xl border border-sand bg-white leading-7 text-sm">Your order will be saved with payment pending. Our team will contact you using your order details to arrange payment. No card details are collected here.</div>
+                    <h2 className="font-serif text-3xl">Secure payment with PayHere.</h2>{!settings.acceptingOrders&&<p role="status" className="p-4 border border-amber-300 bg-amber-50 rounded-xl">Checkout is being prepared. Please contact {settings.email} for help.</p>}{payments?.mode==="sandbox"&&payments.enabled&&<p className="text-amber-800">Test mode: use PayHere sandbox payment details only.</p>}
+                    <div className="p-6 rounded-2xl border border-sand bg-white leading-7 text-sm">Continue to PayHere to pay securely. Your order is confirmed only after the payment provider verifies it. Card details are entered on PayHere.</div>
                     <div className="flex gap-3"><button type="button" onClick={()=>setStep("shipping")} className="px-6 py-4 border rounded-full">Back</button><button type="button" onClick={()=>setStep("review")} className="px-8 py-4 rounded-full bg-gold">Review order →</button></div>
                   </div>
                 )}
@@ -1378,7 +1316,7 @@ export default function CheckoutPage() {
                         Step 3 of 3
                       </span>
                       <h2 className="font-serif text-2xl sm:text-4xl text-charcoal font-normal">
-                        Review & Confirm Order
+                        Review order & continue to payment
                       </h2>
                     </div>
 
@@ -1421,7 +1359,7 @@ export default function CheckoutPage() {
                             Pay after confirmation
                           </p>
                           <p className="text-muted truncate">
-                            Payment pending · Our team will contact you to arrange payment.
+                            Secure PayHere payment · AUD. Your bank may apply currency conversion.
                           </p>
                           <span className="inline-block text-xs uppercase tracking-wider text-green-700 bg-green-500/15 border border-green-500/30 px-2 py-0.5 rounded mt-1 font-semibold">
                             Payment pending

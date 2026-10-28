@@ -379,3 +379,8 @@ button, a, input, select, textarea {
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
 }
+
+/* Immediate route feedback without blocking interaction or replaying the intro. */
+.navigation-feedback{position:fixed;inset:0 0 auto;z-index:150;height:3px;background:#c5a05926;pointer-events:none;overflow:hidden}.navigation-feedback>span:first-child{display:block;width:38%;height:100%;background:#b58d42;animation:route-progress 1s ease-in-out infinite}@keyframes route-progress{from{transform:translateX(-100%)}to{transform:translateX(365%)}}@media(prefers-reduced-motion:reduce){.navigation-feedback>span:first-child{animation:none;width:100%}}
+
+@media(hover:none),(pointer:coarse){.product-quick-actions{opacity:0!important;pointer-events:none!important}}

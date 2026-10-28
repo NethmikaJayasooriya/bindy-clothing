@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
@@ -506,13 +507,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       >
                         {/* Portrait Image with Dual Image Swap */}
                         <div className="aspect-[3/4] w-full rounded-xl overflow-hidden bg-[#FAF7F2] relative border border-[#DCC7AF]/40 mb-3.5">
-                          <img
+                          <ResponsiveImage
                             src={product.image}
                             alt={product.name}
                             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                           />
                           {product.imageHover && (
-                            <img
+                            <ResponsiveImage
                               src={product.imageHover}
                               alt=""
                               aria-hidden="true"
@@ -585,7 +586,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           onClick={() => handleProductSelect(item.id)}
                           className="p-2.5 rounded-xl bg-white border border-[#DCC7AF]/70 hover:border-[#C5A059] text-left cursor-pointer transition-all flex items-center gap-2.5 group"
                         >
-                          <img
+                          <ResponsiveImage
                             src={item.image}
                             alt={item.name}
                             className="w-12 h-14 rounded-lg object-cover bg-[#FAF7F2]"
@@ -649,7 +650,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             }}
                             className="group relative h-48 sm:h-56 rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#DCC7AF]/80 hover:border-[#C5A059] text-left transition-all duration-500 shadow-sm hover:shadow-xl cursor-pointer"
                           >
-                            <img
+                            <ResponsiveImage
                               src={cat.image}
                               alt={cat.name}
                               className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -699,7 +700,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           className="group p-3 rounded-2xl bg-white border border-[#DCC7AF]/70 hover:border-[#C5A059] cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md flex items-center gap-3.5"
                         >
                           <div className="w-16 h-20 rounded-xl overflow-hidden bg-[#FAF7F2] flex-shrink-0 border border-[#DCC7AF]/40">
-                            <img
+                            <ResponsiveImage
                               src={item.image}
                               alt={item.name}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform"

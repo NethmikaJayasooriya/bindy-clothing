@@ -1,4 +1,5 @@
 "use client";
+import AdminPromotions from "./AdminPromotions";
 import AdminInbox from "./AdminInbox";
 import AdminOverview from "./AdminOverview";
 import AdminProducts from "./AdminProducts";
@@ -7,6 +8,7 @@ import { AdminCustomers, AdminDiscounts, AdminReturns } from "./AdminDirectories
 import { AdminContent, AdminMedia, AdminSettings } from "./AdminContent";
 export default function AdminWorkspace({ section = "overview" }: { section?: string }) {
   switch (section) {
+    case "promotions": return <AdminPromotions/>;
     case "products": return <AdminProducts/>;
     case "inventory": return <AdminProducts inventory/>;
     case "orders": return <AdminOrders/>;

@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React from "react";
 import Link from "next/link";
@@ -23,7 +24,7 @@ export default function EditorialPhilosophyBanner() {
             <div className="relative aspect-[4/5] sm:aspect-[1/1] lg:aspect-[4/5] w-full max-w-md mx-auto rounded-[32px] overflow-hidden border border-[#C5A059]/30 shadow-[0_20px_60px_rgba(0,0,0,0.6)] group">
               {/* Macro Handloom Fabric Image */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <ResponsiveImage
                 src="/images/detail/lotus-memory-dress-b.jpg"
                 alt="Artisan Sri Lankan Handloom Weave Texture"
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-1000 ease-out"

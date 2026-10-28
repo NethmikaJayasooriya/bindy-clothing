@@ -1,4 +1,5 @@
 "use client";
+import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -68,13 +69,13 @@ export default function SpotlightSection({
             
             {/* Image Frame with Dual Hover */}
             <div className="relative aspect-[3/4] md:w-1/2 overflow-hidden bg-[#FAF7F2] flex-shrink-0">
-              <img
+              <ResponsiveImage
                 src={heroProduct.image}
                 alt={heroProduct.name}
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
               {heroProduct.imageHover && (
-                <img
+                <ResponsiveImage
                   src={heroProduct.imageHover}
                   alt=""
                   aria-hidden="true"
@@ -199,7 +200,7 @@ export default function SpotlightSection({
               >
                 {/* Square-ish Media Thumbnail */}
                 <div className="w-20 sm:w-32 aspect-[3/4] rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF7F2] relative border border-[#DCC7AF]/40 flex-shrink-0">
-                  <img
+                  <ResponsiveImage
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
