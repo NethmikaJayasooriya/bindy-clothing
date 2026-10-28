@@ -167,6 +167,12 @@ export default function Footer() {
             </span>
           </div>
         </div>
+        <p className="mt-5 text-center sm:text-right text-[11px] font-sans text-charcoal/60 leading-6">
+          Design and created by{" "}
+          <a href="https://batstack.io" target="_blank" rel="noopener noreferrer" className="font-medium text-charcoal/80 hover:text-[#8E6E34] underline decoration-sand/60 underline-offset-4 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4">
+            BATSTACK (PVT) LTD
+          </a>
+        </p>
       </div>
     </footer>
   );
