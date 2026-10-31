@@ -1391,7 +1391,7 @@ export default function CheckoutPage() {
                         className="accent-[#C5A059] rounded mt-0.5 w-4 h-4 cursor-pointer"
                       />
                       <span className="text-xs font-sans text-muted leading-relaxed">
-                        I agree to BINDY&apos;s <span className="text-gold underline underline-offset-2 font-medium">Terms of Service</span> and <span className="text-gold underline underline-offset-2 font-medium">Privacy Policy</span>.
+                        I agree to BINDY&apos;s <Link href="/pages/terms" target="_blank" rel="noopener noreferrer" className="text-gold underline underline-offset-2 font-medium">Terms &amp; Conditions</Link> and <Link href="/pages/privacy" target="_blank" rel="noopener noreferrer" className="text-gold underline underline-offset-2 font-medium">Privacy Policy</Link>.
                       </span>
                     </label>
 

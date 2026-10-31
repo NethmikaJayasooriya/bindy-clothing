@@ -9,6 +9,7 @@ import BrandLogo from "@/components/BrandLogo";
 
 export default function Footer() {
   const { settings, pages } = useStorefront();
+  const legalPages = ["privacy", "terms", "security"].flatMap(slug => pages.filter(p => p.slug === slug));
   return (
     <footer className="bg-paper-dark text-charcoal border-t border-sand/40 pt-16 sm:pt-20 pb-28 sm:pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,7 +90,7 @@ export default function Footer() {
             <ul className="space-y-2.5 text-[13.5px] font-sans text-charcoal/75">
               <li>
                 <Link href="/about" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
-                  Our Story &amp; Founders
+                  Our Story
                 </Link>
               </li>
               <li>
@@ -154,14 +155,7 @@ export default function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-sans text-charcoal/60 tracking-wider gap-4">
           <p>© {new Date().getFullYear()} BINDY CLOTHING. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-sans text-charcoal/60">
-            {pages.some(p=>p.slug==="privacy") && <Link href="/pages/privacy" className="hover:text-charcoal-rich transition-colors">
-              Privacy Policy
-            </Link>}
-            <span className="text-sand/60 hidden sm:inline">•</span>
-            {pages.some(p=>p.slug==="terms") && <Link href="/pages/terms" className="hover:text-charcoal-rich transition-colors">
-              Terms of Service
-            </Link>}
-            <span className="text-sand/60 hidden sm:inline">•</span>
+            {legalPages.map(page => <Link key={page.slug} href={`/pages/${page.slug}`} className="hover:text-charcoal-rich transition-colors">{page.title}</Link>)}
             <span className="font-serif italic text-[#8E6E34] tracking-normal">
               Two Islands, One Thread
             </span>

@@ -3,26 +3,20 @@ import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   Sparkles,
   ArrowRight,
   MapPin,
-  Heart,
   Leaf,
   ShieldCheck,
   Award,
-  Calendar,
-  Quote,
-  CheckCircle2,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
-import { getCart, saveCart } from "@/lib/cart";
+import { getCart } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
-import { FOUNDERS } from "@/data/founders";
-import { CRAFT_PROCESS_STEPS, ETHICAL_PILLARS } from "@/data/craft";
+import { CRAFT_PROCESS_STEPS } from "@/data/craft";
 import { Button, SectionHeading } from "@/components/ui";
 
 export default function AboutPage() {
@@ -39,33 +33,6 @@ export default function AboutPage() {
     const muted = ambientPlayer.toggle();
     setIsMuted(muted);
   };
-
-  const timelineMilestones = [
-    {
-      year: "2020",
-      title: "The Seed in Two Continents",
-      subtitle: "Colombo & Brisbane",
-      desc: "Separated by ocean during global lockdowns, Dilrukshi in Colombo and her daughters Binadhi and Vinudhi in Brisbane dreamed of building a bridge between their ancestral home and their modern lives. The concept of 'Two Islands, One Thread' was born over long late-night video calls.",
-    },
-    {
-      year: "2022",
-      title: "Loom Revivals & Village Alliances",
-      subtitle: "Western & Central Provinces",
-      desc: "Dilrukshi spent months traveling through rural Sri Lankan weaving villages, partnering directly with master women weavers operating ancestral teak pit-looms. We pledged 1.8× fair living wages and funded the restoration of 14 heritage looms.",
-    },
-    {
-      year: "2024",
-      title: "Launch of Collection 01 • Serendipity",
-      subtitle: "Australian Wardrobe Debut",
-      desc: "Our inaugural capsule of seventeen handcrafted silhouettes launched across Australia. Featured in Vogue Australia and Broadsheet for its poetic storytelling and uncompromising slow-fashion integrity.",
-    },
-    {
-      year: "Today",
-      title: "Generational Heirlooms",
-      subtitle: "Two Islands, Bound in Grace",
-      desc: "With studios in both Brisbane and Colombo, BINDY remains an intimate, family-run atelier. Every limited edition piece continues to be cut, sewn, and numbered by hand.",
-    },
-  ];
 
   const brandValues = [
     {
@@ -123,7 +90,7 @@ export default function AboutPage() {
 
               <div className="space-y-4 text-xs sm:text-sm font-sans text-charcoal/85 font-light leading-relaxed pt-2 border-t border-sand/30">
                 <p>
-                  BINDY was founded by three women — a mother and her two daughters — rooted in Colombo and blossoming in Brisbane. Frustrated by the frenetic obsolescence of global fast fashion, we returned to first principles: honest cotton, ancestral wooden looms, and silhouettes designed to be worn slowly and cherished for decades.
+                  BINDY brings Sri Lankan inspiration to an Australian wardrobe. Our collections explore relaxed silhouettes, considered details and pieces you can make your own — worn together, styled separately and reached for again.
                 </p>
                 <p>
                   Every button is carved from organic mother-of-pearl or reclaimed coconut husk. Every seam is finished with couture dignity. We do not design for the trend cycle; we design for quiet, meaningful moments under the sun.
@@ -131,11 +98,11 @@ export default function AboutPage() {
               </div>
 
               <div className="pt-4 flex items-center gap-4">
-                <a href="#founders">
+                <Link href="/collection">
                   <Button variant="primary" size="md">
-                    Meet the Founders
+                    Explore the Collection
                   </Button>
-                </a>
+                </Link>
                 <a href="#artisan-process">
                   <Button variant="outline" size="md">
                     Our Handloom Craft
@@ -163,149 +130,6 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 2. "TWO ISLANDS, ONE THREAD" INTERACTIVE TIMELINE */}
-      <section className="py-24 sm:py-32 bg-paper border-b border-sand/30">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Our Journey"
-            title="The Unfolding Timeline"
-            italicWord="Timeline"
-            description="From late-night calls across the Indian Ocean to a community of women wearing conscious handloom across Australia."
-            align="center"
-          />
-
-          <div className="relative border-l-2 border-gold/40 ml-4 sm:ml-32 md:ml-48 space-y-12 sm:space-y-16 py-4">
-            {timelineMilestones.map((m, idx) => (
-              <div key={idx} className="relative pl-8 sm:pl-12">
-                {/* Year Badge on left */}
-                <div className="absolute -left-[45px] sm:-left-[120px] top-0 flex items-center gap-2">
-                  <span className="w-5 h-5 rounded-full bg-gold ring-4 ring-paper shrink-0" />
-                  <span className="font-serif text-lg sm:text-2xl font-bold text-gold">
-                    {m.year}
-                  </span>
-                </div>
-
-                <div className="p-6 sm:p-8 rounded-3xl bg-paper-light border border-sand/40 shadow-sm space-y-2">
-                  <span className="text-[10px] uppercase font-sans tracking-widest text-gold font-semibold">
-                    {m.subtitle}
-                  </span>
-                  <h3 className="font-serif text-xl sm:text-2xl text-charcoal font-medium">
-                    {m.title}
-                  </h3>
-                  <p className="font-sans text-xs sm:text-sm text-charcoal/85 leading-relaxed font-light">
-                    {m.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. FULL FOUNDER PROFILES & INTERVIEWS */}
-      <section id="founders" className="py-24 sm:py-32 bg-paper-dark/60 border-b border-sand/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-          <SectionHeading
-            eyebrow="Three Women. One Vision."
-            title="Meet Our Founders"
-            italicWord="Founders"
-            description="A mother and her two daughters uniting ancestral Sri Lankan manufacturing mastery with relaxed Australian lifestyle ease."
-            align="center"
-          />
-
-          {FOUNDERS.map((founder, idx) => (
-            <div
-              key={founder.id}
-              id={founder.id}
-              className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-paper-light border border-sand/40 shadow-paper-card scroll-mt-24"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-                {/* Portrait (4 cols) */}
-                <div className="lg:col-span-4 space-y-4">
-                  <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-paper-dark border border-sand/40 shadow-md">
-                    <ResponsiveImage
-                      src={founder.image}
-                      alt={founder.name}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-4 left-4 font-display text-4xl text-gold select-none">
-                      {founder.monogram}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="font-serif text-2xl text-charcoal font-medium">
-                      {founder.name}
-                    </h3>
-                    <p className="text-xs uppercase font-sans tracking-wider text-gold font-semibold mt-0.5">
-                      {founder.role}
-                    </p>
-                    <p className="text-[11px] font-sans text-muted mt-0.5">
-                      {founder.location}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-sand/30">
-                    <span className="text-[10px] uppercase font-sans tracking-wider text-muted font-semibold block mb-2">
-                      Specialist Focus
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {founder.focus.map((f, i) => (
-                        <span
-                          key={i}
-                          className="text-[10px] bg-paper px-3 py-1 rounded-full border border-sand/40 text-charcoal/90"
-                        >
-                          {f}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Narrative Bio & In-Depth Q&A Interview (8 cols) */}
-                <div className="lg:col-span-8 space-y-8">
-                  {/* Quote */}
-                  <blockquote className="font-editorial-italic text-xl sm:text-2xl text-charcoal font-light leading-relaxed border-l-2 border-gold/70 pl-5 py-1">
-                    &ldquo;{founder.quote}&rdquo;
-                  </blockquote>
-
-                  {/* Long Bio Paragraphs */}
-                  <div className="space-y-3 font-sans text-xs sm:text-sm text-charcoal/85 font-light leading-relaxed">
-                    {founder.longBio.map((paragraph, pIdx) => (
-                      <p key={pIdx}>{paragraph}</p>
-                    ))}
-                  </div>
-
-                  {/* 3-Question Interview Spread */}
-                  <div className="pt-6 border-t border-sand/30 space-y-5">
-                    <h4 className="font-serif text-lg text-charcoal font-medium flex items-center gap-2">
-                      <Quote className="w-4 h-4 text-gold" />
-                      <span>In Conversation with {founder.name.split(" ")[0]}</span>
-                    </h4>
-
-                    <div className="space-y-4">
-                      {founder.interview.map((item, qIdx) => (
-                        <div
-                          key={qIdx}
-                          className="p-5 rounded-2xl bg-paper border border-sand/30 space-y-2"
-                        >
-                          <p className="font-serif italic text-sm font-semibold text-charcoal">
-                            Q: {item.question}
-                          </p>
-                          <p className="font-sans text-xs sm:text-[13px] text-charcoal/80 font-light leading-relaxed">
-                            {item.answer}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 

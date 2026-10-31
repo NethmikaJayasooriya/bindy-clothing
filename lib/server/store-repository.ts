@@ -10,6 +10,7 @@ import { publishedPromotions } from "@/lib/promotions";
 import { publishedHomepage } from "@/lib/homepage-content";
 import { isRetiredProduct } from "@/lib/retired-products";
 import { publicDiscovery } from "@/lib/home-discovery";
+import { DEFAULT_POLICY_PAGES, RETURNS_CONSUMER_RIGHTS } from "@/lib/store-policies";
 import { payhereMode,payhereReady } from "./payhere";
 export { RequestError as StoreError } from "./request-security";
 import { PRODUCTS } from "@/data/products";
@@ -33,9 +34,8 @@ export function seedStore(): StoreState {
     return { ...p, sku: `BIN-${String(i + 1).padStart(4, "0")}`, status: "active", stock, lowStockThreshold: 3, compareAtAud: 0, costAud: 0, featured: i < 4, updatedAt: now };
   }), orders: [], customers: [], messages: [], subscribers: [], returns: [], media: [], hero: DEFAULT_HERO, pages: [
     { slug: "shipping", title: "Shipping & delivery", body: "We ship within Australia. Standard delivery is $12 and express delivery is $18. Orders over $150 receive complimentary express delivery. Delivery estimates are provided when your order is dispatched.", published: true },
-    { slug: "returns", title: "Returns & exchanges", body: "Contact our team within 30 days of receiving your order to request a return or exchange. Items should be unworn, unwashed and returned with their original tags. Please contact contact@bindyclothing.com before sending a return.", published: true },
-    { slug: "privacy", title: "Privacy policy", body: "We use the contact and delivery information you provide to fulfil orders and assist with your enquiries. Contact contact@bindyclothing.com with questions about your personal information.", published: false },
-    { slug: "terms", title: "Terms of service", body: "Please review and publish your store terms before accepting live orders.", published: false },
+    { slug: "returns", title: "Returns & exchanges", body: `Contact our team within 30 days of receiving your order to request a return or exchange. Items should be unworn, unwashed and returned with their original tags. Please contact {{email}} before sending a return.\n\n${RETURNS_CONSUMER_RIGHTS}`, published: true },
+    ...structuredClone(DEFAULT_POLICY_PAGES),
   ], discounts: [{ id: randomUUID(), code: "WELCOME10", type: "percentage", value: 10, minimum: 0, startsAt: "", endsAt: "", usageLimit: 0, used: 0, active: true }], settings: DEFAULT_SETTINGS, activity: [], updatedAt: now };
 }
 async function atomicWrite(state: StoreState) {
