@@ -9,6 +9,7 @@ import { RequestError as StoreError } from "./request-security";
 import { publishedPromotions } from "@/lib/promotions";
 import { publishedHomepage } from "@/lib/homepage-content";
 import { isRetiredProduct } from "@/lib/retired-products";
+import { publicDiscovery } from "@/lib/home-discovery";
 import { payhereMode,payhereReady } from "./payhere";
 export { RequestError as StoreError } from "./request-security";
 import { PRODUCTS } from "@/data/products";
@@ -107,7 +108,7 @@ export async function mutateStore<T>(revision: number | undefined, description: 
 }
 export function publicStore(state: StoreState): PublicStore {
   const paymentEnabled=hasDatabase()&&payhereReady();
-  return { revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: {...state.settings,acceptingOrders:state.settings.acceptingOrders&&paymentEnabled},promotions:publishedPromotions(state),homepage:publishedHomepage(state.homepage,new Set(state.products.filter(p=>p.status==="active"&&!isRetiredProduct(p.id)).map(p=>p.id))),payments:{enabled:paymentEnabled,mode:payhereMode()},
+  return { discovery: publicDiscovery(state.discovery), revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: {...state.settings,acceptingOrders:state.settings.acceptingOrders&&paymentEnabled},promotions:publishedPromotions(state),homepage:publishedHomepage(state.homepage,new Set(state.products.filter(p=>p.status==="active"&&!isRetiredProduct(p.id)).map(p=>p.id))),payments:{enabled:paymentEnabled,mode:payhereMode()},
     products: state.products.filter(p => p.status === "active" && !isRetiredProduct(p.id)).map((p): PublicProduct => {
       const { sku, costAud, status, featured, updatedAt, lowStockThreshold, ...product } = p;
       const total = Object.values(p.stock).reduce((sum, n) => sum + n, 0);

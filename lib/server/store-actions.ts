@@ -2,6 +2,7 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import { getCanonicalProductId } from "@/lib/products";
 import { isRetiredProduct } from "@/lib/retired-products";
+import { DISCOVERY_CATEGORIES, type HomeDiscovery } from "@/lib/home-discovery";
 import type { StoreState, StoreProduct, StoreOrder, Discount, Customer, StoreReturn, HomepageContent } from "@/lib/store-types";
 import { StoreError } from "./store-repository";
 import { expirePendingOrders } from "./payhere";
@@ -176,6 +177,24 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       s.freeShippingThreshold = number(v.freeShippingThreshold); s.standardShipping = number(v.standardShipping); s.expressShipping = number(v.expressShipping); s.returnsDays = integer(v.returnsDays, 365); s.lowStockThreshold = integer(v.lowStockThreshold, 1000); s.acceptingOrders = v.acceptingOrders === true;
       s.instagram = text(v.instagram, 300); if (s.instagram && !/^https:\/\/(www\.)?instagram\.com\//.test(s.instagram)) throw new StoreError("Use a full Instagram profile URL.");
       s.orderPrefix = required(v.orderPrefix, "Order prefix", 10).replace(/[^A-Za-z0-9]/g, "").toUpperCase(); if (!s.orderPrefix) throw new StoreError("Use letters or numbers for the order prefix."); return;
+    }
+    case "discovery": {
+      const input = object(v.discovery);
+      if (!Array.isArray(input.features) || input.features.length !== 2) throw new StoreError("Use two editorial photo panels.");
+      if (!Array.isArray(input.categories) || input.categories.length !== 4) throw new StoreError("Add a photo for each of the four clothing categories.");
+      const mission = object(input.mission);
+      const discovery: HomeDiscovery = {
+        featuresEnabled: input.featuresEnabled === true,
+        heading: input.featuresEnabled === true ? required(input.heading, "Editorial heading", 100) : text(input.heading, 100),
+        categoryHeading: required(input.categoryHeading, "Category heading", 100),
+        features: input.features.map(raw => { const p = object(raw); return { title: required(p.title, "Panel heading", 80), label: text(p.label, 100), action: required(p.action, "Button label", 80), image: imagePath(p.image), alt: required(p.alt, "Image description", 250), category: choice(p.category, DISCOVERY_CATEGORIES, "category") }; }),
+        categories: input.categories.map(raw => { const p = object(raw); return { category: choice(p.category, DISCOVERY_CATEGORIES, "category"), image: imagePath(p.image), alt: required(p.alt, "Image description", 250) }; }),
+        mission: { enabled: mission.enabled === true, label: text(mission.label, 100), title: text(mission.title, 100), body: text(mission.body, 600) },
+      };
+      if (new Set(discovery.categories.map(c => c.category)).size !== 4) throw new StoreError("Choose each clothing category once.");
+      if (discovery.mission.enabled && (!discovery.mission.title || !discovery.mission.body)) throw new StoreError("Add a heading and message before showing the brand story.");
+      state.discovery = discovery;
+      return;
     }
     case "homepage": {
       const input = object(v.homepage);

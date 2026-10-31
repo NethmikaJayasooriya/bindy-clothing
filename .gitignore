@@ -52,3 +52,5 @@ assets/client-source-documents/
 .store-content-qa/
 .next-refresh/
 .store-refresh-qa/
+.next-discovery/
+.store-discovery-qa/

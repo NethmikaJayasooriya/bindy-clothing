@@ -41,3 +41,5 @@ The optimizer preserves source images, reuses already generated files, and write
 Audit output and screenshots are in `output/performance/`.
 
 - October 31 update: withdrew Moonflower Embroidered Halter Top and Rose Dot Button Corset Top from sale, including saved carts/wishlists and related-product references. Their historical order lines remain intact. The final two old hero slides were replaced by the supplied Blue, Coast and Highlands campaign photos, with full-height phone derivatives. The five chapter controls now share a responsive row.
+
+- Homepage discovery update: two responsive editorial photos, four full-figure category portraits with no hover zoom/cropping, a native swipe rail on small screens, and one image-free brand message after eight unfiltered products. Image dimensions reserve layout space, derivatives use content-addressed URLs, and all six 768px sources stay below 350 KB each. Category-filtered shopping hides the story insert.

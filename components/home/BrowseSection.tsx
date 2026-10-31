@@ -11,9 +11,11 @@ import {
   type Destination,
   type Product,
 } from "@/data/products";
-import { SectionHeading, ProductCard, Button } from "@/components/ui";
+import { ProductCard, Button } from "@/components/ui";
 import CreativeProductCard from "@/components/ui/CreativeProductCard";
 import CategoryStoryBar from "@/components/home/CategoryStoryBar";
+import { WardrobeEditorial, WardrobeMission } from "./WardrobeEditorial";
+import discoveryStyles from "./WardrobeDiscovery.module.css";
 
 export interface BrowseSectionProps {
   onQuickView: (product: Product) => void;
@@ -59,27 +61,46 @@ export default function BrowseSection({
   }, [activeCategory, selectedJourney, activeCollection, isTestMode, PRODUCTS]);
 
   const displayedProducts = filteredProducts;
+  const availableProducts = PRODUCTS.filter(p => (activeCollection === "All" || p.collectionName === activeCollection) && (selectedJourney === "All" || p.destinations.includes(selectedJourney)));
+  const showMission = !isTestMode && activeCategory === "All" && activeCollection === "All" && selectedJourney === "All" && displayedProducts.length > 8;
+  const showProducts = () => window.requestAnimationFrame(() => document.getElementById("wardrobe-products")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }));
 
   return (
-    <section id="browse-collection" className="relative pt-8 sm:pt-14 pb-12 sm:pb-16 px-3 sm:px-6 lg:px-8 bg-paper">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeading
-          eyebrow={
-            activeCollection === "Collection 02"
-              ? "Collection 02 • New Arrivals"
-              : activeCollection === "Serendipity"
-              ? "Collection 01 • Serendipity"
-              : "Origins • Complete Capsule"
-          }
-          eyebrowIcon={<Sparkles className="w-3.5 h-3.5 text-gold" />}
-          title="Browse by Piece"
-          italicWord="Piece"
-          description="Handcrafted silhouettes — each one carrying a fragment of Sri Lankan heritage into the Australian wardrobe."
-          align="center"
+    <section id="browse-collection" className="relative pb-12 sm:pb-16 bg-paper">
+      <WardrobeEditorial onSelect={category => { setActiveCategory(category); setActiveCollection("All"); onClearJourney?.(); showProducts(); }}/>
+      <div className="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8">
+        {/* Active Journey Filter Chip (if selected from Journey Tiles) */}
+        {selectedJourney !== "All" && (
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <span className="text-xs font-sans text-charcoal-subtle">Filtered by journey:</span>
+            <span className="inline-flex items-center gap-2 bg-gold/15 border border-gold/30 px-3.5 py-1 rounded-full text-xs font-sans font-semibold text-charcoal">
+              <span>{selectedJourney}</span>
+              <button
+                type="button"
+                onClick={onClearJourney}
+                className="hover:text-cinnamon cursor-pointer text-sm leading-none ml-1"
+                aria-label="Clear journey filter"
+              >
+                ×
+              </button>
+            </span>
+          </div>
+        )}
+
+        {/* High-Fashion 1-Tap Category Story Bar (E-Com Upgrade) */}
+        <CategoryStoryBar
+          activeCategory={activeCategory}
+          availableProducts={availableProducts}
+          onSelectCategory={(cat) => {
+            setActiveCategory(cat);
+            showProducts();
+          }}
         />
 
+        <div id="wardrobe-products" className={`${discoveryStyles.collectionHeading} scroll-mt-28`}>
+          <div><h2>{activeCategory === "All" ? "The collection." : activeCategory}</h2><p className={discoveryStyles.collectionCount} role="status">{displayedProducts.length} pieces to make your own</p></div>
         {/* Collection Selector Tabs */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 mb-6 sm:mb-10 overflow-x-auto no-scrollbar px-1 pb-1">
+        <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 mt-5 sm:mt-0 overflow-x-auto no-scrollbar px-1 pb-1">
           {[
             { key: "All", label: "All Collections" },
             { key: "Serendipity", label: "Collection 01 • Serendipity" },
@@ -110,40 +131,14 @@ export default function BrowseSection({
           })}
         </div>
 
-        {/* Active Journey Filter Chip (if selected from Journey Tiles) */}
-        {selectedJourney !== "All" && (
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <span className="text-xs font-sans text-charcoal-subtle">Filtered by journey:</span>
-            <span className="inline-flex items-center gap-2 bg-gold/15 border border-gold/30 px-3.5 py-1 rounded-full text-xs font-sans font-semibold text-charcoal">
-              <span>{selectedJourney}</span>
-              <button
-                type="button"
-                onClick={onClearJourney}
-                className="hover:text-cinnamon cursor-pointer text-sm leading-none ml-1"
-                aria-label="Clear journey filter"
-              >
-                ×
-              </button>
-            </span>
-          </div>
-        )}
-
-        {/* High-Fashion 1-Tap Category Story Bar (E-Com Upgrade) */}
-        <CategoryStoryBar
-          activeCategory={activeCategory}
-          onSelectCategory={(cat) => {
-            setActiveCategory(cat);
-          }}
-        />
+        </div>
 
         {/* Products Grid: 2-columns on mobile, 4-columns on desktop */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 auto-rows-fr">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
           <>
             {displayedProducts.map((product, index) => (
-              <div
-                key={product.id}
-                className="h-full"
-              >
+              <React.Fragment key={product.id}>
+              <div className="h-full">
                 {isTestMode ? (
                   index < 10 ? (
                     // Styles 0 to 9 (First 10 Creative Styles)
@@ -207,6 +202,8 @@ export default function BrowseSection({
                   />
                 )}
               </div>
+              {showMission && index === 7 && <div className="col-span-full"><WardrobeMission/></div>}
+              </React.Fragment>
             ))}
           </>
         </div>

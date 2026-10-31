@@ -1,4 +1,5 @@
 import type { EnrichedProduct } from "@/data/products";
+import type { HomeDiscovery } from "./home-discovery";
 
 export type ProductStatus = "active" | "draft" | "archived";
 export interface StoreProduct extends EnrichedProduct {
@@ -62,9 +63,10 @@ export interface StoreState {
   pages: ContentPage[]; settings: StoreSettings; activity: Activity[]; updatedAt: string;
   promotions?: Promotion[];
   homepage?: HomepageContent;
+  discovery?: HomeDiscovery;
 }
 export type PublicProduct = EnrichedProduct & { stock?: Record<string, number>; compareAtAud?: number };
-export interface PublicStore { products: PublicProduct[]; hero: HeroSlide[]; pages: ContentPage[]; settings: StoreSettings; revision: number; promotions?:Promotion[]; homepage?:HomepageContent; payments?:{enabled:boolean;mode:"sandbox"|"live"} }
+export interface PublicStore { products: PublicProduct[]; hero: HeroSlide[]; pages: ContentPage[]; settings: StoreSettings; revision: number; promotions?:Promotion[]; homepage?:HomepageContent; discovery?:HomeDiscovery; payments?:{enabled:boolean;mode:"sandbox"|"live"} }
 
 export const DEFAULT_SETTINGS: StoreSettings = {
   storeName: "BINDY Clothing", email: "contact@bindyclothing.com", phone: "0766655550", address: "Brisbane, Australia · Colombo, Sri Lanka",

@@ -38,7 +38,7 @@ Unpaid reservations expire after 30 minutes. Each new checkout releases expired 
 | A | @ | 216.150.16.1 |
 | CNAME | www | f45df69e05472938.vercel-dns-017.com. |
 
-The old apex/www A record was `27.124.125.171`, TTL 300. Replace only the web records after the new production deployment is ready. Preserve MX/TXT/SPF/DKIM records. Re-run `vercel domains verify bindyclothing.com.au --json` and the www equivalent, then check HTTPS before declaring the custom domain live.
+The old `27.124.125.171` web records were replaced on 2026-10-28, preserving Crazy Domains nameservers and email configuration. Both hostnames were verified and HTTPS is live. The DNS values above record the applied configuration; do not replace them without checking the project’s current domain recommendations.
 
 ## Validation
 
@@ -46,7 +46,7 @@ The old apex/www A record was `27.124.125.171`, TTL 300. Replace only the web re
 
 ## Vercel agent setup
 
-Official CLI installed globally (65.5.0), authenticated and linked to the existing project. The official Vercel plugin was installed in user scope; no standalone duplicate skill pack was installed. Shared MCP endpoint `https://mcp.vercel.com` was added to user Codex configuration and OAuth completed. The current chat must reload its tools before MCP `search_vercel_documentation` and authenticated `list_teams` can be verified. Keep human approval for MCP mutations.
+Official CLI installed globally (65.5.0), authenticated and linked to the existing project. The official Vercel plugin was installed in user scope; no standalone duplicate skill pack was installed. Shared MCP endpoint `https://mcp.vercel.com` was added to user Codex configuration and OAuth completed. The MCP connection currently lacks access to this team scope; use the existing authenticated CLI with explicit scope `nethmika-gimhanas-projects` until MCP team authorization is completed.
 
 ## Owner-managed homepage sections
 
@@ -55,3 +55,12 @@ Official CLI installed globally (65.5.0), authenticated and linked to the existi
 - Select **Publish this section**, then **Save homepage sections**. Uncheck and save to hide a section while retaining its draft. Draft copy is excluded from the public API; unpublished/inactive products cannot be promoted.
 - Phone details are managed in **Admin → Settings → Contact phone** and appear in the footer and Contact page. The supplied `0766655550` displays locally and dials as `+94766655550` for international visitors.
 - Validation: `node scripts/check-homepage.cjs` covers 17 content/contact cases. Isolated HTTP and browser checks verified owner authentication, save/publish, persistence after reload, unpublish, public rendering and anonymous write rejection. No test editorial content was published to production.
+
+
+## Photo panels, category portraits and collection story
+
+Open **Admin → Store content → Homepage design** to edit the two large photo panels, their captions and shopping categories, the four full-model category images, and the brand message within the catalogue. Save with **Save design changes**. Photo panels and the brand message have individual visibility controls; hidden copy is omitted from the public API. Existing stores use the approved default design until the owner saves their own version.
+
+The brand message appears once after eight products in the complete collection. Category/collection/journey-filtered results contain only matching product cards. All products remain available by scrolling. Category counts follow the active collection; the category rail supports swipe, keyboard focus and previous/next controls on smaller screens. Photo panels reset collection filters before showing their target category.
+
+Run `python scripts/prepare-home-discovery.py` to rebuild the six responsive full-figure photo families without modifying original garments or source assets. `node scripts/check-discovery.cjs` checks publishing rules, image validity and transfer bounds. Local browser/HTTP verification covers owner save/reload/hide, filters, native mobile category scrolling and placement of the in-grid message.

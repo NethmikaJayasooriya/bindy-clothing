@@ -45,7 +45,9 @@
     ".next-content/types/**/*.ts",
     ".next-content/dev/types/**/*.ts",
     ".next-refresh/types/**/*.ts",
-    ".next-refresh/dev/types/**/*.ts"
+    ".next-refresh/dev/types/**/*.ts",
+    ".next-discovery/types/**/*.ts",
+    ".next-discovery/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
