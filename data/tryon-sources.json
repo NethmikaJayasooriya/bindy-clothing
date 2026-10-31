@@ -1,0 +1,108 @@
+{
+  "pearl-lace-blouse": {
+    "catalogImage": "/images/bindi-real/pearl-lace-blouse-card-v2.webp",
+    "file": "pearl-lace-blouse.webp"
+  },
+  "cacao-satin-cami": {
+    "catalogImage": "/images/bindi-real/cacao-satin-cami-card-v2.webp",
+    "file": "cacao-satin-cami.webp",
+    "instruction": "The camisole must hang OUTSIDE and OVER the waistband, not tucked or bloused into it. Show its complete original straight lower hem loose over the skirt, just as in reference 1. Keep BOTH original bare feet unchanged; add no shoes, straps, sandals or accessories."
+  },
+  "botanic-rose-cami": {
+    "catalogImage": "/images/bindi-real/botanic-rose-cami-card-v2.webp",
+    "file": "botanic-rose-cami.webp",
+    "instruction": "The camisole must hang OUTSIDE and OVER the waistband, not tucked or bloused into it. Show its complete original straight lower hem loose over the skirt, just as in reference 1. Keep BOTH original bare feet unchanged; add no shoes, straps, sandals or accessories."
+  },
+  "shore-traces-blouse": {
+    "catalogImage": "/images/serendipity/shore-traces-blouse.jpg",
+    "file": "shore-traces-blouse.webp"
+  },
+  "tea-leaf-two-piece--top": {
+    "catalogImage": "/images/serendipity/tea-leaf-two-piece.jpg",
+    "file": "tea-leaf-two-piece--top.webp"
+  },
+  "beyond-garden-wall-peplum": {
+    "catalogImage": "/images/collection-2/beyond-garden-wall-peplum.jpg",
+    "file": "beyond-garden-wall-peplum.webp"
+  },
+  "desert-rose-set--top": {
+    "catalogImage": "/images/collection-2-clean/desert-rose-set.webp",
+    "file": "desert-rose-set--top.webp"
+  },
+  "sunset-stroll-set--top": {
+    "catalogImage": "/images/collection-2/sunset-stroll-set.jpg",
+    "file": "sunset-stroll-set--top.webp"
+  },
+  "terra-essence-set--top": {
+    "catalogImage": "/images/collection-2-clean/terra-essence-set.webp",
+    "file": "terra-essence-set--top.webp"
+  },
+  "midnight-bloom-set--top": {
+    "catalogImage": "/images/collection-2/midnight-bloom-set.jpg",
+    "file": "midnight-bloom-set--top.webp"
+  },
+  "rose-stripe-shirt": {
+    "catalogImage": "/images/customer-capsule/editorial/rose-stripe-shirt.webp",
+    "file": "rose-stripe-shirt.webp"
+  },
+  "sunlit-paisley-shirt": {
+    "catalogImage": "/images/customer-capsule/editorial/sunlit-paisley-shirt.webp",
+    "file": "sunlit-paisley-shirt.webp"
+  },
+  "ivory-crochet-bralette": {
+    "catalogImage": "/images/customer-capsule/editorial/ivory-crochet-bralette.webp",
+    "file": "ivory-crochet-bralette.webp"
+  },
+  "ivory-tiered-maxi-skirt": {
+    "catalogImage": "/images/bindi-real/ivory-tiered-maxi-skirt-card-v2.webp",
+    "file": "ivory-tiered-maxi-skirt.webp"
+  },
+  "ivory-eyelet-mini-skirt": {
+    "catalogImage": "/images/bindi-real/ivory-eyelet-mini-skirt-card-v2.webp",
+    "file": "ivory-eyelet-mini-skirt.webp"
+  },
+  "botanic-rose-trousers": {
+    "catalogImage": "/images/bindi-real/botanic-rose-trousers-card-v2.webp",
+    "file": "botanic-rose-trousers.webp"
+  },
+  "midnight-flow-maxi-skirt": {
+    "catalogImage": "/images/bindi-real/midnight-flow-maxi-skirt-card-v2.webp",
+    "file": "midnight-flow-maxi-skirt.webp"
+  },
+  "tea-leaf-two-piece--bottom": {
+    "catalogImage": "/images/serendipity/tea-leaf-two-piece.jpg",
+    "file": "tea-leaf-two-piece--bottom.webp"
+  },
+  "desert-rose-set--bottom": {
+    "catalogImage": "/images/collection-2-clean/desert-rose-set.webp",
+    "file": "desert-rose-set--bottom.webp"
+  },
+  "sunset-stroll-set--bottom": {
+    "catalogImage": "/images/collection-2/sunset-stroll-set.jpg",
+    "file": "sunset-stroll-set--bottom.webp"
+  },
+  "terra-essence-set--bottom": {
+    "catalogImage": "/images/collection-2-clean/terra-essence-set.webp",
+    "file": "terra-essence-set--bottom.webp"
+  },
+  "midnight-bloom-set--bottom": {
+    "catalogImage": "/images/collection-2/midnight-bloom-set.jpg",
+    "file": "midnight-bloom-set--bottom.webp"
+  },
+  "cinnamon-flow-skirt": {
+    "catalogImage": "/images/serendipity/cinnamon-flow-skirt.jpg",
+    "file": "cinnamon-flow-skirt.webp"
+  },
+  "celestial-terracotta-skirt": {
+    "catalogImage": "/images/serendipity/celestial-terracotta-skirt.jpg",
+    "file": "celestial-terracotta-skirt.webp"
+  },
+  "sunlit-paisley-shorts": {
+    "catalogImage": "/images/customer-capsule/editorial/sunlit-paisley-shorts.webp",
+    "file": "sunlit-paisley-shorts.webp"
+  },
+  "gingham-wander-maxi-skirt": {
+    "catalogImage": "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp",
+    "file": "gingham-wander-maxi-skirt.webp"
+  }
+}

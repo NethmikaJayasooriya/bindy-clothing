@@ -34,12 +34,10 @@ function bottomFrom(p: Product, price: number, image: string, split: boolean, na
   return { ...p, id: split ? `${p.id}--bottom` : p.id, name, priceAud: price, image, pieceType: "bottom", sourceId: p.id, isSplit: split };
 }
 
-const TOPS: StudioPiece[] = [];
-const BOTTOMS: StudioPiece[] = [];
-
-for (const p of PRODUCTS) {
-  const parent = (p as Product & { parentCategory?: string }).parentCategory;
-  const detail = p.gallery?.[2] || p.imageHover || p.image;
+export function studioPieces(products: Product[]) {
+const TOPS: StudioPiece[] = [], BOTTOMS: StudioPiece[] = [];
+for (const p of products) {
+  const parent = p.category === "Tops & Blouses" ? "Tops" : p.category === "Skirts & Pants" ? "Bottoms" : p.category === "Two Piece Sets" ? "Resort Wear" : "Dresses";
 
   if (parent === "Tops") {
     TOPS.push(topFrom(p, p.priceAud, p.image, false, p.name));
@@ -50,16 +48,22 @@ for (const p of PRODUCTS) {
     const topPrice = Math.round(p.priceAud * 0.45);
     const botPrice = p.priceAud - topPrice;
     TOPS.push(topFrom(p, topPrice, p.image, true, `${p.name} — Top`));
-    BOTTOMS.push(bottomFrom(p, botPrice, detail, true, `${p.name} — Skirt`));
+    // A gallery detail/back shot is not a reliable garment reference.
+    BOTTOMS.push(bottomFrom(p, botPrice, p.image, true, `${p.name} — Bottom`));
   }
   // Dresses: complete looks, not mixable
 }
+return { tops: TOPS, bottoms: BOTTOMS };
+}
+
+const { tops: TOPS, bottoms: BOTTOMS } = studioPieces(PRODUCTS);
 
 export const STUDIO_TOPS = TOPS;
 export const STUDIO_BOTTOMS = BOTTOMS;
 
-export function getPiece(id: string): StudioPiece | undefined {
-  return TOPS.find((t) => t.id === id) || BOTTOMS.find((b) => b.id === id);
+export function getPiece(id: string, products?: Product[]): StudioPiece | undefined {
+  const pieces = products ? studioPieces(products) : { tops: TOPS, bottoms: BOTTOMS };
+  return pieces.tops.find((t) => t.id === id) || pieces.bottoms.find((b) => b.id === id);
 }
 
 /* ------------------------------------------------------------------ */

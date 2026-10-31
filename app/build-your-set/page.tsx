@@ -9,16 +9,14 @@ import Footer from "@/components/Footer";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
 import { getCart, saveCart, addToCart } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
+import { useStorefront } from "@/components/StorefrontProvider";
+import { useTryOn } from "@/components/style-studio/useTryOn";
 import {
-  STUDIO_TOPS,
-  STUDIO_BOTTOMS,
-  compatibleBottoms,
+  studioPieces,
   matchScore,
-  outfitPricing,
-  type StudioPiece,
 } from "@/lib/styleStudio";
 
-const SIZES = ["AU 6", "AU 8", "AU 10", "AU 12", "AU 14"];
+
 
 function scoreLabel(s: number) {
   if (s >= 85) return "Perfect match";
@@ -28,78 +26,42 @@ function scoreLabel(s: number) {
 }
 
 export default function BuildYourSetPage() {
+  const { products } = useStorefront();
+  const { tops: STUDIO_TOPS, bottoms: STUDIO_BOTTOMS } = useMemo(() => studioPieces(products), [products]);
   const [isMuted, setIsMuted] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const [topId, setTopId] = useState<string>(STUDIO_TOPS.find((piece) => piece.id === "cacao-satin-cami")?.id ?? STUDIO_TOPS[0]?.id ?? "");
   const [bottomId, setBottomId] = useState<string>(STUDIO_BOTTOMS.find((piece) => piece.id === "ivory-tiered-maxi-skirt")?.id ?? "");
-  const [size, setSize] = useState("AU 8");
+  const [size, setSize] = useState("");
   const [added, setAdded] = useState(false);
-  const [tryUrl, setTryUrl] = useState("");
-  const [trying, setTrying] = useState(false);
-  const [tryErr, setTryErr] = useState("");
-
   useEffect(() => { setCartItems(getCart()); }, []);
   const toggleAudio = () => { if (ambientPlayer) setIsMuted(ambientPlayer.toggle()); };
 
-  const top = useMemo<StudioPiece | undefined>(() => STUDIO_TOPS.find((t) => t.id === topId), [topId]);
-  const matches = useMemo(() => (topId ? compatibleBottoms(topId, 12) : []), [topId]);
-
-  // keep a sensible bottom selected whenever the top changes
-  useEffect(() => {
-    if (!matches.length) return;
-    if (!matches.some((m) => m.piece.id === bottomId)) setBottomId(matches[0].piece.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topId]);
-
-  const bottom = useMemo<StudioPiece | undefined>(
-    () => STUDIO_BOTTOMS.find((b) => b.id === bottomId),
-    [bottomId]
-  );
-
+  const top = STUDIO_TOPS.find(t => t.id === topId) ?? STUDIO_TOPS[0];
+  const bottom = STUDIO_BOTTOMS.find(b => b.id === bottomId) ?? STUDIO_BOTTOMS[0];
+  const matches = useMemo(() => top ? STUDIO_BOTTOMS.map(piece => ({ piece, score: matchScore(top, piece) })).sort((a,b) => b.score-a.score) : [], [top, STUDIO_BOTTOMS]);
+  const preview = useTryOn(top, bottom);
+  const trying = preview.status === "loading", tryUrl = preview.url, tryErr = preview.message;
   const score = top && bottom ? matchScore(top, bottom) : 0;
-  const pricing = top && bottom ? outfitPricing(top, bottom) : null;
-
-  useEffect(() => {
-    if (!top || !bottom) return;
-    const controller = new AbortController();
-    const timer = window.setTimeout(async () => {
-      setTrying(true);
-      setTryErr("");
-      try {
-        const response = await fetch("/api/tryon", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ topId: top.id, bottomId: bottom.id }),
-          signal: controller.signal,
-        });
-        const result = await response.json();
-        if (!response.ok || !result.url) throw new Error(result.error || "Could not create this look");
-        setTryUrl(result.url);
-      } catch (error) {
-        if ((error as Error).name !== "AbortError") setTryErr("Preview unavailable — your selected pieces are shown below.");
-      } finally {
-        if (!controller.signal.aborted) setTrying(false);
-      }
-    }, 350);
-    return () => {
-      window.clearTimeout(timer);
-      controller.abort();
-    };
-  }, [top, bottom]);
+  const purchasable = useMemo(() => products.filter(p => p.id === top?.sourceId || p.id === bottom?.sourceId), [products, top?.sourceId, bottom?.sourceId]);
+  const pricing = top && bottom ? { total: purchasable.reduce((s,p) => s+p.priceAud,0), savings: 0, subtotal: 0 } : null;
+  const SIZES = purchasable[0]?.sizes.filter(s => purchasable.every(p => p.sizes.includes(s) && (!p.stock || p.stock[s] > 0))) ?? [];
+  const selectedSize = SIZES.includes(size) ? size : SIZES[0] ?? "";
 
   const surprise = () => {
     const t = STUDIO_TOPS[Math.floor(Math.random() * STUDIO_TOPS.length)];
+    if (!t) return;
     setTopId(t.id);
-    const best = compatibleBottoms(t.id, 3);
+    const best = STUDIO_BOTTOMS.map(piece => ({ piece, score: matchScore(t,piece) })).sort((a,b)=>b.score-a.score).slice(0,3);
     if (best.length) setBottomId(best[Math.floor(Math.random() * best.length)].piece.id);
   };
 
   const addSet = () => {
-    if (!top || !bottom) return;
-    addToCart(top, size, 1);
-    setCartItems(addToCart(bottom, size, 1));
+    if (!top || !bottom || !selectedSize) return;
+    for (const product of purchasable) addToCart(product, selectedSize, 1);
+    setCartItems(getCart());
     setAdded(true);
     setIsCartOpen(true);
     setTimeout(() => setAdded(false), 1800);
@@ -135,7 +97,7 @@ export default function BuildYourSetPage() {
           Build your <span className="italic">own set.</span>
         </h1>
         <p className="mt-4 font-serif italic text-base sm:text-lg text-charcoal/70 max-w-xl mx-auto">
-          Choose a top and bottom, then see both pieces fitted automatically on one BINDY model.
+          Choose your top. Find your bottom. See the complete look on our studio model.
         </p>
         <button
           onClick={surprise}
@@ -160,15 +122,17 @@ export default function BuildYourSetPage() {
                   key={t.id}
                   onClick={() => setTopId(t.id)}
                   title={t.name}
+                  aria-label={`Choose top: ${t.name}`}
+                  aria-pressed={top?.id === t.id}
                   className={`group relative aspect-[3/4] rounded-2xl overflow-hidden border transition-all ${
-                    topId === t.id ? "border-gold ring-2 ring-gold/40" : "border-sand/40 hover:border-gold/60"
+                    top?.id === t.id ? "border-gold ring-2 ring-gold/40" : "border-sand/40 hover:border-gold/60"
                   }`}
                 >
                   <ResponsiveImage src={t.image} alt={t.name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
                   <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-2 pb-2 pt-8 text-left text-[9px] font-sans font-medium leading-tight text-white sm:text-[10px]">
                     {t.name.replace(" — Top", "")}
                   </span>
-                  {topId === t.id && (
+                  {top?.id === t.id && (
                     <span className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-gold text-black grid place-items-center shadow">
                       <Check className="w-3 h-3" />
                     </span>
@@ -183,14 +147,13 @@ export default function BuildYourSetPage() {
             <div className="rounded-3xl border border-sand/50 bg-white/50 overflow-hidden shadow-[0_14px_50px_rgba(31,30,29,0.08)]">
               <div className="relative aspect-[3/4] overflow-hidden bg-[#EAE2D6]">
                 {tryUrl && !tryErr ? (
-                  <ResponsiveImage src={tryUrl} alt={`${top?.name} styled with ${bottom?.name}`} className="h-full w-full object-cover object-top" />
+                  <img key={tryUrl} src={tryUrl} alt={`${top?.name} styled with ${bottom?.name}`} data-testid="outfit-preview" data-top-id={top?.id} data-bottom-id={bottom?.id} loading="eager" onError={preview.imageFailed} className="h-full w-full object-contain" />
                 ) : (
-                  <div className="relative h-full bg-[#eee8df]">
-                    <ResponsiveImage
-                      src={tryErr && bottom ? bottom.image : "/images/style-studio/bindy-fit-model.png"}
-                      alt={tryErr && bottom ? bottom.name : "BINDY virtual fitting model"}
-                      className="h-full w-full object-cover object-top"
-                    />
+                  <div className="relative h-full bg-[#eee8df] pt-16 pb-32 px-3">
+                    <div className="grid h-full grid-cols-2 gap-2">
+                      {top && <ResponsiveImage src={top.image} alt={`Selected top: ${top.name}`} className="h-full w-full min-w-0 object-contain" />}
+                      {bottom && <ResponsiveImage src={bottom.image} alt={`Selected bottom: ${bottom.name}`} className="h-full w-full min-w-0 object-contain" />}
+                    </div>
                     <div className="absolute inset-x-3 bottom-3 grid grid-cols-2 gap-2">
                       {top && <div className="flex items-center gap-2 rounded-xl border border-white/70 bg-paper/90 p-2 shadow-lg backdrop-blur-md"><ResponsiveImage src={top.image} alt="" className="h-11 w-9 rounded-lg object-cover object-top"/><span className="line-clamp-2 text-[9px] font-sans font-bold uppercase tracking-[0.08em]">{top.name}</span></div>}
                       {bottom && <div className="flex items-center gap-2 rounded-xl border border-white/70 bg-paper/90 p-2 shadow-lg backdrop-blur-md"><ResponsiveImage src={bottom.image} alt="" className="h-11 w-9 rounded-lg object-cover object-top"/><span className="line-clamp-2 text-[9px] font-sans font-bold uppercase tracking-[0.08em]">{bottom.name}</span></div>}
@@ -199,7 +162,7 @@ export default function BuildYourSetPage() {
                 )}
 
                 <span className="absolute left-3 top-3 z-20 inline-flex items-center gap-2 rounded-full bg-black/65 px-3 py-1.5 text-[9px] font-sans font-bold uppercase tracking-[0.16em] text-white shadow-lg backdrop-blur-md">
-                  <Sparkles className="h-3 w-3 text-gold" /> Virtual fitting room
+                  <Sparkles className="h-3 w-3 text-gold" /> {tryUrl ? "Your outfit preview" : "Your selected pieces"}
                 </span>
 
                 {trying && (
@@ -212,15 +175,16 @@ export default function BuildYourSetPage() {
                   </div>
                 )}
 
-                {tryErr && !trying && <p role="status" className="absolute bottom-3 inset-x-3 z-30 rounded-xl bg-paper/95 text-charcoal p-3 text-xs leading-5">{tryErr}</p>}
+                {tryErr && !trying && <div role="status" className="absolute bottom-3 inset-x-3 z-30 rounded-xl bg-paper/95 text-charcoal p-3 text-xs leading-5">{tryErr}<button onClick={preview.retry} className="ml-2 underline font-semibold">Try again</button></div>}
 
                 {top && bottom && (
-                  <span className="absolute right-3 top-3 z-20 rounded-full bg-gold px-3 py-1.5 text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-black shadow-lg">{score}% · {scoreLabel(score)}</span>
+                  <span className="absolute right-3 top-3 z-20 rounded-full bg-gold px-3 py-1.5 text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-black shadow-lg">{scoreLabel(score)}</span>
                 )}
               </div>
 
               {/* buy bar */}
               <div className="p-5 sm:p-6 space-y-4">
+                <p className="text-[11px] text-charcoal/60">AI styling preview. See the product photos for exact garment details and the size guide for fit.</p>
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="font-serif text-lg leading-tight truncate">{top?.name ?? "—"}</p>
@@ -243,7 +207,7 @@ export default function BuildYourSetPage() {
                       key={s}
                       onClick={() => setSize(s)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-sans border transition-colors ${
-                        size === s ? "bg-charcoal text-white border-charcoal" : "border-sand/60 hover:border-gold"
+                        selectedSize === s ? "bg-charcoal text-white border-charcoal" : "border-sand/60 hover:border-gold"
                       }`}
                     >
                       {s}
@@ -253,13 +217,13 @@ export default function BuildYourSetPage() {
 
                 <button
                   onClick={addSet}
-                  disabled={!top || !bottom}
+                  disabled={!top || !bottom || !selectedSize}
                   className="w-full h-14 rounded-full bg-gold hover:bg-charcoal text-black hover:text-white font-sans text-xs uppercase tracking-[0.24em] font-semibold flex items-center justify-center gap-3 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  {added ? <><Check className="w-4 h-4" /> Added to bag</> : <><ShoppingBag className="w-4 h-4" /> Add set to bag</>}
+                  {added ? <><Check className="w-4 h-4" /> Added to bag</> : <><ShoppingBag className="w-4 h-4" /> Add selected items</>}
                 </button>
                 <p className="flex items-center gap-1.5 text-[11px] text-charcoal/50 font-sans">
-                  <Info className="w-3 h-3" /> Two pieces, worn your way. Each is added to your bag individually.
+                  <Info className="w-3 h-3" /> {top?.isSplit || bottom?.isSplit ? "A piece from a two-piece set is purchased with its original full set." : "Both garments are added to your bag individually."}
                 </p>
               </div>
             </div>
@@ -278,20 +242,22 @@ export default function BuildYourSetPage() {
                 <button
                   key={piece.id}
                   onClick={() => setBottomId(piece.id)}
+                  aria-label={`Choose bottom: ${piece.name}`}
+                  aria-pressed={bottom?.id === piece.id}
                   className={`group text-left rounded-xl overflow-hidden border transition-all ${
-                    bottomId === piece.id ? "border-gold ring-2 ring-gold/40" : "border-sand/40 hover:border-gold/60"
+                    bottom?.id === piece.id ? "border-gold ring-2 ring-gold/40" : "border-sand/40 hover:border-gold/60"
                   }`}
                 >
                   <div className="relative aspect-[3/4] overflow-hidden">
                     <ResponsiveImage src={piece.image} alt={piece.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <span className="absolute top-1.5 left-1.5 bg-black/60 backdrop-blur-md text-gold text-[10px] font-sans font-bold px-2 py-0.5 rounded-full">{s}%</span>
-                    {bottomId === piece.id && (
+                    <span className="absolute top-1.5 left-1.5 bg-black/60 backdrop-blur-md text-gold text-[10px] font-sans font-bold px-2 py-0.5 rounded-full">Style pick</span>
+                    {bottom?.id === piece.id && (
                       <span className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-gold text-black grid place-items-center shadow"><Check className="w-3 h-3" /></span>
                     )}
                   </div>
                   <div className="p-2">
-                    <p className="text-xs font-serif truncate">{piece.name.replace(" — Skirt", "")}</p>
-                    <p className="text-[11px] text-charcoal/55 font-sans">${piece.priceAud} AUD</p>
+                    <p className="text-xs font-serif truncate">{piece.name.replace(" — Bottom", "")}</p>
+                    <p className="text-[11px] text-charcoal/55 font-sans">{piece.isSplit ? `Original set · $${products.find(p => p.id === piece.sourceId)?.priceAud ?? 0}` : `$${piece.priceAud}`} AUD</p>
                   </div>
                 </button>
               ))}

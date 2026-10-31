@@ -5,6 +5,13 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
+  outputFileTracingIncludes: {
+    "/api/tryon": ["./data/tryon-references/**/*", "./public/images/style-studio/bindy-fit-model.png", "./public/images/tryon-v3/**/*"],
+    "/api/admin/tryon": ["./data/tryon-references/**/*"],
+  },
+  outputFileTracingExcludes: {
+    "/api/{tryon,admin/tryon}": ["./public/!(images)/**/*", "./public/images/!(style-studio|tryon-v3)/**/*", "./.store*/**/*", "./output/**/*", "./assets/**/*", "./Bindi/**/*"],
+  },
   images: {
     formats: ["image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
