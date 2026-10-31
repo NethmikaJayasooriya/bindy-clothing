@@ -1,4 +1,6 @@
+"use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
+import { useStorefront } from "@/components/StorefrontProvider";
 import React from "react";
 import { Star, Camera, Heart, Sparkles, Quote } from "lucide-react";
 import { PRESS_QUOTES, UGC_POSTS } from "@/data/socialProof";
@@ -6,6 +8,7 @@ import { getStoreReviewsAggregate } from "@/data/products";
 import { SectionHeading } from "@/components/ui";
 
 export default function SocialProofStrip() {
+  const { settings } = useStorefront();
   const { averageRating, totalReviews } = getStoreReviewsAggregate();
 
   return (
@@ -69,14 +72,14 @@ export default function SocialProofStrip() {
                 Worn in Quiet, Meaningful Moments
               </h3>
             </div>
-            <a
-              href="https://instagram.com"
+            {settings.instagram && <a
+              href={settings.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-sans uppercase font-semibold tracking-[0.2em] text-charcoal hover:text-gold transition-colors font-semibold"
             >
-              Follow @bindyclothing →
-            </a>
+              Follow @bindy_clothing →
+            </a>}
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">

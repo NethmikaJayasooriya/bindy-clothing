@@ -1,5 +1,6 @@
 import type { EnrichedProduct } from "@/data/products";
 import type { HomeDiscovery } from "./home-discovery";
+import { DEFAULT_SOCIALS, DEFAULT_CONTACT_EMAIL } from "./social-links";
 
 export type ProductStatus = "active" | "draft" | "archived";
 export interface StoreProduct extends EnrichedProduct {
@@ -40,7 +41,7 @@ export interface HeroSlide {
 export interface StoreSettings {
   storeName: string; email: string; phone: string; address: string; announcement: string;
   freeShippingThreshold: number; standardShipping: number; expressShipping: number; returnsDays: number;
-  instagram: string; orderPrefix: string; lowStockThreshold: number; acceptingOrders: boolean;
+  instagram: string; facebook?: string; tiktok?: string; orderPrefix: string; lowStockThreshold: number; acceptingOrders: boolean;
 }
 export interface ContentPage { slug: string; title: string; body: string; published: boolean }
 export interface StoreMessage { id: string; name: string; email: string; subject: string; message: string; status: "new" | "resolved"; notes: string; createdAt: string }
@@ -69,9 +70,9 @@ export type PublicProduct = EnrichedProduct & { stock?: Record<string, number>; 
 export interface PublicStore { products: PublicProduct[]; hero: HeroSlide[]; pages: ContentPage[]; settings: StoreSettings; revision: number; promotions?:Promotion[]; homepage?:HomepageContent; discovery?:HomeDiscovery; payments?:{enabled:boolean;mode:"sandbox"|"live"} }
 
 export const DEFAULT_SETTINGS: StoreSettings = {
-  storeName: "BINDY Clothing", email: "contact@bindyclothing.com", phone: "0766655550", address: "Brisbane, Australia · Colombo, Sri Lanka",
+  storeName: "BINDY Clothing", email: DEFAULT_CONTACT_EMAIL, phone: "0766655550", address: "Brisbane, Australia · Colombo, Sri Lanka",
   announcement: "Complimentary AU express shipping on orders $150+", freeShippingThreshold: 150,
-  standardShipping: 12, expressShipping: 18, returnsDays: 30, instagram: "", orderPrefix: "BIN", lowStockThreshold: 3, acceptingOrders: false,
+  standardShipping: 12, expressShipping: 18, returnsDays: 30, ...DEFAULT_SOCIALS, orderPrefix: "BIN", lowStockThreshold: 3, acceptingOrders: false,
 };
 export const DEFAULT_HERO: HeroSlide[] = [
   { id: "together", name: "Better together", label: "THE REAL LIFE EDIT / 01", title: "The art of", italic: "being you.", note: "Clothes for the moments that make you, you. Thoughtfully made. Beautifully lived in.", image: "/images/bindi-real/campaign-together.webp", alt: "Two friends laughing in BINDY sage and floral pieces in the city", position: "51% 60%", mobile: "50% 61%", link: "/collection", product: "Discover the real life edit", enabled: true },

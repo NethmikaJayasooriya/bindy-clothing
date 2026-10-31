@@ -6,10 +6,13 @@ import Link from "next/link";
 import { ArrowRight, Mail, Phone } from "lucide-react";
 import { phoneLink } from "@/lib/contact-details";
 import BrandLogo from "@/components/BrandLogo";
+import SocialIcon from "@/components/SocialIcon";
+import { socialLinks } from "@/lib/social-links";
 
 export default function Footer() {
   const { settings, pages } = useStorefront();
   const legalPages = ["privacy", "terms", "security"].flatMap(slug => pages.filter(p => p.slug === slug));
+  const socials = socialLinks(settings);
   return (
     <footer className="bg-paper-dark text-charcoal border-t border-sand/40 pt-16 sm:pt-20 pb-28 sm:pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,9 +45,12 @@ export default function Footer() {
                   <span className="underline decoration-sand/60 underline-offset-4 group-hover:decoration-[#8E6E34]">
                     {settings.email}
                   </span>
-                </a>{settings.instagram&&<a href={settings.instagram} target="_blank" rel="noreferrer" className="block mt-3 text-xs underline">Follow BINDY on Instagram</a>}
+                </a>
               </p>
               {settings.phone && <p><a href={phoneLink(settings.phone)} className="inline-flex items-center gap-2 text-charcoal/80 hover:text-[#8E6E34] transition-colors"><Phone className="w-3.5 h-3.5 text-[#8E6E34]/80"/><span className="underline decoration-sand/60 underline-offset-4">{settings.phone}</span></a></p>}
+              <nav aria-label="BINDY social profiles" className="flex items-center gap-2 pt-3">
+                {socials.map(link => <a key={link.id} href={link.href} aria-label={link.aria} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener noreferrer" : undefined} className="grid place-items-center w-10 h-10 rounded-full border border-sand/70 bg-paper/60 text-charcoal/80 hover:bg-charcoal hover:text-paper hover:border-charcoal hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2"><SocialIcon kind={link.id}/></a>)}
+              </nav>
             </div>
           </div>
 

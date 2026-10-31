@@ -4,6 +4,7 @@ import "./globals.css";
 import NavigationFeedback from "@/components/NavigationFeedback";
 import { readPublicStore } from "@/lib/server/store-repository";
 import { StorefrontProvider } from "@/components/StorefrontProvider";
+import SocialRail from "@/components/SocialRail";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -106,7 +107,7 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} ${fraunces.variable} ${leagueSpartan.variable} ${poppins.variable} ${outfit.variable} ${playfair.variable} ${cormorant.variable} antialiased bg-[#FAF7F2] text-[#1F1E1D] overflow-x-hidden selection:bg-[#C5A059] selection:text-white font-sans`}
       >
-        <StorefrontProvider initial={initialStore}><NavigationFeedback/>{children}</StorefrontProvider>
+        <StorefrontProvider initial={initialStore}><NavigationFeedback/>{children}<SocialRail/></StorefrontProvider>
       </body>
     </html>
   );

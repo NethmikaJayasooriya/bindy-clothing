@@ -49,7 +49,6 @@ export default function EditorialHero({ isSplashActive = false, onExploreCollect
             {(index === active || (photoReady && index === (active + 1) % chapters.length)) && <HeroImage src={item.image} opening={index===0} mobilePosition={item.mobile} alt={item.alt} loading={index === active ? "eager" : "lazy"} fetchPriority={index === active ? "high" : "low"} onLoad={() => { if(index === active) setPhotoReady(true); }} className={`absolute inset-0 h-full w-full ${styles.sceneImage}`} style={{ "--position": item.position, "--mobile-position": item.mobile } as React.CSSProperties} />}
           </div>
         ))}
-        <span className={styles.photoNote}>A BINDY MOMENT. BEAUTIFULLY YOURS.</span>
         <Link className={styles.photoLink} href={chapter.link}><span>{chapter.product}</span><ArrowUpRight size={16} strokeWidth={1.4} /></Link>
       </div>
       <div className={`${styles.content} ${isSplashActive ? styles.primed : ""}`} key={chapter.id}>

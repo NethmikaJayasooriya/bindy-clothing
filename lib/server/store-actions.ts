@@ -1,5 +1,6 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
+import { DEFAULT_SOCIALS, validSocialUrl } from "@/lib/social-links";
 import { getCanonicalProductId } from "@/lib/products";
 import { isRetiredProduct } from "@/lib/retired-products";
 import { DISCOVERY_CATEGORIES, type HomeDiscovery } from "@/lib/home-discovery";
@@ -175,7 +176,11 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       const s = state.settings;
       s.storeName = required(v.storeName, "Store name"); s.email = email(v.email); s.phone = text(v.phone, 60); s.address = text(v.address, 1000); s.announcement = text(v.announcement, 300);
       s.freeShippingThreshold = number(v.freeShippingThreshold); s.standardShipping = number(v.standardShipping); s.expressShipping = number(v.expressShipping); s.returnsDays = integer(v.returnsDays, 365); s.lowStockThreshold = integer(v.lowStockThreshold, 1000); s.acceptingOrders = v.acceptingOrders === true;
-      s.instagram = text(v.instagram, 300); if (s.instagram && !/^https:\/\/(www\.)?instagram\.com\//.test(s.instagram)) throw new StoreError("Use a full Instagram profile URL.");
+      for (const key of ["instagram", "facebook", "tiktok"] as const) {
+        const value = v[key] === undefined ? s[key] ?? DEFAULT_SOCIALS[key] : text(v[key], 300);
+        if (value && !validSocialUrl(value, key)) throw new StoreError(`Use a full HTTPS ${key === "tiktok" ? "TikTok" : key[0].toUpperCase()+key.slice(1)} profile URL.`);
+        s[key] = value;
+      }
       s.orderPrefix = required(v.orderPrefix, "Order prefix", 10).replace(/[^A-Za-z0-9]/g, "").toUpperCase(); if (!s.orderPrefix) throw new StoreError("Use letters or numbers for the order prefix."); return;
     }
     case "discovery": {
