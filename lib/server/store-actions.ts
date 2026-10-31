@@ -1,6 +1,7 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
 import { getCanonicalProductId } from "@/lib/products";
+import { isRetiredProduct } from "@/lib/retired-products";
 import type { StoreState, StoreProduct, StoreOrder, Discount, Customer, StoreReturn, HomepageContent } from "@/lib/store-types";
 import { StoreError } from "./store-repository";
 import { expirePendingOrders } from "./payhere";
@@ -17,6 +18,7 @@ function email(value: unknown) { const v = required(value, "Email").toLowerCase(
 function optionalDate(value: unknown) { const v = text(value, 30); if (v && !/^\d{4}-\d{2}-\d{2}$/.test(v)) throw new StoreError("Enter a valid date."); return v; }
 export function saveProduct(state: StoreState, input: Input) {
   const id = required(input.id, "Product URL", 100);
+  if (isRetiredProduct(id)) throw new StoreError("This product has been withdrawn from sale.");
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id) || getCanonicalProductId(id) !== id) throw new StoreError("Use a unique product URL with lowercase letters, numbers and hyphens.");
   const existing = state.products.find(p => p.id === id);
   const category = choice(input.category, ["Dresses", "Tops & Blouses", "Skirts & Pants", "Two Piece Sets"] as const, "category");
@@ -64,7 +66,7 @@ export function createOrder(state: StoreState, input: Input): StoreOrder {
     const key = `${productId}:${size}`; const existing = grouped.get(key); if (existing) existing.quantity += quantity; else grouped.set(key, { productId, size, quantity });
   }
   const items = Array.from(grouped.values()).map(item => {
-    const p = state.products.find(p => p.id === item.productId && p.status === "active");
+    const p = state.products.find(p => p.id === item.productId && p.status === "active" && !isRetiredProduct(p.id));
     if (!p || !p.sizes.includes(item.size)) throw new StoreError("A selected product or size is no longer available.");
     if ((p.stock[item.size] ?? 0) < item.quantity) throw new StoreError(`${p.name} has only ${p.stock[item.size] ?? 0} left in ${item.size}.`);
     return { ...item, name: p.name, image: p.image, priceAud: p.priceAud };
@@ -104,6 +106,7 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
     }
     case "product-status": {
       const ids = strings(v.ids, 200); const status = choice(v.status, ["active", "draft", "archived"] as const, "status");
+      if (status !== "archived" && ids.some(isRetiredProduct)) throw new StoreError("A withdrawn product cannot be returned to sale.");
       if (!ids.length || ids.some(id => !state.products.some(p => p.id === id))) throw new StoreError("Select products to update.");
       for (const p of state.products.filter(p => ids.includes(p.id))) { p.status = status; p.updatedAt = new Date().toISOString(); } return;
     }

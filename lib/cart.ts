@@ -1,5 +1,6 @@
 // Tiny localStorage-backed cart shared between the homepage and product pages.
 import { getCanonicalProductId, getProduct, type Product } from "@/lib/products";
+import { isRetiredProduct } from "@/lib/retired-products";
 
 export interface CartItem {
   product: Product;
@@ -14,6 +15,7 @@ function normalizeItems(items: CartItem[]): CartItem[] {
   const normalized: CartItem[] = [];
   for (const item of items) {
     const id = getCanonicalProductId(item.product.id);
+    if (isRetiredProduct(id)) continue;
     const product = id === item.product.id ? item.product : getProduct(id) ?? item.product;
     const existing = normalized.find((entry) => entry.product.id === product.id && entry.size === item.size);
     if (existing) existing.quantity += item.quantity;
@@ -43,6 +45,7 @@ export function saveCart(items: CartItem[]) {
 }
 
 export function addToCart(product: Product, size: string, qty = 1): CartItem[] {
+  if (isRetiredProduct(getCanonicalProductId(product.id))) return getCart();
   if (getCanonicalProductId(product.id) !== product.id) product = getProduct(product.id) ?? product;
   const items = getCart();
   const existing = items.find(
@@ -91,7 +94,7 @@ export function getBuyNowItem(): CartItem | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = sessionStorage.getItem(BUY_NOW_KEY);
-    return raw ? normalizeItems([JSON.parse(raw) as CartItem])[0] : null;
+    return raw ? normalizeItems([JSON.parse(raw) as CartItem])[0] ?? null : null;
   } catch {
     return null;
   }

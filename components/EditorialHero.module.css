@@ -39,7 +39,7 @@
 .edition { display: flex; flex-direction: column; gap: 9px; font-size: 9px; letter-spacing: .16em; }
 .edition small { font-size: 7px; color: #fffdf99e; letter-spacing: .21em; }
 .navigation { min-width: 0; display: flex; align-items: center; gap: 26px; }
-.chapters { flex: 1; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; }
+.chapters { flex: 1; display: grid; grid-template-columns: repeat(var(--chapter-count,4),minmax(0,1fr)); gap: 16px; }
 .chapter { min-width: 0; padding: 16px 0; border: 0; background: none; cursor: pointer; color: #fffdf99e; text-align: left; transition: color .25s; }
 .chapter:hover, .selected { color: #fffdf9; }
 .track { display: block; position: relative; height: 1px; width: 100%; background: #fffdf940; margin-bottom: 14px; overflow: hidden; }

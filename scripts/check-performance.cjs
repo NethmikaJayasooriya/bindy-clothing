@@ -2,7 +2,7 @@ const fs=require('node:fs');const path=require('node:path');const assert=require
 function loader(window={},sessionStorage={getItem:()=>null,setItem:()=>{}}){const cache=new Map();function load(file){if(file.startsWith('@/'))file=path.join(root,file.slice(2));if(!path.extname(file))file+='.ts';if(file.endsWith('.json'))return JSON.parse(fs.readFileSync(file,'utf8'));if(cache.has(file))return cache.get(file).exports;const m={exports:{}};cache.set(file,m);const code=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,esModuleInterop:true}}).outputText;new Function('require','module','exports','window','sessionStorage',code)(load,m,m.exports,window,sessionStorage);return m.exports;}return load;}
 let checks=0;const check=(v,name)=>{assert.ok(v,name);checks++;console.log('PASS '+name)};
 const load=loader();const {PRODUCTS}=load('@/lib/products');const {cleanProductMedia}=load('@/lib/product-media');const retired=JSON.parse(fs.readFileSync('data/retired-product-images.json','utf8'));const manifest=JSON.parse(fs.readFileSync('data/image-manifest.json','utf8'));
-check(PRODUCTS.length===33,'Product catalogue still has 33 unique products');
+check(PRODUCTS.length===31,'Product catalogue has 31 available products after the two withdrawals');
 const media=p=>[p.image,p.imageHover,...p.gallery,...(p.galleryZoom??[]),...(p.reviews??[]).flatMap(r=>r.photos??[])];
 check(PRODUCTS.every(p=>media(p).every(url=>!retired[url])),'No reference / mannequin photos remain in seeded product views');
 check(Object.keys(retired).every(url=>!fs.existsSync(path.join(root,'public',url))),'Retired reference photos are no longer public assets');

@@ -1,5 +1,6 @@
 // Lightweight localStorage-backed Wishlist / Favorites manager for BINDY Clothing.
 import { getCanonicalProductId, getProduct, type Product } from "@/lib/products";
+import { isRetiredProduct } from "@/lib/retired-products";
 
 const KEY = "bindy-wishlist";
 const EVT = "bindy-wishlist-change";
@@ -14,6 +15,7 @@ export function getWishlist(): Product[] {
     const products = parsed
       .map((item) => {
         const id = typeof item === "string" ? item : item.id;
+        if (isRetiredProduct(getCanonicalProductId(id))) return null;
         return getProduct(id) || (typeof item === "object" ? item : null);
       })
       .filter(Boolean) as Product[];
@@ -26,7 +28,7 @@ export function getWishlist(): Product[] {
 export function saveWishlist(items: Product[]): void {
   if (typeof window === "undefined") return;
   try {
-    const ids = Array.from(new Set(items.map((p) => getCanonicalProductId(p.id))));
+    const ids = Array.from(new Set(items.map((p) => getCanonicalProductId(p.id)))).filter(id => !isRetiredProduct(id));
     window.localStorage.setItem(KEY, JSON.stringify(ids));
     window.dispatchEvent(new CustomEvent(EVT));
   } catch {

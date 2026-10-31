@@ -42,7 +42,7 @@ export default function EditorialHero({ isSplashActive = false, onExploreCollect
   }, [active, playing, visible, reducedMotion, isSplashActive, chapters.length]);
 
   return (
-    <section ref={heroRef} className={styles.hero} data-campaign-hero aria-roledescription="carousel" aria-label="The BINDY real life edit">
+    <section ref={heroRef} className={styles.hero} data-campaign-hero aria-roledescription="carousel" aria-label="The BINDY real life edit" style={{"--chapter-count":chapters.length} as React.CSSProperties}>
       <div className={styles.photographs}>
         {chapters.map((item, index) => (
           <div key={item.id} className={`${styles.scene} ${index === active ? styles.activeScene : ""}`} aria-hidden={index !== active}>

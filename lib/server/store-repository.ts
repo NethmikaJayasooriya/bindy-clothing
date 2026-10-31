@@ -8,6 +8,7 @@ import { hasDatabase, productionStorageRequired, readDocument, writeDocument } f
 import { RequestError as StoreError } from "./request-security";
 import { publishedPromotions } from "@/lib/promotions";
 import { publishedHomepage } from "@/lib/homepage-content";
+import { isRetiredProduct } from "@/lib/retired-products";
 import { payhereMode,payhereReady } from "./payhere";
 export { RequestError as StoreError } from "./request-security";
 import { PRODUCTS } from "@/data/products";
@@ -46,7 +47,7 @@ async function atomicWrite(state: StoreState) {
 }
 let initializing: Promise<void> | undefined;
 function cleanStoreMedia(state: StoreState): StoreState {
-  return {...state, products:state.products.map(cleanProductMedia), media:state.media.filter(m=>currentImageSource(m.url)===m.url), orders:state.orders.map(o=>({...o,items:o.items.map(i=>({...i,image:currentImageSource(i.image)}))}))};
+  return {...state, products:state.products.map(p=>cleanProductMedia({...p,status:isRetiredProduct(p.id)?"archived":p.status,styleWith:p.styleWith?.filter(id=>!isRetiredProduct(id))})), media:state.media.filter(m=>currentImageSource(m.url)===m.url), orders:state.orders.map(o=>({...o,items:o.items.map(i=>({...i,image:currentImageSource(i.image)}))}))};
 }
 export async function readStore(): Promise<StoreState> {
   if (hasDatabase()) {
@@ -106,8 +107,8 @@ export async function mutateStore<T>(revision: number | undefined, description: 
 }
 export function publicStore(state: StoreState): PublicStore {
   const paymentEnabled=hasDatabase()&&payhereReady();
-  return { revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: {...state.settings,acceptingOrders:state.settings.acceptingOrders&&paymentEnabled},promotions:publishedPromotions(state),homepage:publishedHomepage(state.homepage,new Set(state.products.filter(p=>p.status==="active").map(p=>p.id))),payments:{enabled:paymentEnabled,mode:payhereMode()},
-    products: state.products.filter(p => p.status === "active").map((p): PublicProduct => {
+  return { revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: {...state.settings,acceptingOrders:state.settings.acceptingOrders&&paymentEnabled},promotions:publishedPromotions(state),homepage:publishedHomepage(state.homepage,new Set(state.products.filter(p=>p.status==="active"&&!isRetiredProduct(p.id)).map(p=>p.id))),payments:{enabled:paymentEnabled,mode:payhereMode()},
+    products: state.products.filter(p => p.status === "active" && !isRetiredProduct(p.id)).map((p): PublicProduct => {
       const { sku, costAud, status, featured, updatedAt, lowStockThreshold, ...product } = p;
       const total = Object.values(p.stock).reduce((sum, n) => sum + n, 0);
       return { ...product, inventoryCount: total, inventoryStatus: total === 0 ? "sold_out" : total <= p.lowStockThreshold ? "low_stock" : "in_stock" };

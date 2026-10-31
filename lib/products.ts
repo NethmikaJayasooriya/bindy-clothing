@@ -2,6 +2,7 @@
 // One shared source of truth for the shop grid, quick-view modal and product pages.
 import { cleanProductMedia } from "@/lib/product-media";
 import realProductPhotos from "@/data/real-product-photos.json";
+import { isRetiredProduct } from "@/lib/retired-products";
 
 export type Category =
   | "Dresses"
@@ -2017,7 +2018,7 @@ export function getProductSeedIndex(id: string): number | undefined {
   return PRODUCT_SEED_INDICES.get(id);
 }
 
-export const PRODUCTS = PRODUCTS_WITH_PHOTOS.filter((product) => getCanonicalProductId(product.id) === product.id).map(cleanProductMedia);
+export const PRODUCTS = PRODUCTS_WITH_PHOTOS.filter((product) => !isRetiredProduct(product.id) && getCanonicalProductId(product.id) === product.id).map(product => cleanProductMedia({ ...product, styleWith: product.styleWith?.filter(id => !isRetiredProduct(id)) }));
 
 export const CATEGORIES: (Category | "All")[] = [
   "All",
