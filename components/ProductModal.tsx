@@ -38,11 +38,12 @@ export default function ProductModal({
   if (!product) return null;
   const contents = purchaseContents(product);
 
-  const sizes = ["AU 6 (XS)", "AU 8 (S)", "AU 10 (M)", "AU 12 (L)", "AU 14 (XL)"];
+  const sizes = product.sizes;
+  const canPurchase=!!selectedSize&&(product.stock?.[selectedSize]??1)>0;
   const installment = (product.priceAud / 4).toFixed(2);
 
   const handleAdd = () => {
-    if (!selectedSize) return;
+    if (!selectedSize||!canPurchase) return;
     onAddToCart(product, selectedSize);
     setIsAdded(true);
     setTimeout(() => {
@@ -52,7 +53,7 @@ export default function ProductModal({
   };
 
   const handleBuyNow = () => {
-    if (!selectedSize) return;
+    if (!selectedSize||!canPurchase) return;
     setBuyNowItem(product, selectedSize, 1);
     onClose();
     router.push("/checkout?mode=buynow");
@@ -190,6 +191,7 @@ export default function ProductModal({
                     <button
                       key={s}
                       type="button"
+                      disabled={(product.stock?.[s]??1)===0}
                       onClick={() => setSelectedSize(s)}
                       className={`h-10 sm:h-11 rounded-lg sm:rounded-xl text-[10.5px] xs:text-xs font-sans transition-all border cursor-pointer flex items-center justify-center p-0.5 sm:p-1 ${
                         selectedSize === s
@@ -209,7 +211,7 @@ export default function ProductModal({
               <button
                 type="button"
                 onClick={handleAdd}
-                disabled={!selectedSize}
+                disabled={!canPurchase}
                 className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 ${
                   !selectedSize
                     ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
@@ -234,7 +236,7 @@ export default function ProductModal({
               <button
                 type="button"
                 onClick={handleBuyNow}
-                disabled={!selectedSize}
+                disabled={!canPurchase}
                 className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 border ${
                   !selectedSize
                     ? "bg-transparent text-charcoal-subtle/50 border-sand/30 cursor-not-allowed"
@@ -242,7 +244,7 @@ export default function ProductModal({
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5 text-gold" />
-                <span>Buy Now • Express Checkout</span>
+                <span>Buy it now</span>
               </button>
             </div>
           </div>

@@ -1,5 +1,6 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
+import SriLankaCheckout from "@/components/checkout/SriLankaCheckout";
 import { useStorefront } from "@/components/StorefrontProvider";
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
@@ -108,7 +109,11 @@ const isShippingComplete = (s: ShippingData): boolean => {
 
 const isPaymentComplete = (_p: PaymentData): boolean => true;
 
-export default function CheckoutPage() {
+export default function CheckoutPage(){
+ const [market,setMarket]=useState("Sri Lanka");
+ return market==="Sri Lanka"?<SriLankaCheckout onAustralia={()=>setMarket("Australia")}/>:<><div className="bg-[#F2ECE1] px-5 py-3 text-center text-xs"><label>Delivery country <select aria-label="Delivery country" value={market} onChange={e=>setMarket(e.target.value)} className="ml-2 border p-1 bg-white"><option>Sri Lanka</option><option>Australia</option></select></label></div><AustraliaCheckout/></>;
+}
+function AustraliaCheckout() {
   const { settings, products, payments } = useStorefront();
   const requestIdRef = useRef("");
   const [orderError, setOrderError] = useState("");

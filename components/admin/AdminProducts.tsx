@@ -266,8 +266,11 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
           <div className="admin-form-section">
             <h3>Pricing · AUD</h3>
             <div className="admin-form-grid">
-              <Field label="Selling price">
+              <Field label="Selling price · AUD">
                 <input id="admin-product-price" type="number" min="0" step=".01" value={p.priceAud || ""} onChange={e => update("priceAud", Number(e.target.value))} placeholder="160.00" />
+              </Field>
+              <Field label="Sri Lanka selling price · LKR" hint="Required for live COD. Test mode uses the configured demo multiplier instead.">
+                <input type="number" min="0" step=".01" value={p.priceLkr || ""} onChange={e=>update("priceLkr",Number(e.target.value))} placeholder="Set before launching live COD"/>
               </Field>
               <Field label="Compare-at price" hint="Optional. Must be higher than the selling price.">
                 <input id="admin-product-compare" type="number" min="0" step=".01" value={p.compareAtAud || ""} onChange={e => update("compareAtAud", Number(e.target.value))} placeholder="0.00" />

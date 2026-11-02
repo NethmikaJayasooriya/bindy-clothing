@@ -1,5 +1,6 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
+import {useStorefront} from "@/components/StorefrontProvider";
 
 import React from "react";
 import Link from "next/link";
@@ -28,14 +29,15 @@ export default function CartDrawer({
   onUpdateQuantity,
   onRemoveItem,
 }: CartDrawerProps) {
+  const {settings,payments}=useStorefront();
   const subtotal = items.reduce(
     (sum, item) => sum + item.product.priceAud * item.quantity,
     0
   );
 
-  const freeShippingThreshold = 250;
+  const freeShippingThreshold = settings.freeShippingThreshold;
   const amountToFreeShipping = Math.max(0, freeShippingThreshold - subtotal);
-  const progressToFreeShipping = Math.min(100, (subtotal / freeShippingThreshold) * 100);
+  const progressToFreeShipping = freeShippingThreshold>0?Math.min(100, (subtotal / freeShippingThreshold) * 100):100;
 
   return (
     <AnimatePresence>
@@ -175,7 +177,7 @@ export default function CartDrawer({
                   </div>
 
                   <p className="text-xs sm:text-sm font-sans text-charcoal-subtle text-center">
-                    Taxes & shipping calculated at checkout. Small batch ethical guarantee.
+                    {payments?.cod?.enabled?"Catalogue prices are AUD. Sri Lanka checkout shows LKR totals and COD; Australian shipping offers apply only within Australia.":"Taxes and delivery are calculated at checkout. Free-shipping offers apply within Australia."}
                   </p>
 
                   <Link

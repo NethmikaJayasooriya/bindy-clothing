@@ -39,6 +39,7 @@ export interface Product {
   palette: string[]; // supporting swatch hexes
   fabric: string;
   priceAud: number;
+  priceLkr?: number;
   image: string; // primary
   imageHover: string; // shown on card hover
   videoHover?: string; // optional short clip played on card hover (falls back to imageHover)

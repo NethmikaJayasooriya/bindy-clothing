@@ -12,6 +12,7 @@ import { isRetiredProduct } from "@/lib/retired-products";
 import { publicDiscovery } from "@/lib/home-discovery";
 import { DEFAULT_POLICY_PAGES, RETURNS_CONSUMER_RIGHTS } from "@/lib/store-policies";
 import { payhereMode,payhereReady } from "./payhere";
+import {codSettings} from "@/lib/cod";
 export { RequestError as StoreError } from "./request-security";
 import { PRODUCTS } from "@/data/products";
 import { DEFAULT_HERO, DEFAULT_SETTINGS, type StoreState, type StoreProduct, type PublicStore, type PublicProduct } from "@/lib/store-types";
@@ -108,7 +109,8 @@ export async function mutateStore<T>(revision: number | undefined, description: 
 }
 export function publicStore(state: StoreState): PublicStore {
   const paymentEnabled=hasDatabase()&&payhereReady();
-  return { discovery: publicDiscovery(state.discovery), revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: {...state.settings,acceptingOrders:state.settings.acceptingOrders&&paymentEnabled},promotions:publishedPromotions(state),homepage:publishedHomepage(state.homepage,new Set(state.products.filter(p=>p.status==="active"&&!isRetiredProduct(p.id)).map(p=>p.id))),payments:{enabled:paymentEnabled,mode:payhereMode()},
+  const cod=codSettings(state.settings);cod.enabled=cod.enabled&&(hasDatabase()||!productionStorageRequired());
+  return { discovery: publicDiscovery(state.discovery), revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: {...state.settings,acceptingOrders:state.settings.acceptingOrders&&(paymentEnabled||cod.enabled)},promotions:publishedPromotions(state),homepage:publishedHomepage(state.homepage,new Set(state.products.filter(p=>p.status==="active"&&!isRetiredProduct(p.id)).map(p=>p.id))),payments:{enabled:paymentEnabled,mode:payhereMode(),cod},
     products: state.products.filter(p => p.status === "active" && !isRetiredProduct(p.id)).map((p): PublicProduct => {
       const { sku, costAud, status, featured, updatedAt, lowStockThreshold, ...product } = p;
       const total = Object.values(p.stock).reduce((sum, n) => sum + n, 0);

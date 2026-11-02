@@ -96,7 +96,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
   const contents = purchaseContents(product);
   const router = useRouter();
   const [activeImg, setActiveImg] = useState(0);
-  const [size, setSize] = useState<string | null>(product.sizes[1] || product.sizes[0] || null);
+  const [size, setSize] = useState<string | null>(product.sizes.find(s=>(product.stock?.[s]??1)>0) ?? null);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
@@ -153,6 +153,9 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
     });
     return map;
   }, [product]);
+
+  const availableUnits=size?product.stock?.[size]:0;
+  const canPurchase=!!size&&sizeAvailability[size]!=="sold_out"&&(availableUnits===undefined||qty<=availableUnits);
 
   const handleUpdateQuantity = (id: string, sizeVal: string, delta: number) => {
     const current = getCart();
@@ -581,7 +584,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                     </span>
                     {status === "low_stock" && (
                       <span className="text-[9px] uppercase tracking-wider text-amber-600 font-bold -mt-0.5 font-sans">
-                        Only 2 Left
+                        {product.stock?.[s]} Left
                       </span>
                     )}
                   </button>
@@ -610,7 +613,8 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                 {qty}
               </span>
               <button
-                onClick={() => setQty((q) => q + 1)}
+                onClick={() => setQty((q) => Math.min(99,availableUnits??99,q + 1))}
+                disabled={!size||qty>=Math.min(99,availableUnits??99)}
                 className="p-2.5 text-charcoal/70 hover:text-charcoal cursor-pointer"
                 aria-label="Increase quantity"
               >
@@ -621,7 +625,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             {/* Add to Bag Button */}
             <button
               onClick={handleAdd}
-              disabled={!size}
+              disabled={!canPurchase}
               className={`flex-1 rounded-2xl font-sans text-sm uppercase font-bold tracking-wider flex items-center justify-center gap-2.5 transition-all py-4 min-h-[52px] shadow-luxury ${
                 !size
                   ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
@@ -659,7 +663,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
           {/* Express Checkout / Buy Now */}
           <button
             onClick={handleBuyNow}
-            disabled={!size}
+            disabled={!canPurchase}
             className={`w-full py-3.5 rounded-2xl font-sans text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all border min-h-[48px] ${
               !size
                 ? "bg-transparent text-charcoal-subtle/60 border-sand/30 cursor-not-allowed"
@@ -667,7 +671,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             }`}
           >
             <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <span>Instant Express Checkout</span>
+            <span>Buy it now</span>
           </button>
 
           {/* Trust Value Highlights Strip */}

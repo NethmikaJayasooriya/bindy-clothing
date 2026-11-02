@@ -232,6 +232,7 @@ export default function ProductCard({
               return (
                 <button
                   key={sz}
+                  disabled={(product.stock?.[sz]??1)===0}
                   type="button"
                   onClick={(e) => {
                     e.preventDefault();

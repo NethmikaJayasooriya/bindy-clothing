@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { X, Search, ChevronLeft, ChevronRight, UploadCloud, ImagePlus, Check, PackageOpen } from "lucide-react";
 import { useAdmin } from "./AdminProvider";
 import type { StoreProduct, MediaAsset } from "@/lib/store-types";
-export const money = (amount: number) => new Intl.NumberFormat("en-AU", { style: "currency", currency: "AUD" }).format(amount);
+export const money = (amount: number,currency="AUD") => new Intl.NumberFormat("en-AU", { style: "currency", currency }).format(amount);
 export const date = (value: string) => new Intl.DateTimeFormat("en-AU", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value));
 export function Button({ children, variant = "", small, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: string; small?: boolean }) { return <button type="button" {...props} className={`admin-btn ${variant} ${small ? "small" : ""} ${props.className || ""}`}>{children}</button>; }
 export function PageHeading({ title, description, children }: { title: string; description: string; children?: React.ReactNode }) { return <div className="admin-page-heading"><div><span className="admin-kicker">YOUR STORE, AT A GLANCE</span><h1>{title}</h1><p>{description}</p></div><div className="admin-heading-actions">{children}</div></div>; }

@@ -16,7 +16,7 @@ export interface StoreProduct extends EnrichedProduct {
 export interface Customer {
   id: string; name: string; email: string; phone: string; address: string; notes: string; createdAt: string;
 }
-export interface OrderLine { productId: string; name: string; image: string; size: string; quantity: number; priceAud: number }
+export interface OrderLine { productId: string; name: string; image: string; size: string; quantity: number; priceAud: number; unitPrice?: number }
 export interface StoreOrder {
   id: string; number: string; customerId: string; customerName: string; email: string; phone: string;
   address: string; items: OrderLine[]; subtotal: number; discount: number; shipping: number; total: number;
@@ -24,6 +24,7 @@ export interface StoreOrder {
   fulfillment: "unfulfilled" | "packed" | "shipped" | "delivered" | "cancelled";
   carrier: string; tracking: string; notes: string; createdAt: string; updatedAt: string; requestId: string;
   gateway?: { provider: "payhere"; currency: "AUD"; status: "pending" | "paid" | "failed" | "expired" | "refunded"; paymentId?:string; expiresAt:string };
+  paymentMethod?: "cod"; currency?: "AUD" | "LKR"; testMode?: boolean; requestFingerprint?: string;
 }
 export interface Discount {
   id: string; code: string; type: "percentage" | "fixed" | "shipping"; value: number; minimum: number;
@@ -42,6 +43,7 @@ export interface StoreSettings {
   storeName: string; email: string; phone: string; address: string; announcement: string;
   freeShippingThreshold: number; standardShipping: number; expressShipping: number; returnsDays: number;
   instagram: string; facebook?: string; tiktok?: string; orderPrefix: string; lowStockThreshold: number; acceptingOrders: boolean;
+  cod?: { enabled: boolean; testMode: boolean; demoMultiplier: number; shippingLkr: number };
 }
 export interface ContentPage { slug: string; title: string; body: string; published: boolean }
 export interface StoreMessage { id: string; name: string; email: string; subject: string; message: string; status: "new" | "resolved"; notes: string; createdAt: string }
@@ -67,7 +69,7 @@ export interface StoreState {
   discovery?: HomeDiscovery;
 }
 export type PublicProduct = EnrichedProduct & { stock?: Record<string, number>; compareAtAud?: number };
-export interface PublicStore { products: PublicProduct[]; hero: HeroSlide[]; pages: ContentPage[]; settings: StoreSettings; revision: number; promotions?:Promotion[]; homepage?:HomepageContent; discovery?:HomeDiscovery; payments?:{enabled:boolean;mode:"sandbox"|"live"} }
+export interface PublicStore { products: PublicProduct[]; hero: HeroSlide[]; pages: ContentPage[]; settings: StoreSettings; revision: number; promotions?:Promotion[]; homepage?:HomepageContent; discovery?:HomeDiscovery; payments?:{enabled:boolean;mode:"sandbox"|"live";cod?:StoreSettings["cod"]} }
 
 export const DEFAULT_SETTINGS: StoreSettings = {
   storeName: "BINDY Clothing", email: DEFAULT_CONTACT_EMAIL, phone: "0766655550", address: "Brisbane, Australia · Colombo, Sri Lanka",

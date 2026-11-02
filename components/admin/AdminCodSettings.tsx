@@ -1,0 +1,9 @@
+"use client";
+import {useState} from "react";
+import {codSettings} from "@/lib/cod";
+import {useAdmin} from "./AdminProvider";
+import {Button,Field,Panel} from "./AdminUI";
+export default function AdminCodSettings(){const {store,save,busy}=useAdmin();const [form,setForm]=useState(codSettings(store!.settings));return <div style={{marginTop:28}}><Panel title="Sri Lanka · cash on delivery" description="Separate LKR checkout. PayHere approval is not required for COD."><form className="admin-panel-body" onSubmit={async e=>{e.preventDefault();try{await save('settings',{...store!.settings,cod:form});}catch{}}}>
+ <div className="admin-note">Test mode uses illustrative prices and creates TEST orders. Test orders never reduce stock and cannot be dispatched or marked paid. To launch real COD, set an explicit LKR price on every product first. The main “Accept new orders” switch must also be on.</div>
+ <div className="admin-form-grid" style={{marginTop:18}}><label className="admin-check"><input type="checkbox" checked={form.enabled} onChange={e=>setForm({...form,enabled:e.target.checked})}/>Enable Sri Lanka COD checkout</label><label className="admin-check"><input type="checkbox" checked={form.testMode} onChange={e=>setForm({...form,testMode:e.target.checked})}/>Test mode · no delivery or payment</label><Field label="Demo LKR multiplier" hint="Only used in test mode. Not a live exchange rate."><input type="number" min=".01" step=".01" max="10000" required value={form.demoMultiplier} onChange={e=>setForm({...form,demoMultiplier:Number(e.target.value)})}/></Field><Field label="Sri Lanka delivery fee · LKR"><input type="number" min="0" step=".01" max="100000" required value={form.shippingLkr} onChange={e=>setForm({...form,shippingLkr:Number(e.target.value)})}/></Field></div><div className="admin-form-actions"><Button type="submit" variant="primary" disabled={busy}>Save COD settings</Button></div>
+ </form></Panel></div>;}

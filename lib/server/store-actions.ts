@@ -32,7 +32,7 @@ export function saveProduct(state: StoreState, input: Input) {
   const p: StoreProduct = { ...base, id, name: required(input.name, "Product name"), sku, category,
     description: required(input.description, "Description", 5000), fabric: required(input.fabric, "Fabric"), colorName: required(input.colorName, "Colour"),
     colorHex: /^#[0-9a-f]{6}$/i.test(text(input.colorHex)) ? text(input.colorHex) : "#DCC7AF",
-    priceAud: number(input.priceAud), compareAtAud: number(input.compareAtAud ?? 0), costAud: number(input.costAud ?? 0),
+    priceAud: number(input.priceAud), priceLkr: input.priceLkr===undefined?existing?.priceLkr:number(input.priceLkr), compareAtAud: number(input.compareAtAud ?? 0), costAud: number(input.costAud ?? 0),
     status: choice(input.status, ["active", "draft", "archived"] as const, "product status"), featured: input.featured === true,
     sizes, stock, lowStockThreshold: integer(input.lowStockThreshold ?? state.settings.lowStockThreshold, 1000), gallery, image: existing && gallery.join() === existing.gallery.join() ? existing.image : gallery[0], imageHover: existing && gallery.join() === existing.gallery.join() ? existing.imageHover : gallery[1] ?? gallery[0],
     inventoryCount: Object.values(stock).reduce((s, n) => s + n, 0),
@@ -121,16 +121,17 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
     case "update-order": {
       const order = state.orders.find(o => o.id === v.id); if (!order) throw new StoreError("Order not found.", 404);
       const status = choice(v.fulfillment, ["unfulfilled", "packed", "shipped", "delivered", "cancelled"] as const, "fulfilment status");
+      if(order.testMode&&(!["unfulfilled","cancelled"].includes(status)||v.payment!=="unpaid"))throw new StoreError("Test orders cannot be dispatched, collected or marked paid. Cancel the test when finished.");
       if ((order.fulfillment === "shipped" && !["shipped","delivered"].includes(status)) || (order.fulfillment === "delivered" && status !== "delivered")) throw new StoreError("Dispatched orders cannot move backwards. Use a return for items sent back.");
       if (order.fulfillment === "cancelled" && status !== "cancelled") throw new StoreError("Cancelled orders cannot be reopened. Create a new order instead.");
       if ((status === "shipped" || status === "delivered") && !text(v.tracking)) throw new StoreError("Add a real tracking number before marking this order as shipped.");
       if (status === "cancelled" && order.fulfillment !== "cancelled") {
         if (order.fulfillment === "shipped" || order.fulfillment === "delivered") throw new StoreError("Use a return for orders that have already shipped.");
-        for (const item of order.items) { const p = state.products.find(p => p.id === item.productId); if (p) p.stock[item.size] = (p.stock[item.size] ?? 0) + item.quantity; }
+        if(!order.testMode)for (const item of order.items) { const p = state.products.find(p => p.id === item.productId); if (p) p.stock[item.size] = (p.stock[item.size] ?? 0) + item.quantity; }
       }
       const payment = choice(v.payment, ["unpaid", "paid", "refunded"] as const, "payment status");
       if(order.gateway && payment!==order.payment) throw new StoreError("PayHere payment status is updated by verified gateway notifications. Record refunds in PayHere first.");
-      if(["packed","shipped","delivered"].includes(status)&&order.payment!=="paid") throw new StoreError("Confirm payment before preparing or dispatching this order.");
+      if(["packed","shipped","delivered"].includes(status)&&payment!=="paid"&&(order.paymentMethod!=="cod"||status==="delivered")) throw new StoreError("Confirm payment before dispatching a prepaid order or completing a COD delivery.");
       if (payment === "refunded" && order.payment === "unpaid") throw new StoreError("Only a paid order can be marked as refunded.");
       if (order.payment === "refunded" && payment !== "refunded") throw new StoreError("A refunded payment cannot be changed.");
       order.fulfillment = status; order.payment = payment; order.tracking = text(v.tracking, 150); order.carrier = text(v.carrier, 100); order.notes = text(v.notes, 5000); order.updatedAt = new Date().toISOString(); return order;
@@ -174,6 +175,7 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
     }
     case "settings": {
       const s = state.settings;
+      if(v.cod!==undefined){const c=object(v.cod);const demoMultiplier=number(c.demoMultiplier,10000);if(demoMultiplier<=0)throw new StoreError("Demo pricing multiplier must be positive.");s.cod={enabled:c.enabled===true,testMode:c.testMode!==false,demoMultiplier,shippingLkr:number(c.shippingLkr,100000)};}
       s.storeName = required(v.storeName, "Store name"); s.email = email(v.email); s.phone = text(v.phone, 60); s.address = text(v.address, 1000); s.announcement = text(v.announcement, 300);
       s.freeShippingThreshold = number(v.freeShippingThreshold); s.standardShipping = number(v.standardShipping); s.expressShipping = number(v.expressShipping); s.returnsDays = integer(v.returnsDays, 365); s.lowStockThreshold = integer(v.lowStockThreshold, 1000); s.acceptingOrders = v.acceptingOrders === true;
       for (const key of ["instagram", "facebook", "tiktok"] as const) {
