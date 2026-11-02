@@ -1,2 +1,3 @@
-import type { MetadataRoute } from "next";
-export default function robots():MetadataRoute.Robots {const site=process.env.SITE_URL||"https://bindyclothing.com.au";return {rules:{userAgent:"*",allow:"/",disallow:["/admin","/api/","/checkout","/account","/payment/","/test"]},sitemap:`${site}/sitemap.xml`};}
+import type {MetadataRoute} from "next";
+import {SITE_URL} from "@/lib/seo";
+export default function robots():MetadataRoute.Robots{return {rules:{userAgent:"*",allow:"/",disallow:["/admin","/api/","/checkout","/account","/payment/","/returns/start","/test"]},sitemap:`${SITE_URL}/sitemap.xml`,host:SITE_URL};}

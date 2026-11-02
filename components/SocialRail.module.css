@@ -23,3 +23,6 @@
 }
 @media (max-height: 450px) { .links { gap: 2px; padding: 4px; } .link { width: 34px; height: 34px; } }
 @media (prefers-reduced-motion: reduce) { .link, .tooltip { transition: none; } .link:hover, .link:focus-visible { transform: none; } }
+
+/* Keep the new reading guides clear on narrow screens; footer profiles remain available. */
+@media (max-width: 700px) { .reading { display: none; } }

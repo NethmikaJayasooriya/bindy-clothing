@@ -1,0 +1,6 @@
+import Link from "next/link";
+import BrandLogo from "@/components/BrandLogo";
+import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import {breadcrumbs} from "@/lib/seo";
+export default function GuideLayout({title,eyebrow="BINDY · Client care",intro,path,children}:{title:string;eyebrow?:string;intro:string;path:string;children:React.ReactNode}){return <div className="min-h-screen bg-paper text-charcoal"><header className="border-b border-sand/50"><div className="max-w-6xl mx-auto px-5 sm:px-8 py-6 flex items-center justify-between gap-5"><Link href="/" aria-label="BINDY home"><BrandLogo size="lg" showSubtitle={false}/></Link><Link href="/collection" className="text-xs uppercase tracking-widest">Explore the collection ↗</Link></div></header><JsonLd data={breadcrumbs([{name:"Home",path:"/"},{name:title,path}])}/><main className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 sm:pt-24 pb-20 sm:pb-28"><div className="max-w-3xl"><p className="text-[10px] uppercase tracking-[.25em] text-[#8E6E34]">{eyebrow}</p><h1 className="font-serif text-4xl sm:text-6xl font-light leading-tight mt-4">{title}</h1><p className="text-sm sm:text-base leading-8 text-charcoal/75 mt-6">{intro}</p></div><div className="mt-12 sm:mt-16">{children}</div></main><Footer/></div>;}

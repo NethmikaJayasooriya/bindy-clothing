@@ -1,4 +1,5 @@
 "use client";
+import {trackCommerce} from "@/lib/analytics";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import {useStorefront} from "@/components/StorefrontProvider";
 
@@ -30,6 +31,7 @@ export default function CartDrawer({
   onRemoveItem,
 }: CartDrawerProps) {
   const {settings,payments}=useStorefront();
+  React.useEffect(()=>{if(isOpen&&items.length)trackCommerce("view_cart",items);},[isOpen]);
   const subtotal = items.reduce(
     (sum, item) => sum + item.product.priceAud * item.quantity,
     0
@@ -182,7 +184,7 @@ export default function CartDrawer({
 
                   <Link
                     href="/checkout"
-                    onClick={onClose}
+                    onClick={()=>{trackCommerce("begin_checkout",items);onClose();}}
                     className="w-full py-3.5 sm:py-4 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs sm:text-sm uppercase font-semibold tracking-wider transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl cursor-pointer"
                   >
                     <span>Proceed to Checkout</span>

@@ -1,3 +1,4 @@
+import {pageMetadata} from "@/lib/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -12,7 +13,7 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const page = (await readPublicStore()).pages.find(p => p.slug === slug);
-  return page ? { title: `${page.title} | BINDY Clothing`, description: `${page.title} for BINDY Clothing. Read our store information and contact our team for assistance.` } : { robots: { index: false, follow: false } };
+  return page ? pageMetadata(page.title, `${page.title} for BINDY Clothing. Read our store information and contact our team for assistance.`, `/pages/${page.slug}`) : { robots: { index: false, follow: false } };
 }
 
 function PolicyText({ text }: { text: string }) {

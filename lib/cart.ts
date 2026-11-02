@@ -1,6 +1,7 @@
 // Tiny localStorage-backed cart shared between the homepage and product pages.
 import { getCanonicalProductId, getProduct, type Product } from "@/lib/products";
 import { isRetiredProduct } from "@/lib/retired-products";
+import {trackCommerce} from "@/lib/analytics";
 
 export interface CartItem {
   product: Product;
@@ -57,6 +58,7 @@ export function addToCart(product: Product, size: string, qty = 1): CartItem[] {
     items.push({ product, size, quantity: qty });
   }
   saveCart(items);
+  trackCommerce("add_to_cart",[{product,size,quantity:qty}]);
   return items;
 }
 
@@ -84,6 +86,7 @@ const BUY_NOW_KEY = "bindy-buy-now-item";
 export function setBuyNowItem(product: Product, size: string, quantity = 1): void {
   if (typeof window === "undefined") return;
   try {
+    trackCommerce("begin_checkout",[{product,size,quantity}]);
     sessionStorage.setItem(BUY_NOW_KEY, JSON.stringify(normalizeItems([{ product, size, quantity }])[0]));
   } catch {
     /* ignore */

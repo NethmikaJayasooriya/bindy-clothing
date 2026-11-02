@@ -59,7 +59,6 @@ import StoryBlock from "@/components/product/StoryBlock";
 import FabricCareSection from "@/components/product/FabricCareSection";
 import SizeFitGuidance from "@/components/product/SizeFitGuidance";
 import ReviewsSection from "@/components/ReviewsSection";
-import CommunityStoryCard from "@/components/product/CommunityStoryCard";
 import CompleteTheLook from "@/components/product/CompleteTheLook";
 import RecentlyViewed from "@/components/product/RecentlyViewed";
 import StickyMobileBar from "@/components/product/StickyMobileBar";
@@ -374,7 +373,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             <div className="flex min-w-0 max-w-[62%] items-center gap-1.5 bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white border border-white/20 shadow-md">
               <Sparkles className="w-3.5 h-3.5 text-gold" />
               <span className="font-sans font-medium tracking-wide truncate text-[10px] sm:text-[11px]">
-                {product.imageSource === "photography" ? "The BINDY real life edit" : `100% Handloom · ${product.storyPlace.split(",")[0] || "Sri Lanka"}`}
+                {product.imageSource === "photography" ? "The BINDY real life edit" : "The BINDY collection edit"}
               </span>
             </div>
 
@@ -724,7 +723,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                       • Cut with gentle ease through the torso, designed to drape fluidly without clinging.
                     </p>
                     <p>
-                      • Model is 176cm (5&apos;9&quot;) wearing AU 8 (S).
+                      • Refer to the size guide and contact us for garment-specific measurements.
                     </p>
                     <p>
                       • True to Australian standard sizing. If between sizes, choose your usual size.
@@ -845,7 +844,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
       </div>
 
       {/* 8. SECTION 6: FEATURED COMMUNITY STORY CAROUSEL */}
-      <CommunityStoryCard product={product} />
+
 
       {/* 9. SECTION 7: COMPLETE THE LOOK / CROSS-SELL */}
       <CompleteTheLook currentProduct={product} onAddToCart={handleAdd} />

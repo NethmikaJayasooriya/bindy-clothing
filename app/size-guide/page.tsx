@@ -222,7 +222,7 @@ export default function SizeGuidePage() {
           <div className="p-6 bg-[#FAF7F2] rounded-2xl border border-[#DCC7AF]/60 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p className="font-serif text-lg text-[#1F1E1D]">Unsure between two sizes?</p>
-              <p className="text-xs text-[#78716A]">Our Melbourne studio concierge can recommend your ideal fit or custom alterations.</p>
+              <p className="text-xs text-[#78716A]">Contact our team for help with sizing or garment-specific measurements.</p>
             </div>
             <Link
               href="/contact"

@@ -59,11 +59,11 @@ export const ARTISAN_BUTTONS: ArtisanButton[] = [
 const TICKER_ITEMS = [
   { text: "Designed in Australia", button: ARTISAN_BUTTONS[0] },
   { text: "Inspired by Sri Lanka", button: ARTISAN_BUTTONS[1] },
-  { text: "Authentic Handloom & Voile", button: ARTISAN_BUTTONS[2] },
+  { text: "Pieces to Make Your Own", button: ARTISAN_BUTTONS[2] },
   { text: "Two Islands, One Thread", button: ARTISAN_BUTTONS[3] },
   { text: "Wear Your Calm, Feel Your Story", button: ARTISAN_BUTTONS[4] },
-  { text: "Small Batch Ethical Craft", button: ARTISAN_BUTTONS[5] },
-  { text: "Natural Shell & Timber Fasteners", button: ARTISAN_BUTTONS[0] },
+  { text: "From Everyday to Occasion", button: ARTISAN_BUTTONS[5] },
+  { text: "Thoughtful Details", button: ARTISAN_BUTTONS[0] },
   { text: "Simple. Thoughtful. Special.", button: ARTISAN_BUTTONS[3] },
 ];
 
@@ -121,13 +121,13 @@ export default function HeritageTicker() {
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 z-50 pointer-events-none animate-in fade-in zoom-in-95 duration-200">
                     <div className="bg-black/95 backdrop-blur-xl border border-[#C5A059]/80 px-3 py-1.5 rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.7)] whitespace-nowrap text-center">
                       <span className="block text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-                        100% Natural Fastener
+                        A BINDY detail
                       </span>
                       <span className="block text-sm font-sans uppercase font-semibold tracking-[0.15em] text-[#FAF7F2]">
                         {item.button.name}
                       </span>
                       <span className="block text-xs font-sans text-[#DCC7AF]/85">
-                        {item.button.origin} • {item.button.material}
+                        Decorative detail · Styling inspiration
                       </span>
                       {/* Triangle Pointer */}
                       <div className="w-2 h-2 bg-black/95 border-r border-b border-[#C5A059]/80 transform rotate-45 mx-auto -mb-1 mt-0.5" />

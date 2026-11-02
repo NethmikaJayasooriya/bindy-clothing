@@ -37,13 +37,13 @@ export default function AboutPage() {
   const brandValues = [
     {
       icon: Award,
-      title: "Ancestral Handloom",
-      desc: "Woven exclusively on traditional wooden pit-looms with zero electrical power. Pockets of living air trapped within the weave create natural thermal comfort.",
+      title: "A sense of place",
+      desc: "Sri Lankan colour, landscape and memories inspire a wardrobe made for everyday Australian living.",
     },
     {
       icon: ShieldCheck,
-      title: "Slow, Small-Batch Craft",
-      desc: "Strictly limited editions of 25 to 50 numbered pieces. We never mass produce, never discount to landfill, and honor every meter of cotton.",
+      title: "Style your way",
+      desc: "Choose a complete look or mix separate pieces. Each listing explains what is included so you can build a wardrobe around you.",
     },
     {
       icon: Sparkles,
@@ -52,8 +52,8 @@ export default function AboutPage() {
     },
     {
       icon: Leaf,
-      title: "Deep Sustainability",
-      desc: "100% natural, biodegradable fibers, organic mother-of-pearl and coconut buttons, certified non-toxic dyes, and plastic-free home-compostable mailers.",
+      title: "Care for what you wear",
+      desc: "Get to know the fabric and follow each garment’s care label. Thoughtful care helps your favourite pieces stay part of your everyday.",
     },
   ];
 
@@ -93,7 +93,7 @@ export default function AboutPage() {
                   BINDY brings Sri Lankan inspiration to an Australian wardrobe. Our collections explore relaxed silhouettes, considered details and pieces you can make your own — worn together, styled separately and reached for again.
                 </p>
                 <p>
-                  Every button is carved from organic mother-of-pearl or reclaimed coconut husk. Every seam is finished with couture dignity. We do not design for the trend cycle; we design for quiet, meaningful moments under the sun.
+                  Explore the fabric, shape and styling possibilities of every piece. For details beyond the product description, our team can help you choose with confidence.
                 </p>
               </div>
 
@@ -105,7 +105,7 @@ export default function AboutPage() {
                 </Link>
                 <a href="#artisan-process">
                   <Button variant="outline" size="md">
-                    Our Handloom Craft
+                    Explore our approach
                   </Button>
                 </a>
               </div>
@@ -137,15 +137,15 @@ export default function AboutPage() {
       <section id="artisan-process" className="py-24 sm:py-32 bg-paper border-b border-sand/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Village Cooperatives"
-            title="The Artisan Handloom Process"
-            italicWord="Handloom Process"
-            description="Four deliberate steps guided entirely by human hands on traditional pit-looms in Gampaha and Western Province."
+            eyebrow="Your wardrobe, considered"
+            title="A little more thought, at every step"
+            italicWord="every step"
+            description="Choose a piece you love, understand its details and make it part of your own story."
             align="center"
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {CRAFT_PROCESS_STEPS.map((step) => (
+            {[ {step:"01",title:"Find your silhouette",desc:"Browse dresses, tops, bottoms and matching sets by the way you like to dress.",duration:"Explore"},{step:"02",title:"Know your piece",desc:"Read the fabric and included-garments details before choosing a look.",duration:"Discover"},{step:"03",title:"Choose your fit",desc:"Use the body-size guide and ask our team for measurements when you need more help.",duration:"Choose"},{step:"04",title:"Make it your own",desc:"Style garments together or separately and follow their care labels.",duration:"Wear"} ].map((step) => (
               <div
                 key={step.step}
                 className="p-6 rounded-3xl bg-paper-light border border-sand/40 shadow-sm flex flex-col justify-between space-y-4"
@@ -165,7 +165,7 @@ export default function AboutPage() {
                   </h3>
 
                   <p className="text-[11px] font-sans text-gold font-semibold uppercase tracking-wider">
-                    {step.subtitle}
+                    Your BINDY wardrobe
                   </p>
 
                   <p className="text-xs font-sans text-charcoal/80 font-light leading-relaxed">

@@ -7,7 +7,7 @@ export const RETURNS_CONSUMER_RIGHTS = "## Your consumer rights\n\nChange-of-min
 export const DEFAULT_POLICY_PAGES: ContentPage[] = [
   {
     slug: "privacy", title: "Privacy Policy", published: true,
-    body: `Last updated: 1 November 2026
+    body: `Last updated: 2 November 2026
 
 ## About this policy
 
@@ -28,6 +28,14 @@ You can browse the collection without providing your name. We need sufficient co
 ## Browser storage and cookies
 
 The website uses local storage to remember your bag, saved items and any profile, address or style preferences you choose to save on your device. Session storage supports features such as the welcome animation and buy-now selection. Store-management sign-in uses a session cookie. You can clear these through your browser settings; doing so may remove saved items and preferences or sign you out. Avoid saving personal details on a shared device.
+
+## Optional analytics
+
+When Google Analytics is enabled, we ask for your permission before loading its tag. If you choose Allow analytics, Google receives information about visits and interactions with our public shopping pages, such as page paths, product identifiers, device and browser information and cookie identifiers. Google can process this information overseas, including in the United States, under its privacy policy: https://policies.google.com/privacy
+
+Analytics is optional. We do not enable advertising personalisation or Google Signals, and we do not send your contact form contents, name, email, phone, delivery address or payment credentials to Analytics. Our page-view tracking omits URL query strings and excludes account, admin, checkout and payment pages. Demo orders are not reported as purchases or sales revenue.
+
+Choose Essential only to browse without optional analytics. Use Cookie preferences in the footer to review your choice or withdraw permission. Withdrawing stops collection and clears this site's Google Analytics cookies; it does not erase information Google already processed. Your browser settings can also remove cookies and stored preferences.
 
 ## Service providers and overseas processing
 

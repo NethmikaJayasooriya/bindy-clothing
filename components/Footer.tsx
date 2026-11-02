@@ -7,6 +7,7 @@ import { ArrowRight, Mail, Phone } from "lucide-react";
 import { phoneLink } from "@/lib/contact-details";
 import BrandLogo from "@/components/BrandLogo";
 import SocialIcon from "@/components/SocialIcon";
+import {PREFERENCES_EVENT} from "@/lib/analytics";
 import { socialLinks } from "@/lib/social-links";
 
 export default function Footer() {
@@ -28,13 +29,13 @@ export default function Footer() {
             </p>
 
             <p className="font-cormorant text-[16.5px] italic text-charcoal/75 leading-[1.65] max-w-sm">
-              Thoughtfully designed pieces that blend comfort, poetic storytelling, and authentic Sri Lankan handloom craftsmanship for the modern Australian wardrobe.
+              A wardrobe of dresses, thoughtful separates and matching sets, inspired by Sri Lanka and Australian everyday living.
             </p>
 
             <div className="pt-2 space-y-2 text-[13px] font-sans text-charcoal-subtle">
               <p className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold/60 shrink-0" />
-                <span>Studios in Brisbane, Australia &amp; Colombo, Sri Lanka</span>
+                <span>Australia &amp; Sri Lanka</span>
               </p>
               <p>
                 <a
@@ -106,7 +107,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/craft" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
-                  Artisan Handloom &amp; Craft
+                  Fabric &amp; Garment Care
                 </Link>
               </li>
               <li>
@@ -116,7 +117,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/craft#sustainability" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
-                  Sustainability Standards
+                  Caring for Your Wardrobe
                 </Link>
               </li>
             </ul>
@@ -149,7 +150,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact#faq" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
+                <Link href="/faq" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
                   Frequently Asked Questions
                 </Link>
               </li>
@@ -161,6 +162,7 @@ export default function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-sans text-charcoal/60 tracking-wider gap-4">
           <p>© {new Date().getFullYear()} BINDY CLOTHING. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-sans text-charcoal/60">
+            <Link href="/shopping" className="hover:text-charcoal-rich">Australia &amp; Sri Lanka</Link><button type="button" onClick={()=>window.dispatchEvent(new Event(PREFERENCES_EVENT))} className="hover:text-charcoal-rich">Cookie preferences</button>
             {legalPages.map(page => <Link key={page.slug} href={`/pages/${page.slug}`} className="hover:text-charcoal-rich transition-colors">{page.title}</Link>)}
             <span className="font-serif italic text-[#8E6E34] tracking-normal">
               Two Islands, One Thread

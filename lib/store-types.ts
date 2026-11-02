@@ -40,6 +40,7 @@ export interface HeroSlide {
   image: string; alt: string; position: string; mobile: string; link: string; product: string; enabled: boolean;
 }
 export interface StoreSettings {
+  tracking?: {ga4Id: string; searchConsoleToken: string};
   storeName: string; email: string; phone: string; address: string; announcement: string;
   freeShippingThreshold: number; standardShipping: number; expressShipping: number; returnsDays: number;
   instagram: string; facebook?: string; tiktok?: string; orderPrefix: string; lowStockThreshold: number; acceptingOrders: boolean;

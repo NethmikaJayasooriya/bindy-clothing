@@ -5,6 +5,9 @@ import NavigationFeedback from "@/components/NavigationFeedback";
 import { readPublicStore } from "@/lib/server/store-repository";
 import { StorefrontProvider } from "@/components/StorefrontProvider";
 import SocialRail from "@/components/SocialRail";
+import JsonLd from "@/components/JsonLd";
+import AnalyticsConsent from "@/components/AnalyticsConsent";
+import { SITE_URL, DEFAULT_DESCRIPTION, brandSchema } from "@/lib/seo";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -70,25 +73,17 @@ export const viewport: Viewport = {
   themeColor: "#FAF7F2",
 };
 
-export const metadata: Metadata = {
-  metadataBase:new URL(process.env.SITE_URL||"https://bindyclothing.com.au"),
-  title: "BINDY. — Wear Your Calm, Feel Your Story | Luxury Australian-Sri Lankan Fashion",
-  description:
-    "Two Islands, One Thread. BINDY Clothing crafts thoughtful, limited edition womenswear blending timeless Sri Lankan heritage with modern Australian living.",
-  keywords: [
-    "BINDY clothing",
-    "Australian ethical fashion",
-    "Sri Lankan handloom",
-    "Origins collection",
-    "Linen dresses Australia",
-    "Luxury slow fashion",
-  ],
-  openGraph: {
-    title: "BINDY. — Wear Your Calm, Feel Your Story",
-    description: "Two Islands, One Thread. Simple pieces. Meaningful moments.",
-    type: "website",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const store = await readPublicStore();
+  const token = store.settings.tracking?.searchConsoleToken;
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: { default: "BINDY Clothing | Women's Clothing Australia & Sri Lanka", template: "%s | BINDY Clothing" },
+    description: DEFAULT_DESCRIPTION,
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
+    ...(token && /^[A-Za-z0-9_-]{10,160}$/.test(token) ? {verification:{google:token}} : {}),
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -110,7 +105,7 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={`${inter.variable} ${fraunces.variable} ${leagueSpartan.variable} ${poppins.variable} ${outfit.variable} ${playfair.variable} ${cormorant.variable} antialiased bg-[#FAF7F2] text-[#1F1E1D] overflow-x-hidden selection:bg-[#C5A059] selection:text-white font-sans`}
       >
-        <StorefrontProvider initial={initialStore}><NavigationFeedback/>{children}<SocialRail/></StorefrontProvider>
+        <StorefrontProvider initial={initialStore}>{initialStore&&<JsonLd data={brandSchema(initialStore.settings)}/>}<NavigationFeedback/>{children}<SocialRail/><AnalyticsConsent/></StorefrontProvider>
       </body>
     </html>
   );

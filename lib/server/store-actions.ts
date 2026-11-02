@@ -173,6 +173,12 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
     case "subscriber-status": {
       const subscriber = state.subscribers.find(s => s.id === v.id); if (!subscriber) throw new StoreError("Subscriber not found.", 404); subscriber.active = v.active === true; return;
     }
+    case "tracking": {
+      const ga4Id=text(v.ga4Id,22),searchConsoleToken=text(v.searchConsoleToken,160);
+      if(ga4Id&&!/^G-[A-Z0-9]{4,20}$/.test(ga4Id))throw new StoreError("Use a GA4 measurement ID beginning G-.");
+      if(searchConsoleToken&&!/^[A-Za-z0-9_-]{10,160}$/.test(searchConsoleToken))throw new StoreError("Paste the verification token only, without HTML.");
+      state.settings.tracking={ga4Id,searchConsoleToken};return;
+    }
     case "settings": {
       const s = state.settings;
       if(v.cod!==undefined){const c=object(v.cod);const demoMultiplier=number(c.demoMultiplier,10000);if(demoMultiplier<=0)throw new StoreError("Demo pricing multiplier must be positive.");s.cod={enabled:c.enabled===true,testMode:c.testMode!==false,demoMultiplier,shippingLkr:number(c.shippingLkr,100000)};}

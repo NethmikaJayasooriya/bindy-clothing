@@ -2,6 +2,7 @@
 import { useStorefront } from "@/components/StorefrontProvider";
 import { phoneLink } from "@/lib/contact-details";
 
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Mail, MapPin, Phone, Send, Check, ChevronDown, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -62,7 +63,7 @@ export default function ContactPage() {
         <div className="max-w-4xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold">
             <Mail className="w-3.5 h-3.5 text-gold" />
-            <span>Client Care & Studios</span>
+            <span>Client care</span>
           </div>
 
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-wide text-charcoal-rich leading-tight">
@@ -70,7 +71,7 @@ export default function ContactPage() {
           </h1>
 
           <p className="font-serif italic text-base sm:text-lg text-muted font-light max-w-2xl mx-auto leading-relaxed">
-            Whether you have questions about sizing, delivery, or custom bridal parties, our team in Brisbane and Colombo is here with calm assistance.
+            For questions about garments, sizing, delivery or an existing order, send our team a note.
           </p>
         </div>
       </section>
@@ -82,13 +83,13 @@ export default function ContactPage() {
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-3">
               <span className="text-[10px] font-sans uppercase tracking-widest text-gold font-semibold block">
-                Two Studios
+                Australia & Sri Lanka
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-charcoal font-light">
-                Where to Find Us
+                Here to help.
               </h2>
               <p className="text-xs font-sans text-muted leading-relaxed font-light">
-                We operate across two coastal hubs, maintaining direct contact with both our weavers in Sri Lanka and our clients across Australia.
+                Use the contact details below for shopping and order support. Please contact us before sending a return.
               </p>
             </div>
 
@@ -96,33 +97,19 @@ export default function ContactPage() {
             <div className="p-6 rounded-3xl bg-paper-light border border-sand/40 shadow-sm space-y-3">
               <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-wider text-gold font-semibold">
                 <MapPin className="w-4 h-4 text-gold" />
-                <span>Brisbane Studio & Client Care</span>
+                <span>BINDY customer care</span>
               </div>
               <p className="text-xs font-sans text-charcoal/85 leading-relaxed font-light">
                 <span className="whitespace-pre-line">{settings.address}</span><br />
-                Fulfillment, sizing appointments & local returns
+                Product, sizing and order enquiries
               </p>
               <div className="pt-2 text-[11px] font-sans text-muted space-y-1">
-                <p>Hours: Monday – Friday, 9am – 5pm AEST</p>
+                <p>Please include your order number for order enquiries.</p>
                 <p><a href={`mailto:${settings.email}`}>{settings.email}</a></p>{settings.phone&&<p><a href={phoneLink(settings.phone)}>{settings.phone}</a></p>}
               </div>
             </div>
 
-            {/* Colombo Atelier */}
-            <div className="p-6 rounded-3xl bg-paper-light border border-sand/40 shadow-sm space-y-3">
-              <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-wider text-gold font-semibold">
-                <MapPin className="w-4 h-4 text-gold" />
-                <span>Colombo Design Atelier</span>
-              </div>
-              <p className="text-xs font-sans text-charcoal/85 leading-relaxed font-light">
-                Cinnamon Gardens, Colombo 07, Sri Lanka<br />
-                Master pattern cutting, loom dispatch & sampling
-              </p>
-              <div className="pt-2 text-[11px] font-sans text-muted space-y-1">
-                <p>Hours: Monday – Friday, 9am – 6pm IST</p>
-                <p>atelier@bindyclothing.com</p>
-              </div>
-            </div>
+
           </div>
 
           {/* Right: Interactive Inquiries Form (7 cols) */}
@@ -131,7 +118,7 @@ export default function ContactPage() {
               Send a Note
             </h3>
             <p className="text-xs font-sans text-muted mb-6 font-light">
-              We respond to all notes within one business day.
+              Send your question and our team will get back to you. Please do not include card details, passwords or OTPs.
             </p>
 
             {submitted ? (
@@ -217,61 +204,7 @@ export default function ContactPage() {
       </section>
 
       {/* 2. CATEGORIZED FAQ ACCORDION */}
-      <section id="faq" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-paper-dark border-t border-sand/40">
-        <div className="max-w-4xl mx-auto space-y-12">
-          <SectionHeading
-            eyebrow="Help & Certainty"
-            title="Frequently Asked Questions"
-            italicWord="Questions"
-            description="Clear answers regarding shipping, sizing, returns, and organic fabric care."
-            align="center"
-          />
-
-          <div className="space-y-8">
-            {FAQ_DATA.map((cat, catIdx) => (
-              <div key={cat.category} className="space-y-3">
-                <h3 className="font-serif text-xl text-charcoal font-medium border-b border-sand/40 pb-2">
-                  {cat.category}
-                </h3>
-
-                <div className="space-y-3">
-                  {cat.items.map((item, itemIdx) => {
-                    const id = `${catIdx}-${itemIdx}`;
-                    const isOpen = activeFaq === id;
-                    return (
-                      <div
-                        key={itemIdx}
-                        className="rounded-2xl bg-paper-light border border-sand/40 overflow-hidden"
-                      >
-                        <button
-                          type="button"
-                          onClick={() => setActiveFaq(isOpen ? null : id)}
-                          className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer"
-                        >
-                          <span className="font-serif text-sm sm:text-base font-medium text-charcoal">
-                            {item.q}
-                          </span>
-                          <ChevronDown
-                            className={`w-4 h-4 text-gold shrink-0 transition-transform ${
-                              isOpen ? "rotate-180" : ""
-                            }`}
-                          />
-                        </button>
-
-                        {isOpen && (
-                          <div className="px-5 pb-5 text-xs sm:text-sm font-sans text-charcoal/80 font-light leading-relaxed border-t border-sand/30 pt-3">
-                            {item.a}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section id="faq" className="py-16 px-5 text-center border-t border-sand"><h2 className="font-serif text-3xl">A little clarity before you choose.</h2><p className="text-sm mt-4">Answers about sizing, included garments, currency, delivery and checkout.</p><Link href="/faq" className="inline-block mt-6 underline underline-offset-4">Read our shopping questions ↗</Link></section>
 
       {/* FOOTER */}
       <Footer />
