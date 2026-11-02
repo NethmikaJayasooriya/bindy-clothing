@@ -12,6 +12,7 @@ import StarRating from "./StarRating";
 import Price from "./Price";
 import Badge from "./Badge";
 import { purchaseContents } from "@/lib/purchase-contents";
+import { showsFullOutfit } from "@/lib/product-media";
 
 export interface ProductCardProps {
   product: Product;
@@ -49,6 +50,7 @@ export default function ProductCard({
   const inWishlist = isInWishlist(product.id);
   const rating = getAverageRating(product);
   const contents = purchaseContents(product);
+  const fullOutfit = showsFullOutfit(product);
 
   const handleMouseEnter = () => {
     isHoveredRef.current = true;
@@ -117,7 +119,7 @@ export default function ProductCard({
             loading="lazy"
             decoding="async"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            className={`absolute inset-0 w-full h-full ${fullOutfit ? "object-contain" : "object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"}`}
           />
 
           {/* Hover video: always mounted if available, smoothly fades in only once frames are playing */}
@@ -144,14 +146,14 @@ export default function ProductCard({
             />
           ) : (
             /* Fallback secondary image only if product has no videoHover */
-            product.imageHover && isCardHovered && (
+            product.imageHover && product.imageHover !== product.image && isCardHovered && (
               <ResponsiveImage
                 src={product.imageHover}
                 alt={`${product.name} alternate view`}
                 loading="lazy"
                 decoding="async"
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
+                className={`absolute inset-0 w-full h-full ${fullOutfit ? "object-contain" : "object-cover"} opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100`}
               />
             )
           )}

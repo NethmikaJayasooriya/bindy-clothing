@@ -105,6 +105,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
+        // Browser extensions can add body attributes before hydration (for
+        // example cz-shortcut-listen). Keep child hydration checks enabled.
+        suppressHydrationWarning
         className={`${inter.variable} ${fraunces.variable} ${leagueSpartan.variable} ${poppins.variable} ${outfit.variable} ${playfair.variable} ${cormorant.variable} antialiased bg-[#FAF7F2] text-[#1F1E1D] overflow-x-hidden selection:bg-[#C5A059] selection:text-white font-sans`}
       >
         <StorefrontProvider initial={initialStore}><NavigationFeedback/>{children}<SocialRail/></StorefrontProvider>

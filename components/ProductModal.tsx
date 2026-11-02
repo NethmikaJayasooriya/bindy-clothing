@@ -1,5 +1,6 @@
 "use client";
 import { purchaseContents } from "@/lib/purchase-contents";
+import { showsFullOutfit } from "@/lib/product-media";
 import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
@@ -91,7 +92,7 @@ export default function ProductModal({
             <ResponsiveImage
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover object-center"
+              className={`w-full h-full ${showsFullOutfit(product) ? "object-contain" : "object-cover"} object-center`}
             />
             <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 flex flex-col gap-1.5 sm:gap-2">
               <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] sm:text-xs uppercase font-bold tracking-wider text-[#FAF7F2] border border-white/20">

@@ -1,5 +1,9 @@
 import retiredImages from "@/data/retired-product-images.json";
 
+export function showsFullOutfit(product: { category: string; name: string }) {
+  return product.category === "Skirts & Pants" && /\b(trousers?|pants)\b/i.test(product.name);
+}
+
 // Also handles old carts, saved admin records and links from before the photo cleanup.
 export function currentImageSource(src: string): string {
   return (retiredImages as Record<string, string>)[src] ?? src;
