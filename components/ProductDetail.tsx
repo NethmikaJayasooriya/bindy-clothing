@@ -1,4 +1,5 @@
 "use client";
+import { purchaseContents } from "@/lib/purchase-contents";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 
@@ -92,6 +93,7 @@ const CATEGORY_SLUGS: Record<Category, string> = {
 export default function ProductDetail({ product: initialProduct }: { product: Product }) {
   const {products,settings}=useStorefront();
   const product=products.find(p=>p.id===initialProduct.id) ?? initialProduct;
+  const contents = purchaseContents(product);
   const router = useRouter();
   const [activeImg, setActiveImg] = useState(0);
   const [size, setSize] = useState<string | null>(product.sizes[1] || product.sizes[0] || null);
@@ -447,9 +449,9 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
               {product.name}
             </h1>
 
-            {product.soldSeparately && (
+            {contents && (
               <div className="mt-3 inline-flex items-center gap-2 border border-sage/35 bg-sage/10 px-3 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.18em] text-sage-dark">
-                Sold Separately · Build Your Own Set
+                {contents.label}
               </div>
             )}
 
@@ -481,6 +483,13 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
               </div>
 
             </div>
+
+            {contents && (
+              <div data-testid="purchase-contents" className="mt-4 border border-[#DCC7AF] bg-[#F2ECE1]/60 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-[#735D38]">What’s included · {contents.label}</p>
+                <p className="mt-1.5 text-[13px] leading-relaxed text-charcoal/85">{contents.detail}</p>
+              </div>
+            )}
 
             {/* Description */}
             <p className="mt-4 text-[14px] sm:text-[15px] leading-relaxed text-charcoal/85 font-light">

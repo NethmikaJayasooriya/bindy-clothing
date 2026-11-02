@@ -138,8 +138,8 @@
     "imageSource": "photography"
   },
   "botanic-rose-trousers": {
-    "image": "/images/bindi-real/botanic-rose-trousers-card-v2.webp",
-    "imageHover": "/images/bindi-real/botanic-rose-trousers-hover-v2.webp",
+    "image": "/images/bindi-real/botanic-rose-trousers-01.webp",
+    "imageHover": "/images/bindi-real/botanic-rose-trousers-01.webp",
     "gallery": [
       "/images/bindi-real/botanic-rose-trousers-01.webp",
       "/images/bindi-real/botanic-rose-trousers-02.webp",
@@ -153,7 +153,7 @@
       "/images/bindi-real/botanic-rose-trousers-04-zoom.webp"
     ],
     "galleryLabels": [
-      "On the model",
+      "Full outfit styling — trousers only; top sold separately",
       "Waist & floral print",
       "Another angle",
       "Back & drape"

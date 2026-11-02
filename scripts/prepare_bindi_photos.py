@@ -173,6 +173,12 @@ for slug, views in RECIPES.items():
         "galleryLabels": [v["label"] for v in views],
         "imageSource": "photography",
     }
+    # Show the complete styled outfit for trousers; the listing explicitly says
+    # trousers only. Keep close-up waistband/print photographs in the gallery.
+    if slug == "botanic-rose-trousers":
+        manifest[slug]["image"] = gallery[0]
+        manifest[slug]["imageHover"] = gallery[0]
+        manifest[slug]["galleryLabels"][0] = "Full outfit styling — trousers only; top sold separately"
     audit[slug] = views
 
 campaigns = [

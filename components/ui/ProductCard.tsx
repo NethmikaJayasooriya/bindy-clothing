@@ -11,6 +11,7 @@ import { addToCart } from "@/lib/cart";
 import StarRating from "./StarRating";
 import Price from "./Price";
 import Badge from "./Badge";
+import { purchaseContents } from "@/lib/purchase-contents";
 
 export interface ProductCardProps {
   product: Product;
@@ -47,6 +48,7 @@ export default function ProductCard({
 
   const inWishlist = isInWishlist(product.id);
   const rating = getAverageRating(product);
+  const contents = purchaseContents(product);
 
   const handleMouseEnter = () => {
     isHoveredRef.current = true;
@@ -267,15 +269,15 @@ export default function ProductCard({
             )}
           </div>
 
-          {product.soldSeparately && (
+          {contents && (
             <span className="inline-flex w-fit items-center border border-[#5E6C52]/35 bg-[#5E6C52]/10 px-2 py-0.5 text-[9px] font-sans font-semibold uppercase tracking-[0.16em] text-[#5E6C52]">
-              Sold Separately · Mix &amp; Match
+              {contents.label}
             </span>
           )}
 
           {/* Product Title */}
           <Link href={`/product/${product.id}`} className="block">
-            <h3 className="font-serif text-[14.5px] sm:text-[17.5px] text-charcoal font-normal group-hover:text-[#8E6E34] transition-colors leading-snug line-clamp-1">
+            <h3 className="font-serif text-[14.5px] sm:text-[17.5px] text-charcoal font-normal group-hover:text-[#8E6E34] transition-colors leading-snug line-clamp-2">
               {product.name}
             </h3>
           </Link>

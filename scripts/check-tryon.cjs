@@ -10,7 +10,7 @@ const durable = {
 const load = loader({'@/lib/server/durable-storage': durable, '@/data/tryon-prepared.json': {}, '@/lib/supabase/server': { getSupabaseAdmin: () => ({ storage }) }});
 const studio = load('@/lib/styleStudio'), policy = load('@/lib/tryon-policy'), service = load('@/lib/server/tryon-service');
 let count=0; async function check(name,fn){await fn();count++;console.log('PASS '+name);}
-const a = studio.getPiece('cacao-satin-cami'), b = studio.getPiece('ivory-tiered-maxi-skirt'), other = studio.getPiece('midnight-flow-maxi-skirt');
+const a = studio.getPiece('cacao-satin-cami'), b = studio.getPiece('ivory-tiered-maxi-skirt'), other = studio.getPiece('gingham-wander-maxi-skirt');
 const actualFetch = global.fetch;
 (async()=>{
  const valid = await sharp({create:{width:880,height:1184,channels:3,background:'#e8e1d7'}}).png().toBuffer();

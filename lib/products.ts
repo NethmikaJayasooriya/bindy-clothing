@@ -164,7 +164,7 @@ const CAPSULE_PRODUCTS: Product[] = [
   }),
   createCapsulePiece({
     id: "botanic-rose-trousers",
-    name: "Botanic Rose Wide-Leg Trousers",
+    name: "Botanic Rose Wide-Leg Trousers Only",
     category: "Skirts & Pants",
     storyPlace: "The Royal Botanic Gardens, Peradeniya",
     destinations: ["Garden", "Party", "City"],
@@ -175,7 +175,7 @@ const CAPSULE_PRODUCTS: Product[] = [
     priceAud: 185,
     image: "/images/customer-capsule/editorial/botanic-rose-trousers.webp",
     detailImages: ["/images/bindi-real/botanic-rose-trousers-02.webp", "/images/bindi-real/botanic-rose-cami-02.webp"],
-    description: "High-waisted wide-leg trousers in a deep forest botanical print with dusty-rose blooms.",
+    description: "High-waisted wide-leg trousers in a deep forest botanical print with dusty-rose blooms. Trousers only; the matching Botanic Rose Camisole shown in the full outfit photo is sold separately.",
     craftDetails: ["High tailored waistband", "Relaxed wide leg", "Exclusive botanical placement print"],
     styleWith: ["botanic-rose-cami", "moonflower-halter-top"],
   }),

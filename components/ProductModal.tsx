@@ -1,4 +1,5 @@
 "use client";
+import { purchaseContents } from "@/lib/purchase-contents";
 import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
@@ -34,6 +35,7 @@ export default function ProductModal({
   }, []);
 
   if (!product) return null;
+  const contents = purchaseContents(product);
 
   const sizes = ["AU 6 (XS)", "AU 8 (S)", "AU 10 (M)", "AU 12 (L)", "AU 14 (XL)"];
   const installment = (product.priceAud / 4).toFixed(2);
@@ -147,6 +149,12 @@ export default function ProductModal({
                 </div>
               </div>
 
+              {contents && (
+                <div className="border border-sand bg-paper-dark/60 p-3 text-xs leading-relaxed text-charcoal/85">
+                  <strong className="block mb-1">{contents.label}</strong>
+                  {contents.detail}
+                </div>
+              )}
               <p className="text-xs font-sans text-charcoal/80 leading-relaxed font-light line-clamp-3">
                 {product.description}
               </p>
