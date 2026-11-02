@@ -103,11 +103,12 @@ export default function ProductCard({
 
   return (
     <div
-      className={`group flex flex-col bg-white rounded-none border border-[#E7DFD5] hover:border-charcoal/80 transition-all duration-300 shadow-sm hover:shadow-xl ${className}`}
+      data-product-card={product.id}
+      className={`group flex h-full min-w-0 flex-col bg-white rounded-none border border-[#E7DFD5] hover:border-charcoal/80 transition-all duration-300 shadow-sm hover:shadow-xl ${className}`}
     >
       {/* Image & Media Frame */}
       <div
-        className="relative aspect-[3/4] w-full overflow-hidden bg-[#F2ECE1]"
+        className="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-[#F2ECE1]"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -262,7 +263,7 @@ export default function ProductCard({
       <div className="p-3 sm:p-5 flex flex-col justify-between flex-1 space-y-2.5 sm:space-y-3 bg-white">
         <div className="space-y-1.5">
           {/* Origin Story Eyebrow */}
-          <div className="flex items-center justify-between text-[10px] sm:text-[10.5px] uppercase font-semibold font-sans tracking-[0.2em] text-[#8E6E34]">
+          <div className="flex h-4 items-center justify-between text-[10px] sm:text-[10.5px] uppercase font-semibold font-sans tracking-[0.2em] text-[#8E6E34]">
             <span className="truncate">{product.story}</span>
             {product.destinations[0] && (
               <span className="text-charcoal/40 font-normal tracking-normal truncate ml-1 hidden xs:inline">
@@ -271,26 +272,28 @@ export default function ProductCard({
             )}
           </div>
 
-          {contents && (
-            <span className="inline-flex w-fit items-center border border-[#5E6C52]/35 bg-[#5E6C52]/10 px-2 py-0.5 text-[9px] font-sans font-semibold uppercase tracking-[0.16em] text-[#5E6C52]">
-              {contents.label}
-            </span>
-          )}
+          <div className="flex h-9 sm:h-6 items-start">
+            {contents && (
+              <span className="inline-flex w-fit max-w-full items-center border border-[#5E6C52]/35 bg-[#5E6C52]/10 px-2 py-0.5 text-[8px] sm:text-[9px] leading-3 font-sans font-semibold uppercase tracking-[0.12em] text-[#5E6C52]">
+                {contents.label}
+              </span>
+            )}
+          </div>
 
           {/* Product Title */}
           <Link href={`/product/${product.id}`} className="block">
-            <h3 className="font-serif text-[14.5px] sm:text-[17.5px] text-charcoal font-normal group-hover:text-[#8E6E34] transition-colors leading-snug line-clamp-2">
+            <h3 className="h-[2.75em] font-serif text-[14.5px] sm:text-[17.5px] text-charcoal font-normal group-hover:text-[#8E6E34] transition-colors leading-snug line-clamp-2">
               {product.name}
             </h3>
           </Link>
 
           {/* Fabric / Material Description */}
-          <p className="text-[12px] font-sans text-charcoal/65 font-light line-clamp-1">
+          <p className="h-[18px] text-[12px] leading-[18px] font-sans text-charcoal/65 font-light line-clamp-1">
             {product.fabric}
           </p>
 
           {/* Rating & Bestseller Badge */}
-          <div className="pt-0.5 flex items-center justify-between">
+          <div className="h-5 pt-0.5 flex items-center justify-between">
             {product.reviews.length > 0 ? (
               <StarRating
                 value={rating}
