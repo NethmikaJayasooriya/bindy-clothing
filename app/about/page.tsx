@@ -1,23 +1,18 @@
 "use client";
-import ResponsiveImage from "@/components/ResponsiveImage";
 
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import {
-  Sparkles,
-  ArrowRight,
-  MapPin,
-  Leaf,
-  ShieldCheck,
-  Award,
-} from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CartDrawer, { CartItem } from "@/components/CartDrawer";
-import { getCart } from "@/lib/cart";
+import ResponsiveImage from "@/components/ResponsiveImage";
+import CartDrawer from "@/components/CartDrawer";
+import { getCart, saveCart, subscribe, type CartItem } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
-import { CRAFT_PROCESS_STEPS } from "@/data/craft";
-import { Button, SectionHeading } from "@/components/ui";
+import styles from "./about.module.css";
+
+const productionStages = ["Pattern making", "Sampling", "Production", "Finishing", "Packing"];
+const familyValues = ["Craftsmanship", "Attention to detail", "Authenticity"];
 
 export default function AboutPage() {
   const [isMuted, setIsMuted] = useState(true);
@@ -26,279 +21,93 @@ export default function AboutPage() {
 
   useEffect(() => {
     setCartItems(getCart());
+    return subscribe(() => setCartItems(getCart()));
   }, []);
 
-  const toggleAudio = () => {
-    if (!ambientPlayer) return;
-    const muted = ambientPlayer.toggle();
-    setIsMuted(muted);
-  };
+  function toggleAudio() {
+    if (ambientPlayer) setIsMuted(ambientPlayer.toggle());
+  }
 
-  const brandValues = [
-    {
-      icon: Award,
-      title: "A sense of place",
-      desc: "Sri Lankan colour, landscape and memories inspire a wardrobe made for everyday Australian living.",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Style your way",
-      desc: "Choose a complete look or mix separate pieces. Each listing explains what is included so you can build a wardrobe around you.",
-    },
-    {
-      icon: Sparkles,
-      title: "Cultural Storytelling",
-      desc: "Our clothes are living fragments of memory — temple lotus ponds, 5th-century Sigiriya fresco clays, and coastal pearl divers translated into quiet luxury.",
-    },
-    {
-      icon: Leaf,
-      title: "Care for what you wear",
-      desc: "Get to know the fabric and follow each garment’s care label. Thoughtful care helps your favourite pieces stay part of your everyday.",
-    },
-  ];
+  function updateQuantity(id: string, size: string, delta: number) {
+    saveCart(getCart().map(item => item.product.id === id && item.size === size
+      ? { ...item, quantity: Math.max(0, Math.min(99, item.quantity + delta)) }
+      : item).filter(item => item.quantity > 0));
+  }
 
-  const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  return <div className={styles.page}>
+    <Navbar isMuted={isMuted} toggleAudio={toggleAudio}
+      cartCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
+      onOpenCart={() => setIsCartOpen(true)} />
 
-  return (
-    <main className="min-h-screen bg-paper text-charcoal">
-      {/* NAVBAR */}
-      <Navbar
-        isMuted={isMuted}
-        toggleAudio={toggleAudio}
-        cartCount={totalCartCount}
-        onOpenCart={() => setIsCartOpen(true)}
-      />
+    <main>
+      <section className={styles.hero} aria-labelledby="about-title">
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}><span aria-hidden="true" />About BINDY</p>
+          <h1 id="about-title" className={styles.headline}>Family at heart.<br /><em>Care in every thread.</em></h1>
+          <p className={styles.heroIntro}>Our brand is built on a family passion for textiles, craftsmanship, and quality garment making.</p>
+          <a href="#our-story" className={styles.storyLink}>A little about us <ArrowDown size={16} strokeWidth={1.3} /></a>
+          <div className={styles.heroSignature} aria-label="Creative direction in Australia, production in Sri Lanka">
+            <span>Australia</span><span className={styles.signatureThread} aria-hidden="true" /><span>Sri Lanka</span>
+          </div>
+        </div>
+        <figure className={styles.heroFigure}>
+          <div className={styles.heroImageFrame}>
+            <ResponsiveImage src="/images/bindi-real/campaign-together.webp"
+              alt="Two friends wearing BINDY floral and sage garments outdoors"
+              loading="eager" fetchPriority="high"
+              sizes="(max-width: 800px) 100vw, 54vw" className={styles.heroImage} />
+          </div>
+          <figcaption><span>The BINDY wardrobe</span><span>Made to be part of your everyday.</span></figcaption>
+        </figure>
+      </section>
 
-      {/* 1. HERO MANIFESTO */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 px-4 sm:px-6 lg:px-8 bg-paper-dark border-b border-sand/40 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left: Manifesto Copy (7 cols) */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold">
-                <Sparkles className="w-3.5 h-3.5 text-gold" />
-                <span>Our Origin & Manifesto</span>
-              </div>
-
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-wide text-charcoal-rich leading-[1.1]">
-                Two Islands. <span className="font-editorial-italic text-gold">One Thread.</span>
-              </h1>
-
-              <p className="font-serif italic text-lg sm:text-xl text-muted font-light leading-relaxed">
-                “We believe what you wear should ground your spirit. Clothes created at the human pace of memory, connecting ancient Sri Lankan soil to warm Australian sunlight.”
-              </p>
-
-              <div className="space-y-4 text-xs sm:text-sm font-sans text-charcoal/85 font-light leading-relaxed pt-2 border-t border-sand/30">
-                <p>
-                  BINDY brings Sri Lankan inspiration to an Australian wardrobe. Our collections explore relaxed silhouettes, considered details and pieces you can make your own — worn together, styled separately and reached for again.
-                </p>
-                <p>
-                  Explore the fabric, shape and styling possibilities of every piece. For details beyond the product description, our team can help you choose with confidence.
-                </p>
-              </div>
-
-              <div className="pt-4 flex items-center gap-4">
-                <Link href="/collection">
-                  <Button variant="primary" size="md">
-                    Explore the Collection
-                  </Button>
-                </Link>
-                <a href="#artisan-process">
-                  <Button variant="outline" size="md">
-                    Explore our approach
-                  </Button>
-                </a>
-              </div>
-            </div>
-
-            {/* Right: Evocative Location Image (5 cols) */}
-            <div className="lg:col-span-5 relative aspect-[4/5] rounded-3xl overflow-hidden bg-paper shadow-luxury border border-sand/40">
-              <ResponsiveImage
-                src="/images/destinations/garden.jpg"
-                alt="Sri Lankan courtyard colonial doorway"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-                <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-gold font-semibold flex items-center gap-1.5">
-                  <MapPin className="w-3 h-3 text-gold" />
-                  Galle Fort & Brisbane
-                </span>
-                <p className="font-serif text-lg leading-tight">
-                  Where ancestral memories meet the Australian sun.
-                </p>
-              </div>
-            </div>
+      <section id="our-story" className={styles.story} aria-labelledby="story-title">
+        <div>
+          <p className={styles.eyebrow}>Our story</p>
+          <h2 id="story-title" className={styles.sectionTitle}>A shared love.<br /><em>A considered way of creating.</em></h2>
+        </div>
+        <div className={styles.storyBody}>
+          <p>With creative direction led from Australia and production based in Sri Lanka, we bring together generations of industry knowledge and a shared love for fashion.</p>
+          <div className={styles.origins}>
+            <div><span>Creative direction</span><strong>Australia</strong></div>
+            <div><span>Family-owned production</span><strong>Sri Lanka</strong></div>
+            <div><span>Factory established</span><strong>2012</strong></div>
           </div>
         </div>
       </section>
 
-      {/* 4. ARTISAN HANDLOOM PROCESS & COMMUNITY IMPACT */}
-      <section id="artisan-process" className="py-24 sm:py-32 bg-paper border-b border-sand/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Your wardrobe, considered"
-            title="A little more thought, at every step"
-            italicWord="every step"
-            description="Choose a piece you love, understand its details and make it part of your own story."
-            align="center"
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {[ {step:"01",title:"Find your silhouette",desc:"Browse dresses, tops, bottoms and matching sets by the way you like to dress.",duration:"Explore"},{step:"02",title:"Know your piece",desc:"Read the fabric and included-garments details before choosing a look.",duration:"Discover"},{step:"03",title:"Choose your fit",desc:"Use the body-size guide and ask our team for measurements when you need more help.",duration:"Choose"},{step:"04",title:"Make it your own",desc:"Style garments together or separately and follow their care labels.",duration:"Wear"} ].map((step) => (
-              <div
-                key={step.step}
-                className="p-6 rounded-3xl bg-paper-light border border-sand/40 shadow-sm flex flex-col justify-between space-y-4"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs tracking-widest text-gold font-bold">
-                      STEP {step.step}
-                    </span>
-                    <span className="text-[10px] font-sans text-muted font-light">
-                      {step.duration}
-                    </span>
-                  </div>
-
-                  <h3 className="font-serif text-lg text-charcoal font-medium leading-snug">
-                    {step.title}
-                  </h3>
-
-                  <p className="text-[11px] font-sans text-gold font-semibold uppercase tracking-wider">
-                    Your BINDY wardrobe
-                  </p>
-
-                  <p className="text-xs font-sans text-charcoal/80 font-light leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-sand/30 text-[10px] font-sans text-muted">
-                  Conducted by generational artisans
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Ethical Commitment Banner */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-charcoal text-paper-light border border-sand/40 shadow-2xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8 space-y-2">
-                <span className="text-[10px] uppercase font-sans tracking-[0.3em] text-gold font-semibold block">
-                  Fair Trade & Dignified Livelihoods
-                </span>
-                <h3 className="font-serif text-2xl sm:text-3xl font-light text-white">
-                  Our Direct Artisan Wage Pledge
-                </h3>
-                <p className="font-sans text-xs sm:text-sm text-sand/80 font-light leading-relaxed max-w-2xl">
-                  We bypass export agents and middle tiers, funding village cooperatives directly and paying 1.8 times the standard artisan rate. This ensures our female weavers can work from their village homes while supporting children through higher education.
-                </p>
-              </div>
-
-              <div className="lg:col-span-4 flex flex-col items-center lg:items-end justify-center">
-                <span className="font-serif text-5xl sm:text-6xl text-gold font-light">
-                  1.8×
-                </span>
-                <span className="text-xs font-sans uppercase tracking-wider text-sand-light mt-1">
-                  Living Wage Standard
-                </span>
-              </div>
-            </div>
-          </div>
+      <section className={styles.factory} aria-labelledby="factory-title">
+        <div className={styles.factoryTop}>
+          <div><p className={styles.eyebrow}>Our family-owned garment factory</p><h2 id="factory-title" className={styles.factoryTitle}>One roof.<br /><em>Every detail.</em></h2></div>
+          <p className={styles.factoryIntro}>Every garment is designed with care and produced in our family-owned garment factory, established in 2012, where the entire process takes place under one roof, from pattern making and sampling to production, finishing, and packing.</p>
         </div>
+        <ol className={styles.stages} aria-label="Garment production under one roof">
+          {productionStages.map((stage, index) => <li key={stage}><span className={styles.stageNumber}>0{index + 1}</span><span>{stage}</span><ArrowUpRight size={18} strokeWidth={1} aria-hidden="true" /></li>)}
+        </ol>
+        <p className={styles.factoryNote}>Connected to every stage, from the first pattern to the final package.</p>
       </section>
 
-      {/* 5. VALUES GRID */}
-      <section className="py-24 sm:py-28 bg-paper-dark/50 border-b border-sand/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Ethical Foundations"
-            title="What We Stand For"
-            italicWord="Stand For"
-            description="Four uncompromising pillars shaping every thread, pattern, and package."
-            align="center"
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {brandValues.map((v, i) => {
-              const Icon = v.icon;
-              return (
-                <div
-                  key={i}
-                  className="p-7 rounded-3xl bg-paper-light border border-sand/40 space-y-4 shadow-paper-card"
-                >
-                  <div className="w-10 h-10 rounded-full bg-gold/15 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-gold" />
-                  </div>
-                  <h3 className="font-serif text-xl text-charcoal font-medium">
-                    {v.title}
-                  </h3>
-                  <p className="text-xs font-sans text-charcoal/80 font-light leading-relaxed">
-                    {v.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+      <section className={styles.values} aria-labelledby="values-title">
+        <div className={styles.valuesIntro}>
+          <p className={styles.eyebrow}>The values we carry</p>
+          <h2 id="values-title" className={styles.sectionTitle}>Rooted in family.<br /><em>Reflected in every piece.</em></h2>
+          <p>Being directly connected to every stage of creation allows us to maintain the highest standards of quality while ensuring that each piece reflects the values our family has built over the years: craftsmanship, attention to detail, and authenticity.</p>
         </div>
+        <div className={styles.valueWords}>{familyValues.map((value, index) => <div key={value}><span>0{index + 1}</span><h3>{value}</h3></div>)}</div>
       </section>
 
-      {/* 7. CLOSING CTA INTO THE COLLECTION */}
-      <section className="py-24 sm:py-32 bg-paper-dark text-center">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-          <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-gold font-semibold block">
-            Begin Your Journey
-          </span>
-
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-charcoal-rich">
-            Wear Your Calm. <span className="font-editorial-italic text-gold">Feel Your Story.</span>
-          </h2>
-
-          <p className="font-serif italic text-base sm:text-lg text-muted font-light max-w-xl mx-auto">
-            Discover seventeen handcrafted silhouettes woven from ancestral Sri Lankan memory for the modern Australian wardrobe.
-          </p>
-
-          <div className="pt-4">
-            <Link href="/collection">
-              <Button
-                variant="primary"
-                size="lg"
-                rightIcon={<ArrowRight className="w-4 h-4" />}
-              >
-                Explore Collection 01
-              </Button>
-            </Link>
-          </div>
-        </div>
+      <section className={styles.purpose} aria-labelledby="purpose-title">
+        <p className={styles.eyebrow}>Our purpose</p>
+        <h2 id="purpose-title">Made to be worn.<br /><em>Loved. Cherished.</em></h2>
+        <p className={styles.purposeText}>Our goal is to create timeless, thoughtfully made clothing that connects contemporary design with the expertise of Sri Lankan manufacturing, delivering pieces that are made to be worn, loved, and cherished for years to come.</p>
+        <Link href="/collection" className={styles.collectionLink}>Explore the collection <ArrowUpRight size={18} strokeWidth={1.3} /></Link>
+        <span className={styles.wordmark} aria-hidden="true">bindy.</span>
       </section>
-
-      {/* FOOTER */}
-      <Footer />
-
-      {/* CART DRAWER */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={(id, size, delta) => {
-          setCartItems((prev) =>
-            prev
-              .map((item) => {
-                if (item.product.id === id && item.size === size) {
-                  const newQty = item.quantity + delta;
-                  return newQty > 0 ? { ...item, quantity: newQty } : null;
-                }
-                return item;
-              })
-              .filter(Boolean) as CartItem[]
-          );
-        }}
-        onRemoveItem={(id, size) => {
-          setCartItems((prev) =>
-            prev.filter((item) => !(item.product.id === id && item.size === size))
-          );
-        }}
-      />
     </main>
-  );
+
+    <Footer />
+    <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} items={cartItems}
+      onUpdateQuantity={updateQuantity}
+      onRemoveItem={(id, size) => saveCart(getCart().filter(item => !(item.product.id === id && item.size === size)))} />
+  </div>;
 }
