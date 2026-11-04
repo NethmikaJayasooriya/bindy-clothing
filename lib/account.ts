@@ -41,6 +41,9 @@ export interface OrderRecord {
   }[];
   itemCount: number;
   total: number;
+  currency?: "AUD" | "LKR";
+  paymentMethod?: string;
+  email?: string;
   shippingAddress?: SavedAddress;
   status?: "Confirmed" | "In Transit" | "Delivered";
 }

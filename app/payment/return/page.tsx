@@ -3,6 +3,7 @@ import { Suspense,useEffect,useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { getCart,saveCart,clearBuyNowItem,getBuyNowItem } from "@/lib/cart";
+import { saveOrder } from "@/lib/account";
 function PaymentResult(){
  const query=useSearchParams();const reference=query.get("reference"),token=query.get("token");
  const [result,setResult]=useState<{number:string;payment:string;status:string;total:number;cancelled:boolean}|null>(null);const [error,setError]=useState("");const [waiting,setWaiting]=useState(true);
@@ -26,6 +27,6 @@ function PaymentResult(){
  <p className="leading-7 mt-6">{paid?(result.cancelled?"Your payment arrived after the reservation ended. Our team will check availability and arrange fulfilment or a refund. Please contact us with your order number.":"Your payment has been verified by PayHere. Our team will prepare your order."):"Please keep your order number. A bank redirect or cancelled browser window does not confirm payment. If you were charged, contact us before placing another order."}</p>
  {error&&<p role="alert" className="text-red-700 mt-4">{error}</p>}
  {!waiting&&!paid&&<button onClick={()=>window.location.reload()} className="mt-6 underline">Check payment status again</button>}
- <div className="mt-8 flex gap-6"><Link href="/collection" className="underline">Continue shopping</Link><Link href="/contact" className="underline">Contact us</Link></div></div></main>;
+ <div className="mt-8 flex flex-wrap gap-5"><Link href="/collection" className="underline">Continue shopping</Link><Link href={`/returns/start?order=${result?.number || ""}`} className="underline">Track order</Link><Link href="/account" className="underline">View in account</Link><Link href="/contact" className="underline">Contact us</Link></div></div></main>;
 }
 export default function Page(){return <Suspense fallback={<main className="p-12">Checking your payment…</main>}><PaymentResult/></Suspense>;}
