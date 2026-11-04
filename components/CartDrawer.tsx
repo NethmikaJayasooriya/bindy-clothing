@@ -1,45 +1,105 @@
 "use client";
-import {trackCommerce} from "@/lib/analytics";
+import { trackCommerce } from "@/lib/analytics";
 import ResponsiveImage from "@/components/ResponsiveImage";
-import {useStorefront} from "@/components/StorefrontProvider";
+import { useStorefront } from "@/components/StorefrontProvider";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Trash2, ShoppingBag, ArrowRight, ShieldCheck } from "lucide-react";
+import { X, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 import { Product } from "./CollectionShowcase";
+import { getCart, saveCart, subscribe, type CartItem } from "@/lib/cart";
 
-export interface CartItem {
-  product: Product;
-  size: string;
-  quantity: number;
-}
+export type { CartItem };
 
 interface CartDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  items: CartItem[];
-  onUpdateQuantity: (id: string, size: string, delta: number) => void;
-  onRemoveItem: (id: string, size: string) => void;
+  items?: CartItem[];
+  onUpdateQuantity?: (id: string, size: string, delta: number) => void;
+  onRemoveItem?: (id: string, size: string) => void;
 }
 
 export default function CartDrawer({
   isOpen,
   onClose,
-  items,
+  items: propsItems,
   onUpdateQuantity,
   onRemoveItem,
 }: CartDrawerProps) {
-  const {settings,payments}=useStorefront();
-  React.useEffect(()=>{if(isOpen&&items.length)trackCommerce("view_cart",items);},[isOpen]);
-  const subtotal = items.reduce(
+  const { settings, payments } = useStorefront();
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => propsItems ?? getCart());
+
+  // Reactively sync with cart storage across the entire application
+  useEffect(() => {
+    setCartItems(getCart());
+    const unsub = subscribe(() => {
+      setCartItems(getCart());
+    });
+    return () => unsub();
+  }, []);
+
+  // Also sync if parent passes updated items
+  useEffect(() => {
+    if (propsItems && propsItems !== cartItems) {
+      setCartItems(propsItems);
+    }
+  }, [propsItems]);
+
+  useEffect(() => {
+    if (isOpen && cartItems.length) {
+      trackCommerce("view_cart", cartItems);
+    }
+  }, [isOpen, cartItems]);
+
+  const handleUpdateQuantity = (productId: string, sizeVal: string, delta: number) => {
+    const current = getCart();
+    const next = current
+      .map((item) => {
+        if (item.product.id === productId && item.size === sizeVal) {
+          return { ...item, quantity: item.quantity + delta };
+        }
+        return item;
+      })
+      .filter((item) => item.quantity > 0);
+    saveCart(next);
+    setCartItems(next);
+    if (onUpdateQuantity) {
+      try {
+        onUpdateQuantity(productId, sizeVal, delta);
+      } catch {
+        /* ignore callback errors */
+      }
+    }
+  };
+
+  const handleRemoveItem = (productId: string, sizeVal: string) => {
+    const current = getCart();
+    const next = current.filter(
+      (item) => !(item.product.id === productId && item.size === sizeVal)
+    );
+    saveCart(next);
+    setCartItems(next);
+    if (onRemoveItem) {
+      try {
+        onRemoveItem(productId, sizeVal);
+      } catch {
+        /* ignore callback errors */
+      }
+    }
+  };
+
+  const subtotal = cartItems.reduce(
     (sum, item) => sum + item.product.priceAud * item.quantity,
     0
   );
 
   const freeShippingThreshold = settings.freeShippingThreshold;
   const amountToFreeShipping = Math.max(0, freeShippingThreshold - subtotal);
-  const progressToFreeShipping = freeShippingThreshold>0?Math.min(100, (subtotal / freeShippingThreshold) * 100):100;
+  const progressToFreeShipping =
+    freeShippingThreshold > 0
+      ? Math.min(100, (subtotal / freeShippingThreshold) * 100)
+      : 100;
 
   return (
     <AnimatePresence>
@@ -103,7 +163,7 @@ export default function CartDrawer({
 
               {/* Items List */}
               <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-4">
-                {items.length === 0 ? (
+                {cartItems.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center text-center space-y-4 text-charcoal-subtle">
                     <ShoppingBag className="w-12 h-12 stroke-[1] text-gold" />
                     <p className="font-serif text-lg text-charcoal">Your bag is currently empty.</p>
@@ -115,12 +175,13 @@ export default function CartDrawer({
                     </button>
                   </div>
                 ) : (
-                  items.map((item, idx) => (
+                  cartItems.map((item, idx) => (
                     <div
                       key={`${item.product.id}-${item.size}-${idx}`}
                       className="flex space-x-4 p-3 rounded-2xl bg-paper border border-sand/30"
                     >
-                      <ResponsiveImage sizes="96px"
+                      <ResponsiveImage
+                        sizes="96px"
                         src={item.product.image}
                         alt={item.product.name}
                         className="w-20 h-24 object-cover rounded-xl bg-paper-dark"
@@ -141,14 +202,14 @@ export default function CartDrawer({
                         <div className="flex items-center justify-between pt-2">
                           <div className="flex items-center space-x-2 border border-sand/40 bg-paper-light rounded-lg px-2 py-0.5 text-xs text-charcoal">
                             <button
-                              onClick={() => onUpdateQuantity(item.product.id, item.size, -1)}
+                              onClick={() => handleUpdateQuantity(item.product.id, item.size, -1)}
                               className="px-1 text-charcoal-subtle hover:text-charcoal cursor-pointer"
                             >
                               -
                             </button>
                             <span className="px-1 font-mono font-medium">{item.quantity}</span>
                             <button
-                              onClick={() => onUpdateQuantity(item.product.id, item.size, 1)}
+                              onClick={() => handleUpdateQuantity(item.product.id, item.size, 1)}
                               className="px-1 text-charcoal-subtle hover:text-charcoal cursor-pointer"
                             >
                               +
@@ -156,7 +217,7 @@ export default function CartDrawer({
                           </div>
 
                           <button
-                            onClick={() => onRemoveItem(item.product.id, item.size)}
+                            onClick={() => handleRemoveItem(item.product.id, item.size)}
                             className="text-charcoal-subtle hover:text-terracotta transition-colors p-1 cursor-pointer"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -169,7 +230,7 @@ export default function CartDrawer({
               </div>
 
               {/* Drawer Footer */}
-              {items.length > 0 && (
+              {cartItems.length > 0 && (
                 <div className="p-4 sm:p-6 border-t border-sand/30 space-y-3 sm:space-y-4 bg-paper-light pb-[max(1.25rem,env(safe-area-inset-bottom,1.25rem))]">
                   <div className="flex items-center justify-between font-serif text-lg">
                     <span className="text-charcoal-subtle">Subtotal:</span>
@@ -179,12 +240,17 @@ export default function CartDrawer({
                   </div>
 
                   <p className="text-xs sm:text-sm font-sans text-charcoal-subtle text-center">
-                    {payments?.cod?.enabled?"Catalogue prices are AUD. Sri Lanka checkout shows LKR totals and COD; Australian shipping offers apply only within Australia.":"Taxes and delivery are calculated at checkout. Free-shipping offers apply within Australia."}
+                    {payments?.cod?.enabled
+                      ? "Catalogue prices are AUD. Sri Lanka checkout shows LKR totals and COD; Australian shipping offers apply only within Australia."
+                      : "Taxes and delivery are calculated at checkout. Free-shipping offers apply within Australia."}
                   </p>
 
                   <Link
                     href="/checkout"
-                    onClick={()=>{trackCommerce("begin_checkout",items);onClose();}}
+                    onClick={() => {
+                      trackCommerce("begin_checkout", cartItems);
+                      onClose();
+                    }}
                     className="w-full py-3.5 sm:py-4 rounded-full bg-gold hover:bg-cinnamon text-charcoal hover:text-white font-sans text-xs sm:text-sm uppercase font-semibold tracking-wider transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl cursor-pointer"
                   >
                     <span>Proceed to Checkout</span>

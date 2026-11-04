@@ -8,6 +8,7 @@ import SearchModal from "@/components/SearchModal";
 import WishlistDrawer from "@/components/WishlistDrawer";
 import { getAccount, subscribeAccount, type UserAccount } from "@/lib/account";
 import { getWishlistCount, subscribeWishlist } from "@/lib/wishlist";
+import { getCart, subscribe as subscribeCart, cartCount as calculateCartCount } from "@/lib/cart";
 import styles from "./Navbar.module.css";
 
 interface NavbarProps { immersive?: boolean; isMuted: boolean; toggleAudio: () => void; cartCount?: number; onOpenCart?: () => void; }
@@ -32,20 +33,33 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
   const [searchOpen, setSearchOpen] = useState(false);
   const [wishlistOpen, setWishlistOpen] = useState(false);
   const [wishlistCount, setWishlistCount] = useState(0);
+  const [liveCartCount, setLiveCartCount] = useState(cartCount);
   const [account, setAccount] = useState<UserAccount | null>(null);
   const menuRef = useRef<HTMLDialogElement>(null);
   const shopRef = useRef<HTMLDetailsElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
-    const sync = () => { setWishlistCount(getWishlistCount()); setAccount(getAccount()); };
+    const sync = () => {
+      setWishlistCount(getWishlistCount());
+      setAccount(getAccount());
+      setLiveCartCount(calculateCartCount(getCart()));
+    };
     sync();
-    const offAccount = subscribeAccount(sync), offWishlist = subscribeWishlist(sync);
+    const offAccount = subscribeAccount(sync), offWishlist = subscribeWishlist(sync), offCart = subscribeCart(sync);
     const dismiss = (event: MouseEvent) => { if (shopRef.current && !shopRef.current.contains(event.target as Node)) shopRef.current.open = false; };
     const escape = (event: KeyboardEvent) => { if (event.key === "Escape" && shopRef.current?.open) { shopRef.current.open = false; shopRef.current.querySelector("summary")?.focus(); } };
     document.addEventListener("click", dismiss);
     document.addEventListener("keydown", escape);
-    return () => { offAccount(); offWishlist(); document.removeEventListener("click", dismiss); document.removeEventListener("keydown", escape); document.body.style.overflow = ""; };
+    return () => { offAccount(); offWishlist(); offCart(); document.removeEventListener("click", dismiss); document.removeEventListener("keydown", escape); document.body.style.overflow = ""; };
   }, []);
+
+  useEffect(() => {
+    if (cartCount !== undefined) {
+      setLiveCartCount(cartCount);
+    }
+  }, [cartCount]);
+
   const closeMenu = () => { menuRef.current?.close(); document.body.style.overflow = ""; menuButton.current?.focus(); };
   const closeShop = () => { if (shopRef.current) shopRef.current.open = false; };
   return <>
@@ -75,7 +89,7 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
           <button className={styles.icon} aria-label="Search garments" onClick={() => setSearchOpen(true)}><Search size={19} strokeWidth={1.35} /></button>
           <Link className={`${styles.icon} ${styles.account}`} href="/account" aria-label={account ? `Account for ${account.name}` : "Account sign in"}><User size={19} strokeWidth={1.35} /></Link>
           <button className={`${styles.icon} ${styles.saved}`} aria-label={`Saved pieces (${wishlistCount})`} onClick={() => setWishlistOpen(true)}><Heart size={18} strokeWidth={1.35} />{wishlistCount > 0 && <span className={styles.badge}>{wishlistCount}</span>}</button>
-          {onOpenCart ? <button className={styles.bag} aria-label={`Shopping bag with ${cartCount} items`} onClick={onOpenCart}><ShoppingBag size={18} strokeWidth={1.35} /><span>Bag ({cartCount})</span></button> : <Link className={styles.bag} href="/checkout" aria-label="Shopping bag"><ShoppingBag size={18} strokeWidth={1.35} /><span>Bag ({cartCount})</span></Link>}
+          {onOpenCart ? <button className={styles.bag} aria-label={`Shopping bag with ${liveCartCount} items`} onClick={onOpenCart}><ShoppingBag size={18} strokeWidth={1.35} /><span>Bag ({liveCartCount})</span></button> : <Link className={styles.bag} href="/checkout" aria-label="Shopping bag"><ShoppingBag size={18} strokeWidth={1.35} /><span>Bag ({liveCartCount})</span></Link>}
         </div>
       </nav>
     </header>

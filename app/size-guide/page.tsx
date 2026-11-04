@@ -6,7 +6,7 @@ import { Ruler, Sparkles, ArrowRight, HelpCircle, CheckCircle2 } from "lucide-re
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
-import { getCart } from "@/lib/cart";
+import { getCart, subscribe } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
 import { BODY_MEASUREMENTS, SIZE_CONVERSIONS, MEASURING_GUIDE_TIPS } from "@/data/size-guide";
 
@@ -18,6 +18,8 @@ export default function SizeGuidePage() {
 
   useEffect(() => {
     setCartItems(getCart());
+    const unsub = subscribe(() => setCartItems(getCart()));
+    return () => unsub();
   }, []);
 
   const toggleAudio = () => {
@@ -241,9 +243,6 @@ export default function SizeGuidePage() {
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={() => {}}
-        onRemoveItem={() => {}}
       />
     </main>
   );

@@ -8,7 +8,7 @@ import { Mail, MapPin, Phone, Send, Check, ChevronDown, Sparkles } from "lucide-
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
-import { getCart } from "@/lib/cart";
+import { getCart, subscribe } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
 import { FAQ_DATA } from "@/data/faq";
 import { Button, SectionHeading } from "@/components/ui";
@@ -31,6 +31,8 @@ export default function ContactPage() {
 
   useEffect(() => {
     setCartItems(getCart());
+    const unsub = subscribe(() => setCartItems(getCart()));
+    return () => unsub();
   }, []);
 
   const toggleAudio = () => {
@@ -213,9 +215,6 @@ export default function ContactPage() {
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={() => {}}
-        onRemoveItem={() => {}}
       />
     </main>
   );

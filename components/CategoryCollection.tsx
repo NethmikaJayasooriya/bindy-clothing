@@ -10,7 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
 import ProductModal from "@/components/ProductModal";
-import { getCart, addToCart } from "@/lib/cart";
+import { getCart, addToCart, subscribe } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
 import {
   PRODUCTS,
@@ -45,6 +45,8 @@ export default function CategoryPage() {
 
   useEffect(() => {
     setCartItems(getCart());
+    const unsub = subscribe(() => setCartItems(getCart()));
+    return () => unsub();
   }, []);
 
   const toggleAudio = () => {
@@ -221,9 +223,6 @@ export default function CategoryPage() {
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={() => {}}
-        onRemoveItem={() => {}}
       />
     </main>
   );
