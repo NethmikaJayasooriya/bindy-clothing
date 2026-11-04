@@ -13,6 +13,8 @@ import Price from "./Price";
 import Badge from "./Badge";
 import { purchaseContents } from "@/lib/purchase-contents";
 import { showsFullOutfit } from "@/lib/product-media";
+import { useStorefront } from "@/components/StorefrontProvider";
+import { isSizeSoldOut, isProductSoldOut, getFirstAvailableSize } from "@/lib/stock";
 
 export interface ProductCardProps {
   product: Product;
@@ -26,7 +28,7 @@ export interface ProductCardProps {
 }
 
 export default function ProductCard({
-  product,
+  product: initialProduct,
   onQuickView,
   onQuickAdd,
   showQuickAdd = true,
@@ -34,6 +36,8 @@ export default function ProductCard({
   stockText,
   className = "",
 }: ProductCardProps) {
+  const { products } = useStorefront();
+  const product = products.find((p) => p.id === initialProduct.id) ?? initialProduct;
   const [, setWishlistTick] = useState(0);
   const [added, setAdded] = useState(false);
   const [addedSize, setAddedSize] = useState<string | null>(null);
@@ -51,6 +55,9 @@ export default function ProductCard({
   const rating = getAverageRating(product);
   const contents = purchaseContents(product);
   const fullOutfit = showsFullOutfit(product);
+
+  const productSoldOut = isProductSoldOut(product);
+  const effectiveStockStatus = productSoldOut ? "sold_out" : (product.inventoryStatus || stockStatus);
 
   const handleMouseEnter = () => {
     isHoveredRef.current = true;
@@ -91,7 +98,8 @@ export default function ProductCard({
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const defaultSize = product.sizes[1] || product.sizes[0] || "AU 8 (S)";
+    const defaultSize = getFirstAvailableSize(product);
+    if (!defaultSize || isSizeSoldOut(product.stock, defaultSize)) return;
     if (onQuickAdd) {
       onQuickAdd(product, defaultSize);
     } else {
@@ -193,12 +201,12 @@ export default function ProductCard({
 
         {/* Micro-Badges: Low Stock or Sold Out */}
         <div className="absolute top-10 sm:top-11 left-2.5 sm:left-3 flex flex-col items-start gap-1 pointer-events-none">
-          {stockStatus === "low_stock" && (
+          {effectiveStockStatus === "low_stock" && (
             <div className="bg-[#A46446] text-white text-[9.5px] uppercase tracking-[0.14em] font-semibold px-2 py-0.5 shadow-sm">
               {stockText || "Only 2 Left"}
             </div>
           )}
-          {stockStatus === "sold_out" && (
+          {effectiveStockStatus === "sold_out" && (
             <div className="bg-[#181614] text-white text-[9.5px] uppercase tracking-[0.14em] font-semibold px-2 py-0.5 shadow-sm">
               Sold Out
             </div>
@@ -228,15 +236,17 @@ export default function ProductCard({
             {product.sizes.map((sz) => {
               const short = sz.replace("AU ", "").split(" ")[0];
               const isAdded = addedSize === sz;
+              const isSoldOut = isSizeSoldOut(product.stock, sz);
 
               return (
                 <button
                   key={sz}
-                  disabled={(product.stock?.[sz]??1)===0}
+                  disabled={isSoldOut}
                   type="button"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
+                    if (isSoldOut) return;
                     if (onQuickAdd) {
                       onQuickAdd(product, sz);
                     } else {
@@ -248,9 +258,12 @@ export default function ProductCard({
                   className={`py-1.5 text-[11px] font-sans font-medium border text-center transition-all ${
                     isAdded
                       ? "bg-[#5E6C52] text-white border-[#5E6C52] font-semibold"
-                      : "border-[#DCC7AF]/70 bg-white text-charcoal hover:bg-charcoal hover:text-white hover:border-charcoal"
+                      : isSoldOut
+                      ? "border-sand/40 bg-[#F2ECE1]/60 text-charcoal/30 line-through cursor-not-allowed select-none"
+                      : "border-[#DCC7AF]/70 bg-white text-charcoal hover:bg-charcoal hover:text-white hover:border-charcoal cursor-pointer"
                   }`}
-                  title={`Add size ${sz} to bag`}
+                  title={isSoldOut ? `Size ${short} is sold out` : `Add size ${sz} to bag`}
+                  aria-label={isSoldOut ? `Size ${short} sold out` : `Add size ${sz} to bag`}
                 >
                   {isAdded ? "✓" : short}
                 </button>

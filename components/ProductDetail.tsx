@@ -2,6 +2,7 @@
 import { purchaseContents } from "@/lib/purchase-contents";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { getStockForSize, isSizeSoldOut } from "@/lib/stock";
 
 import React, { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
@@ -95,7 +96,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
   const contents = purchaseContents(product);
   const router = useRouter();
   const [activeImg, setActiveImg] = useState(0);
-  const [size, setSize] = useState<string | null>(product.sizes.find(s=>(product.stock?.[s]??1)>0) ?? null);
+  const [size, setSize] = useState<string | null>(product.sizes.find(s=>!isSizeSoldOut(product.stock, s)) ?? null);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
@@ -147,13 +148,13 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
   const sizeAvailability = useMemo(() => {
     const map: Record<string, "in_stock" | "low_stock" | "sold_out"> = {};
     product.sizes.forEach(s => {
-      const units = product.stock?.[s];
-      map[s] = units === undefined ? "in_stock" : units === 0 ? "sold_out" : units <= 3 ? "low_stock" : "in_stock";
+      const units = getStockForSize(product.stock, s);
+      map[s] = units === 0 ? "sold_out" : units <= 3 ? "low_stock" : "in_stock";
     });
     return map;
   }, [product]);
 
-  const availableUnits=size?product.stock?.[size]:0;
+  const availableUnits=size?getStockForSize(product.stock, size):0;
   const canPurchase=!!size&&sizeAvailability[size]!=="sold_out"&&(availableUnits===undefined||qty<=availableUnits);
 
   const handleUpdateQuantity = (id: string, sizeVal: string, delta: number) => {
@@ -182,7 +183,8 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
   };
 
   const handleAdd = () => {
-    if (!size || sizeAvailability[size] === "sold_out" || (product.stock?.[size] !== undefined && qty > product.stock[size])) return;
+    const maxStock = size ? getStockForSize(product.stock, size) : 0;
+    if (!size || sizeAvailability[size] === "sold_out" || (product.stock && qty > maxStock)) return;
     addToCart(product, size, qty);
     setAdded(true);
     // Smoothly open cart drawer after micro-feedback
@@ -191,7 +193,8 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
   };
 
   const handleBuyNow = () => {
-    if (!size || sizeAvailability[size] === "sold_out" || (product.stock?.[size] !== undefined && qty > product.stock[size])) return;
+    const maxStock = size ? getStockForSize(product.stock, size) : 0;
+    if (!size || sizeAvailability[size] === "sold_out" || (product.stock && qty > maxStock)) return;
     setBuyNowItem(product, size, qty);
     router.push("/checkout?mode=buynow");
   };
@@ -560,6 +563,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
               {product.sizes.map((s) => {
                 const status = sizeAvailability[s];
                 const isSelected = size === s;
+                const isSoldOut = status === "sold_out";
 
                 return (
                   <button
@@ -573,17 +577,24 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                       }
                     }}
                     className={`relative h-12 rounded-xl text-xs font-sans transition-all border cursor-pointer flex flex-col items-center justify-center p-1 ${
-                      isSelected
+                      isSoldOut
+                        ? "bg-[#F2ECE1]/60 border-sand/40 text-charcoal/40"
+                        : isSelected
                         ? "bg-charcoal text-paper-light border-charcoal font-bold shadow-md scale-[1.02]"
                         : "bg-paper-light border-sand/50 text-charcoal hover:border-gold hover:bg-paper font-medium"
                     }`}
                   >
-                    <span className="font-medium tracking-tight">
+                    <span className={`font-medium tracking-tight ${isSoldOut ? "line-through opacity-60" : ""}`}>
                       {s.split(" ")[0]} {s.split(" ")[1]}
                     </span>
-                    {status === "low_stock" && (
+                    {isSoldOut && (
+                      <span className="text-[9px] uppercase tracking-wider text-[#A46446] font-semibold -mt-0.5 font-sans">
+                        Sold Out
+                      </span>
+                    )}
+                    {!isSoldOut && status === "low_stock" && (
                       <span className="text-[9px] uppercase tracking-wider text-amber-600 font-bold -mt-0.5 font-sans">
-                        {product.stock?.[s]} Left
+                        {getStockForSize(product.stock, s)} Left
                       </span>
                     )}
                   </button>

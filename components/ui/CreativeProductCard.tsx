@@ -16,6 +16,8 @@ import {
 import type { Product } from "@/data/products";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 import { addToCart } from "@/lib/cart";
+import { isSizeSoldOut, getFirstAvailableSize } from "@/lib/stock";
+
 
 // Shared hover-video overlay: plays a short clip on card hover, falls back to the
 // static image when a product has no videoHover. Listens on the closest `.group`
@@ -111,7 +113,7 @@ export default function CreativeProductCard({
   }, []);
 
   const inWishlist = isInWishlist(product.id);
-  const defaultSize = product.sizes[1] || product.sizes[0] || "AU 8 (S)";
+  const defaultSize = getFirstAvailableSize(product) || product.sizes[0] || "AU 8 (S)";
 
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -122,6 +124,7 @@ export default function CreativeProductCard({
   const handleQuickAdd = (e: React.MouseEvent, size: string = defaultSize) => {
     e.preventDefault();
     e.stopPropagation();
+    if (isSizeSoldOut(product.stock, size)) return;
     if (onQuickAdd) {
       onQuickAdd(product, size);
     } else {
@@ -210,16 +213,28 @@ function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAd
         {/* Mobile: visible. PC: hidden until hover */}
         <div className="absolute bottom-2 inset-x-2 bg-[#1F1E1D]/95 backdrop-blur-xl border border-white/20 rounded-xl p-2.5 flex items-center justify-between opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0 transition-all duration-300 shadow-2xl">
           <div className="flex items-center gap-1.5 flex-1">
-            {product.sizes.slice(0, 4).map((sz: string) => (
-              <button
-                key={sz}
-                type="button"
-                onClick={(e) => handleQuickAdd(e, sz)}
-                className="flex-1 py-1.5 rounded bg-white/10 hover:bg-[#C5A059] text-white hover:text-black text-xs font-outfit font-bold transition-colors text-center"
-              >
-                {sz.split(" ")[0]}
-              </button>
-            ))}
+            {product.sizes.slice(0, 4).map((sz: string) => {
+              const isSoldOut = isSizeSoldOut(product.stock, sz);
+              return (
+                <button
+                  key={sz}
+                  disabled={isSoldOut}
+                  type="button"
+                  onClick={(e) => {
+                    if (isSoldOut) return;
+                    handleQuickAdd(e, sz);
+                  }}
+                  className={`flex-1 py-1.5 rounded text-xs font-outfit font-bold transition-colors text-center ${
+                    isSoldOut
+                      ? "bg-white/5 text-white/30 line-through cursor-not-allowed"
+                      : "bg-white/10 hover:bg-[#C5A059] text-white hover:text-black cursor-pointer"
+                  }`}
+                  title={isSoldOut ? `Size ${sz.split(" ")[0]} sold out` : undefined}
+                >
+                  {sz.split(" ")[0]}
+                </button>
+              );
+            })}
           </div>
           <button type="button" onClick={handleQuickView} className="p-1.5 ml-2 text-white/80 hover:text-white" title="Quick View">
             <Eye className="w-4 h-4" />
@@ -472,20 +487,30 @@ function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuic
             {justAdded && <span className="text-emerald-600 font-bold">Added {justAdded}!</span>}
           </div>
           <div className="grid grid-cols-4 gap-1.5">
-            {product.sizes.slice(0, 4).map((sz: string) => (
-              <button
-                key={sz}
-                type="button"
-                onClick={(e) => {
-                  handleQuickAdd(e, sz);
-                  setJustAdded(sz);
-                  setTimeout(() => setJustAdded(null), 1500);
-                }}
-                className="py-1.5 rounded-lg bg-gray-100 hover:bg-black hover:text-white text-xs font-poppins font-bold transition-colors text-center"
-              >
-                {sz.split(" ")[0]}
-              </button>
-            ))}
+            {product.sizes.slice(0, 4).map((sz: string) => {
+              const isSoldOut = isSizeSoldOut(product.stock, sz);
+              return (
+                <button
+                  key={sz}
+                  disabled={isSoldOut}
+                  type="button"
+                  onClick={(e) => {
+                    if (isSoldOut) return;
+                    handleQuickAdd(e, sz);
+                    setJustAdded(sz);
+                    setTimeout(() => setJustAdded(null), 1500);
+                  }}
+                  className={`py-1.5 rounded-lg text-xs font-poppins font-bold transition-colors text-center ${
+                    isSoldOut
+                      ? "bg-gray-100/60 text-gray-400 line-through cursor-not-allowed"
+                      : "bg-gray-100 hover:bg-black hover:text-white cursor-pointer"
+                  }`}
+                  title={isSoldOut ? `Size ${sz.split(" ")[0]} sold out` : undefined}
+                >
+                  {sz.split(" ")[0]}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -624,11 +649,28 @@ function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickA
             <span className="text-black font-extrabold">${product.priceAud} AUD</span>
           </div>
           <div className="flex items-center gap-1.5">
-            {product.sizes.slice(0, 4).map((sz: string) => (
-              <button key={sz} type="button" onClick={(e) => handleQuickAdd(e, sz)} className="flex-1 py-1.5 bg-gray-100 hover:bg-black hover:text-white rounded-lg text-xs font-poppins font-bold transition-colors text-center">
-                {sz.split(" ")[0]}
-              </button>
-            ))}
+            {product.sizes.slice(0, 4).map((sz: string) => {
+              const isSoldOut = isSizeSoldOut(product.stock, sz);
+              return (
+                <button
+                  key={sz}
+                  disabled={isSoldOut}
+                  type="button"
+                  onClick={(e) => {
+                    if (isSoldOut) return;
+                    handleQuickAdd(e, sz);
+                  }}
+                  className={`flex-1 py-1.5 rounded-lg text-xs font-poppins font-bold transition-colors text-center ${
+                    isSoldOut
+                      ? "bg-gray-100/60 text-gray-400 line-through cursor-not-allowed"
+                      : "bg-gray-100 hover:bg-black hover:text-white cursor-pointer"
+                  }`}
+                  title={isSoldOut ? `Size ${sz.split(" ")[0]} sold out` : undefined}
+                >
+                  {sz.split(" ")[0]}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

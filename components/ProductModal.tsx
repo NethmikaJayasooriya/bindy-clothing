@@ -12,6 +12,7 @@ import { Product } from "./CollectionShowcase";
 import { setBuyNowItem } from "@/lib/cart";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 import SizeGuideModal from "@/components/SizeGuideModal";
+import { isSizeSoldOut } from "@/lib/stock";
 
 interface ProductModalProps {
   product: Product | null;
@@ -35,15 +36,22 @@ export default function ProductModal({
     return () => unsub();
   }, []);
 
-  if (!product) return null;
-  const contents = purchaseContents(product);
+  // Reset selected size when product changes
+  useEffect(() => {
+    if (product) {
+      setSelectedSize(product.sizes.find((s) => !isSizeSoldOut(product.stock, s)) ?? null);
+    } else {
+      setSelectedSize(null);
+    }
+  }, [product]);
 
-  const sizes = product.sizes;
-  const canPurchase=!!selectedSize&&(product.stock?.[selectedSize]??1)>0;
-  const installment = (product.priceAud / 4).toFixed(2);
+  const contents = product ? purchaseContents(product) : null;
+  const sizes = product ? product.sizes : [];
+  const canPurchase = !!selectedSize && !isSizeSoldOut(product?.stock, selectedSize);
+  const installment = product ? (product.priceAud / 4).toFixed(2) : "0.00";
 
   const handleAdd = () => {
-    if (!selectedSize||!canPurchase) return;
+    if (!product || !selectedSize || !canPurchase) return;
     onAddToCart(product, selectedSize);
     setIsAdded(true);
     setTimeout(() => {
@@ -53,206 +61,223 @@ export default function ProductModal({
   };
 
   const handleBuyNow = () => {
-    if (!selectedSize||!canPurchase) return;
+    if (!product || !selectedSize || !canPurchase) return;
     setBuyNowItem(product, selectedSize, 1);
     onClose();
     router.push("/checkout?mode=buynow");
   };
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 select-none">
-        {/* Backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="absolute inset-0 bg-black/70 backdrop-blur-md"
-        />
-
-        {/* Modal Window */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 24 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="relative z-10 w-full max-w-4xl bg-paper-light text-charcoal rounded-t-[28px] sm:rounded-3xl overflow-hidden shadow-2xl border-t sm:border border-sand/40 flex flex-col md:flex-row max-h-[92dvh] sm:max-h-[90vh] overflow-y-auto custom-scrollbar touch-pan-y"
-        >
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-20 p-2 sm:p-2.5 rounded-full bg-paper/85 backdrop-blur-md hover:bg-paper text-charcoal transition-colors cursor-pointer border border-sand/40 shadow-sm"
-            aria-label="Close"
+    <>
+      <AnimatePresence>
+        {product && (
+          <div
+            key={`product-modal-container-${product.id}`}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 select-none"
           >
-            <X className="w-4 h-4 sm:w-5 sm:h-5" />
-          </button>
-
-          {/* Left Column: Image */}
-          <div className="md:w-1/2 relative h-56 xs:h-64 sm:h-80 md:h-auto md:min-h-[500px] bg-paper-dark flex-shrink-0">
-            <ResponsiveImage
-              src={product.image}
-              alt={product.name}
-              className={`w-full h-full ${showsFullOutfit(product) ? "object-contain" : "object-cover"} object-center`}
+            {/* Backdrop */}
+            <motion.div
+              key="modal-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={onClose}
+              className="absolute inset-0 bg-black/70 backdrop-blur-md"
             />
-            <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 flex flex-col gap-1.5 sm:gap-2">
-              <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] sm:text-xs uppercase font-bold tracking-wider text-[#FAF7F2] border border-white/20">
-                {product.category}
-              </span>
-              <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] sm:text-xs uppercase font-bold tracking-wider text-charcoal shadow-sm border border-sand/40 flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-gold" />
-                {product.storyPlace}
-              </span>
-            </div>
 
-            {/* Wishlist button over image */}
-            <button
-              onClick={() => toggleWishlist(product)}
-              className={`absolute bottom-3.5 left-3.5 sm:bottom-4 sm:left-4 p-2.5 sm:p-3 rounded-full backdrop-blur-md transition-all duration-200 cursor-pointer shadow-md ${
-                isInWishlist(product.id)
-                  ? "bg-gold text-charcoal scale-105"
-                  : "bg-black/60 hover:bg-black text-white hover:text-gold"
-              }`}
-              title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
-              aria-label="Save to Wishlist"
+            {/* Modal Window */}
+            <motion.div
+              key="modal-window"
+              initial={{ opacity: 0, scale: 0.96, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 24 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="relative z-10 w-full max-w-4xl bg-paper-light text-charcoal rounded-t-[28px] sm:rounded-3xl overflow-hidden shadow-2xl border-t sm:border border-sand/40 flex flex-col md:flex-row max-h-[92dvh] sm:max-h-[90vh] overflow-y-auto custom-scrollbar touch-pan-y"
             >
-              <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? "fill-charcoal text-charcoal" : "text-white"}`} />
-            </button>
-          </div>
-
-          {/* Right Column: Details & Selection */}
-          <div className="md:w-1/2 p-4 sm:p-6 md:p-8 flex flex-col justify-between space-y-4 sm:space-y-5">
-            <div className="space-y-4">
-              <div>
-                <span className="text-xs font-sans uppercase font-bold tracking-widest text-gold block mb-1">
-                  {product.story}
-                </span>
-                <h3 className="font-serif text-2xl md:text-3xl text-charcoal-rich font-light leading-tight">
-                  {product.name}
-                </h3>
-                <div className="flex items-baseline gap-2 mt-2">
-                  <span className="font-serif text-2xl font-medium text-charcoal-rich">
-                    ${product.priceAud} AUD
-                  </span>
-                  <span className="text-xs text-charcoal-subtle font-sans font-light">
-                    • 4 payments of ${installment} with Afterpay
-                  </span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 text-xs font-sans p-3 rounded-2xl bg-paper border border-sand/40">
-                <div>
-                  <span className="text-charcoal-subtle block text-[10px] uppercase font-bold tracking-wider">Fabric</span>
-                  <span className="font-medium text-charcoal">{product.fabric}</span>
-                </div>
-                <div>
-                  <span className="text-charcoal-subtle block text-[10px] uppercase font-bold tracking-wider">Color</span>
-                  <span className="font-medium text-charcoal">{product.colorName}</span>
-                </div>
-              </div>
-
-              {contents && (
-                <div className="border border-sand bg-paper-dark/60 p-3 text-xs leading-relaxed text-charcoal/85">
-                  <strong className="block mb-1">{contents.label}</strong>
-                  {contents.detail}
-                </div>
-              )}
-              <p className="text-xs font-sans text-charcoal/80 leading-relaxed font-light line-clamp-3">
-                {product.description}
-              </p>
-
-              <Link
-                href={`/product/${product.id}`}
+              {/* Close button */}
+              <button
                 onClick={onClose}
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-gold hover:text-cinnamon transition-colors pt-0.5"
+                className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-20 p-2 sm:p-2.5 rounded-full bg-paper/85 backdrop-blur-md hover:bg-paper text-charcoal transition-colors cursor-pointer border border-sand/40 shadow-sm"
+                aria-label="Close"
               >
-                <span>View Full Piece & Heritage Provenance</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
 
-              {/* Size Selector with Unified Height */}
-              <div className="pt-2 border-t border-sand/30 space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-sans uppercase font-bold tracking-wider text-charcoal-subtle">
-                    Select Size: {selectedSize && <strong className="text-charcoal">{selectedSize}</strong>}
+              {/* Left Column: Image */}
+              <div className="md:w-1/2 relative h-56 xs:h-64 sm:h-80 md:h-auto md:min-h-[500px] bg-paper-dark flex-shrink-0">
+                <ResponsiveImage
+                  src={product.image}
+                  alt={product.name}
+                  className={`w-full h-full ${showsFullOutfit(product) ? "object-contain" : "object-cover"} object-center`}
+                />
+                <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 flex flex-col gap-1.5 sm:gap-2">
+                  <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] sm:text-xs uppercase font-bold tracking-wider text-[#FAF7F2] border border-white/20">
+                    {product.category}
                   </span>
+                  <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] sm:text-xs uppercase font-bold tracking-wider text-charcoal shadow-sm border border-sand/40 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-gold" />
+                    {product.storyPlace}
+                  </span>
+                </div>
+
+                {/* Wishlist button over image */}
+                <button
+                  onClick={() => toggleWishlist(product)}
+                  className={`absolute bottom-3.5 left-3.5 sm:bottom-4 sm:left-4 p-2.5 sm:p-3 rounded-full backdrop-blur-md transition-all duration-200 cursor-pointer shadow-md ${
+                    isInWishlist(product.id)
+                      ? "bg-gold text-charcoal scale-105"
+                      : "bg-black/60 hover:bg-black text-white hover:text-gold"
+                  }`}
+                  title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
+                  aria-label="Save to Wishlist"
+                >
+                  <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? "fill-charcoal text-charcoal" : "text-white"}`} />
+                </button>
+              </div>
+
+              {/* Right Column: Details & Selection */}
+              <div className="md:w-1/2 p-4 sm:p-6 md:p-8 flex flex-col justify-between space-y-4 sm:space-y-5">
+                <div className="space-y-4">
+                  <div>
+                    <span className="text-xs font-sans uppercase font-bold tracking-widest text-gold block mb-1">
+                      {product.story}
+                    </span>
+                    <h3 className="font-serif text-2xl md:text-3xl text-charcoal-rich font-light leading-tight">
+                      {product.name}
+                    </h3>
+                    <div className="flex items-baseline gap-2 mt-2">
+                      <span className="font-serif text-2xl font-medium text-charcoal-rich">
+                        ${product.priceAud} AUD
+                      </span>
+                      <span className="text-xs text-charcoal-subtle font-sans font-light">
+                        • 4 payments of ${installment} with Afterpay
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs font-sans p-3 rounded-2xl bg-paper border border-sand/40">
+                    <div>
+                      <span className="text-charcoal-subtle block text-[10px] uppercase font-bold tracking-wider">Fabric</span>
+                      <span className="font-medium text-charcoal">{product.fabric}</span>
+                    </div>
+                    <div>
+                      <span className="text-charcoal-subtle block text-[10px] uppercase font-bold tracking-wider">Color</span>
+                      <span className="font-medium text-charcoal">{product.colorName}</span>
+                    </div>
+                  </div>
+
+                  {contents && (
+                    <div className="border border-sand bg-paper-dark/60 p-3 text-xs leading-relaxed text-charcoal/85">
+                      <strong className="block mb-1">{contents.label}</strong>
+                      {contents.detail}
+                    </div>
+                  )}
+                  <p className="text-xs font-sans text-charcoal/80 leading-relaxed font-light line-clamp-3">
+                    {product.description}
+                  </p>
+
+                  <Link
+                    href={`/product/${product.id}`}
+                    onClick={onClose}
+                    className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-gold hover:text-cinnamon transition-colors pt-0.5"
+                  >
+                    <span>View Full Piece & Heritage Provenance</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+
+                  {/* Size Selector with Unified Height */}
+                  <div className="pt-2 border-t border-sand/30 space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-sans uppercase font-bold tracking-wider text-charcoal-subtle">
+                        Select Size: {selectedSize && <strong className="text-charcoal">{selectedSize}</strong>}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setShowSizeGuide(true)}
+                        className="inline-flex items-center gap-1 text-xs font-sans text-gold hover:text-cinnamon cursor-pointer font-bold uppercase tracking-wider"
+                      >
+                        <Ruler className="w-3 h-3" />
+                        <span>Size Guide</span>
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-5 gap-1 sm:gap-1.5">
+                      {sizes.map((s) => {
+                        const stockCount = product.stock?.[s];
+                        const isSoldOut = isSizeSoldOut(product.stock, s);
+                        const isSelected = selectedSize === s;
+
+                        return (
+                          <button
+                            key={s}
+                            type="button"
+                            disabled={isSoldOut}
+                            onClick={() => setSelectedSize(s)}
+                            className={`h-10 sm:h-11 rounded-lg sm:rounded-xl text-[10.5px] xs:text-xs font-sans transition-all border flex items-center justify-center p-0.5 sm:p-1 ${
+                              isSoldOut
+                                ? "border-sand/40 bg-sand/20 text-muted/50 line-through cursor-not-allowed"
+                                : isSelected
+                                ? "border-charcoal bg-charcoal text-paper-light font-bold shadow-sm cursor-pointer"
+                                : "border-sand/50 bg-paper hover:border-gold text-charcoal font-medium cursor-pointer"
+                            }`}
+                          >
+                            {s.split(" ")[0]} {s.split(" ")[1]}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="pt-3 border-t border-sand/30 space-y-2 sm:space-y-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom,0.75rem))] sm:pb-0">
                   <button
                     type="button"
-                    onClick={() => setShowSizeGuide(true)}
-                    className="inline-flex items-center gap-1 text-xs font-sans text-gold hover:text-cinnamon cursor-pointer font-bold uppercase tracking-wider"
+                    onClick={handleAdd}
+                    disabled={!canPurchase}
+                    className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 ${
+                      !selectedSize
+                        ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
+                        : "bg-gold hover:bg-[#B38F46] text-charcoal hover:text-white shadow-luxury cursor-pointer active:scale-[0.99]"
+                    }`}
                   >
-                    <Ruler className="w-3 h-3" />
-                    <span>Size Guide</span>
+                    {isAdded ? (
+                      <>
+                        <Check className="w-4 h-4 text-emerald-800" />
+                        <span>Added to Bag</span>
+                      </>
+                    ) : !selectedSize ? (
+                      <span>Please Select a Size</span>
+                    ) : (
+                      <>
+                        <ShoppingBag className="w-4 h-4" />
+                        <span>Add to Bag • ${product.priceAud} AUD</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleBuyNow}
+                    disabled={!canPurchase}
+                    className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 border ${
+                      !selectedSize
+                        ? "bg-transparent text-charcoal-subtle/50 border-sand/30 cursor-not-allowed"
+                        : "bg-charcoal text-paper-light hover:bg-black cursor-pointer shadow-sm hover:shadow-md"
+                    }`}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-gold" />
+                    <span>Buy it now</span>
                   </button>
                 </div>
-
-                <div className="grid grid-cols-5 gap-1 sm:gap-1.5">
-                  {sizes.map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      disabled={(product.stock?.[s]??1)===0}
-                      onClick={() => setSelectedSize(s)}
-                      className={`h-10 sm:h-11 rounded-lg sm:rounded-xl text-[10.5px] xs:text-xs font-sans transition-all border cursor-pointer flex items-center justify-center p-0.5 sm:p-1 ${
-                        selectedSize === s
-                          ? "border-charcoal bg-charcoal text-paper-light font-bold shadow-sm"
-                          : "border-sand/50 bg-paper hover:border-gold text-charcoal font-medium"
-                      }`}
-                    >
-                      {s.split(" ")[0]} {s.split(" ")[1]}
-                    </button>
-                  ))}
-                </div>
               </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="pt-3 border-t border-sand/30 space-y-2 sm:space-y-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom,0.75rem))] sm:pb-0">
-              <button
-                type="button"
-                onClick={handleAdd}
-                disabled={!canPurchase}
-                className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 ${
-                  !selectedSize
-                    ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
-                    : "bg-gold hover:bg-[#B38F46] text-charcoal hover:text-white shadow-luxury cursor-pointer active:scale-[0.99]"
-                }`}
-              >
-                {isAdded ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-800" />
-                    <span>Added to Bag</span>
-                  </>
-                ) : !selectedSize ? (
-                  <span>Please Select a Size</span>
-                ) : (
-                  <>
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>Add to Bag • ${product.priceAud} AUD</span>
-                  </>
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={handleBuyNow}
-                disabled={!canPurchase}
-                className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 border ${
-                  !selectedSize
-                    ? "bg-transparent text-charcoal-subtle/50 border-sand/30 cursor-not-allowed"
-                    : "bg-charcoal text-paper-light hover:bg-black cursor-pointer shadow-sm hover:shadow-md"
-                }`}
-              >
-                <Sparkles className="w-3.5 h-3.5 text-gold" />
-                <span>Buy it now</span>
-              </button>
-            </div>
+            </motion.div>
           </div>
-        </motion.div>
-      </div>
+        )}
+      </AnimatePresence>
 
       {/* Size Guide Modal */}
       <SizeGuideModal isOpen={showSizeGuide} onClose={() => setShowSizeGuide(false)} />
-    </AnimatePresence>
+    </>
   );
 }

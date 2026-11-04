@@ -55,6 +55,8 @@ export interface Product {
   care: string[];
   reviews: Review[];
   stock?: Record<string, number>;
+  inventoryStatus?: "in_stock" | "low_stock" | "sold_out";
+  inventoryCount?: number;
   soldSeparately?: boolean;
   styleWith?: string[];
 }
@@ -78,6 +80,8 @@ type CapsulePieceSeed = {
   craftDetails: string[];
   styleWith?: string[];
   stock?: Record<string, number>;
+  inventoryStatus?: "in_stock" | "low_stock" | "sold_out";
+  inventoryCount?: number;
   soldSeparately?: boolean;
 };
 

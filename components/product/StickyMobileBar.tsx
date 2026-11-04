@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { ShoppingBag, Check } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { Button } from "@/components/ui";
+import { isSizeSoldOut } from "@/lib/stock";
 
 export interface StickyMobileBarProps {
   product: Product;
@@ -70,11 +71,14 @@ export default function StickyMobileBar({
             <option value="" disabled>
               Size
             </option>
-            {product.sizes.map((s) => (
-              <option key={s} value={s}>
-                {s.split(" ")[0] || s}
+            {product.sizes.map((s) => {
+              const soldOut = isSizeSoldOut(product.stock, s);
+              return (
+              <option key={s} value={s} disabled={soldOut}>
+                {s.split(" ")[0] || s}{soldOut ? " (Sold out)" : ""}
               </option>
-            ))}
+              );
+            })}
           </select>
 
           <Button
