@@ -236,7 +236,7 @@ export default function ProductModal({
                     onClick={handleAdd}
                     disabled={!canPurchase}
                     className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 ${
-                      !selectedSize
+                      !canPurchase
                         ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
                         : "bg-gold hover:bg-[#B38F46] text-charcoal hover:text-white shadow-luxury cursor-pointer active:scale-[0.99]"
                     }`}
@@ -248,6 +248,8 @@ export default function ProductModal({
                       </>
                     ) : !selectedSize ? (
                       <span>Please Select a Size</span>
+                    ) : !canPurchase ? (
+                      <span>Sold Out • Size {selectedSize.split(" ")[0]}</span>
                     ) : (
                       <>
                         <ShoppingBag className="w-4 h-4" />
@@ -261,7 +263,7 @@ export default function ProductModal({
                     onClick={handleBuyNow}
                     disabled={!canPurchase}
                     className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 border ${
-                      !selectedSize
+                      !canPurchase
                         ? "bg-transparent text-charcoal-subtle/50 border-sand/30 cursor-not-allowed"
                         : "bg-charcoal text-paper-light hover:bg-black cursor-pointer shadow-sm hover:shadow-md"
                     }`}

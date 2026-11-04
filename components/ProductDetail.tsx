@@ -637,7 +637,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
               onClick={handleAdd}
               disabled={!canPurchase}
               className={`flex-1 rounded-2xl font-sans text-sm uppercase font-bold tracking-wider flex items-center justify-center gap-2.5 transition-all py-4 min-h-[52px] shadow-luxury ${
-                !size
+                !canPurchase
                   ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
                   : "bg-gold hover:bg-[#B38F46] text-charcoal hover:text-white shadow-luxury hover:shadow-luxury-hover cursor-pointer active:scale-[0.99]"
               }`}
@@ -647,7 +647,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
               ) : (
                 <ShoppingBag className="w-4 h-4" />
               )}
-              <span>{added ? "Added to Bag!" : !size ? "Select a Size" : "Add to Bag"}</span>
+              <span>{added ? "Added to Bag!" : !size ? "Select a Size" : sizeAvailability[size] === "sold_out" ? "Sold Out" : "Add to Bag"}</span>
             </button>
 
             {/* Wishlist Toggle Button */}
@@ -675,13 +675,13 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             onClick={handleBuyNow}
             disabled={!canPurchase}
             className={`w-full py-3.5 rounded-2xl font-sans text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all border min-h-[48px] ${
-              !size
+              !canPurchase
                 ? "bg-transparent text-charcoal-subtle/60 border-sand/30 cursor-not-allowed"
                 : "bg-charcoal text-paper-light hover:bg-black cursor-pointer shadow-md hover:shadow-lg"
             }`}
           >
             <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <span>Buy it now</span>
+            <span>{size && sizeAvailability[size] === "sold_out" ? "Item Unavailable" : "Buy it now"}</span>
           </button>
 
           {/* Trust Value Highlights Strip */}

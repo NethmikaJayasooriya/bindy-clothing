@@ -3,11 +3,11 @@ import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Sparkles, Shuffle, Check, ShoppingBag, ArrowRight, Info, Shirt, Layers3, Loader2 } from "lucide-react";
+import { Sparkles, Shuffle, Check, ShoppingBag, ArrowRight, Info, Shirt, Layers3, Loader2, Ruler } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
-import { getCart, saveCart, addToCart } from "@/lib/cart";
+import { getCart, saveCart, addToCart, subscribe } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
 import { useStorefront } from "@/components/StorefrontProvider";
 import { useTryOn } from "@/components/style-studio/useTryOn";
@@ -15,8 +15,8 @@ import {
   studioPieces,
   matchScore,
 } from "@/lib/styleStudio";
-
-
+import { isSizeSoldOut, getFirstAvailableSize } from "@/lib/stock";
+import SizeGuideModal from "@/components/SizeGuideModal";
 
 function scoreLabel(s: number) {
   if (s >= 85) return "Perfect match";
@@ -34,9 +34,17 @@ export default function BuildYourSetPage() {
 
   const [topId, setTopId] = useState<string>(STUDIO_TOPS.find((piece) => piece.id === "cacao-satin-cami")?.id ?? STUDIO_TOPS[0]?.id ?? "");
   const [bottomId, setBottomId] = useState<string>(STUDIO_BOTTOMS.find((piece) => piece.id === "ivory-tiered-maxi-skirt")?.id ?? "");
-  const [size, setSize] = useState("");
+  const [topSize, setTopSize] = useState("");
+  const [bottomSize, setBottomSize] = useState("");
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
   const [added, setAdded] = useState(false);
-  useEffect(() => { setCartItems(getCart()); }, []);
+
+  useEffect(() => {
+    setCartItems(getCart());
+    const unsub = subscribe(() => setCartItems(getCart()));
+    return () => unsub();
+  }, []);
+
   const toggleAudio = () => { if (ambientPlayer) setIsMuted(ambientPlayer.toggle()); };
 
   const top = STUDIO_TOPS.find(t => t.id === topId) ?? STUDIO_TOPS[0];
@@ -45,10 +53,39 @@ export default function BuildYourSetPage() {
   const preview = useTryOn(top, bottom);
   const trying = preview.status === "loading", tryUrl = preview.url, tryErr = preview.message;
   const score = top && bottom ? matchScore(top, bottom) : 0;
+
+  const topProduct = useMemo(() => products.find(p => p.id === top?.sourceId), [products, top?.sourceId]);
+  const bottomProduct = useMemo(() => products.find(p => p.id === bottom?.sourceId), [products, bottom?.sourceId]);
+  const isSameSet = Boolean(top?.sourceId && top.sourceId === bottom?.sourceId);
+
   const purchasable = useMemo(() => products.filter(p => p.id === top?.sourceId || p.id === bottom?.sourceId), [products, top?.sourceId, bottom?.sourceId]);
   const pricing = top && bottom ? { total: purchasable.reduce((s,p) => s+p.priceAud,0), savings: 0, subtotal: 0 } : null;
-  const SIZES = purchasable[0]?.sizes.filter(s => purchasable.every(p => p.sizes.includes(s) && (!p.stock || p.stock[s] > 0))) ?? [];
-  const selectedSize = SIZES.includes(size) ? size : SIZES[0] ?? "";
+
+  const topSizes = useMemo(() => topProduct?.sizes ?? [], [topProduct]);
+  const bottomSizes = useMemo(() => bottomProduct?.sizes ?? [], [bottomProduct]);
+
+  // Ensure selected topSize is valid and in stock
+  const selectedTopSize = useMemo(() => {
+    if (topSize && topSizes.includes(topSize) && !isSizeSoldOut(topProduct?.stock, topSize)) {
+      return topSize;
+    }
+    return topProduct ? getFirstAvailableSize(topProduct) ?? "" : "";
+  }, [topSize, topSizes, topProduct]);
+
+  // Ensure selected bottomSize is valid and in stock
+  const selectedBottomSize = useMemo(() => {
+    if (isSameSet) return selectedTopSize;
+    if (bottomSize && bottomSizes.includes(bottomSize) && !isSizeSoldOut(bottomProduct?.stock, bottomSize)) {
+      return bottomSize;
+    }
+    return bottomProduct ? getFirstAvailableSize(bottomProduct) ?? "" : "";
+  }, [bottomSize, bottomSizes, bottomProduct, isSameSet, selectedTopSize]);
+
+  const canAddSet = Boolean(
+    top && bottom && topProduct && bottomProduct &&
+    selectedTopSize && !isSizeSoldOut(topProduct.stock, selectedTopSize) &&
+    (isSameSet || (selectedBottomSize && !isSizeSoldOut(bottomProduct.stock, selectedBottomSize)))
+  );
 
   const surprise = () => {
     const t = STUDIO_TOPS[Math.floor(Math.random() * STUDIO_TOPS.length)];
@@ -59,8 +96,13 @@ export default function BuildYourSetPage() {
   };
 
   const addSet = () => {
-    if (!top || !bottom || !selectedSize) return;
-    for (const product of purchasable) addToCart(product, selectedSize, 1);
+    if (!canAddSet || !topProduct || !bottomProduct) return;
+    if (isSameSet) {
+      addToCart(topProduct, selectedTopSize, 1);
+    } else {
+      addToCart(topProduct, selectedTopSize, 1);
+      addToCart(bottomProduct, selectedBottomSize, 1);
+    }
     setCartItems(getCart());
     setAdded(true);
     setIsCartOpen(true);
@@ -199,31 +241,144 @@ export default function BuildYourSetPage() {
                   )}
                 </div>
 
-                {/* size */}
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[11px] font-sans uppercase tracking-[0.2em] text-charcoal/50 mr-1">Size</span>
-                  {SIZES.map((s) => (
+                {/* Independent Garment Sizing */}
+                <div className="space-y-4 pt-3 border-t border-sand/40">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-sans uppercase tracking-[0.22em] text-charcoal/70 font-semibold">
+                      {isSameSet ? "Set Sizing" : "Garment Sizing"}
+                    </span>
                     <button
-                      key={s}
-                      onClick={() => setSize(s)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-sans border transition-colors ${
-                        selectedSize === s ? "bg-charcoal text-white border-charcoal" : "border-sand/60 hover:border-gold"
-                      }`}
+                      type="button"
+                      onClick={() => setShowSizeGuide(true)}
+                      className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-gold hover:text-cinnamon transition-colors cursor-pointer"
                     >
-                      {s}
+                      <Ruler className="w-3.5 h-3.5" />
+                      <span>Size Guide</span>
                     </button>
-                  ))}
+                  </div>
+
+                  {/* Top Size Selector */}
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-sans text-charcoal flex items-center gap-1.5 font-medium">
+                        <Shirt className="w-3.5 h-3.5 text-gold" />
+                        <span>Top Size:</span>
+                        <strong className="text-charcoal font-semibold">
+                          {selectedTopSize ? selectedTopSize.split(" ")[0] : "—"}
+                        </strong>
+                      </span>
+                      {selectedTopSize && isSizeSoldOut(topProduct?.stock, selectedTopSize) && (
+                        <span className="text-[10px] text-[#A46446] font-semibold uppercase tracking-wider">
+                          Sold Out
+                        </span>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-5 gap-1.5">
+                      {topSizes.map((s) => {
+                        const isSoldOut = isSizeSoldOut(topProduct?.stock, s);
+                        const isSelected = selectedTopSize === s;
+                        const short = s.replace("AU ", "").split(" ")[0];
+                        return (
+                          <button
+                            key={s}
+                            type="button"
+                            disabled={isSoldOut}
+                            onClick={() => setTopSize(s)}
+                            className={`py-2 rounded-xl text-xs font-sans transition-all border text-center ${
+                              isSoldOut
+                                ? "border-sand/40 bg-[#F2ECE1]/60 text-charcoal/30 line-through cursor-not-allowed select-none"
+                                : isSelected
+                                ? "bg-charcoal text-paper-light border-charcoal font-bold shadow-sm cursor-pointer"
+                                : "bg-white/70 border-sand/60 text-charcoal hover:border-gold hover:bg-white font-medium cursor-pointer"
+                            }`}
+                            title={isSoldOut ? `Size ${short} is sold out in ${top?.name}` : `Select size ${s} for top`}
+                          >
+                            {short}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Bottom Size Selector (only shown if separate pieces) */}
+                  {!isSameSet && (
+                    <div className="space-y-1.5 pt-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-sans text-charcoal flex items-center gap-1.5 font-medium">
+                          <Layers3 className="w-3.5 h-3.5 text-gold" />
+                          <span>Bottom Size:</span>
+                          <strong className="text-charcoal font-semibold">
+                            {selectedBottomSize ? selectedBottomSize.split(" ")[0] : "—"}
+                          </strong>
+                        </span>
+                        {selectedBottomSize && isSizeSoldOut(bottomProduct?.stock, selectedBottomSize) && (
+                          <span className="text-[10px] text-[#A46446] font-semibold uppercase tracking-wider">
+                            Sold Out
+                          </span>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-5 gap-1.5">
+                        {bottomSizes.map((s) => {
+                          const isSoldOut = isSizeSoldOut(bottomProduct?.stock, s);
+                          const isSelected = selectedBottomSize === s;
+                          const short = s.replace("AU ", "").split(" ")[0];
+                          return (
+                            <button
+                              key={s}
+                              type="button"
+                              disabled={isSoldOut}
+                              onClick={() => setBottomSize(s)}
+                              className={`py-2 rounded-xl text-xs font-sans transition-all border text-center ${
+                                isSoldOut
+                                  ? "border-sand/40 bg-[#F2ECE1]/60 text-charcoal/30 line-through cursor-not-allowed select-none"
+                                  : isSelected
+                                  ? "bg-charcoal text-paper-light border-charcoal font-bold shadow-sm cursor-pointer"
+                                  : "bg-white/70 border-sand/60 text-charcoal hover:border-gold hover:bg-white font-medium cursor-pointer"
+                              }`}
+                              title={isSoldOut ? `Size ${short} is sold out in ${bottom?.name}` : `Select size ${s} for bottom`}
+                            >
+                              {short}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <button
                   onClick={addSet}
-                  disabled={!top || !bottom || !selectedSize}
-                  className="w-full h-14 rounded-full bg-gold hover:bg-charcoal text-black hover:text-white font-sans text-xs uppercase tracking-[0.24em] font-semibold flex items-center justify-center gap-3 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  disabled={!canAddSet}
+                  className="w-full h-14 rounded-full bg-gold hover:bg-charcoal text-black hover:text-white font-sans text-xs uppercase tracking-[0.24em] font-semibold flex items-center justify-center gap-3 transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-luxury cursor-pointer"
                 >
-                  {added ? <><Check className="w-4 h-4" /> Added to bag</> : <><ShoppingBag className="w-4 h-4" /> Add selected items</>}
+                  {added ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-800" />
+                      <span>Added to bag</span>
+                    </>
+                  ) : !canAddSet ? (
+                    <span>
+                      {!selectedTopSize || !selectedBottomSize
+                        ? "Select your sizes"
+                        : "Selected size unavailable"}
+                    </span>
+                  ) : (
+                    <>
+                      <ShoppingBag className="w-4 h-4" />
+                      <span>Add selected items • ${pricing?.total ?? 0} AUD</span>
+                    </>
+                  )}
                 </button>
+                {canAddSet && !isSameSet && selectedTopSize && selectedBottomSize && (
+                  <p className="text-center text-[11px] font-sans text-charcoal-subtle -mt-2">
+                    Top: {selectedTopSize.split(" ")[0]} · Bottom: {selectedBottomSize.split(" ")[0]}
+                  </p>
+                )}
                 <p className="flex items-center gap-1.5 text-[11px] text-charcoal/50 font-sans">
-                  <Info className="w-3 h-3" /> {top?.isSplit || bottom?.isSplit ? "A piece from a two-piece set is purchased with its original full set." : "Both garments are added to your bag individually."}
+                  <Info className="w-3 h-3" />{" "}
+                  {top?.isSplit || bottom?.isSplit
+                    ? "A piece from a two-piece set is purchased with its original full set."
+                    : "Both garments are added to your bag individually with their chosen sizes."}
                 </p>
               </div>
             </div>
@@ -281,6 +436,8 @@ export default function BuildYourSetPage() {
         onUpdateQuantity={updateQty}
         onRemoveItem={removeItem}
       />
+
+      <SizeGuideModal isOpen={showSizeGuide} onClose={() => setShowSizeGuide(false)} />
     </main>
   );
 }

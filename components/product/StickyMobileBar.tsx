@@ -85,13 +85,13 @@ export default function StickyMobileBar({
             variant="primary"
             size="sm"
             onClick={onAddToCart}
-            disabled={!selectedSize}
+            disabled={!selectedSize || isSizeSoldOut(product.stock, selectedSize)}
             className="whitespace-nowrap px-4"
             leftIcon={
               isAdded ? <Check className="w-3.5 h-3.5" /> : <ShoppingBag className="w-3.5 h-3.5" />
             }
           >
-            {isAdded ? "Added" : !selectedSize ? "Size" : "Add"}
+            {isAdded ? "Added" : !selectedSize ? "Size" : isSizeSoldOut(product.stock, selectedSize) ? "Sold Out" : "Add"}
           </Button>
         </div>
       </div>
