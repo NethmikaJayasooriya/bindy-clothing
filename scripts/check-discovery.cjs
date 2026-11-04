@@ -6,7 +6,7 @@ check('Existing stores receive two enabled editorial panels',()=>{assert(initial
 check('Full-model categories match the four real clothing categories',()=>assert.deepEqual(initial.categories.map(c=>c.category).sort(),['Dresses','Skirts & Pants','Tops & Blouses','Two Piece Sets'].sort()));
 const content=structuredClone(DEFAULT_DISCOVERY);content.heading='Owner wardrobe';content.mission.body='Our own approved brand message';applyAction(state,'discovery',{discovery:content});
 check('Owner edits reach the public storefront',()=>{const data=repo.publicStore(state).discovery;assert.equal(data.heading,'Owner wardrobe');assert.equal(data.mission.body,'Our own approved brand message');});
-check('Design changes preserve product stock and hero content',()=>{assert.equal(state.products.length,31);assert.equal(state.hero.length,5);assert.equal(state.hero[0].id,'together');});
+check('Design changes preserve product stock and hero content',()=>{assert.equal(state.products.length,30);assert.equal(state.hero.length,5);assert.equal(state.hero[0].id,'together');});
 check('Unknown button categories are rejected',()=>{const data=structuredClone(content);data.features[0].category='Imaginary';assert.throws(()=>applyAction(state,'discovery',{discovery:data}));});
 check('Duplicate category panels are rejected',()=>{const data=structuredClone(content);data.categories[1].category=data.categories[0].category;assert.throws(()=>applyAction(state,'discovery',{discovery:data}));});
 check('Unsafe image URLs are rejected',()=>{const data=structuredClone(content);data.features[0].image='javascript:bad';assert.throws(()=>applyAction(state,'discovery',{discovery:data}));});

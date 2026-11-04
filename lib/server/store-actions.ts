@@ -71,17 +71,21 @@ export function createOrder(state: StoreState, input: Input): StoreOrder {
     const p = state.products.find(p => p.id === item.productId && p.status === "active" && !isRetiredProduct(p.id));
     if (!p || !p.sizes.includes(item.size)) throw new StoreError("A selected product or size is no longer available.");
     if ((p.stock[item.size] ?? 0) < item.quantity) throw new StoreError(`${p.name} has only ${p.stock[item.size] ?? 0} left in ${item.size}.`);
-    return { ...item, name: p.name, image: p.image, priceAud: p.priceAud };
+    const isCod = input.currency === "LKR" || input.paymentMethod === "cod";
+    const unitPrice = isCod ? (p.priceLkr || Math.round(p.priceAud * (state.settings.cod?.demoMultiplier ?? 200))) : p.priceAud;
+    return { ...item, name: p.name, image: p.image, priceAud: p.priceAud, unitPrice };
   });
-  const subtotal = Math.round(items.reduce((s, i) => s + i.priceAud * i.quantity, 0) * 100) / 100;
-  const shipping = subtotal >= state.settings.freeShippingThreshold ? 0 : input.shippingMethod === "express" ? state.settings.expressShipping : state.settings.standardShipping;
+  const isCod = input.currency === "LKR" || input.paymentMethod === "cod";
+  const currency = isCod ? "LKR" : "AUD";
+  const subtotal = Math.round(items.reduce((s, i) => s + (i.unitPrice ?? i.priceAud) * i.quantity, 0) * 100) / 100;
+  const shipping = isCod ? (state.settings.cod?.shippingLkr ?? 650) : (subtotal >= state.settings.freeShippingThreshold ? 0 : input.shippingMethod === "express" ? state.settings.expressShipping : state.settings.standardShipping);
   const code = text(input.discountCode, 30).toUpperCase(); const result = discountTotal(state, code, subtotal, shipping);
   let customer = state.customers.find(c => c.email === customerEmail);
   if (!customer) { customer = { id: randomUUID(), name: customerName, email: customerEmail, phone, address, notes: "", createdAt: new Date().toISOString() }; state.customers.push(customer); }
   const now = new Date().toISOString();
   const order: StoreOrder = { id: randomUUID(), number: `${state.settings.orderPrefix}-${String(state.orders.length + 1001)}`, customerId: customer.id,
     customerName, email: customerEmail, phone, address, items, subtotal, discount: result.discount, shipping: result.shipping,
-    total: Math.round((subtotal - result.discount + result.shipping) * 100) / 100, discountCode: code, payment: "unpaid", fulfillment: "unfulfilled", carrier: "", tracking: "", notes: text(input.notes, 5000), createdAt: now, updatedAt: now, requestId };
+    total: Math.round((subtotal - result.discount + result.shipping) * 100) / 100, discountCode: code, payment: "unpaid", fulfillment: "unfulfilled", carrier: "", tracking: "", notes: text(input.notes, 5000), createdAt: now, updatedAt: now, requestId, currency, paymentMethod: isCod ? "cod" : undefined, testMode: (isCod && state.settings.cod?.testMode) || undefined };
   for (const item of items) state.products.find(p => p.id === item.productId)!.stock[item.size] -= item.quantity;
   if (result.coupon) result.coupon.used++;
   state.orders.unshift(order); return order;
@@ -98,12 +102,26 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       const idx = state.products.findIndex(p => p.id === id);
       if (idx === -1) throw new StoreError("Product not found.", 404);
       const [removed] = state.products.splice(idx, 1);
+      if (state.homepage) {
+        for (const key of ["spotlight", "shopTheLook"] as const) {
+          if (state.homepage[key]?.productIds) {
+            state.homepage[key].productIds = state.homepage[key].productIds.filter(pid => pid !== removed.id);
+          }
+        }
+      }
       return { deletedId: removed.id, deleted: true, name: removed.name };
     }
     case "delete-products": {
       const ids = strings(v.ids, 200);
       if (!ids.length) throw new StoreError("Select products to delete.");
       state.products = state.products.filter(p => !ids.includes(p.id));
+      if (state.homepage) {
+        for (const key of ["spotlight", "shopTheLook"] as const) {
+          if (state.homepage[key]?.productIds) {
+            state.homepage[key].productIds = state.homepage[key].productIds.filter(pid => !ids.includes(pid));
+          }
+        }
+      }
       return { deletedIds: ids, deletedCount: ids.length };
     }
     case "product-status": {
@@ -115,6 +133,7 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
     case "inventory": {
       const product = state.products.find(p => p.id === v.id); if (!product) throw new StoreError("Product not found.", 404);
       const stock = object(v.stock); for (const size of product.sizes) product.stock[size] = integer(stock[size] ?? 0);
+      product.inventoryCount = Object.values(product.stock).reduce((s, n) => s + n, 0);
       product.updatedAt = new Date().toISOString(); return;
     }
     case "create-order": return createOrder(state, v);
@@ -236,6 +255,40 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       state.hero = hero;
       if (Array.isArray(v.pages)) state.pages = v.pages.map(raw => { const p = object(raw); const slug = required(p.slug, "Page URL", 80); if (!/^[a-z0-9-]+$/.test(slug)) throw new StoreError("Page URLs may contain lowercase letters and hyphens."); return { slug, title: required(p.title, "Page title"), body: text(p.body, 30000), published: p.published === true }; });
       return;
+    }
+    case "delete-customer": {
+      const id = required(v.id, "Customer ID");
+      const idx = state.customers.findIndex(c => c.id === id);
+      if (idx === -1) throw new StoreError("Customer not found.", 404);
+      const customer = state.customers[idx];
+      const hasOrders = state.orders.some(o => o.customerId === id);
+      if (hasOrders) {
+        customer.name = "Anonymised Customer";
+        customer.email = `anonymised-${id.slice(0, 8)}@deleted.local`;
+        customer.phone = "";
+        customer.address = "";
+        customer.notes = "Customer personal details erased upon request.";
+        return { anonymized: true, customer };
+      }
+      state.customers.splice(idx, 1);
+      return { deleted: true, id };
+    }
+    case "delete-discount": {
+      const id = required(v.id, "Discount ID");
+      const idx = state.discounts.findIndex(d => d.id === id);
+      if (idx === -1) throw new StoreError("Discount not found.", 404);
+      const [removed] = state.discounts.splice(idx, 1);
+      return { deleted: true, code: removed.code };
+    }
+    case "delete-media": {
+      const url = required(v.url, "Media URL");
+      state.media = state.media.filter(m => m.url !== url);
+      return { deleted: true, url };
+    }
+    case "delete-message": {
+      const id = required(v.id, "Message ID");
+      state.messages = state.messages.filter(m => m.id !== id);
+      return { deleted: true, id };
     }
     default: throw new StoreError("This action is not supported.");
   }

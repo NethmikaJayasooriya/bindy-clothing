@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Download, Mail, Save } from "lucide-react";
+import { Download, Mail, Save, Trash2 } from "lucide-react";
 import { useAdmin } from "./AdminProvider";
 import { Badge, Button, Empty, Field, Modal, PageHeading, Panel, Pagination, SearchBox, date, exportCsv, useList } from "./AdminUI";
 import type { StoreMessage } from "@/lib/store-types";
@@ -16,5 +16,8 @@ export default function AdminInbox() {
 }
 function MessageEditor({message,onClose}:{message:StoreMessage;onClose:()=>void}) {
  const {save,busy}=useAdmin();const [status,setStatus]=useState(message.status);const [notes,setNotes]=useState(message.notes);
- return <Modal title={message.subject} onClose={onClose}><p><strong>{message.name}</strong> · {message.email}</p><p className="admin-muted" style={{fontSize:11,marginTop:5}}>{date(message.createdAt)}</p><div className="admin-note" style={{whiteSpace:"pre-wrap",marginTop:20}}>{message.message}</div><form onSubmit={async e=>{e.preventDefault();try{await save("message-status",{id:message.id,status,notes});onClose();}catch{}}}><div className="admin-form-grid"><Field label="Status"><select value={status} onChange={e=>setStatus(e.target.value as StoreMessage["status"])}><option value="new">New / needs attention</option><option value="resolved">Resolved</option></select></Field><Field label="Private team notes" wide><textarea maxLength={5000} value={notes} onChange={e=>setNotes(e.target.value)}/></Field></div><div className="admin-form-actions"><a className="admin-btn" href={`mailto:${encodeURIComponent(message.email)}?subject=${encodeURIComponent("Re: "+message.subject)}`}><Mail size={14}/>Reply in email</a><Button type="submit" variant="primary" disabled={busy}><Save size={14}/>Save</Button></div></form></Modal>;
+ return <Modal title={message.subject} onClose={onClose}><p><strong>{message.name}</strong> · {message.email}</p><p className="admin-muted" style={{fontSize:11,marginTop:5}}>{date(message.createdAt)}</p><div className="admin-note" style={{whiteSpace:"pre-wrap",marginTop:20}}>{message.message}</div><form onSubmit={async e=>{e.preventDefault();try{await save("message-status",{id:message.id,status,notes});onClose();}catch{}}}><div className="admin-form-grid"><Field label="Status"><select value={status} onChange={e=>setStatus(e.target.value as StoreMessage["status"])}><option value="new">New / needs attention</option><option value="resolved">Resolved</option></select></Field><Field label="Private team notes" wide><textarea maxLength={5000} value={notes} onChange={e=>setNotes(e.target.value)}/></Field></div><div className="admin-form-actions" style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+    <div><Button variant="danger" small disabled={busy} onClick={async()=>{if(window.confirm("Delete this customer enquiry?")){try{await save("delete-message",{id:message.id});onClose();}catch{}}}}><Trash2 size={12}/>Delete message</Button></div>
+    <div className="admin-inline"><a className="admin-btn" href={`mailto:${encodeURIComponent(message.email)}?subject=${encodeURIComponent("Re: "+message.subject)}`}><Mail size={14}/>Reply in email</a><Button type="submit" variant="primary" disabled={busy}><Save size={14}/>Save</Button></div>
+  </div></form></Modal>;
 }
