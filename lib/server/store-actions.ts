@@ -102,10 +102,16 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       const idx = state.products.findIndex(p => p.id === id);
       if (idx === -1) throw new StoreError("Product not found.", 404);
       const [removed] = state.products.splice(idx, 1);
+      for (const p of state.products) {
+        if (p.styleWith) p.styleWith = p.styleWith.filter(sid => sid !== removed.id);
+      }
       if (state.homepage) {
-        for (const key of ["spotlight", "shopTheLook"] as const) {
+        for (const key of ["spotlight", "shopTheLook", "newsletter"] as const) {
           if (state.homepage[key]?.productIds) {
             state.homepage[key].productIds = state.homepage[key].productIds.filter(pid => pid !== removed.id);
+            if (key !== "newsletter" && state.homepage[key].productIds.length < (key === "shopTheLook" ? 2 : 1)) {
+              state.homepage[key].published = false;
+            }
           }
         }
       }
@@ -115,10 +121,16 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       const ids = strings(v.ids, 200);
       if (!ids.length) throw new StoreError("Select products to delete.");
       state.products = state.products.filter(p => !ids.includes(p.id));
+      for (const p of state.products) {
+        if (p.styleWith) p.styleWith = p.styleWith.filter(sid => !ids.includes(sid));
+      }
       if (state.homepage) {
-        for (const key of ["spotlight", "shopTheLook"] as const) {
+        for (const key of ["spotlight", "shopTheLook", "newsletter"] as const) {
           if (state.homepage[key]?.productIds) {
             state.homepage[key].productIds = state.homepage[key].productIds.filter(pid => !ids.includes(pid));
+            if (key !== "newsletter" && state.homepage[key].productIds.length < (key === "shopTheLook" ? 2 : 1)) {
+              state.homepage[key].published = false;
+            }
           }
         }
       }

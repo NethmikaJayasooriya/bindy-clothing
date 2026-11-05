@@ -6,7 +6,7 @@ import { useStorefront } from "@/components/StorefrontProvider";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
+import { X, Trash2, ShoppingBag, ArrowRight, Truck } from "lucide-react";
 import { Product } from "./CollectionShowcase";
 import { getCart, saveCart, subscribe, type CartItem } from "@/lib/cart";
 
@@ -29,6 +29,25 @@ export default function CartDrawer({
 }: CartDrawerProps) {
   const { settings, payments } = useStorefront();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => propsItems ?? getCart());
+  const [market, setMarket] = useState<string>("Australia");
+
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem("bindy_market") || localStorage.getItem("bindy_market");
+      if (saved === "Australia" || saved === "Sri Lanka") {
+        setMarket(saved);
+        return;
+      }
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      if (tz === "Asia/Colombo") {
+        setMarket("Sri Lanka");
+      } else {
+        setMarket("Australia");
+      }
+    } catch {
+      /* default to Australia */
+    }
+  }, [isOpen]);
 
   // Reactively sync with cart storage across the entire application
   useEffect(() => {
@@ -139,26 +158,50 @@ export default function CartDrawer({
                 </button>
               </div>
 
-              {/* Free Shipping Progress */}
+              {/* Regional Shipping Banner */}
               <div className="px-6 py-3.5 bg-paper-dark border-b border-sand/30">
-                <div className="flex justify-between text-xs font-sans mb-1.5">
-                  {amountToFreeShipping === 0 ? (
-                    <span className="text-emerald-700 font-medium">
-                      ✓ You qualify for Free Express Shipping in Australia!
+                {market === "Sri Lanka" ? (
+                  <div className="flex items-center justify-between text-xs font-sans">
+                    <span className="text-charcoal flex items-center gap-1.5">
+                      <Truck className="w-3.5 h-3.5 text-gold shrink-0" />
+                      <span>Sri Lanka: <strong>Flat Rs. 650 Islandwide COD</strong></span>
                     </span>
-                  ) : (
-                    <span className="text-charcoal/80">
-                      Add <strong className="text-charcoal">${amountToFreeShipping} AUD</strong> for Free Shipping
-                    </span>
-                  )}
-                  <span className="font-mono text-xs text-gold font-bold">{Math.round(progressToFreeShipping)}%</span>
-                </div>
-                <div className="w-full h-1.5 bg-sand/40 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gold transition-all duration-300 rounded-full"
-                    style={{ width: `${progressToFreeShipping}%` }}
-                  />
-                </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMarket("Australia");
+                        try {
+                          sessionStorage.setItem("bindy_market", "Australia");
+                          localStorage.setItem("bindy_market", "Australia");
+                        } catch {}
+                      }}
+                      className="text-[10px] uppercase font-mono tracking-wider text-gold hover:underline cursor-pointer"
+                    >
+                      Ship to AU?
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex justify-between text-xs font-sans mb-1.5">
+                      {amountToFreeShipping === 0 ? (
+                        <span className="text-emerald-700 font-medium">
+                          ✓ You qualify for Free Express Shipping in Australia!
+                        </span>
+                      ) : (
+                        <span className="text-charcoal/80">
+                          Add <strong className="text-charcoal">${amountToFreeShipping} AUD</strong> for Free Shipping
+                        </span>
+                      )}
+                      <span className="font-mono text-xs text-gold font-bold">{Math.round(progressToFreeShipping)}%</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-sand/40 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-gold transition-all duration-300 rounded-full"
+                        style={{ width: `${progressToFreeShipping}%` }}
+                      />
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Items List */}
@@ -246,7 +289,7 @@ export default function CartDrawer({
                   </p>
 
                   <Link
-                    href="/checkout"
+                    href={`/checkout?market=${encodeURIComponent(market)}`}
                     onClick={() => {
                       trackCommerce("begin_checkout", cartItems);
                       onClose();

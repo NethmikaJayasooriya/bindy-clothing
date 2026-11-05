@@ -259,26 +259,6 @@ function CollectionContent() {
                   <X className="w-4 h-4" />
                 </button>
               </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
             )}
 
             {/* 1. NEW ARRIVALS */}
@@ -296,26 +276,6 @@ function CollectionContent() {
               </button>
             </div>
 
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-
             {/* 2. CATEGORY TAXONOMY HIERARCHY */}
             <div className="bg-white border border-[#DCC7AF]/60 rounded-3xl p-6 shadow-sm space-y-5">
               <div className="flex items-center justify-between">
@@ -331,26 +291,6 @@ function CollectionContent() {
                   </button>
                 )}
               </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
 
               <div className="space-y-3">
                 <button
@@ -413,91 +353,11 @@ function CollectionContent() {
                             );
                           })}
                         </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
                       )}
                     </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
                   );
                 })}
               </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-            </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
             </div>
 
             {/* 3. OCCASION CROSS-CUTTING TAGS */}
@@ -515,26 +375,6 @@ function CollectionContent() {
                   </button>
                 )}
               </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
 
               <div className="space-y-2">
                 {OCCASIONS_LIST.map((occ) => {
@@ -556,46 +396,6 @@ function CollectionContent() {
                   );
                 })}
               </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-            </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
             </div>
 
             {/* 4. COLLECTION TAGS */}
@@ -613,26 +413,6 @@ function CollectionContent() {
                   </button>
                 )}
               </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
               <button
                 type="button"
                 onClick={() =>
@@ -664,26 +444,6 @@ function CollectionContent() {
                   <span>Collection 02</span>
                   <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#C5A059] text-white font-mono uppercase font-bold">New</span>
                 </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
                 {selectedCollection === "Collection 02" && (
                   <span className="text-[#C5A059] text-xs">✓</span>
                 )}
@@ -703,46 +463,26 @@ function CollectionContent() {
                   <span>Atelier Separates</span>
                   <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#5E6C52] text-white font-mono uppercase font-bold">Mix &amp; Match</span>
                 </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
                 {selectedCollection === "Atelier Separates" && (
                   <span className="text-[#C5A059] text-xs">✓</span>
                 )}
               </button>
             </div>
 
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
+            {/* 5. STYLE STUDIO CALLOUT */}
+            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2.5">
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
               </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
+              <p className="font-serif text-sm text-[#1F1E1D] font-medium leading-snug">
                 Mix &amp; match tops and skirts.
               </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
+              <p className="text-[11px] font-sans text-[#78716A] leading-relaxed">
                 Choose independent sizes for top and bottom with our live model preview.
               </p>
               <Link
                 href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
+                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-[#1F1E1D] transition-colors pt-1"
               >
                 <span>Build your set</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -759,26 +499,6 @@ function CollectionContent() {
                   Apply &amp; View ({filteredProducts.length} Pieces)
                 </button>
               </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
             )}
           </aside>
 
@@ -794,52 +514,12 @@ function CollectionContent() {
                   />
                 ))}
               </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
             ) : (
               /* EMPTY STATE IN POETIC BRAND VOICE */
               <div className="py-24 text-center space-y-5 bg-white border border-[#DCC7AF]/50 rounded-3xl p-8">
                 <div className="w-12 h-12 rounded-full bg-[#FAF7F2] border border-[#DCC7AF] flex items-center justify-center mx-auto text-[#C5A059]">
                   <Sparkles className="w-5 h-5" />
                 </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
                 <h3 className="font-serif text-2xl text-[#1F1E1D]">
                   Your story hasn&apos;t started yet.
                 </h3>
@@ -854,26 +534,6 @@ function CollectionContent() {
                   Clear All Filters
                 </button>
               </div>
-
-            {/* Style Studio Callout */}
-            <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
-              <p className="font-serif text-sm text-charcoal font-medium leading-snug">
-                Mix &amp; match tops and skirts.
-              </p>
-              <p className="text-[11px] font-sans text-charcoal-subtle">
-                Choose independent sizes for top and bottom with our live model preview.
-              </p>
-              <Link
-                href="/build-your-set"
-                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-charcoal transition-colors pt-1"
-              >
-                <span>Build your set</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
             )}
           </div>
         </div>

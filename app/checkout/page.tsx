@@ -109,9 +109,77 @@ const isShippingComplete = (s: ShippingData): boolean => {
 
 const isPaymentComplete = (_p: PaymentData): boolean => true;
 
-export default function CheckoutPage(){
- const [market,setMarket]=useState("Sri Lanka");
- return market==="Sri Lanka"?<SriLankaCheckout onAustralia={()=>setMarket("Australia")}/>:<><div className="bg-[#F2ECE1] px-5 py-3 text-center text-xs"><label>Delivery country <select aria-label="Delivery country" value={market} onChange={e=>setMarket(e.target.value)} className="ml-2 border p-1 bg-white"><option>Sri Lanka</option><option>Australia</option></select></label></div><AustraliaCheckout/></>;
+export default function CheckoutPage() {
+  const [market, setMarket] = useState("Sri Lanka");
+
+  useEffect(() => {
+    try {
+      // 1. Check URL query params (?market=Australia or ?country=AU)
+      const params = new URLSearchParams(window.location.search);
+      const paramMarket = params.get("market") || params.get("country");
+      if (paramMarket) {
+        const lower = paramMarket.toLowerCase();
+        if (lower.includes("aus") || lower === "au") {
+          setMarket("Australia");
+          sessionStorage.setItem("bindy_market", "Australia");
+          return;
+        }
+        if (lower.includes("sri") || lower === "lk") {
+          setMarket("Sri Lanka");
+          sessionStorage.setItem("bindy_market", "Sri Lanka");
+          return;
+        }
+      }
+
+      // 2. Check saved preference in session/local storage
+      const saved = sessionStorage.getItem("bindy_market") || localStorage.getItem("bindy_market");
+      if (saved === "Australia" || saved === "Sri Lanka") {
+        setMarket(saved);
+        return;
+      }
+
+      // 3. Fallback to client timezone detection (Australian visitors default to Australia)
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      if (tz.startsWith("Australia") || tz.startsWith("Pacific/Auckland")) {
+        setMarket("Australia");
+        sessionStorage.setItem("bindy_market", "Australia");
+      }
+    } catch {
+      /* default to Sri Lanka */
+    }
+  }, []);
+
+  const handleSetMarket = (next: string) => {
+    setMarket(next);
+    try {
+      sessionStorage.setItem("bindy_market", next);
+      localStorage.setItem("bindy_market", next);
+    } catch {
+      /* ignore storage errors */
+    }
+  };
+
+  return market === "Sri Lanka" ? (
+    <SriLankaCheckout onAustralia={() => handleSetMarket("Australia")} />
+  ) : (
+    <>
+      <div className="bg-[#F2ECE1] px-5 py-3 text-center text-xs">
+        <label>
+          Delivery country{" "}
+          <select
+            aria-label="Delivery country"
+            value={market}
+            onChange={(e) => handleSetMarket(e.target.value)}
+            className="ml-2 border p-1 bg-white cursor-pointer"
+          >
+            <option>Sri Lanka</option>
+            <option>Australia</option>
+          </select>
+        </label>
+      </div>
+      <AustraliaCheckout />
+    </>
+  );
 }
 function AustraliaCheckout() {
   const { settings, products, payments } = useStorefront();
@@ -923,22 +991,34 @@ function AustraliaCheckout() {
               </div>
             </motion.div>
 
-            {/* Action Return */}
+            {/* Action Return & Tracking Deep-Links */}
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: 16 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
               }}
-              className="text-center pt-2 sm:pt-4"
+              className="flex flex-wrap items-center justify-center gap-3 pt-2 sm:pt-4"
             >
               <button
                 type="button"
                 onClick={handleReturnToCollection}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-cinnamon hover:text-white transition-all shadow-md min-h-[48px] cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-gold text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-semibold hover:bg-cinnamon hover:text-white transition-all shadow-md min-h-[48px] cursor-pointer"
               >
                 <span>Continue Shopping</span>
                 <span className="text-base leading-none">→</span>
               </button>
+              <Link
+                href={`/returns/start?order=${orderSummary.orderId}`}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full border border-sand/60 bg-white text-charcoal hover:border-gold hover:text-gold font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-sm min-h-[48px]"
+              >
+                <span>Track Your Order</span>
+              </Link>
+              <Link
+                href="/account"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full border border-transparent text-charcoal/70 hover:text-charcoal font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-colors min-h-[48px]"
+              >
+                <span>View in Account</span>
+              </Link>
             </motion.div>
           </motion.div>
         ) : (
