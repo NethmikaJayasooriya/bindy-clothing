@@ -4,7 +4,7 @@ import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 import { getStockForSize, isSizeSoldOut } from "@/lib/stock";
 
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,6 +28,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
+  ChevronUp,
   Ruler,
   Gift,
   Leaf,
@@ -116,6 +117,39 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
 
   // Share Notification
   const [copiedLink, setCopiedLink] = useState(false);
+
+  // Thumbnail Rail Scroll State
+  const thumbnailRailRef = useRef<HTMLDivElement>(null);
+  const [canScrollUp, setCanScrollUp] = useState(false);
+  const [canScrollDown, setCanScrollDown] = useState(false);
+
+  useEffect(() => {
+    const el = thumbnailRailRef.current;
+    if (!el) return;
+
+    const checkScroll = () => {
+      const hasOverflow = el.scrollHeight > el.clientHeight + 4;
+      setCanScrollUp(hasOverflow && el.scrollTop > 8);
+      setCanScrollDown(hasOverflow && el.scrollTop < el.scrollHeight - el.clientHeight - 8);
+    };
+
+    checkScroll();
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [product.gallery.length]);
+
+  useEffect(() => {
+    const el = thumbnailRailRef.current;
+    if (!el) return;
+    const activeBtn = el.children[activeImg] as HTMLElement | undefined;
+    if (activeBtn) {
+      activeBtn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+    }
+  }, [activeImg]);
 
   useEffect(() => {
     const syncCart = () => {
@@ -328,32 +362,78 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
         {/* Gallery Column (7 cols) */}
         <div className="lg:col-span-7 flex flex-col-reverse sm:flex-row gap-4 lg:sticky lg:top-24 self-start w-full">
           {/* Thumbnail Rail */}
-          <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-y-auto sm:overflow-x-hidden sm:max-h-[min(75vh,700px)] pb-2 sm:pb-0 sm:pr-1 no-scrollbar">
-            {galleryImages.map((src, i) => (
-              <button
-                key={src}
-                onMouseEnter={() => setActiveImg(i)}
-                onClick={() => setActiveImg(i)}
-                className={`relative w-16 h-22 sm:w-20 sm:h-26 rounded-2xl overflow-hidden border bg-paper-dark shrink-0 transition-all duration-200 cursor-pointer ${
-                  activeImg === i
-                    ? "border-gold ring-2 ring-gold/70 shadow-md scale-102"
-                    : "border-sand/40 hover:border-gold/60 opacity-80 hover:opacity-100"
-                }`}
-                aria-label={`Select photo ${i + 1}${galleryLabels?.[i] ? `: ${galleryLabels[i]}` : ""}`}
-                title={galleryLabels?.[i] || `View ${i + 1}`}
-              >
-                <ResponsiveImage
-                  src={src}
-                  alt={`${product.name} — ${galleryLabels?.[i] || `view ${i + 1}`}`}
-                  className="w-full h-full object-cover"
-                  sizes="96px"
-                  loading="lazy"
-                />
-                {activeImg === i && (
-                  <div className="absolute inset-x-0 bottom-0 h-1 bg-gold" />
-                )}
-              </button>
-            ))}
+          <div className="relative flex flex-col items-center shrink-0 self-center sm:self-start">
+            {/* Scroll Up Button (Desktop) */}
+            <button
+              type="button"
+              onClick={() => thumbnailRailRef.current?.scrollBy({ top: -108, behavior: "smooth" })}
+              className={`hidden sm:flex w-7 h-7 rounded-full bg-paper-light/95 hover:bg-gold/15 border border-sand/60 shadow-sm items-center justify-center text-charcoal hover:text-gold transition-all duration-200 cursor-pointer mb-1.5 ${
+                canScrollUp ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+              }`}
+              aria-label="Scroll thumbnails up"
+            >
+              <ChevronUp className="w-4 h-4" />
+            </button>
+
+            {/* Scrollable Container with Fade Mask (Sized to fit 5 thumbnails perfectly) */}
+            <div
+              ref={thumbnailRailRef}
+              className="flex sm:flex-col gap-2.5 overflow-x-auto sm:overflow-y-auto sm:overflow-x-hidden sm:max-h-[min(82vh,545px)] pb-2 sm:pb-0 sm:pr-1 no-scrollbar scroll-smooth transition-all"
+              style={{
+                maskImage: canScrollDown && canScrollUp
+                  ? "linear-gradient(to bottom, transparent, black 18px, black calc(100% - 22px), transparent)"
+                  : canScrollDown
+                  ? "linear-gradient(to bottom, black calc(100% - 24px), transparent)"
+                  : canScrollUp
+                  ? "linear-gradient(to top, black calc(100% - 24px), transparent)"
+                  : "none",
+                WebkitMaskImage: canScrollDown && canScrollUp
+                  ? "linear-gradient(to bottom, transparent, black 18px, black calc(100% - 22px), transparent)"
+                  : canScrollDown
+                  ? "linear-gradient(to bottom, black calc(100% - 24px), transparent)"
+                  : canScrollUp
+                  ? "linear-gradient(to top, black calc(100% - 24px), transparent)"
+                  : "none",
+              }}
+            >
+              {galleryImages.map((src, i) => (
+                <button
+                  key={src}
+                  onMouseEnter={() => setActiveImg(i)}
+                  onClick={() => setActiveImg(i)}
+                  className={`relative w-16 h-20 sm:w-[76px] sm:h-[98px] rounded-xl sm:rounded-2xl overflow-hidden border bg-paper-dark shrink-0 transition-all duration-200 cursor-pointer ${
+                    activeImg === i
+                      ? "border-gold ring-2 ring-gold/70 shadow-md scale-102"
+                      : "border-sand/40 hover:border-gold/60 opacity-80 hover:opacity-100"
+                  }`}
+                  aria-label={`Select photo ${i + 1}${galleryLabels?.[i] ? `: ${galleryLabels[i]}` : ""}`}
+                  title={galleryLabels?.[i] || `View ${i + 1}`}
+                >
+                  <ResponsiveImage
+                    src={src}
+                    alt={`${product.name} — ${galleryLabels?.[i] || `view ${i + 1}`}`}
+                    className="w-full h-full object-cover object-top"
+                    sizes="96px"
+                    loading="lazy"
+                  />
+                  {activeImg === i && (
+                    <div className="absolute inset-x-0 bottom-0 h-1 bg-gold" />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Scroll Down Button (Desktop) */}
+            <button
+              type="button"
+              onClick={() => thumbnailRailRef.current?.scrollBy({ top: 108, behavior: "smooth" })}
+              className={`hidden sm:flex w-7 h-7 rounded-full bg-paper-light/95 hover:bg-gold/15 border border-sand/60 shadow-sm items-center justify-center text-charcoal hover:text-gold transition-all duration-200 cursor-pointer mt-1.5 ${
+                canScrollDown ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+              }`}
+              aria-label="Scroll thumbnails down"
+            >
+              <ChevronDown className="w-4 h-4" />
+            </button>
           </div>
 
           {/* Main Hero Stage */}
