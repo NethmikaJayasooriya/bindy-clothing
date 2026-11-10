@@ -6,8 +6,10 @@ import AdminProducts from "./AdminProducts";
 import AdminOrders from "./AdminOrders";
 import { AdminCustomers, AdminDiscounts, AdminReturns } from "./AdminDirectories";
 import { AdminContent, AdminMedia, AdminSettings } from "./AdminContent";
+import AdminCategories from "./AdminCategories";
 export default function AdminWorkspace({ section = "overview" }: { section?: string }) {
   switch (section) {
+    case "categories": return <AdminCategories/>;
     case "promotions": return <AdminPromotions/>;
     case "products": return <AdminProducts/>;
     case "inventory": return <AdminProducts inventory/>;

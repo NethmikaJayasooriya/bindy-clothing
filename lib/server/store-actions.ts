@@ -4,9 +4,12 @@ import { DEFAULT_SOCIALS, validSocialUrl } from "@/lib/social-links";
 import { getCanonicalProductId } from "@/lib/products";
 import { isRetiredProduct } from "@/lib/retired-products";
 import { DISCOVERY_CATEGORIES, type HomeDiscovery } from "@/lib/home-discovery";
-import type { StoreState, StoreProduct, StoreOrder, Discount, Customer, StoreReturn, HomepageContent } from "@/lib/store-types";
+import type { StoreState, StoreProduct, StoreOrder, Discount, Customer, StoreReturn, HomepageContent, StoreCategory } from "@/lib/store-types";
+import { DEFAULT_CATEGORIES } from "@/lib/store-types";
+import { registerCategorySlug, unregisterCategorySlug } from "@/lib/categories-config";
 import { StoreError } from "./store-repository";
 import { expirePendingOrders } from "./payhere";
+import { syncCategoryToSupabase, deleteCategoryFromSupabase } from "./supabase-sync";
 type Input = Record<string, unknown>;
 export function object(value: unknown): Input { if (!value || typeof value !== "object" || Array.isArray(value)) throw new StoreError("The submitted data is invalid."); return value as Input; }
 export function text(value: unknown, max = 2000): string { if (value === undefined || value === null) return ""; if (typeof value !== "string" || value.length > max) throw new StoreError(`Text fields must contain no more than ${max} characters.`); return value.trim(); }
@@ -23,7 +26,23 @@ export function saveProduct(state: StoreState, input: Input) {
   if (isRetiredProduct(id)) throw new StoreError("This product has been withdrawn from sale.");
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id) || getCanonicalProductId(id) !== id) throw new StoreError("Use a unique product URL with lowercase letters, numbers and hyphens.");
   const existing = state.products.find(p => p.id === id);
-  const category = choice(input.category, ["Dresses", "Tops & Blouses", "Skirts & Pants", "Two Piece Sets"] as const, "category");
+  if (!state.categories || !state.categories.length) state.categories = structuredClone(DEFAULT_CATEGORIES);
+  const validCategories = state.categories.map(c => c.name);
+  let categoryInput = input.category ? String(input.category).trim() : "";
+  if (categoryInput && !validCategories.some(c => c.toLowerCase() === categoryInput.toLowerCase())) {
+    const slug = categoryInput.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    state.categories.push({
+      id: `cat-${randomUUID().slice(0, 8)}`,
+      name: categoryInput,
+      slug: slug || `cat-${Date.now()}`,
+      description: "",
+      subcategories: [],
+      sortOrder: state.categories.length + 1,
+      status: "active"
+    });
+    validCategories.push(categoryInput);
+  }
+  const category = choice(categoryInput, validCategories, "category") as any;
   const gallery = strings(input.gallery, 8).map(imagePath); if (!gallery.length) throw new StoreError("Add at least one product image.");
   const sizes = strings(input.sizes, 20); if (!sizes.length || new Set(sizes).size !== sizes.length) throw new StoreError("Choose at least one unique size.");
   const rawStock = object(input.stock); const stock = Object.fromEntries(sizes.map(size => [size, integer(rawStock[size] ?? 0)]));
@@ -36,7 +55,7 @@ export function saveProduct(state: StoreState, input: Input) {
     status: choice(input.status, ["active", "draft", "archived"] as const, "product status"), featured: input.featured === true,
     sizes, stock, lowStockThreshold: integer(input.lowStockThreshold ?? state.settings.lowStockThreshold, 1000), gallery, image: existing && gallery.join() === existing.gallery.join() ? existing.image : gallery[0], imageHover: existing && gallery.join() === existing.gallery.join() ? existing.imageHover : gallery[1] ?? gallery[0],
     inventoryCount: Object.values(stock).reduce((s, n) => s + n, 0),
-    parentCategory: category === "Dresses" ? "Dresses" : category === "Tops & Blouses" ? "Tops" : category === "Skirts & Pants" ? "Bottoms" : "Resort Wear",
+    parentCategory: (category === "Dresses" ? "Dresses" : category === "Tops & Blouses" ? "Tops" : category === "Skirts & Pants" ? "Bottoms" : category === "Two Piece Sets" ? "Resort Wear" : category) as any,
     subCategory: text(input.subCategory, 100) || "Casual", collectionName: choice(input.collectionName, ["Serendipity", "Collection 02", "Atelier Separates"] as const, "collection"),
     heritage: text(input.heritage, 10000), craftDetails: strings(input.craftDetails ?? [], 15), care: strings(input.care ?? [], 15),
     soldSeparately: input.soldSeparately === true, updatedAt: new Date().toISOString(),
@@ -44,6 +63,17 @@ export function saveProduct(state: StoreState, input: Input) {
   if (p.compareAtAud && p.compareAtAud <= p.priceAud) throw new StoreError("Compare-at price must be higher than the selling price.");
   if (existing && gallery.join() !== existing.gallery.join()) { p.galleryZoom = undefined; p.galleryLabels = undefined; }
   if (existing) state.products[state.products.indexOf(existing)] = p; else state.products.push(p);
+
+  // Automatically register newly added subcategory to the category's master list
+  if (p.subCategory && p.subCategory.trim() && p.subCategory.trim() !== "Casual") {
+    if (!state.categories || !state.categories.length) state.categories = structuredClone(DEFAULT_CATEGORIES);
+    const cat = state.categories.find(c => c.name.toLowerCase() === p.category.toLowerCase() || c.slug.toLowerCase() === p.category.toLowerCase());
+    if (cat && !cat.subcategories.some(s => s.toLowerCase() === p.subCategory.trim().toLowerCase())) {
+      cat.subcategories.push(p.subCategory.trim());
+      syncCategoryToSupabase(cat).catch(() => {});
+    }
+  }
+
   return p;
 }
 export function discountTotal(state: StoreState, code: string, subtotal: number, shipping: number) {
@@ -301,6 +331,75 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       const id = required(v.id, "Message ID");
       state.messages = state.messages.filter(m => m.id !== id);
       return { deleted: true, id };
+    }
+    case "save-category": {
+      if (!state.categories || !state.categories.length) state.categories = structuredClone(DEFAULT_CATEGORIES);
+      const id = text(v.id) || `cat-${randomUUID().slice(0, 8)}`;
+      const name = required(v.name, "Category name", 60);
+      const slug = required(v.slug, "Category URL slug", 60).toLowerCase();
+      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+        throw new StoreError("Category slug must contain only lowercase letters, numbers, and hyphens.");
+      }
+      const reserved = ["all", "admin", "cart", "checkout", "account", "returns", "search", "api", "products", "product", "collection", "about", "faq"];
+      if (reserved.includes(slug)) {
+        throw new StoreError(`"${slug}" is a reserved system path and cannot be used as a category slug.`);
+      }
+      const existing = state.categories.find(c => c.id === id || c.slug === slug);
+      if (state.categories.some(c => c.id !== id && c.slug === slug)) {
+        throw new StoreError("Another category is already using this URL slug.");
+      }
+      if (state.categories.some(c => c.id !== id && c.name.toLowerCase() === name.toLowerCase())) {
+        throw new StoreError("A category with this name already exists.");
+      }
+      const description = text(v.description, 500);
+      const image = text(v.image, 500) || undefined;
+      const subcategories = Array.isArray(v.subcategories)
+        ? Array.from(new Set(v.subcategories.map(s => text(s, 60)).filter(Boolean)))
+        : [];
+      const sortOrder = integer(v.sortOrder ?? state.categories.length + 1, 1000);
+      const status = choice(v.status ?? "active", ["active", "hidden"] as const, "category status");
+
+      const item: StoreCategory = {
+        id,
+        name,
+        slug,
+        description,
+        image,
+        subcategories,
+        sortOrder,
+        status
+      };
+
+      if (existing) {
+        if (existing.name !== name) {
+          for (const p of state.products) {
+            if (p.category === existing.name) {
+              p.category = name as any;
+            }
+          }
+        }
+        state.categories[state.categories.indexOf(existing)] = item;
+      } else {
+        state.categories.push(item);
+      }
+      registerCategorySlug(item.slug);
+      syncCategoryToSupabase(item).catch(() => {});
+      return item;
+    }
+    case "delete-category": {
+      if (!state.categories || !state.categories.length) state.categories = structuredClone(DEFAULT_CATEGORIES);
+      const id = required(v.id, "Category ID");
+      const idx = state.categories.findIndex(c => c.id === id || c.slug === id);
+      if (idx === -1) throw new StoreError("Category not found.", 404);
+      const category = state.categories[idx];
+      const assignedProducts = state.products.filter(p => p.category === category.name || p.category === category.slug);
+      if (assignedProducts.length > 0) {
+        throw new StoreError(`Cannot delete "${category.name}" because ${assignedProducts.length} product(s) are assigned to it. Reassign or delete those products first.`);
+      }
+      const [removed] = state.categories.splice(idx, 1);
+      unregisterCategorySlug(removed.slug);
+      deleteCategoryFromSupabase(removed.id).catch(() => {});
+      return { deleted: true, category: removed };
     }
     default: throw new StoreError("This action is not supported.");
   }

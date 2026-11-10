@@ -15,7 +15,8 @@ import { payhereMode,payhereReady } from "./payhere";
 import {codSettings} from "@/lib/cod";
 export { RequestError as StoreError } from "./request-security";
 import { PRODUCTS } from "@/data/products";
-import { DEFAULT_HERO, DEFAULT_SETTINGS, type StoreState, type StoreProduct, type PublicStore, type PublicProduct } from "@/lib/store-types";
+import { DEFAULT_HERO, DEFAULT_SETTINGS, DEFAULT_CATEGORIES, type StoreState, type StoreProduct, type PublicStore, type PublicProduct } from "@/lib/store-types";
+import { registerCategorySlug } from "@/lib/categories-config";
 
 import os from "node:os";
 
@@ -33,7 +34,7 @@ export function seedStore(): StoreState {
     const units = p.inventoryCount ?? 0;
     const stock = Object.fromEntries(p.sizes.map((size, n) => [size, Math.floor(units / p.sizes.length) + (n < units % p.sizes.length ? 1 : 0)]));
     return { ...p, sku: `BIN-${String(i + 1).padStart(4, "0")}`, status: "active", stock, lowStockThreshold: 3, compareAtAud: 0, costAud: 0, featured: i < 4, updatedAt: now };
-  }), orders: [], customers: [], messages: [], subscribers: [], returns: [], media: [], hero: DEFAULT_HERO, pages: [
+  }), orders: [], customers: [], messages: [], subscribers: [], returns: [], media: [], hero: DEFAULT_HERO, categories: structuredClone(DEFAULT_CATEGORIES), pages: [
     { slug: "shipping", title: "Shipping & delivery", body: "We ship within Australia. Standard delivery is $12 and express delivery is $18. Orders over $150 receive complimentary express delivery. Delivery estimates are provided when your order is dispatched.", published: true },
     { slug: "returns", title: "Returns & exchanges", body: `Contact our team within 30 days of receiving your order to request a return or exchange. Items should be unworn, unwashed and returned with their original tags. Please contact {{email}} before sending a return.\n\n${RETURNS_CONSUMER_RIGHTS}`, published: true },
     ...structuredClone(DEFAULT_POLICY_PAGES),
@@ -49,7 +50,9 @@ async function atomicWrite(state: StoreState) {
 }
 let initializing: Promise<void> | undefined;
 function cleanStoreMedia(state: StoreState): StoreState {
-  return {...state, products:state.products.map(p=>cleanProductMedia({...p,status:isRetiredProduct(p.id)?"archived":p.status,styleWith:p.styleWith?.filter(id=>!isRetiredProduct(id))})), media:state.media.filter(m=>currentImageSource(m.url)===m.url), orders:state.orders.map(o=>({...o,items:o.items.map(i=>({...i,image:currentImageSource(i.image)}))}))};
+  const categories = state.categories && state.categories.length ? state.categories : structuredClone(DEFAULT_CATEGORIES);
+  categories.forEach(c => registerCategorySlug(c.slug));
+  return {...state, categories, products:state.products.map(p=>cleanProductMedia({...p,status:isRetiredProduct(p.id)?"archived":p.status,styleWith:p.styleWith?.filter(id=>!isRetiredProduct(id))})), media:state.media.filter(m=>currentImageSource(m.url)===m.url), orders:state.orders.map(o=>({...o,items:o.items.map(i=>({...i,image:currentImageSource(i.image)}))}))};
 }
 export async function readStore(): Promise<StoreState> {
   if (hasDatabase()) {
@@ -110,7 +113,7 @@ export async function mutateStore<T>(revision: number | undefined, description: 
 export function publicStore(state: StoreState): PublicStore {
   const paymentEnabled=hasDatabase()&&payhereReady();
   const cod=codSettings(state.settings);cod.enabled=cod.enabled&&(hasDatabase()||!productionStorageRequired());
-  return { discovery: publicDiscovery(state.discovery), revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: {...state.settings,acceptingOrders:state.settings.acceptingOrders&&(paymentEnabled||cod.enabled)},promotions:publishedPromotions(state),homepage:publishedHomepage(state.homepage,new Set(state.products.filter(p=>p.status==="active"&&!isRetiredProduct(p.id)).map(p=>p.id))),payments:{enabled:paymentEnabled,mode:payhereMode(),cod},
+  return { categories: (state.categories ?? DEFAULT_CATEGORIES).filter(c => c.status === "active"), discovery: publicDiscovery(state.discovery), revision: state.revision, hero: state.hero.filter(p => p.enabled), pages: state.pages.filter(p => p.published), settings: {...state.settings,acceptingOrders:state.settings.acceptingOrders&&(paymentEnabled||cod.enabled)},promotions:publishedPromotions(state),homepage:publishedHomepage(state.homepage,new Set(state.products.filter(p=>p.status==="active"&&!isRetiredProduct(p.id)).map(p=>p.id))),payments:{enabled:paymentEnabled,mode:payhereMode(),cod},
     products: state.products.filter(p => p.status === "active" && !isRetiredProduct(p.id)).map((p): PublicProduct => {
       const { sku, costAud, status, featured, updatedAt, lowStockThreshold, ...product } = p;
       const total = Object.values(p.stock).reduce((sum, n) => sum + n, 0);

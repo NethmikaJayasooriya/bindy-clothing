@@ -175,3 +175,33 @@ export async function syncStoreStateToSupabase(state: StoreState) {
     console.warn("[supabase-sync] Error syncing store state:", err);
   }
 }
+
+export async function syncCategoryToSupabase(cat: { id: string; name: string; slug: string; description?: string; image?: string; subcategories: string[]; sortOrder: number; status: string }) {
+  try {
+    const sb = getSupabaseAdmin() as any;
+    if (!sb) return;
+    await sb.from("categories").upsert({
+      id: cat.id,
+      name: cat.name,
+      slug: cat.slug,
+      description: cat.description || null,
+      image: cat.image || null,
+      subcategories: cat.subcategories || [],
+      sort_order: cat.sortOrder || 0,
+      status: cat.status || "active",
+      updated_at: new Date().toISOString(),
+    }, { onConflict: "slug" });
+  } catch (err) {
+    console.warn("[supabase-sync] Error syncing category:", err);
+  }
+}
+
+export async function deleteCategoryFromSupabase(slugOrId: string) {
+  try {
+    const sb = getSupabaseAdmin() as any;
+    if (!sb) return;
+    await sb.from("categories").delete().or(`id.eq.${slugOrId},slug.eq.${slugOrId}`);
+  } catch (err) {
+    console.warn("[supabase-sync] Error deleting category:", err);
+  }
+}

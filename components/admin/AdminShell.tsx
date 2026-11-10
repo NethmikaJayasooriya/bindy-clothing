@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Shirt, Package, ShoppingBag, Users, TicketPercent, Image, PanelsTopLeft, RotateCcw, Inbox, ChartNoAxesCombined, Settings, ExternalLink, LogOut, Menu, X, Bell, RefreshCw, ArrowUpRight, Search } from "lucide-react";
+import { LayoutDashboard, Shirt, Package, ShoppingBag, Users, TicketPercent, Image, PanelsTopLeft, RotateCcw, Inbox, ChartNoAxesCombined, Settings, ExternalLink, LogOut, Menu, X, Bell, RefreshCw, ArrowUpRight, Search, FolderTree } from "lucide-react";
 import { useAdmin } from "./AdminProvider";
 const links = [
-  ["Overview", "/admin", LayoutDashboard], ["Orders", "/admin/orders", ShoppingBag], ["Products", "/admin/products", Shirt], ["Inventory", "/admin/inventory", Package], ["Customers", "/admin/customers", Users], ["Inbox", "/admin/inbox", Inbox], ["Discounts", "/admin/discounts", TicketPercent], ["Promotions", "/admin/promotions", TicketPercent], ["Returns", "/admin/returns", RotateCcw], ["Store content", "/admin/content", PanelsTopLeft], ["Media library", "/admin/media", Image], ["Reports", "/admin/reports", ChartNoAxesCombined], ["Settings", "/admin/settings", Settings],
+  ["Overview", "/admin", LayoutDashboard], ["Orders", "/admin/orders", ShoppingBag], ["Products", "/admin/products", Shirt], ["Categories", "/admin/categories", FolderTree], ["Inventory", "/admin/inventory", Package], ["Customers", "/admin/customers", Users], ["Inbox", "/admin/inbox", Inbox], ["Discounts", "/admin/discounts", TicketPercent], ["Promotions", "/admin/promotions", TicketPercent], ["Returns", "/admin/returns", RotateCcw], ["Store content", "/admin/content", PanelsTopLeft], ["Media library", "/admin/media", Image], ["Reports", "/admin/reports", ChartNoAxesCombined], ["Settings", "/admin/settings", Settings],
 ] as const;
 export default function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname(); const { store, owner, logout, refresh, notify, busy } = useAdmin(); const [open, setOpen] = useState(false); const [notifications, setNotifications] = useState(false);

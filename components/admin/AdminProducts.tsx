@@ -1,13 +1,15 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
-import { useEffect, useState } from "react";
-import { Plus, Download, Archive, ArrowUpRight, ImagePlus, ArrowLeft, ArrowRight, Save, Package, Trash2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Plus, Download, Archive, ArrowUpRight, ImagePlus, ArrowLeft, ArrowRight, Save, Package, Trash2, ChevronDown, X } from "lucide-react";
 import { useAdmin } from "./AdminProvider";
 import { Badge, Button, Empty, Field, MediaPicker, Modal, PageHeading, Pagination, Panel, ProductCell, SearchBox, exportCsv, money, useList } from "./AdminUI";
-import type { StoreProduct } from "@/lib/store-types";
-const categories = ["Dresses", "Tops & Blouses", "Skirts & Pants", "Two Piece Sets"];
+import { DEFAULT_CATEGORIES, type StoreProduct } from "@/lib/store-types";
+import { CategoryEditor } from "./AdminCategories";
+const DEFAULT_CAT_NAMES = ["Dresses", "Tops & Blouses", "Skirts & Pants", "Two Piece Sets"];
 export default function AdminProducts({ inventory = false }: { inventory?: boolean }) {
   const { store, save, busy } = useAdmin(); const [status, setStatus] = useState("all"); const [category, setCategory] = useState("all"); const [editor, setEditor] = useState<StoreProduct | "new" | null>(null); const [selected, setSelected] = useState<string[]>([]); const [stockProduct, setStockProduct] = useState<StoreProduct | null>(null);
+  const categories = store?.categories?.length ? store.categories.map(c => c.name) : DEFAULT_CAT_NAMES;
   const [toDelete, setToDelete] = useState<StoreProduct | StoreProduct[] | null>(null);
   const total = (p: StoreProduct) => Object.values(p.stock).reduce((s,n)=>s+n,0);
   const list = useList(store!.products.filter(p => (category === "all" || p.category === category) && (status === "all" || status === "low" ? status !== "low" || (p.status === "active" && total(p) <= p.lowStockThreshold) : p.status === status)), (p,q) => `${p.name} ${p.sku} ${p.fabric}`.toLowerCase().includes(q));
@@ -63,6 +65,154 @@ export default function AdminProducts({ inventory = false }: { inventory?: boole
   </>;
 }
 function StockEditor({ product, onClose }: { product: StoreProduct; onClose: () => void }) { const { save, busy } = useAdmin(); const [stock,setStock]=useState(product.stock); return <Modal title="Adjust inventory" onClose={onClose}><div className="admin-note">Set the actual available quantity for each size. New orders reduce these quantities automatically.</div><ProductCell product={product} /><form onSubmit={async e=>{e.preventDefault();try{await save("inventory",{id:product.id,stock});onClose();}catch{}}}><div className="admin-form-grid" style={{marginTop:22}}>{product.sizes.map(s=><Field key={s} label={s}><input type="number" min="0" max="1000000" step="1" required value={stock[s]??0} onChange={e=>setStock({...stock,[s]:Number(e.target.value)})} /></Field>)}</div><div className="admin-form-actions"><Button onClick={onClose}>Cancel</Button><Button type="submit" variant="primary" disabled={busy}><Save size={14} />Save inventory</Button></div></form></Modal>; }
+
+function CategorySelector({
+  value,
+  onChange,
+  onAddNewClick,
+  options
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  onAddNewClick: () => void;
+  options: string[];
+}) {
+  const effectiveValue = options.includes(value) ? value : (options[0] || "");
+
+  return (
+    <select
+      value={effectiveValue}
+      onChange={e => {
+        if (e.target.value === "__NEW_CUSTOM_CATEGORY__") {
+          onAddNewClick();
+        } else {
+          onChange(e.target.value);
+        }
+      }}
+    >
+      {options.map(opt => (
+        <option key={opt} value={opt}>
+          {opt}
+        </option>
+      ))}
+      <option disabled value="">──────────────</option>
+      <option value="__NEW_CUSTOM_CATEGORY__">+ Add new category…</option>
+    </select>
+  );
+}
+
+function SubcategorySelector({
+  value,
+  onChange,
+  onAddNew,
+  options,
+  categoryName
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  onAddNew?: (val: string) => void;
+  options: string[];
+  categoryName?: string;
+}) {
+  const [isTyping, setIsTyping] = useState(false);
+  const [typedValue, setTypedValue] = useState("");
+
+  useEffect(() => {
+    if (!isTyping && options.length > 0 && (!value || !options.includes(value))) {
+      onChange(options[0]);
+    }
+  }, [value, options, isTyping, onChange]);
+
+  const commitTypedValue = () => {
+    const trimmed = typedValue.trim();
+    if (!trimmed) {
+      setIsTyping(false);
+      return;
+    }
+    const existing = options.find(o => o.toLowerCase() === trimmed.toLowerCase());
+    const finalValue = existing || trimmed;
+    if (!existing && onAddNew) {
+      onAddNew(trimmed);
+    }
+    onChange(finalValue);
+    setIsTyping(false);
+    setTypedValue("");
+  };
+
+  if (isTyping) {
+    return (
+      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <input
+          autoFocus
+          type="text"
+          value={typedValue}
+          placeholder={`Type new ${categoryName || "category"} subcategory`}
+          onChange={e => setTypedValue(e.target.value)}
+          onKeyDown={e => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              commitTypedValue();
+            } else if (e.key === "Escape") {
+              setIsTyping(false);
+              setTypedValue("");
+            }
+          }}
+          style={{ flex: 1, minWidth: 0 }}
+        />
+        <Button
+          type="button"
+          variant="primary"
+          small
+          onClick={commitTypedValue}
+          disabled={!typedValue.trim()}
+          style={{ whiteSpace: "nowrap", flexShrink: 0 }}
+        >
+          <Plus size={13} />
+          Add
+        </Button>
+        <Button
+          type="button"
+          small
+          onClick={() => {
+            setIsTyping(false);
+            setTypedValue("");
+          }}
+          style={{ whiteSpace: "nowrap", flexShrink: 0 }}
+        >
+          Cancel
+        </Button>
+      </div>
+    );
+  }
+
+  const effectiveValue = options.includes(value) ? value : (options[0] || "");
+
+  return (
+    <select
+      value={effectiveValue}
+      onChange={e => {
+        if (e.target.value === "__NEW_CUSTOM_SUBCATEGORY__") {
+          setIsTyping(true);
+          setTypedValue("");
+        } else {
+          onChange(e.target.value);
+        }
+      }}
+    >
+      {options.length === 0 && (
+        <option value="">(No subcategories yet)</option>
+      )}
+      {options.map(opt => (
+        <option key={opt} value={opt}>
+          {opt}
+        </option>
+      ))}
+      <option disabled value="">──────────────</option>
+      <option value="__NEW_CUSTOM_SUBCATEGORY__">+ Add new subcategory…</option>
+    </select>
+  );
+}
+
 function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: () => void }) {
   const { store, save, busy } = useAdmin();
   const [pick, setPick] = useState(false);
@@ -70,7 +220,44 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
   const [newSize, setNewSize] = useState("");
   const [formError, setFormError] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [p, setP] = useState<StoreProduct>(product ?? { id:"", name:"",sku:"",status:"draft",description:"",heritage:"",category:"Tops & Blouses",fabric:"",colorName:"",colorHex:"#DCC7AF",priceAud:0,compareAtAud:0,costAud:0,featured:false,stock:{"AU 6 (XS)":0,"AU 8 (S)":0,"AU 10 (M)":0,"AU 12 (L)":0,"AU 14 (XL)":0},lowStockThreshold:store!.settings.lowStockThreshold,sizes:["AU 6 (XS)","AU 8 (S)","AU 10 (M)","AU 12 (L)","AU 14 (XL)"],gallery:[],collectionName:"Atelier Separates",craftDetails:[],care:[],soldSeparately:false } as unknown as StoreProduct);
+  const availableCategories = store?.categories?.length ? store.categories.map(c => c.name) : DEFAULT_CAT_NAMES;
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
+  const allAvailableCategories = Array.from(new Set([
+    ...availableCategories,
+    ...(product?.category ? [product.category] : [])
+  ])).filter(Boolean);
+
+  const handleCategoryChange = (nextCat: string) => {
+    const nextSubs = store?.categories?.find(c => c.name === nextCat)?.subcategories
+      ?? DEFAULT_CATEGORIES.find(c => c.name === nextCat)?.subcategories
+      ?? [];
+    update("category", nextCat as StoreProduct["category"]);
+    if (nextSubs.length > 0) {
+      update("subCategory", nextSubs[0]);
+    } else {
+      update("subCategory", "");
+    }
+  };
+  const [p, setP] = useState<StoreProduct>(product ?? { id:"", name:"",sku:"",status:"draft",description:"",heritage:"",category:availableCategories[0] || "Tops & Blouses",fabric:"",colorName:"",colorHex:"#DCC7AF",priceAud:0,compareAtAud:0,costAud:0,featured:false,stock:{"AU 6 (XS)":0,"AU 8 (S)":0,"AU 10 (M)":0,"AU 12 (L)":0,"AU 14 (XL)":0},lowStockThreshold:store!.settings.lowStockThreshold,sizes:["AU 6 (XS)","AU 8 (S)","AU 10 (M)","AU 12 (L)","AU 14 (XL)"],gallery:[],collectionName:"Atelier Separates",craftDetails:[],care:[],soldSeparately:false } as unknown as StoreProduct);
+  const [customSubs, setCustomSubs] = useState<Record<string, string[]>>({});
+  const baseSubs = store?.categories?.find(c => c.name === p.category)?.subcategories
+    ?? DEFAULT_CATEGORIES.find(c => c.name === p.category)?.subcategories
+    ?? [];
+  const subcategoriesForCategory = Array.from(new Set([
+    ...baseSubs,
+    ...(customSubs[p.category] || []),
+    ...(product?.category === p.category && product?.subCategory ? [product.subCategory] : [])
+  ])).filter(Boolean);
+
+  const handleAddNewSub = (newSub: string) => {
+    const trimmed = newSub.trim();
+    if (!trimmed) return;
+    setCustomSubs(prev => ({
+      ...prev,
+      [p.category]: Array.from(new Set([...(prev[p.category] || []), trimmed]))
+    }));
+    update("subCategory", trimmed);
+  };
 
   function update<K extends keyof StoreProduct>(key:K, value:StoreProduct[K]) {
     setP(prev => ({ ...prev, [key]: value }));
@@ -204,9 +391,12 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
               />
             </Field>
             <Field label="Category">
-              <select value={p.category} onChange={e => update("category", e.target.value as StoreProduct["category"])}>
-                {categories.map(c => <option key={c}>{c}</option>)}
-              </select>
+              <CategorySelector
+                value={p.category}
+                onChange={handleCategoryChange}
+                onAddNewClick={() => setShowCategoryModal(true)}
+                options={allAvailableCategories}
+              />
             </Field>
             <Field label="Collection">
               <select value={p.collectionName} onChange={e => update("collectionName", e.target.value as StoreProduct["collectionName"])}>
@@ -217,7 +407,13 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
               <input id="admin-product-fabric" value={p.fabric} onChange={e => update("fabric", e.target.value)} />
             </Field>
             <Field label="Style / subcategory">
-              <input value={p.subCategory || ""} placeholder="e.g. Blouses & Shirts" onChange={e => update("subCategory", e.target.value)} />
+              <SubcategorySelector
+                value={p.subCategory || ""}
+                onChange={val => update("subCategory", val)}
+                onAddNew={handleAddNewSub}
+                options={subcategoriesForCategory}
+                categoryName={p.category}
+              />
             </Field>
             <Field label="Colour name">
               <input id="admin-product-color" value={p.colorName} onChange={e => update("colorName", e.target.value)} />
@@ -241,7 +437,18 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
               {p.gallery.map((url, i) => (
                 <div className="admin-image-item" key={`${url}-${i}`}>
                   <ResponsiveImage src={url} alt={`Product image ${i + 1}`} />
-                  <button type="button" aria-label={`Remove image ${i + 1}`} onClick={() => update("gallery", p.gallery.filter((_, n) => n !== i))}>×</button>
+                  <button
+                    type="button"
+                    className="admin-image-remove"
+                    aria-label={`Remove image ${i + 1}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      update("gallery", p.gallery.filter((_, n) => n !== i));
+                    }}
+                  >
+                    <X size={12} />
+                  </button>
                   <small>{i === 0 ? "Main image" : i === 1 ? "Hover image" : `Image ${i + 1}`}</small>
                   <div className="admin-inline" style={{ justifyContent: "center", marginTop: 5 }}>
                     <Button small disabled={i === 0} aria-label={`Move image ${i + 1} left`} onClick={() => {
@@ -440,6 +647,20 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
           multiple
           onClose={() => setPick(false)}
           onSelect={urls => update("gallery", [...p.gallery, ...urls].slice(0, 8))}
+        />
+      )}
+      {showCategoryModal && (
+        <CategoryEditor
+          onClose={() => setShowCategoryModal(false)}
+          onSaved={savedCat => {
+            update("category", savedCat.name as StoreProduct["category"]);
+            if (savedCat.subcategories.length > 0) {
+              update("subCategory", savedCat.subcategories[0]);
+            } else {
+              update("subCategory", "");
+            }
+            setShowCategoryModal(false);
+          }}
         />
       )}
     </>

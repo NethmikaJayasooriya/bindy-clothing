@@ -13,7 +13,7 @@ export interface EnrichedProduct extends BaseProduct {
   badge?: "NEW" | "LIMITED EDITION" | "BEST SELLER" | "ARCHIVE";
   weightGsm?: number;
   originDistrict?: string;
-  parentCategory: "Tops" | "Bottoms" | "Dresses" | "Resort Wear";
+  parentCategory: "Tops" | "Bottoms" | "Dresses" | "Resort Wear" | (string & {});
   subCategory: string;
   collectionName: "Serendipity" | "Collection 02" | "Atelier Separates";
   occasions: string[];

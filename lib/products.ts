@@ -8,7 +8,8 @@ export type Category =
   | "Dresses"
   | "Tops & Blouses"
   | "Skirts & Pants"
-  | "Two Piece Sets";
+  | "Two Piece Sets"
+  | (string & {});
 
 export type Destination = "Beach" | "Party" | "City" | "Garden" | "Everyday";
 

@@ -1,11 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isRetiredProduct } from "@/lib/retired-products";
+import { isKnownCategorySlug } from "@/lib/categories-config";
 
 // Fast, static checks happen before a loading boundary can send a 200 response.
 // Do not fetch the catalogue or private order data in this request layer.
 export function proxy(request: NextRequest) {
   const parts = request.nextUrl.pathname.split("/").filter(Boolean);
-  const invalidCategory = parts[0] === "collection" && parts.length > 1 && (!["dresses", "tops-and-blouses", "skirts-and-pants", "two-piece-sets"].includes(parts[1]) || parts.length !== 2);
+  const invalidCategory = parts[0] === "collection" && parts.length > 1 && (!isKnownCategorySlug(parts[1]) || parts.length !== 2);
   const invalidRegion = parts[0] === "shopping" && parts.length > 1 && (!["australia", "sri-lanka"].includes(parts[1]) || parts.length !== 2);
   const retired = parts[0] === "product" && isRetiredProduct(parts[1] || "");
   if (invalidCategory || invalidRegion || retired) {
