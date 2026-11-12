@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import type { Product } from "@/data/products";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
+import { useCurrency } from "@/components/CurrencyContext";
 import { addToCart } from "@/lib/cart";
 import { isSizeSoldOut, getFirstAvailableSize } from "@/lib/stock";
 
@@ -106,6 +107,9 @@ export default function CreativeProductCard({
   stockText,
 }: CreativeProductCardProps) {
   const [, setWishlistTick] = useState(0);
+  const { formatPrice } = useCurrency();
+  const priceWithCurrency = formatPrice(product);
+  const priceAmountOnly = formatPrice(product, { showCurrency: false });
 
   useEffect(() => {
     const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
@@ -148,6 +152,8 @@ export default function CreativeProductCard({
     handleQuickView,
     stockStatus,
     stockText,
+    priceWithCurrency,
+    priceAmountOnly,
   };
 
   switch (styleIndex) {
@@ -180,7 +186,7 @@ export default function CreativeProductCard({
 // Mobile: Visible bottom size tray
 // PC: Clean photography, tray reveals exclusively on mouse hover
 // ======================================================================
-function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
+function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -254,7 +260,7 @@ function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAd
           </Link>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-[#DCC7AF]/60 mt-3">
-          <span className="font-outfit text-base sm:text-lg font-extrabold text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="font-outfit text-base sm:text-lg font-extrabold text-[#1F1E1D]">{priceWithCurrency}</span>
           <span className="text-xs font-mono font-bold text-[#B86B4B] bg-[#B86B4B]/10 px-2 py-0.5 rounded-full">Artisan Weave</span>
         </div>
       </div>
@@ -267,7 +273,7 @@ function Style0SculptedArch({ product, inWishlist, handleWishlist, handleQuickAd
 // Mobile: Visible + Quick Add button
 // PC: Clean photography, + Quick Add reveals on hover
 // ======================================================================
-function Style1TactileSwatch({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
+function Style1TactileSwatch({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border-2 border-[#DCC7AF] shadow-sm hover:shadow-xl transition-all duration-300 font-poppins">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
@@ -312,7 +318,7 @@ function Style1TactileSwatch({ product, inWishlist, handleWishlist, handleQuickA
           <p className="text-xs font-poppins text-gray-500 font-medium truncate mt-1">{product.fabric}</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-3">
-          <span className="font-poppins text-base sm:text-lg font-black text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="font-poppins text-base sm:text-lg font-black text-[#1F1E1D]">{priceWithCurrency}</span>
           <button type="button" onClick={handleQuickView} className="text-xs font-poppins font-bold text-[#78716A] hover:text-black underline">Quick View</button>
         </div>
       </div>
@@ -325,7 +331,7 @@ function Style1TactileSwatch({ product, inWishlist, handleWishlist, handleQuickA
 // Mobile: Visible size/add tray
 // PC: Clean photography, tray reveals on hover
 // ======================================================================
-function Style2BoutiqueHangtag({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
+function Style2BoutiqueHangtag({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#C5A059]/60 shadow-sm hover:shadow-xl transition-all duration-300 font-playfair">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
@@ -355,7 +361,7 @@ function Style2BoutiqueHangtag({ product, inWishlist, handleWishlist, handleQuic
           <p className="text-xs font-mono text-[#78716A] truncate mt-1">{product.destinations?.[0] || "Resort"} Edition</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-[#DCC7AF]/60 mt-3 font-sans">
-          <span className="font-outfit text-base sm:text-lg font-extrabold text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="font-outfit text-base sm:text-lg font-extrabold text-[#1F1E1D]">{priceWithCurrency}</span>
           <button type="button" onClick={handleQuickView} className="text-xs font-mono font-bold text-[#B86B4B] hover:underline">Inspect Notes</button>
         </div>
       </div>
@@ -368,7 +374,7 @@ function Style2BoutiqueHangtag({ product, inWishlist, handleWishlist, handleQuic
 // Mobile: Visible view angle toggle
 // PC: Clean photography, toggle reveals on hover
 // ======================================================================
-function Style3DualPerspective({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style3DualPerspective({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   const [viewAngle, setViewAngle] = useState<"front" | "back">("front");
 
   return (
@@ -414,7 +420,7 @@ function Style3DualPerspective({ product, inWishlist, handleWishlist, handleQuic
           <p className="text-xs font-mono font-medium text-[#78716A] truncate mt-1">{product.fabric}</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-3 font-outfit">
-          <span className="text-base sm:text-lg font-black text-black">${product.priceAud} AUD</span>
+          <span className="text-base sm:text-lg font-black text-black">{priceWithCurrency}</span>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-4 py-1.5 bg-[#1F1E1D] hover:bg-[#C5A059] text-white hover:text-black rounded-lg text-xs font-bold uppercase transition-colors">+ Add to Bag</button>
         </div>
       </div>
@@ -427,7 +433,7 @@ function Style3DualPerspective({ product, inWishlist, handleWishlist, handleQuic
 // Mobile: Visible bottom glass bar
 // PC: Clean photography, glass bar reveals and lifts on hover
 // ======================================================================
-function Style4GlassmorphicLuxe({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style4GlassmorphicLuxe({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#11100F] rounded-2xl overflow-hidden border-2 border-[#C5A059]/40 shadow-xl hover:shadow-2xl transition-all duration-500 font-outfit">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
@@ -446,7 +452,7 @@ function Style4GlassmorphicLuxe({ product, inWishlist, handleWishlist, handleQui
         <div className="absolute bottom-3 inset-x-3 bg-white/15 backdrop-blur-xl border border-white/30 rounded-xl p-3.5 text-white shadow-2xl transition-all duration-300 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0">
           <div className="flex items-center justify-between mb-1.5">
             <h3 className="font-outfit text-base font-bold text-white truncate max-w-[70%]">{product.name}</h3>
-            <span className="font-outfit text-base font-black text-[#C5A059]">${product.priceAud}</span>
+            <span className="font-outfit text-base font-black text-[#C5A059]">{priceAmountOnly}</span>
           </div>
           <div className="flex items-center justify-between pt-2 border-t border-white/15">
             <span className="text-xs font-mono text-white/70 truncate">{product.fabric.split(" ")[0]} Weave</span>
@@ -463,7 +469,7 @@ function Style4GlassmorphicLuxe({ product, inWishlist, handleWishlist, handleQui
 // Mobile: Visible size selector glider
 // PC: Clean photography, glider reveals on hover
 // ======================================================================
-function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
+function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   const [justAdded, setJustAdded] = useState<string | null>(null);
 
   return (
@@ -522,7 +528,7 @@ function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuic
           <p className="text-xs font-poppins text-gray-500 font-medium truncate mt-1">{product.story}</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-3">
-          <span className="font-poppins text-base sm:text-lg font-black text-black">${product.priceAud} AUD</span>
+          <span className="font-poppins text-base sm:text-lg font-black text-black">{priceWithCurrency}</span>
           <button type="button" onClick={handleQuickView} className="text-xs font-poppins font-bold text-[#B86B4B] hover:underline">Details</button>
         </div>
       </div>
@@ -535,7 +541,7 @@ function Style5QuickSizeGlider({ product, inWishlist, handleWishlist, handleQuic
 // Mobile: Visible reserve button
 // PC: Clean photography, reserve button reveals on hover
 // ======================================================================
-function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
+function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#1F1E1D] shadow-sm hover:shadow-xl transition-all duration-300 font-playfair">
       <div className="px-4 py-2 bg-[#1F1E1D] text-white flex items-center justify-between text-xs font-mono font-bold uppercase tracking-widest">
@@ -556,7 +562,7 @@ function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuick
           onClick={(e) => handleQuickAdd(e)}
           className="absolute bottom-3 inset-x-4 py-2.5 rounded-full bg-white/95 text-black font-outfit text-xs uppercase tracking-wider font-extrabold shadow-xl hover:bg-[#C5A059] text-center transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0"
         >
-          Instant Reserve • ${product.priceAud} AUD
+          Instant Reserve • {priceWithCurrency}
         </button>
       </div>
       <div className="p-4 flex flex-col flex-1 justify-between bg-[#FAF7F2]">
@@ -567,7 +573,7 @@ function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuick
           <p className="text-xs font-mono font-medium text-gray-700 truncate mt-1">Weft: {product.fabric}</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-[#DCC7AF]/60 mt-3 font-outfit">
-          <span className="font-extrabold text-base sm:text-lg text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="font-extrabold text-base sm:text-lg text-[#1F1E1D]">{priceWithCurrency}</span>
           <button type="button" onClick={handleQuickView} className="text-xs font-bold text-[#B86B4B] hover:underline">Plate Notes</button>
         </div>
       </div>
@@ -580,7 +586,7 @@ function Style6EditorialPlate({ product, inWishlist, handleWishlist, handleQuick
 // Mobile: Visible Inspect Craft button
 // PC: Clean photography, button reveals on hover
 // ======================================================================
-function Style7AuthenticitySeal({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
+function Style7AuthenticitySeal({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#C5A059]/60 shadow-sm hover:shadow-xl transition-all duration-300 font-sans">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F5F2EC]">
@@ -613,7 +619,7 @@ function Style7AuthenticitySeal({ product, inWishlist, handleWishlist, handleQui
           <p className="text-xs font-mono font-bold text-[#B86B4B] mt-1 truncate">Natural Dye: Wild Cinnamon & Salt</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-[#DCC7AF]/60 mt-3 font-outfit">
-          <span className="text-base sm:text-lg font-black text-black">${product.priceAud} AUD</span>
+          <span className="text-base sm:text-lg font-black text-black">{priceWithCurrency}</span>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-4 py-1.5 bg-[#1F1E1D] hover:bg-[#C5A059] text-white hover:text-black rounded-lg text-xs font-bold uppercase transition-colors">Add to Bag</button>
         </div>
       </div>
@@ -626,7 +632,7 @@ function Style7AuthenticitySeal({ product, inWishlist, handleWishlist, handleQui
 // Mobile: Visible quick add drawer
 // PC: Clean photography, drawer slides up on hover
 // ======================================================================
-function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
+function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -646,7 +652,7 @@ function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickA
         <div className="absolute inset-x-0 bottom-0 bg-white/98 backdrop-blur-md border-t border-gray-200 p-3 flex flex-col gap-2 shadow-2xl opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-full sm:group-hover:translate-y-0 transition-transform duration-300 ease-out">
           <div className="flex items-center justify-between text-xs font-poppins font-bold text-gray-700">
             <span>QUICK ADD SIZE:</span>
-            <span className="text-black font-extrabold">${product.priceAud} AUD</span>
+            <span className="text-black font-extrabold">{priceWithCurrency}</span>
           </div>
           <div className="flex items-center gap-1.5">
             {product.sizes.slice(0, 4).map((sz: string) => {
@@ -682,7 +688,7 @@ function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickA
           <p className="text-xs font-poppins text-gray-500 font-medium truncate mt-1">{product.fabric}</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-3">
-          <span className="font-poppins font-black text-base sm:text-lg text-black">${product.priceAud} AUD</span>
+          <span className="font-poppins font-black text-base sm:text-lg text-black">{priceWithCurrency}</span>
           <button type="button" onClick={handleQuickView} className="text-xs font-poppins font-bold text-gray-500 hover:text-black underline">Quick View</button>
         </div>
       </div>
@@ -695,7 +701,7 @@ function Style8SlideUpDrawer({ product, inWishlist, handleWishlist, handleQuickA
 // Mobile: Visible View Specs button
 // PC: Clean photography, button reveals on hover
 // ======================================================================
-function Style9AtelierSpec({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
+function Style9AtelierSpec({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#1E293B] shadow-md hover:shadow-2xl transition-all duration-300 font-sans">
       <div className="bg-[#1E293B] text-white px-3 py-1.5 flex items-center justify-between gap-1.5 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap flex-nowrap">
@@ -731,7 +737,7 @@ function Style9AtelierSpec({ product, inWishlist, handleWishlist, handleQuickAdd
           <p className="text-xs font-mono text-[#78716A] truncate mt-1">{product.fabric}</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-black/10 mt-3 font-outfit">
-          <span className="text-base sm:text-lg font-black text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="text-base sm:text-lg font-black text-[#1F1E1D]">{priceWithCurrency}</span>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-4 py-1.5 bg-[#1E293B] hover:bg-[#C5A059] text-white hover:text-black rounded text-xs font-bold uppercase transition-colors">Add to Bag</button>
         </div>
       </div>
@@ -744,7 +750,7 @@ function Style9AtelierSpec({ product, inWishlist, handleWishlist, handleQuickAdd
 // Mobile: Visible weather info & reserve button
 // PC: Clean photography, bar reveals on hover
 // ======================================================================
-function Style10CoastalTide({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style10CoastalTide({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#DCC7AF] shadow-sm hover:shadow-xl transition-all duration-300 font-outfit">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
@@ -778,7 +784,7 @@ function Style10CoastalTide({ product, inWishlist, handleWishlist, handleQuickAd
           </Link>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-[#DCC7AF]/60 mt-3">
-          <span className="text-base sm:text-lg font-black text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="text-base sm:text-lg font-black text-[#1F1E1D]">{priceWithCurrency}</span>
           <span className="text-xs font-mono font-bold text-[#B86B4B] bg-[#B86B4B]/10 px-2 py-0.5 rounded-full">Breeze Edition</span>
         </div>
       </div>
@@ -790,7 +796,7 @@ function Style10CoastalTide({ product, inWishlist, handleWishlist, handleQuickAd
 // STYLE 12: The Artisan Postcard Provenance (Posse — Fraunces & Mono)
 // Mobile & PC: Clean vintage postcard presentation with artisan provenance
 // ======================================================================
-function Style11ArtisanPostcard({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style11ArtisanPostcard({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] p-2.5 rounded-2xl border-2 border-dashed border-[#DCC7AF] shadow-sm hover:shadow-xl transition-all duration-300 font-sans">
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#ECE6DD]">
@@ -817,7 +823,7 @@ function Style11ArtisanPostcard({ product, inWishlist, handleWishlist, handleQui
           <p className="text-xs font-serif text-gray-600 italic mt-1 truncate">"Woven slowly under coastal palms"</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-[#DCC7AF]/60 mt-3 font-outfit">
-          <span className="text-base sm:text-lg font-black text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="text-base sm:text-lg font-black text-[#1F1E1D]">{priceWithCurrency}</span>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-3.5 py-1.5 bg-[#1F1E1D] hover:bg-[#C5A059] text-white hover:text-black rounded text-xs font-bold uppercase transition-colors">Bag It</button>
         </div>
       </div>
@@ -830,7 +836,7 @@ function Style11ArtisanPostcard({ product, inWishlist, handleWishlist, handleQui
 // Mobile: Visible 120 GSM Voile & Loupe bar
 // PC: Clean photography, bar reveals on hover
 // ======================================================================
-function Style12AsymmetricSplit({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView }: any) {
+function Style12AsymmetricSplit({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border-2 border-gray-200 shadow-sm hover:shadow-2xl transition-all duration-300 font-sans">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-gray-100">
@@ -860,7 +866,7 @@ function Style12AsymmetricSplit({ product, inWishlist, handleWishlist, handleQui
           <p className="text-xs font-mono font-medium text-gray-500 mt-1 truncate">{product.fabric}</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-3 font-outfit">
-          <span className="text-base sm:text-lg font-black text-black">${product.priceAud} AUD</span>
+          <span className="text-base sm:text-lg font-black text-black">{priceWithCurrency}</span>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-4 py-1.5 bg-black hover:bg-[#C5A059] text-white hover:text-black rounded text-xs font-bold uppercase transition-colors">Add to Bag</button>
         </div>
       </div>
@@ -873,7 +879,7 @@ function Style12AsymmetricSplit({ product, inWishlist, handleWishlist, handleQui
 // Mobile: Visible size selection glider
 // PC: Clean photography, size glider reveals on hover
 // ======================================================================
-function Style13PureMinimalist({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style13PureMinimalist({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] p-1.5 rounded-2xl hover:bg-white transition-colors duration-500 border-2 border-transparent hover:border-[#DCC7AF] font-outfit">
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#EBE5DC]">
@@ -901,7 +907,7 @@ function Style13PureMinimalist({ product, inWishlist, handleWishlist, handleQuic
         <Link href={`/product/${product.id}`}>
           <h3 className="font-outfit text-base font-bold text-[#1F1E1D] truncate max-w-[160px]">{product.name}</h3>
         </Link>
-        <span className="font-outfit text-base font-extrabold text-[#1F1E1D]">${product.priceAud}</span>
+        <span className="font-outfit text-base font-extrabold text-[#1F1E1D]">{priceAmountOnly}</span>
       </div>
     </div>
   );
@@ -912,7 +918,7 @@ function Style13PureMinimalist({ product, inWishlist, handleWishlist, handleQuic
 // Mobile: Visible shell reserve bar
 // PC: Clean photography, bar reveals on hover
 // ======================================================================
-function Style14SculpturalHardware({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style14SculpturalHardware({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#1F1E1D] text-white rounded-2xl overflow-hidden border-2 border-[#C5A059]/60 shadow-xl hover:shadow-2xl transition-all duration-300 font-playfair">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-black/40">
@@ -940,7 +946,7 @@ function Style14SculpturalHardware({ product, inWishlist, handleWishlist, handle
           <p className="text-xs font-mono text-[#DCC7AF]/80 mt-1 truncate">{product.fabric}</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-white/15 mt-3 font-outfit">
-          <span className="font-black text-base sm:text-lg text-[#C5A059]">${product.priceAud} AUD</span>
+          <span className="font-black text-base sm:text-lg text-[#C5A059]">{priceWithCurrency}</span>
           <span className="text-xs font-mono text-white/70">Limited Capsule</span>
         </div>
       </div>
@@ -953,7 +959,7 @@ function Style14SculpturalHardware({ product, inWishlist, handleWishlist, handle
 // Mobile: Visible biodegradable add button
 // PC: Clean photography, button reveals on hover
 // ======================================================================
-function Style15EcoCarbonMetric({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style15EcoCarbonMetric({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#4E6349] shadow-sm hover:shadow-xl transition-all duration-300 font-poppins">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#EAE8E2]">
@@ -985,7 +991,7 @@ function Style15EcoCarbonMetric({ product, inWishlist, handleWishlist, handleQui
           </Link>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-[#DCC7AF]/60 mt-3 font-outfit">
-          <span className="text-base sm:text-lg font-black text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="text-base sm:text-lg font-black text-[#1F1E1D]">{priceWithCurrency}</span>
           <span className="text-xs font-mono font-bold text-[#4E6349] bg-[#4E6349]/10 px-2 py-0.5 rounded-full">Botanical Vat</span>
         </div>
       </div>
@@ -998,7 +1004,7 @@ function Style15EcoCarbonMetric({ product, inWishlist, handleWishlist, handleQui
 // Mobile: Visible dye spec and add button
 // PC: Clean photography, bar reveals on hover
 // ======================================================================
-function Style16BotanicalDyeVat({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style16BotanicalDyeVat({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#1C1A18] text-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#C5A059]/40 shadow-lg hover:shadow-2xl transition-all duration-300 font-serif">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-black/50">
@@ -1027,7 +1033,7 @@ function Style16BotanicalDyeVat({ product, inWishlist, handleWishlist, handleQui
           <p className="text-xs font-mono text-[#DCC7AF]/80 mt-1 truncate">Dye Time: 48 Hours Sun Bath</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-white/15 mt-3 font-outfit">
-          <span className="font-black text-base sm:text-lg text-[#C5A059]">${product.priceAud} AUD</span>
+          <span className="font-black text-base sm:text-lg text-[#C5A059]">{priceWithCurrency}</span>
           <span className="text-xs font-mono text-white/60">Raw Pit-Loom</span>
         </div>
       </div>
@@ -1040,7 +1046,7 @@ function Style16BotanicalDyeVat({ product, inWishlist, handleWishlist, handleQui
 // Mobile: Visible gather button
 // PC: Clean photography, gather button reveals on hover
 // ======================================================================
-function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] p-2.5 rounded-3xl border-2 border-[#DCC7AF] shadow-sm hover:shadow-xl transition-all duration-300 font-playfair">
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-[#ECE6DD]">
@@ -1060,7 +1066,7 @@ function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQu
           onClick={(e) => handleQuickAdd(e)}
           className="absolute bottom-3 inset-x-4 py-2.5 bg-[#1F1E1D] text-white rounded-full font-outfit text-xs uppercase font-extrabold shadow-lg text-center hover:bg-[#B86B4B] transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:translate-y-2 sm:group-hover:translate-y-0"
         >
-          Gather Piece • ${product.priceAud} AUD
+          Gather Piece • {priceWithCurrency}
         </button>
       </div>
       <div className="p-3.5 flex flex-col flex-1 justify-between">
@@ -1071,7 +1077,7 @@ function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQu
           <p className="text-xs font-serif text-[#78716A] italic line-clamp-1 mt-1">"{product.story}"</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-[#DCC7AF]/60 mt-3 font-outfit">
-          <span className="font-extrabold text-base sm:text-lg text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="font-extrabold text-base sm:text-lg text-[#1F1E1D]">{priceWithCurrency}</span>
           <span className="text-xs font-mono font-bold text-[#B86B4B]">Heirloom Voile</span>
         </div>
       </div>
@@ -1084,7 +1090,7 @@ function Style17RomanticHeirloom({ product, inWishlist, handleWishlist, handleQu
 // Mobile: Visible weft density specs
 // PC: Clean photography, specs reveal on hover
 // ======================================================================
-function Style18TextileDensity({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style18TextileDensity({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#FAF7F2] rounded-2xl overflow-hidden border-2 border-[#1F1E1D] shadow-sm hover:shadow-xl transition-all duration-300 font-poppins">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE6DD]">
@@ -1112,7 +1118,7 @@ function Style18TextileDensity({ product, inWishlist, handleWishlist, handleQuic
           <p className="text-xs font-mono font-medium text-[#78716A] truncate mt-1">38 Hours Master Weaving Time</p>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-[#DCC7AF]/60 mt-3 font-outfit">
-          <span className="font-black text-base sm:text-lg text-[#1F1E1D]">${product.priceAud} AUD</span>
+          <span className="font-black text-base sm:text-lg text-[#1F1E1D]">{priceWithCurrency}</span>
           <button type="button" onClick={(e) => handleQuickAdd(e)} className="px-4 py-1.5 bg-[#1F1E1D] text-white hover:bg-[#C5A059] hover:text-black rounded text-xs font-bold uppercase transition-colors">Add</button>
         </div>
       </div>
@@ -1125,7 +1131,7 @@ function Style18TextileDensity({ product, inWishlist, handleWishlist, handleQuic
 // Mobile: Visible scarcity badge & Quick Add
 // PC: Clean photography, scarcity & Quick Add reveal on hover
 // ======================================================================
-function Style19PrivateVault({ product, inWishlist, handleWishlist, handleQuickAdd }: any) {
+function Style19PrivateVault({ product, inWishlist, handleWishlist, handleQuickAdd, handleQuickView, priceWithCurrency, priceAmountOnly, stockStatus, stockText }: any) {
   return (
     <div className="group relative flex flex-col h-full bg-[#0E0D0C] text-white rounded-2xl overflow-hidden border-2 border-white/30 shadow-2xl hover:border-[#C5A059] transition-all duration-300 font-outfit">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
@@ -1161,7 +1167,7 @@ function Style19PrivateVault({ product, inWishlist, handleWishlist, handleQuickA
           </Link>
         </div>
         <div className="flex items-center justify-between pt-3 border-t border-white/15 mt-3 font-outfit">
-          <span className="font-black text-base sm:text-lg text-[#C5A059]">${product.priceAud} AUD</span>
+          <span className="font-black text-base sm:text-lg text-[#C5A059]">{priceWithCurrency}</span>
           <span className="text-xs font-mono font-bold text-white/50">VIP Access</span>
         </div>
       </div>

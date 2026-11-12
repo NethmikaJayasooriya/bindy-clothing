@@ -1,6 +1,7 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -14,7 +15,8 @@ export interface RecentlyViewedProps {
 const STORAGE_KEY = "bindy-recently-viewed";
 
 export default function RecentlyViewed({ currentProductId }: RecentlyViewedProps) {
-  const {products:PRODUCTS}=useStorefront();
+  const { products: PRODUCTS } = useStorefront();
+  const { getPrice, isLkr } = useCurrency();
   const [recentProducts, setRecentProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -83,7 +85,7 @@ export default function RecentlyViewed({ currentProductId }: RecentlyViewedProps
                 {p.name}
               </h4>
               <p className="mt-1 text-xs font-serif font-semibold text-charcoal">
-                ${p.priceAud} AUD
+                {isLkr ? `Rs. ${getPrice(p).amount.toLocaleString()}` : `$${getPrice(p).amount} AUD`}
               </p>
             </Link>
           ))}

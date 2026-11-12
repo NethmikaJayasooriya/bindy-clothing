@@ -2,6 +2,7 @@
 import { trackCommerce } from "@/lib/analytics";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -28,26 +29,8 @@ export default function CartDrawer({
   onRemoveItem,
 }: CartDrawerProps) {
   const { settings, payments } = useStorefront();
+  const { market, setMarket, isLkr, isAud, getPrice } = useCurrency();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => propsItems ?? getCart());
-  const [market, setMarket] = useState<string>("Australia");
-
-  useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem("bindy_market") || localStorage.getItem("bindy_market");
-      if (saved === "Australia" || saved === "Sri Lanka") {
-        setMarket(saved);
-        return;
-      }
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-      if (tz === "Asia/Colombo") {
-        setMarket("Sri Lanka");
-      } else {
-        setMarket("Australia");
-      }
-    } catch {
-      /* default to Australia */
-    }
-  }, [isOpen]);
 
   // Reactively sync with cart storage across the entire application
   useEffect(() => {
@@ -109,7 +92,7 @@ export default function CartDrawer({
   };
 
   const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.product.priceAud * item.quantity,
+    (sum, item) => sum + getPrice(item.product).amount * item.quantity,
     0
   );
 
@@ -238,7 +221,7 @@ export default function CartDrawer({
                             Size: {item.size} • {item.product.colorName}
                           </p>
                           <p className="font-serif text-sm font-semibold text-charcoal mt-0.5">
-                            ${item.product.priceAud} AUD
+                            {isLkr ? `Rs. ${getPrice(item.product).amount.toLocaleString()}` : `$${getPrice(item.product).amount} AUD`}
                           </p>
                         </div>
 
@@ -278,13 +261,13 @@ export default function CartDrawer({
                   <div className="flex items-center justify-between font-serif text-lg">
                     <span className="text-charcoal-subtle">Subtotal:</span>
                     <span className="text-xl font-bold text-charcoal">
-                      ${subtotal} AUD
+                      {isLkr ? `Rs. ${subtotal.toLocaleString()}` : `$${subtotal} AUD`}
                     </span>
                   </div>
 
                   <p className="text-xs sm:text-sm font-sans text-charcoal-subtle text-center">
-                    {payments?.cod?.enabled
-                      ? "Catalogue prices are AUD. Sri Lanka checkout shows LKR totals and COD; Australian shipping offers apply only within Australia."
+                    {isLkr
+                      ? "Cash on delivery (COD) available islandwide across Sri Lanka."
                       : "Taxes and delivery are calculated at checkout. Free-shipping offers apply within Australia."}
                   </p>
 

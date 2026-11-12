@@ -13,6 +13,7 @@ import { setBuyNowItem } from "@/lib/cart";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 import SizeGuideModal from "@/components/SizeGuideModal";
 import { isSizeSoldOut } from "@/lib/stock";
+import { useCurrency } from "@/components/CurrencyContext";
 
 interface ProductModalProps {
   product: Product | null;
@@ -45,6 +46,8 @@ export default function ProductModal({
     }
   }, [product]);
 
+  const { getPrice, isLkr, isAud } = useCurrency();
+  const priceInfo = product ? getPrice(product) : null;
   const contents = product ? purchaseContents(product) : null;
   const sizes = product ? product.sizes : [];
   const canPurchase = !!selectedSize && !isSizeSoldOut(product?.stock, selectedSize);
@@ -147,11 +150,18 @@ export default function ProductModal({
                     </h3>
                     <div className="flex items-baseline gap-2 mt-2">
                       <span className="font-serif text-2xl font-medium text-charcoal-rich">
-                        ${product.priceAud} AUD
+                        {priceInfo ? (isLkr ? `Rs. ${priceInfo.amount.toLocaleString()}` : `$${priceInfo.amount} AUD`) : ""}
                       </span>
-                      <span className="text-xs text-charcoal-subtle font-sans font-light">
-                        • 4 payments of ${installment} with Afterpay
-                      </span>
+                      {isAud && (
+                        <span className="text-xs text-charcoal-subtle font-sans font-light">
+                          • 4 payments of ${installment} with Afterpay
+                        </span>
+                      )}
+                      {isLkr && (
+                        <span className="text-xs text-emerald-700 font-sans font-light">
+                          • Cash on delivery & PayHere in Sri Lanka
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -253,7 +263,7 @@ export default function ProductModal({
                     ) : (
                       <>
                         <ShoppingBag className="w-4 h-4" />
-                        <span>Add to Bag • ${product.priceAud} AUD</span>
+                        <span>Add to Bag • {priceInfo ? (isLkr ? `Rs. ${priceInfo.amount.toLocaleString()}` : `$${priceInfo.amount} AUD`) : ""}</span>
                       </>
                     )}
                   </button>

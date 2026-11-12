@@ -2,6 +2,7 @@
 import { purchaseContents } from "@/lib/purchase-contents";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 import { getStockForSize, isSizeSoldOut } from "@/lib/stock";
 
 import React, { useMemo, useState, useEffect, useRef } from "react";
@@ -173,6 +174,8 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
     };
   }, []);
 
+  const { getPrice, isLkr, isAud } = useCurrency();
+  const priceInfo = getPrice(product);
   const avg = useMemo(() => getAverageRating(product), [product]);
   const installment = useMemo(() => (product.priceAud / 4).toFixed(2), [product.priceAud]);
   const galleryImages = product.gallery;
@@ -557,16 +560,27 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             <div className="mt-4 pt-3 border-t border-sand/40">
               <div className="flex items-baseline gap-2">
                 <span className="font-serif text-3xl sm:text-4xl font-medium text-charcoal-rich tracking-tight">
-                  ${product.priceAud}
+                  {isLkr ? `Rs. ${priceInfo.amount.toLocaleString()}` : `$${priceInfo.amount}`}
                 </span>
                 <span className="text-sm font-sans text-charcoal-subtle font-medium">
-                  AUD
+                  {priceInfo.currency}
                 </span>
                 <span className="text-xs text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 ml-2 font-sans font-medium">
-                  Tax Included
+                  {isLkr ? "Islandwide Delivery" : "Tax Included"}
                 </span>
               </div>
 
+              {isAud && (
+                <div className="flex items-center gap-2 text-xs text-charcoal-subtle font-sans pt-1">
+                  <span>or 4 interest-free payments of <strong>${installment} AUD</strong> with</span>
+                  <span className="font-semibold text-charcoal tracking-wide">Afterpay</span>
+                </div>
+              )}
+              {isLkr && (
+                <div className="flex items-center gap-2 text-xs text-charcoal-subtle font-sans pt-1">
+                  <span>Cash on delivery (COD) & PayHere secure payment available in Sri Lanka</span>
+                </div>
+              )}
             </div>
 
             {contents && (

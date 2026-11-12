@@ -1,6 +1,7 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -164,7 +165,8 @@ export default function CapsuleWardrobeSection({
   onQuickView,
   onAddToCart,
 }: CapsuleWardrobeSectionProps) {
-  const {products:PRODUCTS}=useStorefront();
+  const { products: PRODUCTS } = useStorefront();
+  const { getPrice, isLkr } = useCurrency();
   const [activeLookId, setActiveLookId] = useState<string>("galle-promenade");
   const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({
     "shore-traces-blouse": "AU 8 (S)",
@@ -357,7 +359,7 @@ export default function CapsuleWardrobeSection({
                       </h4>
                       <div className="flex items-baseline justify-between pt-0.5">
                         <span className="font-serif text-sm font-semibold text-[#1F1E1D]">
-                          ${piece.priceAud} AUD
+                          {isLkr ? `Rs. ${getPrice(PRODUCTS.find(p => p.id === piece.id) || piece).amount.toLocaleString()}` : `$${piece.priceAud} AUD`}
                         </span>
                         <Link
                           href={`/product/${piece.id}`}
@@ -514,7 +516,7 @@ export default function CapsuleWardrobeSection({
                                 {piece.name}
                               </h5>
                               <span className="text-sm font-mono text-charcoal-subtle">
-                                ${piece.priceAud} AUD • {piece.fabric}
+                                {isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount} AUD`} • {piece.fabric}
                               </span>
                             </div>
                           </div>
@@ -595,14 +597,18 @@ export default function CapsuleWardrobeSection({
                       <Layers className="w-4 h-4" />
                       <span>
                         Add Look to Bag (
-                        {activeLook.pieceIds.length === 1
-                          ? "$240 AUD"
+                        {isLkr
+                          ? `Rs. ${activeLook.pieceIds
+                              .map((id) => {
+                                const prod = PRODUCTS.find((p) => p.id === id) || CAPSULE_PIECES.find((p) => p.id === id);
+                                return prod ? getPrice(prod).amount : 0;
+                              })
+                              .reduce((a, b) => a + b, 0).toLocaleString()}`
                           : `$${activeLook.pieceIds
-                              .map(
-                                (id) =>
-                                  CAPSULE_PIECES.find((p) => p.id === id)
-                                    ?.priceAud || 0
-                              )
+                              .map((id) => {
+                                const prod = PRODUCTS.find((p) => p.id === id) || CAPSULE_PIECES.find((p) => p.id === id);
+                                return prod ? getPrice(prod).amount : 0;
+                              })
                               .reduce((a, b) => a + b, 0)} AUD`}
                         )
                       </span>

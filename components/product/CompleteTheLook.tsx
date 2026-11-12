@@ -1,6 +1,7 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -42,7 +43,10 @@ export default function CompleteTheLook({
     (p) => p.id !== currentProduct.id && p.id !== pairedProduct?.id
   ).slice(0, 3);
 
-  const bundleTotal = currentProduct.priceAud + (pairedProduct?.priceAud || 0);
+  const { getPrice, isLkr } = useCurrency();
+  const currentPrice = getPrice(currentProduct);
+  const pairedPrice = pairedProduct ? getPrice(pairedProduct) : null;
+  const bundleTotal = currentPrice.amount + (pairedPrice ? pairedPrice.amount : 0);
 
   const handleAddBundle = () => {
     if (!pairedProduct) return;
@@ -99,7 +103,7 @@ export default function CompleteTheLook({
                       {currentProduct.name}
                     </p>
                     <span className="text-xs font-serif font-semibold text-charcoal">
-                      ${currentProduct.priceAud} AUD
+                      {isLkr ? `Rs. ${currentPrice.amount.toLocaleString()}` : `$${currentPrice.amount} AUD`}
                     </span>
                   </div>
                 </div>
@@ -129,7 +133,7 @@ export default function CompleteTheLook({
                       {pairedProduct.name}
                     </p>
                     <span className="text-xs font-serif font-semibold text-charcoal">
-                      ${pairedProduct.priceAud} AUD
+                      {pairedPrice ? (isLkr ? `Rs. ${pairedPrice.amount.toLocaleString()}` : `$${pairedPrice.amount} AUD`) : ""}
                     </span>
                   </div>
                 </Link>
@@ -142,7 +146,7 @@ export default function CompleteTheLook({
                     Total Bundle
                   </span>
                   <span className="font-serif text-2xl font-semibold text-charcoal">
-                    ${bundleTotal} <span className="text-xs font-sans text-charcoal-subtle">AUD</span>
+                    {isLkr ? `Rs. ${bundleTotal.toLocaleString()}` : `$${bundleTotal}`} <span className="text-xs font-sans text-charcoal-subtle">{isLkr ? "LKR" : "AUD"}</span>
                   </span>
                 </div>
 
@@ -195,7 +199,7 @@ export default function CompleteTheLook({
 
                 <div className="pt-2 border-t border-sand/30 flex items-center justify-between">
                   <span className="font-serif font-semibold text-charcoal text-base">
-                    ${p.priceAud} AUD
+                    {isLkr ? `Rs. ${getPrice(p).amount.toLocaleString()}` : `$${getPrice(p).amount} AUD`}
                   </span>
                   <span className="text-sm font-sans uppercase font-semibold tracking-wider text-gold font-semibold flex items-center gap-1">
                     <span>View Piece</span>

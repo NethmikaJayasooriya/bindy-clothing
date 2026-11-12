@@ -4,6 +4,7 @@ import "./globals.css";
 import NavigationFeedback from "@/components/NavigationFeedback";
 import { readPublicStore } from "@/lib/server/store-repository";
 import { StorefrontProvider } from "@/components/StorefrontProvider";
+import { CurrencyProvider } from "@/components/CurrencyContext";
 import SocialRail from "@/components/SocialRail";
 import JsonLd from "@/components/JsonLd";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
@@ -105,7 +106,7 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={`${inter.variable} ${fraunces.variable} ${leagueSpartan.variable} ${poppins.variable} ${outfit.variable} ${playfair.variable} ${cormorant.variable} antialiased bg-[#FAF7F2] text-[#1F1E1D] overflow-x-hidden selection:bg-[#C5A059] selection:text-white font-sans`}
       >
-        <StorefrontProvider initial={initialStore}>{initialStore&&<JsonLd data={brandSchema(initialStore.settings)}/>}<NavigationFeedback/>{children}<SocialRail/><AnalyticsConsent/></StorefrontProvider>
+        <StorefrontProvider initial={initialStore}><CurrencyProvider>{initialStore&&<JsonLd data={brandSchema(initialStore.settings)}/>}<NavigationFeedback/>{children}<SocialRail/><AnalyticsConsent/></CurrencyProvider></StorefrontProvider>
       </body>
     </html>
   );

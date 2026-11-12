@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useCurrency } from "@/components/CurrencyContext";
 import {
   motion,
   AnimatePresence,
@@ -231,6 +232,10 @@ export default function CinematicHero({
   const prefersReduced = useReducedMotion();
 
   const currentLook = EDITORIAL_LOOKS[activeLookIndex];
+  const { isLkr } = useCurrency();
+  const lookPriceFormatted = isLkr
+    ? `Rs. ${(Math.ceil(currentLook.priceAud * 200)).toLocaleString()}`
+    : `$${currentLook.priceAud} AUD`;
 
   // Preload all 5 images on mount
   useEffect(() => {
@@ -535,7 +540,7 @@ export default function CinematicHero({
                 >
                   <ShoppingBag className="w-4 h-4 text-amber-300" />
                   <span>View Look Details</span>
-                  <span className="font-mono text-xs text-white/70 ml-1">(${currentLook.priceAud} AUD)</span>
+                  <span className="font-mono text-xs text-white/70 ml-1">({lookPriceFormatted})</span>
                 </Link>
               </div>
             </motion.div>
@@ -572,7 +577,7 @@ export default function CinematicHero({
               </h4>
               <div className="flex items-center justify-between mt-3">
                 <span className="font-mono text-base font-bold text-white tracking-wider">
-                  ${currentLook.priceAud} <span className="text-xs font-normal text-white/60">AUD</span>
+                  {lookPriceFormatted}
                 </span>
                 <span className="text-[11px] font-mono text-amber-200/80 bg-white/10 px-2 py-0.5 rounded-full border border-white/10">
                   {currentLook.origin.split("&")[0]}

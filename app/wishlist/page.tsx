@@ -16,8 +16,10 @@ import {
 } from "@/lib/wishlist";
 import { addToCart } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
+import { useCurrency } from "@/components/CurrencyContext";
 
 export default function WishlistPage() {
+  const { getPrice, isLkr } = useCurrency();
   const [items, setItems] = useState<Product[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
   const [addedItemMap, setAddedItemMap] = useState<Record<string, boolean>>({});
@@ -170,7 +172,7 @@ export default function WishlistPage() {
                         {product.name}
                       </Link>
                       <div className="flex items-center justify-between mt-2 text-sm">
-                        <span className="font-serif font-semibold">${product.priceAud} AUD</span>
+                        <span className="font-serif font-semibold">{isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount} AUD`}</span>
                         <span className="text-xs text-[#78716A]">{product.colorName}</span>
                       </div>
                     </div>

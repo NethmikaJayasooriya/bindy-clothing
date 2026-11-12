@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { PRODUCTS, type Product } from "@/data/products";
 import { addToCart } from "@/lib/cart";
+import { useCurrency } from "@/components/CurrencyContext";
 
 export interface VerifiedReviewsSellingSectionProps {
   onQuickView?: (product: Product) => void;
@@ -137,6 +138,7 @@ export default function VerifiedReviewsSellingSection({
   onQuickView,
   onAddToCart,
 }: VerifiedReviewsSellingSectionProps) {
+  const { getPrice, isLkr } = useCurrency();
   const [activeFilter, setActiveFilter] = useState<"all" | "coastal" | "city" | "garden">("all");
   const [addedId, setAddedId] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -368,7 +370,7 @@ export default function VerifiedReviewsSellingSection({
                         {product.name}
                       </span>
                       <span className="font-mono text-xs font-bold text-[#1F1E1D] block">
-                        ${product.priceAud} <span className="text-xs text-charcoal-subtle font-normal">AUD</span>
+                        {isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount}`} <span className="text-xs text-charcoal-subtle font-normal">{isLkr ? "LKR" : "AUD"}</span>
                       </span>
                     </div>
                   </Link>

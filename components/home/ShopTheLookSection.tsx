@@ -6,6 +6,7 @@ import { useStorefront } from "@/components/StorefrontProvider";
 import { homepageProducts } from "@/lib/homepage-content";
 import type { Product } from "@/data/products";
 import { SectionHeading } from "@/components/ui";
+import { useCurrency } from "@/components/CurrencyContext";
 
 export interface ShopTheLookSectionProps {
   onQuickView?: (product: Product) => void;
@@ -14,6 +15,7 @@ export interface ShopTheLookSectionProps {
 
 export default function ShopTheLookSection({ onQuickView, onAddToCart }: ShopTheLookSectionProps) {
   const { products, homepage } = useStorefront();
+  const { getPrice, isLkr } = useCurrency();
   const content = homepage?.shopTheLook;
   const pieces = homepageProducts(content?.productIds ?? [], products);
   const [sizes, setSizes] = useState<Record<string, string>>({});
@@ -30,7 +32,7 @@ export default function ShopTheLookSection({ onQuickView, onAddToCart }: ShopThe
             <div className="p-5 sm:p-6 space-y-4">
               <Link href={`/product/${product.id}`} className="block font-serif text-2xl">{product.name}</Link>
               <p className="text-sm text-charcoal-subtle">{product.fabric}</p>
-              <p className="font-semibold">${product.priceAud} AUD</p>
+              <p className="font-semibold">{isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount} AUD`}</p>
               <label className="block text-xs">Size for {product.name}<select value={size} onChange={e => setSizes(current => ({ ...current, [product.id]: e.target.value }))} className="mt-2 w-full p-3 border border-sand bg-white"><option value="">Choose a size</option>{product.sizes.map(value => <option key={value} value={value} disabled={!available(value)}>{value}{!available(value) ? " · sold out" : ""}</option>)}</select></label>
               <div className="flex gap-3 flex-wrap">
                 <button type="button" disabled={!size || !available(size)} onClick={() => onAddToCart?.(product, size)} className="bg-charcoal text-white px-5 py-3 text-xs uppercase tracking-wider disabled:opacity-40">Add to bag</button>

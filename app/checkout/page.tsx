@@ -2,6 +2,7 @@
 import ResponsiveImage from "@/components/ResponsiveImage";
 import SriLankaCheckout from "@/components/checkout/SriLankaCheckout";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency, type Market } from "@/components/CurrencyContext";
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
@@ -110,53 +111,10 @@ const isShippingComplete = (s: ShippingData): boolean => {
 const isPaymentComplete = (_p: PaymentData): boolean => true;
 
 export default function CheckoutPage() {
-  const [market, setMarket] = useState("Sri Lanka");
-
-  useEffect(() => {
-    try {
-      // 1. Check URL query params (?market=Australia or ?country=AU)
-      const params = new URLSearchParams(window.location.search);
-      const paramMarket = params.get("market") || params.get("country");
-      if (paramMarket) {
-        const lower = paramMarket.toLowerCase();
-        if (lower.includes("aus") || lower === "au") {
-          setMarket("Australia");
-          sessionStorage.setItem("bindy_market", "Australia");
-          return;
-        }
-        if (lower.includes("sri") || lower === "lk") {
-          setMarket("Sri Lanka");
-          sessionStorage.setItem("bindy_market", "Sri Lanka");
-          return;
-        }
-      }
-
-      // 2. Check saved preference in session/local storage
-      const saved = sessionStorage.getItem("bindy_market") || localStorage.getItem("bindy_market");
-      if (saved === "Australia" || saved === "Sri Lanka") {
-        setMarket(saved);
-        return;
-      }
-
-      // 3. Fallback to client timezone detection (Australian visitors default to Australia)
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-      if (tz.startsWith("Australia") || tz.startsWith("Pacific/Auckland")) {
-        setMarket("Australia");
-        sessionStorage.setItem("bindy_market", "Australia");
-      }
-    } catch {
-      /* default to Sri Lanka */
-    }
-  }, []);
+  const { market, setMarket } = useCurrency();
 
   const handleSetMarket = (next: string) => {
-    setMarket(next);
-    try {
-      sessionStorage.setItem("bindy_market", next);
-      localStorage.setItem("bindy_market", next);
-    } catch {
-      /* ignore storage errors */
-    }
+    setMarket(next as Market);
   };
 
   return market === "Sri Lanka" ? (

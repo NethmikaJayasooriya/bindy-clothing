@@ -14,6 +14,7 @@ import {
   subscribeWishlist,
 } from "@/lib/wishlist";
 import { addToCart } from "@/lib/cart";
+import { useCurrency } from "@/components/CurrencyContext";
 
 interface WishlistDrawerProps {
   isOpen: boolean;
@@ -26,6 +27,7 @@ export default function WishlistDrawer({
   onClose,
   onOpenCart,
 }: WishlistDrawerProps) {
+  const { getPrice, isLkr } = useCurrency();
   const [mounted, setMounted] = useState(false);
   const [items, setItems] = useState<Product[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
@@ -209,7 +211,7 @@ export default function WishlistDrawer({
                           </p>
 
                           <p className="font-serif text-sm font-semibold text-charcoal pt-0.5">
-                            ${product.priceAud} AUD
+                            {isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount} AUD`}
                           </p>
                         </div>
 

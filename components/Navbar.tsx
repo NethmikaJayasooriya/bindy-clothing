@@ -1,5 +1,6 @@
 "use client";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -21,6 +22,7 @@ const stories = [["Style Studio", "/build-your-set"], ["Our story", "/about"], [
 
 export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart, immersive = false }: NavbarProps) {
   const { settings } = useStorefront();
+  const { market, toggleMarket, isLkr } = useCurrency();
   const [overHero, setOverHero] = useState(immersive);
   useEffect(() => {
     if (!immersive) return;
@@ -64,7 +66,19 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
   const closeShop = () => { if (shopRef.current) shopRef.current.open = false; };
   return <>
     <header className={`${styles.header} ${immersive && overHero ? styles.immersive : ""}`}>
-      <div className={styles.announcement}><span>{settings.announcement}</span><span>SRI LANKA <i>↔</i> AUSTRALIA</span><Link href="/about">Two islands. One thread. <ArrowUpRight size={11} /></Link></div>
+      <div className={styles.announcement}>
+        <span>{settings.announcement}</span>
+        <button
+          type="button"
+          onClick={toggleMarket}
+          style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", font: "inherit", display: "inline-flex", alignItems: "center", gap: "6px" }}
+          title="Click to switch delivery destination & currency"
+        >
+          <span>{isLkr ? "🇱🇰 SRI LANKA · LKR" : "🇦🇺 AUSTRALIA · AUD"}</span>
+          <span style={{ opacity: 0.65, fontSize: "10px", textTransform: "uppercase" }}>(change)</span>
+        </button>
+        <Link href="/about">Two islands. One thread. <ArrowUpRight size={11} /></Link>
+      </div>
       <nav className={styles.nav} aria-label="Main navigation">
         <div className={styles.navLeft}>
           <button className={`${styles.icon} ${styles.mobileMenu}`} ref={menuButton} aria-label="Open navigation menu" aria-haspopup="dialog" onClick={() => { menuRef.current?.showModal(); document.body.style.overflow = "hidden"; }}><Menu size={21} strokeWidth={1.4} /></button>
@@ -86,6 +100,26 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
           </div>
         </div>
         <div className={styles.navRight}>
+          <button
+            type="button"
+            onClick={toggleMarket}
+            style={{
+              background: "rgba(0,0,0,0.04)",
+              border: "1px solid rgba(0,0,0,0.12)",
+              borderRadius: "999px",
+              padding: "4px 9px",
+              fontSize: "11px",
+              fontWeight: 600,
+              cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px"
+            }}
+            title="Switch country & currency"
+            aria-label="Switch country and currency"
+          >
+            {isLkr ? "🇱🇰 LKR" : "🇦🇺 AUD"}
+          </button>
           <button className={styles.icon} aria-label="Search garments" onClick={() => setSearchOpen(true)}><Search size={19} strokeWidth={1.35} /></button>
           <Link className={`${styles.icon} ${styles.account}`} href="/account" aria-label={account ? `Account for ${account.name}` : "Account sign in"}><User size={19} strokeWidth={1.35} /></Link>
           <button className={`${styles.icon} ${styles.saved}`} aria-label={`Saved pieces (${wishlistCount})`} onClick={() => setWishlistOpen(true)}><Heart size={18} strokeWidth={1.35} />{wishlistCount > 0 && <span className={styles.badge}>{wishlistCount}</span>}</button>
@@ -99,6 +133,7 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
       <div className={styles.mobileCategories}>{categories.map(([label, href]) => <Link key={href} href={href} onClick={closeMenu}>{label}<ArrowUpRight size={18} /></Link>)}</div>
       <div className={styles.mobileStories}>{stories.map(([label, href]) => <Link key={href} href={href} onClick={closeMenu}>{label}</Link>)}</div>
       <div className={styles.menuUtilities}>
+        <button onClick={() => { toggleMarket(); closeMenu(); }}>{isLkr ? "Delivery: 🇱🇰 Sri Lanka (LKR) · Switch" : "Delivery: 🇦🇺 Australia (AUD) · Switch"}</button>
         <Link href="/account" onClick={closeMenu}>My account</Link>
         <button onClick={() => { closeMenu(); setWishlistOpen(true); }}>Saved pieces ({wishlistCount})</button>
         <Link href="/size-guide" onClick={closeMenu}>Size guide</Link><Link href="/returns/start" onClick={closeMenu}>Track order & returns</Link><Link href="/contact" onClick={closeMenu}>Contact us</Link>

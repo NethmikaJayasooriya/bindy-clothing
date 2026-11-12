@@ -1,6 +1,7 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
@@ -155,6 +156,7 @@ export default function StyleMatcherSection({
   onAddToCart,
 }: StyleMatcherSectionProps) {
   const { products: PRODUCTS } = useStorefront();
+  const { getPrice, isLkr } = useCurrency();
   const [selectedOccasion, setSelectedOccasion] = useState<OccasionKey>("resort");
   const [selectedSilhouette, setSelectedSilhouette] = useState<SilhouetteKey>("all");
   const [selectedFabric, setSelectedFabric] = useState<FabricKey>("all");
@@ -554,7 +556,7 @@ export default function StyleMatcherSection({
                         {/* Price & Guarantee */}
                         <div className="flex items-baseline gap-2 pt-1">
                           <span className="font-serif text-xl sm:text-2xl font-medium text-[#1F1E1D]">
-                            ${product.priceAud} AUD
+                            {isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount} AUD`}
                           </span>
                           <span className="text-xs font-mono text-charcoal-subtle uppercase">
                             • {product.colorName}

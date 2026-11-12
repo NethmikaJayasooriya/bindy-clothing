@@ -10,6 +10,7 @@ import CartDrawer, { CartItem } from "@/components/CartDrawer";
 import { getCart, saveCart, addToCart, subscribe } from "@/lib/cart";
 import { ambientPlayer } from "@/lib/ambientSound";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 import { useTryOn } from "@/components/style-studio/useTryOn";
 import {
   studioPieces,
@@ -27,6 +28,7 @@ function scoreLabel(s: number) {
 
 export default function BuildYourSetPage() {
   const { products } = useStorefront();
+  const { getPrice, isLkr } = useCurrency();
   const { tops: STUDIO_TOPS, bottoms: STUDIO_BOTTOMS } = useMemo(() => studioPieces(products), [products]);
   const [isMuted, setIsMuted] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -59,7 +61,7 @@ export default function BuildYourSetPage() {
   const isSameSet = Boolean(top?.sourceId && top.sourceId === bottom?.sourceId);
 
   const purchasable = useMemo(() => products.filter(p => p.id === top?.sourceId || p.id === bottom?.sourceId), [products, top?.sourceId, bottom?.sourceId]);
-  const pricing = top && bottom ? { total: purchasable.reduce((s,p) => s+p.priceAud,0), savings: 0, subtotal: 0 } : null;
+  const pricing = top && bottom ? { total: purchasable.reduce((s,p) => s + getPrice(p).amount, 0), savings: 0, subtotal: 0 } : null;
 
   const topSizes = useMemo(() => topProduct?.sizes ?? [], [topProduct]);
   const bottomSizes = useMemo(() => bottomProduct?.sizes ?? [], [bottomProduct]);
@@ -235,7 +237,7 @@ export default function BuildYourSetPage() {
                   {pricing && (
                     <div className="text-right shrink-0">
                       {pricing.savings>0&&<div className="text-xs text-charcoal/45 line-through">${pricing.subtotal} AUD</div>}
-                      <div className="font-serif text-2xl font-semibold text-charcoal">${pricing.total} AUD</div>
+                      <div className="font-serif text-2xl font-semibold text-charcoal">{isLkr ? `Rs. ${pricing.total.toLocaleString()}` : `$${pricing.total} AUD`}</div>
                       {pricing.savings>0&&<div className="text-[11px] font-sans uppercase tracking-wide text-gold font-semibold">Save ${pricing.savings}</div>}
                     </div>
                   )}
@@ -412,7 +414,11 @@ export default function BuildYourSetPage() {
                   </div>
                   <div className="p-2">
                     <p className="text-xs font-serif truncate">{piece.name.replace(" — Bottom", "")}</p>
-                    <p className="text-[11px] text-charcoal/55 font-sans">{piece.isSplit ? `Original set · $${products.find(p => p.id === piece.sourceId)?.priceAud ?? 0}` : `$${piece.priceAud}`} AUD</p>
+                    <p className="text-[11px] text-charcoal/55 font-sans">{(() => {
+                      const sp = products.find(p => p.id === piece.sourceId);
+                      const amt = sp ? getPrice(sp).amount : (isLkr ? Math.ceil(piece.priceAud * 200) : piece.priceAud);
+                      return isLkr ? `Rs. ${amt.toLocaleString()}` : `$${amt} AUD`;
+                    })()}</p>
                   </div>
                 </button>
               ))}

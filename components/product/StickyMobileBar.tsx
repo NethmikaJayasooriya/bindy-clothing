@@ -6,6 +6,7 @@ import { ShoppingBag, Check } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { Button } from "@/components/ui";
 import { isSizeSoldOut } from "@/lib/stock";
+import { useCurrency } from "@/components/CurrencyContext";
 
 export interface StickyMobileBarProps {
   product: Product;
@@ -22,6 +23,8 @@ export default function StickyMobileBar({
   onAddToCart,
   isAdded,
 }: StickyMobileBarProps) {
+  const { getPrice, isLkr } = useCurrency();
+  const priceInfo = getPrice(product);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -56,7 +59,7 @@ export default function StickyMobileBar({
               {product.name}
             </h4>
             <span className="font-serif text-xs font-semibold text-charcoal">
-              ${product.priceAud} AUD
+              {isLkr ? `Rs. ${priceInfo.amount.toLocaleString()}` : `$${priceInfo.amount} AUD`}
             </span>
           </div>
         </div>

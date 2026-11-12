@@ -15,6 +15,7 @@ import {
 } from "@/lib/products";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 import { addToCart } from "@/lib/cart";
+import { useCurrency } from "@/components/CurrencyContext";
 import { getAccount } from "@/lib/account";
 
 // Re-export so existing imports (page.tsx, ProductModal) keep working.
@@ -81,6 +82,7 @@ export default function CollectionShowcase({
   onQuickView,
   onAddToCart,
 }: CollectionShowcaseProps) {
+  const { getPrice, isLkr } = useCurrency();
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [activeDest, setActiveDest] = useState<Destination | "All">("All");
   const [, setWishlistTick] = useState(0);
@@ -359,7 +361,7 @@ export default function CollectionShowcase({
 
                   <div className="mt-4 pt-3.5 border-t border-sand/30 flex items-center justify-between">
                     <span className="font-serif text-lg text-charcoal font-semibold tracking-tight">
-                      ${product.priceAud} <span className="text-sm font-sans font-normal text-charcoal-subtle">AUD</span>
+                      {isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount}`} <span className="text-sm font-sans font-normal text-charcoal-subtle">{isLkr ? "LKR" : "AUD"}</span>
                     </span>
                     <Link
                       href={`/product/${product.id}`}

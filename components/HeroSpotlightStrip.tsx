@@ -1,6 +1,7 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -13,7 +14,8 @@ interface HeroSpotlightStripProps {
 }
 
 export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStripProps) {
-  const {products:PRODUCTS}=useStorefront();
+  const { products: PRODUCTS } = useStorefront();
+  const { getPrice, isLkr } = useCurrency();
   const [, setWishlistTick] = useState(0);
 
   useEffect(() => {
@@ -111,7 +113,7 @@ export default function HeroSpotlightStrip({ onSelectProduct }: HeroSpotlightStr
                     {product.name}
                   </h3>
                   <span className="font-serif text-lg font-semibold text-charcoal flex-shrink-0">
-                    ${product.priceAud} <span className="text-sm font-sans font-normal text-charcoal-subtle">AUD</span>
+                    {isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount}`} <span className="text-sm font-sans font-normal text-charcoal-subtle">{isLkr ? "LKR" : "AUD"}</span>
                   </span>
                 </div>
                 <p className="text-xs font-sans text-charcoal-subtle line-clamp-2 leading-relaxed font-light">

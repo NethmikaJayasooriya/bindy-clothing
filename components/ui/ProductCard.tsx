@@ -326,7 +326,7 @@ export default function ProductCard({
         {/* Prominent Price & Architectural Action Button */}
         <div className="pt-2.5 sm:pt-3 border-t border-sand/30 flex items-center justify-between gap-1.5 sm:gap-2">
           {/* High-visibility prominent price */}
-          <Price amount={product.priceAud} size="sm" />
+          <Price product={product} size="sm" />
 
           {/* Clean architectural CTA */}
           <Link

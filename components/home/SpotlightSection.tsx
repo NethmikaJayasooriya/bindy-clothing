@@ -9,6 +9,7 @@ import { type Product } from "@/data/products";
 import { homepageProducts } from "@/lib/homepage-content";
 import { addToCart } from "@/lib/cart";
 import { SectionHeading } from "@/components/ui";
+import { useCurrency } from "@/components/CurrencyContext";
 
 export interface SpotlightSectionProps {
   onSelectProduct?: (product: Product) => void;
@@ -20,6 +21,7 @@ export default function SpotlightSection({
   onAddToCart,
 }: SpotlightSectionProps) {
   const { products, homepage } = useStorefront();
+  const { getPrice, isLkr } = useCurrency();
   const content = homepage?.spotlight;
   const spotlightProducts = homepageProducts(content?.productIds ?? [], products);
   const heroProduct = spotlightProducts[0];
@@ -119,7 +121,7 @@ export default function SpotlightSection({
 
                 <div className="pt-0.5 sm:pt-1">
                   <span className="font-serif text-xl sm:text-3xl font-semibold text-[#1F1E1D]">
-                    ${heroProduct.priceAud} AUD
+                    {isLkr ? `Rs. ${getPrice(heroProduct).amount.toLocaleString()}` : `$${getPrice(heroProduct).amount} AUD`}
                   </span>
                   <span className="block text-[11px] sm:text-xs font-mono text-charcoal-subtle uppercase tracking-wider mt-0.5">
                     {heroProduct.fabric}
@@ -227,7 +229,7 @@ export default function SpotlightSection({
 
                   <div className="flex items-baseline gap-2">
                     <span className="font-serif text-base sm:text-xl font-semibold text-[#1F1E1D]">
-                      ${product.priceAud} AUD
+                      {isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount} AUD`}
                     </span>
                   </div>
 

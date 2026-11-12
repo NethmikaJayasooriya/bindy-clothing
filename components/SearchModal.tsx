@@ -1,6 +1,7 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
@@ -81,6 +82,7 @@ const CATEGORY_CARDS = [
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const { products: PRODUCTS } = useStorefront();
+  const { getPrice, isLkr } = useCurrency();
   const [query, setQuery] = useState("");
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc">("featured");
@@ -545,7 +547,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
                           <div className="pt-2 flex items-center justify-between border-t border-[#DCC7AF]/40">
                             <span className="font-serif text-base font-semibold text-[#1F1E1D]">
-                              ${product.priceAud} AUD
+                              {isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount} AUD`}
                             </span>
                             <span className="text-sm font-mono uppercase tracking-widest text-[#C5A059] flex items-center gap-1 group-hover:underline">
                               <span>View Garment</span>
@@ -596,7 +598,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               {item.name}
                             </p>
                             <p className="text-sm font-mono text-charcoal-subtle">
-                              ${item.priceAud} AUD
+                              {isLkr ? `Rs. ${getPrice(item).amount.toLocaleString()}` : `$${getPrice(item).amount} AUD`}
                             </p>
                           </div>
                         </div>
@@ -717,7 +719,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               {item.fabric}
                             </p>
                             <p className="font-serif text-sm font-semibold text-[#1F1E1D] pt-0.5">
-                              ${item.priceAud} AUD
+                              {isLkr ? `Rs. ${getPrice(item).amount.toLocaleString()}` : `$${getPrice(item).amount} AUD`}
                             </p>
                           </div>
                         </div>
