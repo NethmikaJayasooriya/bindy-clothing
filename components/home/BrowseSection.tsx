@@ -36,19 +36,17 @@ export default function BrowseSection({
   const pathname = usePathname();
   const isTestMode = isTest || pathname === "/test";
 
-  const [activeCollection, setActiveCollection] = useState<"All" | "Serendipity" | "Collection 02">("All");
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
 
   const filteredProducts = useMemo(() => {
     const list = PRODUCTS.filter((p) => {
       const matchCat = activeCategory === "All" || p.category === activeCategory;
       const matchJourney = selectedJourney === "All" || p.destinations.includes(selectedJourney);
-      const matchCol = activeCollection === "All" || p.collectionName === activeCollection;
-      return matchCat && matchJourney && matchCol;
+      return matchCat && matchJourney;
     });
 
     // In test environment "All" view, pad up to 22 so all 20 creative styles + 2 preserved cards are shown
-    if (isTestMode && activeCollection === "All" && activeCategory === "All" && selectedJourney === "All" && list.length < 22) {
+    if (isTestMode && activeCategory === "All" && selectedJourney === "All" && list.length < 22) {
       const padded = [...list];
       let i = 0;
       while (padded.length < 22 && list.length > 0) {
@@ -58,16 +56,16 @@ export default function BrowseSection({
       return padded;
     }
     return list;
-  }, [activeCategory, selectedJourney, activeCollection, isTestMode, PRODUCTS]);
+  }, [activeCategory, selectedJourney, isTestMode, PRODUCTS]);
 
   const displayedProducts = filteredProducts;
-  const availableProducts = PRODUCTS.filter(p => (activeCollection === "All" || p.collectionName === activeCollection) && (selectedJourney === "All" || p.destinations.includes(selectedJourney)));
-  const showMission = !isTestMode && activeCategory === "All" && activeCollection === "All" && selectedJourney === "All" && displayedProducts.length > 8;
+  const availableProducts = PRODUCTS.filter(p => selectedJourney === "All" || p.destinations.includes(selectedJourney));
+  const showMission = !isTestMode && activeCategory === "All" && selectedJourney === "All" && displayedProducts.length > 8;
   const showProducts = () => window.requestAnimationFrame(() => document.getElementById("wardrobe-products")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }));
 
   return (
     <section id="browse-collection" className="relative pb-12 sm:pb-16 bg-paper">
-      <WardrobeEditorial onSelect={category => { setActiveCategory(category); setActiveCollection("All"); onClearJourney?.(); showProducts(); }}/>
+      <WardrobeEditorial onSelect={category => { setActiveCategory(category); onClearJourney?.(); showProducts(); }}/>
       <div className="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8">
         {/* Active Journey Filter Chip (if selected from Journey Tiles) */}
         {selectedJourney !== "All" && (
@@ -99,37 +97,6 @@ export default function BrowseSection({
 
         <div id="wardrobe-products" className={`${discoveryStyles.collectionHeading} scroll-mt-28`}>
           <div><h2>{activeCategory === "All" ? "The collection." : activeCategory}</h2><p className={discoveryStyles.collectionCount} role="status">{displayedProducts.length} pieces to make your own</p></div>
-        {/* Collection Selector Tabs */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 mt-5 sm:mt-0 overflow-x-auto no-scrollbar px-1 pb-1">
-          {[
-            { key: "All", label: "All Collections" },
-            { key: "Serendipity", label: "Collection 01 • Serendipity" },
-            { key: "Collection 02", label: "Collection 02", isNew: true },
-          ].map((col) => {
-            const active = activeCollection === col.key;
-            return (
-              <button
-                key={col.key}
-                type="button"
-                onClick={() => {
-                  setActiveCollection(col.key as any);
-                }}
-                className={`relative px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none whitespace-nowrap flex-shrink-0 ${
-                  active
-                    ? "bg-[#1F1E1D] text-white border-[#1F1E1D] shadow-md font-semibold"
-                    : "bg-white/80 text-charcoal-subtle border-[#DCC7AF]/60 hover:text-[#1F1E1D] hover:border-[#1F1E1D]"
-                }`}
-              >
-                <span>{col.label}</span>
-                {col.isNew && (
-                  <span className="ml-1.5 px-1.5 py-0.2 text-[10px] sm:text-xs rounded-full bg-[#C5A059] text-white font-bold">
-                    NEW
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
 
         </div>
 

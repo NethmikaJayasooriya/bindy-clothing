@@ -52,13 +52,11 @@ function CollectionContent() {
   const paramParent = searchParams.get("parent");
   const paramSub = searchParams.get("sub");
   const paramOccasion = searchParams.get("occasion");
-  const paramCollection = searchParams.get("collection");
   const paramNew = searchParams.get("filter") === "new";
 
   const [selectedParent, setSelectedParent] = useState<string | null>(paramParent);
   const [selectedSub, setSelectedSub] = useState<string | null>(paramSub);
   const [selectedOccasion, setSelectedOccasion] = useState<string | null>(paramOccasion);
-  const [selectedCollection, setSelectedCollection] = useState<string | null>(paramCollection);
   const [filterNewOnly, setFilterNewOnly] = useState<boolean>(paramNew);
 
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "rating">("featured");
@@ -74,7 +72,6 @@ function CollectionContent() {
     setSelectedParent(searchParams.get("parent"));
     setSelectedSub(searchParams.get("sub"));
     setSelectedOccasion(searchParams.get("occasion"));
-    setSelectedCollection(searchParams.get("collection"));
     setFilterNewOnly(searchParams.get("filter") === "new");
   }, [searchParams]);
 
@@ -94,7 +91,6 @@ function CollectionContent() {
     setSelectedParent(null);
     setSelectedSub(null);
     setSelectedOccasion(null);
-    setSelectedCollection(null);
     setFilterNewOnly(false);
   };
 
@@ -104,7 +100,6 @@ function CollectionContent() {
       if (selectedParent && p.parentCategory !== selectedParent) return false;
       if (selectedSub && p.subCategory !== selectedSub) return false;
       if (selectedOccasion && !p.occasions.includes(selectedOccasion)) return false;
-      if (selectedCollection && p.collectionName !== selectedCollection) return false;
       return true;
     }).sort((a, b) => {
       if (sortBy === "price-asc") return a.priceAud - b.priceAud;
@@ -112,12 +107,12 @@ function CollectionContent() {
       if (sortBy === "rating") return (b.reviews?.length || 0) - (a.reviews?.length || 0);
       return 0;
     });
-  }, [selectedParent, selectedSub, selectedOccasion, selectedCollection, filterNewOnly, sortBy, PRODUCTS]);
+  }, [selectedParent, selectedSub, selectedOccasion, filterNewOnly, sortBy, PRODUCTS]);
 
   const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const hasActiveFilters = Boolean(
-    selectedParent || selectedSub || selectedOccasion || selectedCollection || filterNewOnly
+    selectedParent || selectedSub || selectedOccasion || filterNewOnly
   );
 
   return (
@@ -218,14 +213,6 @@ function CollectionContent() {
               <span className="inline-flex items-center space-x-1 px-3 py-1 rounded-full bg-white text-[#1F1E1D] text-xs font-medium border border-[#DCC7AF]">
                 <span>Occasion: {selectedOccasion}</span>
                 <button onClick={() => setSelectedOccasion(null)} className="hover:text-red-500">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            )}
-            {selectedCollection && (
-              <span className="inline-flex items-center space-x-1 px-3 py-1 rounded-full bg-white text-[#1F1E1D] text-xs font-medium border border-[#DCC7AF]">
-                <span>Collection: {selectedCollection}</span>
-                <button onClick={() => setSelectedCollection(null)} className="hover:text-red-500">
                   <X className="w-3 h-3" />
                 </button>
               </span>
@@ -396,77 +383,6 @@ function CollectionContent() {
                   );
                 })}
               </div>
-            </div>
-
-            {/* 4. COLLECTION TAGS */}
-            <div className="bg-white border border-[#DCC7AF]/60 rounded-3xl p-6 shadow-sm space-y-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-mono uppercase tracking-widest text-[#78716A] font-semibold">
-                  Collections
-                </h3>
-                {selectedCollection && (
-                  <button
-                    onClick={() => setSelectedCollection(null)}
-                    className="text-[10px] font-mono text-[#C5A059] hover:underline"
-                  >
-                    Reset
-                  </button>
-                )}
-              </div>
-              <button
-                type="button"
-                onClick={() =>
-                  setSelectedCollection(selectedCollection === "Serendipity" ? null : "Serendipity")
-                }
-                className={`w-full text-left py-2 px-3 rounded-lg text-xs transition-colors flex items-center justify-between ${
-                  selectedCollection === "Serendipity"
-                    ? "bg-[#C5A059]/15 text-[#1F1E1D] font-semibold border border-[#C5A059]/40"
-                    : "text-[#78716A] hover:bg-[#FAF7F2] hover:text-[#1F1E1D]"
-                }`}
-              >
-                <span>Collection 01 • Serendipity</span>
-                {selectedCollection === "Serendipity" && (
-                  <span className="text-[#C5A059] text-xs">✓</span>
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  setSelectedCollection(selectedCollection === "Collection 02" ? null : "Collection 02")
-                }
-                className={`w-full text-left py-2 px-3 rounded-lg text-xs transition-colors flex items-center justify-between ${
-                  selectedCollection === "Collection 02"
-                    ? "bg-[#C5A059]/15 text-[#1F1E1D] font-semibold border border-[#C5A059]/40"
-                    : "text-[#78716A] hover:bg-[#FAF7F2] hover:text-[#1F1E1D]"
-                }`}
-              >
-                <div className="flex items-center gap-1.5">
-                  <span>Collection 02</span>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#C5A059] text-white font-mono uppercase font-bold">New</span>
-                </div>
-                {selectedCollection === "Collection 02" && (
-                  <span className="text-[#C5A059] text-xs">✓</span>
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  setSelectedCollection(selectedCollection === "Atelier Separates" ? null : "Atelier Separates")
-                }
-                className={`w-full text-left py-2 px-3 rounded-lg text-xs transition-colors flex items-center justify-between ${
-                  selectedCollection === "Atelier Separates"
-                    ? "bg-[#C5A059]/15 text-[#1F1E1D] font-semibold border border-[#C5A059]/40"
-                    : "text-[#78716A] hover:bg-[#FAF7F2] hover:text-[#1F1E1D]"
-                }`}
-              >
-                <div className="flex items-center gap-1.5">
-                  <span>Atelier Separates</span>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#5E6C52] text-white font-mono uppercase font-bold">Mix &amp; Match</span>
-                </div>
-                {selectedCollection === "Atelier Separates" && (
-                  <span className="text-[#C5A059] text-xs">✓</span>
-                )}
-              </button>
             </div>
 
             {/* 5. STYLE STUDIO CALLOUT */}
