@@ -1,0 +1,80 @@
+{
+  "createdAt": "2026-11-14",
+  "mode": "Built-in image_gen; exact client garment references",
+  "note": "AI model photographs visually checked against references. Original reference photos retained in product galleries. No promise of pixel-identical AI reconstruction.",
+  "jobs": [
+    {
+      "id": "botanic-rose-relaxed-shirt",
+      "reference": "public\\images\\catalogue-2026\\botanic-shirt-front.webp",
+      "prompt": "Use case: product-mockup. Edit the exact garment in the reference into a premium ecommerce photograph worn by one adult Sri Lankan female model. Preserve the garment itself faithfully: identical color, fabric texture, print motif shapes and relative scale, neckline, sleeve length, seams, buttons and hem. Do not redesign or embellish. One continuous photograph, no collage, no split panels, no text, no watermark, no mannequins or garment stands. Portrait 3:4 framing with the entire model from head to shoes visible, centered, relaxed arms down with garment unobstructed and clear. Soft natural daylight, understated cream courtyard backdrop, realistic skin and fabric, sharp clothing details. The reference image is the garment source: dark forest green shirt with large dusty-pink botanical flowers/leaves, pointed collar, pale buttons, long cuffed sleeves and curved hip-length hem. Model wears this exact shirt untucked with simple ivory tailored trousers and neutral sandals. Preserve cuff gathering, button placement and floral print. Avoid generic substitute print.",
+      "savedPath": "/images/optimized/catalogue-botanic-rose-relaxed-shirt-e86cfed55fe0.webp"
+    },
+    {
+      "id": "botanic-rose-halter-maxi-dress",
+      "reference": "tmp\\pdfs\\client-catalogue-20261114\\assets\\p24-01.jpg",
+      "prompt": "Use case: product-mockup. Edit the exact garment in the reference into a premium ecommerce photograph worn by one adult Sri Lankan female model. Preserve the garment itself faithfully: identical color, fabric texture, print motif shapes and relative scale, neckline, sleeve length, seams, buttons and hem. Do not redesign or embellish. One continuous photograph, no collage, no split panels, no text, no watermark, no mannequins or garment stands. Portrait 3:4 framing with the entire model from head to shoes visible, centered, relaxed arms down with garment unobstructed and clear. Soft natural daylight, understated cream courtyard backdrop, realistic skin and fabric, sharp clothing details. The reference image is the complete garment source: dark forest green maxi dress with peach/pink botanical flower print, very deep V halter neckline, wide halter bands narrowing to neck, fitted shaped waist with gathers beneath, full softly flared ankle-length skirt. Preserve the distinct floral shapes and scale, exact bodice cut and waist. Model wears this exact dress with neutral flat sandals.",
+      "savedPath": "/images/optimized/catalogue-botanic-rose-halter-maxi-dress-148e8cd5dbf2.webp"
+    },
+    {
+      "id": "chartreuse-tailored-rayon-vest",
+      "reference": "public\\images\\catalogue-2026\\lime-vest-front.webp",
+      "prompt": "Use case: product-mockup. Reference is the exact garment to transfer from mannequin onto one adult Sri Lankan female model. Premium ecommerce portrait 3:4 single photograph, full body head to shoes, relaxed arms alongside body, garment clearly visible, soft natural daylight in quiet cream courtyard. Preserve the reference garment's color, texture, cut, seams, lapel geometry, button count/spacing and pointed hem with maximum fidelity. No redesign, no embroidery additions, no collage, no text, no mannequins, no watermark. Model wears the exact vest fastened with plain ivory straight-leg trousers and neutral sandals. Chartreuse yellow-green vest, 4 matching round buttons, sleeveless tailored fitted waist, notched lapels, shallow woven geometric texture, two pointed hem tips. Keep all FOUR buttons and broad notched lapel cut.",
+      "savedPath": "/images/optimized/catalogue-chartreuse-tailored-rayon-vest-2e028f76292b.webp"
+    },
+    {
+      "id": "beige-tailored-rayon-vest",
+      "reference": "public\\images\\catalogue-2026\\beige-vest-front.webp",
+      "prompt": "Use case: product-mockup. Reference is the exact garment to transfer from mannequin onto one adult Sri Lankan female model. Premium ecommerce portrait 3:4 single photograph, full body head to shoes, relaxed arms alongside body, garment clearly visible, soft natural daylight in quiet cream courtyard. Preserve the reference garment's color, texture, cut, seams, lapel geometry, button count/spacing and pointed hem with maximum fidelity. No redesign, no embroidery additions, no collage, no text, no mannequins, no watermark. Model wears the exact vest fastened with plain ivory straight-leg trousers and neutral sandals. Warm beige vest, THREE brown round buttons, sleeveless tailored fitted waist, notched lapels, subtle woven geometric texture and two pointed hem tips. Keep exactly THREE buttons and broad notched lapel cut.",
+      "correctionPrompt": "Use case: precise-object-edit. Image 1 is edit target; image 2 is exact vest reference. Correct ONLY the vest front button closure on the woman in image 1 to match image 2: EXACTLY THREE brown round buttons, NOT FOUR, evenly spaced in the same positions as mannequin reference. Remove fourth button and adjust closure spacing to exactly three. Preserve every other pixel/detail as closely as possible: face, body, pose, cream courtyard, trousers, shoes, beige woven fabric, lapels, seams, hem and light. No other changes. One photograph, no collage or text.",
+      "savedPath": "/images/optimized/catalogue-beige-tailored-rayon-vest-b1aaabee9a8c.webp"
+    },
+    {
+      "id": "chartreuse-embroidered-voile-blouse",
+      "reference": "public\\images\\catalogue-2026\\chartreuse-blouse-front.webp",
+      "prompt": "Use case: product-mockup. Transfer the exact garment from the mannequin reference onto one adult Sri Lankan woman for a premium ecommerce product photo. Preserve garment color, fabric, texture, seams, neckline, straps, sleeve cuffs, hem, gathering, button count and embroidery. Same proportions and details as reference, do not redesign or embellish. Single sharp continuous portrait photograph, full body head to shoes with space around, arms down beside torso, unobstructed garment, cream courtyard and soft neutral daylight. No collage, mannequins, text, watermark or props covering clothes. Plain ivory straight-leg trousers and neutral sandals. Pale lemon chartreuse long-sleeved relaxed shirt blouse, small pointed collar, pale round button placket down the front, softly gathered sleeve cuffs, curved hem. Keep blouse UNTUCKED so entire front and hem are visible.",
+      "savedPath": "/images/optimized/catalogue-chartreuse-embroidered-voile-blouse-a1535727b166.webp"
+    },
+    {
+      "id": "white-cotton-peplum-blouse",
+      "reference": "public\\images\\catalogue-2026\\white-peplum-front.webp",
+      "prompt": "Use case: product-mockup. Transfer the exact garment from the mannequin reference onto one adult Sri Lankan woman for a premium ecommerce product photo. Preserve garment color, fabric, texture, seams, neckline, straps, sleeve cuffs, hem, gathering, button count and embroidery. Same proportions and details as reference, do not redesign or embellish. Single sharp continuous portrait photograph, full body head to shoes with space around, arms down beside torso, unobstructed garment, cream courtyard and soft neutral daylight. No collage, mannequins, text, watermark or props covering clothes. Plain ivory straight-leg trousers and neutral sandals. White cotton peplum camisole blouse with thin straight shoulder straps, straight square neckline, fitted vertically seamed bodice ending at natural waist, softly gathered short flared peplum hem and delicate white floral eyelet embroidery. No buttons, no ties. Exact embroidery scale, no extra tiers. Show the entire blouse hem untucked.",
+      "savedPath": "/images/optimized/catalogue-white-cotton-peplum-blouse-90c251746645.webp"
+    },
+    {
+      "id": "pink-cotton-peplum-blouse",
+      "reference": "public\\images\\catalogue-2026\\pink-peplum-front.webp",
+      "prompt": "Use case: product-mockup. Transfer the exact garment from supplied mannequin reference to one adult Sri Lankan female model, preserving garment construction, color, texture, neckline, straps, seams, cut and hem faithfully. Premium ecommerce photograph, one continuous image in portrait 3:4, head to shoes fully visible with space above and below, arms relaxed down, unobstructed clothes, natural daylight, cream courtyard background, realistic skin and fabric. No collage, no text, no watermark, no mannequin. Soft pink PLAIN cotton peplum camisole blouse, thin adjustable shoulder straps, straight neckline, fitted vertically seamed bodice, gathered waist and one flared short peplum hem. No embroidery, buttons or ties. Wear exact blouse untucked over ivory straight-leg trousers with neutral sandals.",
+      "savedPath": "/images/optimized/catalogue-pink-cotton-peplum-blouse-d0bd0d708d38.webp"
+    },
+    {
+      "id": "triangle-crochet-halter-top",
+      "reference": "public\\images\\catalogue-2026\\triangle-crochet-rust.webp",
+      "prompt": "Use case: product-mockup. Transfer the exact garment from supplied mannequin reference to one adult Sri Lankan female model, preserving garment construction, color, texture, neckline, straps, seams, cut and hem faithfully. Premium ecommerce photograph, one continuous image in portrait 3:4, head to shoes fully visible with space above and below, arms relaxed down, unobstructed clothes, natural daylight, cream courtyard background, realistic skin and fabric. No collage, no text, no watermark, no mannequin. Rust terracotta crochet triangle halter top, two dense concentric crochet triangular cups with openwork square-loop borders along neckline and underbust, slim neck ties and slim underbust tie. EXACTLY reproduce stitch pattern and narrow lower border from reference. Wear with high-waisted ivory wide-leg linen trousers and neutral sandals. No additional broad crochet midriff band, no tassels.",
+      "savedPath": "/images/optimized/catalogue-triangle-crochet-halter-top-59ff60f196cb.webp"
+    },
+    {
+      "id": "ivory-handmade-crochet-halter-top",
+      "reference": "public\\images\\catalogue-2026\\ivory-crochet-front.webp",
+      "prompt": "Use case: product-mockup. Transfer the exact garment from supplied mannequin reference to one adult Sri Lankan female model, preserving garment construction, color, texture, neckline, straps, seams, cut and hem faithfully. Premium ecommerce photograph, one continuous image in portrait 3:4, head to shoes fully visible with space above and below, arms relaxed down, unobstructed clothes, natural daylight, cream courtyard background, realistic skin and fabric. No collage, no text, no watermark, no mannequin. Ivory crochet halter top exactly like reference: two triangular dense concentric crochet cups edged by a narrow row of open rectangular loops, DEEP V meeting at center with a tiny knot, extremely narrow underbust edge with slim ties around back and thin neck ties. Bare midriff. Do NOT add a wide underbust/crop-top band, scallops or extra crochet panels. Wear exact top with the reference warm brown tiered skirt, elastic three-row waistband and front drawcord, three gathered skirt tiers and long maxi length; flat neutral sandals.",
+      "savedPath": "/images/optimized/catalogue-ivory-handmade-crochet-halter-top-860691db317b.webp"
+    },
+    {
+      "id": "serendib-pearl-dress",
+      "reference": "public\\images\\catalogue-2026\\flared-skirt-reference.webp",
+      "prompt": "Use case: product-mockup. Transfer the exact WHITE SKIRT from left mannequin in reference onto one adult Sri Lankan female model. Full-body head-to-shoes ecommerce portrait, single photograph, no collage, text or mannequins. Exact plain white cotton maxi skirt: wide shaped fitted waistband with curved lower seam, gathered full long flared skirt, continuous plain fabric, simple straight stitched bottom hem at ankles. NO embroidery, lace, eyelet, tiers, slits or extra seams. Match reference skirt silhouette and waistband precisely. Pair with a plain fitted white sleeveless crew-neck crop top like reference and neutral flat sandals. Hands relaxed down, all of outfit unobstructed, sharp fabric detail, cream courtyard in soft natural daylight. Ignore the right mannequin and fabric rolls; output ONE woman wearing the skirt.",
+      "savedPath": "/images/optimized/catalogue-serendib-pearl-dress-bf1ae454becb.webp"
+    },
+    {
+      "id": "crimson-lotus-dress",
+      "reference": "public\\images\\catalogue-2026\\crimson-front.webp",
+      "prompt": "Use case: product-mockup. Transfer the exact crimson red dress in mannequin reference onto one adult Sri Lankan woman. Preserve identical red fabric, THIN SHOULDER STRAPS, straight neckline with subtle curved corners, fitted princess-seamed bodice, natural waist seam and gathered very full ankle-length A-line skirt. Do not make strapless, no ruffles, embroidery or extra tiers. Full-body sharp ecommerce portrait from head to flat neutral sandals with all garment visible, relaxed arms down, soft natural daylight in understated cream courtyard. One continuous photograph, no text, no collage, no mannequin, no watermark. Garment fidelity is most important.",
+      "savedPath": "/images/optimized/catalogue-crimson-lotus-dress-f4f5862d3e78.webp"
+    },
+    {
+      "id": "white-embroidered-tie-front-camisole",
+      "reference": "public\\images\\catalogue-2026\\tie-front-cami.webp",
+      "prompt": "Use case: precise-object-edit. Create a clean ecommerce model photograph from the supplied reference: keep the exact garment worn on the woman, remove all poster typography, collage panels and border graphics, make a single continuous scene. One adult Sri Lankan female model full body head to sandals, arms relaxed down, cream courtyard and soft daylight. Preserve the exact white floral-eyelet cotton halter tie-front camisole: deep V, narrow neck ties, gathered empire waist joined by front thin bow with long loose ties, subtle central opening below bow, one gathered flared peplum tier at lower hem; identical white embroidery motifs and scale. Pair with plain rust full skirt like reference. No changes to garment cut, straps, neckline or embroidery, no text, no collage, no mannequin or watermark.",
+      "savedPath": "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp"
+    }
+  ]
+}

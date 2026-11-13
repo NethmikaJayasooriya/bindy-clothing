@@ -449,7 +449,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                 alt={`${product.name} — ${galleryLabels?.[activeImg] || `view ${activeImg + 1}`}`}
                 className={`absolute inset-0 w-full h-full ${product.imageSource === "photography" || product.catalogueCode ? "object-contain bg-[#ede8e0]" : "object-cover"} cursor-zoom-in`}
                 onClick={() => setIsLightboxOpen(true)}
-               loading="eager" sizes="(max-width: 1024px) 100vw, 55vw"/>
+               loading="eager" fetchPriority="high" sizes="(max-width: 1024px) 100vw, 55vw"/>
 
             {/* Subtle Gradient Overlays for High-Contrast Text Badges */}
             <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 via-black/10 to-transparent pointer-events-none" />

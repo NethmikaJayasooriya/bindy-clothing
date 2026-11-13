@@ -49,24 +49,24 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/lotus-front.webp",
-      "imageHover": "/images/catalogue-2026/lotus-stripe-detail.webp",
+      "image": "/images/optimized/catalogue-rose-stripe-strapless-dress-df14515d0cde.webp",
+      "imageHover": "/images/optimized/catalogue-rose-stripe-strapless-dress-df14515d0cde.webp",
       "gallery": [
-        "/images/catalogue-2026/lotus-front.webp",
+        "/images/optimized/catalogue-rose-stripe-strapless-dress-df14515d0cde.webp",
         "/images/catalogue-2026/lotus-stripe-detail.webp",
         "/images/catalogue-2026/lotus-making.webp",
         "/images/catalogue-2026/lotus-fabric.webp",
         "/images/catalogue-2026/lotus-cutting.webp"
       ],
       "galleryZoom": [
-        "/images/catalogue-2026/lotus-front.webp",
+        "/images/optimized/catalogue-rose-stripe-strapless-dress-df14515d0cde.webp",
         "/images/catalogue-2026/lotus-stripe-detail.webp",
         "/images/catalogue-2026/lotus-making.webp",
         "/images/catalogue-2026/lotus-fabric.webp",
         "/images/catalogue-2026/lotus-cutting.webp"
       ],
       "galleryLabels": [
-        "Lotus pink dress",
+        "Model & full outfit",
         "Cotton stripe detail",
         "Shaped bodice in the making",
         "Fabric in the atelier",
@@ -84,7 +84,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "ocean-wash-chambray-shirt-maxi-dress",
@@ -131,18 +132,18 @@
         "Avoid bleach"
       ],
       "reviews": [],
-      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fbd3ca16-0332-45fa-84b3-ec332f37ff7b.webp",
-      "imageHover": "/images/catalogue-2026/blue-reference.webp",
+      "image": "/images/optimized/catalogue-ocean-wash-chambray-shirt-maxi-dress-9b23446459bb.webp",
+      "imageHover": "/images/optimized/catalogue-ocean-wash-chambray-shirt-maxi-dress-9b23446459bb.webp",
       "gallery": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fbd3ca16-0332-45fa-84b3-ec332f37ff7b.webp",
+        "/images/optimized/catalogue-ocean-wash-chambray-shirt-maxi-dress-9b23446459bb.webp",
         "/images/catalogue-2026/blue-reference.webp"
       ],
       "galleryZoom": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fbd3ca16-0332-45fa-84b3-ec332f37ff7b.webp",
+        "/images/optimized/catalogue-ocean-wash-chambray-shirt-maxi-dress-9b23446459bb.webp",
         "/images/catalogue-2026/blue-reference.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -157,7 +158,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "sage-shirt-maxi-dress",
@@ -199,15 +201,18 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/sage-model.webp",
-      "imageHover": "/images/catalogue-2026/sage-model.webp",
+      "image": "/images/optimized/catalogue-sage-shirt-maxi-dress-1003f9c5370e.webp",
+      "imageHover": "/images/optimized/catalogue-sage-shirt-maxi-dress-1003f9c5370e.webp",
       "gallery": [
+        "/images/optimized/catalogue-sage-shirt-maxi-dress-1003f9c5370e.webp",
         "/images/catalogue-2026/sage-model.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-sage-shirt-maxi-dress-1003f9c5370e.webp",
         "/images/catalogue-2026/sage-model.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view"
       ],
       "soldSeparately": false,
@@ -222,7 +227,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "monochrome-breeze-maxi-dress",
@@ -265,15 +271,18 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/monochrome-model.webp",
-      "imageHover": "/images/catalogue-2026/monochrome-model.webp",
+      "image": "/images/optimized/catalogue-monochrome-breeze-maxi-dress-e85975184b69.webp",
+      "imageHover": "/images/optimized/catalogue-monochrome-breeze-maxi-dress-e85975184b69.webp",
       "gallery": [
+        "/images/optimized/catalogue-monochrome-breeze-maxi-dress-e85975184b69.webp",
         "/images/catalogue-2026/monochrome-model.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-monochrome-breeze-maxi-dress-e85975184b69.webp",
         "/images/catalogue-2026/monochrome-model.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view"
       ],
       "soldSeparately": false,
@@ -288,7 +297,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "gingham-wander-maxi-skirt",
@@ -330,18 +340,18 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/customer-capsule/editorial/gingham-wander-maxi-skirt-back.webp",
-      "imageHover": "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp",
+      "image": "/images/optimized/catalogue-gingham-wander-maxi-skirt-2d74fab16e67.webp",
+      "imageHover": "/images/optimized/catalogue-gingham-wander-maxi-skirt-2d74fab16e67.webp",
       "gallery": [
-        "/images/customer-capsule/editorial/gingham-wander-maxi-skirt-back.webp",
+        "/images/optimized/catalogue-gingham-wander-maxi-skirt-2d74fab16e67.webp",
         "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp"
       ],
       "galleryZoom": [
-        "/images/customer-capsule/editorial/gingham-wander-maxi-skirt-back.webp",
+        "/images/optimized/catalogue-gingham-wander-maxi-skirt-2d74fab16e67.webp",
         "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp"
       ],
       "galleryLabels": [
-        "Back view",
+        "Model & full outfit",
         "Front view"
       ],
       "soldSeparately": true,
@@ -356,7 +366,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "sunlit-paisley-shirt",
@@ -398,17 +409,20 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/paisley-shirt-front.webp",
-      "imageHover": "/images/catalogue-2026/paisley-shirt-back.webp",
+      "image": "/images/optimized/catalogue-sunlit-paisley-shirt-265c5d8dfc1f.webp",
+      "imageHover": "/images/optimized/catalogue-sunlit-paisley-shirt-265c5d8dfc1f.webp",
       "gallery": [
+        "/images/optimized/catalogue-sunlit-paisley-shirt-265c5d8dfc1f.webp",
         "/images/catalogue-2026/paisley-shirt-front.webp",
         "/images/catalogue-2026/paisley-shirt-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-sunlit-paisley-shirt-265c5d8dfc1f.webp",
         "/images/catalogue-2026/paisley-shirt-front.webp",
         "/images/catalogue-2026/paisley-shirt-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -426,7 +440,8 @@
       ],
       "styleWith": [
         "sunlit-paisley-shorts"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "sunlit-paisley-shorts",
@@ -467,18 +482,18 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/paisley-shorts-front.webp",
-      "imageHover": "/images/catalogue-2026/paisley-shorts-back.webp",
+      "image": "/images/optimized/catalogue-sunlit-paisley-shorts-85a7b245dd5f.webp",
+      "imageHover": "/images/optimized/catalogue-sunlit-paisley-shorts-85a7b245dd5f.webp",
       "gallery": [
-        "/images/catalogue-2026/paisley-shorts-front.webp",
+        "/images/optimized/catalogue-sunlit-paisley-shorts-85a7b245dd5f.webp",
         "/images/catalogue-2026/paisley-shorts-back.webp"
       ],
       "galleryZoom": [
-        "/images/catalogue-2026/paisley-shorts-front.webp",
+        "/images/optimized/catalogue-sunlit-paisley-shorts-85a7b245dd5f.webp",
         "/images/catalogue-2026/paisley-shorts-back.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -495,7 +510,8 @@
       ],
       "styleWith": [
         "sunlit-paisley-shirt"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "crimson-lotus-dress",
@@ -537,17 +553,20 @@
         "Warm iron on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/crimson-front.webp",
-      "imageHover": "/images/catalogue-2026/crimson-back.webp",
+      "image": "/images/optimized/catalogue-crimson-lotus-dress-f4f5862d3e78.webp",
+      "imageHover": "/images/optimized/catalogue-crimson-lotus-dress-f4f5862d3e78.webp",
       "gallery": [
+        "/images/optimized/catalogue-crimson-lotus-dress-f4f5862d3e78.webp",
         "/images/catalogue-2026/crimson-front.webp",
         "/images/catalogue-2026/crimson-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-crimson-lotus-dress-f4f5862d3e78.webp",
         "/images/catalogue-2026/crimson-front.webp",
         "/images/catalogue-2026/crimson-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -563,7 +582,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "ivory-crochet-bralette",
@@ -608,17 +628,20 @@
         "Avoid bleach"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/brown-tiered-front.webp",
-      "imageHover": "/images/catalogue-2026/brown-tiered-back.webp",
+      "image": "/images/optimized/catalogue-ivory-crochet-bralette-860691db317b.webp",
+      "imageHover": "/images/optimized/catalogue-ivory-crochet-bralette-860691db317b.webp",
       "gallery": [
+        "/images/optimized/catalogue-ivory-crochet-bralette-860691db317b.webp",
         "/images/catalogue-2026/brown-tiered-front.webp",
         "/images/catalogue-2026/brown-tiered-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-ivory-crochet-bralette-860691db317b.webp",
         "/images/catalogue-2026/brown-tiered-front.webp",
         "/images/catalogue-2026/brown-tiered-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -636,7 +659,8 @@
       ],
       "styleWith": [
         "ivory-handmade-crochet-halter-top"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "ivory-handmade-crochet-halter-top",
@@ -684,19 +708,22 @@
         "Cool iron only if required"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/ivory-crochet-front.webp",
-      "imageHover": "/images/catalogue-2026/ivory-crochet-back.webp",
+      "image": "/images/optimized/catalogue-ivory-handmade-crochet-halter-top-860691db317b.webp",
+      "imageHover": "/images/optimized/catalogue-ivory-handmade-crochet-halter-top-860691db317b.webp",
       "gallery": [
+        "/images/optimized/catalogue-ivory-handmade-crochet-halter-top-860691db317b.webp",
         "/images/catalogue-2026/ivory-crochet-front.webp",
         "/images/catalogue-2026/ivory-crochet-back.webp",
         "/images/catalogue-2026/brown-tiered-front.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-ivory-handmade-crochet-halter-top-860691db317b.webp",
         "/images/catalogue-2026/ivory-crochet-front.webp",
         "/images/catalogue-2026/ivory-crochet-back.webp",
         "/images/catalogue-2026/brown-tiered-front.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Ivory crochet front",
         "Open-back & tie detail",
         "Styled with the brown skirt"
@@ -715,7 +742,8 @@
       ],
       "styleWith": [
         "ivory-crochet-bralette"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "black-relaxed-harem-pants",
@@ -758,18 +786,18 @@
         "Line dry in the shade"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/harem-model.webp",
-      "imageHover": "/images/catalogue-2026/harem-reference.webp",
+      "image": "/images/optimized/catalogue-black-relaxed-harem-pants-36866bc4b83c.webp",
+      "imageHover": "/images/optimized/catalogue-black-relaxed-harem-pants-36866bc4b83c.webp",
       "gallery": [
-        "/images/catalogue-2026/harem-model.webp",
+        "/images/optimized/catalogue-black-relaxed-harem-pants-36866bc4b83c.webp",
         "/images/catalogue-2026/harem-reference.webp"
       ],
       "galleryZoom": [
-        "/images/catalogue-2026/harem-model.webp",
+        "/images/optimized/catalogue-black-relaxed-harem-pants-36866bc4b83c.webp",
         "/images/catalogue-2026/harem-reference.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -786,7 +814,8 @@
       ],
       "styleWith": [
         "lime-strapless-button-front-top"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "white-floral-embroidered-midi-dress",
@@ -834,17 +863,20 @@
         "Avoid bleach"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/embroidered-dress-model.webp",
-      "imageHover": "/images/catalogue-2026/embroidered-dress-reference.webp",
+      "image": "/images/optimized/catalogue-white-floral-embroidered-midi-dress-a101fa929e2e.webp",
+      "imageHover": "/images/optimized/catalogue-white-floral-embroidered-midi-dress-a101fa929e2e.webp",
       "gallery": [
+        "/images/optimized/catalogue-white-floral-embroidered-midi-dress-a101fa929e2e.webp",
         "/images/catalogue-2026/embroidered-dress-model.webp",
         "/images/catalogue-2026/embroidered-dress-reference.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-white-floral-embroidered-midi-dress-a101fa929e2e.webp",
         "/images/catalogue-2026/embroidered-dress-model.webp",
         "/images/catalogue-2026/embroidered-dress-reference.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -860,7 +892,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "botanic-rose-cami",
@@ -902,18 +935,18 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/bindi-real/botanic-rose-cami-01.webp",
-      "imageHover": "/images/catalogue-2026/botanic-separates.webp",
+      "image": "/images/optimized/catalogue-botanic-rose-cami-8891bb912af8.webp",
+      "imageHover": "/images/optimized/catalogue-botanic-rose-cami-8891bb912af8.webp",
       "gallery": [
-        "/images/bindi-real/botanic-rose-cami-01.webp",
+        "/images/optimized/catalogue-botanic-rose-cami-8891bb912af8.webp",
         "/images/catalogue-2026/botanic-separates.webp"
       ],
       "galleryZoom": [
-        "/images/bindi-real/botanic-rose-cami-01.webp",
+        "/images/optimized/catalogue-botanic-rose-cami-8891bb912af8.webp",
         "/images/catalogue-2026/botanic-separates.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -930,7 +963,8 @@
       ],
       "styleWith": [
         "botanic-rose-trousers"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "botanic-rose-trousers",
@@ -972,17 +1006,20 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/botanic-model.webp",
-      "imageHover": "/images/catalogue-2026/botanic-separates.webp",
+      "image": "/images/optimized/catalogue-botanic-rose-trousers-e50887bf5228.webp",
+      "imageHover": "/images/optimized/catalogue-botanic-rose-trousers-e50887bf5228.webp",
       "gallery": [
+        "/images/optimized/catalogue-botanic-rose-trousers-e50887bf5228.webp",
         "/images/catalogue-2026/botanic-model.webp",
         "/images/catalogue-2026/botanic-separates.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-botanic-rose-trousers-e50887bf5228.webp",
         "/images/catalogue-2026/botanic-model.webp",
         "/images/catalogue-2026/botanic-separates.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -1000,7 +1037,8 @@
       ],
       "styleWith": [
         "botanic-rose-cami"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "cacao-satin-cami",
@@ -1047,20 +1085,20 @@
         "Avoid bleach"
       ],
       "reviews": [],
-      "image": "/images/bindi-real/cacao-satin-cami-01.webp",
-      "imageHover": "/images/catalogue-2026/satin-front.webp",
+      "image": "/images/optimized/catalogue-cacao-satin-cami-c54a75e62ceb.webp",
+      "imageHover": "/images/optimized/catalogue-cacao-satin-cami-c54a75e62ceb.webp",
       "gallery": [
-        "/images/bindi-real/cacao-satin-cami-01.webp",
+        "/images/optimized/catalogue-cacao-satin-cami-c54a75e62ceb.webp",
         "/images/catalogue-2026/satin-front.webp",
         "/images/catalogue-2026/satin-colours.webp"
       ],
       "galleryZoom": [
-        "/images/bindi-real/cacao-satin-cami-01.webp",
+        "/images/optimized/catalogue-cacao-satin-cami-c54a75e62ceb.webp",
         "/images/catalogue-2026/satin-front.webp",
         "/images/catalogue-2026/satin-colours.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1",
         "Garment detail 2"
       ],
@@ -1083,7 +1121,8 @@
         "Navy",
         "Black",
         "Ivory"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "ivory-tiered-maxi-skirt",
@@ -1124,17 +1163,20 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/ivory-tiered-model.webp",
-      "imageHover": "/images/catalogue-2026/ivory-tiered-reference.webp",
+      "image": "/images/optimized/catalogue-ivory-tiered-maxi-skirt-e330a34095c7.webp",
+      "imageHover": "/images/optimized/catalogue-ivory-tiered-maxi-skirt-e330a34095c7.webp",
       "gallery": [
+        "/images/optimized/catalogue-ivory-tiered-maxi-skirt-e330a34095c7.webp",
         "/images/catalogue-2026/ivory-tiered-model.webp",
         "/images/catalogue-2026/ivory-tiered-reference.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-ivory-tiered-maxi-skirt-e330a34095c7.webp",
         "/images/catalogue-2026/ivory-tiered-model.webp",
         "/images/catalogue-2026/ivory-tiered-reference.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -1155,7 +1197,8 @@
         "White",
         "Powder Blue",
         "Lilac"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "rose-stripe-shirt",
@@ -1197,15 +1240,18 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/pink-shirt.webp",
-      "imageHover": "/images/catalogue-2026/pink-shirt.webp",
+      "image": "/images/optimized/catalogue-rose-stripe-shirt-dab491aa6ce6.webp",
+      "imageHover": "/images/optimized/catalogue-rose-stripe-shirt-dab491aa6ce6.webp",
       "gallery": [
+        "/images/optimized/catalogue-rose-stripe-shirt-dab491aa6ce6.webp",
         "/images/catalogue-2026/pink-shirt.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-rose-stripe-shirt-dab491aa6ce6.webp",
         "/images/catalogue-2026/pink-shirt.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view"
       ],
       "soldSeparately": true,
@@ -1225,7 +1271,8 @@
         "White",
         "Black",
         "Pink Stripe"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "white-striped-relaxed-shirt",
@@ -1269,17 +1316,20 @@
         "Warm iron if required"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/white-shirt.webp",
-      "imageHover": "/images/catalogue-2026/white-shirt-back.webp",
+      "image": "/images/optimized/catalogue-white-striped-relaxed-shirt-2c0d0447b646.webp",
+      "imageHover": "/images/optimized/catalogue-white-striped-relaxed-shirt-2c0d0447b646.webp",
       "gallery": [
+        "/images/optimized/catalogue-white-striped-relaxed-shirt-2c0d0447b646.webp",
         "/images/catalogue-2026/white-shirt.webp",
         "/images/catalogue-2026/white-shirt-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-white-striped-relaxed-shirt-2c0d0447b646.webp",
         "/images/catalogue-2026/white-shirt.webp",
         "/images/catalogue-2026/white-shirt-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -1300,7 +1350,8 @@
         "White",
         "Black",
         "Pink Stripe"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "black-relaxed-cotton-shirt",
@@ -1344,15 +1395,18 @@
         "Warm iron if required"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/black-shirt.webp",
-      "imageHover": "/images/catalogue-2026/black-shirt.webp",
+      "image": "/images/optimized/catalogue-black-relaxed-cotton-shirt-0df5c4da0ba6.webp",
+      "imageHover": "/images/optimized/catalogue-black-relaxed-cotton-shirt-0df5c4da0ba6.webp",
       "gallery": [
+        "/images/optimized/catalogue-black-relaxed-cotton-shirt-0df5c4da0ba6.webp",
         "/images/catalogue-2026/black-shirt.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-black-relaxed-cotton-shirt-0df5c4da0ba6.webp",
         "/images/catalogue-2026/black-shirt.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view"
       ],
       "soldSeparately": true,
@@ -1372,7 +1426,8 @@
         "White",
         "Black",
         "Pink Stripe"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "burgundy-square-neck-maxi-dress",
@@ -1419,17 +1474,20 @@
         "Cool iron on reverse if required"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/burgundy-front.webp",
-      "imageHover": "/images/catalogue-2026/burgundy-back.webp",
+      "image": "/images/optimized/catalogue-burgundy-square-neck-maxi-dress-b8c9ff71bbfd.webp",
+      "imageHover": "/images/optimized/catalogue-burgundy-square-neck-maxi-dress-b8c9ff71bbfd.webp",
       "gallery": [
+        "/images/optimized/catalogue-burgundy-square-neck-maxi-dress-b8c9ff71bbfd.webp",
         "/images/catalogue-2026/burgundy-front.webp",
         "/images/catalogue-2026/burgundy-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-burgundy-square-neck-maxi-dress-b8c9ff71bbfd.webp",
         "/images/catalogue-2026/burgundy-front.webp",
         "/images/catalogue-2026/burgundy-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -1445,7 +1503,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "lime-strapless-button-front-top",
@@ -1490,17 +1549,20 @@
         "Cool iron on reverse if required"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/lime-corset-front.webp",
-      "imageHover": "/images/catalogue-2026/lime-corset-back.webp",
+      "image": "/images/optimized/catalogue-lime-strapless-button-front-top-ed2b7e229a77.webp",
+      "imageHover": "/images/optimized/catalogue-lime-strapless-button-front-top-ed2b7e229a77.webp",
       "gallery": [
+        "/images/optimized/catalogue-lime-strapless-button-front-top-ed2b7e229a77.webp",
         "/images/catalogue-2026/lime-corset-front.webp",
         "/images/catalogue-2026/lime-corset-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-lime-strapless-button-front-top-ed2b7e229a77.webp",
         "/images/catalogue-2026/lime-corset-front.webp",
         "/images/catalogue-2026/lime-corset-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -1520,7 +1582,8 @@
       "availableColors": [
         "Lime",
         "Beige"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "shore-traces-blouse",
@@ -1565,15 +1628,18 @@
         "Cool iron on reverse if required"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/beige-corset-model.webp",
-      "imageHover": "/images/catalogue-2026/beige-corset-model.webp",
+      "image": "/images/optimized/catalogue-shore-traces-blouse-8235e4ffcf76.webp",
+      "imageHover": "/images/optimized/catalogue-shore-traces-blouse-8235e4ffcf76.webp",
       "gallery": [
+        "/images/optimized/catalogue-shore-traces-blouse-8235e4ffcf76.webp",
         "/images/catalogue-2026/beige-corset-model.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-shore-traces-blouse-8235e4ffcf76.webp",
         "/images/catalogue-2026/beige-corset-model.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view"
       ],
       "soldSeparately": true,
@@ -1592,7 +1658,8 @@
       "availableColors": [
         "Lime",
         "Beige"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "serendib-pearl-dress",
@@ -1633,15 +1700,18 @@
         "Cool iron lace on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/flared-skirt-reference.webp",
-      "imageHover": "/images/catalogue-2026/flared-skirt-reference.webp",
+      "image": "/images/optimized/catalogue-serendib-pearl-dress-bf1ae454becb.webp",
+      "imageHover": "/images/optimized/catalogue-serendib-pearl-dress-bf1ae454becb.webp",
       "gallery": [
+        "/images/optimized/catalogue-serendib-pearl-dress-bf1ae454becb.webp",
         "/images/catalogue-2026/flared-skirt-reference.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-serendib-pearl-dress-bf1ae454becb.webp",
         "/images/catalogue-2026/flared-skirt-reference.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view"
       ],
       "soldSeparately": true,
@@ -1662,7 +1732,8 @@
         "Black",
         "Warm Brown",
         "Rust Red"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "black-relaxed-flared-maxi-skirt",
@@ -1706,18 +1777,18 @@
         "Warm iron if required"
       ],
       "reviews": [],
-      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e842ca4c-59d1-4e20-bd35-d989c811cb03.webp",
-      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/edc63e9b-3093-4eaf-89cf-27590a1ce8f3.webp",
+      "image": "/images/optimized/catalogue-black-relaxed-flared-maxi-skirt-dbfe38cc0f5e.webp",
+      "imageHover": "/images/optimized/catalogue-black-relaxed-flared-maxi-skirt-dbfe38cc0f5e.webp",
       "gallery": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e842ca4c-59d1-4e20-bd35-d989c811cb03.webp",
+        "/images/optimized/catalogue-black-relaxed-flared-maxi-skirt-dbfe38cc0f5e.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/edc63e9b-3093-4eaf-89cf-27590a1ce8f3.webp"
       ],
       "galleryZoom": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e842ca4c-59d1-4e20-bd35-d989c811cb03.webp",
+        "/images/optimized/catalogue-black-relaxed-flared-maxi-skirt-dbfe38cc0f5e.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/edc63e9b-3093-4eaf-89cf-27590a1ce8f3.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -1738,7 +1809,8 @@
         "Black",
         "Warm Brown",
         "Rust Red"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "brown-relaxed-flared-maxi-skirt",
@@ -1782,18 +1854,18 @@
         "Warm iron if required"
       ],
       "reviews": [],
-      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/d76defdb-eb76-4d40-91f8-baec667c2fdb.webp",
-      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/495e3e51-b6b4-4abf-a355-1ddedcc9b541.webp",
+      "image": "/images/optimized/catalogue-brown-relaxed-flared-maxi-skirt-f660c4ec7929.webp",
+      "imageHover": "/images/optimized/catalogue-brown-relaxed-flared-maxi-skirt-f660c4ec7929.webp",
       "gallery": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/d76defdb-eb76-4d40-91f8-baec667c2fdb.webp",
+        "/images/optimized/catalogue-brown-relaxed-flared-maxi-skirt-f660c4ec7929.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/495e3e51-b6b4-4abf-a355-1ddedcc9b541.webp"
       ],
       "galleryZoom": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/d76defdb-eb76-4d40-91f8-baec667c2fdb.webp",
+        "/images/optimized/catalogue-brown-relaxed-flared-maxi-skirt-f660c4ec7929.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/495e3e51-b6b4-4abf-a355-1ddedcc9b541.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -1814,7 +1886,8 @@
         "Black",
         "Warm Brown",
         "Rust Red"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "red-relaxed-flared-maxi-skirt",
@@ -1858,18 +1931,18 @@
         "Iron on a suitable cotton setting if needed"
       ],
       "reviews": [],
-      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/65492fba-cead-4b1c-bafb-f9de2e117538.webp",
-      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/ad456ce1-259e-4583-8b9b-f5e6914afd5a.webp",
+      "image": "/images/optimized/catalogue-red-relaxed-flared-maxi-skirt-836b997a5d8f.webp",
+      "imageHover": "/images/optimized/catalogue-red-relaxed-flared-maxi-skirt-836b997a5d8f.webp",
       "gallery": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/65492fba-cead-4b1c-bafb-f9de2e117538.webp",
+        "/images/optimized/catalogue-red-relaxed-flared-maxi-skirt-836b997a5d8f.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/ad456ce1-259e-4583-8b9b-f5e6914afd5a.webp"
       ],
       "galleryZoom": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/65492fba-cead-4b1c-bafb-f9de2e117538.webp",
+        "/images/optimized/catalogue-red-relaxed-flared-maxi-skirt-836b997a5d8f.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/ad456ce1-259e-4583-8b9b-f5e6914afd5a.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -1890,7 +1963,8 @@
         "Black",
         "Warm Brown",
         "Rust Red"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "black-tiered-cotton-shirt-dress",
@@ -1937,15 +2011,18 @@
         "Iron on a suitable cotton setting if needed"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/shirt-dress-reference.webp",
-      "imageHover": "/images/catalogue-2026/shirt-dress-reference.webp",
+      "image": "/images/optimized/catalogue-black-tiered-cotton-shirt-dress-b39f3029aed2.webp",
+      "imageHover": "/images/optimized/catalogue-black-tiered-cotton-shirt-dress-b39f3029aed2.webp",
       "gallery": [
+        "/images/optimized/catalogue-black-tiered-cotton-shirt-dress-b39f3029aed2.webp",
         "/images/catalogue-2026/shirt-dress-reference.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-black-tiered-cotton-shirt-dress-b39f3029aed2.webp",
         "/images/catalogue-2026/shirt-dress-reference.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view"
       ],
       "soldSeparately": false,
@@ -1968,7 +2045,8 @@
         "Olive Grove",
         "Earth Clay",
         "Warm Sand"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "soft-ivory-tiered-shirt-dress",
@@ -2015,18 +2093,18 @@
         "Iron on a suitable cotton setting if needed"
       ],
       "reviews": [],
-      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/628fe351-f8aa-4d51-aa51-76354f14af6f.webp",
-      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/eae40535-1b41-4841-a45c-b59bac697d06.webp",
+      "image": "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
+      "imageHover": "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
       "gallery": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/628fe351-f8aa-4d51-aa51-76354f14af6f.webp",
+        "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/eae40535-1b41-4841-a45c-b59bac697d06.webp"
       ],
       "galleryZoom": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/628fe351-f8aa-4d51-aa51-76354f14af6f.webp",
+        "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/eae40535-1b41-4841-a45c-b59bac697d06.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2049,7 +2127,8 @@
         "Olive Grove",
         "Earth Clay",
         "Warm Sand"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "sage-mist-tiered-cotton-shirt-dress",
@@ -2096,18 +2175,18 @@
         "Iron on a suitable cotton setting if needed"
       ],
       "reviews": [],
-      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/91dff6c1-66a8-4b25-9492-1f85b6bdd546.webp",
-      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/f2c52ddc-47e2-428e-a9fb-f0aa4002ccb2.webp",
+      "image": "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
+      "imageHover": "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
       "gallery": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/91dff6c1-66a8-4b25-9492-1f85b6bdd546.webp",
+        "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/f2c52ddc-47e2-428e-a9fb-f0aa4002ccb2.webp"
       ],
       "galleryZoom": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/91dff6c1-66a8-4b25-9492-1f85b6bdd546.webp",
+        "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/f2c52ddc-47e2-428e-a9fb-f0aa4002ccb2.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2130,7 +2209,8 @@
         "Olive Grove",
         "Earth Clay",
         "Warm Sand"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "olive-grove-tiered-cotton-shirt-dress",
@@ -2177,18 +2257,18 @@
         "Iron on a suitable cotton setting if needed"
       ],
       "reviews": [],
-      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/6f82fc67-53b5-4abe-b998-5c58fb1d3eb5.webp",
-      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e65178f0-7d67-4d52-bcaa-0bcf16b83f3a.webp",
+      "image": "/images/optimized/catalogue-olive-grove-tiered-cotton-shirt-dress-3e3dbcbe4256.webp",
+      "imageHover": "/images/optimized/catalogue-olive-grove-tiered-cotton-shirt-dress-3e3dbcbe4256.webp",
       "gallery": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/6f82fc67-53b5-4abe-b998-5c58fb1d3eb5.webp",
+        "/images/optimized/catalogue-olive-grove-tiered-cotton-shirt-dress-3e3dbcbe4256.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e65178f0-7d67-4d52-bcaa-0bcf16b83f3a.webp"
       ],
       "galleryZoom": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/6f82fc67-53b5-4abe-b998-5c58fb1d3eb5.webp",
+        "/images/optimized/catalogue-olive-grove-tiered-cotton-shirt-dress-3e3dbcbe4256.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e65178f0-7d67-4d52-bcaa-0bcf16b83f3a.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2211,7 +2291,8 @@
         "Olive Grove",
         "Earth Clay",
         "Warm Sand"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "earth-clay-tiered-cotton-shirt-dress",
@@ -2258,18 +2339,18 @@
         "Iron on a suitable cotton setting if needed"
       ],
       "reviews": [],
-      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/8cd0d191-5330-40ef-9d1f-3ebe9c09daf3.webp",
-      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/36f1d435-a16c-4ff3-8e9a-b27c0d8c0f39.webp",
+      "image": "/images/optimized/catalogue-earth-clay-tiered-cotton-shirt-dress-235dffb53657.webp",
+      "imageHover": "/images/optimized/catalogue-earth-clay-tiered-cotton-shirt-dress-235dffb53657.webp",
       "gallery": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/8cd0d191-5330-40ef-9d1f-3ebe9c09daf3.webp",
+        "/images/optimized/catalogue-earth-clay-tiered-cotton-shirt-dress-235dffb53657.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/36f1d435-a16c-4ff3-8e9a-b27c0d8c0f39.webp"
       ],
       "galleryZoom": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/8cd0d191-5330-40ef-9d1f-3ebe9c09daf3.webp",
+        "/images/optimized/catalogue-earth-clay-tiered-cotton-shirt-dress-235dffb53657.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/36f1d435-a16c-4ff3-8e9a-b27c0d8c0f39.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2292,7 +2373,8 @@
         "Olive Grove",
         "Earth Clay",
         "Warm Sand"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "warm-sand-tiered-cotton-shirt-dress",
@@ -2339,18 +2421,18 @@
         "Iron on a suitable cotton setting if needed"
       ],
       "reviews": [],
-      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/41334d3b-b364-4500-be04-56f90c3888a3.webp",
-      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fd179a4f-ddbf-47e5-9135-84434140e839.webp",
+      "image": "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
+      "imageHover": "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
       "gallery": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/41334d3b-b364-4500-be04-56f90c3888a3.webp",
+        "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fd179a4f-ddbf-47e5-9135-84434140e839.webp"
       ],
       "galleryZoom": [
-        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/41334d3b-b364-4500-be04-56f90c3888a3.webp",
+        "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fd179a4f-ddbf-47e5-9135-84434140e839.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2373,7 +2455,8 @@
         "Olive Grove",
         "Earth Clay",
         "Warm Sand"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "botanic-rose-relaxed-shirt",
@@ -2413,17 +2496,20 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/botanic-shirt-front.webp",
-      "imageHover": "/images/catalogue-2026/botanic-shirt-back.webp",
+      "image": "/images/optimized/catalogue-botanic-rose-relaxed-shirt-e86cfed55fe0.webp",
+      "imageHover": "/images/optimized/catalogue-botanic-rose-relaxed-shirt-e86cfed55fe0.webp",
       "gallery": [
+        "/images/optimized/catalogue-botanic-rose-relaxed-shirt-e86cfed55fe0.webp",
         "/images/catalogue-2026/botanic-shirt-front.webp",
         "/images/catalogue-2026/botanic-shirt-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-botanic-rose-relaxed-shirt-e86cfed55fe0.webp",
         "/images/catalogue-2026/botanic-shirt-front.webp",
         "/images/catalogue-2026/botanic-shirt-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -2439,7 +2525,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "botanic-rose-halter-maxi-dress",
@@ -2480,19 +2567,19 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/botanic-halter-front.webp",
-      "imageHover": "/images/catalogue-2026/botanic-halter-back.webp",
+      "image": "/images/optimized/catalogue-botanic-rose-halter-maxi-dress-148e8cd5dbf2.webp",
+      "imageHover": "/images/optimized/catalogue-botanic-rose-halter-maxi-dress-148e8cd5dbf2.webp",
       "gallery": [
-        "/images/catalogue-2026/botanic-halter-front.webp",
-        "/images/catalogue-2026/botanic-halter-back.webp"
+        "/images/optimized/catalogue-botanic-rose-halter-maxi-dress-148e8cd5dbf2.webp",
+        "/images/optimized/botanic-halter-complete-reference-v2.webp"
       ],
       "galleryZoom": [
-        "/images/catalogue-2026/botanic-halter-front.webp",
-        "/images/catalogue-2026/botanic-halter-back.webp"
+        "/images/optimized/catalogue-botanic-rose-halter-maxi-dress-148e8cd5dbf2.webp",
+        "/images/optimized/botanic-halter-complete-reference-v2.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
-        "Garment detail 1"
+        "Model & full outfit",
+        "Original garment reference"
       ],
       "soldSeparately": false,
       "parentCategory": "Dresses",
@@ -2506,7 +2593,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "raspberry-red-textured-maxi-dress",
@@ -2552,17 +2640,20 @@
         "Iron on a low setting if required"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/raspberry-front.webp",
-      "imageHover": "/images/catalogue-2026/raspberry-back.webp",
+      "image": "/images/optimized/catalogue-raspberry-red-textured-maxi-dress-ef3c197e5774.webp",
+      "imageHover": "/images/optimized/catalogue-raspberry-red-textured-maxi-dress-ef3c197e5774.webp",
       "gallery": [
+        "/images/optimized/catalogue-raspberry-red-textured-maxi-dress-ef3c197e5774.webp",
         "/images/catalogue-2026/raspberry-front.webp",
         "/images/catalogue-2026/raspberry-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-raspberry-red-textured-maxi-dress-ef3c197e5774.webp",
         "/images/catalogue-2026/raspberry-front.webp",
         "/images/catalogue-2026/raspberry-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -2578,7 +2669,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "chartreuse-tailored-rayon-vest",
@@ -2619,17 +2711,20 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/lime-vest-front.webp",
-      "imageHover": "/images/catalogue-2026/lime-vest-back.webp",
+      "image": "/images/optimized/catalogue-chartreuse-tailored-rayon-vest-2e028f76292b.webp",
+      "imageHover": "/images/optimized/catalogue-chartreuse-tailored-rayon-vest-2e028f76292b.webp",
       "gallery": [
+        "/images/optimized/catalogue-chartreuse-tailored-rayon-vest-2e028f76292b.webp",
         "/images/catalogue-2026/lime-vest-front.webp",
         "/images/catalogue-2026/lime-vest-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-chartreuse-tailored-rayon-vest-2e028f76292b.webp",
         "/images/catalogue-2026/lime-vest-front.webp",
         "/images/catalogue-2026/lime-vest-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -2649,7 +2744,8 @@
       "availableColors": [
         "Chartreuse",
         "Beige"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "beige-tailored-rayon-vest",
@@ -2690,17 +2786,20 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/beige-vest-front.webp",
-      "imageHover": "/images/catalogue-2026/beige-vest-back.webp",
+      "image": "/images/optimized/catalogue-beige-tailored-rayon-vest-b1aaabee9a8c.webp",
+      "imageHover": "/images/optimized/catalogue-beige-tailored-rayon-vest-b1aaabee9a8c.webp",
       "gallery": [
+        "/images/optimized/catalogue-beige-tailored-rayon-vest-b1aaabee9a8c.webp",
         "/images/catalogue-2026/beige-vest-front.webp",
         "/images/catalogue-2026/beige-vest-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-beige-tailored-rayon-vest-b1aaabee9a8c.webp",
         "/images/catalogue-2026/beige-vest-front.webp",
         "/images/catalogue-2026/beige-vest-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -2720,7 +2819,8 @@
       "availableColors": [
         "Chartreuse",
         "Beige"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "chartreuse-embroidered-voile-blouse",
@@ -2762,17 +2862,20 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/chartreuse-blouse-front.webp",
-      "imageHover": "/images/catalogue-2026/chartreuse-blouse-back.webp",
+      "image": "/images/optimized/catalogue-chartreuse-embroidered-voile-blouse-a1535727b166.webp",
+      "imageHover": "/images/optimized/catalogue-chartreuse-embroidered-voile-blouse-a1535727b166.webp",
       "gallery": [
+        "/images/optimized/catalogue-chartreuse-embroidered-voile-blouse-a1535727b166.webp",
         "/images/catalogue-2026/chartreuse-blouse-front.webp",
         "/images/catalogue-2026/chartreuse-blouse-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-chartreuse-embroidered-voile-blouse-a1535727b166.webp",
         "/images/catalogue-2026/chartreuse-blouse-front.webp",
         "/images/catalogue-2026/chartreuse-blouse-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -2788,7 +2891,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "pearl-lace-blouse",
@@ -2832,20 +2936,20 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/white-lace-model.webp",
-      "imageHover": "/images/catalogue-2026/white-lace-front.webp",
+      "image": "/images/optimized/catalogue-pearl-lace-blouse-423fe33945c2.webp",
+      "imageHover": "/images/optimized/catalogue-pearl-lace-blouse-423fe33945c2.webp",
       "gallery": [
-        "/images/catalogue-2026/white-lace-model.webp",
+        "/images/optimized/catalogue-pearl-lace-blouse-423fe33945c2.webp",
         "/images/catalogue-2026/white-lace-front.webp",
         "/images/catalogue-2026/white-lace-back.webp"
       ],
       "galleryZoom": [
-        "/images/catalogue-2026/white-lace-model.webp",
+        "/images/optimized/catalogue-pearl-lace-blouse-423fe33945c2.webp",
         "/images/catalogue-2026/white-lace-front.webp",
         "/images/catalogue-2026/white-lace-back.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1",
         "Garment detail 2"
       ],
@@ -2861,7 +2965,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "taupe-olive-embroidered-voile-blouse",
@@ -2902,20 +3007,20 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/taupe-outfit.webp",
-      "imageHover": "/images/catalogue-2026/taupe-blouse-front.webp",
+      "image": "/images/optimized/catalogue-taupe-olive-embroidered-voile-blouse-7a45738fb6fa.webp",
+      "imageHover": "/images/optimized/catalogue-taupe-olive-embroidered-voile-blouse-7a45738fb6fa.webp",
       "gallery": [
-        "/images/catalogue-2026/taupe-outfit.webp",
+        "/images/optimized/catalogue-taupe-olive-embroidered-voile-blouse-7a45738fb6fa.webp",
         "/images/catalogue-2026/taupe-blouse-front.webp",
         "/images/catalogue-2026/taupe-blouse-back.webp"
       ],
       "galleryZoom": [
-        "/images/catalogue-2026/taupe-outfit.webp",
+        "/images/optimized/catalogue-taupe-olive-embroidered-voile-blouse-7a45738fb6fa.webp",
         "/images/catalogue-2026/taupe-blouse-front.webp",
         "/images/catalogue-2026/taupe-blouse-back.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1",
         "Garment detail 2"
       ],
@@ -2933,7 +3038,8 @@
       ],
       "styleWith": [
         "taupe-olive-wide-leg-voile-pants"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "taupe-olive-wide-leg-voile-pants",
@@ -2972,18 +3078,18 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/taupe-outfit.webp",
-      "imageHover": "/images/catalogue-2026/taupe-pants-detail.webp",
+      "image": "/images/optimized/catalogue-taupe-olive-wide-leg-voile-pants-7a45738fb6fa.webp",
+      "imageHover": "/images/optimized/catalogue-taupe-olive-wide-leg-voile-pants-7a45738fb6fa.webp",
       "gallery": [
-        "/images/catalogue-2026/taupe-outfit.webp",
+        "/images/optimized/catalogue-taupe-olive-wide-leg-voile-pants-7a45738fb6fa.webp",
         "/images/catalogue-2026/taupe-pants-detail.webp"
       ],
       "galleryZoom": [
-        "/images/catalogue-2026/taupe-outfit.webp",
+        "/images/optimized/catalogue-taupe-olive-wide-leg-voile-pants-7a45738fb6fa.webp",
         "/images/catalogue-2026/taupe-pants-detail.webp"
       ],
       "galleryLabels": [
-        "Front & styling view",
+        "Model & full outfit",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -3000,7 +3106,8 @@
       ],
       "styleWith": [
         "taupe-olive-embroidered-voile-blouse"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "white-cotton-peplum-blouse",
@@ -3040,17 +3147,20 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/white-peplum-front.webp",
-      "imageHover": "/images/catalogue-2026/white-peplum-back.webp",
+      "image": "/images/optimized/catalogue-white-cotton-peplum-blouse-90c251746645.webp",
+      "imageHover": "/images/optimized/catalogue-white-cotton-peplum-blouse-90c251746645.webp",
       "gallery": [
+        "/images/optimized/catalogue-white-cotton-peplum-blouse-90c251746645.webp",
         "/images/catalogue-2026/white-peplum-front.webp",
         "/images/catalogue-2026/white-peplum-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-white-cotton-peplum-blouse-90c251746645.webp",
         "/images/catalogue-2026/white-peplum-front.webp",
         "/images/catalogue-2026/white-peplum-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -3070,7 +3180,8 @@
       "availableColors": [
         "White",
         "Pink"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "pink-cotton-peplum-blouse",
@@ -3110,17 +3221,20 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/pink-peplum-front.webp",
-      "imageHover": "/images/catalogue-2026/pink-peplum-back.webp",
+      "image": "/images/optimized/catalogue-pink-cotton-peplum-blouse-d0bd0d708d38.webp",
+      "imageHover": "/images/optimized/catalogue-pink-cotton-peplum-blouse-d0bd0d708d38.webp",
       "gallery": [
+        "/images/optimized/catalogue-pink-cotton-peplum-blouse-d0bd0d708d38.webp",
         "/images/catalogue-2026/pink-peplum-front.webp",
         "/images/catalogue-2026/pink-peplum-back.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-pink-cotton-peplum-blouse-d0bd0d708d38.webp",
         "/images/catalogue-2026/pink-peplum-front.webp",
         "/images/catalogue-2026/pink-peplum-back.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -3140,7 +3254,8 @@
       "availableColors": [
         "White",
         "Pink"
-      ]
+      ],
+      "videoHover": ""
     },
     {
       "id": "white-embroidered-tie-front-camisole",
@@ -3181,19 +3296,22 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/tie-front-cami.webp",
-      "imageHover": "/images/catalogue-2026/tie-front-cami-back.webp",
+      "image": "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp",
+      "imageHover": "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp",
       "gallery": [
+        "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp",
         "/images/catalogue-2026/tie-front-cami.webp",
         "/images/catalogue-2026/tie-front-cami-back.webp",
         "/images/catalogue-2026/tie-front-cami-reference.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp",
         "/images/catalogue-2026/tie-front-cami.webp",
         "/images/catalogue-2026/tie-front-cami-back.webp",
         "/images/catalogue-2026/tie-front-cami-reference.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Front & styling view",
         "Garment detail 1",
         "Garment detail 2"
@@ -3210,7 +3328,8 @@
         "Everyday",
         "Beach"
       ],
-      "styleWith": []
+      "styleWith": [],
+      "videoHover": ""
     },
     {
       "id": "triangle-crochet-halter-top",
@@ -3252,9 +3371,10 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/catalogue-2026/triangle-crochet-rust.webp",
-      "imageHover": "/images/catalogue-2026/triangle-crochet-brown.webp",
+      "image": "/images/optimized/catalogue-triangle-crochet-halter-top-59ff60f196cb.webp",
+      "imageHover": "/images/optimized/catalogue-triangle-crochet-halter-top-59ff60f196cb.webp",
       "gallery": [
+        "/images/optimized/catalogue-triangle-crochet-halter-top-59ff60f196cb.webp",
         "/images/catalogue-2026/triangle-crochet-rust.webp",
         "/images/catalogue-2026/triangle-crochet-brown.webp",
         "/images/catalogue-2026/triangle-crochet-mustard.webp",
@@ -3262,6 +3382,7 @@
         "/images/catalogue-2026/triangle-crochet-styled.webp"
       ],
       "galleryZoom": [
+        "/images/optimized/catalogue-triangle-crochet-halter-top-59ff60f196cb.webp",
         "/images/catalogue-2026/triangle-crochet-rust.webp",
         "/images/catalogue-2026/triangle-crochet-brown.webp",
         "/images/catalogue-2026/triangle-crochet-mustard.webp",
@@ -3269,6 +3390,7 @@
         "/images/catalogue-2026/triangle-crochet-styled.webp"
       ],
       "galleryLabels": [
+        "Model & full outfit",
         "Rust red triangle crochet",
         "Warm brown colour",
         "Mustard yellow colour",
@@ -3293,7 +3415,8 @@
         "Warm Brown",
         "Mustard Yellow",
         "White"
-      ]
+      ],
+      "videoHover": ""
     }
   ]
 }

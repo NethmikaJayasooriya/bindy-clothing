@@ -22,6 +22,7 @@ export interface ProductCardProps {
   onQuickAdd?: (product: Product, size: string) => void;
   showQuickAdd?: boolean;
   priority?: boolean;
+  imageSizes?: string;
   stockStatus?: "in_stock" | "low_stock" | "sold_out";
   stockText?: string;
   className?: string;
@@ -32,6 +33,8 @@ export default function ProductCard({
   onQuickView,
   onQuickAdd,
   showQuickAdd = true,
+  priority = false,
+  imageSizes = "(max-width: 640px) 50vw, (max-width: 1024px) 45vw, 25vw",
   stockStatus = "in_stock",
   stockText,
   className = "",
@@ -41,10 +44,6 @@ export default function ProductCard({
   const [, setWishlistTick] = useState(0);
   const [added, setAdded] = useState(false);
   const [addedSize, setAddedSize] = useState<string | null>(null);
-  const [isCardHovered, setIsCardHovered] = useState(false);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const videoRef = React.useRef<HTMLVideoElement>(null);
-  const isHoveredRef = React.useRef(false);
 
   useEffect(() => {
     const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
@@ -58,42 +57,6 @@ export default function ProductCard({
 
   const productSoldOut = isProductSoldOut(product);
   const effectiveStockStatus = productSoldOut ? "sold_out" : (product.inventoryStatus || stockStatus);
-
-  const handleMouseEnter = () => {
-    isHoveredRef.current = true;
-    setIsCardHovered(true);
-    const video = videoRef.current;
-    if (video) {
-      if (video.readyState >= 3) {
-        setIsVideoPlaying(true);
-      }
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            if (isHoveredRef.current) {
-              setIsVideoPlaying(true);
-            }
-          })
-          .catch(() => {});
-      }
-    }
-  };
-
-  const handleMouseLeave = () => {
-    isHoveredRef.current = false;
-    setIsCardHovered(false);
-    setIsVideoPlaying(false);
-    const video = videoRef.current;
-    if (video) {
-      setTimeout(() => {
-        if (!isHoveredRef.current && video) {
-          video.pause();
-          video.currentTime = 0;
-        }
-      }, 400);
-    }
-  };
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -117,55 +80,18 @@ export default function ProductCard({
       {/* Image & Media Frame */}
       <div
         className="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-[#F2ECE1]"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
         <Link href={`/product/${product.id}`} className="block absolute inset-0" aria-label={`View ${product.name}`}>
-          {/* Primary image (Always present underneath as solid base — prevents any blank/flash) */}
+          {/* Keep one model photo mounted. Reference gallery media must never overlay it on hover. */}
           <ResponsiveImage
             src={product.image}
             alt={product.name}
-            loading="lazy"
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
             decoding="async"
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className={`absolute inset-0 w-full h-full ${fullOutfit ? "object-contain" : "object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"}`}
+            sizes={imageSizes}
+            className={`absolute inset-0 w-full h-full ${fullOutfit ? "object-contain" : "object-cover"} motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:scale-[1.015]`}
           />
-
-          {/* Hover video: always mounted if available, smoothly fades in only once frames are playing */}
-          {product.videoHover ? (
-            <video
-              ref={videoRef}
-              src={product.videoHover}
-              muted
-              loop
-              playsInline
-              preload="none"
-              aria-hidden
-              onPlaying={() => {
-                if (isHoveredRef.current) setIsVideoPlaying(true);
-              }}
-              onTimeUpdate={() => {
-                if (isHoveredRef.current && !isVideoPlaying && videoRef.current && videoRef.current.currentTime > 0) {
-                  setIsVideoPlaying(true);
-                }
-              }}
-              className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-500 ease-out ${
-                isCardHovered && isVideoPlaying ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          ) : (
-            /* Fallback secondary image only if product has no videoHover */
-            product.imageHover && product.imageHover !== product.image && isCardHovered && (
-              <ResponsiveImage
-                src={product.imageHover}
-                alt={`${product.name} alternate view`}
-                loading="lazy"
-                decoding="async"
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                className={`absolute inset-0 w-full h-full ${fullOutfit ? "object-contain" : "object-cover"} opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100`}
-              />
-            )
-          )}
 
           {/* Bottom vignette overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none" />

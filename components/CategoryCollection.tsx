@@ -181,10 +181,12 @@ export default function CategoryPage() {
       {/* PRODUCTS GRID */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {filteredProducts.map((product) => (
+          {filteredProducts.map((product, index) => (
             <ProductCard
               key={product.id}
               product={product}
+              priority={index < 4}
+              imageSizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               onQuickView={(p) => setQuickViewProduct(p)}
               onQuickAdd={(p, s) => addToCart(p, s, 1)}
               stockStatus={product.inventoryStatus}
