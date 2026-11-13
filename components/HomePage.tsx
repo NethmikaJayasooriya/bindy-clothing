@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import DeferredSection from "@/components/DeferredSection";
-import { claimSplash } from "@/lib/splash-session";
+import { claimSplash, markSplashSeen } from "@/lib/splash-session";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
@@ -125,6 +125,7 @@ export default function Home() {
         <SplashScreen
           onLift={() => setIsSplashLifting(true)}
           onComplete={() => {
+            markSplashSeen();
             setIsSplashLifting(true);
             setShowSplash(false);
           }}
