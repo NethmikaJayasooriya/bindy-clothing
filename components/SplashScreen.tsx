@@ -50,6 +50,11 @@ export default function SplashScreen({ onComplete, onLift }: SplashScreenProps) 
   const callbacks = useRef({ onComplete, onLift });
   callbacks.current = { onComplete, onLift };
 
+  const finishRef = useRef<(reason: string) => void>(() => {
+    callbacks.current.onLift?.();
+    callbacks.current.onComplete();
+  });
+
   useEffect(() => {
     let active = true;
     let rafId: number | null = null;
@@ -59,10 +64,23 @@ export default function SplashScreen({ onComplete, onLift }: SplashScreenProps) 
     let periodFilled = false;
 
     const stage = stageRef.current;
-    const buttonsLayer = buttonsLayerRef.current;
-    const logoWrap = logoWrapRef.current;
-    const periodEl = periodRef.current;
-    const letters = lettersRef.current.filter((el): el is HTMLSpanElement => el !== null);
+    if (!stage) {
+      callbacks.current.onLift?.();
+      callbacks.current.onComplete();
+      return;
+    }
+
+    const buttonsLayer =
+      (stage.querySelector(`.${styles.buttonsLayer}`) as HTMLElement) || buttonsLayerRef.current;
+    const logoWrap =
+      (stage.querySelector(`.${styles.logoWrap}`) as HTMLElement) || logoWrapRef.current;
+    const periodEl =
+      (stage.querySelector(`.${styles.period}`) as HTMLElement) || periodRef.current;
+    const domLetters = Array.from(stage.querySelectorAll(`.${styles.letter}`)) as HTMLSpanElement[];
+    const letters =
+      domLetters.length > 0
+        ? domLetters
+        : lettersRef.current.filter((el): el is HTMLSpanElement => el !== null);
     const startWidth = window.innerWidth;
 
     if (!stage || !buttonsLayer || !logoWrap || !periodEl || letters.length === 0) {
@@ -109,15 +127,17 @@ export default function SplashScreen({ onComplete, onLift }: SplashScreenProps) 
         setTimeout(() => leave(false), 250);
       }
     }
+    finishRef.current = finish;
 
     function restart(el: HTMLElement, cls: string) {
-      if (!cls) return;
+      if (!cls || !el) return;
       el.classList.remove(cls);
       void el.getBoundingClientRect();
       el.classList.add(cls);
     }
 
     function inkTops(size: number) {
+      if (letters.length === 0) return [];
       const cs = getComputedStyle(letters[0]);
       const fs = parseFloat(cs.fontSize) || 72;
       const wt = cs.fontWeight || "800";
@@ -163,7 +183,7 @@ export default function SplashScreen({ onComplete, onLift }: SplashScreenProps) 
     }
 
     function measure() {
-      if (!stage || !periodEl) return null;
+      if (!stage || !periodEl || letters.length === 0) return null;
       const s = stage.getBoundingClientRect();
       const size = Math.min(48, Math.max(20, window.innerWidth * 0.046));
       const tops = inkTops(size);
@@ -173,7 +193,7 @@ export default function SplashScreen({ onComplete, onLift }: SplashScreenProps) 
       }
       const ls = letters.map((el, i) => {
         const r = rel(el);
-        return { ...r, gt: tops[i] };
+        return { ...r, gt: tops[i] ?? (r.h * 0.25) };
       });
       return { size, letters: ls, period: rel(periodEl) };
     }
@@ -371,7 +391,7 @@ export default function SplashScreen({ onComplete, onLift }: SplashScreenProps) 
       });
       await Promise.race([
         Promise.all([document.fonts ? document.fonts.ready : Promise.resolve(), ...decoded]),
-        wait(1500),
+        wait(1000),
       ]);
       if (!active || ended) return;
       logoWrap?.classList.add(styles.in);
@@ -427,8 +447,7 @@ export default function SplashScreen({ onComplete, onLift }: SplashScreenProps) 
       ref={stageRef}
       className={styles.splash}
       onClick={() => {
-        callbacks.current.onLift?.();
-        callbacks.current.onComplete();
+        finishRef.current("skip");
       }}
       role="dialog"
       aria-modal="true"
@@ -462,8 +481,7 @@ export default function SplashScreen({ onComplete, onLift }: SplashScreenProps) 
         className={styles.skip}
         onClick={(e) => {
           e.stopPropagation();
-          callbacks.current.onLift?.();
-          callbacks.current.onComplete();
+          finishRef.current("skip");
         }}
       >
         skip

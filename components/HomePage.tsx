@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import DeferredSection from "@/components/DeferredSection";
-import { claimSplash, markSplashSeen } from "@/lib/splash-session";
+import { claimSplash, markSplashSeen, cleanupStaleStorage } from "@/lib/splash-session";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
@@ -25,9 +25,13 @@ import { ambientPlayer } from "@/lib/ambientSound";
 import type { Destination } from "@/data/products";
 import { useStorefront } from "@/components/StorefrontProvider";
 
+let hasPlayedInAppSession = false;
+
 export default function Home() {
   const { homepage } = useStorefront();
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(
+    typeof window === "undefined" || !hasPlayedInAppSession
+  );
   const [isSplashLifting, setIsSplashLifting] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -35,8 +39,18 @@ export default function Home() {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [selectedJourney, setSelectedJourney] = useState<Destination | "All">("All");
   const [showStickyMobile, setShowStickyMobile] = useState(false);
+  const claimedRef = useRef(false);
 
-  useEffect(() => { if (claimSplash()) setShowSplash(true); }, []);
+  useEffect(() => {
+    cleanupStaleStorage();
+
+    if (claimedRef.current) return;
+    claimedRef.current = true;
+
+    if (hasPlayedInAppSession || !claimSplash()) {
+      setShowSplash(false);
+    }
+  }, []);
 
   // Track scroll position for the sticky mobile shopping controls
   useEffect(() => {
@@ -123,8 +137,12 @@ export default function Home() {
       {/* 1. SPLASH — garment buttons assemble the bindy. logo */}
       {showSplash && (
         <SplashScreen
-          onLift={() => setIsSplashLifting(true)}
+          onLift={() => {
+            hasPlayedInAppSession = true;
+            setIsSplashLifting(true);
+          }}
           onComplete={() => {
+            hasPlayedInAppSession = true;
             markSplashSeen();
             setIsSplashLifting(true);
             setShowSplash(false);
