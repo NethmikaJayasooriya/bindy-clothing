@@ -471,20 +471,25 @@ function CollectionContent() {
 
             {/* 5. STYLE STUDIO CALLOUT */}
             <div className="bg-gradient-to-br from-[#F7F2EB] to-[#ECE3D6] border border-[#DCC7AF] rounded-3xl p-5 shadow-sm space-y-2.5">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Style Studio
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#8E6E34] font-semibold flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-[#8E6E34]" /> Virtual Fit-On Room
+                </span>
+                <span className="text-[9px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-gold/15 text-[#8E6E34] border border-gold/30">
+                  Coming Soon
+                </span>
+              </div>
               <p className="font-serif text-sm text-[#1F1E1D] font-medium leading-snug">
-                Mix &amp; match tops and skirts.
+                Mix, match &amp; preview on your digital silhouette.
               </p>
               <p className="text-[11px] font-sans text-[#78716A] leading-relaxed">
-                Choose independent sizes for top and bottom with our live model preview.
+                Step into the future of conscious styling with our AI-assisted virtual dressing studio.
               </p>
               <Link
                 href="/build-your-set"
                 className="inline-flex items-center gap-1.5 text-xs font-sans uppercase font-bold tracking-wider text-[#8E6E34] hover:text-[#1F1E1D] transition-colors pt-1"
               >
-                <span>Build your set</span>
+                <span>Preview the Studio</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

@@ -8,7 +8,7 @@ import { CurrencyProvider } from "@/components/CurrencyContext";
 import SocialRail from "@/components/SocialRail";
 import JsonLd from "@/components/JsonLd";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
-import { SITE_URL, DEFAULT_DESCRIPTION, brandSchema } from "@/lib/seo";
+import { SITE_URL, DEFAULT_DESCRIPTION, brandSchema, BRAND_KEYWORDS } from "@/lib/seo";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -79,10 +79,55 @@ export async function generateMetadata(): Promise<Metadata> {
   const token = store.settings.tracking?.searchConsoleToken;
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: "BINDY Clothing | Women's Clothing Australia & Sri Lanka", template: "%s | BINDY Clothing" },
+    title: {
+      default: "BINDY Clothing · Official Store | Women's Fashion Australia & Sri Lanka",
+      template: "%s | BINDY Clothing",
+    },
     description: DEFAULT_DESCRIPTION,
-    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
-    ...(token && /^[A-Za-z0-9_-]{10,160}$/.test(token) ? {verification:{google:token}} : {}),
+    keywords: BRAND_KEYWORDS,
+    applicationName: "BINDY Clothing",
+    authors: [{ name: "BINDY Clothing", url: SITE_URL }],
+    creator: "BINDY Clothing",
+    publisher: "BINDY Clothing",
+    alternates: {
+      canonical: SITE_URL,
+    },
+    openGraph: {
+      type: "website",
+      locale: "en_AU",
+      url: SITE_URL,
+      siteName: "BINDY Clothing",
+      title: "BINDY Clothing · Official Store | Women's Fashion Australia & Sri Lanka",
+      description: DEFAULT_DESCRIPTION,
+      images: [
+        {
+          url: `${SITE_URL}/images/bindi-real/campaign-together.webp`,
+          width: 1200,
+          height: 630,
+          alt: "BINDY Clothing — Handloom Women's Fashion Australia & Sri Lanka",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "BINDY Clothing · Official Store",
+      description: DEFAULT_DESCRIPTION,
+      images: [`${SITE_URL}/images/bindi-real/campaign-together.webp`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    ...(token && /^[A-Za-z0-9_-]{10,160}$/.test(token)
+      ? { verification: { google: token } }
+      : {}),
   };
 }
 

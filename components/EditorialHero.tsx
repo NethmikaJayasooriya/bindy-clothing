@@ -53,7 +53,11 @@ export default function EditorialHero({ isSplashActive = false, onExploreCollect
       </div>
       <div className={`${styles.content} ${isSplashActive ? styles.primed : ""}`} key={chapter.id}>
         <p className={styles.eyebrow}><span />{chapter.label}</p>
-        <h1 className={styles.title}><span className={styles.titleLead}>{chapter.title}</span><span className={styles.titleFinish}>{chapter.italic}</span></h1>
+        <h1 className={styles.title}>
+          <span className="sr-only">BINDY Clothing · </span>
+          <span className={styles.titleLead}>{chapter.title}</span>
+          <span className={styles.titleFinish}>{chapter.italic}</span>
+        </h1>
         <p className={styles.note}>{chapter.note}</p>
         <button className={styles.shop} onClick={onExploreCollection}><span>Explore the collection</span><ArrowUpRight size={17} strokeWidth={1.5} /></button>
       </div>

@@ -4,7 +4,22 @@ import type { StoreSettings, PublicStore } from "@/lib/store-types";
 import { socialLinks } from "@/lib/social-links";
 
 export const SITE_URL = "https://bindyclothing.com.au";
-export const DEFAULT_DESCRIPTION = "Discover BINDY Clothing: dresses, tops, blouses, skirts, trousers and matching sets. A wardrobe inspired by Sri Lanka and Australian everyday living.";
+export const DEFAULT_DESCRIPTION = "Official online store for BINDY Clothing (also known as Bindy Clothings). Handcrafted artisan women's dresses, linen tops, trousers, and matching sets inspired by Sri Lanka & Australian everyday living.";
+export const BRAND_KEYWORDS = [
+  "bindy",
+  "bindy clothing",
+  "bindy clothings",
+  "bindy online store",
+  "bindy brand",
+  "bindy official",
+  "bindy australia",
+  "bindy sri lanka",
+  "bindy dresses",
+  "women's clothing australia",
+  "handloom fashion",
+  "artisan linen dresses",
+  "two islands one thread",
+];
 export const CATEGORY_PAGES: Record<string, { name: Category; title: string; description: string }> = {
   dresses: { name: "Dresses", title: "Women's Dresses", description: "Explore BINDY midi, maxi and everyday dresses. See each dress in detail, compare available Australian sizes and read fabric and care information." },
   "tops-and-blouses": { name: "Tops & Blouses", title: "Women's Tops, Shirts & Blouses", description: "Find BINDY tops, camisoles, shirts and blouses to style your way. Shop separate pieces and check the product details for sizes, fabric and what is included." },
@@ -14,21 +29,102 @@ export const CATEGORY_PAGES: Record<string, { name: Category; title: string; des
 export function absoluteUrl(path: string) {
   try { return new URL(path, SITE_URL).href; } catch { return SITE_URL; }
 }
-export function pageMetadata(title: string, description: string, path: string, image = "/images/campaign/blue.webp"): Metadata {
+export function pageMetadata(
+  title: string,
+  description: string,
+  path: string,
+  image = "/images/campaign/blue.webp",
+  keywords: string[] = BRAND_KEYWORDS
+): Metadata {
+  const fullTitle = title.includes("BINDY") ? title : `${title} | BINDY Clothing`;
   return {
-    title, description, alternates: { canonical: path },
-    openGraph: { type: "website", siteName: "BINDY Clothing", title: `${title} | BINDY Clothing`, description, url: path, images: [{ url: absoluteUrl(image), alt: title }] },
-    twitter: { card: "summary_large_image", title: `${title} | BINDY Clothing`, description, images: [absoluteUrl(image)] },
+    title,
+    description,
+    keywords,
+    alternates: { canonical: path },
+    openGraph: {
+      type: "website",
+      siteName: "BINDY Clothing",
+      title: fullTitle,
+      description,
+      url: path,
+      images: [{ url: absoluteUrl(image), alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description,
+      images: [absoluteUrl(image)],
+    },
   };
 }
 export function breadcrumbs(items: { name: string; path: string }[]) {
   return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items.map((item, i) => ({ "@type": "ListItem", position: i + 1, name: item.name, item: absoluteUrl(item.path) })) };
 }
 export function brandSchema(settings: StoreSettings) {
-  return { "@context": "https://schema.org", "@graph": [
-    { "@type": "OnlineStore", "@id": `${SITE_URL}/#store`, name: settings.storeName, url: SITE_URL, logo: `${SITE_URL}/icon.svg`, description: DEFAULT_DESCRIPTION, email: settings.email, telephone: settings.phone, sameAs: socialLinks(settings).filter(l => l.external).map(l => l.href), areaServed: [{ "@type": "Country", name: "Australia" }, { "@type": "Country", name: "Sri Lanka" }] },
-    { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: SITE_URL, name: settings.storeName, publisher: { "@id": `${SITE_URL}/#store` }, inLanguage: "en" },
-  ] };
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "OnlineStore",
+        "@id": `${SITE_URL}/#store`,
+        name: settings.storeName || "BINDY Clothing",
+        alternateName: [
+          "BINDY",
+          "Bindy",
+          "Bindy Clothing",
+          "Bindy Clothings",
+          "bindy.clothing",
+          "bindyclothing",
+        ],
+        url: SITE_URL,
+        logo: `${SITE_URL}/icon.svg`,
+        image: `${SITE_URL}/images/bindi-real/campaign-together.webp`,
+        description: DEFAULT_DESCRIPTION,
+        email: settings.email,
+        telephone: settings.phone,
+        sameAs: socialLinks(settings).filter((l) => l.external).map((l) => l.href),
+        areaServed: [
+          { "@type": "Country", name: "Australia" },
+          { "@type": "Country", name: "Sri Lanka" },
+        ],
+        brand: {
+          "@type": "Brand",
+          name: "BINDY",
+          alternateName: ["BINDY Clothing", "Bindy Clothings"],
+        },
+        knowsAbout: [
+          "Women's Clothing",
+          "Handloom Dresses",
+          "Linen Separates",
+          "Two Piece Sets",
+          "Resort Wear",
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: settings.storeName || "BINDY Clothing",
+        alternateName: [
+          "BINDY",
+          "Bindy",
+          "Bindy Clothing",
+          "Bindy Clothings",
+        ],
+        publisher: { "@id": `${SITE_URL}/#store` },
+        inLanguage: "en",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: `${SITE_URL}/collection?q={search_term_string}`,
+          },
+          "query-input": "required name=search_term_string",
+        },
+      },
+    ],
+  };
 }
 export function productSchema(product: Product, store?: PublicStore) {
   // Only an enabled, live AUD checkout can publish merchant offers.
