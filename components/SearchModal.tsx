@@ -1,7 +1,8 @@
 "use client";
 
 import ResponsiveImage from "@/components/ResponsiveImage";
-import { useCatalogueProducts } from "@/components/StorefrontProvider";
+import { useStorefront } from "@/components/StorefrontProvider";
+import { groupCatalogueProducts } from '@/lib/product-variants';
 import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
@@ -78,7 +79,7 @@ const CATEGORY_CARDS = [
 ];
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
-  const PRODUCTS = useCatalogueProducts();
+  const {products:PRODUCTS}=useStorefront();
   const { getPrice, isLkr } = useCurrency();
   const [query, setQuery] = useState("");
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>("All");
@@ -176,7 +177,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   // Robust category count helper ensuring accurate counts (and never 0 for active categories)
   const getCategoryCount = (catName: string, minFallback: number = 0) => {
     const target = catName.toLowerCase();
-    const count = PRODUCTS.filter((p) => {
+    const count = groupCatalogueProducts(PRODUCTS).filter((p) => {
       const c = (p.category || "").toLowerCase();
       const parent = (p.parentCategory || "").toLowerCase();
       const name = (p.name || "").toLowerCase();
@@ -310,6 +311,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     }
 
     // Apply sorting
+    filtered = groupCatalogueProducts(filtered);
     if (sortBy === "price-asc") {
       return [...filtered].sort((a, b) => a.priceAud - b.priceAud);
     } else if (sortBy === "price-desc") {
@@ -332,8 +334,9 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       return inName || inCat || inStory || inFabric || inColor || inDesc;
     });
 
-    const counts: Record<string, number> = { All: baseMatches.length };
-    baseMatches.forEach((p) => {
+    const styles=groupCatalogueProducts(baseMatches);
+    const counts: Record<string, number> = { All: styles.length };
+    styles.forEach((p) => {
       counts[p.category] = (counts[p.category] || 0) + 1;
     });
     return counts;

@@ -6,6 +6,7 @@ const list=publicStore(state).products,grouped=groupCatalogueProducts(list);
 assert.equal(grouped.length,32,'Each garment style has one catalogue card');
 const dress=list.find(p=>p.id==='black-tiered-cotton-shirt-dress'),variants=colourVariants(dress,list);
 assert.equal(variants.length,6);assert.equal(grouped.filter(p=>variants.some(v=>v.id===p.id)).length,1);
+assert.equal(groupCatalogueProducts(variants.filter(p=>p.colorName==='Soft Ivory'))[0].id,'soft-ivory-tiered-shirt-dress','Colour search must keep the matching variant before grouping');
 assert.notEqual(grouped.find(p=>p.id==='ivory-handmade-crochet-halter-top'),undefined);assert.notEqual(grouped.find(p=>p.id==='triangle-crochet-halter-top'),undefined);
 const ivory=variants.find(p=>p.id==='soft-ivory-tiered-shirt-dress');assert.notEqual(ivory.image,dress.image);assert.equal(ivory.stock,undefined);assert.equal(ivory.inventoryStatus,'in_stock');
 const raw=state.products.find(p=>p.id===ivory.id),size=raw.sizes[0];raw.stock[size]=0;
