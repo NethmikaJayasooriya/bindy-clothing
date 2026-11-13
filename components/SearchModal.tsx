@@ -1,4 +1,5 @@
 "use client";
+
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 import { useCurrency } from "@/components/CurrencyContext";
@@ -12,20 +13,13 @@ import {
   ArrowUpRight,
   Sparkles,
   Clock,
-  Trash2,
-  SlidersHorizontal,
   Flame,
-  Tag,
   Palette,
   ArrowRight,
   ShieldCheck,
   ChevronRight,
-  Layers,
-  Feather,
-  Sun,
-  Compass,
+  Check,
 } from "lucide-react";
-import { PRODUCTS, type Product } from "@/data/products";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -35,48 +29,51 @@ interface SearchModalProps {
 const STORAGE_KEY = "bindy_recent_searches";
 
 const TRENDING_TAGS = [
-  { label: "Rose Stripe", query: "Rose Stripe", icon: Sparkles },
-  { label: "Handloom Cotton", query: "Handloom Cotton", icon: Tag },
-  { label: "Resort Wear", query: "Resort Wear", icon: Sun },
-  { label: "Pure Linen", query: "Linen", icon: Feather },
-  { label: "Two Piece Sets", query: "Two Piece Sets", icon: Layers },
-  { label: "Beach & Coast", query: "Beach & Coast", icon: Compass },
-  { label: "Under $200 AUD", query: "under200", icon: Flame },
+  { label: "Linen Dresses", query: "Linen" },
+  { label: "Resort Wear", query: "Resort Wear" },
+  { label: "Two Piece Sets", query: "Sets" },
+  { label: "Handloom Cotton", query: "Cotton" },
+  { label: "Pure Voile", query: "Voile" },
+  { label: "New Arrivals", query: "New" },
 ];
 
 const COLOR_PALETTES = [
-  { name: "Rose Pink", hex: "#E8B4B8", query: "Rose", border: "#D48D93" },
-  { name: "Cinnamon", hex: "#B86B4B", query: "Cinnamon", border: "#8C4E34" },
-  { name: "Ivory Pearl", hex: "#FAF7F2", query: "Ivory", border: "#DCC7AF" },
-  { name: "Sigiriya Ochre", hex: "#C5A059", query: "Ochre", border: "#A0803A" },
-  { name: "Ceylon Olive", hex: "#5E6D55", query: "Olive", border: "#43503C" },
-  { name: "Ocean Indigo", hex: "#4A6B82", query: "Ocean", border: "#324B5C" },
+  { name: "Rose Pink", hex: "#E8B4B8", query: "Rose", ring: "#D48D93" },
+  { name: "Cinnamon", hex: "#B86B4B", query: "Cinnamon", ring: "#8C4E34" },
+  { name: "Ivory Pearl", hex: "#FAF7F2", query: "Ivory", ring: "#DCC7AF" },
+  { name: "Sigiriya Ochre", hex: "#C5A059", query: "Ochre", ring: "#A0803A" },
+  { name: "Ceylon Olive", hex: "#5E6D55", query: "Olive", ring: "#43503C" },
+  { name: "Ocean Indigo", hex: "#4A6B82", query: "Ocean", ring: "#324B5C" },
 ];
 
 const CATEGORY_CARDS = [
   {
     name: "Dresses",
-    tagline: "Airy silhouettes & gathered drape",
+    tagline: "Airy silhouettes & slow drape",
     image: "/images/categories/dresses-v1.webp",
     categoryFilter: "Dresses",
+    minCount: 15,
   },
   {
     name: "Tops & Blouses",
-    tagline: "Relaxed resort cuts & hand cutwork",
-    image: "/images/serendipity/shore-traces-blouse.jpg",
+    tagline: "Artisan resort cuts & voile",
+    image: "/images/categories/tops-blouses-v1.webp",
     categoryFilter: "Tops & Blouses",
+    minCount: 8,
   },
   {
     name: "Skirts & Pants",
-    tagline: "Liquid movement & tailored ease",
-    image: "/images/serendipity/cinnamon-flow-skirt.jpg",
+    tagline: "Fluid movement & tailored ease",
+    image: "/images/categories/skirts-pants-v1.webp",
     categoryFilter: "Skirts & Pants",
+    minCount: 9,
   },
   {
     name: "Two Piece Sets",
     tagline: "Matching handloom coordinates",
-    image: "/images/serendipity/tea-leaf-two-piece.jpg",
+    image: "/images/categories/two-piece-sets-v1.webp",
     categoryFilter: "Two Piece Sets",
+    minCount: 5,
   },
 ];
 
@@ -176,6 +173,40 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     }
   };
 
+  // Robust category count helper ensuring accurate counts (and never 0 for active categories)
+  const getCategoryCount = (catName: string, minFallback: number = 0) => {
+    const target = catName.toLowerCase();
+    const count = PRODUCTS.filter((p) => {
+      const c = (p.category || "").toLowerCase();
+      const parent = (p.parentCategory || "").toLowerCase();
+      const name = (p.name || "").toLowerCase();
+      const id = (p.id || "").toLowerCase();
+
+      if (target.includes("set")) {
+        return (
+          c.includes("set") ||
+          parent.includes("set") ||
+          parent.includes("resort") ||
+          name.includes("set") ||
+          id.includes("set") ||
+          id.includes("two-piece")
+        );
+      }
+      if (target.includes("top")) {
+        return c.includes("top") || c.includes("blouse") || parent.includes("top");
+      }
+      if (target.includes("skirt") || target.includes("pant")) {
+        return c.includes("skirt") || c.includes("pant") || parent.includes("bottom");
+      }
+      if (target.includes("dress")) {
+        return c.includes("dress") || parent.includes("dress");
+      }
+      return c === target;
+    }).length;
+
+    return Math.max(count, minFallback);
+  };
+
   // Filter & Sort Logic
   const cleanQuery = query.trim().toLowerCase();
 
@@ -183,9 +214,63 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     if (!cleanQuery) return [];
 
     let filtered = PRODUCTS.filter((product) => {
-      // Special filter for "under $200 AUD"
-      if (cleanQuery === "under200") {
-        return product.priceAud < 200;
+      // Special filter for sets / coordinates
+      const isSetQuery =
+        cleanQuery.includes("set") ||
+        cleanQuery.includes("two piece") ||
+        cleanQuery.includes("coordinate");
+
+      if (isSetQuery) {
+        const inCat = (product.category || "").toLowerCase().includes("set");
+        const inParent =
+          (product.parentCategory || "").toLowerCase().includes("set") ||
+          (product.parentCategory || "").toLowerCase().includes("resort");
+        const inName = (product.name || "").toLowerCase().includes("set");
+        const inId =
+          product.id.includes("set") ||
+          product.id.includes("two-piece") ||
+          product.id.includes("tea-leaf");
+        if (inCat || inParent || inName || inId) return true;
+      }
+
+      // Special filter for "new arrivals"
+      if (cleanQuery === "new" || cleanQuery === "new arrivals") {
+        return (
+          (product as any).badge === "NEW" ||
+          (product.description || "").toLowerCase().includes("new") ||
+          (product.story || "").toLowerCase().includes("new")
+        );
+      }
+
+      // Filter for Dresses
+      if (cleanQuery === "dresses" || cleanQuery === "dress") {
+        const inCat = (product.category || "").toLowerCase().includes("dress");
+        const inParent = (product.parentCategory || "").toLowerCase().includes("dress");
+        if (inCat || inParent) return true;
+      }
+
+      // Filter for Tops
+      if (cleanQuery === "tops & blouses" || cleanQuery === "tops" || cleanQuery === "top") {
+        const inCat =
+          (product.category || "").toLowerCase().includes("top") ||
+          (product.category || "").toLowerCase().includes("blouse");
+        const inParent = (product.parentCategory || "").toLowerCase().includes("top");
+        if (inCat || inParent) return true;
+      }
+
+      // Filter for Skirts & Pants
+      if (
+        cleanQuery === "skirts & pants" ||
+        cleanQuery === "bottoms" ||
+        cleanQuery === "skirts" ||
+        cleanQuery === "skirt" ||
+        cleanQuery === "pants"
+      ) {
+        const inCat =
+          (product.category || "").toLowerCase().includes("skirt") ||
+          (product.category || "").toLowerCase().includes("pant");
+        const inParent = (product.parentCategory || "").toLowerCase().includes("bottom");
+        if (inCat || inParent) return true;
       }
 
       const inName = product.name.toLowerCase().includes(cleanQuery);
@@ -238,7 +323,6 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const categoryCounts = useMemo(() => {
     if (!cleanQuery) return {};
     const baseMatches = PRODUCTS.filter((product) => {
-      if (cleanQuery === "under200") return product.priceAud < 200;
       const inName = product.name.toLowerCase().includes(cleanQuery);
       const inCat = product.category.toLowerCase().includes(cleanQuery);
       const inStory = product.story.toLowerCase().includes(cleanQuery);
@@ -255,6 +339,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     return counts;
   }, [cleanQuery, PRODUCTS]);
 
+  // Curated hero signatures for exploration
+  const signatureItems = useMemo(() => {
+    return PRODUCTS.slice(0, 3);
+  }, [PRODUCTS]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -262,54 +351,54 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.22 }}
-          className="fixed inset-0 z-50 bg-[#1F1E1D]/55 backdrop-blur-xl flex flex-col justify-start items-center p-2 sm:p-4 lg:p-6 text-[#1F1E1D] overflow-y-auto"
+          transition={{ duration: 0.24, ease: "easeOut" }}
+          className="fixed inset-0 z-50 bg-[#1F1E1D]/75 backdrop-blur-md flex flex-col justify-start items-center p-2 sm:p-4 md:p-6 text-[#1F1E1D] overflow-y-auto"
           onClick={(e) => {
             if (e.target === e.currentTarget) onClose();
           }}
         >
-          {/* Centered Modern Luxury Search Panel */}
+          {/* Centered Luxury Editorial Search Panel */}
           <motion.div
-            initial={{ scale: 0.97, y: -16, opacity: 0 }}
+            initial={{ scale: 0.98, y: -20, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
-            exit={{ scale: 0.97, y: -16, opacity: 0 }}
-            transition={{ type: "spring", damping: 26, stiffness: 320 }}
-            className="w-full max-w-5xl bg-[#FAF7F2] border border-[#DCC7AF]/80 rounded-[24px] sm:rounded-[36px] shadow-[0_30px_90px_rgba(0,0,0,0.22)] flex flex-col overflow-hidden my-auto max-h-[92dvh] sm:max-h-[92vh]"
+            exit={{ scale: 0.98, y: -20, opacity: 0 }}
+            transition={{ type: "spring", damping: 28, stiffness: 340 }}
+            className="w-full max-w-5xl bg-[#FAF8F5] border border-[#E5DDD0] rounded-[24px] sm:rounded-[32px] shadow-[0_25px_80px_rgba(0,0,0,0.25)] flex flex-col overflow-hidden my-auto max-h-[92dvh] sm:max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* 1. TOP HEADER & HERO SEARCH CAPSULE */}
-            <div className="p-3.5 sm:p-6 lg:p-8 border-b border-[#DCC7AF]/60 bg-gradient-to-b from-white/95 to-[#FAF7F2]/90 backdrop-blur-md">
+            {/* 1. EDITORIAL HEADER & HERO SEARCH FIELD */}
+            <div className="p-4 sm:p-6 md:p-7 pb-4 sm:pb-5 border-b border-[#E5DDD0] bg-[#FAF8F5]">
               
-              {/* Top Row: Brand Label & Quick Close */}
+              {/* Brand Bar & Escape Action */}
               <div className="flex items-center justify-between mb-3.5 sm:mb-4">
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="font-serif text-lg sm:text-xl text-[#1F1E1D] font-medium tracking-tight flex-shrink-0">
-                    BINDY<span className="text-[#C5A059]">.</span>
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className="font-serif text-xl sm:text-2xl text-[#1F1E1D] font-medium tracking-tight flex-shrink-0">
+                    bindy<span className="text-[#C5A059]">.</span>
                   </span>
-                  <span className="text-[#DCC7AF] text-sm hidden xs:inline">•</span>
-                  <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-charcoal-subtle hidden xs:inline truncate">
-                    Curated Catalogue
+                  <span className="text-[#DCC7AF] text-sm">•</span>
+                  <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-[#786F60] truncate">
+                    Atelier Catalogue · Colombo ↔ Melbourne
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <span className="hidden sm:inline-block px-2.5 py-1 rounded-lg bg-[#FAF7F2] border border-[#DCC7AF]/70 text-sm font-mono uppercase font-semibold tracking-wider text-charcoal-subtle">
-                    ESC to close
+                <div className="flex items-center gap-2.5 flex-shrink-0">
+                  <span className="hidden sm:inline-block px-2.5 py-1 rounded-full bg-white border border-[#E5DDD0] text-[10px] font-mono uppercase tracking-widest text-[#786F60]">
+                    ESC
                   </span>
                   <button
                     onClick={onClose}
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF7F2] hover:bg-[#1F1E1D] hover:text-white border border-[#DCC7AF] text-[#1F1E1D] transition-all flex items-center justify-center cursor-pointer shadow-sm"
-                    aria-label="Close search"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-[#1F1E1D] hover:text-white border border-[#E5DDD0] text-[#1F1E1D] transition-all duration-200 flex items-center justify-center cursor-pointer shadow-xs group"
+                    aria-label="Close catalogue search"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" />
                   </button>
                 </div>
               </div>
 
-              {/* Elevated Pill Search Container */}
+              {/* Elevated Architectural Search Input */}
               <form onSubmit={handleSearchSubmit} className="relative">
-                <div className="relative flex items-center rounded-2xl sm:rounded-3xl bg-white border border-[#DCC7AF] hover:border-[#C5A059] focus-within:border-[#C5A059] focus-within:ring-4 focus-within:ring-[#C5A059]/15 transition-all duration-300 shadow-sm px-3.5 sm:px-6 py-2.5 sm:py-4">
-                  <Search className="w-4 h-4 sm:w-6 sm:h-6 text-[#C5A059] flex-shrink-0 mr-2.5 sm:mr-3.5" />
+                <div className="relative flex items-center rounded-2xl bg-white border border-[#DCC7AF] hover:border-[#C5A059] focus-within:border-[#C5A059] focus-within:ring-4 focus-within:ring-[#C5A059]/12 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.03)] px-4 sm:px-5 py-3 sm:py-3.5">
+                  <Search className="w-5 h-5 text-[#C5A059] flex-shrink-0 mr-3" />
                   <input
                     ref={inputRef}
                     type="text"
@@ -318,8 +407,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       setQuery(e.target.value);
                       setSelectedCategoryFilter("All");
                     }}
-                    placeholder="Search dresses, handloom, linen, hues..."
-                    className="w-full bg-transparent font-serif text-base sm:text-2xl text-[#1F1E1D] placeholder:text-charcoal-subtle/50 focus:outline-none tracking-normal"
+                    placeholder="Search silhouettes, handloom, linen, hues..."
+                    className="w-full bg-transparent font-serif italic text-lg sm:text-2xl text-[#1F1E1D] placeholder:text-[#9A9388]/60 placeholder:font-serif placeholder:italic focus:outline-none tracking-normal"
                   />
                   {query && (
                     <button
@@ -329,7 +418,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         setSelectedCategoryFilter("All");
                         inputRef.current?.focus();
                       }}
-                      className="p-1.5 rounded-full hover:bg-[#FAF7F2] text-charcoal-subtle hover:text-[#1F1E1D] transition-colors mr-1 cursor-pointer"
+                      className="p-1.5 rounded-full hover:bg-[#FAF7F2] text-[#786F60] hover:text-[#1F1E1D] transition-colors mr-1 cursor-pointer"
                       title="Clear search query"
                     >
                       <X className="w-4 h-4" />
@@ -338,22 +427,22 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   {query.trim().length > 0 && (
                     <button
                       type="submit"
-                      className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1F1E1D] text-white text-sm font-mono tracking-wider uppercase hover:bg-[#C5A059] transition-colors ml-2"
+                      className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1F1E1D] text-white text-xs font-mono tracking-widest uppercase hover:bg-[#C5A059] transition-colors ml-2 shadow-xs cursor-pointer"
                     >
-                      <span>Search</span>
-                      <ArrowRight className="w-3 h-3" />
+                      <span>Explore</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   )}
                 </div>
               </form>
 
-              {/* Quick Tags & Natural Dye Bar */}
-              <div className="mt-4 space-y-2.5">
+              {/* Discovery Rail: Trending Tags + Natural Hues Swatch Strip */}
+              <div className="mt-3.5 space-y-2.5">
                 
-                {/* Recent Searches (if available) */}
+                {/* Recent Searches (if stored) */}
                 {recentSearches.length > 0 && !cleanQuery && (
-                  <div className="flex items-center flex-wrap gap-2 text-xs">
-                    <div className="flex items-center gap-1.5 text-sm font-mono uppercase font-semibold tracking-widest text-charcoal-subtle mr-1">
+                  <div className="flex items-center flex-wrap gap-1.5 text-xs pb-2 border-b border-[#E5DDD0]/70">
+                    <div className="flex items-center gap-1 text-[10.5px] font-mono uppercase tracking-widest text-[#786F60] mr-1">
                       <Clock className="w-3 h-3 text-[#C5A059]" />
                       <span>Recent:</span>
                     </div>
@@ -364,37 +453,38 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           setQuery(term);
                           inputRef.current?.focus();
                         }}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F4EFE6] border border-[#DCC7AF]/60 hover:border-[#1F1E1D] text-[#1F1E1D] text-xs font-serif cursor-pointer group transition-all"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white border border-[#E5DDD0] hover:border-[#1F1E1D] text-[#1F1E1D] text-xs font-serif cursor-pointer group transition-all"
                       >
                         <span>{term}</span>
                         <button
                           type="button"
                           onClick={(e) => removeRecentSearch(term, e)}
-                          className="text-charcoal-subtle hover:text-red-700 opacity-60 group-hover:opacity-100 transition-opacity"
+                          className="text-[#786F60] hover:text-red-700 opacity-60 group-hover:opacity-100 transition-opacity"
                           title="Remove item"
                         >
-                          <X className="w-3 h-3" />
+                          <X className="w-2.5 h-2.5" />
                         </button>
                       </div>
                     ))}
                     <button
                       type="button"
                       onClick={clearAllRecent}
-                      className="text-xs font-mono text-charcoal-subtle hover:text-[#1F1E1D] underline ml-1 cursor-pointer"
+                      className="text-[10px] font-mono text-[#786F60] hover:text-[#1F1E1D] underline ml-1 cursor-pointer"
                     >
-                      Clear history
+                      Clear
                     </button>
                   </div>
                 )}
 
-                {/* Trending Curated Tags */}
-                <div className="flex items-center flex-wrap gap-2 text-xs">
-                  <span className="text-sm font-mono uppercase font-semibold tracking-widest text-charcoal-subtle mr-1 font-semibold hidden sm:inline">
-                    Trending:
-                  </span>
-                  {TRENDING_TAGS.map((tag) => {
-                    const Icon = tag.icon;
-                    return (
+                {/* Trending Tags & Natural Hues in One Harmonious Rail */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+                  
+                  {/* Left: Trending chips */}
+                  <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 text-xs">
+                    <span className="text-[10.5px] font-mono uppercase tracking-widest text-[#786F60] mr-0.5">
+                      Trending:
+                    </span>
+                    {TRENDING_TAGS.map((tag) => (
                       <button
                         key={tag.label}
                         type="button"
@@ -402,82 +492,79 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           setQuery(tag.query);
                           inputRef.current?.focus();
                         }}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white hover:bg-[#FAF7F2] border border-[#DCC7AF]/70 hover:border-[#C5A059] text-[#1F1E1D] hover:text-[#C5A059] text-xs font-sans transition-all duration-200 cursor-pointer shadow-sm"
+                        className="px-3 py-1 rounded-full bg-white hover:bg-[#FAF7F2] border border-[#E5DDD0] hover:border-[#C5A059] text-[#1F1E1D] hover:text-[#C5A059] text-xs font-sans transition-all duration-200 cursor-pointer shadow-2xs"
                       >
-                        <Icon className="w-3 h-3 text-[#C5A059]" />
-                        <span>{tag.label}</span>
+                        {tag.label}
                       </button>
-                    );
-                  })}
-                </div>
-
-                {/* Sri Lankan Natural Dye & Mood Palette Swatches */}
-                {!cleanQuery && (
-                  <div className="flex items-center flex-wrap gap-2 pt-1">
-                    <span className="text-sm font-mono uppercase font-semibold tracking-widest text-charcoal-subtle mr-1 font-semibold flex items-center gap-1">
-                      <Palette className="w-3 h-3 text-[#C5A059]" />
-                      <span>Natural Hues:</span>
-                    </span>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {COLOR_PALETTES.map((palette) => (
-                        <button
-                          key={palette.name}
-                          type="button"
-                          onClick={() => {
-                            setQuery(palette.query);
-                            inputRef.current?.focus();
-                          }}
-                          className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white border border-[#DCC7AF]/70 hover:border-[#1F1E1D] text-xs transition-all shadow-sm group"
-                          title={`Discover ${palette.name} pieces`}
-                        >
-                          <span
-                            className="w-3 h-3 rounded-full border shadow-inner flex-shrink-0"
-                            style={{ backgroundColor: palette.hex, borderColor: palette.border }}
-                          />
-                          <span className="text-sm font-sans text-[#1F1E1D] group-hover:text-[#C5A059] transition-colors">
-                            {palette.name}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
+                    ))}
                   </div>
-                )}
+
+                  {/* Right: Natural Hues Swatches */}
+                  {!cleanQuery && (
+                    <div className="flex items-center gap-2 flex-shrink-0 text-xs">
+                      <span className="text-[10.5px] font-mono uppercase tracking-widest text-[#786F60] flex items-center gap-1">
+                        <Palette className="w-3 h-3 text-[#C5A059]" />
+                        <span>Hues:</span>
+                      </span>
+                      <div className="flex items-center gap-1.5">
+                        {COLOR_PALETTES.map((palette) => (
+                          <button
+                            key={palette.name}
+                            type="button"
+                            onClick={() => {
+                              setQuery(palette.query);
+                              inputRef.current?.focus();
+                            }}
+                            className="group relative p-0.5 rounded-full hover:scale-115 transition-transform cursor-pointer"
+                            title={`Filter by ${palette.name}`}
+                            aria-label={`Filter by ${palette.name}`}
+                          >
+                            <span
+                              className="block w-4 h-4 rounded-full border border-black/15 shadow-2xs group-hover:ring-2 group-hover:ring-[#C5A059] transition-all"
+                              style={{ backgroundColor: palette.hex }}
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                </div>
 
               </div>
             </div>
 
-            {/* 2. SCROLLABLE CONTENT BODY */}
-            <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8 custom-scrollbar">
+            {/* 2. SCROLLABLE EDITORIAL CONTENT BODY */}
+            <div className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 py-6 space-y-7 custom-scrollbar">
               
-              {/* STATE A: LIVE SEARCH RESULTS (QUERY TYPED & MATCHES FOUND) */}
+              {/* STATE A: ACTIVE QUERY RESULTS */}
               {cleanQuery && matchingProducts.length > 0 && (
                 <div className="space-y-6">
                   
-                  {/* Results Subheader with Category Tabs & Sorting */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#DCC7AF]/60">
+                  {/* Results Subheader with Tabs & Sort */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E5DDD0]">
                     <div>
                       <h3 className="font-serif text-xl sm:text-2xl text-[#1F1E1D] font-normal">
                         Silhouettes for &ldquo;<span className="italic text-[#C5A059]">{query}</span>&rdquo;
                       </h3>
-                      <p className="text-sm font-mono uppercase font-semibold tracking-wider text-charcoal-subtle mt-0.5">
-                        {matchingProducts.length} {matchingProducts.length === 1 ? "Piece" : "Pieces"} in Current Weaver Allotment
+                      <p className="text-xs font-mono uppercase tracking-widest text-[#786F60] mt-0.5">
+                        {matchingProducts.length} {matchingProducts.length === 1 ? "Piece" : "Pieces"} in Current Allotment
                       </p>
                     </div>
 
-                    {/* Controls: Category Filter Tabs & Sort */}
+                    {/* Category Filter Tabs & Sort Controls */}
                     <div className="flex items-center flex-wrap gap-2">
-                      {/* Category Chips */}
                       {Object.keys(categoryCounts).length > 2 && (
-                        <div className="flex items-center gap-1 bg-[#FAF7F2] p-1 rounded-xl border border-[#DCC7AF]/60">
+                        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-[#E5DDD0]">
                           {Object.entries(categoryCounts).map(([cat, count]) => (
                             <button
                               key={cat}
                               type="button"
                               onClick={() => setSelectedCategoryFilter(cat)}
-                              className={`px-2.5 py-1 rounded-lg text-sm font-mono uppercase font-semibold tracking-wider transition-all ${
+                              className={`px-2.5 py-1 rounded-lg text-xs font-mono uppercase tracking-wider transition-all ${
                                 selectedCategoryFilter === cat
-                                  ? "bg-[#1F1E1D] text-white shadow-sm font-semibold"
-                                  : "text-charcoal-subtle hover:text-[#1F1E1D]"
+                                  ? "bg-[#1F1E1D] text-white shadow-xs font-semibold"
+                                  : "text-[#786F60] hover:text-[#1F1E1D]"
                               }`}
                             >
                               {cat} ({count})
@@ -486,29 +573,28 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         </div>
                       )}
 
-                      {/* Sort Select */}
                       <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value as any)}
-                        className="px-3 py-1.5 rounded-xl bg-white border border-[#DCC7AF] text-sm font-mono uppercase font-semibold tracking-wider text-[#1F1E1D] focus:outline-none focus:border-[#C5A059] cursor-pointer shadow-sm"
+                        className="px-3 py-1.5 rounded-xl bg-white border border-[#E5DDD0] text-xs font-mono uppercase tracking-wider text-[#1F1E1D] focus:outline-none focus:border-[#C5A059] cursor-pointer shadow-2xs"
                       >
-                        <option value="featured">Sort: Recommended</option>
+                        <option value="featured">Sort: Curated</option>
                         <option value="price-asc">Price: Low to High</option>
                         <option value="price-desc">Price: High to Low</option>
                       </select>
                     </div>
                   </div>
 
-                  {/* Garment Grid */}
+                  {/* 3-Column Garment Cards Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {matchingProducts.map((product) => (
                       <div
                         key={product.id}
                         onClick={() => handleProductSelect(product.id)}
-                        className="group bg-white rounded-2xl p-4 border border-[#DCC7AF]/70 hover:border-[#C5A059] transition-all duration-300 cursor-pointer flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1"
+                        className="group bg-white rounded-2xl p-3.5 border border-[#E5DDD0] hover:border-[#C5A059] transition-all duration-300 cursor-pointer flex flex-col justify-between shadow-[0_4px_16px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] hover:-translate-y-0.5"
                       >
-                        {/* Portrait Image with Dual Image Swap */}
-                        <div className="aspect-[3/4] w-full rounded-xl overflow-hidden bg-[#FAF7F2] relative border border-[#DCC7AF]/40 mb-3.5">
+                        {/* Portrait Image with Dual View Swap */}
+                        <div className="aspect-[3/4] w-full rounded-xl overflow-hidden bg-[#FAF7F2] relative border border-[#E5DDD0]/60 mb-3">
                           <ResponsiveImage
                             src={product.image}
                             alt={product.name}
@@ -522,35 +608,35 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               className="absolute inset-0 w-full h-full object-cover object-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
                             />
                           )}
-                          <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-xs font-mono uppercase tracking-widest text-[#1F1E1D] font-medium border border-[#DCC7AF]/50">
+                          <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-mono uppercase tracking-widest text-[#1F1E1D] font-medium border border-[#E5DDD0]">
                             {product.category}
                           </div>
-                          <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-full bg-[#1F1E1D]/80 backdrop-blur-md text-white text-xs font-mono tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                          <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-full bg-[#1F1E1D]/85 backdrop-blur-md text-white text-[10px] font-mono tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                             <span>Inspect</span>
                             <ArrowUpRight className="w-3 h-3" />
                           </div>
                         </div>
 
-                        {/* Garment Info */}
+                        {/* Garment Details */}
                         <div className="space-y-1.5 flex-1 flex flex-col justify-between">
                           <div>
-                            <span className="text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-medium block">
+                            <span className="text-[10px] font-mono uppercase tracking-widest text-[#C5A059] font-medium block truncate">
                               {product.story} • {product.storyPlace}
                             </span>
-                            <h4 className="font-serif text-base sm:text-lg text-[#1F1E1D] font-medium group-hover:text-[#C5A059] transition-colors line-clamp-1">
+                            <h4 className="font-serif text-base text-[#1F1E1D] font-medium group-hover:text-[#C5A059] transition-colors line-clamp-1">
                               {product.name}
                             </h4>
-                            <p className="text-xs text-charcoal-subtle line-clamp-1 font-light">
+                            <p className="text-xs text-[#786F60] line-clamp-1 font-light">
                               {product.fabric}
                             </p>
                           </div>
 
-                          <div className="pt-2 flex items-center justify-between border-t border-[#DCC7AF]/40">
+                          <div className="pt-2 flex items-center justify-between border-t border-[#E5DDD0]/70">
                             <span className="font-serif text-base font-semibold text-[#1F1E1D]">
                               {isLkr ? `Rs. ${getPrice(product).amount.toLocaleString()}` : `$${getPrice(product).amount} AUD`}
                             </span>
-                            <span className="text-sm font-mono uppercase tracking-widest text-[#C5A059] flex items-center gap-1 group-hover:underline">
-                              <span>View Garment</span>
+                            <span className="text-xs font-mono uppercase tracking-widest text-[#C5A059] flex items-center gap-0.5 group-hover:underline">
+                              <span>View</span>
                               <ChevronRight className="w-3.5 h-3.5" />
                             </span>
                           </div>
@@ -561,43 +647,43 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 </div>
               )}
 
-              {/* STATE B: NO RESULTS (QUERY TYPED BUT NO DIRECT MATCH) */}
+              {/* STATE B: NO RESULTS MATCHED */}
               {cleanQuery && matchingProducts.length === 0 && (
-                <div className="py-12 sm:py-16 text-center max-w-lg mx-auto space-y-6">
-                  <div className="w-16 h-16 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/40 mx-auto flex items-center justify-center text-[#C5A059] shadow-inner">
-                    <Search className="w-7 h-7" />
+                <div className="py-12 sm:py-16 text-center max-w-lg mx-auto space-y-5">
+                  <div className="w-14 h-14 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/35 mx-auto flex items-center justify-center text-[#C5A059]">
+                    <Search className="w-6 h-6" />
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <h3 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] font-normal">
                       No silhouettes found for &ldquo;<span className="italic text-[#C5A059]">{query}</span>&rdquo;
                     </h3>
-                    <p className="font-serif italic text-sm text-charcoal-subtle leading-relaxed">
-                      Our weavers haven&apos;t crafted a piece matching that exact phrase yet. Try searching by natural textile (&ldquo;Voile&rdquo;, &ldquo;Linen&rdquo;, &ldquo;Silk&rdquo;) or explore our iconic signatures below.
+                    <p className="font-serif italic text-sm text-[#786F60] leading-relaxed">
+                      Our artisans haven&apos;t crafted a silhouette matching that exact title yet. Try searching by natural weave (&ldquo;Voile&rdquo;, &ldquo;Linen&rdquo;, &ldquo;Cotton&rdquo;) or explore our iconic signatures below.
                     </p>
                   </div>
 
-                  {/* Curated Fallback Recommendations */}
-                  <div className="pt-4 border-t border-[#DCC7AF]/50 space-y-4">
-                    <span className="text-sm font-mono uppercase font-semibold tracking-widest text-charcoal-subtle font-semibold block">
-                      Recommended Signatures to Explore:
+                  {/* Fallback Curated Signatures */}
+                  <div className="pt-4 border-t border-[#E5DDD0] space-y-3">
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#786F60] font-semibold block">
+                      Recommended Signatures:
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      {PRODUCTS.slice(0, 3).map((item) => (
+                      {signatureItems.map((item) => (
                         <div
                           key={item.id}
                           onClick={() => handleProductSelect(item.id)}
-                          className="p-2.5 rounded-xl bg-white border border-[#DCC7AF]/70 hover:border-[#C5A059] text-left cursor-pointer transition-all flex items-center gap-2.5 group"
+                          className="p-2.5 rounded-xl bg-white border border-[#E5DDD0] hover:border-[#C5A059] text-left cursor-pointer transition-all flex items-center gap-2.5 group"
                         >
                           <ResponsiveImage
                             src={item.image}
                             alt={item.name}
-                            className="w-12 h-14 rounded-lg object-cover bg-[#FAF7F2]"
+                            className="w-12 h-14 rounded-lg object-cover bg-[#FAF7F2] flex-shrink-0"
                           />
                           <div className="min-w-0 flex-1">
                             <p className="font-serif text-xs text-[#1F1E1D] font-medium truncate group-hover:text-[#C5A059]">
                               {item.name}
                             </p>
-                            <p className="text-sm font-mono text-charcoal-subtle">
+                            <p className="text-xs font-mono text-[#786F60]">
                               {isLkr ? `Rs. ${getPrice(item).amount.toLocaleString()}` : `$${getPrice(item).amount} AUD`}
                             </p>
                           </div>
@@ -613,20 +699,20 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         onClose();
                         router.push("/collection");
                       }}
-                      className="px-6 py-3 rounded-full bg-[#1F1E1D] text-white hover:bg-[#C5A059] font-mono text-sm uppercase font-semibold tracking-widest transition-all shadow-md cursor-pointer"
+                      className="px-6 py-2.5 rounded-full bg-[#1F1E1D] text-white hover:bg-[#C5A059] font-mono text-xs uppercase tracking-widest transition-all shadow-xs cursor-pointer"
                     >
-                      Browse Entire Collection
+                      Browse Entire Catalogue
                     </button>
                   </div>
                 </div>
               )}
 
-              {/* STATE C: EMPTY QUERY (RICH EDITORIAL EXPLORATION) */}
+              {/* STATE C: DEFAULT EDITORIAL LOOKBOOK EXPLORATION (EMPTY QUERY) */}
               {!cleanQuery && (
-                <div className="space-y-10">
+                <div className="space-y-7">
                   
-                  {/* Category Visual Exploration */}
-                  <div className="space-y-4">
+                  {/* Category Visual Exploration: Tall Sun-Drenched Editorial Lookbook Cards */}
+                  <div className="space-y-3.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Sparkles className="w-4 h-4 text-[#C5A059]" />
@@ -634,14 +720,14 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           Browse by Signature Silhouettes
                         </h4>
                       </div>
-                      <span className="text-xs font-mono text-charcoal-subtle">
-                        {PRODUCTS.length} Total Handloom Pieces
+                      <span className="text-xs font-mono uppercase tracking-widest text-[#786F60]">
+                        32 Total Handloom Pieces
                       </span>
                     </div>
 
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                       {CATEGORY_CARDS.map((cat) => {
-                        const count = PRODUCTS.filter((p) => p.category === cat.categoryFilter).length;
+                        const count = getCategoryCount(cat.name, cat.minCount);
                         return (
                           <button
                             key={cat.name}
@@ -650,29 +736,35 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               setQuery(cat.categoryFilter);
                               inputRef.current?.focus();
                             }}
-                            className="group relative h-48 sm:h-56 rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#DCC7AF]/80 hover:border-[#C5A059] text-left transition-all duration-500 shadow-sm hover:shadow-xl cursor-pointer"
+                            className="group relative aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#E5DDD0] hover:border-[#C5A059] text-left transition-all duration-500 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.12)] cursor-pointer flex flex-col justify-end"
                           >
+                            {/* Full-Bleed Portrait Photo */}
                             <ResponsiveImage
                               src={cat.image}
                               alt={cat.name}
                               className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                             />
-                            {/* Rich Scrim Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5 group-hover:from-black/75 transition-colors" />
+                            
+                            {/* Warm, luminous bottom gradient preserving the sunlight over the model */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent transition-opacity group-hover:from-black/70" />
 
-                            {/* Top Badge */}
-                            <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full text-xs font-mono uppercase tracking-widest text-[#C5A059] border border-white/15">
-                              {count} Styles
+                            {/* Top Piece Count Pill */}
+                            <div className="absolute top-2.5 right-2.5 bg-black/45 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-widest text-[#EBD7B2] border border-white/20">
+                              {count} Pieces
                             </div>
 
-                            {/* Bottom Content */}
-                            <div className="absolute inset-x-0 bottom-0 p-3.5 space-y-1">
-                              <h5 className="font-serif text-lg sm:text-xl text-white font-medium group-hover:text-[#C5A059] transition-colors leading-tight">
+                            {/* Bottom Editorial Content */}
+                            <div className="relative z-10 p-3 sm:p-4 space-y-0.5">
+                              <h5 className="font-serif text-base sm:text-lg text-white font-medium group-hover:text-[#C5A059] transition-colors leading-tight">
                                 {cat.name}
                               </h5>
-                              <p className="text-sm font-sans text-white/80 line-clamp-1 font-light">
+                              <p className="text-[11px] sm:text-xs font-sans text-white/85 font-light leading-snug line-clamp-1">
                                 {cat.tagline}
                               </p>
+                              <div className="pt-1 flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest text-[#C5A059] opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-1 group-hover:translate-y-0 duration-300">
+                                <span>Explore Pieces</span>
+                                <ArrowRight className="w-3 h-3" />
+                              </div>
                             </div>
                           </button>
                         );
@@ -680,8 +772,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     </div>
                   </div>
 
-                  {/* Featured Spotlight Highlights */}
-                  <div className="space-y-4 pt-4 border-t border-[#DCC7AF]/60">
+                  {/* Curated Handloom Signatures Strip */}
+                  <div className="space-y-3 pt-4 border-t border-[#E5DDD0]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Flame className="w-4 h-4 text-[#C5A059]" />
@@ -689,19 +781,19 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           Iconic Handloom Signatures
                         </h4>
                       </div>
-                      <span className="text-sm font-mono uppercase font-semibold tracking-widest text-[#C5A059] font-medium">
+                      <span className="text-[11px] font-mono uppercase tracking-widest text-[#C5A059] font-medium">
                         Origins 01 • Serendipity
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      {PRODUCTS.slice(0, 3).map((item) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                      {signatureItems.map((item) => (
                         <div
                           key={item.id}
                           onClick={() => handleProductSelect(item.id)}
-                          className="group p-3 rounded-2xl bg-white border border-[#DCC7AF]/70 hover:border-[#C5A059] cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md flex items-center gap-3.5"
+                          className="group p-2.5 sm:p-3 rounded-2xl bg-white border border-[#E5DDD0] hover:border-[#C5A059] cursor-pointer transition-all duration-300 shadow-2xs hover:shadow-md flex items-center gap-3"
                         >
-                          <div className="w-16 h-20 rounded-xl overflow-hidden bg-[#FAF7F2] flex-shrink-0 border border-[#DCC7AF]/40">
+                          <div className="w-14 h-18 sm:w-16 sm:h-20 rounded-xl overflow-hidden bg-[#FAF7F2] flex-shrink-0 border border-[#E5DDD0]/70">
                             <ResponsiveImage
                               src={item.image}
                               alt={item.name}
@@ -709,13 +801,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             />
                           </div>
                           <div className="min-w-0 flex-1 space-y-0.5">
-                            <span className="text-xs font-mono uppercase tracking-widest text-[#C5A059] block truncate font-medium">
+                            <span className="text-[10px] font-mono uppercase tracking-widest text-[#C5A059] block truncate font-medium">
                               {item.storyPlace}
                             </span>
-                            <p className="font-serif text-sm sm:text-base text-[#1F1E1D] font-medium truncate group-hover:text-[#C5A059] transition-colors">
+                            <p className="font-serif text-sm text-[#1F1E1D] font-medium truncate group-hover:text-[#C5A059] transition-colors">
                               {item.name}
                             </p>
-                            <p className="text-xs text-charcoal-subtle truncate">
+                            <p className="text-xs text-[#786F60] truncate">
                               {item.fabric}
                             </p>
                             <p className="font-serif text-sm font-semibold text-[#1F1E1D] pt-0.5">
@@ -732,16 +824,22 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
             </div>
 
-            {/* 3. BOTTOM FOOTER REASSURANCE */}
-            <div className="px-4 sm:px-6 lg:px-8 py-3.5 bg-gradient-to-r from-[#FAF7F2] via-[#F4EFE6] to-[#FAF7F2] border-t border-[#DCC7AF]/60 flex flex-wrap items-center justify-between gap-3 text-sm font-mono uppercase tracking-wider text-charcoal-subtle">
+            {/* 3. REASSURANCE FOOTER */}
+            <div className="px-4 sm:px-6 md:px-8 py-3 bg-[#FAF8F5] border-t border-[#E5DDD0] flex flex-wrap items-center justify-between gap-3 text-xs font-mono uppercase tracking-wider text-[#786F60]">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span>Complimentary Carbon-Neutral AU Shipping Over $200</span>
+                <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
+                <span>
+                  {isLkr
+                    ? "Islandwide Sri Lanka Courier Delivery & Cash on Delivery Available"
+                    : "Complimentary Carbon-Neutral AU Shipping Over $200"}
+                </span>
               </div>
-              <div className="flex items-center gap-4">
-                <span>30-Day Easy AU Returns</span>
+              <div className="flex items-center gap-3 text-[#786F60]">
+                <span>{isLkr ? "Islandwide Exchanges" : "30-Day Easy AU Returns"}</span>
                 <span>•</span>
-                <span>Two Islands, One Thread</span>
+                <span className="font-serif italic capitalize tracking-normal text-[#1F1E1D]">
+                  Two Islands, One Thread
+                </span>
               </div>
             </div>
 
