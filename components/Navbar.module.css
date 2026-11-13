@@ -306,6 +306,52 @@
   place-items: center;
 }
 
+.flagButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+}
+
+.flagButton:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.flagWrapper {
+  width: 30px;
+  height: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.flagImg {
+  width: auto;
+  height: 15px;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.immersive .flagButton {
+  border: none;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.immersive .flagButton:hover {
+  opacity: 0.85;
+}
+
 .header a:hover,
 .header button:hover,
 .shopMenu summary:hover {

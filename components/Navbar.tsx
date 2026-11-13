@@ -13,6 +13,9 @@ import { getCart, subscribe as subscribeCart, cartCount as calculateCartCount } 
 import styles from "./Navbar.module.css";
 
 interface NavbarProps { immersive?: boolean; isMuted: boolean; toggleAudio: () => void; cartCount?: number; onOpenCart?: () => void; }
+const AU_FLAG_SRC = "/images/country%20flags/Austraila%20flag.jpg";
+const LK_FLAG_SRC = "/images/country%20flags/Sri%20lanka%20flag.webp";
+
 const categories = [
   ["All pieces", "/collection"], ["Dresses", "/collection?parent=Dresses"],
   ["Tops & blouses", "/collection?parent=Tops"], ["Skirts & pants", "/collection?parent=Bottoms"],
@@ -71,11 +74,18 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
         <button
           type="button"
           onClick={toggleMarket}
-          style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", font: "inherit", display: "inline-flex", alignItems: "center", gap: "6px" }}
+          style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", font: "inherit", display: "inline-flex", alignItems: "center", gap: "7px" }}
           title="Click to switch delivery destination & currency"
         >
-          <span>{isLkr ? "🇱🇰 SRI LANKA · LKR" : "🇦🇺 AUSTRALIA · AUD"}</span>
-          <span style={{ opacity: 0.65, fontSize: "10px", textTransform: "uppercase" }}>(change)</span>
+          <span className={styles.flagWrapper} style={{ width: "22px", height: "11px" }}>
+            <img
+              src={isLkr ? LK_FLAG_SRC : AU_FLAG_SRC}
+              alt={isLkr ? "Sri Lanka flag" : "Australia flag"}
+              className={styles.flagImg}
+            />
+          </span>
+          <span>{isLkr ? "SRI LANKA" : "AUSTRALIA"}</span>
+          <span style={{ opacity: 0.65, fontSize: "9px", textTransform: "uppercase" }}>(change)</span>
         </button>
         <Link href="/about">Two islands. One thread. <ArrowUpRight size={11} /></Link>
       </div>
@@ -103,22 +113,17 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
           <button
             type="button"
             onClick={toggleMarket}
-            style={{
-              background: "rgba(0,0,0,0.04)",
-              border: "1px solid rgba(0,0,0,0.12)",
-              borderRadius: "999px",
-              padding: "4px 9px",
-              fontSize: "11px",
-              fontWeight: 600,
-              cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "4px"
-            }}
-            title="Switch country & currency"
-            aria-label="Switch country and currency"
+            className={styles.flagButton}
+            title={isLkr ? "Delivering to Sri Lanka · Click to switch" : "Delivering to Australia · Click to switch"}
+            aria-label={isLkr ? "Current destination: Sri Lanka. Click to switch to Australia." : "Current destination: Australia. Click to switch to Sri Lanka."}
           >
-            {isLkr ? "🇱🇰 LKR" : "🇦🇺 AUD"}
+            <span className={styles.flagWrapper}>
+              <img
+                src={isLkr ? LK_FLAG_SRC : AU_FLAG_SRC}
+                alt={isLkr ? "Sri Lanka flag" : "Australia flag"}
+                className={styles.flagImg}
+              />
+            </span>
           </button>
           <button className={styles.icon} aria-label="Search garments" onClick={() => setSearchOpen(true)}><Search size={19} strokeWidth={1.35} /></button>
           <Link className={`${styles.icon} ${styles.account}`} href="/account" aria-label={account ? `Account for ${account.name}` : "Account sign in"}><User size={19} strokeWidth={1.35} /></Link>
@@ -133,7 +138,19 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
       <div className={styles.mobileCategories}>{categories.map(([label, href]) => <Link key={href} href={href} onClick={closeMenu}>{label}<ArrowUpRight size={18} /></Link>)}</div>
       <div className={styles.mobileStories}>{stories.map(([label, href]) => <Link key={href} href={href} onClick={closeMenu}>{label}</Link>)}</div>
       <div className={styles.menuUtilities}>
-        <button onClick={() => { toggleMarket(); closeMenu(); }}>{isLkr ? "Delivery: 🇱🇰 Sri Lanka (LKR) · Switch" : "Delivery: 🇦🇺 Australia (AUD) · Switch"}</button>
+        <button
+          onClick={() => { toggleMarket(); closeMenu(); }}
+          style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
+        >
+          <span className={styles.flagWrapper} style={{ width: "26px", height: "13px" }}>
+            <img
+              src={isLkr ? LK_FLAG_SRC : AU_FLAG_SRC}
+              alt=""
+              className={styles.flagImg}
+            />
+          </span>
+          <span>{isLkr ? "Delivery: Sri Lanka · Switch" : "Delivery: Australia · Switch"}</span>
+        </button>
         <Link href="/account" onClick={closeMenu}>My account</Link>
         <button onClick={() => { closeMenu(); setWishlistOpen(true); }}>Saved pieces ({wishlistCount})</button>
         <Link href="/size-guide" onClick={closeMenu}>Size guide</Link><Link href="/returns/start" onClick={closeMenu}>Track order & returns</Link><Link href="/contact" onClick={closeMenu}>Contact us</Link>
