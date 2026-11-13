@@ -20,11 +20,21 @@ export default function NotifyModal({
 }: NotifyModalProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+    setBusy(true);
+    try {
+      await fetch("/api/storefront/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, consent: true }),
+      });
+    } catch {}
     setSubmitted(true);
+    setBusy(false);
   };
 
   if (!isOpen) return null;
@@ -97,8 +107,9 @@ export default function NotifyModal({
                 variant="primary"
                 size="md"
                 fullWidth
+                disabled={busy}
               >
-                Send Me Restock Notification
+                {busy ? "Joining Priority List…" : "Send Me Restock Notification"}
               </Button>
             </form>
           )}

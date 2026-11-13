@@ -7,12 +7,12 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Sparkles, ShoppingBag, ShieldCheck, Check, Heart, ArrowRight, Ruler, MapPin, Truck } from "lucide-react";
+import { X, Sparkles, ShoppingBag, ShieldCheck, Check, Heart, ArrowRight, Ruler, MapPin, Truck, Bell } from "lucide-react";
 import { Product } from "./CollectionShowcase";
 import { setBuyNowItem } from "@/lib/cart";
 import { isInWishlist, toggleWishlist, subscribeWishlist } from "@/lib/wishlist";
 import SizeGuideModal from "@/components/SizeGuideModal";
-import { isSizeSoldOut } from "@/lib/stock";
+import { isSizeSoldOut, isProductSoldOut } from "@/lib/stock";
 import { useCurrency } from "@/components/CurrencyContext";
 
 interface ProductModalProps {
@@ -241,46 +241,59 @@ export default function ProductModal({
 
                 {/* Action Buttons */}
                 <div className="pt-3 border-t border-sand/30 space-y-2 sm:space-y-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom,0.75rem))] sm:pb-0">
-                  <button
-                    type="button"
-                    onClick={handleAdd}
-                    disabled={!canPurchase}
-                    className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 ${
-                      !canPurchase
-                        ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
-                        : "bg-gold hover:bg-[#B38F46] text-charcoal hover:text-white shadow-luxury cursor-pointer active:scale-[0.99]"
-                    }`}
-                  >
-                    {isAdded ? (
-                      <>
-                        <Check className="w-4 h-4 text-emerald-800" />
-                        <span>Added to Bag</span>
-                      </>
-                    ) : !selectedSize ? (
-                      <span>Please Select a Size</span>
-                    ) : !canPurchase ? (
-                      <span>Sold Out • Size {selectedSize.split(" ")[0]}</span>
-                    ) : (
-                      <>
-                        <ShoppingBag className="w-4 h-4" />
-                        <span>Add to Bag • {priceInfo ? (isLkr ? `Rs. ${priceInfo.amount.toLocaleString()}` : `$${priceInfo.amount} AUD`) : ""}</span>
-                      </>
-                    )}
-                  </button>
+                  {product && isProductSoldOut(product) ? (
+                    <Link
+                      href={`/product/${product.id}`}
+                      onClick={onClose}
+                      className="w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 bg-charcoal hover:bg-black text-paper-light shadow-luxury cursor-pointer"
+                    >
+                      <Bell className="w-4 h-4 text-gold" />
+                      <span>Sold Out · Join Restock Waitlist</span>
+                    </Link>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        onClick={handleAdd}
+                        disabled={!canPurchase}
+                        className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 ${
+                          !canPurchase
+                            ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
+                            : "bg-gold hover:bg-[#B38F46] text-charcoal hover:text-white shadow-luxury cursor-pointer active:scale-[0.99]"
+                        }`}
+                      >
+                        {isAdded ? (
+                          <>
+                            <Check className="w-4 h-4 text-emerald-800" />
+                            <span>Added to Bag</span>
+                          </>
+                        ) : !selectedSize ? (
+                          <span>Please Select a Size</span>
+                        ) : !canPurchase ? (
+                          <span>Sold Out • Size {selectedSize.split(" ")[0]}</span>
+                        ) : (
+                          <>
+                            <ShoppingBag className="w-4 h-4" />
+                            <span>Add to Bag • {priceInfo ? (isLkr ? `Rs. ${priceInfo.amount.toLocaleString()}` : `$${priceInfo.amount} AUD`) : ""}</span>
+                          </>
+                        )}
+                      </button>
 
-                  <button
-                    type="button"
-                    onClick={handleBuyNow}
-                    disabled={!canPurchase}
-                    className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 border ${
-                      !canPurchase
-                        ? "bg-transparent text-charcoal-subtle/50 border-sand/30 cursor-not-allowed"
-                        : "bg-charcoal text-paper-light hover:bg-black cursor-pointer shadow-sm hover:shadow-md"
-                    }`}
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-gold" />
-                    <span>Buy it now</span>
-                  </button>
+                      <button
+                        type="button"
+                        onClick={handleBuyNow}
+                        disabled={!canPurchase}
+                        className={`w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-sans text-[11px] sm:text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 border ${
+                          !canPurchase
+                            ? "bg-transparent text-charcoal-subtle/50 border-sand/30 cursor-not-allowed"
+                            : "bg-charcoal text-paper-light hover:bg-black cursor-pointer shadow-sm hover:shadow-md"
+                        }`}
+                      >
+                        <Sparkles className="w-3.5 h-3.5 text-gold" />
+                        <span>Buy it now</span>
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </motion.div>

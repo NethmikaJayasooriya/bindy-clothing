@@ -85,7 +85,6 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
             />
           </span>
           <span>{isLkr ? "SRI LANKA" : "AUSTRALIA"}</span>
-          <span style={{ opacity: 0.65, fontSize: "9px", textTransform: "uppercase" }}>(change)</span>
         </button>
         <Link href="/about">Two islands. One thread. <ArrowUpRight size={11} /></Link>
       </div>

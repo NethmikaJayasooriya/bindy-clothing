@@ -3,7 +3,7 @@ import { purchaseContents } from "@/lib/purchase-contents";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 import { useCurrency } from "@/components/CurrencyContext";
-import { getStockForSize, isSizeSoldOut } from "@/lib/stock";
+import { getStockForSize, isSizeSoldOut, isProductSoldOut } from "@/lib/stock";
 
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -192,7 +192,8 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
   }, [product]);
 
   const availableUnits=size?getStockForSize(product.stock, size):0;
-  const canPurchase=!!size&&sizeAvailability[size]!=="sold_out"&&(availableUnits===undefined||qty<=availableUnits);
+  const isAllSoldOut = isProductSoldOut(product);
+  const canPurchase=!isAllSoldOut&&!!size&&sizeAvailability[size]!=="sold_out"&&(availableUnits===undefined||qty<=availableUnits);
 
   const handleUpdateQuantity = (id: string, sizeVal: string, delta: number) => {
     const current = getCart();
@@ -702,81 +703,121 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
           </div>
 
           {/* Qty Counter + Primary Add to Bag + Wishlist */}
-          <div className="pt-2 flex items-stretch gap-3">
-            {/* Quantity Pill */}
-            <div className="flex items-center border border-sand/60 rounded-2xl px-1.5 bg-paper-light shadow-sm shrink-0">
-              <button
-                onClick={() => setQty((q) => Math.max(1, q - 1))}
-                className="p-2.5 text-charcoal/70 hover:text-charcoal cursor-pointer disabled:opacity-40"
-                disabled={qty <= 1}
-                aria-label="Decrease quantity"
-              >
-                <Minus className="w-3.5 h-3.5" />
-              </button>
-              <span className="w-7 text-center font-sans text-sm font-semibold text-charcoal">
-                {qty}
-              </span>
-              <button
-                onClick={() => setQty((q) => Math.min(99,availableUnits??99,q + 1))}
-                disabled={!size||qty>=Math.min(99,availableUnits??99)}
-                className="p-2.5 text-charcoal/70 hover:text-charcoal cursor-pointer"
-                aria-label="Increase quantity"
-              >
-                <Plus className="w-3.5 h-3.5" />
-              </button>
+          {isAllSoldOut ? (
+            <div className="pt-2 space-y-3">
+              <div className="flex items-stretch gap-3">
+                <button
+                  type="button"
+                  onClick={() => setNotifyModalSize("All Sizes")}
+                  className="flex-1 rounded-2xl font-sans text-xs sm:text-sm uppercase font-bold tracking-wider flex items-center justify-center gap-2.5 transition-all py-4 min-h-[52px] bg-charcoal hover:bg-black text-paper-light shadow-luxury cursor-pointer active:scale-[0.99]"
+                >
+                  <Bell className="w-4 h-4 text-gold" />
+                  <span>Notify Me When Restocked</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => toggleWishlist(product)}
+                  className={`px-4.5 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-center min-h-[52px] ${
+                    isInWishlist(product.id)
+                      ? "border-gold bg-gold/15 text-gold shadow-sm ring-1 ring-gold/40"
+                      : "border-sand/60 text-charcoal hover:border-gold hover:text-gold bg-paper-light"
+                  }`}
+                  title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
+                  aria-label="Wishlist toggle"
+                >
+                  <Heart
+                    className={`w-5 h-5 ${
+                      isInWishlist(product.id) ? "fill-gold text-gold" : ""
+                    }`}
+                  />
+                </button>
+              </div>
+              <div className="p-3.5 rounded-2xl bg-paper-dark border border-sand/50 text-xs text-charcoal/80 flex items-start gap-2.5">
+                <Info className="w-4 h-4 text-gold shrink-0 mt-0.5" />
+                <p className="leading-relaxed">
+                  This piece is handcrafted in limited artisan batches in Sri Lanka and is currently sold out in all sizes. Join the priority list above to be notified the moment the next loom run arrives.
+                </p>
+              </div>
             </div>
+          ) : (
+            <>
+              <div className="pt-2 flex items-stretch gap-3">
+                {/* Quantity Pill */}
+                <div className="flex items-center border border-sand/60 rounded-2xl px-1.5 bg-paper-light shadow-sm shrink-0">
+                  <button
+                    onClick={() => setQty((q) => Math.max(1, q - 1))}
+                    className="p-2.5 text-charcoal/70 hover:text-charcoal cursor-pointer disabled:opacity-40"
+                    disabled={qty <= 1}
+                    aria-label="Decrease quantity"
+                  >
+                    <Minus className="w-3.5 h-3.5" />
+                  </button>
+                  <span className="w-7 text-center font-sans text-sm font-semibold text-charcoal">
+                    {qty}
+                  </span>
+                  <button
+                    onClick={() => setQty((q) => Math.min(99,availableUnits??99,q + 1))}
+                    disabled={!size||qty>=Math.min(99,availableUnits??99)}
+                    className="p-2.5 text-charcoal/70 hover:text-charcoal cursor-pointer"
+                    aria-label="Increase quantity"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                  </button>
+                </div>
 
-            {/* Add to Bag Button */}
-            <button
-              onClick={handleAdd}
-              disabled={!canPurchase}
-              className={`flex-1 rounded-2xl font-sans text-sm uppercase font-bold tracking-wider flex items-center justify-center gap-2.5 transition-all py-4 min-h-[52px] shadow-luxury ${
-                !canPurchase
-                  ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
-                  : "bg-gold hover:bg-[#B38F46] text-charcoal hover:text-white shadow-luxury hover:shadow-luxury-hover cursor-pointer active:scale-[0.99]"
-              }`}
-            >
-              {added ? (
-                <Check className="w-4 h-4 text-emerald-800" />
-              ) : (
-                <ShoppingBag className="w-4 h-4" />
-              )}
-              <span>{added ? "Added to Bag!" : !size ? "Select a Size" : sizeAvailability[size] === "sold_out" ? "Sold Out" : "Add to Bag"}</span>
-            </button>
+                {/* Add to Bag Button */}
+                <button
+                  onClick={handleAdd}
+                  disabled={!canPurchase}
+                  className={`flex-1 rounded-2xl font-sans text-sm uppercase font-bold tracking-wider flex items-center justify-center gap-2.5 transition-all py-4 min-h-[52px] shadow-luxury ${
+                    !canPurchase
+                      ? "bg-sand/30 text-charcoal-subtle border border-sand/40 cursor-not-allowed"
+                      : "bg-gold hover:bg-[#B38F46] text-charcoal hover:text-white shadow-luxury hover:shadow-luxury-hover cursor-pointer active:scale-[0.99]"
+                  }`}
+                >
+                  {added ? (
+                    <Check className="w-4 h-4 text-emerald-800" />
+                  ) : (
+                    <ShoppingBag className="w-4 h-4" />
+                  )}
+                  <span>{added ? "Added to Bag!" : !size ? "Select a Size" : sizeAvailability[size] === "sold_out" ? "Sold Out" : "Add to Bag"}</span>
+                </button>
 
-            {/* Wishlist Toggle Button */}
-            <button
-              type="button"
-              onClick={() => toggleWishlist(product)}
-              className={`px-4.5 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-center min-h-[52px] ${
-                isInWishlist(product.id)
-                  ? "border-gold bg-gold/15 text-gold shadow-sm ring-1 ring-gold/40"
-                  : "border-sand/60 text-charcoal hover:border-gold hover:text-gold bg-paper-light"
-              }`}
-              title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
-              aria-label="Wishlist toggle"
-            >
-              <Heart
-                className={`w-5 h-5 ${
-                  isInWishlist(product.id) ? "fill-gold text-gold" : ""
+                {/* Wishlist Toggle Button */}
+                <button
+                  type="button"
+                  onClick={() => toggleWishlist(product)}
+                  className={`px-4.5 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-center min-h-[52px] ${
+                    isInWishlist(product.id)
+                      ? "border-gold bg-gold/15 text-gold shadow-sm ring-1 ring-gold/40"
+                      : "border-sand/60 text-charcoal hover:border-gold hover:text-gold bg-paper-light"
+                  }`}
+                  title={isInWishlist(product.id) ? "Saved in Wishlist" : "Save to Wishlist"}
+                  aria-label="Wishlist toggle"
+                >
+                  <Heart
+                    className={`w-5 h-5 ${
+                      isInWishlist(product.id) ? "fill-gold text-gold" : ""
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* Express Checkout / Buy Now */}
+              <button
+                onClick={handleBuyNow}
+                disabled={!canPurchase}
+                className={`w-full py-3.5 rounded-2xl font-sans text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all border min-h-[48px] ${
+                  !canPurchase
+                    ? "bg-transparent text-charcoal-subtle/60 border-sand/30 cursor-not-allowed"
+                    : "bg-charcoal text-paper-light hover:bg-black cursor-pointer shadow-md hover:shadow-lg"
                 }`}
-              />
-            </button>
-          </div>
-
-          {/* Express Checkout / Buy Now */}
-          <button
-            onClick={handleBuyNow}
-            disabled={!canPurchase}
-            className={`w-full py-3.5 rounded-2xl font-sans text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all border min-h-[48px] ${
-              !canPurchase
-                ? "bg-transparent text-charcoal-subtle/60 border-sand/30 cursor-not-allowed"
-                : "bg-charcoal text-paper-light hover:bg-black cursor-pointer shadow-md hover:shadow-lg"
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <span>{size && sizeAvailability[size] === "sold_out" ? "Item Unavailable" : "Buy it now"}</span>
-          </button>
+              >
+                <Sparkles className="w-3.5 h-3.5 text-gold" />
+                <span>{size && sizeAvailability[size] === "sold_out" ? "Item Unavailable" : "Buy it now"}</span>
+              </button>
+            </>
+          )}
 
           {/* Trust Value Highlights Strip */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-sans text-charcoal-subtle pt-3 border-t border-sand/30">
@@ -964,6 +1005,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
         onSelectSize={(s) => setSize(s)}
         onAddToCart={handleAdd}
         isAdded={added}
+        onNotify={() => setNotifyModalSize("All Sizes")}
       />
 
       {/* FOOTER */}

@@ -2,10 +2,10 @@
 import ResponsiveImage from "@/components/ResponsiveImage";
 
 import React, { useState, useEffect } from "react";
-import { ShoppingBag, Check } from "lucide-react";
+import { ShoppingBag, Check, Bell } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { Button } from "@/components/ui";
-import { isSizeSoldOut } from "@/lib/stock";
+import { isSizeSoldOut, isProductSoldOut } from "@/lib/stock";
 import { useCurrency } from "@/components/CurrencyContext";
 
 export interface StickyMobileBarProps {
@@ -14,6 +14,7 @@ export interface StickyMobileBarProps {
   onSelectSize: (size: string) => void;
   onAddToCart: () => void;
   isAdded: boolean;
+  onNotify?: () => void;
 }
 
 export default function StickyMobileBar({
@@ -22,6 +23,7 @@ export default function StickyMobileBar({
   onSelectSize,
   onAddToCart,
   isAdded,
+  onNotify,
 }: StickyMobileBarProps) {
   const { getPrice, isLkr } = useCurrency();
   const priceInfo = getPrice(product);
@@ -65,7 +67,18 @@ export default function StickyMobileBar({
         </div>
 
         {/* Size Selector + Add Button */}
-        <div className="flex items-center gap-2 shrink-0">
+        {isProductSoldOut(product) ? (
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={onNotify}
+            className="whitespace-nowrap px-4 bg-charcoal hover:bg-black text-paper-light border-charcoal"
+            leftIcon={<Bell className="w-3.5 h-3.5 text-gold" />}
+          >
+            Notify Me
+          </Button>
+        ) : (
+          <div className="flex items-center gap-2 shrink-0">
           <select
             value={selectedSize || ""}
             onChange={(e) => onSelectSize(e.target.value)}
@@ -97,6 +110,7 @@ export default function StickyMobileBar({
             {isAdded ? "Added" : !selectedSize ? "Size" : isSizeSoldOut(product.stock, selectedSize) ? "Sold Out" : "Add"}
           </Button>
         </div>
+        )}
       </div>
     </div>
   );
