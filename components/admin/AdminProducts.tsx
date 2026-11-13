@@ -573,6 +573,11 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
               <Field label="Product story" wide>
                 <textarea value={p.heritage || ""} onChange={e => update("heritage", e.target.value)} />
               </Field>
+              <Field label="Catalogue style code"><input value={p.catalogueCode || ""} onChange={e => update("catalogueCode", e.target.value)} /></Field>
+              <Field label="Collection display order" hint="Lower numbers appear first."><input type="number" min="0" step="0.1" value={p.catalogueOrder ?? ""} onChange={e => update("catalogueOrder", e.target.value === "" ? undefined : Number(e.target.value))} /></Field>
+              <Field label="Fit"><textarea value={p.fitNote || ""} onChange={e => update("fitNote", e.target.value)} /></Field>
+              <Field label="Best for"><textarea value={p.bestFor || ""} onChange={e => update("bestFor", e.target.value)} /></Field>
+              <Field label="Catalogue colours" hint="One colour per line. Other colours require a separate listing or stock confirmation."><textarea value={(p.availableColors || []).join("\n")} onChange={e => update("availableColors", e.target.value.split("\n").filter(Boolean))} /></Field>
               <Field label="Craft details" hint="One detail per line.">
                 <textarea value={(p.craftDetails || []).join("\n")} onChange={e => update("craftDetails", e.target.value.split("\n"))} />
               </Field>

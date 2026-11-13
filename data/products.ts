@@ -174,6 +174,16 @@ const FEATURED_PIECES = [
 
 // Enrich before merchandising so changing display order preserves item metadata.
 export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map<EnrichedProduct>((p, index) => {
+  if (p.catalogueCode) return {
+    ...p,
+    inventoryStatus: "sold_out",
+    inventoryCount: 0,
+    badge: "NEW",
+    parentCategory: p.category === "Dresses" ? "Dresses" : p.category === "Tops & Blouses" ? "Tops" : "Bottoms",
+    subCategory: p.category === "Dresses" ? "Maxi" : p.category === "Tops & Blouses" ? "Blouses & Shirts" : /shorts/i.test(p.name) ? "Shorts" : /pants|trousers/i.test(p.name) ? "Pants" : "Skirts",
+    collectionName: "Atelier Separates",
+    occasions: ["Everyday Calm"],
+  };
   const idx = getProductSeedIndex(p.id) ?? index;
   const stockStatuses: ("in_stock" | "low_stock" | "in_stock")[] = ["in_stock", "low_stock", "in_stock"];
   const inventoryCounts = [14, 2, 8, 19, 3, 11, 4, 16, 12, 7, 5, 18, 9, 6, 11, 4, 15];
@@ -242,6 +252,7 @@ export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map<EnrichedProduct>((p,
     occasions: taxonomy.occasions,
   };
 }).sort((a, b) => {
+  if (a.catalogueOrder !== undefined || b.catalogueOrder !== undefined) return (a.catalogueOrder ?? Number.MAX_SAFE_INTEGER) - (b.catalogueOrder ?? Number.MAX_SAFE_INTEGER);
   const photography = Number(b.imageSource === "photography") - Number(a.imageSource === "photography");
   if (photography) return photography;
   const aFeatured = FEATURED_PIECES.indexOf(a.id);

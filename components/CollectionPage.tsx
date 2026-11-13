@@ -138,7 +138,7 @@ function CollectionContent() {
           </h1>
 
           <p className="font-serif italic text-base sm:text-lg text-[#78716A] max-w-2xl mx-auto leading-relaxed">
-            Handcrafted silhouettes in lightweight cotton voile, organic handloom linen, and fluid recycled silk.
+            Dresses, thoughtful separates and handmade crochet. Explore the fabric, fit and design details of every BINDY piece.
           </p>
         </div>
       </section>

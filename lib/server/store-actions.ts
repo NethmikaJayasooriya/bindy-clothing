@@ -58,6 +58,11 @@ export function saveProduct(state: StoreState, input: Input) {
     parentCategory: (category === "Dresses" ? "Dresses" : category === "Tops & Blouses" ? "Tops" : category === "Skirts & Pants" ? "Bottoms" : category === "Two Piece Sets" ? "Resort Wear" : category) as any,
     subCategory: text(input.subCategory, 100) || "Casual", collectionName: choice(input.collectionName, ["Serendipity", "Collection 02", "Atelier Separates"] as const, "collection"),
     heritage: text(input.heritage, 10000), craftDetails: strings(input.craftDetails ?? [], 15), care: strings(input.care ?? [], 15),
+    catalogueCode: input.catalogueCode === undefined ? existing?.catalogueCode : text(input.catalogueCode, 80),
+    catalogueOrder: input.catalogueOrder === undefined || input.catalogueOrder === "" ? existing?.catalogueOrder : number(input.catalogueOrder, 100000),
+    fitNote: input.fitNote === undefined ? existing?.fitNote : text(input.fitNote, 1000),
+    bestFor: input.bestFor === undefined ? existing?.bestFor : text(input.bestFor, 1000),
+    availableColors: input.availableColors === undefined ? existing?.availableColors : strings(input.availableColors, 20),
     soldSeparately: input.soldSeparately === true, updatedAt: new Date().toISOString(),
   };
   if (p.compareAtAud && p.compareAtAud <= p.priceAud) throw new StoreError("Compare-at price must be higher than the selling price.");

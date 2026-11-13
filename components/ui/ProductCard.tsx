@@ -54,7 +54,7 @@ export default function ProductCard({
   const inWishlist = isInWishlist(product.id);
   const rating = getAverageRating(product);
   const contents = purchaseContents(product);
-  const fullOutfit = showsFullOutfit(product);
+  const fullOutfit = showsFullOutfit(product) || Boolean(product.catalogueCode);
 
   const productSoldOut = isProductSoldOut(product);
   const effectiveStockStatus = productSoldOut ? "sold_out" : (product.inventoryStatus || stockStatus);

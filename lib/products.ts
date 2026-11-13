@@ -3,6 +3,7 @@
 import { cleanProductMedia } from "@/lib/product-media";
 import realProductPhotos from "@/data/real-product-photos.json";
 import { isRetiredProduct } from "@/lib/retired-products";
+import catalogueReference from "@/data/catalogue-reference-2026.json";
 
 export type Category =
   | "Dresses"
@@ -60,6 +61,11 @@ export interface Product {
   inventoryCount?: number;
   soldSeparately?: boolean;
   styleWith?: string[];
+  catalogueCode?: string;
+  catalogueOrder?: number;
+  fitNote?: string;
+  bestFor?: string;
+  availableColors?: string[];
 }
 
 const AU_SIZES = ["AU 6 (XS)", "AU 8 (S)", "AU 10 (M)", "AU 12 (L)", "AU 14 (XL)"];
@@ -2024,7 +2030,11 @@ export function getProductSeedIndex(id: string): number | undefined {
   return PRODUCT_SEED_INDICES.get(id);
 }
 
-export const PRODUCTS = PRODUCTS_WITH_PHOTOS.filter((product) => !isRetiredProduct(product.id) && getCanonicalProductId(product.id) === product.id).map(product => cleanProductMedia({ ...product, styleWith: product.styleWith?.filter(id => !isRetiredProduct(id)) }));
+// The approved catalogue is also the offline/setup fallback. Published database
+// records remain editable in admin and are never overwritten during reads.
+export const PRODUCTS: Product[] = (catalogueReference.products as Product[])
+  .filter(product => !isRetiredProduct(product.id))
+  .map(product => cleanProductMedia({ ...product, styleWith: product.styleWith?.filter(id => !isRetiredProduct(id)) }));
 
 export const CATEGORIES: (Category | "All")[] = [
   "All",

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Plus, Check, ShoppingBag, Sparkles, ArrowRight } from "lucide-react";
 import { PRODUCTS, type Product } from "@/data/products";
 import { addToCart } from "@/lib/cart";
+import { isSizeSoldOut } from "@/lib/stock";
 import { Button } from "@/components/ui";
 
 export interface CompleteTheLookProps {
@@ -21,7 +22,7 @@ export default function CompleteTheLook({
 }: CompleteTheLookProps) {
   const [bundleAdded, setBundleAdded] = useState(false);
 
-  // Pick a natural styling pair (different category if possible)
+  // A dress is a complete garment. Suggest only actual top/bottom pairings.
   const { products: PRODUCTS } = useStorefront();
   const preferredPair = currentProduct.styleWith?.find((id) =>
     PRODUCTS.some((product) => product.id === id)
@@ -33,10 +34,9 @@ export default function CompleteTheLook({
       (p) =>
         p.id !== currentProduct.id &&
         p.destinations.some((d) => currentProduct.destinations.includes(d)) &&
-        p.category !== currentProduct.category
-    ) ||
-    PRODUCTS.find((p) => p.id !== currentProduct.id) ||
-    PRODUCTS[0];
+        ((currentProduct.category === "Tops & Blouses" && p.category === "Skirts & Pants") ||
+         (currentProduct.category === "Skirts & Pants" && p.category === "Tops & Blouses"))
+    );
 
   // Pick 3 additional related pieces
   const related = PRODUCTS.filter(
@@ -47,11 +47,11 @@ export default function CompleteTheLook({
   const currentPrice = getPrice(currentProduct);
   const pairedPrice = pairedProduct ? getPrice(pairedProduct) : null;
   const bundleTotal = currentPrice.amount + (pairedPrice ? pairedPrice.amount : 0);
+  const currentSize = currentProduct.sizes.find(size => !isSizeSoldOut(currentProduct.stock, size));
+  const pairedSize = pairedProduct?.sizes.find(size => !isSizeSoldOut(pairedProduct.stock, size));
 
   const handleAddBundle = () => {
-    if (!pairedProduct) return;
-    const currentSize = currentProduct.sizes[1] || currentProduct.sizes[0] || "AU 8 (S)";
-    const pairedSize = pairedProduct.sizes[1] || pairedProduct.sizes[0] || "AU 8 (S)";
+    if (!pairedProduct || !currentSize || !pairedSize) return;
 
     if (onAddToCart) {
       onAddToCart(currentProduct, currentSize);
@@ -154,6 +154,7 @@ export default function CompleteTheLook({
                   variant="primary"
                   size="md"
                   onClick={handleAddBundle}
+                  disabled={!currentSize || !pairedSize}
                   className="w-full sm:w-auto"
                   leftIcon={
                     bundleAdded ? (
@@ -163,7 +164,7 @@ export default function CompleteTheLook({
                     )
                   }
                 >
-                  {bundleAdded ? "Both Added to Bag!" : "Add Both to Bag"}
+                  {!currentSize || !pairedSize ? "Pair currently unavailable" : bundleAdded ? "Both Added to Bag!" : "Add Both to Bag"}
                 </Button>
               </div>
             </div>

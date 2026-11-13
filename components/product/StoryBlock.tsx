@@ -33,10 +33,10 @@ export default function StoryBlock({ product }: StoryBlockProps) {
                 {product.storyPlace}
               </span>
               <p className="font-serif text-lg sm:text-xl leading-snug text-white font-medium">
-                The Heritage of {product.story}
+                {product.catalogueCode ? product.name : `The Heritage of ${product.story}`}
               </p>
               <p className="text-xs text-white/80 font-sans font-light">
-                Documented in small artisan weaving communes of Sri Lanka
+                {product.catalogueCode ? `Style ${product.catalogueCode} · Made in Sri Lanka` : "Explore the garment's design and details"}
               </p>
             </div>
           </div>
@@ -46,16 +46,16 @@ export default function StoryBlock({ product }: StoryBlockProps) {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/15 text-xs font-sans uppercase font-bold tracking-wider text-gold border border-gold/30">
                 <Sparkles className="w-3.5 h-3.5 text-gold" />
-                <span>The Story & Provenance</span>
+                <span>{product.catalogueCode ? "The Design Details" : "The Story & Provenance"}</span>
               </div>
 
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-charcoal-rich font-light tracking-wide leading-tight">
-                An Ode to {product.storyPlace}
+                {product.catalogueCode ? "A closer look." : `An Ode to ${product.storyPlace}`}
               </h2>
 
-              <blockquote className="font-serif italic text-xl sm:text-2xl text-charcoal-rich font-light leading-relaxed border-l-3 border-gold pl-5 py-2 my-4 bg-gold/5 rounded-r-2xl">
+              {product.quote && <blockquote className="font-serif italic text-xl sm:text-2xl text-charcoal-rich font-light leading-relaxed border-l-3 border-gold pl-5 py-2 my-4 bg-gold/5 rounded-r-2xl">
                 &ldquo;{product.quote}&rdquo;
-              </blockquote>
+              </blockquote>}
 
               <p className="font-sans text-sm sm:text-base leading-relaxed text-charcoal/85 font-light">
                 {product.heritage}
@@ -66,11 +66,11 @@ export default function StoryBlock({ product }: StoryBlockProps) {
             <div className="pt-6 border-t border-sand/40 space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-sans uppercase tracking-widest text-gold font-bold">
-                  Thoughtful Handcrafted Details
+                  Garment Details
                 </h3>
                 <span className="text-xs font-sans text-charcoal-subtle flex items-center gap-1">
                   <Award className="w-3.5 h-3.5 text-gold" />
-                  Master Artisan Hand-Finished
+                  {product.catalogueCode || "BINDY Clothing"}
                 </span>
               </div>
 

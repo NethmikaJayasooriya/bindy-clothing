@@ -118,7 +118,7 @@ export function publicStore(state: StoreState): PublicStore {
       const { sku, costAud, status, featured, updatedAt, lowStockThreshold, ...product } = p;
       const total = Object.values(p.stock).reduce((sum, n) => sum + n, 0);
       return { ...product, inventoryCount: total, inventoryStatus: total === 0 ? "sold_out" : total <= p.lowStockThreshold ? "low_stock" : "in_stock" };
-    }).sort((a, b) => Number(state.products.find(p => p.id === b.id)?.featured) - Number(state.products.find(p => p.id === a.id)?.featured)) };
+    }).sort((a, b) => (a.catalogueOrder ?? Number.MAX_SAFE_INTEGER) - (b.catalogueOrder ?? Number.MAX_SAFE_INTEGER) || Number(state.products.find(p => p.id === b.id)?.featured) - Number(state.products.find(p => p.id === a.id)?.featured)) };
 }
 export const readPublicStore = cache(async () => publicStore(await readStore()));
 export function productTotal(p: StoreProduct) { return Object.values(p.stock).reduce((sum, n) => sum + n, 0); }

@@ -447,7 +447,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                 key={activeImg}
                 src={galleryImages[activeImg] || product.image}
                 alt={`${product.name} — ${galleryLabels?.[activeImg] || `view ${activeImg + 1}`}`}
-                className={`absolute inset-0 w-full h-full ${product.imageSource === "photography" ? "object-contain bg-[#ede8e0]" : "object-cover"} cursor-zoom-in`}
+                className={`absolute inset-0 w-full h-full ${product.imageSource === "photography" || product.catalogueCode ? "object-contain bg-[#ede8e0]" : "object-cover"} cursor-zoom-in`}
                 onClick={() => setIsLightboxOpen(true)}
                loading="eager" sizes="(max-width: 1024px) 100vw, 55vw"/>
 
@@ -537,6 +537,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-[40px] font-light leading-tight text-charcoal-rich">
               {product.name}
             </h1>
+            {product.catalogueCode && <p className="mt-2 text-[11px] tracking-widest text-charcoal-subtle">STYLE {product.catalogueCode}</p>}
 
             {contents && (
               <div className="mt-3 inline-flex items-center gap-2 border border-sage/35 bg-sage/10 px-3 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.18em] text-sage-dark">
@@ -595,13 +596,19 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             <p className="mt-4 text-[14px] sm:text-[15px] leading-relaxed text-charcoal/85 font-light">
               {product.description}
             </p>
+            {product.catalogueCode && <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-xs leading-relaxed">
+              <dt className="font-semibold">Fabric</dt><dd>{product.fabric}</dd>
+              {product.fitNote && <><dt className="font-semibold">Fit</dt><dd>{product.fitNote}</dd></>}
+              {product.bestFor && <><dt className="font-semibold">Best for</dt><dd>{product.bestFor}</dd></>}
+              <dt className="font-semibold">Sizing</dt><dd>AU / UK 8–14. Check size availability below.</dd>
+            </dl>}
           </div>
 
           {/* Color Story Palette */}
           <div className="pt-4 border-t border-sand/30">
             <div className="flex items-center justify-between mb-2.5">
               <p className="text-xs font-sans uppercase font-bold tracking-wider text-charcoal-subtle">
-                Natural Color Story
+                Colour
               </p>
               <span className="text-xs font-sans text-charcoal font-medium">
                 {product.colorName}
@@ -624,10 +631,8 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                   />
                 </div>
               ))}
-              <span className="text-xs text-charcoal-subtle font-sans pl-1">
-                Hand-dyed using organic vegetable pigments
-              </span>
             </div>
+            {!!product.availableColors?.length && <p className="mt-3 text-xs leading-relaxed text-charcoal-subtle">Catalogue colours: {product.availableColors.join(" · ")}. This listing is {product.colorName.toLowerCase()}; contact us for other colour availability.</p>}
           </div>
 
           {/* Size Selector with Unified Button Geometry */}
@@ -698,7 +703,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             </div>
 
             <p className="text-xs text-charcoal-subtle font-sans pt-1">
-              Fits true to AU sizing. Tailored with relaxed ease through the hips.
+              {product.fitNote || "Compare your body measurements with the size guide before choosing a size."}
             </p>
           </div>
 
@@ -735,7 +740,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
               <div className="p-3.5 rounded-2xl bg-paper-dark border border-sand/50 text-xs text-charcoal/80 flex items-start gap-2.5">
                 <Info className="w-4 h-4 text-gold shrink-0 mt-0.5" />
                 <p className="leading-relaxed">
-                  This piece is handcrafted in limited artisan batches in Sri Lanka and is currently sold out in all sizes. Join the priority list above to be notified the moment the next loom run arrives.
+                  This piece is currently unavailable in all sizes. Contact our team or request a restock notification for availability updates.
                 </p>
               </div>
             </div>
@@ -831,11 +836,11 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             </div>
             <div className="flex items-center gap-1.5 p-2 rounded-xl bg-paper-light border border-sand/30">
               <Leaf className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span className="leading-tight">100% Organic</span>
+              <span className="leading-tight">Garment care guide</span>
             </div>
             <div className="flex items-center gap-1.5 p-2 rounded-xl bg-paper-light border border-sand/30">
               <Gift className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span className="leading-tight">Silk Pouch</span>
+              <span className="leading-tight">Made in Sri Lanka</span>
             </div>
           </div>
 
@@ -866,13 +871,13 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                     className="overflow-hidden pb-4 text-charcoal/80 space-y-2 leading-relaxed"
                   >
                     <p>
-                      • Cut with gentle ease through the torso, designed to drape fluidly without clinging.
+                      {product.fitNote || "Refer to the garment description for its silhouette and fit."}
                     </p>
                     <p>
                       • Refer to the size guide and contact us for garment-specific measurements.
                     </p>
                     <p>
-                      • True to Australian standard sizing. If between sizes, choose your usual size.
+                      • AU / UK sizing. If between sizes, ask our team for garment-specific guidance.
                     </p>
                   </motion.div>
                 )}
@@ -887,7 +892,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                 className="w-full py-3.5 flex items-center justify-between text-left text-charcoal hover:text-gold transition-colors font-medium cursor-pointer"
               >
                 <span className="uppercase font-bold tracking-wider">
-                  Fabric & Artisan Origin
+                  Fabric & Design Details
                 </span>
                 <ChevronDown
                   className={`w-4 h-4 transition-transform duration-200 ${
@@ -904,13 +909,13 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                     className="overflow-hidden pb-4 text-charcoal/80 space-y-2 leading-relaxed"
                   >
                     <p>
-                      • <strong>Composition:</strong> {product.fabric} (100% natural organic fiber).
+                      <strong>Fabric:</strong> {product.fabric}
                     </p>
                     <p>
-                      • <strong>Craftsmanship:</strong> Hand-loomed in small batches by artisan families in Gampaha, Sri Lanka.
+                      <strong>Design:</strong> {product.craftDetails.join(" · ")}
                     </p>
                     <p>
-                      • <strong>Dyes:</strong> Non-toxic, natural botanical pigment baths that age gracefully.
+                      Follow the care label supplied with your garment.
                     </p>
                   </motion.div>
                 )}

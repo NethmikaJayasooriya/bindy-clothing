@@ -1,0 +1,3299 @@
+{
+  "source": "Client catalogue, November 2026",
+  "excludedPages": [
+    34,
+    35,
+    36
+  ],
+  "removedProductIds": [
+    "black-white-gingham-maxi-skirt"
+  ],
+  "products": [
+    {
+      "id": "rose-stripe-strapless-dress",
+      "name": "Lotus Memory Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C001",
+      "catalogueOrder": 1,
+      "cataloguePage": 3,
+      "priceLkr": 4800,
+      "priceAud": 24,
+      "fabric": "Cotton",
+      "colorName": "Lotus Pink",
+      "colorHex": "#E5BBC9",
+      "palette": [
+        "#E5BBC9"
+      ],
+      "description": "Inspired by the Sri Lankan lotus, this pink striped dress pairs a clean strapless bodice with a softly gathered, flowing skirt. A feminine style for celebrations, holidays and special outings.",
+      "heritage": "Inspired by the Sri Lankan lotus, this pink striped dress pairs a clean strapless bodice with a softly gathered, flowing skirt. A feminine style for celebrations, holidays and special outings.",
+      "craftDetails": [
+        "Straight strapless neckline",
+        "Shaped, fitted bodice",
+        "Pink striped cotton",
+        "Softly gathered, flowing skirt"
+      ],
+      "fitNote": "Fitted bodice with a flowing skirt.",
+      "bestFor": "Casual wear, celebrations, holidays and special outings.",
+      "story": "Fragment of Memories",
+      "storyPlace": "Inspired by the Sri Lankan lotus",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/lotus-front.webp",
+      "imageHover": "/images/catalogue-2026/lotus-stripe-detail.webp",
+      "gallery": [
+        "/images/catalogue-2026/lotus-front.webp",
+        "/images/catalogue-2026/lotus-stripe-detail.webp",
+        "/images/catalogue-2026/lotus-making.webp",
+        "/images/catalogue-2026/lotus-fabric.webp",
+        "/images/catalogue-2026/lotus-cutting.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/lotus-front.webp",
+        "/images/catalogue-2026/lotus-stripe-detail.webp",
+        "/images/catalogue-2026/lotus-making.webp",
+        "/images/catalogue-2026/lotus-fabric.webp",
+        "/images/catalogue-2026/lotus-cutting.webp"
+      ],
+      "galleryLabels": [
+        "Lotus pink dress",
+        "Cotton stripe detail",
+        "Shaped bodice in the making",
+        "Fabric in the atelier",
+        "Cutting & construction"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Maxi",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "ocean-wash-chambray-shirt-maxi-dress",
+      "name": "Ocean Wash Chambray Shirt Maxi Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C002",
+      "catalogueOrder": 2,
+      "cataloguePage": 4,
+      "priceLkr": 6800,
+      "priceAud": 34,
+      "fabric": "Cotton Chambray",
+      "colorName": "Washed Ocean Blue",
+      "colorHex": "#91AEC4",
+      "palette": [
+        "#91AEC4"
+      ],
+      "description": "Inspired by the calm rhythm of the Sri Lankan ocean, this washed-blue chambray maxi features a classic collar, button-front bodice and softly gathered tiers. An easy, relaxed style for everyday wear, holidays and casual outings.",
+      "heritage": "Inspired by the calm rhythm of the Sri Lankan ocean, this washed-blue chambray maxi features a classic collar, button-front bodice and softly gathered tiers. An easy, relaxed style for everyday wear, holidays and casual outings.",
+      "craftDetails": [
+        "Classic collar",
+        "Short sleeves",
+        "Button-front closure",
+        "Softly gathered tiered skirt",
+        "Soft washed chambray finish"
+      ],
+      "fitNote": "Shaped bodice with a relaxed, flowing skirt.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Wash with similar colours",
+        "Turn inside out before washing",
+        "Use mild detergent",
+        "Line dry in shade",
+        "Warm iron if required",
+        "Avoid bleach"
+      ],
+      "reviews": [],
+      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fbd3ca16-0332-45fa-84b3-ec332f37ff7b.webp",
+      "imageHover": "/images/catalogue-2026/blue-reference.webp",
+      "gallery": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fbd3ca16-0332-45fa-84b3-ec332f37ff7b.webp",
+        "/images/catalogue-2026/blue-reference.webp"
+      ],
+      "galleryZoom": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fbd3ca16-0332-45fa-84b3-ec332f37ff7b.webp",
+        "/images/catalogue-2026/blue-reference.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Maxi",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "sage-shirt-maxi-dress",
+      "name": "Tea Mist Shirt Maxi Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C003",
+      "catalogueOrder": 3,
+      "cataloguePage": 5,
+      "priceLkr": 5500,
+      "priceAud": 28,
+      "fabric": "Cotton",
+      "colorName": "Mint",
+      "colorHex": "#9AAEA5",
+      "palette": [
+        "#9AAEA5"
+      ],
+      "description": "This mint cotton maxi features a classic collar, button-front bodice and softly gathered tiers. An easy, relaxed style for everyday wear, holidays and casual outings.",
+      "heritage": "This mint cotton maxi features a classic collar, button-front bodice and softly gathered tiers. An easy, relaxed style for everyday wear, holidays and casual outings.",
+      "craftDetails": [
+        "Classic collar",
+        "Short sleeves",
+        "Button-front bodice",
+        "Softly gathered tiered maxi skirt"
+      ],
+      "fitNote": "Shaped bodice with a relaxed skirt.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/sage-model.webp",
+      "imageHover": "/images/catalogue-2026/sage-model.webp",
+      "gallery": [
+        "/images/catalogue-2026/sage-model.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/sage-model.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Maxi",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "monochrome-breeze-maxi-dress",
+      "name": "Monochrome Breeze Maxi Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C004",
+      "catalogueOrder": 4,
+      "cataloguePage": 6,
+      "priceLkr": 4800,
+      "priceAud": 24,
+      "fabric": "Cotton",
+      "colorName": "Black & White",
+      "colorHex": "#272727",
+      "palette": [
+        "#272727"
+      ],
+      "description": "A fitted black bodice meets a flowing white skirt for an easy, modern contrast. Fine shoulder straps and a straight neckline create a clean silhouette, while the gathered high waist gives the skirt soft volume and graceful movement. Style with sneakers or sandals.",
+      "heritage": "A fitted black bodice meets a flowing white skirt for an easy, modern contrast. Fine shoulder straps and a straight neckline create a clean silhouette, while the gathered high waist gives the skirt soft volume and graceful movement. Style with sneakers or sandals.",
+      "craftDetails": [
+        "Fitted black bodice",
+        "Fine shoulder straps",
+        "Straight neckline",
+        "Gathered high waist",
+        "Flowing white maxi skirt"
+      ],
+      "fitNote": "Shaped bodice with a relaxed, flowing skirt.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/monochrome-model.webp",
+      "imageHover": "/images/catalogue-2026/monochrome-model.webp",
+      "gallery": [
+        "/images/catalogue-2026/monochrome-model.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/monochrome-model.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Maxi",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "gingham-wander-maxi-skirt",
+      "name": "Gingham Wander Maxi Skirt",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C005",
+      "catalogueOrder": 5,
+      "cataloguePage": 7,
+      "priceLkr": 3900,
+      "priceAud": 20,
+      "fabric": "Cotton",
+      "colorName": "Black & White Gingham",
+      "colorHex": "#292927",
+      "palette": [
+        "#292927"
+      ],
+      "description": "A black-and-white gingham maxi skirt with a defined waistband and a softly gathered, full-length silhouette. Easy to style for a sunny getaway, a weekend outing or a casual day out.",
+      "heritage": "A black-and-white gingham maxi skirt with a defined waistband and a softly gathered, full-length silhouette. Easy to style for a sunny getaway, a weekend outing or a casual day out.",
+      "craftDetails": [
+        "Fine black-and-white gingham check",
+        "Defined waistband",
+        "Softly gathered skirt",
+        "Full-length silhouette"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/customer-capsule/editorial/gingham-wander-maxi-skirt-back.webp",
+      "imageHover": "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp",
+      "gallery": [
+        "/images/customer-capsule/editorial/gingham-wander-maxi-skirt-back.webp",
+        "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp"
+      ],
+      "galleryZoom": [
+        "/images/customer-capsule/editorial/gingham-wander-maxi-skirt-back.webp",
+        "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp"
+      ],
+      "galleryLabels": [
+        "Back view",
+        "Front view"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Skirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "sunlit-paisley-shirt",
+      "name": "Sunlit Paisley Resort Shirt",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C006",
+      "catalogueOrder": 6,
+      "cataloguePage": 8,
+      "priceLkr": 2800,
+      "priceAud": 14,
+      "fabric": "Cotton Rayon",
+      "colorName": "Soft Yellow & Blue",
+      "colorHex": "#EACD7C",
+      "palette": [
+        "#EACD7C"
+      ],
+      "description": "A soft yellow shirt with an all-over blue paisley-inspired print, a classic collar, short sleeves and a button-front closure. Style with ivory shorts or the matching paisley shorts for holidays, warm weekends and casual outings. Shirt sold separately.",
+      "heritage": "A soft yellow shirt with an all-over blue paisley-inspired print, a classic collar, short sleeves and a button-front closure. Style with ivory shorts or the matching paisley shorts for holidays, warm weekends and casual outings. Shirt sold separately.",
+      "craftDetails": [
+        "Blue paisley-inspired print on soft yellow",
+        "Classic collar",
+        "Short sleeves",
+        "Button-front closure"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/paisley-shirt-front.webp",
+      "imageHover": "/images/catalogue-2026/paisley-shirt-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/paisley-shirt-front.webp",
+        "/images/catalogue-2026/paisley-shirt-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/paisley-shirt-front.webp",
+        "/images/catalogue-2026/paisley-shirt-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [
+        "sunlit-paisley-shorts"
+      ]
+    },
+    {
+      "id": "sunlit-paisley-shorts",
+      "name": "Sunlit Paisley Resort Shorts",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C007",
+      "catalogueOrder": 7,
+      "cataloguePage": 9,
+      "priceLkr": 2500,
+      "priceAud": 13,
+      "fabric": "Cotton Rayon",
+      "colorName": "Soft Yellow & Blue",
+      "colorHex": "#EACD7C",
+      "palette": [
+        "#EACD7C"
+      ],
+      "description": "Relaxed shorts in soft yellow with an all-over blue paisley-inspired print. Pair with a simple camisole or the matching resort shirt. Shorts sold separately.",
+      "heritage": "Relaxed shorts in soft yellow with an all-over blue paisley-inspired print. Pair with a simple camisole or the matching resort shirt. Shorts sold separately.",
+      "craftDetails": [
+        "Soft yellow base with blue paisley-inspired print",
+        "Relaxed shorts silhouette",
+        "Matching resort shirt available separately"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/paisley-shorts-front.webp",
+      "imageHover": "/images/catalogue-2026/paisley-shorts-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/paisley-shorts-front.webp",
+        "/images/catalogue-2026/paisley-shorts-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/paisley-shorts-front.webp",
+        "/images/catalogue-2026/paisley-shorts-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Shorts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [
+        "sunlit-paisley-shirt"
+      ]
+    },
+    {
+      "id": "crimson-lotus-dress",
+      "name": "Crimson Lotus Maxi Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C008",
+      "catalogueOrder": 8,
+      "cataloguePage": 10,
+      "priceLkr": 4500,
+      "priceAud": 23,
+      "fabric": "Breathable Cotton",
+      "colorName": "Crimson Red",
+      "colorHex": "#941B36",
+      "palette": [
+        "#941B36"
+      ],
+      "description": "A clean neckline and fitted bodice flow into a gently gathered waist and a beautifully full, floor-length skirt. Fine shoulder straps finish the design shown in the catalogue. A graceful style for celebrations, special evenings or a memorable holiday look.",
+      "heritage": "A clean neckline and fitted bodice flow into a gently gathered waist and a beautifully full, floor-length skirt. Fine shoulder straps finish the design shown in the catalogue. A graceful style for celebrations, special evenings or a memorable holiday look.",
+      "craftDetails": [
+        "Clean straight neckline with fine shoulder straps",
+        "Fitted bodice",
+        "Gently gathered waist",
+        "Full floor-length skirt"
+      ],
+      "fitNote": "Fitted bodice with a full, flowing skirt.",
+      "bestFor": "Celebrations, special evenings and holidays.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Hand wash cold separately",
+        "Line dry in shade",
+        "Warm iron on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/crimson-front.webp",
+      "imageHover": "/images/catalogue-2026/crimson-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/crimson-front.webp",
+        "/images/catalogue-2026/crimson-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/crimson-front.webp",
+        "/images/catalogue-2026/crimson-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Maxi",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "ivory-crochet-bralette",
+      "name": "Warm Brown Tiered Maxi Skirt",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C009",
+      "catalogueOrder": 9,
+      "cataloguePage": 11,
+      "priceLkr": 3900,
+      "priceAud": 20,
+      "fabric": "Rayon Crepe",
+      "colorName": "Warm Brown",
+      "colorHex": "#68432C",
+      "palette": [
+        "#68432C"
+      ],
+      "description": "A relaxed maxi skirt in warm brown, designed with three softly gathered tiers for gentle volume and movement. The elastic waistband has three rows of stitching and a matching front drawcord for an adjustable fit. Its lightly crinkled rayon crepe texture gives it an easy, airy feel.",
+      "heritage": "A relaxed maxi skirt in warm brown, designed with three softly gathered tiers for gentle volume and movement. The elastic waistband has three rows of stitching and a matching front drawcord for an adjustable fit. Its lightly crinkled rayon crepe texture gives it an easy, airy feel.",
+      "craftDetails": [
+        "Three softly gathered tiers",
+        "Elastic waistband with three rows of stitching",
+        "Matching front drawcord",
+        "Lightly crinkled rayon crepe"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold hand wash",
+        "Wash with similar colours",
+        "Do not wring or twist",
+        "Line dry in shade",
+        "Cool iron if required",
+        "Avoid bleach"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/brown-tiered-front.webp",
+      "imageHover": "/images/catalogue-2026/brown-tiered-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/brown-tiered-front.webp",
+        "/images/catalogue-2026/brown-tiered-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/brown-tiered-front.webp",
+        "/images/catalogue-2026/brown-tiered-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Skirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [
+        "ivory-handmade-crochet-halter-top"
+      ]
+    },
+    {
+      "id": "ivory-handmade-crochet-halter-top",
+      "name": "Ivory Handmade Crochet Halter Top",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C010",
+      "catalogueOrder": 10,
+      "cataloguePage": 11,
+      "priceLkr": 3800,
+      "priceAud": 19,
+      "fabric": "Cotton Thread",
+      "colorName": "Ivory",
+      "colorHex": "#F0E9DA",
+      "palette": [
+        "#F0E9DA"
+      ],
+      "description": "Handmade with care, this ivory crochet halter top features a deep V neckline and delicate open-stitch detailing. Neck and back ties create an open-back finish. This ivory crochet design is shown with the warm brown tiered skirt and is sold separately.",
+      "heritage": "Handmade with care, this ivory crochet halter top features a deep V neckline and delicate open-stitch detailing. Neck and back ties create an open-back finish. This ivory crochet design is shown with the warm brown tiered skirt and is sold separately.",
+      "craftDetails": [
+        "Handmade cotton-thread crochet",
+        "Deep V neckline",
+        "Delicate open-stitch detail",
+        "Neck and back ties",
+        "Open-back finish"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle hand wash in cold water",
+        "Use mild detergent",
+        "Do not bleach",
+        "Do not wring or twist",
+        "Reshape gently while damp",
+        "Dry flat in shade",
+        "Avoid hanging while wet",
+        "Cool iron only if required"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/ivory-crochet-front.webp",
+      "imageHover": "/images/catalogue-2026/ivory-crochet-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/ivory-crochet-front.webp",
+        "/images/catalogue-2026/ivory-crochet-back.webp",
+        "/images/catalogue-2026/brown-tiered-front.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/ivory-crochet-front.webp",
+        "/images/catalogue-2026/ivory-crochet-back.webp",
+        "/images/catalogue-2026/brown-tiered-front.webp"
+      ],
+      "galleryLabels": [
+        "Ivory crochet front",
+        "Open-back & tie detail",
+        "Styled with the brown skirt"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [
+        "ivory-crochet-bralette"
+      ]
+    },
+    {
+      "id": "black-relaxed-harem-pants",
+      "name": "Black Relaxed Harem Pants",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C011",
+      "catalogueOrder": 11,
+      "cataloguePage": 12,
+      "priceLkr": 4500,
+      "priceAud": 23,
+      "fabric": "Cotton",
+      "colorName": "Black",
+      "colorHex": "#202020",
+      "palette": [
+        "#202020"
+      ],
+      "description": "Relaxed, roomy black harem pants with a gathered elastic waistband and softly gathered ankle cuffs. Their voluminous shape creates a comfortable, flowing fit for laid-back days or travel. Pants sold separately; the top is shown for styling.",
+      "heritage": "Relaxed, roomy black harem pants with a gathered elastic waistband and softly gathered ankle cuffs. Their voluminous shape creates a comfortable, flowing fit for laid-back days or travel. Pants sold separately; the top is shown for styling.",
+      "craftDetails": [
+        "Gathered elastic waistband",
+        "Softly gathered ankle cuffs",
+        "Roomy, voluminous harem shape"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle machine wash cold",
+        "Wash with similar colours",
+        "Do not bleach",
+        "Do not tumble dry",
+        "Line dry in the shade"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/harem-model.webp",
+      "imageHover": "/images/catalogue-2026/harem-reference.webp",
+      "gallery": [
+        "/images/catalogue-2026/harem-model.webp",
+        "/images/catalogue-2026/harem-reference.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/harem-model.webp",
+        "/images/catalogue-2026/harem-reference.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Pants",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [
+        "lime-strapless-button-front-top"
+      ]
+    },
+    {
+      "id": "white-floral-embroidered-midi-dress",
+      "name": "White Floral Embroidered Midi Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C012",
+      "catalogueOrder": 12,
+      "cataloguePage": 13,
+      "priceLkr": 6500,
+      "priceAud": 33,
+      "fabric": "Cotton",
+      "colorName": "White",
+      "colorHex": "#F7F4EA",
+      "palette": [
+        "#F7F4EA"
+      ],
+      "description": "A fresh, feminine dress in delicate white floral embroidery with an inner lining. Fine shoulder straps and a clean square neckline frame the fitted bodice, while a defined waist opens into a softly gathered, flared skirt.",
+      "heritage": "A fresh, feminine dress in delicate white floral embroidery with an inner lining. Fine shoulder straps and a clean square neckline frame the fitted bodice, while a defined waist opens into a softly gathered, flared skirt.",
+      "craftDetails": [
+        "White floral embroidery",
+        "Inner lining",
+        "Fine shoulder straps",
+        "Square neckline",
+        "Fitted bodice and defined waist",
+        "Softly gathered, flared skirt"
+      ],
+      "fitNote": "Shaped bodice with a softly flared, relaxed skirt.",
+      "bestFor": "Warm days, garden gatherings and special occasions.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold hand wash",
+        "Wash separately or with similar colours",
+        "Turn inside out before washing",
+        "Do not wring or twist",
+        "Line dry in shade",
+        "Cool iron on reverse",
+        "Avoid bleach"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/embroidered-dress-model.webp",
+      "imageHover": "/images/catalogue-2026/embroidered-dress-reference.webp",
+      "gallery": [
+        "/images/catalogue-2026/embroidered-dress-model.webp",
+        "/images/catalogue-2026/embroidered-dress-reference.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/embroidered-dress-model.webp",
+        "/images/catalogue-2026/embroidered-dress-reference.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Floral",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "botanic-rose-cami",
+      "name": "Botanic Rose Camisole",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C013",
+      "catalogueOrder": 13,
+      "cataloguePage": 14,
+      "priceLkr": 2500,
+      "priceAud": 13,
+      "fabric": "Rayon Cotton",
+      "colorName": "Forest Green & Soft Pink",
+      "colorHex": "#30463C",
+      "palette": [
+        "#30463C"
+      ],
+      "description": "A relaxed sleeveless cami with a V neckline and an easy, gently flared shape. The dark green base is covered in a soft pink floral and botanical print. Camisole sold separately from the matching pants.",
+      "heritage": "A relaxed sleeveless cami with a V neckline and an easy, gently flared shape. The dark green base is covered in a soft pink floral and botanical print. Camisole sold separately from the matching pants.",
+      "craftDetails": [
+        "Sleeveless cami",
+        "V neckline",
+        "Gently flared shape",
+        "Soft pink floral and botanical print on dark green"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/bindi-real/botanic-rose-cami-01.webp",
+      "imageHover": "/images/catalogue-2026/botanic-separates.webp",
+      "gallery": [
+        "/images/bindi-real/botanic-rose-cami-01.webp",
+        "/images/catalogue-2026/botanic-separates.webp"
+      ],
+      "galleryZoom": [
+        "/images/bindi-real/botanic-rose-cami-01.webp",
+        "/images/catalogue-2026/botanic-separates.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [
+        "botanic-rose-trousers"
+      ]
+    },
+    {
+      "id": "botanic-rose-trousers",
+      "name": "Botanic Rose Straight-Leg Trousers",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C014",
+      "catalogueOrder": 14,
+      "cataloguePage": 15,
+      "priceLkr": 3500,
+      "priceAud": 18,
+      "fabric": "Rayon Cotton",
+      "colorName": "Forest Green & Soft Pink",
+      "colorHex": "#30463C",
+      "palette": [
+        "#30463C"
+      ],
+      "description": "Full-length, straight-leg pants with a relaxed silhouette and an all-over pink floral and botanical print on a dark green base. Pair with the matching camisole for an effortless set. The displayed price is for the trousers only.",
+      "heritage": "Full-length, straight-leg pants with a relaxed silhouette and an all-over pink floral and botanical print on a dark green base. Pair with the matching camisole for an effortless set. The displayed price is for the trousers only.",
+      "craftDetails": [
+        "Full-length straight legs",
+        "Relaxed silhouette",
+        "Pink floral and botanical print",
+        "Dark green base"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/botanic-model.webp",
+      "imageHover": "/images/catalogue-2026/botanic-separates.webp",
+      "gallery": [
+        "/images/catalogue-2026/botanic-model.webp",
+        "/images/catalogue-2026/botanic-separates.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/botanic-model.webp",
+        "/images/catalogue-2026/botanic-separates.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Pants",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [
+        "botanic-rose-cami"
+      ]
+    },
+    {
+      "id": "cacao-satin-cami",
+      "name": "Cacao Light Satin Camisole",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C015",
+      "catalogueOrder": 15,
+      "cataloguePage": 16,
+      "priceLkr": 2500,
+      "priceAud": 13,
+      "fabric": "Soft Satin",
+      "colorName": "Cacao Brown",
+      "colorHex": "#73472F",
+      "palette": [
+        "#73472F"
+      ],
+      "description": "A relaxed sleeveless cami with a flattering V neckline and an easy, gently flared shape. Soft satin gives it fluid movement for casual days or party styling. Camisole sold separately.",
+      "heritage": "A relaxed sleeveless cami with a flattering V neckline and an easy, gently flared shape. Soft satin gives it fluid movement for casual days or party styling. Camisole sold separately.",
+      "craftDetails": [
+        "Sleeveless cami",
+        "Fine shoulder straps",
+        "V neckline",
+        "Gently flared shape",
+        "Soft satin finish"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear and party wear.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle hand wash in cold water",
+        "Wash separately",
+        "Use mild detergent",
+        "Do not wring or twist",
+        "Line dry in shade",
+        "Cool iron on reverse if required",
+        "Avoid bleach"
+      ],
+      "reviews": [],
+      "image": "/images/bindi-real/cacao-satin-cami-01.webp",
+      "imageHover": "/images/catalogue-2026/satin-front.webp",
+      "gallery": [
+        "/images/bindi-real/cacao-satin-cami-01.webp",
+        "/images/catalogue-2026/satin-front.webp",
+        "/images/catalogue-2026/satin-colours.webp"
+      ],
+      "galleryZoom": [
+        "/images/bindi-real/cacao-satin-cami-01.webp",
+        "/images/catalogue-2026/satin-front.webp",
+        "/images/catalogue-2026/satin-colours.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1",
+        "Garment detail 2"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Cacao Brown",
+        "Dark Green",
+        "Navy",
+        "Black",
+        "Ivory"
+      ]
+    },
+    {
+      "id": "ivory-tiered-maxi-skirt",
+      "name": "Ivory Ripple Tiered Maxi Skirt",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C016",
+      "catalogueOrder": 16,
+      "cataloguePage": 17,
+      "priceLkr": 3900,
+      "priceAud": 20,
+      "fabric": "Cotton Viscose",
+      "colorName": "White",
+      "colorHex": "#F0EEE5",
+      "palette": [
+        "#F0EEE5"
+      ],
+      "description": "A flowing white maxi skirt, finished with a drawstring waist and gently ruffled tiers for graceful movement. Relaxed and easy to style with a camisole or blouse.",
+      "heritage": "A flowing white maxi skirt, finished with a drawstring waist and gently ruffled tiers for graceful movement. Relaxed and easy to style with a camisole or blouse.",
+      "craftDetails": [
+        "Drawstring waist",
+        "Gently ruffled gathered tiers",
+        "Full-length flowing skirt"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/ivory-tiered-model.webp",
+      "imageHover": "/images/catalogue-2026/ivory-tiered-reference.webp",
+      "gallery": [
+        "/images/catalogue-2026/ivory-tiered-model.webp",
+        "/images/catalogue-2026/ivory-tiered-reference.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/ivory-tiered-model.webp",
+        "/images/catalogue-2026/ivory-tiered-reference.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Skirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Powder Blue",
+        "Lilac"
+      ]
+    },
+    {
+      "id": "rose-stripe-shirt",
+      "name": "Rose Stripe Relaxed Shirt",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C017",
+      "catalogueOrder": 17,
+      "cataloguePage": 18,
+      "priceLkr": 3900,
+      "priceAud": 20,
+      "fabric": "Cotton",
+      "colorName": "Pink Stripe",
+      "colorHex": "#DDB5C8",
+      "palette": [
+        "#DDB5C8"
+      ],
+      "description": "A relaxed-fit cotton shirt with a classic collar, button-front fastening, long sleeves and buttoned cuffs. The curved hem makes it an easy, versatile piece to wear with shorts or trousers.",
+      "heritage": "A relaxed-fit cotton shirt with a classic collar, button-front fastening, long sleeves and buttoned cuffs. The curved hem makes it an easy, versatile piece to wear with shorts or trousers.",
+      "craftDetails": [
+        "Classic collar",
+        "Button-front fastening",
+        "Long sleeves with buttoned cuffs",
+        "Curved hem"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/pink-shirt.webp",
+      "imageHover": "/images/catalogue-2026/pink-shirt.webp",
+      "gallery": [
+        "/images/catalogue-2026/pink-shirt.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/pink-shirt.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Black",
+        "Pink Stripe"
+      ]
+    },
+    {
+      "id": "white-striped-relaxed-shirt",
+      "name": "White Relaxed Cotton Shirt",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C017",
+      "catalogueOrder": 17.1,
+      "cataloguePage": 18,
+      "priceLkr": 3900,
+      "priceAud": 20,
+      "fabric": "Cotton",
+      "colorName": "White",
+      "colorHex": "#F5F4EB",
+      "palette": [
+        "#F5F4EB"
+      ],
+      "description": "A relaxed-fit cotton shirt with a classic collar, button-front fastening, long sleeves and buttoned cuffs. The curved hem makes it an easy, versatile piece to wear with shorts or trousers.",
+      "heritage": "A relaxed-fit cotton shirt with a classic collar, button-front fastening, long sleeves and buttoned cuffs. The curved hem makes it an easy, versatile piece to wear with shorts or trousers.",
+      "craftDetails": [
+        "Classic collar",
+        "Button-front fastening",
+        "Long sleeves with buttoned cuffs",
+        "Curved hem"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle machine wash cold",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Line dry in the shade",
+        "Warm iron if required"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/white-shirt.webp",
+      "imageHover": "/images/catalogue-2026/white-shirt-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/white-shirt.webp",
+        "/images/catalogue-2026/white-shirt-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/white-shirt.webp",
+        "/images/catalogue-2026/white-shirt-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Black",
+        "Pink Stripe"
+      ]
+    },
+    {
+      "id": "black-relaxed-cotton-shirt",
+      "name": "Black Relaxed Cotton Shirt",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C017",
+      "catalogueOrder": 17.2,
+      "cataloguePage": 18,
+      "priceLkr": 3900,
+      "priceAud": 20,
+      "fabric": "Cotton",
+      "colorName": "Black",
+      "colorHex": "#222222",
+      "palette": [
+        "#222222"
+      ],
+      "description": "A relaxed-fit cotton shirt with a classic collar, button-front fastening, long sleeves and buttoned cuffs. The curved hem makes it an easy, versatile piece to wear with shorts or trousers.",
+      "heritage": "A relaxed-fit cotton shirt with a classic collar, button-front fastening, long sleeves and buttoned cuffs. The curved hem makes it an easy, versatile piece to wear with shorts or trousers.",
+      "craftDetails": [
+        "Classic collar",
+        "Button-front fastening",
+        "Long sleeves with buttoned cuffs",
+        "Curved hem"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle machine wash cold",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Line dry in the shade",
+        "Warm iron if required"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/black-shirt.webp",
+      "imageHover": "/images/catalogue-2026/black-shirt.webp",
+      "gallery": [
+        "/images/catalogue-2026/black-shirt.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/black-shirt.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Black",
+        "Pink Stripe"
+      ]
+    },
+    {
+      "id": "burgundy-square-neck-maxi-dress",
+      "name": "Burgundy Square-Neck Maxi Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C018",
+      "catalogueOrder": 18,
+      "cataloguePage": 19,
+      "priceLkr": 4800,
+      "priceAud": 24,
+      "fabric": "Cotton",
+      "colorName": "Burgundy",
+      "colorHex": "#7A1E32",
+      "palette": [
+        "#7A1E32"
+      ],
+      "description": "A graceful burgundy maxi dress with a clean square neckline, delicate shoulder straps and a fitted bodice. The gathered waist flows into a full, softly flared skirt, while the subtle woven texture adds a natural finish.",
+      "heritage": "A graceful burgundy maxi dress with a clean square neckline, delicate shoulder straps and a fitted bodice. The gathered waist flows into a full, softly flared skirt, while the subtle woven texture adds a natural finish.",
+      "craftDetails": [
+        "Square neckline",
+        "Delicate shoulder straps",
+        "Fitted bodice",
+        "Gathered waist",
+        "Full, softly flared skirt",
+        "Subtle woven texture"
+      ],
+      "fitNote": "Fitted bodice with a relaxed, flared skirt.",
+      "bestFor": "Casual wear, special occasions and relaxed evenings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle machine wash cold",
+        "Wash with similar colors",
+        "Use mild detergent",
+        "Do not bleach",
+        "Line dry in the shade",
+        "Cool iron on reverse if required"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/burgundy-front.webp",
+      "imageHover": "/images/catalogue-2026/burgundy-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/burgundy-front.webp",
+        "/images/catalogue-2026/burgundy-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/burgundy-front.webp",
+        "/images/catalogue-2026/burgundy-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Maxi",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "lime-strapless-button-front-top",
+      "name": "Lime Strapless Button-Front Top",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C019",
+      "catalogueOrder": 19,
+      "cataloguePage": 20,
+      "priceLkr": 2700,
+      "priceAud": 14,
+      "fabric": "Rayon",
+      "colorName": "Lime",
+      "colorHex": "#C3D33E",
+      "palette": [
+        "#C3D33E"
+      ],
+      "description": "A chic strapless top with a straight neckline, fitted shape and button-down front. A pointed hem creates a polished, corset-inspired finish. Pair with a skirt or jeans; the top is sold separately.",
+      "heritage": "A chic strapless top with a straight neckline, fitted shape and button-down front. A pointed hem creates a polished, corset-inspired finish. Pair with a skirt or jeans; the top is sold separately.",
+      "craftDetails": [
+        "Straight strapless neckline",
+        "Fitted shape",
+        "Button-down front",
+        "Pointed corset-inspired hem"
+      ],
+      "fitNote": "Fitted.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle hand wash in cold water",
+        "Wash separately with similar colours",
+        "Use mild detergent",
+        "Do not bleach",
+        "Line dry in the shade",
+        "Cool iron on reverse if required"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/lime-corset-front.webp",
+      "imageHover": "/images/catalogue-2026/lime-corset-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/lime-corset-front.webp",
+        "/images/catalogue-2026/lime-corset-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/lime-corset-front.webp",
+        "/images/catalogue-2026/lime-corset-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Lime",
+        "Beige"
+      ]
+    },
+    {
+      "id": "shore-traces-blouse",
+      "name": "Beige Strapless Button-Front Top",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C019",
+      "catalogueOrder": 19.1,
+      "cataloguePage": 20,
+      "priceLkr": 2700,
+      "priceAud": 14,
+      "fabric": "Rayon",
+      "colorName": "Beige",
+      "colorHex": "#D3BEA3",
+      "palette": [
+        "#D3BEA3"
+      ],
+      "description": "A chic strapless top with a straight neckline, fitted shape and button-down front. A pointed hem creates a polished, corset-inspired finish. Pair with a skirt or jeans; the top is sold separately.",
+      "heritage": "A chic strapless top with a straight neckline, fitted shape and button-down front. A pointed hem creates a polished, corset-inspired finish. Pair with a skirt or jeans; the top is sold separately.",
+      "craftDetails": [
+        "Straight strapless neckline",
+        "Fitted shape",
+        "Button-down front",
+        "Pointed corset-inspired hem"
+      ],
+      "fitNote": "Fitted.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle hand wash in cold water",
+        "Wash separately with similar colors",
+        "Use mild detergent",
+        "Do not bleach",
+        "Line dry in the shade",
+        "Cool iron on reverse if required"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/beige-corset-model.webp",
+      "imageHover": "/images/catalogue-2026/beige-corset-model.webp",
+      "gallery": [
+        "/images/catalogue-2026/beige-corset-model.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/beige-corset-model.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Lime",
+        "Beige"
+      ]
+    },
+    {
+      "id": "serendib-pearl-dress",
+      "name": "White Relaxed Flared Maxi Skirt",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C020",
+      "catalogueOrder": 20,
+      "cataloguePage": 21,
+      "priceLkr": 4800,
+      "priceAud": 24,
+      "fabric": "Cotton",
+      "colorName": "White",
+      "colorHex": "#F3EEE3",
+      "palette": [
+        "#F3EEE3"
+      ],
+      "description": "A relaxed, flared cotton maxi skirt in white, with a defined waistband and a softly gathered, flowing silhouette. The skirt is sold separately from the styling top.",
+      "heritage": "A relaxed, flared cotton maxi skirt in white, with a defined waistband and a softly gathered, flowing silhouette. The skirt is sold separately from the styling top.",
+      "craftDetails": [
+        "Defined waistband",
+        "Softly gathered flared skirt",
+        "Maxi length"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear and special occasions.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Hand wash cold",
+        "Do not bleach",
+        "Cool iron lace on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/flared-skirt-reference.webp",
+      "imageHover": "/images/catalogue-2026/flared-skirt-reference.webp",
+      "gallery": [
+        "/images/catalogue-2026/flared-skirt-reference.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/flared-skirt-reference.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Skirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Black",
+        "Warm Brown",
+        "Rust Red"
+      ]
+    },
+    {
+      "id": "black-relaxed-flared-maxi-skirt",
+      "name": "Black Relaxed Flared Maxi Skirt",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C020",
+      "catalogueOrder": 20.1,
+      "cataloguePage": 21,
+      "priceLkr": 4800,
+      "priceAud": 24,
+      "fabric": "Cotton",
+      "colorName": "Black",
+      "colorHex": "#242424",
+      "palette": [
+        "#242424"
+      ],
+      "description": "A relaxed, flared cotton maxi skirt in black, with a defined waistband and a softly gathered, flowing silhouette. The skirt is sold separately from the styling top.",
+      "heritage": "A relaxed, flared cotton maxi skirt in black, with a defined waistband and a softly gathered, flowing silhouette. The skirt is sold separately from the styling top.",
+      "craftDetails": [
+        "Defined waistband",
+        "Softly gathered flared skirt",
+        "Maxi length"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear and special occasions.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle machine wash cold",
+        "Wash with similar colors",
+        "Use mild detergent",
+        "Do not bleach",
+        "Line dry in the shade",
+        "Warm iron if required"
+      ],
+      "reviews": [],
+      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e842ca4c-59d1-4e20-bd35-d989c811cb03.webp",
+      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/edc63e9b-3093-4eaf-89cf-27590a1ce8f3.webp",
+      "gallery": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e842ca4c-59d1-4e20-bd35-d989c811cb03.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/edc63e9b-3093-4eaf-89cf-27590a1ce8f3.webp"
+      ],
+      "galleryZoom": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e842ca4c-59d1-4e20-bd35-d989c811cb03.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/edc63e9b-3093-4eaf-89cf-27590a1ce8f3.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Skirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Black",
+        "Warm Brown",
+        "Rust Red"
+      ]
+    },
+    {
+      "id": "brown-relaxed-flared-maxi-skirt",
+      "name": "Warm Brown Relaxed Flared Maxi Skirt",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C020",
+      "catalogueOrder": 20.2,
+      "cataloguePage": 21,
+      "priceLkr": 4800,
+      "priceAud": 24,
+      "fabric": "Cotton",
+      "colorName": "Warm Brown",
+      "colorHex": "#73503A",
+      "palette": [
+        "#73503A"
+      ],
+      "description": "A relaxed, flared cotton maxi skirt in warm brown, with a defined waistband and a softly gathered, flowing silhouette. The skirt is sold separately from the styling top.",
+      "heritage": "A relaxed, flared cotton maxi skirt in warm brown, with a defined waistband and a softly gathered, flowing silhouette. The skirt is sold separately from the styling top.",
+      "craftDetails": [
+        "Defined waistband",
+        "Softly gathered flared skirt",
+        "Maxi length"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear and special occasions.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle machine wash cold",
+        "Wash with similar colors",
+        "Use mild detergent",
+        "Do not bleach",
+        "Line dry in the shade",
+        "Warm iron if required"
+      ],
+      "reviews": [],
+      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/d76defdb-eb76-4d40-91f8-baec667c2fdb.webp",
+      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/495e3e51-b6b4-4abf-a355-1ddedcc9b541.webp",
+      "gallery": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/d76defdb-eb76-4d40-91f8-baec667c2fdb.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/495e3e51-b6b4-4abf-a355-1ddedcc9b541.webp"
+      ],
+      "galleryZoom": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/d76defdb-eb76-4d40-91f8-baec667c2fdb.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/495e3e51-b6b4-4abf-a355-1ddedcc9b541.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Skirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Black",
+        "Warm Brown",
+        "Rust Red"
+      ]
+    },
+    {
+      "id": "red-relaxed-flared-maxi-skirt",
+      "name": "Rust Red Relaxed Flared Maxi Skirt",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C020",
+      "catalogueOrder": 20.3,
+      "cataloguePage": 21,
+      "priceLkr": 4800,
+      "priceAud": 24,
+      "fabric": "Cotton",
+      "colorName": "Rust Red",
+      "colorHex": "#A64F30",
+      "palette": [
+        "#A64F30"
+      ],
+      "description": "A relaxed, flared cotton maxi skirt in rust red, with a defined waistband and a softly gathered, flowing silhouette. The skirt is sold separately from the styling top.",
+      "heritage": "A relaxed, flared cotton maxi skirt in rust red, with a defined waistband and a softly gathered, flowing silhouette. The skirt is sold separately from the styling top.",
+      "craftDetails": [
+        "Defined waistband",
+        "Softly gathered flared skirt",
+        "Maxi length"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear and special occasions.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Machine wash gently in cold water",
+        "Wash with similar colors",
+        "Use a mild detergent",
+        "Do not bleach",
+        "Dry in the shade",
+        "Iron on a suitable cotton setting if needed"
+      ],
+      "reviews": [],
+      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/65492fba-cead-4b1c-bafb-f9de2e117538.webp",
+      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/ad456ce1-259e-4583-8b9b-f5e6914afd5a.webp",
+      "gallery": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/65492fba-cead-4b1c-bafb-f9de2e117538.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/ad456ce1-259e-4583-8b9b-f5e6914afd5a.webp"
+      ],
+      "galleryZoom": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/65492fba-cead-4b1c-bafb-f9de2e117538.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/ad456ce1-259e-4583-8b9b-f5e6914afd5a.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Skirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Black",
+        "Warm Brown",
+        "Rust Red"
+      ]
+    },
+    {
+      "id": "black-tiered-cotton-shirt-dress",
+      "name": "Black Tiered Cotton Shirt Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C021",
+      "catalogueOrder": 21,
+      "cataloguePage": 22,
+      "priceLkr": 4500,
+      "priceAud": 23,
+      "fabric": "Cotton",
+      "colorName": "Black",
+      "colorHex": "#DCC7AF",
+      "palette": [
+        "#DCC7AF"
+      ],
+      "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "craftDetails": [
+        "Classic collar",
+        "Short sleeves",
+        "Full button-front placket",
+        "Shaped bodice",
+        "Softly gathered two-tier skirt",
+        "Above-knee hem"
+      ],
+      "fitNote": "Shaped bodice with a relaxed skirt.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Machine wash gently in cold water",
+        "Wash with similar colours",
+        "Use a mild detergent",
+        "Do not bleach",
+        "Dry in the shade",
+        "Iron on a suitable cotton setting if needed"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/shirt-dress-reference.webp",
+      "imageHover": "/images/catalogue-2026/shirt-dress-reference.webp",
+      "gallery": [
+        "/images/catalogue-2026/shirt-dress-reference.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/shirt-dress-reference.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Mini",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Black",
+        "Soft Ivory",
+        "Sage Mist",
+        "Olive Grove",
+        "Earth Clay",
+        "Warm Sand"
+      ]
+    },
+    {
+      "id": "soft-ivory-tiered-shirt-dress",
+      "name": "Soft Ivory Tiered Cotton Shirt Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C021",
+      "catalogueOrder": 21.1,
+      "cataloguePage": 22,
+      "priceLkr": 4500,
+      "priceAud": 23,
+      "fabric": "Cotton",
+      "colorName": "Soft Ivory",
+      "colorHex": "#DCC7AF",
+      "palette": [
+        "#DCC7AF"
+      ],
+      "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "craftDetails": [
+        "Classic collar",
+        "Short sleeves",
+        "Full button-front placket",
+        "Shaped bodice",
+        "Softly gathered two-tier skirt",
+        "Above-knee hem"
+      ],
+      "fitNote": "Shaped bodice with a relaxed skirt.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Machine wash gently in cold water",
+        "Wash with similar colours",
+        "Use a mild detergent",
+        "Do not bleach",
+        "Dry in the shade",
+        "Iron on a suitable cotton setting if needed"
+      ],
+      "reviews": [],
+      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/628fe351-f8aa-4d51-aa51-76354f14af6f.webp",
+      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/eae40535-1b41-4841-a45c-b59bac697d06.webp",
+      "gallery": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/628fe351-f8aa-4d51-aa51-76354f14af6f.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/eae40535-1b41-4841-a45c-b59bac697d06.webp"
+      ],
+      "galleryZoom": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/628fe351-f8aa-4d51-aa51-76354f14af6f.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/eae40535-1b41-4841-a45c-b59bac697d06.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Mini",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Black",
+        "Soft Ivory",
+        "Sage Mist",
+        "Olive Grove",
+        "Earth Clay",
+        "Warm Sand"
+      ]
+    },
+    {
+      "id": "sage-mist-tiered-cotton-shirt-dress",
+      "name": "Sage Mist Tiered Cotton Shirt Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C021",
+      "catalogueOrder": 21.2,
+      "cataloguePage": 22,
+      "priceLkr": 4500,
+      "priceAud": 23,
+      "fabric": "Cotton",
+      "colorName": "Sage Mist",
+      "colorHex": "#DCC7AF",
+      "palette": [
+        "#DCC7AF"
+      ],
+      "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "craftDetails": [
+        "Classic collar",
+        "Short sleeves",
+        "Full button-front placket",
+        "Shaped bodice",
+        "Softly gathered two-tier skirt",
+        "Above-knee hem"
+      ],
+      "fitNote": "Shaped bodice with a relaxed skirt.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Machine wash gently in cold water",
+        "Wash with similar colours",
+        "Use a mild detergent",
+        "Do not bleach",
+        "Dry in the shade",
+        "Iron on a suitable cotton setting if needed"
+      ],
+      "reviews": [],
+      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/91dff6c1-66a8-4b25-9492-1f85b6bdd546.webp",
+      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/f2c52ddc-47e2-428e-a9fb-f0aa4002ccb2.webp",
+      "gallery": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/91dff6c1-66a8-4b25-9492-1f85b6bdd546.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/f2c52ddc-47e2-428e-a9fb-f0aa4002ccb2.webp"
+      ],
+      "galleryZoom": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/91dff6c1-66a8-4b25-9492-1f85b6bdd546.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/f2c52ddc-47e2-428e-a9fb-f0aa4002ccb2.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Mini",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Black",
+        "Soft Ivory",
+        "Sage Mist",
+        "Olive Grove",
+        "Earth Clay",
+        "Warm Sand"
+      ]
+    },
+    {
+      "id": "olive-grove-tiered-cotton-shirt-dress",
+      "name": "Olive Grove Tiered Cotton Shirt Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C021",
+      "catalogueOrder": 21.3,
+      "cataloguePage": 22,
+      "priceLkr": 4500,
+      "priceAud": 23,
+      "fabric": "Cotton",
+      "colorName": "Olive Grove",
+      "colorHex": "#DCC7AF",
+      "palette": [
+        "#DCC7AF"
+      ],
+      "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "craftDetails": [
+        "Classic collar",
+        "Short sleeves",
+        "Full button-front placket",
+        "Shaped bodice",
+        "Softly gathered two-tier skirt",
+        "Above-knee hem"
+      ],
+      "fitNote": "Shaped bodice with a relaxed skirt.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Machine wash gently in cold water",
+        "Wash with similar colours",
+        "Use a mild detergent",
+        "Do not bleach",
+        "Dry in the shade",
+        "Iron on a suitable cotton setting if needed"
+      ],
+      "reviews": [],
+      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/6f82fc67-53b5-4abe-b998-5c58fb1d3eb5.webp",
+      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e65178f0-7d67-4d52-bcaa-0bcf16b83f3a.webp",
+      "gallery": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/6f82fc67-53b5-4abe-b998-5c58fb1d3eb5.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e65178f0-7d67-4d52-bcaa-0bcf16b83f3a.webp"
+      ],
+      "galleryZoom": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/6f82fc67-53b5-4abe-b998-5c58fb1d3eb5.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e65178f0-7d67-4d52-bcaa-0bcf16b83f3a.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Mini",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Black",
+        "Soft Ivory",
+        "Sage Mist",
+        "Olive Grove",
+        "Earth Clay",
+        "Warm Sand"
+      ]
+    },
+    {
+      "id": "earth-clay-tiered-cotton-shirt-dress",
+      "name": "Earth Clay Tiered Cotton Shirt Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C021",
+      "catalogueOrder": 21.4,
+      "cataloguePage": 22,
+      "priceLkr": 4500,
+      "priceAud": 23,
+      "fabric": "Cotton",
+      "colorName": "Earth Clay",
+      "colorHex": "#DCC7AF",
+      "palette": [
+        "#DCC7AF"
+      ],
+      "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "craftDetails": [
+        "Classic collar",
+        "Short sleeves",
+        "Full button-front placket",
+        "Shaped bodice",
+        "Softly gathered two-tier skirt",
+        "Above-knee hem"
+      ],
+      "fitNote": "Shaped bodice with a relaxed skirt.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Machine wash gently in cold water",
+        "Wash with similar colours",
+        "Use a mild detergent",
+        "Do not bleach",
+        "Dry in the shade",
+        "Iron on a suitable cotton setting if needed"
+      ],
+      "reviews": [],
+      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/8cd0d191-5330-40ef-9d1f-3ebe9c09daf3.webp",
+      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/36f1d435-a16c-4ff3-8e9a-b27c0d8c0f39.webp",
+      "gallery": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/8cd0d191-5330-40ef-9d1f-3ebe9c09daf3.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/36f1d435-a16c-4ff3-8e9a-b27c0d8c0f39.webp"
+      ],
+      "galleryZoom": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/8cd0d191-5330-40ef-9d1f-3ebe9c09daf3.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/36f1d435-a16c-4ff3-8e9a-b27c0d8c0f39.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Mini",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Black",
+        "Soft Ivory",
+        "Sage Mist",
+        "Olive Grove",
+        "Earth Clay",
+        "Warm Sand"
+      ]
+    },
+    {
+      "id": "warm-sand-tiered-cotton-shirt-dress",
+      "name": "Warm Sand Tiered Cotton Shirt Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C021",
+      "catalogueOrder": 21.5,
+      "cataloguePage": 22,
+      "priceLkr": 4500,
+      "priceAud": 23,
+      "fabric": "Cotton",
+      "colorName": "Warm Sand",
+      "colorHex": "#DCC7AF",
+      "palette": [
+        "#DCC7AF"
+      ],
+      "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
+      "craftDetails": [
+        "Classic collar",
+        "Short sleeves",
+        "Full button-front placket",
+        "Shaped bodice",
+        "Softly gathered two-tier skirt",
+        "Above-knee hem"
+      ],
+      "fitNote": "Shaped bodice with a relaxed skirt.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Machine wash gently in cold water",
+        "Wash with similar colours",
+        "Use a mild detergent",
+        "Do not bleach",
+        "Dry in the shade",
+        "Iron on a suitable cotton setting if needed"
+      ],
+      "reviews": [],
+      "image": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/41334d3b-b364-4500-be04-56f90c3888a3.webp",
+      "imageHover": "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fd179a4f-ddbf-47e5-9135-84434140e839.webp",
+      "gallery": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/41334d3b-b364-4500-be04-56f90c3888a3.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fd179a4f-ddbf-47e5-9135-84434140e839.webp"
+      ],
+      "galleryZoom": [
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/41334d3b-b364-4500-be04-56f90c3888a3.webp",
+        "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fd179a4f-ddbf-47e5-9135-84434140e839.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Mini",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Black",
+        "Soft Ivory",
+        "Sage Mist",
+        "Olive Grove",
+        "Earth Clay",
+        "Warm Sand"
+      ]
+    },
+    {
+      "id": "botanic-rose-relaxed-shirt",
+      "name": "Botanic Rose Relaxed Shirt",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C022",
+      "catalogueOrder": 22,
+      "cataloguePage": 23,
+      "priceLkr": 3900,
+      "priceAud": 20,
+      "fabric": "Rayon",
+      "colorName": "Forest Green & Soft Pink",
+      "colorHex": "#30463C",
+      "palette": [
+        "#30463C"
+      ],
+      "description": "A relaxed rayon shirt with an all-over soft pink floral and botanical print on dark green. A classic collar, button-front opening and long sleeves finish this easy casual piece.",
+      "heritage": "A relaxed rayon shirt with an all-over soft pink floral and botanical print on dark green. A classic collar, button-front opening and long sleeves finish this easy casual piece.",
+      "craftDetails": [
+        "Classic collar",
+        "Button-front opening",
+        "Long sleeves",
+        "Pink floral and botanical print on dark green"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/botanic-shirt-front.webp",
+      "imageHover": "/images/catalogue-2026/botanic-shirt-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/botanic-shirt-front.webp",
+        "/images/catalogue-2026/botanic-shirt-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/botanic-shirt-front.webp",
+        "/images/catalogue-2026/botanic-shirt-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "botanic-rose-halter-maxi-dress",
+      "name": "Botanic Rose Halter Maxi Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C023",
+      "catalogueOrder": 23,
+      "cataloguePage": 24,
+      "priceLkr": 6500,
+      "priceAud": 33,
+      "fabric": "Fabric composition available on request",
+      "colorName": "Forest Green & Dusty Peach",
+      "colorHex": "#30463C",
+      "palette": [
+        "#30463C"
+      ],
+      "description": "A forest-green maxi dress with a dusty-peach floral print throughout. The deep halter neckline and open back frame a softly shaped waist, while the gently gathered, ankle-length skirt creates an elegant, easy-flowing silhouette.",
+      "heritage": "A forest-green maxi dress with a dusty-peach floral print throughout. The deep halter neckline and open back frame a softly shaped waist, while the gently gathered, ankle-length skirt creates an elegant, easy-flowing silhouette.",
+      "craftDetails": [
+        "Deep halter neckline",
+        "Open back with neck tie",
+        "Softly shaped waist",
+        "Gently gathered ankle-length skirt",
+        "Dusty-peach floral print on forest green"
+      ],
+      "fitNote": "Softly shaped waist with a gently gathered skirt.",
+      "bestFor": "Sunlit days and relaxed occasions.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/botanic-halter-front.webp",
+      "imageHover": "/images/catalogue-2026/botanic-halter-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/botanic-halter-front.webp",
+        "/images/catalogue-2026/botanic-halter-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/botanic-halter-front.webp",
+        "/images/catalogue-2026/botanic-halter-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Maxi",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "raspberry-red-textured-maxi-dress",
+      "name": "Raspberry Red Textured Maxi Dress",
+      "category": "Dresses",
+      "catalogueCode": "20261C024",
+      "catalogueOrder": 24,
+      "cataloguePage": 25,
+      "priceLkr": 6500,
+      "priceAud": 33,
+      "fabric": "Textured fabric",
+      "colorName": "Raspberry Red",
+      "colorHex": "#AD2348",
+      "palette": [
+        "#AD2348"
+      ],
+      "description": "Celebrate the season in rich raspberry red. This textured maxi dress features a V-neck bodice, softly gathered puff sleeves, a defined waistband and a flowing tiered skirt for an elegant festive look.",
+      "heritage": "Celebrate the season in rich raspberry red. This textured maxi dress features a V-neck bodice, softly gathered puff sleeves, a defined waistband and a flowing tiered skirt for an elegant festive look.",
+      "craftDetails": [
+        "V-neck bodice",
+        "Softly gathered puff sleeves",
+        "Defined waistband",
+        "Flowing tiered maxi skirt",
+        "Textured finish"
+      ],
+      "fitNote": "Defined waist with a flowing tiered skirt.",
+      "bestFor": "Festive dressing and special occasions.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Check the garment care label before washing",
+        "Wash gently in cold water if suitable",
+        "Use a mild detergent",
+        "Do not bleach",
+        "Dry in the shade",
+        "Iron on a low setting if required"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/raspberry-front.webp",
+      "imageHover": "/images/catalogue-2026/raspberry-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/raspberry-front.webp",
+        "/images/catalogue-2026/raspberry-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/raspberry-front.webp",
+        "/images/catalogue-2026/raspberry-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": false,
+      "parentCategory": "Dresses",
+      "subCategory": "Maxi",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "chartreuse-tailored-rayon-vest",
+      "name": "Chartreuse Tailored Rayon Vest",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C025",
+      "catalogueOrder": 25,
+      "cataloguePage": 26,
+      "priceLkr": 3200,
+      "priceAud": 16,
+      "fabric": "Premium Rayon",
+      "colorName": "Chartreuse",
+      "colorHex": "#C4D233",
+      "palette": [
+        "#C4D233"
+      ],
+      "description": "A fitted sleeveless vest with a notched collar, button-front closure and a pointed hem. Pair with a flowing skirt or trousers for a simple, elegant look. Vest sold separately.",
+      "heritage": "A fitted sleeveless vest with a notched collar, button-front closure and a pointed hem. Pair with a flowing skirt or trousers for a simple, elegant look. Vest sold separately.",
+      "craftDetails": [
+        "Notched collar",
+        "Sleeveless design",
+        "Button-front closure",
+        "Shaped seams",
+        "Pointed hem"
+      ],
+      "fitNote": "Shaped, fitted silhouette.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/lime-vest-front.webp",
+      "imageHover": "/images/catalogue-2026/lime-vest-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/lime-vest-front.webp",
+        "/images/catalogue-2026/lime-vest-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/lime-vest-front.webp",
+        "/images/catalogue-2026/lime-vest-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Chartreuse",
+        "Beige"
+      ]
+    },
+    {
+      "id": "beige-tailored-rayon-vest",
+      "name": "Beige Tailored Rayon Vest",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C025",
+      "catalogueOrder": 25.1,
+      "cataloguePage": 26,
+      "priceLkr": 3200,
+      "priceAud": 16,
+      "fabric": "Premium Rayon",
+      "colorName": "Beige",
+      "colorHex": "#D5BE9B",
+      "palette": [
+        "#D5BE9B"
+      ],
+      "description": "A fitted sleeveless vest with a notched collar, button-front closure and a pointed hem. Pair with a flowing skirt or trousers for a simple, elegant look. Vest sold separately.",
+      "heritage": "A fitted sleeveless vest with a notched collar, button-front closure and a pointed hem. Pair with a flowing skirt or trousers for a simple, elegant look. Vest sold separately.",
+      "craftDetails": [
+        "Notched collar",
+        "Sleeveless design",
+        "Button-front closure",
+        "Shaped seams",
+        "Pointed hem"
+      ],
+      "fitNote": "Shaped, fitted silhouette.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/beige-vest-front.webp",
+      "imageHover": "/images/catalogue-2026/beige-vest-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/beige-vest-front.webp",
+        "/images/catalogue-2026/beige-vest-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/beige-vest-front.webp",
+        "/images/catalogue-2026/beige-vest-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Chartreuse",
+        "Beige"
+      ]
+    },
+    {
+      "id": "chartreuse-embroidered-voile-blouse",
+      "name": "Chartreuse Embroidered Voile Blouse",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C026",
+      "catalogueOrder": 26,
+      "cataloguePage": 27,
+      "priceLkr": 3500,
+      "priceAud": 18,
+      "fabric": "Voile",
+      "colorName": "Pale Chartreuse",
+      "colorHex": "#CEDA7B",
+      "palette": [
+        "#CEDA7B"
+      ],
+      "description": "A soft pale chartreuse voile blouse with a pointed collar, shell-coloured buttons, long sleeves and a curved hem. The back has a gently gathered yoke with a tiny hand-embroidered daisy sprig.",
+      "heritage": "A soft pale chartreuse voile blouse with a pointed collar, shell-coloured buttons, long sleeves and a curved hem. The back has a gently gathered yoke with a tiny hand-embroidered daisy sprig.",
+      "craftDetails": [
+        "Pointed collar",
+        "Shell-coloured buttons",
+        "Long sleeves",
+        "Curved hem",
+        "Gently gathered back yoke",
+        "Tiny hand-embroidered daisy on the back"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/chartreuse-blouse-front.webp",
+      "imageHover": "/images/catalogue-2026/chartreuse-blouse-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/chartreuse-blouse-front.webp",
+        "/images/catalogue-2026/chartreuse-blouse-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/chartreuse-blouse-front.webp",
+        "/images/catalogue-2026/chartreuse-blouse-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "pearl-lace-blouse",
+      "name": "Pearl Lace-Trim Cotton Blouse",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C027",
+      "catalogueOrder": 27,
+      "cataloguePage": 28,
+      "priceLkr": 3600,
+      "priceAud": 18,
+      "fabric": "Cotton",
+      "colorName": "White",
+      "colorHex": "#F5F3EA",
+      "palette": [
+        "#F5F3EA"
+      ],
+      "description": "A fitted white cotton blouse with a collar, short lace-trimmed sleeves and a softly curved lace-trimmed hem. The back has a centre seam and curved shaping seams for a neat fit.",
+      "heritage": "A fitted white cotton blouse with a collar, short lace-trimmed sleeves and a softly curved lace-trimmed hem. The back has a centre seam and curved shaping seams for a neat fit.",
+      "craftDetails": [
+        "Classic collar",
+        "Button-front fastening",
+        "Short lace-trimmed sleeves",
+        "Softly curved lace-trimmed hem",
+        "Centre back seam",
+        "Curved back shaping seams"
+      ],
+      "fitNote": "Fitted, with shaped front and back seams.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Gentle cold wash",
+        "Line dry in shade",
+        "Warm iron or steam on reverse"
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/white-lace-model.webp",
+      "imageHover": "/images/catalogue-2026/white-lace-front.webp",
+      "gallery": [
+        "/images/catalogue-2026/white-lace-model.webp",
+        "/images/catalogue-2026/white-lace-front.webp",
+        "/images/catalogue-2026/white-lace-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/white-lace-model.webp",
+        "/images/catalogue-2026/white-lace-front.webp",
+        "/images/catalogue-2026/white-lace-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1",
+        "Garment detail 2"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "taupe-olive-embroidered-voile-blouse",
+      "name": "Taupe Olive Embroidered Voile Blouse",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C028",
+      "catalogueOrder": 28,
+      "cataloguePage": 29,
+      "priceLkr": 3500,
+      "priceAud": 18,
+      "fabric": "Voile",
+      "colorName": "Dusty Taupe Olive",
+      "colorHex": "#969881",
+      "palette": [
+        "#969881"
+      ],
+      "description": "A relaxed dusty taupe-olive voile blouse with a button-front opening and long sleeves. A tiny hand-embroidered botanical sprig on the gently gathered back yoke adds a delicate, personal touch. Matching wide-leg drawstring pants are sold separately.",
+      "heritage": "A relaxed dusty taupe-olive voile blouse with a button-front opening and long sleeves. A tiny hand-embroidered botanical sprig on the gently gathered back yoke adds a delicate, personal touch. Matching wide-leg drawstring pants are sold separately.",
+      "craftDetails": [
+        "Classic collar",
+        "Button-front opening",
+        "Long sleeves with gathered cuffs",
+        "Gently gathered back yoke",
+        "Tiny hand-embroidered botanical sprig"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/taupe-outfit.webp",
+      "imageHover": "/images/catalogue-2026/taupe-blouse-front.webp",
+      "gallery": [
+        "/images/catalogue-2026/taupe-outfit.webp",
+        "/images/catalogue-2026/taupe-blouse-front.webp",
+        "/images/catalogue-2026/taupe-blouse-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/taupe-outfit.webp",
+        "/images/catalogue-2026/taupe-blouse-front.webp",
+        "/images/catalogue-2026/taupe-blouse-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1",
+        "Garment detail 2"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [
+        "taupe-olive-wide-leg-voile-pants"
+      ]
+    },
+    {
+      "id": "taupe-olive-wide-leg-voile-pants",
+      "name": "Taupe Olive Wide-Leg Voile Pants",
+      "category": "Skirts & Pants",
+      "catalogueCode": "20261C029",
+      "catalogueOrder": 29,
+      "cataloguePage": 30,
+      "priceLkr": 3500,
+      "priceAud": 18,
+      "fabric": "Voile",
+      "colorName": "Dusty Taupe Olive",
+      "colorHex": "#969881",
+      "palette": [
+        "#969881"
+      ],
+      "description": "Relaxed dusty taupe-olive voile pants with flowing wide legs and a drawstring waist. The full outfit is shown for styling; the price is for the pants only. Matching blouse sold separately.",
+      "heritage": "Relaxed dusty taupe-olive voile pants with flowing wide legs and a drawstring waist. The full outfit is shown for styling; the price is for the pants only. Matching blouse sold separately.",
+      "craftDetails": [
+        "Flowing wide legs",
+        "Drawstring waist",
+        "Relaxed full-length silhouette"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/taupe-outfit.webp",
+      "imageHover": "/images/catalogue-2026/taupe-pants-detail.webp",
+      "gallery": [
+        "/images/catalogue-2026/taupe-outfit.webp",
+        "/images/catalogue-2026/taupe-pants-detail.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/taupe-outfit.webp",
+        "/images/catalogue-2026/taupe-pants-detail.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Bottoms",
+      "subCategory": "Pants",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [
+        "taupe-olive-embroidered-voile-blouse"
+      ]
+    },
+    {
+      "id": "white-cotton-peplum-blouse",
+      "name": "White Cotton Peplum Blouse",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C030",
+      "catalogueOrder": 30,
+      "cataloguePage": 31,
+      "priceLkr": 3200,
+      "priceAud": 16,
+      "fabric": "Cotton",
+      "colorName": "White",
+      "colorHex": "#F3F0E5",
+      "palette": [
+        "#F3F0E5"
+      ],
+      "description": "A cotton peplum blouse with fine shoulder straps, a straight neckline and a shaped bodice. A gathered peplum hem adds gentle flare. Blouse sold separately.",
+      "heritage": "A cotton peplum blouse with fine shoulder straps, a straight neckline and a shaped bodice. A gathered peplum hem adds gentle flare. Blouse sold separately.",
+      "craftDetails": [
+        "Fine shoulder straps",
+        "Straight neckline",
+        "Shaped bodice",
+        "Gathered peplum hem"
+      ],
+      "fitNote": "Shaped bodice with a softly flared peplum.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/white-peplum-front.webp",
+      "imageHover": "/images/catalogue-2026/white-peplum-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/white-peplum-front.webp",
+        "/images/catalogue-2026/white-peplum-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/white-peplum-front.webp",
+        "/images/catalogue-2026/white-peplum-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Pink"
+      ]
+    },
+    {
+      "id": "pink-cotton-peplum-blouse",
+      "name": "Pink Cotton Peplum Blouse",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C030",
+      "catalogueOrder": 30.1,
+      "cataloguePage": 31,
+      "priceLkr": 3200,
+      "priceAud": 16,
+      "fabric": "Cotton",
+      "colorName": "Pink",
+      "colorHex": "#D5A7B4",
+      "palette": [
+        "#D5A7B4"
+      ],
+      "description": "A cotton peplum blouse with fine shoulder straps, a straight neckline and a shaped bodice. A gathered peplum hem adds gentle flare. Blouse sold separately.",
+      "heritage": "A cotton peplum blouse with fine shoulder straps, a straight neckline and a shaped bodice. A gathered peplum hem adds gentle flare. Blouse sold separately.",
+      "craftDetails": [
+        "Fine shoulder straps",
+        "Straight neckline",
+        "Shaped bodice",
+        "Gathered peplum hem"
+      ],
+      "fitNote": "Shaped bodice with a softly flared peplum.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/pink-peplum-front.webp",
+      "imageHover": "/images/catalogue-2026/pink-peplum-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/pink-peplum-front.webp",
+        "/images/catalogue-2026/pink-peplum-back.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/pink-peplum-front.webp",
+        "/images/catalogue-2026/pink-peplum-back.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Pink"
+      ]
+    },
+    {
+      "id": "white-embroidered-tie-front-camisole",
+      "name": "White Embroidered Tie-Front Camisole",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C031",
+      "catalogueOrder": 31,
+      "cataloguePage": 32,
+      "priceLkr": 3800,
+      "priceAud": 19,
+      "fabric": "Cotton",
+      "colorName": "White",
+      "colorHex": "#F5F0E5",
+      "palette": [
+        "#F5F0E5"
+      ],
+      "description": "A romantic, easy-to-wear white embroidered cotton camisole with a soft V-neck, a delicate front tie and a gathered, gently flared hem. White-on-white floral embroidery adds a subtle handmade touch. The camisole is sold separately; the rust skirt is for styling.",
+      "heritage": "A romantic, easy-to-wear white embroidered cotton camisole with a soft V-neck, a delicate front tie and a gathered, gently flared hem. White-on-white floral embroidery adds a subtle handmade touch. The camisole is sold separately; the rust skirt is for styling.",
+      "craftDetails": [
+        "Soft V neckline",
+        "Fine shoulder straps",
+        "Delicate front tie",
+        "White-on-white floral embroidery",
+        "Gathered, gently flared hem"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/tie-front-cami.webp",
+      "imageHover": "/images/catalogue-2026/tie-front-cami-back.webp",
+      "gallery": [
+        "/images/catalogue-2026/tie-front-cami.webp",
+        "/images/catalogue-2026/tie-front-cami-back.webp",
+        "/images/catalogue-2026/tie-front-cami-reference.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/tie-front-cami.webp",
+        "/images/catalogue-2026/tie-front-cami-back.webp",
+        "/images/catalogue-2026/tie-front-cami-reference.webp"
+      ],
+      "galleryLabels": [
+        "Front & styling view",
+        "Garment detail 1",
+        "Garment detail 2"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": []
+    },
+    {
+      "id": "triangle-crochet-halter-top",
+      "name": "Triangle Crochet Tie Halter Top",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C010",
+      "catalogueOrder": 32,
+      "cataloguePage": 33,
+      "priceLkr": 3500,
+      "priceAud": 18,
+      "fabric": "Cotton Thread",
+      "colorName": "Rust Red",
+      "colorHex": "#AB533C",
+      "palette": [
+        "#AB533C"
+      ],
+      "description": "A hand-crocheted halter top with triangular cups, delicate openwork edging and a slim underbust tie. Neck and back ties create an adjustable open-back finish. This is a separate crochet design from the ivory halter shown with the brown maxi skirt. Shown in rust red, warm brown, mustard yellow and white.",
+      "heritage": "A hand-crocheted halter top with triangular cups, delicate openwork edging and a slim underbust tie. Neck and back ties create an adjustable open-back finish. This is a separate crochet design from the ivory halter shown with the brown maxi skirt. Shown in rust red, warm brown, mustard yellow and white.",
+      "craftDetails": [
+        "Hand-crocheted cotton thread",
+        "Triangular cups",
+        "Delicate openwork edging",
+        "Slim underbust tie",
+        "Neck and back ties",
+        "Open-back finish"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/triangle-crochet-rust.webp",
+      "imageHover": "/images/catalogue-2026/triangle-crochet-brown.webp",
+      "gallery": [
+        "/images/catalogue-2026/triangle-crochet-rust.webp",
+        "/images/catalogue-2026/triangle-crochet-brown.webp",
+        "/images/catalogue-2026/triangle-crochet-mustard.webp",
+        "/images/catalogue-2026/triangle-crochet-white.webp",
+        "/images/catalogue-2026/triangle-crochet-styled.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/triangle-crochet-rust.webp",
+        "/images/catalogue-2026/triangle-crochet-brown.webp",
+        "/images/catalogue-2026/triangle-crochet-mustard.webp",
+        "/images/catalogue-2026/triangle-crochet-white.webp",
+        "/images/catalogue-2026/triangle-crochet-styled.webp"
+      ],
+      "galleryLabels": [
+        "Rust red triangle crochet",
+        "Warm brown colour",
+        "Mustard yellow colour",
+        "White colour",
+        "Styled with shorts"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "Rust Red",
+        "Warm Brown",
+        "Mustard Yellow",
+        "White"
+      ]
+    }
+  ]
+}
