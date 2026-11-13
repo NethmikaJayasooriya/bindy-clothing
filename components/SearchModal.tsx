@@ -1,7 +1,7 @@
 "use client";
 
 import ResponsiveImage from "@/components/ResponsiveImage";
-import { useStorefront } from "@/components/StorefrontProvider";
+import { useCatalogueProducts } from "@/components/StorefrontProvider";
 import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
@@ -78,7 +78,7 @@ const CATEGORY_CARDS = [
 ];
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
-  const { products: PRODUCTS } = useStorefront();
+  const PRODUCTS = useCatalogueProducts();
   const { getPrice, isLkr } = useCurrency();
   const [query, setQuery] = useState("");
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>("All");

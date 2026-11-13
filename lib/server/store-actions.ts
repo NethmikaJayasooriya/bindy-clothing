@@ -53,7 +53,7 @@ export function saveProduct(state: StoreState, input: Input) {
     colorHex: /^#[0-9a-f]{6}$/i.test(text(input.colorHex)) ? text(input.colorHex) : "#DCC7AF",
     priceAud: number(input.priceAud), priceLkr: input.priceLkr===undefined?existing?.priceLkr:number(input.priceLkr), compareAtAud: number(input.compareAtAud ?? 0), costAud: number(input.costAud ?? 0),
     status: choice(input.status, ["active", "draft", "archived"] as const, "product status"), featured: input.featured === true,
-    sizes, stock, lowStockThreshold: integer(input.lowStockThreshold ?? state.settings.lowStockThreshold, 1000), gallery, image: existing && gallery.join() === existing.gallery.join() ? existing.image : gallery[0], imageHover: existing && gallery.join() === existing.gallery.join() ? existing.imageHover : gallery[1] ?? gallery[0],
+    sizes, stock, trackInventory: input.trackInventory === undefined ? existing?.trackInventory !== false : input.trackInventory !== false, lowStockThreshold: integer(input.lowStockThreshold ?? state.settings.lowStockThreshold, 1000), gallery, image: existing && gallery.join() === existing.gallery.join() ? existing.image : gallery[0], imageHover: existing && gallery.join() === existing.gallery.join() ? existing.imageHover : gallery[1] ?? gallery[0],
     inventoryCount: Object.values(stock).reduce((s, n) => s + n, 0),
     parentCategory: (category === "Dresses" ? "Dresses" : category === "Tops & Blouses" ? "Tops" : category === "Skirts & Pants" ? "Bottoms" : category === "Two Piece Sets" ? "Resort Wear" : category) as any,
     subCategory: text(input.subCategory, 100) || "Casual", collectionName: choice(input.collectionName, ["Serendipity", "Collection 02", "Atelier Separates"] as const, "collection"),
@@ -105,10 +105,10 @@ export function createOrder(state: StoreState, input: Input): StoreOrder {
   const items = Array.from(grouped.values()).map(item => {
     const p = state.products.find(p => p.id === item.productId && p.status === "active" && !isRetiredProduct(p.id));
     if (!p || !p.sizes.includes(item.size)) throw new StoreError("A selected product or size is no longer available.");
-    if ((p.stock[item.size] ?? 0) < item.quantity) throw new StoreError(`${p.name} has only ${p.stock[item.size] ?? 0} left in ${item.size}.`);
+    if (p.trackInventory !== false && (p.stock[item.size] ?? 0) < item.quantity) throw new StoreError(`${p.name} has only ${p.stock[item.size] ?? 0} left in ${item.size}.`);
     const isCod = input.currency === "LKR" || input.paymentMethod === "cod";
     const unitPrice = isCod ? (p.priceLkr || Math.round(p.priceAud * (state.settings.cod?.demoMultiplier ?? 200))) : p.priceAud;
-    return { ...item, name: p.name, image: p.image, priceAud: p.priceAud, unitPrice };
+    return { ...item, inventoryTracked: p.trackInventory !== false, name: p.name, image: p.image, priceAud: p.priceAud, unitPrice };
   });
   const isCod = input.currency === "LKR" || input.paymentMethod === "cod";
   const currency = isCod ? "LKR" : "AUD";
@@ -121,7 +121,7 @@ export function createOrder(state: StoreState, input: Input): StoreOrder {
   const order: StoreOrder = { id: randomUUID(), number: `${state.settings.orderPrefix}-${String(state.orders.length + 1001)}`, customerId: customer.id,
     customerName, email: customerEmail, phone, address, items, subtotal, discount: result.discount, shipping: result.shipping,
     total: Math.round((subtotal - result.discount + result.shipping) * 100) / 100, discountCode: code, payment: "unpaid", fulfillment: "unfulfilled", carrier: "", tracking: "", notes: text(input.notes, 5000), createdAt: now, updatedAt: now, requestId, currency, paymentMethod: isCod ? "cod" : undefined, testMode: (isCod && state.settings.cod?.testMode) || undefined };
-  for (const item of items) state.products.find(p => p.id === item.productId)!.stock[item.size] -= item.quantity;
+  for (const item of items) if(item.inventoryTracked !== false) state.products.find(p => p.id === item.productId)!.stock[item.size] -= item.quantity;
   if (result.coupon) result.coupon.used++;
   state.orders.unshift(order); return order;
 }
@@ -180,6 +180,7 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
     case "inventory": {
       const product = state.products.find(p => p.id === v.id); if (!product) throw new StoreError("Product not found.", 404);
       const stock = object(v.stock); for (const size of product.sizes) product.stock[size] = integer(stock[size] ?? 0);
+      product.trackInventory = v.trackInventory === undefined ? product.trackInventory !== false : v.trackInventory !== false;
       product.inventoryCount = Object.values(product.stock).reduce((s, n) => s + n, 0);
       product.updatedAt = new Date().toISOString(); return;
     }
@@ -193,7 +194,7 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       if ((status === "shipped" || status === "delivered") && !text(v.tracking)) throw new StoreError("Add a real tracking number before marking this order as shipped.");
       if (status === "cancelled" && order.fulfillment !== "cancelled") {
         if (order.fulfillment === "shipped" || order.fulfillment === "delivered") throw new StoreError("Use a return for orders that have already shipped.");
-        if(!order.testMode)for (const item of order.items) { const p = state.products.find(p => p.id === item.productId); if (p) p.stock[item.size] = (p.stock[item.size] ?? 0) + item.quantity; }
+        if(!order.testMode)for (const item of order.items) { const p = state.products.find(p => p.id === item.productId); if (p && item.inventoryTracked !== false) p.stock[item.size] = (p.stock[item.size] ?? 0) + item.quantity; }
       }
       const payment = choice(v.payment, ["unpaid", "paid", "refunded"] as const, "payment status");
       if(order.gateway && payment!==order.payment) throw new StoreError("PayHere payment status is updated by verified gateway notifications. Record refunds in PayHere first.");
@@ -228,7 +229,7 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       if (v.restock === true && !r.restocked) {
         if (status !== "received" && status !== "closed") throw new StoreError("Mark the return as received before restocking.");
         if (state.returns.some(item => item.orderId === order.id && item.restocked)) throw new StoreError("This order has already been restocked.");
-        for (const line of order.items) { const p = state.products.find(p => p.id === line.productId); if (p) p.stock[line.size] = (p.stock[line.size] ?? 0) + line.quantity; } r.restocked = true;
+        for (const line of order.items) { const p = state.products.find(p => p.id === line.productId); if (p && line.inventoryTracked !== false) p.stock[line.size] = (p.stock[line.size] ?? 0) + line.quantity; } r.restocked = true;
       }
       if (current) Object.assign(current, r); else state.returns.unshift(r); return r;
     }

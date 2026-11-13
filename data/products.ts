@@ -176,7 +176,7 @@ const FEATURED_PIECES = [
 export const PRODUCTS: EnrichedProduct[] = RAW_PRODUCTS.map<EnrichedProduct>((p, index) => {
   if (p.catalogueCode) return {
     ...p,
-    inventoryStatus: "sold_out",
+    inventoryStatus: p.trackInventory === false ? "in_stock" : "sold_out",
     inventoryCount: 0,
     badge: "NEW",
     parentCategory: p.category === "Dresses" ? "Dresses" : p.category === "Tops & Blouses" ? "Tops" : "Bottoms",

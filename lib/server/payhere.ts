@@ -32,7 +32,7 @@ export function expirePendingOrders(state:StoreState,now=Date.now()) {
 }
 function releaseStock(state:StoreState,order:StoreOrder) {
   if(order.fulfillment==="cancelled")return;
-  for(const line of order.items) {const p=state.products.find(p=>p.id===line.productId);if(p)p.stock[line.size]=(p.stock[line.size]??0)+line.quantity;}
+  for(const line of order.items) {const p=state.products.find(p=>p.id===line.productId);if(p&&line.inventoryTracked!==false)p.stock[line.size]=(p.stock[line.size]??0)+line.quantity;}
   if(order.discountCode){const d=state.discounts.find(d=>d.code===order.discountCode);if(d)d.used=Math.max(0,d.used-1);}
   order.fulfillment="cancelled";
 }

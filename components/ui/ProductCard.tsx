@@ -14,6 +14,8 @@ import Badge from "./Badge";
 import { purchaseContents } from "@/lib/purchase-contents";
 import { showsFullOutfit } from "@/lib/product-media";
 import { useStorefront } from "@/components/StorefrontProvider";
+import { productDisplayName, colourVariants } from '@/lib/product-variants';
+import reviewedHoverPhotos from '@/data/product-card-hover.json';
 import { isSizeSoldOut, isProductSoldOut, getFirstAvailableSize } from "@/lib/stock";
 
 export interface ProductCardProps {
@@ -41,9 +43,16 @@ export default function ProductCard({
 }: ProductCardProps) {
   const { products } = useStorefront();
   const product = products.find((p) => p.id === initialProduct.id) ?? initialProduct;
+  const displayName=productDisplayName(product);
+  const variants=colourVariants(product,products);
   const [, setWishlistTick] = useState(0);
   const [added, setAdded] = useState(false);
   const [addedSize, setAddedSize] = useState<string | null>(null);
+  const [hovered,setHovered]=useState(false);
+  const [hoverRequested,setHoverRequested]=useState(false);
+  const [readyHoverSrc,setReadyHoverSrc]=useState<string|null>(null);
+  const reviewed=(reviewedHoverPhotos as Record<string,{primary:string;alternate:string}>)[product.id];
+  const hoverSrc=reviewed?.primary===product.image?reviewed.alternate:null;
 
   useEffect(() => {
     const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
@@ -80,9 +89,11 @@ export default function ProductCard({
       {/* Image & Media Frame */}
       <div
         className="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-[#F2ECE1]"
+        onMouseEnter={()=>{if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){setHoverRequested(true);setHovered(true);}}}
+        onMouseLeave={()=>setHovered(false)}
       >
         <Link href={`/product/${product.id}`} className="block absolute inset-0" aria-label={`View ${product.name}`}>
-          {/* Keep one model photo mounted. Reference gallery media must never overlay it on hover. */}
+          {/* Keep the model visible until the reviewed alternate has decoded. */}
           <ResponsiveImage
             src={product.image}
             alt={product.name}
@@ -90,8 +101,9 @@ export default function ProductCard({
             fetchPriority={priority ? "high" : "auto"}
             decoding="async"
             sizes={imageSizes}
-            className={`absolute inset-0 w-full h-full ${fullOutfit ? "object-contain" : "object-cover"} motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:scale-[1.015]`}
+            className={`absolute inset-0 w-full h-full ${fullOutfit ? "object-contain" : "object-cover"} motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-[1.045]`}
           />
+          {hoverRequested&&hoverSrc&&<ResponsiveImage src={hoverSrc} alt={`${product.name} alternate model view`} sizes={imageSizes} loading="eager" decoding="async" onLoad={async e=>{const img=e.currentTarget;try{await img.decode();if(img.naturalWidth>0)setReadyHoverSrc(hoverSrc);}catch{/* Keep the original photo visible if decoding fails. */}}} className={`absolute inset-0 w-full h-full object-contain bg-[#F2ECE1] pointer-events-none motion-safe:transition-opacity motion-safe:duration-500 ${hovered&&readyHoverSrc===hoverSrc?'opacity-100':'opacity-0'}`}/>}
 
           {/* Bottom vignette overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none" />
@@ -223,9 +235,13 @@ export default function ProductCard({
           {/* Product Title */}
           <Link href={`/product/${product.id}`} className="block">
             <h3 className="h-[2.75em] font-serif text-[14.5px] sm:text-[17.5px] text-charcoal font-normal group-hover:text-[#8E6E34] transition-colors leading-snug line-clamp-2">
-              {product.name}
+              {displayName}
             </h3>
           </Link>
+
+          <div className="flex h-6 items-center gap-1.5" aria-label={variants.length>1?`${variants.length} available colours`:undefined}>
+            {variants.length>1&&<>{variants.map(v=><Link key={v.id} href={`/product/${v.id}`} aria-label={`View ${v.colorName}`} title={v.colorName} className="block h-4 w-4 rounded-full border border-black/20 ring-offset-2 hover:ring-1 hover:ring-charcoal" style={{backgroundColor:v.colorHex}}/>)}<span className="ml-1 text-[10px] text-charcoal-subtle">{variants.length} colours</span></>}
+          </div>
 
           {/* Fabric / Material Description */}
           <p className="h-[18px] text-[12px] leading-[18px] font-sans text-charcoal/65 font-light line-clamp-1">

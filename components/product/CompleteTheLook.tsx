@@ -1,6 +1,6 @@
 "use client";
 import ResponsiveImage from "@/components/ResponsiveImage";
-import { useStorefront } from "@/components/StorefrontProvider";
+import { useCatalogueProducts } from "@/components/StorefrontProvider";
 import { useCurrency } from "@/components/CurrencyContext";
 
 import React, { useState } from "react";
@@ -23,7 +23,7 @@ export default function CompleteTheLook({
   const [bundleAdded, setBundleAdded] = useState(false);
 
   // A dress is a complete garment. Suggest only actual top/bottom pairings.
-  const { products: PRODUCTS } = useStorefront();
+  const PRODUCTS = useCatalogueProducts();
   const preferredPair = currentProduct.styleWith?.find((id) =>
     PRODUCTS.some((product) => product.id === id)
   );

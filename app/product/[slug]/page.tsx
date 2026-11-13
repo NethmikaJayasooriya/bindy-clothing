@@ -21,5 +21,5 @@ export default async function ProductPage({params}:{params:Promise<{slug:string}
  const product=store.products.find(p=>p.id===id);
  if(!product) notFound();
  const category=Object.entries(CATEGORY_PAGES).find(([,v])=>v.name===product.category);
- return <><JsonLd data={productSchema(product,store)}/><JsonLd data={breadcrumbs([{name:"Home",path:"/"},{name:"Collection",path:"/collection"},...(category?[{name:category[1].name,path:`/collection/${category[0]}`}]:[]),{name:product.name,path:`/product/${product.id}`}])}/><ProductDetail product={product}/></>;
+ return <><JsonLd data={productSchema(product,store)}/><JsonLd data={breadcrumbs([{name:"Home",path:"/"},{name:"Collection",path:"/collection"},...(category?[{name:category[1].name,path:`/collection/${category[0]}`}]:[]),{name:product.name,path:`/product/${product.id}`}])}/><ProductDetail key={product.id} product={product}/></>;
 }

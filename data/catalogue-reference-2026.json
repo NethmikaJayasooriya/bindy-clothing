@@ -85,7 +85,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "ocean-wash-chambray-shirt-maxi-dress",
@@ -159,7 +160,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "sage-shirt-maxi-dress",
@@ -202,17 +204,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-sage-shirt-maxi-dress-1003f9c5370e.webp",
-      "imageHover": "/images/optimized/catalogue-sage-shirt-maxi-dress-1003f9c5370e.webp",
+      "imageHover": "/images/optimized/hover-sage-shirt-maxi-dress-421371337e3f.webp",
       "gallery": [
         "/images/optimized/catalogue-sage-shirt-maxi-dress-1003f9c5370e.webp",
+        "/images/optimized/hover-sage-shirt-maxi-dress-421371337e3f.webp",
         "/images/catalogue-2026/sage-model.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-sage-shirt-maxi-dress-1003f9c5370e.webp",
+        "/images/optimized/hover-sage-shirt-maxi-dress-421371337e3f.webp",
         "/images/catalogue-2026/sage-model.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view"
       ],
       "soldSeparately": false,
@@ -228,7 +233,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "monochrome-breeze-maxi-dress",
@@ -272,17 +278,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-monochrome-breeze-maxi-dress-e85975184b69.webp",
-      "imageHover": "/images/optimized/catalogue-monochrome-breeze-maxi-dress-e85975184b69.webp",
+      "imageHover": "/images/optimized/hover-monochrome-breeze-maxi-dress-610158f5044b.webp",
       "gallery": [
         "/images/optimized/catalogue-monochrome-breeze-maxi-dress-e85975184b69.webp",
+        "/images/optimized/hover-monochrome-breeze-maxi-dress-610158f5044b.webp",
         "/images/catalogue-2026/monochrome-model.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-monochrome-breeze-maxi-dress-e85975184b69.webp",
+        "/images/optimized/hover-monochrome-breeze-maxi-dress-610158f5044b.webp",
         "/images/catalogue-2026/monochrome-model.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view"
       ],
       "soldSeparately": false,
@@ -298,7 +307,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "gingham-wander-maxi-skirt",
@@ -341,17 +351,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-gingham-wander-maxi-skirt-2d74fab16e67.webp",
-      "imageHover": "/images/optimized/catalogue-gingham-wander-maxi-skirt-2d74fab16e67.webp",
+      "imageHover": "/images/optimized/hover-gingham-wander-maxi-skirt-0631e87fe70d.webp",
       "gallery": [
         "/images/optimized/catalogue-gingham-wander-maxi-skirt-2d74fab16e67.webp",
+        "/images/optimized/hover-gingham-wander-maxi-skirt-0631e87fe70d.webp",
         "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-gingham-wander-maxi-skirt-2d74fab16e67.webp",
+        "/images/optimized/hover-gingham-wander-maxi-skirt-0631e87fe70d.webp",
         "/images/customer-capsule/editorial/gingham-wander-maxi-skirt.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front view"
       ],
       "soldSeparately": true,
@@ -367,7 +380,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "sunlit-paisley-shirt",
@@ -410,19 +424,22 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-sunlit-paisley-shirt-265c5d8dfc1f.webp",
-      "imageHover": "/images/optimized/catalogue-sunlit-paisley-shirt-265c5d8dfc1f.webp",
+      "imageHover": "/images/optimized/hover-sunlit-paisley-shirt-3a1c988d031b.webp",
       "gallery": [
         "/images/optimized/catalogue-sunlit-paisley-shirt-265c5d8dfc1f.webp",
+        "/images/optimized/hover-sunlit-paisley-shirt-3a1c988d031b.webp",
         "/images/catalogue-2026/paisley-shirt-front.webp",
         "/images/catalogue-2026/paisley-shirt-back.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-sunlit-paisley-shirt-265c5d8dfc1f.webp",
+        "/images/optimized/hover-sunlit-paisley-shirt-3a1c988d031b.webp",
         "/images/catalogue-2026/paisley-shirt-front.webp",
         "/images/catalogue-2026/paisley-shirt-back.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -441,7 +458,8 @@
       "styleWith": [
         "sunlit-paisley-shorts"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "sunlit-paisley-shorts",
@@ -511,7 +529,8 @@
       "styleWith": [
         "sunlit-paisley-shirt"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "crimson-lotus-dress",
@@ -583,7 +602,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "ivory-crochet-bralette",
@@ -660,7 +680,8 @@
       "styleWith": [
         "ivory-handmade-crochet-halter-top"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "ivory-handmade-crochet-halter-top",
@@ -743,7 +764,8 @@
       "styleWith": [
         "ivory-crochet-bralette"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "black-relaxed-harem-pants",
@@ -815,7 +837,8 @@
       "styleWith": [
         "lime-strapless-button-front-top"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "white-floral-embroidered-midi-dress",
@@ -864,19 +887,22 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-white-floral-embroidered-midi-dress-a101fa929e2e.webp",
-      "imageHover": "/images/optimized/catalogue-white-floral-embroidered-midi-dress-a101fa929e2e.webp",
+      "imageHover": "/images/optimized/hover-white-floral-embroidered-midi-dress-f67f431e6bc3.webp",
       "gallery": [
         "/images/optimized/catalogue-white-floral-embroidered-midi-dress-a101fa929e2e.webp",
+        "/images/optimized/hover-white-floral-embroidered-midi-dress-f67f431e6bc3.webp",
         "/images/catalogue-2026/embroidered-dress-model.webp",
         "/images/catalogue-2026/embroidered-dress-reference.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-white-floral-embroidered-midi-dress-a101fa929e2e.webp",
+        "/images/optimized/hover-white-floral-embroidered-midi-dress-f67f431e6bc3.webp",
         "/images/catalogue-2026/embroidered-dress-model.webp",
         "/images/catalogue-2026/embroidered-dress-reference.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -893,7 +919,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "botanic-rose-cami",
@@ -964,7 +991,8 @@
       "styleWith": [
         "botanic-rose-trousers"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "botanic-rose-trousers",
@@ -1038,7 +1066,8 @@
       "styleWith": [
         "botanic-rose-cami"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "cacao-satin-cami",
@@ -1086,19 +1115,22 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-cacao-satin-cami-c54a75e62ceb.webp",
-      "imageHover": "/images/optimized/catalogue-cacao-satin-cami-c54a75e62ceb.webp",
+      "imageHover": "/images/optimized/hover-cacao-satin-cami-ac40fcf70d05.webp",
       "gallery": [
         "/images/optimized/catalogue-cacao-satin-cami-c54a75e62ceb.webp",
+        "/images/optimized/hover-cacao-satin-cami-ac40fcf70d05.webp",
         "/images/catalogue-2026/satin-front.webp",
         "/images/catalogue-2026/satin-colours.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-cacao-satin-cami-c54a75e62ceb.webp",
+        "/images/optimized/hover-cacao-satin-cami-ac40fcf70d05.webp",
         "/images/catalogue-2026/satin-front.webp",
         "/images/catalogue-2026/satin-colours.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Garment detail 1",
         "Garment detail 2"
       ],
@@ -1122,7 +1154,8 @@
         "Black",
         "Ivory"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "ivory-tiered-maxi-skirt",
@@ -1164,19 +1197,22 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-ivory-tiered-maxi-skirt-e330a34095c7.webp",
-      "imageHover": "/images/optimized/catalogue-ivory-tiered-maxi-skirt-e330a34095c7.webp",
+      "imageHover": "/images/optimized/hover-ivory-tiered-maxi-skirt-7192637d2e10.webp",
       "gallery": [
         "/images/optimized/catalogue-ivory-tiered-maxi-skirt-e330a34095c7.webp",
+        "/images/optimized/hover-ivory-tiered-maxi-skirt-7192637d2e10.webp",
         "/images/catalogue-2026/ivory-tiered-model.webp",
         "/images/catalogue-2026/ivory-tiered-reference.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-ivory-tiered-maxi-skirt-e330a34095c7.webp",
+        "/images/optimized/hover-ivory-tiered-maxi-skirt-7192637d2e10.webp",
         "/images/catalogue-2026/ivory-tiered-model.webp",
         "/images/catalogue-2026/ivory-tiered-reference.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -1198,7 +1234,8 @@
         "Powder Blue",
         "Lilac"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "rose-stripe-shirt",
@@ -1241,17 +1278,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-rose-stripe-shirt-dab491aa6ce6.webp",
-      "imageHover": "/images/optimized/catalogue-rose-stripe-shirt-dab491aa6ce6.webp",
+      "imageHover": "/images/optimized/hover-rose-stripe-shirt-08da3c0c464d.webp",
       "gallery": [
         "/images/optimized/catalogue-rose-stripe-shirt-dab491aa6ce6.webp",
+        "/images/optimized/hover-rose-stripe-shirt-08da3c0c464d.webp",
         "/images/catalogue-2026/pink-shirt.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-rose-stripe-shirt-dab491aa6ce6.webp",
+        "/images/optimized/hover-rose-stripe-shirt-08da3c0c464d.webp",
         "/images/catalogue-2026/pink-shirt.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view"
       ],
       "soldSeparately": true,
@@ -1272,7 +1312,8 @@
         "Black",
         "Pink Stripe"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "white-striped-relaxed-shirt",
@@ -1317,19 +1358,22 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-white-striped-relaxed-shirt-2c0d0447b646.webp",
-      "imageHover": "/images/optimized/catalogue-white-striped-relaxed-shirt-2c0d0447b646.webp",
+      "imageHover": "/images/optimized/hover-white-striped-relaxed-shirt-507ef9ba83e4.webp",
       "gallery": [
         "/images/optimized/catalogue-white-striped-relaxed-shirt-2c0d0447b646.webp",
+        "/images/optimized/hover-white-striped-relaxed-shirt-507ef9ba83e4.webp",
         "/images/catalogue-2026/white-shirt.webp",
         "/images/catalogue-2026/white-shirt-back.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-white-striped-relaxed-shirt-2c0d0447b646.webp",
+        "/images/optimized/hover-white-striped-relaxed-shirt-507ef9ba83e4.webp",
         "/images/catalogue-2026/white-shirt.webp",
         "/images/catalogue-2026/white-shirt-back.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -1351,7 +1395,8 @@
         "Black",
         "Pink Stripe"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "black-relaxed-cotton-shirt",
@@ -1427,7 +1472,8 @@
         "Black",
         "Pink Stripe"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "burgundy-square-neck-maxi-dress",
@@ -1475,19 +1521,22 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-burgundy-square-neck-maxi-dress-b8c9ff71bbfd.webp",
-      "imageHover": "/images/optimized/catalogue-burgundy-square-neck-maxi-dress-b8c9ff71bbfd.webp",
+      "imageHover": "/images/optimized/hover-burgundy-square-neck-maxi-dress-5e2541383023.webp",
       "gallery": [
         "/images/optimized/catalogue-burgundy-square-neck-maxi-dress-b8c9ff71bbfd.webp",
+        "/images/optimized/hover-burgundy-square-neck-maxi-dress-5e2541383023.webp",
         "/images/catalogue-2026/burgundy-front.webp",
         "/images/catalogue-2026/burgundy-back.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-burgundy-square-neck-maxi-dress-b8c9ff71bbfd.webp",
+        "/images/optimized/hover-burgundy-square-neck-maxi-dress-5e2541383023.webp",
         "/images/catalogue-2026/burgundy-front.webp",
         "/images/catalogue-2026/burgundy-back.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -1504,7 +1553,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "lime-strapless-button-front-top",
@@ -1550,19 +1600,22 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-lime-strapless-button-front-top-ed2b7e229a77.webp",
-      "imageHover": "/images/optimized/catalogue-lime-strapless-button-front-top-ed2b7e229a77.webp",
+      "imageHover": "/images/optimized/hover-lime-strapless-button-front-top-a545149f9ac4.webp",
       "gallery": [
         "/images/optimized/catalogue-lime-strapless-button-front-top-ed2b7e229a77.webp",
+        "/images/optimized/hover-lime-strapless-button-front-top-a545149f9ac4.webp",
         "/images/catalogue-2026/lime-corset-front.webp",
         "/images/catalogue-2026/lime-corset-back.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-lime-strapless-button-front-top-ed2b7e229a77.webp",
+        "/images/optimized/hover-lime-strapless-button-front-top-a545149f9ac4.webp",
         "/images/catalogue-2026/lime-corset-front.webp",
         "/images/catalogue-2026/lime-corset-back.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -1583,7 +1636,8 @@
         "Lime",
         "Beige"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "shore-traces-blouse",
@@ -1659,7 +1713,8 @@
         "Lime",
         "Beige"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "serendib-pearl-dress",
@@ -1733,7 +1788,8 @@
         "Warm Brown",
         "Rust Red"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "black-relaxed-flared-maxi-skirt",
@@ -1778,17 +1834,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-black-relaxed-flared-maxi-skirt-dbfe38cc0f5e.webp",
-      "imageHover": "/images/optimized/catalogue-black-relaxed-flared-maxi-skirt-dbfe38cc0f5e.webp",
+      "imageHover": "/images/optimized/hover-black-relaxed-flared-maxi-skirt-af5f11637025.webp",
       "gallery": [
         "/images/optimized/catalogue-black-relaxed-flared-maxi-skirt-dbfe38cc0f5e.webp",
+        "/images/optimized/hover-black-relaxed-flared-maxi-skirt-af5f11637025.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/edc63e9b-3093-4eaf-89cf-27590a1ce8f3.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-black-relaxed-flared-maxi-skirt-dbfe38cc0f5e.webp",
+        "/images/optimized/hover-black-relaxed-flared-maxi-skirt-af5f11637025.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/edc63e9b-3093-4eaf-89cf-27590a1ce8f3.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -1810,7 +1869,8 @@
         "Warm Brown",
         "Rust Red"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "brown-relaxed-flared-maxi-skirt",
@@ -1855,17 +1915,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-brown-relaxed-flared-maxi-skirt-f660c4ec7929.webp",
-      "imageHover": "/images/optimized/catalogue-brown-relaxed-flared-maxi-skirt-f660c4ec7929.webp",
+      "imageHover": "/images/optimized/hover-brown-relaxed-flared-maxi-skirt-e8bac47bcc11.webp",
       "gallery": [
         "/images/optimized/catalogue-brown-relaxed-flared-maxi-skirt-f660c4ec7929.webp",
+        "/images/optimized/hover-brown-relaxed-flared-maxi-skirt-e8bac47bcc11.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/495e3e51-b6b4-4abf-a355-1ddedcc9b541.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-brown-relaxed-flared-maxi-skirt-f660c4ec7929.webp",
+        "/images/optimized/hover-brown-relaxed-flared-maxi-skirt-e8bac47bcc11.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/495e3e51-b6b4-4abf-a355-1ddedcc9b541.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -1887,7 +1950,8 @@
         "Warm Brown",
         "Rust Red"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "red-relaxed-flared-maxi-skirt",
@@ -1932,17 +1996,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-red-relaxed-flared-maxi-skirt-836b997a5d8f.webp",
-      "imageHover": "/images/optimized/catalogue-red-relaxed-flared-maxi-skirt-836b997a5d8f.webp",
+      "imageHover": "/images/optimized/hover-red-relaxed-flared-maxi-skirt-14d5d4fffc9e.webp",
       "gallery": [
         "/images/optimized/catalogue-red-relaxed-flared-maxi-skirt-836b997a5d8f.webp",
+        "/images/optimized/hover-red-relaxed-flared-maxi-skirt-14d5d4fffc9e.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/ad456ce1-259e-4583-8b9b-f5e6914afd5a.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-red-relaxed-flared-maxi-skirt-836b997a5d8f.webp",
+        "/images/optimized/hover-red-relaxed-flared-maxi-skirt-14d5d4fffc9e.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/ad456ce1-259e-4583-8b9b-f5e6914afd5a.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Garment detail 1"
       ],
       "soldSeparately": true,
@@ -1964,7 +2031,8 @@
         "Warm Brown",
         "Rust Red"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "black-tiered-cotton-shirt-dress",
@@ -1977,9 +2045,9 @@
       "priceAud": 23,
       "fabric": "Cotton",
       "colorName": "Black",
-      "colorHex": "#DCC7AF",
+      "colorHex": "#252525",
       "palette": [
-        "#DCC7AF"
+        "#252525"
       ],
       "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
       "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
@@ -2012,17 +2080,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-black-tiered-cotton-shirt-dress-b39f3029aed2.webp",
-      "imageHover": "/images/optimized/catalogue-black-tiered-cotton-shirt-dress-b39f3029aed2.webp",
+      "imageHover": "/images/optimized/hover-black-tiered-cotton-shirt-dress-5aa3ed712f37.webp",
       "gallery": [
         "/images/optimized/catalogue-black-tiered-cotton-shirt-dress-b39f3029aed2.webp",
+        "/images/optimized/hover-black-tiered-cotton-shirt-dress-5aa3ed712f37.webp",
         "/images/catalogue-2026/shirt-dress-reference.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-black-tiered-cotton-shirt-dress-b39f3029aed2.webp",
+        "/images/optimized/hover-black-tiered-cotton-shirt-dress-5aa3ed712f37.webp",
         "/images/catalogue-2026/shirt-dress-reference.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view"
       ],
       "soldSeparately": false,
@@ -2046,7 +2117,8 @@
         "Earth Clay",
         "Warm Sand"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "soft-ivory-tiered-shirt-dress",
@@ -2059,9 +2131,9 @@
       "priceAud": 23,
       "fabric": "Cotton",
       "colorName": "Soft Ivory",
-      "colorHex": "#DCC7AF",
+      "colorHex": "#EDE1CF",
       "palette": [
-        "#DCC7AF"
+        "#EDE1CF"
       ],
       "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
       "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
@@ -2094,17 +2166,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
-      "imageHover": "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
+      "imageHover": "/images/optimized/hover-soft-ivory-tiered-shirt-dress-eeff25484512.webp",
       "gallery": [
         "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
+        "/images/optimized/hover-soft-ivory-tiered-shirt-dress-eeff25484512.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/eae40535-1b41-4841-a45c-b59bac697d06.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
+        "/images/optimized/hover-soft-ivory-tiered-shirt-dress-eeff25484512.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/eae40535-1b41-4841-a45c-b59bac697d06.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2128,7 +2203,8 @@
         "Earth Clay",
         "Warm Sand"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "sage-mist-tiered-cotton-shirt-dress",
@@ -2141,9 +2217,9 @@
       "priceAud": 23,
       "fabric": "Cotton",
       "colorName": "Sage Mist",
-      "colorHex": "#DCC7AF",
+      "colorHex": "#94A28B",
       "palette": [
-        "#DCC7AF"
+        "#94A28B"
       ],
       "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
       "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
@@ -2176,17 +2252,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
-      "imageHover": "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
+      "imageHover": "/images/optimized/hover-sage-mist-tiered-cotton-shirt-dress-8a6d97bc532d.webp",
       "gallery": [
         "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
+        "/images/optimized/hover-sage-mist-tiered-cotton-shirt-dress-8a6d97bc532d.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/f2c52ddc-47e2-428e-a9fb-f0aa4002ccb2.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
+        "/images/optimized/hover-sage-mist-tiered-cotton-shirt-dress-8a6d97bc532d.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/f2c52ddc-47e2-428e-a9fb-f0aa4002ccb2.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2210,7 +2289,8 @@
         "Earth Clay",
         "Warm Sand"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "olive-grove-tiered-cotton-shirt-dress",
@@ -2223,9 +2303,9 @@
       "priceAud": 23,
       "fabric": "Cotton",
       "colorName": "Olive Grove",
-      "colorHex": "#DCC7AF",
+      "colorHex": "#626B43",
       "palette": [
-        "#DCC7AF"
+        "#626B43"
       ],
       "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
       "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
@@ -2258,17 +2338,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-olive-grove-tiered-cotton-shirt-dress-3e3dbcbe4256.webp",
-      "imageHover": "/images/optimized/catalogue-olive-grove-tiered-cotton-shirt-dress-3e3dbcbe4256.webp",
+      "imageHover": "/images/optimized/hover-olive-grove-tiered-cotton-shirt-dress-1b7c189e9c9d.webp",
       "gallery": [
         "/images/optimized/catalogue-olive-grove-tiered-cotton-shirt-dress-3e3dbcbe4256.webp",
+        "/images/optimized/hover-olive-grove-tiered-cotton-shirt-dress-1b7c189e9c9d.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e65178f0-7d67-4d52-bcaa-0bcf16b83f3a.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-olive-grove-tiered-cotton-shirt-dress-3e3dbcbe4256.webp",
+        "/images/optimized/hover-olive-grove-tiered-cotton-shirt-dress-1b7c189e9c9d.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/e65178f0-7d67-4d52-bcaa-0bcf16b83f3a.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2292,7 +2375,8 @@
         "Earth Clay",
         "Warm Sand"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "earth-clay-tiered-cotton-shirt-dress",
@@ -2305,9 +2389,9 @@
       "priceAud": 23,
       "fabric": "Cotton",
       "colorName": "Earth Clay",
-      "colorHex": "#DCC7AF",
+      "colorHex": "#A55C3C",
       "palette": [
-        "#DCC7AF"
+        "#A55C3C"
       ],
       "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
       "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
@@ -2340,17 +2424,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-earth-clay-tiered-cotton-shirt-dress-235dffb53657.webp",
-      "imageHover": "/images/optimized/catalogue-earth-clay-tiered-cotton-shirt-dress-235dffb53657.webp",
+      "imageHover": "/images/optimized/hover-earth-clay-tiered-cotton-shirt-dress-7206424cd9a1.webp",
       "gallery": [
         "/images/optimized/catalogue-earth-clay-tiered-cotton-shirt-dress-235dffb53657.webp",
+        "/images/optimized/hover-earth-clay-tiered-cotton-shirt-dress-7206424cd9a1.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/36f1d435-a16c-4ff3-8e9a-b27c0d8c0f39.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-earth-clay-tiered-cotton-shirt-dress-235dffb53657.webp",
+        "/images/optimized/hover-earth-clay-tiered-cotton-shirt-dress-7206424cd9a1.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/36f1d435-a16c-4ff3-8e9a-b27c0d8c0f39.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2374,7 +2461,8 @@
         "Earth Clay",
         "Warm Sand"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "warm-sand-tiered-cotton-shirt-dress",
@@ -2387,9 +2475,9 @@
       "priceAud": 23,
       "fabric": "Cotton",
       "colorName": "Warm Sand",
-      "colorHex": "#DCC7AF",
+      "colorHex": "#C4AC8A",
       "palette": [
-        "#DCC7AF"
+        "#C4AC8A"
       ],
       "description": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
       "heritage": "A relaxed cotton shirt dress with a classic collar, short sleeves and a full button-front placket. The fitted bodice flows into a softly gathered, two-tier skirt with an above-knee hem.",
@@ -2422,17 +2510,20 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
-      "imageHover": "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
+      "imageHover": "/images/optimized/hover-warm-sand-tiered-cotton-shirt-dress-39420e176380.webp",
       "gallery": [
         "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
+        "/images/optimized/hover-warm-sand-tiered-cotton-shirt-dress-39420e176380.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fd179a4f-ddbf-47e5-9135-84434140e839.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
+        "/images/optimized/hover-warm-sand-tiered-cotton-shirt-dress-39420e176380.webp",
         "https://esreovoswlwccsfjyjph.supabase.co/storage/v1/object/public/bindy-media/fd179a4f-ddbf-47e5-9135-84434140e839.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Garment detail 1"
       ],
       "soldSeparately": false,
@@ -2456,7 +2547,8 @@
         "Earth Clay",
         "Warm Sand"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "botanic-rose-relaxed-shirt",
@@ -2526,7 +2618,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "botanic-rose-halter-maxi-dress",
@@ -2594,7 +2687,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "raspberry-red-textured-maxi-dress",
@@ -2641,19 +2735,22 @@
       ],
       "reviews": [],
       "image": "/images/optimized/catalogue-raspberry-red-textured-maxi-dress-ef3c197e5774.webp",
-      "imageHover": "/images/optimized/catalogue-raspberry-red-textured-maxi-dress-ef3c197e5774.webp",
+      "imageHover": "/images/optimized/hover-raspberry-red-textured-maxi-dress-8bb62cf307a5.webp",
       "gallery": [
         "/images/optimized/catalogue-raspberry-red-textured-maxi-dress-ef3c197e5774.webp",
+        "/images/optimized/hover-raspberry-red-textured-maxi-dress-8bb62cf307a5.webp",
         "/images/catalogue-2026/raspberry-front.webp",
         "/images/catalogue-2026/raspberry-back.webp"
       ],
       "galleryZoom": [
         "/images/optimized/catalogue-raspberry-red-textured-maxi-dress-ef3c197e5774.webp",
+        "/images/optimized/hover-raspberry-red-textured-maxi-dress-8bb62cf307a5.webp",
         "/images/catalogue-2026/raspberry-front.webp",
         "/images/catalogue-2026/raspberry-back.webp"
       ],
       "galleryLabels": [
         "Model & full outfit",
+        "Alternate model view",
         "Front & styling view",
         "Garment detail 1"
       ],
@@ -2670,7 +2767,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "chartreuse-tailored-rayon-vest",
@@ -2745,7 +2843,8 @@
         "Chartreuse",
         "Beige"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "beige-tailored-rayon-vest",
@@ -2820,7 +2919,8 @@
         "Chartreuse",
         "Beige"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "chartreuse-embroidered-voile-blouse",
@@ -2892,7 +2992,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "pearl-lace-blouse",
@@ -2966,7 +3067,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "taupe-olive-embroidered-voile-blouse",
@@ -3039,7 +3141,8 @@
       "styleWith": [
         "taupe-olive-wide-leg-voile-pants"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "taupe-olive-wide-leg-voile-pants",
@@ -3107,7 +3210,8 @@
       "styleWith": [
         "taupe-olive-embroidered-voile-blouse"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "white-cotton-peplum-blouse",
@@ -3181,7 +3285,8 @@
         "White",
         "Pink"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "pink-cotton-peplum-blouse",
@@ -3255,7 +3360,8 @@
         "White",
         "Pink"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "white-embroidered-tie-front-camisole",
@@ -3296,16 +3402,16 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp",
-      "imageHover": "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp",
+      "image": "/images/optimized/cami-full-frame-v2-25ff645b6850.webp",
+      "imageHover": "/images/optimized/cami-full-frame-v2-25ff645b6850.webp",
       "gallery": [
-        "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp",
+        "/images/optimized/cami-full-frame-v2-25ff645b6850.webp",
         "/images/catalogue-2026/tie-front-cami.webp",
         "/images/catalogue-2026/tie-front-cami-back.webp",
         "/images/catalogue-2026/tie-front-cami-reference.webp"
       ],
       "galleryZoom": [
-        "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp",
+        "/images/optimized/cami-full-frame-v2-25ff645b6850.webp",
         "/images/catalogue-2026/tie-front-cami.webp",
         "/images/catalogue-2026/tie-front-cami-back.webp",
         "/images/catalogue-2026/tie-front-cami-reference.webp"
@@ -3329,7 +3435,8 @@
         "Beach"
       ],
       "styleWith": [],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     },
     {
       "id": "triangle-crochet-halter-top",
@@ -3416,7 +3523,8 @@
         "Mustard Yellow",
         "White"
       ],
-      "videoHover": ""
+      "videoHover": "",
+      "trackInventory": false
     }
   ]
 }

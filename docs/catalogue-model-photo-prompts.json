@@ -75,6 +75,12 @@
       "reference": "public\\images\\catalogue-2026\\tie-front-cami.webp",
       "prompt": "Use case: precise-object-edit. Create a clean ecommerce model photograph from the supplied reference: keep the exact garment worn on the woman, remove all poster typography, collage panels and border graphics, make a single continuous scene. One adult Sri Lankan female model full body head to sandals, arms relaxed down, cream courtyard and soft daylight. Preserve the exact white floral-eyelet cotton halter tie-front camisole: deep V, narrow neck ties, gathered empire waist joined by front thin bow with long loose ties, subtle central opening below bow, one gathered flared peplum tier at lower hem; identical white embroidery motifs and scale. Pair with plain rust full skirt like reference. No changes to garment cut, straps, neckline or embroidery, no text, no collage, no mannequin or watermark.",
       "savedPath": "/images/optimized/catalogue-white-embroidered-tie-front-camisole-3be4a687a0c7.webp"
+    },
+    {
+      "id": "white-embroidered-tie-front-camisole",
+      "prompt": "Use case: precise-object-edit. The reference is the edit target. OUTPUT MUST BE A WIDER 3:4 PORTRAIT CANVAS (for example 1536 pixels wide by 2048 high), NOT the narrow 775 by 1966 reference aspect ratio. Outpaint the cream courtyard naturally to left and right to fill a full 3:4 ecommerce product photo. Preserve the existing woman and every garment detail exactly: white embroidered tie-front halter peplum camisole, deep V, front bow with long ties, floral eyelet pattern, neckline, straps, seams, opening, hem, rust skirt, her face, pose, hands and sandals. Keep the complete model visible head to shoes, centered. Extend only the surrounding courtyard; do not stretch the woman or clothes, do not crop her feet/head, do not add panels or solid-color side bars. One continuous photograph, seamless natural courtyard background to both edges, no text or watermark.",
+      "mode": "built-in image_gen",
+      "savedPath": "/images/optimized/cami-full-frame-v2-25ff645b6850.webp"
     }
   ]
 }

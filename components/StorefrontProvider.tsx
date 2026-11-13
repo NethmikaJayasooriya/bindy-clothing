@@ -1,5 +1,6 @@
 "use client";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { groupCatalogueProducts } from '@/lib/product-variants';
 import { PRODUCTS } from "@/data/products";
 import { DEFAULT_HERO, DEFAULT_SETTINGS, type PublicStore } from "@/lib/store-types";
 const fallback: PublicStore = { products: PRODUCTS, hero: DEFAULT_HERO, settings: DEFAULT_SETTINGS, pages: [], revision: 0 };
@@ -11,3 +12,4 @@ export function StorefrontProvider({ children, initial }: { children: React.Reac
   return <StorefrontContext.Provider value={store}>{children}</StorefrontContext.Provider>;
 }
 export function useStorefront() { return useContext(StorefrontContext); }
+export function useCatalogueProducts() { const {products}=useStorefront();return useMemo(()=>groupCatalogueProducts(products),[products]); }

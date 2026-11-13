@@ -4,7 +4,7 @@
  */
 
 export function getStockForSize(stock: Record<string, number> | undefined | null, sizeStr: string): number {
-  if (!stock) return 1;
+  if (!stock) return Number.POSITIVE_INFINITY;
   if (stock[sizeStr] !== undefined) return stock[sizeStr];
 
   // Try matching by numeric size (e.g. "AU 6 (XS)" <-> "AU 6" <-> "6")

@@ -117,7 +117,9 @@ export function publicStore(state: StoreState): PublicStore {
     products: state.products.filter(p => p.status === "active" && !isRetiredProduct(p.id)).map((p): PublicProduct => {
       const { sku, costAud, status, featured, updatedAt, lowStockThreshold, ...product } = p;
       const total = Object.values(p.stock).reduce((sum, n) => sum + n, 0);
-      return { ...product, inventoryCount: total, inventoryStatus: total === 0 ? "sold_out" : total <= p.lowStockThreshold ? "low_stock" : "in_stock" };
+      return p.trackInventory === false
+        ? {...product, stock: undefined, inventoryCount: undefined, inventoryStatus: 'in_stock'}
+        : { ...product, inventoryCount: total, inventoryStatus: total === 0 ? "sold_out" : total <= p.lowStockThreshold ? "low_stock" : "in_stock" };
     }).sort((a, b) => (a.catalogueOrder ?? Number.MAX_SAFE_INTEGER) - (b.catalogueOrder ?? Number.MAX_SAFE_INTEGER) || Number(state.products.find(p => p.id === b.id)?.featured) - Number(state.products.find(p => p.id === a.id)?.featured)) };
 }
 export const readPublicStore = cache(async () => publicStore(await readStore()));

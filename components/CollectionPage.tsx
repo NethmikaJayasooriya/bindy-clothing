@@ -1,5 +1,5 @@
 "use client";
-import { useStorefront } from "@/components/StorefrontProvider";
+import { useCatalogueProducts } from "@/components/StorefrontProvider";
 
 import React, { useState, useMemo, useEffect, Suspense } from "react";
 import Link from "next/link";
@@ -45,7 +45,7 @@ const OCCASIONS_LIST = [
 ];
 
 function CollectionContent() {
-  const { products: PRODUCTS } = useStorefront();
+  const PRODUCTS = useCatalogueProducts();
   const searchParams = useSearchParams();
 
   // Read initial params

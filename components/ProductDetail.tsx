@@ -67,6 +67,7 @@ import RecentlyViewed from "@/components/product/RecentlyViewed";
 import StickyMobileBar from "@/components/product/StickyMobileBar";
 import SizeGuideModal from "@/components/SizeGuideModal";
 import Footer from "@/components/Footer";
+import { colourVariants } from '@/lib/product-variants';
 
 function Stars({ value, className = "" }: { value: number; className?: string }) {
   return (
@@ -94,7 +95,9 @@ const CATEGORY_SLUGS: Record<Category, string> = {
 
 export default function ProductDetail({ product: initialProduct }: { product: Product }) {
   const {products,settings}=useStorefront();
-  const product=products.find(p=>p.id===initialProduct.id) ?? initialProduct;
+  const [selectedColourId,setSelectedColourId]=useState(initialProduct.id);
+  const product=products.find(p=>p.id===selectedColourId) ?? initialProduct;
+  const variants=colourVariants(initialProduct,products);
   const contents = purchaseContents(product);
   const router = useRouter();
   const [activeImg, setActiveImg] = useState(0);
@@ -191,7 +194,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
     return map;
   }, [product]);
 
-  const availableUnits=size?getStockForSize(product.stock, size):0;
+  const availableUnits=size?Math.min(99,getStockForSize(product.stock, size)):0;
   const isAllSoldOut = isProductSoldOut(product);
   const canPurchase=!isAllSoldOut&&!!size&&sizeAvailability[size]!=="sold_out"&&(availableUnits===undefined||qty<=availableUnits);
 
@@ -239,7 +242,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
 
   const handleShare = () => {
     if (typeof window !== "undefined") {
-      navigator.clipboard?.writeText(window.location.href);
+      navigator.clipboard?.writeText(new URL(`/product/${product.id}`,window.location.origin).href);
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2000);
     }
@@ -614,25 +617,10 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                 {product.colorName}
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              {product.palette.map((hex, idx) => (
-                <div
-                  key={hex}
-                  className={`relative p-0.5 rounded-full border transition-all ${
-                    idx === 0
-                      ? "border-gold ring-2 ring-gold/40 scale-105"
-                      : "border-sand/60 hover:border-sand"
-                  }`}
-                >
-                  <span
-                    className="block w-6 h-6 rounded-full shadow-inner"
-                    style={{ backgroundColor: hex }}
-                    title={hex}
-                  />
-                </div>
-              ))}
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Choose colour">
+              {variants.map(variant=><button key={variant.id} type="button" aria-pressed={variant.id===product.id} aria-label={`Choose ${variant.colorName}`} onClick={()=>{setSelectedColourId(variant.id);setActiveImg(0);setQty(1);setSize(variant.sizes.find(s=>!isSizeSoldOut(variant.stock,s))??null);setAdded(false);}} className={`inline-flex items-center gap-2 border rounded-full px-3 py-2 text-xs transition-colors ${variant.id===product.id?'border-charcoal bg-[#F2ECE1] ring-1 ring-charcoal/20':'border-sand/60 hover:border-gold'}`}><span aria-hidden className="h-5 w-5 rounded-full border border-black/15" style={{backgroundColor:variant.colorHex}}/>{variant.colorName}{variant.id===product.id&&<Check size={13}/>}</button>)}
             </div>
-            {!!product.availableColors?.length && <p className="mt-3 text-xs leading-relaxed text-charcoal-subtle">Catalogue colours: {product.availableColors.join(" · ")}. This listing is {product.colorName.toLowerCase()}; contact us for other colour availability.</p>}
+            {variants.length>1&&<p className="mt-3 text-xs text-charcoal-subtle">Choose a colour to preview it. Your selected colour and size will be added to your bag.</p>}
           </div>
 
           {/* Size Selector with Unified Button Geometry */}

@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict');const load=require('./lib/load-project.cjs')({react:{cache:fn=>fn}});
 const {seedStore}=load('@/lib/server/store-repository'),{quoteCod,createCodOrder}=load('@/lib/server/cod-orders'),{applyAction}=load('@/lib/server/store-actions'),{expirePendingOrders}=load('@/lib/server/payhere');
 const state=seedStore();state.settings.acceptingOrders=true;state.settings.cod={enabled:true,testMode:true,demoMultiplier:200,shippingLkr:400};
-const product=state.products[0];const size=product.sizes[0];product.stock[size]=6;delete product.priceLkr;
+const product=state.products[0];product.trackInventory=true;const size=product.sizes[0];product.stock[size]=6;delete product.priceLkr;
 const input={paymentMethod:'cod',requestId:'cod-unit-test',acceptedTerms:true,customer:{name:'BINDY QA Test',email:'cod-qa@example.test',phone:'0771234567',street:'Test address, no dispatch',city:'Colombo',district:'Colombo',postcode:'00100',country:'Sri Lanka'},items:[{productId:product.id,size,quantity:1,price:1}],total:1,testMode:false};
 let count=0;const check=(name,fn)=>{fn();count++;console.log('PASS '+name);};
 check('LKR prices and shipping are calculated by server, ignoring forged totals',()=>{const q=quoteCod(state,input);assert.equal(q.total,product.priceAud*200+400);assert.equal(q.testMode,true);assert.equal(q.currency,'LKR');});

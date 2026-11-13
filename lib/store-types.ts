@@ -16,7 +16,7 @@ export interface StoreProduct extends EnrichedProduct {
 export interface Customer {
   id: string; name: string; email: string; phone: string; address: string; notes: string; createdAt: string;
 }
-export interface OrderLine { productId: string; name: string; image: string; size: string; quantity: number; priceAud: number; unitPrice?: number }
+export interface OrderLine { productId: string; name: string; image: string; size: string; quantity: number; priceAud: number; unitPrice?: number; inventoryTracked?: boolean }
 export interface StoreOrder {
   id: string; number: string; customerId: string; customerName: string; email: string; phone: string;
   address: string; items: OrderLine[]; subtotal: number; discount: number; shipping: number; total: number;
