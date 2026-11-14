@@ -27,21 +27,9 @@
     "primary": "/images/optimized/catalogue-gingham-wander-maxi-skirt-2d74fab16e67.webp",
     "alternate": "/images/optimized/hover-gingham-wander-maxi-skirt-0631e87fe70d.webp"
   },
-  "white-floral-embroidered-midi-dress": {
-    "primary": "/images/optimized/catalogue-white-floral-embroidered-midi-dress-a101fa929e2e.webp",
-    "alternate": "/images/optimized/hover-white-floral-embroidered-midi-dress-f67f431e6bc3.webp"
-  },
   "white-striped-relaxed-shirt": {
     "primary": "/images/optimized/catalogue-white-striped-relaxed-shirt-2c0d0447b646.webp",
     "alternate": "/images/optimized/hover-white-striped-relaxed-shirt-507ef9ba83e4.webp"
-  },
-  "burgundy-square-neck-maxi-dress": {
-    "primary": "/images/optimized/catalogue-burgundy-square-neck-maxi-dress-b8c9ff71bbfd.webp",
-    "alternate": "/images/optimized/hover-burgundy-square-neck-maxi-dress-5e2541383023.webp"
-  },
-  "lime-strapless-button-front-top": {
-    "primary": "/images/optimized/catalogue-lime-strapless-button-front-top-ed2b7e229a77.webp",
-    "alternate": "/images/optimized/hover-lime-strapless-button-front-top-a545149f9ac4.webp"
   },
   "black-relaxed-flared-maxi-skirt": {
     "primary": "/images/optimized/catalogue-black-relaxed-flared-maxi-skirt-dbfe38cc0f5e.webp",
@@ -59,10 +47,6 @@
     "primary": "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
     "alternate": "/images/optimized/hover-soft-ivory-tiered-shirt-dress-eeff25484512.webp"
   },
-  "black-tiered-cotton-shirt-dress": {
-    "primary": "/images/optimized/catalogue-black-tiered-cotton-shirt-dress-b39f3029aed2.webp",
-    "alternate": "/images/optimized/hover-black-tiered-cotton-shirt-dress-5aa3ed712f37.webp"
-  },
   "sage-mist-tiered-cotton-shirt-dress": {
     "primary": "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
     "alternate": "/images/optimized/hover-sage-mist-tiered-cotton-shirt-dress-8a6d97bc532d.webp"
@@ -79,8 +63,8 @@
     "primary": "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
     "alternate": "/images/optimized/hover-warm-sand-tiered-cotton-shirt-dress-39420e176380.webp"
   },
-  "raspberry-red-textured-maxi-dress": {
-    "primary": "/images/optimized/catalogue-raspberry-red-textured-maxi-dress-ef3c197e5774.webp",
-    "alternate": "/images/optimized/hover-raspberry-red-textured-maxi-dress-8bb62cf307a5.webp"
+  "white-floral-embroidered-midi-dress": {
+    "primary": "/images/optimized/client-approved-white-floral-embroidered-midi-dress-2f12805b8de5.webp",
+    "alternate": "/images/optimized/client-approved-white-floral-embroidered-midi-dress-detail-1-8d2ab5969f86.webp"
   }
 }

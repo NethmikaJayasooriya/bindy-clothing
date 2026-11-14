@@ -1,0 +1,263 @@
+{
+  "date": "2026-11-14",
+  "method": "Client-supplied replacements; no image generation or face editing. Resized without enlargement and encoded as responsive WebP.",
+  "products": [
+    {
+      "id": "rose-stripe-strapless-dress",
+      "main": {
+        "src": "/images/optimized/client-approved-rose-stripe-strapless-dress-b0ec845a7ec6.webp",
+        "source": "WhatsApp Image 2026-11-14 at 3.02.09 PM.jpeg",
+        "sha256": "b0ec845a7ec6",
+        "width": 1024,
+        "height": 1536
+      },
+      "details": [],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": [
+        "/images/catalogue-2026/lotus-stripe-detail.webp",
+        "/images/catalogue-2026/lotus-making.webp",
+        "/images/catalogue-2026/lotus-fabric.webp",
+        "/images/catalogue-2026/lotus-cutting.webp"
+      ]
+    },
+    {
+      "id": "ocean-wash-chambray-shirt-maxi-dress",
+      "main": {
+        "src": "/images/optimized/client-approved-ocean-wash-chambray-shirt-maxi-dress-0066127a4288.webp",
+        "source": "Chambray Shirt Dress in Dappled Sunlight.png",
+        "sha256": "0066127a4288",
+        "width": 1083,
+        "height": 1452
+      },
+      "details": [
+        {
+          "src": "/images/optimized/client-approved-ocean-wash-chambray-shirt-maxi-dress-detail-1-baec9351dfc6.webp",
+          "source": "Mid-calf blue chambray shirt dress.png",
+          "sha256": "baec9351dfc6",
+          "width": 1083,
+          "height": 1452,
+          "label": "Front construction & mid-calf length"
+        },
+        {
+          "src": "/images/optimized/client-approved-ocean-wash-chambray-shirt-maxi-dress-detail-2-168af4587340.webp",
+          "source": "Shortened blue chambray tiered dress.png",
+          "sha256": "168af4587340",
+          "width": 1083,
+          "height": 1452,
+          "label": "Back construction & tiered skirt"
+        }
+      ],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": []
+    },
+    {
+      "id": "burgundy-square-neck-maxi-dress",
+      "main": {
+        "src": "/images/optimized/client-approved-burgundy-square-neck-maxi-dress-9bb3651fcba7.webp",
+        "source": "WhatsApp Image 2026-11-14 at 11.31.35 AM.jpeg",
+        "sha256": "9bb3651fcba7",
+        "width": 1083,
+        "height": 1452
+      },
+      "details": [],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": [
+        "/images/catalogue-2026/burgundy-front.webp",
+        "/images/catalogue-2026/burgundy-back.webp"
+      ]
+    },
+    {
+      "id": "lime-strapless-button-front-top",
+      "main": {
+        "src": "/images/optimized/client-approved-lime-strapless-button-front-top-c3bcc194e1ca.webp",
+        "source": "WhatsApp Image 2026-11-14 at 12.46.45 PM.jpeg",
+        "sha256": "c3bcc194e1ca",
+        "width": 1086,
+        "height": 1448
+      },
+      "details": [],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": [
+        "/images/catalogue-2026/lime-corset-front.webp",
+        "/images/catalogue-2026/lime-corset-back.webp"
+      ]
+    },
+    {
+      "id": "black-relaxed-harem-pants",
+      "main": {
+        "src": "/images/optimized/client-approved-lime-strapless-button-front-top-c3bcc194e1ca.webp",
+        "source": "WhatsApp Image 2026-11-14 at 12.46.45 PM.jpeg",
+        "sha256": "c3bcc194e1ca",
+        "width": 1086,
+        "height": 1448
+      },
+      "details": [],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": [
+        "/images/catalogue-2026/harem-reference.webp"
+      ]
+    },
+    {
+      "id": "black-tiered-cotton-shirt-dress",
+      "main": {
+        "src": "/images/optimized/client-approved-black-tiered-cotton-shirt-dress-a9740c63eaef.webp",
+        "source": "WhatsApp Image 2026-11-14 at 12.51.41 PM.jpeg",
+        "sha256": "a9740c63eaef",
+        "width": 1083,
+        "height": 1452
+      },
+      "details": [],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": [
+        "/images/catalogue-2026/shirt-dress-reference.webp"
+      ]
+    },
+    {
+      "id": "botanic-rose-relaxed-shirt",
+      "main": {
+        "src": "/images/optimized/client-approved-botanic-rose-relaxed-shirt-64af7838e9d2.webp",
+        "source": "WhatsApp Image 2026-11-14 at 1.05.44 PM.jpeg",
+        "sha256": "64af7838e9d2",
+        "width": 1086,
+        "height": 1448
+      },
+      "details": [],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": [
+        "/images/catalogue-2026/botanic-shirt-front.webp",
+        "/images/catalogue-2026/botanic-shirt-back.webp"
+      ]
+    },
+    {
+      "id": "raspberry-red-textured-maxi-dress",
+      "main": {
+        "src": "/images/optimized/client-approved-raspberry-red-textured-maxi-dress-12fe16d0310e.webp",
+        "source": "codex-clipboard-a601140b-2899-457f-842a-57564fb6ec91.jpg",
+        "sha256": "12fe16d0310e",
+        "width": 1084,
+        "height": 1451
+      },
+      "details": [],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": [
+        "/images/catalogue-2026/raspberry-front.webp"
+      ]
+    },
+    {
+      "id": "chartreuse-tailored-rayon-vest",
+      "main": {
+        "src": "/images/optimized/client-approved-chartreuse-tailored-rayon-vest-d6a9f04e7f40.webp",
+        "source": "WhatsApp Image 2026-11-14 at 12.36.41 PM.jpeg",
+        "sha256": "d6a9f04e7f40",
+        "width": 800,
+        "height": 1600
+      },
+      "details": [],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": [
+        "/images/catalogue-2026/lime-vest-front.webp",
+        "/images/catalogue-2026/lime-vest-back.webp"
+      ]
+    },
+    {
+      "id": "chartreuse-embroidered-voile-blouse",
+      "main": {
+        "src": "/images/optimized/client-approved-chartreuse-embroidered-voile-blouse-f2404e535cf0.webp",
+        "source": "WhatsApp Image 2026-11-14 at 1.21.35 PM.jpeg",
+        "sha256": "f2404e535cf0",
+        "width": 1024,
+        "height": 1536
+      },
+      "details": [
+        {
+          "src": "/images/optimized/client-approved-chartreuse-embroidered-voile-blouse-detail-1-e198c696b4fc.webp",
+          "source": "WhatsApp Image 2026-11-14 at 1.21.35 PM (1).jpeg",
+          "sha256": "e198c696b4fc",
+          "width": 1024,
+          "height": 1536,
+          "label": "Front construction, buttons & curved hem"
+        },
+        {
+          "src": "/images/optimized/client-approved-chartreuse-embroidered-voile-blouse-detail-2-93d7538230df.webp",
+          "source": "WhatsApp Image 2026-11-14 at 1.21.35 PM (2).jpeg",
+          "sha256": "93d7538230df",
+          "width": 1024,
+          "height": 1536,
+          "label": "Gathered back yoke & daisy embroidery"
+        }
+      ],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": []
+    },
+    {
+      "id": "white-cotton-peplum-blouse",
+      "main": {
+        "src": "/images/optimized/client-approved-white-cotton-peplum-blouse-bf1cb30ebb45.webp",
+        "source": "WhatsApp Image 2026-11-14 at 2.42.46 PM (1).jpeg",
+        "sha256": "bf1cb30ebb45",
+        "width": 1024,
+        "height": 1536
+      },
+      "details": [
+        {
+          "src": "/images/optimized/client-approved-white-cotton-peplum-blouse-detail-1-3db5cab7ccff.webp",
+          "source": "WhatsApp Image 2026-11-14 at 2.42.46 PM.jpeg",
+          "sha256": "3db5cab7ccff",
+          "width": 1024,
+          "height": 1536,
+          "label": "Eyelet embroidery & shoulder-tie bows"
+        },
+        {
+          "src": "/images/optimized/client-approved-white-cotton-peplum-blouse-detail-2-b207dea1e9ef.webp",
+          "source": "WhatsApp Image 2026-11-14 at 2.42.45 PM.jpeg",
+          "sha256": "b207dea1e9ef",
+          "width": 1024,
+          "height": 1536,
+          "label": "Back construction & shoulder ties"
+        }
+      ],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": []
+    },
+    {
+      "id": "triangle-crochet-halter-top",
+      "main": {
+        "src": "/images/optimized/client-approved-triangle-crochet-halter-top-0bcb996d9aaf.webp",
+        "source": "WhatsApp Image 2026-11-14 at 2.50.51 PM.jpeg",
+        "sha256": "0bcb996d9aaf",
+        "width": 1024,
+        "height": 1536
+      },
+      "details": [],
+      "hover": "Same approved model photo with existing gentle card zoom",
+      "retainedGarmentDetails": [
+        "/images/catalogue-2026/triangle-crochet-white.webp",
+        "/images/catalogue-2026/triangle-crochet-rust.webp",
+        "/images/catalogue-2026/triangle-crochet-brown.webp",
+        "/images/catalogue-2026/triangle-crochet-mustard.webp"
+      ]
+    },
+    {
+      "id": "white-floral-embroidered-midi-dress",
+      "main": {
+        "src": "/images/optimized/client-approved-white-floral-embroidered-midi-dress-2f12805b8de5.webp",
+        "source": "White eyelet dress in garden courtyard.png",
+        "sha256": "2f12805b8de5",
+        "width": 1086,
+        "height": 1448
+      },
+      "details": [
+        {
+          "src": "/images/optimized/client-approved-white-floral-embroidered-midi-dress-detail-1-8d2ab5969f86.webp",
+          "source": "Back view in a white eyelet dress.png",
+          "sha256": "8d2ab5969f86",
+          "width": 1086,
+          "height": 1448,
+          "label": "Back model view & zip closure"
+        }
+      ],
+      "hover": "Approved back model photo",
+      "retainedGarmentDetails": []
+    }
+  ]
+}
