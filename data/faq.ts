@@ -3,6 +3,8 @@
  * Categorized frequently asked questions for customers.
  */
 
+import { DEFAULT_CONTACT_EMAIL } from "@/lib/social-links";
+
 export interface FaqItem {
   q: string;
   a: string;
@@ -57,7 +59,7 @@ export const FAQ_DATA: FaqCategory[] = [
       },
       {
         q: "How do I initiate an exchange for a different size?",
-        a: "Simply email care@bindyclothing.com with your order number. If your desired size is in stock, we will reserve it for you immediately and provide a prepaid return shipping label.",
+        a: `Simply email ${DEFAULT_CONTACT_EMAIL} with your order number. If your desired size is in stock, we will reserve it for you immediately and provide a prepaid return shipping label.`,
       },
     ],
   },

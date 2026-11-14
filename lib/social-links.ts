@@ -3,7 +3,7 @@ export const DEFAULT_SOCIALS = {
   facebook: "https://www.facebook.com/share/1HWTugZEtN/?mibextid=wwXIfr",
   tiktok: "https://www.tiktok.com/@bindy_clothing?_r=1&_t=ZS-99hKGfLbSy1",
 };
-export const DEFAULT_CONTACT_EMAIL = "bindyclothingteam@gmail.com";
+export const DEFAULT_CONTACT_EMAIL = "Bindyclothing2026@gmail.com";
 export type SocialKind = keyof typeof DEFAULT_SOCIALS | "email";
 type SocialSettings = Partial<typeof DEFAULT_SOCIALS> & { email?: string };
 export function validSocialUrl(value: string, kind: keyof typeof DEFAULT_SOCIALS) {
