@@ -2,6 +2,7 @@
 import { purchaseContents } from "@/lib/purchase-contents";
 import { showsFullOutfit } from "@/lib/product-media";
 import ResponsiveImage from "@/components/ResponsiveImage";
+import { productPhotoFraming, productPhotoSizes } from "@/lib/product-photo-framing";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -107,9 +108,11 @@ export default function ProductModal({
               </button>
 
               {/* Left Column: Image */}
-              <div className="md:w-1/2 relative h-56 xs:h-64 sm:h-80 md:h-auto md:min-h-[500px] bg-paper-dark flex-shrink-0">
+              <div className="md:w-1/2 relative h-56 xs:h-64 sm:h-80 md:h-auto md:min-h-[500px] overflow-hidden bg-paper-dark flex-shrink-0">
                 <ResponsiveImage
                   src={product.image}
+                  style={productPhotoFraming(product,product.image)}
+                  sizes={productPhotoSizes(product,product.image,"(max-width: 768px) 100vw, 50vw")}
                   alt={product.name}
                   className={`w-full h-full ${showsFullOutfit(product) || product.catalogueCode ? "object-contain" : "object-cover"} object-center`}
                 />

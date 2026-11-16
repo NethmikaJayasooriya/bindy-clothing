@@ -2,6 +2,7 @@ import type { Product } from './products';
 
 // Style 010 contains two different crochet designs; it must never be grouped by code.
 const families: Record<string, {name: string; ids: string[]}> = {
+ triangleCrochet: {name:'Triangle Crochet Tie Halter Top',ids:['triangle-crochet-halter-top','rust-triangle-crochet-halter-top','brown-triangle-crochet-halter-top','mustard-triangle-crochet-halter-top']},
  shirts: {name:'Relaxed Cotton Shirt',ids:['rose-stripe-shirt','white-striped-relaxed-shirt','black-relaxed-cotton-shirt']},
  corsets: {name:'Strapless Button-Front Top',ids:['lime-strapless-button-front-top','shore-traces-blouse']},
  skirts: {name:'Relaxed Flared Maxi Skirt',ids:['serendib-pearl-dress','black-relaxed-flared-maxi-skirt','brown-relaxed-flared-maxi-skirt','red-relaxed-flared-maxi-skirt']},

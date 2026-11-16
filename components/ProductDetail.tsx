@@ -69,6 +69,7 @@ import StickyMobileBar from "@/components/product/StickyMobileBar";
 import SizeGuideModal from "@/components/SizeGuideModal";
 import Footer from "@/components/Footer";
 import { colourVariants } from '@/lib/product-variants';
+import { productPhotoFraming, productPhotoSizes } from '@/lib/product-photo-framing';
 
 function Stars({ value, className = "" }: { value: number; className?: string }) {
   return (
@@ -102,6 +103,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
   const contents = purchaseContents(product);
   const router = useRouter();
   const [activeImg, setActiveImg] = useState(0);
+  const [fullPhoto, setFullPhoto] = useState<string | null>(null);
   const [size, setSize] = useState<string | null>(product.sizes.find(s=>!isSizeSoldOut(product.stock, s)) ?? null);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
@@ -184,6 +186,9 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
   const installment = useMemo(() => (product.priceAud / 4).toFixed(2), [product.priceAud]);
   const galleryImages = product.gallery;
   const galleryLabels = product.galleryLabels;
+  const activePhoto = galleryImages[activeImg] || product.image;
+  const photoFraming = productPhotoFraming(product,activePhoto);
+  const photoKey = `${product.id}:${activePhoto}`;
 
   // Inventory logic per size
   const sizeAvailability = useMemo(() => {
@@ -450,10 +455,11 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
             <ResponsiveImage
                 key={activeImg}
                 src={galleryImages[activeImg] || product.image}
-                alt={`${product.name} — ${galleryLabels?.[activeImg] || `view ${activeImg + 1}`}`}
+                style={fullPhoto===photoKey?undefined:photoFraming}
+                alt={`${product.name} — ${photoFraming && fullPhoto!==photoKey?'garment detail':galleryLabels?.[activeImg] || `view ${activeImg + 1}`}`}
                 className={`absolute inset-0 w-full h-full ${product.imageSource === "photography" || product.catalogueCode ? "object-contain bg-[#ede8e0]" : "object-cover"} cursor-zoom-in`}
                 onClick={() => setIsLightboxOpen(true)}
-               loading="eager" fetchPriority="high" sizes="(max-width: 1024px) 100vw, 55vw"/>
+               loading="eager" fetchPriority="high" sizes={fullPhoto===photoKey?"(max-width: 1024px) 100vw, 55vw":productPhotoSizes(product,activePhoto,"(max-width: 1024px) 100vw, 55vw")}/>
 
             {/* Subtle Gradient Overlays for High-Contrast Text Badges */}
             <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 via-black/10 to-transparent pointer-events-none" />
@@ -508,10 +514,12 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
               </>
             )}
 
+            {photoFraming && <button type="button" onClick={()=>setFullPhoto(fullPhoto===photoKey?null:photoKey)} aria-pressed={fullPhoto===photoKey} className="absolute bottom-16 left-4 z-10 rounded-full border border-white/30 bg-black/65 px-4 py-2 text-xs text-white hover:bg-black/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">{fullPhoto===photoKey?'Focus on garment':'View full photo'}</button>}
+
             {/* Bottom Left: Image Counter (e.g., 2 / 4) */}
             <div className="absolute bottom-4 left-4 z-10 bg-black/55 backdrop-blur-md px-3 py-1 rounded-full text-xs text-white/90 font-mono border border-white/15">
               {activeImg + 1} / {galleryImages.length}
-              {galleryLabels?.[activeImg] && <span className="ml-2 font-sans">{galleryLabels[activeImg]}</span>}
+              {galleryLabels?.[activeImg] && <span className="ml-2 font-sans">{photoFraming && fullPhoto!==photoKey?`${contents?.label??'Garment'} · detail`:galleryLabels[activeImg]}</span>}
             </div>
 
             {/* Bottom Right: Click to Zoom Cue */}

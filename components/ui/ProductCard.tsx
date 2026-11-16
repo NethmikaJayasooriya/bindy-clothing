@@ -16,6 +16,7 @@ import { showsFullOutfit } from "@/lib/product-media";
 import { useStorefront } from "@/components/StorefrontProvider";
 import { productDisplayName, colourVariants } from '@/lib/product-variants';
 import reviewedHoverPhotos from '@/data/product-card-hover.json';
+import { productPhotoFraming, productPhotoSizes } from '@/lib/product-photo-framing';
 import { isSizeSoldOut, isProductSoldOut, getFirstAvailableSize } from "@/lib/stock";
 
 export interface ProductCardProps {
@@ -42,7 +43,9 @@ export default function ProductCard({
   className = "",
 }: ProductCardProps) {
   const { products } = useStorefront();
-  const product = products.find((p) => p.id === initialProduct.id) ?? initialProduct;
+  const [selection, setSelection] = useState({ initialId: initialProduct.id, colourId: initialProduct.id });
+  const selectedId = selection.initialId === initialProduct.id ? selection.colourId : initialProduct.id;
+  const product = products.find((p) => p.id === selectedId) ?? initialProduct;
   const displayName=productDisplayName(product);
   const variants=colourVariants(product,products);
   const [, setWishlistTick] = useState(0);
@@ -52,8 +55,9 @@ export default function ProductCard({
   const [hoverRequested,setHoverRequested]=useState(false);
   const [readyHoverSrc,setReadyHoverSrc]=useState<string|null>(null);
   const cardImage=product.cardImage || product.image;
+  const framing=productPhotoFraming(product,cardImage);
   const reviewed=(reviewedHoverPhotos as Record<string,{primary:string;alternate:string}>)[product.id];
-  const hoverSrc=reviewed?.primary===cardImage?reviewed.alternate:null;
+  const hoverSrc=!framing&&reviewed?.primary===cardImage?reviewed.alternate:null;
 
   useEffect(() => {
     const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
@@ -101,7 +105,8 @@ export default function ProductCard({
             loading={priority ? "eager" : "lazy"}
             fetchPriority={priority ? "high" : "auto"}
             decoding="async"
-            sizes={imageSizes}
+            sizes={productPhotoSizes(product,cardImage,imageSizes)}
+            style={framing}
             className={`absolute inset-0 w-full h-full ${fullOutfit ? "object-contain" : "object-cover"} motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-[1.045]`}
           />
           {hoverRequested&&hoverSrc&&<ResponsiveImage src={hoverSrc} alt={`${product.name} alternate model view`} sizes={imageSizes} loading="eager" decoding="async" onLoad={async e=>{const img=e.currentTarget;try{await img.decode();if(img.naturalWidth>0)setReadyHoverSrc(hoverSrc);}catch{/* Keep the original photo visible if decoding fails. */}}} className={`absolute inset-0 w-full h-full object-contain bg-[#F2ECE1] pointer-events-none motion-safe:transition-opacity motion-safe:duration-500 ${hovered&&readyHoverSrc===hoverSrc?'opacity-100':'opacity-0'}`}/>}
@@ -240,8 +245,8 @@ export default function ProductCard({
             </h3>
           </Link>
 
-          <div className="flex h-6 items-center gap-1.5" aria-label={variants.length>1?`${variants.length} available colours`:undefined}>
-            {variants.length>1&&<>{variants.map(v=><Link key={v.id} href={`/product/${v.id}`} aria-label={`View ${v.colorName}`} title={v.colorName} className="block h-4 w-4 rounded-full border border-black/20 ring-offset-2 hover:ring-1 hover:ring-charcoal" style={{backgroundColor:v.colorHex}}/>)}<span className="ml-1 text-[10px] text-charcoal-subtle">{variants.length} colours</span></>}
+          <div className="flex min-h-8 flex-wrap items-center gap-1" role="group" aria-label={variants.length>1?`${variants.length} available colours`:undefined}>
+            {variants.length>1&&<>{variants.map(v=><button key={v.id} type="button" aria-label={`Preview ${v.colorName}`} aria-pressed={v.id===product.id} title={v.colorName} onClick={()=>{setSelection({initialId:initialProduct.id,colourId:v.id});setAdded(false);setAddedSize(null);setHovered(false);setHoverRequested(false);setReadyHoverSrc(null);}} className={`flex h-8 w-8 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-charcoal ${v.id===product.id?'ring-1 ring-charcoal':'hover:ring-1 hover:ring-charcoal/40'}`}><span className="block h-5 w-5 rounded-full border border-black/20" style={{backgroundColor:v.colorHex}}/></button>)}<span className="ml-1 text-[10px] text-charcoal-subtle">{variants.length} colours</span></>}
           </div>
 
           {/* Fabric / Material Description */}

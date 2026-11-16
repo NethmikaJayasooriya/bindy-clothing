@@ -3433,12 +3433,12 @@
       "priceAud": 18,
       "fabric": "Cotton Thread",
       "colorName": "White",
-      "colorHex": "#F0E5CE",
+      "colorHex": "#F2EEE5",
       "palette": [
         "#F0E5CE"
       ],
-      "description": "A hand-crocheted halter top with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Shown in white with botanical-print trousers for styling; the top is sold separately. This is a separate crochet design from the ivory halter shown with the brown maxi skirt.",
-      "heritage": "A hand-crocheted halter top with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Shown in white with botanical-print trousers for styling; the top is sold separately. This is a separate crochet design from the ivory halter shown with the brown maxi skirt.",
+      "description": "A hand-crocheted halter top in white with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Top only; bottoms are sold separately. Choose White, Rust Red, Warm Brown or Mustard Yellow. This is a separate design from the Ivory Handmade Crochet Halter Top.",
+      "heritage": "A hand-crocheted halter top in white with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Top only; bottoms are sold separately. Choose White, Rust Red, Warm Brown or Mustard Yellow. This is a separate design from the Ivory Handmade Crochet Halter Top.",
       "craftDetails": [
         "Hand-crocheted cotton thread",
         "Triangular cups",
@@ -3462,28 +3462,238 @@
         "Follow the care label supplied with your garment."
       ],
       "reviews": [],
-      "image": "/images/optimized/client-approved-triangle-crochet-halter-top-0bcb996d9aaf.webp",
-      "imageHover": "/images/optimized/client-approved-triangle-crochet-halter-top-0bcb996d9aaf.webp",
+      "image": "/images/catalogue-2026/triangle-crochet-white.webp",
+      "imageHover": "/images/catalogue-2026/triangle-crochet-white.webp",
       "gallery": [
-        "/images/optimized/client-approved-triangle-crochet-halter-top-0bcb996d9aaf.webp",
         "/images/catalogue-2026/triangle-crochet-white.webp",
-        "/images/catalogue-2026/triangle-crochet-rust.webp",
-        "/images/catalogue-2026/triangle-crochet-brown.webp",
+        "/images/optimized/client-approved-triangle-crochet-halter-top-0bcb996d9aaf.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/triangle-crochet-white.webp",
+        "/images/optimized/client-approved-triangle-crochet-halter-top-0bcb996d9aaf.webp"
+      ],
+      "galleryLabels": [
+        "White crochet · garment detail",
+        "White top · full styling view"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Rust Red",
+        "Warm Brown",
+        "Mustard Yellow"
+      ],
+      "videoHover": "",
+      "trackInventory": false
+    },
+    {
+      "id": "rust-triangle-crochet-halter-top",
+      "name": "Rust Red Triangle Crochet Tie Halter Top",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C010",
+      "catalogueOrder": 32,
+      "cataloguePage": 33,
+      "priceLkr": 3500,
+      "priceAud": 18,
+      "fabric": "Cotton Thread",
+      "colorName": "Rust Red",
+      "colorHex": "#AD4A38",
+      "palette": [
+        "#AD4A38"
+      ],
+      "description": "A hand-crocheted halter top in rust red with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Top only; bottoms are sold separately. Choose White, Rust Red, Warm Brown or Mustard Yellow. This is a separate design from the Ivory Handmade Crochet Halter Top.",
+      "heritage": "A hand-crocheted halter top in rust red with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Top only; bottoms are sold separately. Choose White, Rust Red, Warm Brown or Mustard Yellow. This is a separate design from the Ivory Handmade Crochet Halter Top.",
+      "craftDetails": [
+        "Hand-crocheted cotton thread",
+        "Triangular cups",
+        "Openwork edging",
+        "Slim openwork underbust band",
+        "Neck and back ties",
+        "Open-back finish"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/triangle-crochet-rust.webp",
+      "imageHover": "/images/catalogue-2026/triangle-crochet-rust.webp",
+      "gallery": [
+        "/images/catalogue-2026/triangle-crochet-rust.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/triangle-crochet-rust.webp"
+      ],
+      "galleryLabels": [
+        "Rust Red crochet · garment detail"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Rust Red",
+        "Warm Brown",
+        "Mustard Yellow"
+      ],
+      "videoHover": "",
+      "trackInventory": false
+    },
+    {
+      "id": "brown-triangle-crochet-halter-top",
+      "name": "Warm Brown Triangle Crochet Tie Halter Top",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C010",
+      "catalogueOrder": 32,
+      "cataloguePage": 33,
+      "priceLkr": 3500,
+      "priceAud": 18,
+      "fabric": "Cotton Thread",
+      "colorName": "Warm Brown",
+      "colorHex": "#795332",
+      "palette": [
+        "#795332"
+      ],
+      "description": "A hand-crocheted halter top in warm brown with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Top only; bottoms are sold separately. Choose White, Rust Red, Warm Brown or Mustard Yellow. This is a separate design from the Ivory Handmade Crochet Halter Top.",
+      "heritage": "A hand-crocheted halter top in warm brown with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Top only; bottoms are sold separately. Choose White, Rust Red, Warm Brown or Mustard Yellow. This is a separate design from the Ivory Handmade Crochet Halter Top.",
+      "craftDetails": [
+        "Hand-crocheted cotton thread",
+        "Triangular cups",
+        "Openwork edging",
+        "Slim openwork underbust band",
+        "Neck and back ties",
+        "Open-back finish"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/triangle-crochet-brown.webp",
+      "imageHover": "/images/catalogue-2026/triangle-crochet-brown.webp",
+      "gallery": [
+        "/images/catalogue-2026/triangle-crochet-brown.webp"
+      ],
+      "galleryZoom": [
+        "/images/catalogue-2026/triangle-crochet-brown.webp"
+      ],
+      "galleryLabels": [
+        "Warm Brown crochet · garment detail"
+      ],
+      "soldSeparately": true,
+      "parentCategory": "Tops",
+      "subCategory": "Blouses & Shirts",
+      "collectionName": "Atelier Separates",
+      "occasions": [
+        "Everyday Calm",
+        "Beach & Coast"
+      ],
+      "destinations": [
+        "Everyday",
+        "Beach"
+      ],
+      "styleWith": [],
+      "availableColors": [
+        "White",
+        "Rust Red",
+        "Warm Brown",
+        "Mustard Yellow"
+      ],
+      "videoHover": "",
+      "trackInventory": false
+    },
+    {
+      "id": "mustard-triangle-crochet-halter-top",
+      "name": "Mustard Yellow Triangle Crochet Tie Halter Top",
+      "category": "Tops & Blouses",
+      "catalogueCode": "20261C010",
+      "catalogueOrder": 32,
+      "cataloguePage": 33,
+      "priceLkr": 3500,
+      "priceAud": 18,
+      "fabric": "Cotton Thread",
+      "colorName": "Mustard Yellow",
+      "colorHex": "#C68D25",
+      "palette": [
+        "#C68D25"
+      ],
+      "description": "A hand-crocheted halter top in mustard yellow with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Top only; bottoms are sold separately. Choose White, Rust Red, Warm Brown or Mustard Yellow. This is a separate design from the Ivory Handmade Crochet Halter Top.",
+      "heritage": "A hand-crocheted halter top in mustard yellow with triangular cups, openwork edging and a slim underbust band. Neck and back ties create an adjustable open-back finish. Top only; bottoms are sold separately. Choose White, Rust Red, Warm Brown or Mustard Yellow. This is a separate design from the Ivory Handmade Crochet Halter Top.",
+      "craftDetails": [
+        "Hand-crocheted cotton thread",
+        "Triangular cups",
+        "Openwork edging",
+        "Slim openwork underbust band",
+        "Neck and back ties",
+        "Open-back finish"
+      ],
+      "fitNote": "Relaxed fit.",
+      "bestFor": "Casual wear, holidays and day outings.",
+      "story": "The BINDY wardrobe",
+      "storyPlace": "Designed in Australia · Made in Sri Lanka",
+      "quote": "",
+      "sizes": [
+        "AU 8 (S)",
+        "AU 10 (M)",
+        "AU 12 (L)",
+        "AU 14 (XL)"
+      ],
+      "care": [
+        "Follow the care label supplied with your garment."
+      ],
+      "reviews": [],
+      "image": "/images/catalogue-2026/triangle-crochet-mustard.webp",
+      "imageHover": "/images/catalogue-2026/triangle-crochet-mustard.webp",
+      "gallery": [
         "/images/catalogue-2026/triangle-crochet-mustard.webp"
       ],
       "galleryZoom": [
-        "/images/optimized/client-approved-triangle-crochet-halter-top-0bcb996d9aaf.webp",
-        "/images/catalogue-2026/triangle-crochet-white.webp",
-        "/images/catalogue-2026/triangle-crochet-rust.webp",
-        "/images/catalogue-2026/triangle-crochet-brown.webp",
         "/images/catalogue-2026/triangle-crochet-mustard.webp"
       ],
       "galleryLabels": [
-        "Model & full outfit",
-        "White colour",
-        "Rust red triangle crochet",
-        "Warm brown colour",
-        "Mustard yellow colour"
+        "Mustard Yellow crochet · garment detail"
       ],
       "soldSeparately": true,
       "parentCategory": "Tops",
