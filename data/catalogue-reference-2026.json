@@ -24,15 +24,16 @@
       "palette": [
         "#E5BBC9"
       ],
-      "description": "Inspired by the Sri Lankan lotus, this pink striped dress pairs a clean strapless bodice with a softly gathered, flowing skirt. A feminine style for celebrations, holidays and special outings.",
-      "heritage": "Inspired by the Sri Lankan lotus, this pink striped dress pairs a clean strapless bodice with a softly gathered, flowing skirt. A feminine style for celebrations, holidays and special outings.",
+      "description": "Inspired by the Sri Lankan lotus, this pink-and-white pinstripe cotton dress pairs a clean strapless neckline with a fitted, elongated bodice. A pointed drop-waist seam opens into a single softly gathered skirt. See the real product photographs for its fabric, construction and fit.",
+      "heritage": "Inspired by the Sri Lankan lotus, this pink-and-white pinstripe cotton dress pairs a clean strapless neckline with a fitted, elongated bodice. A pointed drop-waist seam opens into a single softly gathered skirt. See the real product photographs for its fabric, construction and fit.",
       "craftDetails": [
-        "Straight strapless neckline",
-        "Shaped, fitted bodice",
-        "Pink striped cotton",
-        "Softly gathered, flowing skirt"
+        "Strapless neckline",
+        "Fitted, elongated bodice with shaping seams",
+        "Fine pink-and-white vertical cotton pinstripes",
+        "Pointed drop-waist seam",
+        "Single softly gathered, flared skirt"
       ],
-      "fitNote": "Fitted bodice with a flowing skirt.",
+      "fitNote": "Fitted, elongated bodice with a pointed drop waist and a relaxed gathered skirt.",
       "bestFor": "Casual wear, celebrations, holidays and special outings.",
       "story": "Fragment of Memories",
       "storyPlace": "Inspired by the Sri Lankan lotus",
@@ -49,32 +50,29 @@
         "Warm iron or steam on reverse"
       ],
       "reviews": [],
-      "image": "/images/optimized/client-approved-rose-stripe-strapless-dress-b0ec845a7ec6.webp",
-      "imageHover": "/images/optimized/client-approved-rose-stripe-strapless-dress-b0ec845a7ec6.webp",
+      "image": "/images/optimized/lotus-20261116-real-outfit-3135473853bd.webp",
+      "imageHover": "/images/optimized/lotus-20261116-real-outfit-3135473853bd.webp",
       "gallery": [
-        "/images/optimized/client-approved-rose-stripe-strapless-dress-b0ec845a7ec6.webp",
-        "/images/catalogue-2026/lotus-stripe-detail.webp",
-        "/images/catalogue-2026/lotus-making.webp",
-        "/images/catalogue-2026/lotus-fabric.webp",
-        "/images/catalogue-2026/lotus-cutting.webp"
+        "/images/optimized/lotus-20261116-real-outfit-3135473853bd.webp",
+        "/images/optimized/lotus-20261116-real-bodice-87768f15f215.webp",
+        "/images/optimized/lotus-20261116-real-neckline-6223393fae0a.webp",
+        "/images/optimized/lotus-20261116-real-garden-255306e0ab20.webp"
       ],
       "galleryZoom": [
-        "/images/optimized/client-approved-rose-stripe-strapless-dress-b0ec845a7ec6.webp",
-        "/images/catalogue-2026/lotus-stripe-detail.webp",
-        "/images/catalogue-2026/lotus-making.webp",
-        "/images/catalogue-2026/lotus-fabric.webp",
-        "/images/catalogue-2026/lotus-cutting.webp"
+        "/images/optimized/lotus-20261116-real-outfit-3135473853bd.webp",
+        "/images/optimized/lotus-20261116-real-bodice-87768f15f215.webp",
+        "/images/optimized/lotus-20261116-real-neckline-6223393fae0a.webp",
+        "/images/optimized/lotus-20261116-real-garden-255306e0ab20.webp"
       ],
       "galleryLabels": [
-        "Model & full outfit",
-        "Cotton stripe detail",
-        "Shaped bodice in the making",
-        "Fabric in the atelier",
-        "Cutting & construction"
+        "Real model & dress fit",
+        "Pinstripe fabric & pointed waist seam",
+        "Strapless neckline & bodice shaping",
+        "Real garden view & skirt silhouette"
       ],
       "soldSeparately": false,
       "parentCategory": "Dresses",
-      "subCategory": "Maxi",
+      "subCategory": "Midi",
       "collectionName": "Atelier Separates",
       "occasions": [
         "Everyday Calm",
@@ -86,7 +84,9 @@
       ],
       "styleWith": [],
       "videoHover": "",
-      "trackInventory": false
+      "trackInventory": false,
+      "cardImage": "/images/optimized/lotus-20261116-card-27969cdb46cc.webp",
+      "imageSource": "photography"
     },
     {
       "id": "ocean-wash-chambray-shirt-maxi-dress",

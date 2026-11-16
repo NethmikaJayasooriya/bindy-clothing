@@ -216,6 +216,7 @@ function SubcategorySelector({
 function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: () => void }) {
   const { store, save, busy } = useAdmin();
   const [pick, setPick] = useState(false);
+  const [pickCard, setPickCard] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [newSize, setNewSize] = useState("");
   const [formError, setFormError] = useState("");
@@ -433,7 +434,7 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
           <div className="admin-form-section">
             <h3>Product photography</h3>
             <p className="admin-muted" style={{ fontSize: 11, marginBottom: 14 }}>
-              First image is the product card. Second image appears on hover. Add up to 8 images.
+              The first gallery image opens the product detail page. Add up to 8 garment photos. Shop cards use the first image unless you choose a separate card photo below.
             </p>
             {p.gallery.length === 0 && (
               <p style={{ fontSize: 12, color: "#8a5828", background: "#fbf3ea", padding: "10px 14px", borderRadius: 7, marginBottom: 12 }}>
@@ -456,7 +457,7 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
                   >
                     <X size={12} />
                   </button>
-                  <small>{i === 0 ? "Main image" : i === 1 ? "Hover image" : `Image ${i + 1}`}</small>
+                  <small>{i === 0 ? "Main gallery image" : `Gallery image ${i + 1}`}</small>
                   <div className="admin-inline" style={{ justifyContent: "center", marginTop: 5 }}>
                     <Button small disabled={i === 0} aria-label={`Move image ${i + 1} left`} onClick={() => {
                       const a = [...p.gallery];
@@ -475,6 +476,15 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
             <Button id="admin-product-gallery-btn" onClick={() => setPick(true)} style={{ marginTop: 14 }} disabled={p.gallery.length >= 8}>
               <ImagePlus size={14} />Choose or upload images
             </Button>
+            <div style={{ marginTop: 20 }}>
+              <h4>Shop card photo · optional</h4>
+              <p className="admin-muted" style={{ fontSize: 11, margin: "6px 0 10px" }}>Use a separate styled photo on home and collection cards. Product details continue to show the gallery above.</p>
+              {p.cardImage && <div className="admin-image-list"><div className="admin-image-item"><ResponsiveImage src={p.cardImage} alt="Shop card photo"/><small>Home &amp; collection cards</small></div></div>}
+              <div className="admin-inline" style={{ marginTop: 10 }}>
+                <Button onClick={() => setPickCard(true)}><ImagePlus size={14}/>{p.cardImage ? "Change card photo" : "Choose card photo"}</Button>
+                {p.cardImage && <Button onClick={() => update("cardImage", "")}>Use gallery photo instead</Button>}
+              </div>
+            </div>
           </div>
 
           <div className="admin-form-section">
@@ -656,6 +666,9 @@ function ProductEditor({ product, onClose }: { product?: StoreProduct; onClose: 
           onClose={() => setPick(false)}
           onSelect={urls => update("gallery", [...p.gallery, ...urls].slice(0, 8))}
         />
+      )}
+      {pickCard && (
+        <MediaPicker onClose={() => setPickCard(false)} onSelect={urls => { if (urls[0]) update("cardImage", urls[0]); }}/>
       )}
       {showCategoryModal && (
         <CategoryEditor

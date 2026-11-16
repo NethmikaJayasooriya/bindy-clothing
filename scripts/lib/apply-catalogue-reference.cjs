@@ -15,7 +15,7 @@ function applyCatalogueReference(state, now = new Date().toISOString()) {
       ...existing, ...source, sku, stock, status: 'active', featured: source.catalogueOrder === 1,
       compareAtAud: existing?.compareAtAud > source.priceAud ? existing.compareAtAud : 0,
       costAud: existing?.costAud ?? 0, lowStockThreshold: existing?.lowStockThreshold ?? state.settings.lowStockThreshold,
-      badge: 'NEW', videoHover: undefined, imageSource: undefined,
+      badge: 'NEW', videoHover: undefined, imageSource: source.imageSource,
       weightGsm: undefined, originDistrict: undefined, updatedAt: now,
       inventoryCount: source.sizes.reduce((n, size) => n + (stock[size] || 0), 0),
     };

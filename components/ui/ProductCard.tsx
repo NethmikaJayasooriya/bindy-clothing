@@ -51,8 +51,9 @@ export default function ProductCard({
   const [hovered,setHovered]=useState(false);
   const [hoverRequested,setHoverRequested]=useState(false);
   const [readyHoverSrc,setReadyHoverSrc]=useState<string|null>(null);
+  const cardImage=product.cardImage || product.image;
   const reviewed=(reviewedHoverPhotos as Record<string,{primary:string;alternate:string}>)[product.id];
-  const hoverSrc=reviewed?.primary===product.image?reviewed.alternate:null;
+  const hoverSrc=reviewed?.primary===cardImage?reviewed.alternate:null;
 
   useEffect(() => {
     const unsub = subscribeWishlist(() => setWishlistTick((t) => t + 1));
@@ -95,7 +96,7 @@ export default function ProductCard({
         <Link href={`/product/${product.id}`} className="block absolute inset-0" aria-label={`View ${product.name}`}>
           {/* Keep the model visible until the reviewed alternate has decoded. */}
           <ResponsiveImage
-            src={product.image}
+            src={cardImage}
             alt={product.name}
             loading={priority ? "eager" : "lazy"}
             fetchPriority={priority ? "high" : "auto"}

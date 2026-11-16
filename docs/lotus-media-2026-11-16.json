@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-16",
+  "productId": "rose-stripe-strapless-dress",
+  "mode": "Built-in image_gen with garment reference photographs",
+  "purpose": "AI-styled shop card; real client photographs exclusively in the product detail gallery.",
+  "prompt": "Create ONE premium ecommerce fashion product photo for the Lotus Memory Dress.\nThe four supplied photos are GARMENT-ONLY REFERENCES. Do NOT use the face, glasses, hairstyle, body identity or likeness of the woman in the references. The customer explicitly wants a DIFFERENT AI model for the shop card.\nSubject: a newly created adult fashion model in her late twenties, medium warm brown skin, shoulder-length naturally curly dark hair, no glasses, a distinct softly angular face and relaxed confident expression. She must look clearly different from the light-skinned long straight-haired woman with glasses in the references. Do not swap the reference woman's face onto a new body.\nThe ONLY clothing design to reproduce is this exact Lotus Memory Dress: pale lotus pink and white fine vertical pinstripes on cotton; strapless gently straight neckline; closely fitted elongated bodice with visible vertical tailoring seams; the bodice extends over the hips into a curved POINTED V DROP-WAIST seam at centre front; one softly gathered A-line skirt starting at that seam. Hem below the knee / mid-calf matching the references, NOT an ankle-length gown. The bottom is ONE skirt, with no additional tiers, panels, horizontal seams or ruffles. No straps, sleeves, belt, buttons, lace, accessories on the dress or redesigned details. Keep the stripe scale, light cotton texture and realistic soft natural wrinkles.\nPhotograph the new adult model standing almost front-on with a slight three-quarter turn, arms relaxed away from the bodice so the neckline, seams, pointed waist and skirt drape are fully visible. Full body from head to neutral sandals; entire hem visible, no cropping of the dress. The dress occupies the main frame, clearly readable as a product thumbnail. Keep margins modest.\nPremium warm cream courtyard background with a small amount of softly blurred green foliage at the edges, elegant soft daylight, neutral accurate colour, realistic skin and professional editorial fashion photography. Crisp pinstripes, no moire, clear sewing details, understated and polished. Portrait 3:4 composition.\nNo reference-model likeness, no glasses, no copied face, no watermark, text, logo, collage, mannequin, duplicate person, purse covering the dress, extra garments or fake construction elements.",
+  "assets": [
+    {
+      "role": "card",
+      "source": "exec-06846d1c-ba75-4242-a12c-21c1c4ee7307.png",
+      "src": "/images/optimized/lotus-20261116-card-27969cdb46cc.webp",
+      "label": "AI-styled shop card · different model",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "role": "real-outfit",
+      "source": "codex-clipboard-a614da4a-b679-4cb0-86d5-76d68f30c47c.png",
+      "src": "/images/optimized/lotus-20261116-real-outfit-3135473853bd.webp",
+      "label": "Real model & dress fit",
+      "width": 900,
+      "height": 1600
+    },
+    {
+      "role": "real-bodice",
+      "source": "codex-clipboard-4ed31ba4-0009-4691-93cf-6c6e144422eb.png",
+      "src": "/images/optimized/lotus-20261116-real-bodice-87768f15f215.webp",
+      "label": "Pinstripe fabric & pointed waist seam",
+      "width": 900,
+      "height": 1600
+    },
+    {
+      "role": "real-neckline",
+      "source": "codex-clipboard-d73eb8d8-2664-4f65-9de5-5bf49cd1eee8.png",
+      "src": "/images/optimized/lotus-20261116-real-neckline-6223393fae0a.webp",
+      "label": "Strapless neckline & bodice shaping",
+      "width": 900,
+      "height": 1600
+    },
+    {
+      "role": "real-garden",
+      "source": "codex-clipboard-9d975566-7873-464f-983f-d894023c341e.png",
+      "src": "/images/optimized/lotus-20261116-real-garden-255306e0ab20.webp",
+      "label": "Real garden view & skirt silhouette",
+      "width": 2560,
+      "height": 1441
+    }
+  ],
+  "savedCardImage": "public/images/optimized/lotus-20261116-card-27969cdb46cc.webp",
+  "galleryContainsOnlyClientPhotos": true,
+  "modelInstruction": "A different newly created adult model; do not use the real reference model face."
+}

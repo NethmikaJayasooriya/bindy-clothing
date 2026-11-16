@@ -9,6 +9,7 @@ export async function syncProductToSupabase(p: StoreProduct) {
 
     const images = [p.image, p.imageHover, ...(p.gallery || [])].filter(Boolean);
     const details = {
+      cardImage: p.cardImage,
       story: p.story,
       storyPlace: p.storyPlace,
       destinations: p.destinations,

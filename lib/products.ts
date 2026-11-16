@@ -43,6 +43,7 @@ export interface Product {
   priceAud: number;
   priceLkr?: number;
   image: string; // primary
+  cardImage?: string; // optional shop-card styling image; gallery remains the garment reference
   imageHover: string; // shown on card hover
   videoHover?: string; // optional short clip played on card hover (falls back to imageHover)
   gallery: string[]; // full gallery for the product page (incl. image + hover)

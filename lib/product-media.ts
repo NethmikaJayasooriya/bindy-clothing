@@ -10,7 +10,7 @@ export function currentImageSource(src: string): string {
 }
 
 type ProductMedia = {
-  image: string; imageHover: string; gallery: string[];
+  image: string; cardImage?: string; imageHover: string; gallery: string[];
   galleryZoom?: string[]; galleryLabels?: string[];
   reviews?: { photos?: string[] }[];
 };
@@ -24,6 +24,7 @@ export function cleanProductMedia<T extends ProductMedia>(product: T): T {
   });
   return {
     ...product, image: currentImageSource(product.image), imageHover: currentImageSource(product.imageHover), gallery,
+    ...(product.cardImage ? { cardImage: currentImageSource(product.cardImage) } : {}),
     ...(product.galleryZoom ? { galleryZoom: indices.map(i => currentImageSource(product.galleryZoom?.[i] ?? product.gallery[i])) } : {}),
     ...(product.galleryLabels ? { galleryLabels: indices.map(i => product.galleryLabels?.[i] ?? `View ${i + 1}`) } : {}),
     // Seeded testimonials have no verified order source. Keep them unpublished.

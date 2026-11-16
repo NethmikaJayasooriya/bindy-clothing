@@ -54,6 +54,7 @@ export function saveProduct(state: StoreState, input: Input) {
     priceAud: number(input.priceAud), priceLkr: input.priceLkr===undefined?existing?.priceLkr:number(input.priceLkr), compareAtAud: number(input.compareAtAud ?? 0), costAud: number(input.costAud ?? 0),
     status: choice(input.status, ["active", "draft", "archived"] as const, "product status"), featured: input.featured === true,
     sizes, stock, trackInventory: input.trackInventory === undefined ? existing?.trackInventory !== false : input.trackInventory !== false, lowStockThreshold: integer(input.lowStockThreshold ?? state.settings.lowStockThreshold, 1000), gallery, image: existing && gallery.join() === existing.gallery.join() ? existing.image : gallery[0], imageHover: existing && gallery.join() === existing.gallery.join() ? existing.imageHover : gallery[1] ?? gallery[0],
+    cardImage: input.cardImage === undefined ? existing?.cardImage : text(input.cardImage) ? imagePath(input.cardImage) : undefined,
     inventoryCount: Object.values(stock).reduce((s, n) => s + n, 0),
     parentCategory: (category === "Dresses" ? "Dresses" : category === "Tops & Blouses" ? "Tops" : category === "Skirts & Pants" ? "Bottoms" : category === "Two Piece Sets" ? "Resort Wear" : category) as any,
     subCategory: text(input.subCategory, 100) || "Casual", collectionName: choice(input.collectionName, ["Serendipity", "Collection 02", "Atelier Separates"] as const, "collection"),

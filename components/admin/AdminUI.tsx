@@ -23,7 +23,7 @@ export function exportCsv(name: string, headers: string[], rows: unknown[][]) { 
 export function useList<T>(items: T[], search: (item: T, query: string) => boolean) { const [query, setQuery] = useState(""); const [page, setPage] = useState(1); useEffect(() => setPage(1), [query]); const filtered = items.filter(item => search(item, query.toLowerCase())); const safePage = Math.min(page, Math.max(1, Math.ceil(filtered.length / 10))); return { query, setQuery, page: safePage, setPage, filtered, visible: filtered.slice((safePage - 1) * 10, safePage * 10) }; }
 export function useMediaAssets() {
   const { store } = useAdmin(); const assets: MediaAsset[] = [...store!.media]; const seen = new Set(assets.map(a => a.url));
-  const urls = [...store!.hero.map(s => s.image), ...store!.products.flatMap(p => [p.image,p.imageHover,...p.gallery,...(p.galleryZoom??[])]), ...["all-pieces", "dresses", "tops-blouses", "skirts-pants", "two-piece-sets"].map(n => `/images/categories/${n}-v1.webp`)];
+  const urls = [...store!.hero.map(s => s.image), ...store!.products.flatMap(p => [p.image,p.imageHover,...(p.cardImage?[p.cardImage]:[]),...p.gallery,...(p.galleryZoom??[])]), ...["all-pieces", "dresses", "tops-blouses", "skirts-pants", "two-piece-sets"].map(n => `/images/categories/${n}-v1.webp`)];
   for (const url of urls) { if (seen.has(url)) continue; seen.add(url); assets.push({ id: url, url, name: url.split("/").pop()!.replace(/[-_]/g, " "), bytes: 0, createdAt: "" }); }
   return assets;
 }
