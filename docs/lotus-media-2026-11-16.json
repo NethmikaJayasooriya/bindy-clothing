@@ -7,9 +7,9 @@
   "assets": [
     {
       "role": "card",
-      "source": "exec-06846d1c-ba75-4242-a12c-21c1c4ee7307.png",
-      "src": "/images/optimized/lotus-20261116-card-27969cdb46cc.webp",
-      "label": "AI-styled shop card · different model",
+      "source": "exec-6b270d57-5aad-41f0-a826-a093cd5c98e3.png",
+      "src": "/images/optimized/lotus-20261116-card-white-shoes-72b6ab5bb0f6.webp",
+      "label": "AI-styled shop card · different model · white shoes",
       "width": 1086,
       "height": 1448
     },
@@ -46,7 +46,11 @@
       "height": 1441
     }
   ],
-  "savedCardImage": "public/images/optimized/lotus-20261116-card-27969cdb46cc.webp",
+  "savedCardImage": "public/images/optimized/lotus-20261116-card-white-shoes-72b6ab5bb0f6.webp",
   "galleryContainsOnlyClientPhotos": true,
-  "modelInstruction": "A different newly created adult model; do not use the real reference model face."
+  "modelInstruction": "A different newly created adult model; do not use the real reference model face.",
+  "footwearEdit": {
+    "mode": "Built-in image_gen edit",
+    "prompt": "Edit ONLY the footwear in this fashion catalogue photograph. Replace BOTH open-toe beige sandals with clean, elegant WHITE low-top lace-up sneakers (white leather or white canvas, white soles). They must fit naturally on the feet with correct perspective, realistic contact shadows and no exposed toes. Do not change anything else: preserve the SAME adult model, face, curly hair, skin tone, pose, hands, jewellery, exact pink-and-white pinstripe strapless dress, bodice seams, pointed drop waist, gathered skirt, hem length, cotton texture, background, lighting, framing and dimensions. No added clothing, text, logos or watermark. Keep the entire existing image composition; change sandals to plain white closed-toe sneakers only."
+  }
 }
