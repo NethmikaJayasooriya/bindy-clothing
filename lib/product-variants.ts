@@ -19,11 +19,10 @@ const crochetOptions = ['ivory-handmade-crochet-halter-top', ...families.triangl
 export function hasCrochetDesignOptions(product: Pick<Product,'id'>) {
  return crochetOptions.includes(product.id);
 }
-// Both crochet listings offer the full choice without merging the two designs
-// into one SKU or hiding their different prices in the catalogue.
+// The crochet card offers both designs; each option retains its own SKU and price.
 export function productOptions<T extends Pick<Product,'id'>>(product: T, products: T[]): T[] {
  return hasCrochetDesignOptions(product) ? products.filter(p=>crochetOptions.includes(p.id)) : colourVariants(product,products);
 }
 export function groupCatalogueProducts<T extends Pick<Product,'id'>>(products: T[]): T[] {
- const seen=new Set<string>();return products.filter(p=>{const key=family(p.id)?.[0]??p.id;if(seen.has(key))return false;seen.add(key);return true;});
+ const seen=new Set<string>();return products.filter(p=>{const key=hasCrochetDesignOptions(p)?'crochet':family(p.id)?.[0]??p.id;if(seen.has(key))return false;seen.add(key);return true;});
 }

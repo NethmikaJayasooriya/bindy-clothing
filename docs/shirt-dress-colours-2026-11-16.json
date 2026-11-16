@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-16",
+  "mode": "Built-in image_gen edit",
+  "purpose": "Keep the approved Black shirt-dress model, pose, courtyard and white shoes consistent across all six colours.",
+  "editTarget": "/images/optimized/client-approved-black-tiered-cotton-shirt-dress-a9740c63eaef.webp",
+  "products": [
+    {
+      "id": "soft-ivory-tiered-shirt-dress",
+      "colour": "Soft Ivory",
+      "colourReference": "/images/optimized/catalogue-soft-ivory-tiered-shirt-dress-56e506dc5ab4.webp",
+      "prompt": "Use case: precise-object-edit. IMAGE 1 is the EDIT TARGET and identity/composition reference. IMAGE 2 is a GARMENT COLOUR reference ONLY. Create ONE edited version of IMAGE 1. Recolour ONLY the BLACK COTTON SHIRT DRESS in IMAGE 1 to Soft Ivory, approximately #EDE1CF, matching the dress fabric colour in image 2 under the lighting of image 1. The woman must be EXACTLY THE SAME WOMAN AS IMAGE 1: identical face, dark hair tied in a low bun, smile, gaze, head angle, skin tone, hands and body pose. NEVER use the light-haired woman from image 2. Preserve the ENTIRE IMAGE 1 photograph as closely as possible: same framing, model scale, courtyard wall, window, plants, paving, shadows and white lace-up sneakers. Keep the exact same dress construction and proportions as image 1: collar, short sleeves, gathered horizontal chest yoke, front buttons, fitted upper bodice, waist seam, two gathered skirt sections and above-knee hem length. Do NOT redesign the dress, add tiers, remove buttons or change seams. Dye the fabric and matching buttons only, with realistic colour-dependent highlights and shadows, natural cotton texture and wrinkles. The dress must clearly be Soft Ivory; no residual black fabric panels. Full body from head to white shoes, portrait composition matching image 1, entire hem and both shoes visible. No text, collage, extra people, altered face, changed hair, new pose, new background, sandals, or watermark.",
+      "source": "exec-f3566cd5-1247-4dac-85ab-f033f7d88114.png",
+      "savedPath": "public/images/optimized/shirt-dress-matching-model-soft-ivory-tiered-shirt-dress-d11330e99cbb.webp",
+      "width": 1083,
+      "height": 1452
+    },
+    {
+      "id": "sage-mist-tiered-cotton-shirt-dress",
+      "colour": "Sage Mist",
+      "colourReference": "/images/optimized/catalogue-sage-mist-tiered-cotton-shirt-dress-7f7a761ac281.webp",
+      "prompt": "Use case: precise-object-edit. IMAGE 1 is the EDIT TARGET and identity/composition reference. IMAGE 2 is a GARMENT COLOUR reference ONLY. Create ONE edited version of IMAGE 1. Recolour ONLY the BLACK COTTON SHIRT DRESS in IMAGE 1 to Sage Mist, approximately #94A28B, matching the dress fabric colour in image 2 under the lighting of image 1. The woman must be EXACTLY THE SAME WOMAN AS IMAGE 1: identical face, dark hair tied in a low bun, smile, gaze, head angle, skin tone, hands and body pose. NEVER use the light-haired woman from image 2. Preserve the ENTIRE IMAGE 1 photograph as closely as possible: same framing, model scale, courtyard wall, window, plants, paving, shadows and white lace-up sneakers. Keep the exact same dress construction and proportions as image 1: collar, short sleeves, gathered horizontal chest yoke, front buttons, fitted upper bodice, waist seam, two gathered skirt sections and above-knee hem length. Do NOT redesign the dress, add tiers, remove buttons or change seams. Dye the fabric and matching buttons only, with realistic colour-dependent highlights and shadows, natural cotton texture and wrinkles. The dress must clearly be Sage Mist; no residual black fabric panels. Full body from head to white shoes, portrait composition matching image 1, entire hem and both shoes visible. No text, collage, extra people, altered face, changed hair, new pose, new background, sandals, or watermark.",
+      "source": "exec-76c058f1-328f-44c5-8cff-93e8cf383c2b.png",
+      "savedPath": "public/images/optimized/shirt-dress-matching-model-sage-mist-tiered-cotton-shirt-dress-6447f4f20dcc.webp",
+      "width": 1083,
+      "height": 1452
+    },
+    {
+      "id": "olive-grove-tiered-cotton-shirt-dress",
+      "colour": "Olive Grove",
+      "colourReference": "/images/optimized/catalogue-olive-grove-tiered-cotton-shirt-dress-3e3dbcbe4256.webp",
+      "prompt": "Use case: precise-object-edit. IMAGE 1 is the EDIT TARGET and identity/composition reference. IMAGE 2 is a GARMENT COLOUR reference ONLY. Create ONE edited version of IMAGE 1. Recolour ONLY the BLACK COTTON SHIRT DRESS in IMAGE 1 to Olive Grove, approximately #626B43, matching the dress fabric colour in image 2 under the lighting of image 1. The woman must be EXACTLY THE SAME WOMAN AS IMAGE 1: identical face, dark hair tied in a low bun, smile, gaze, head angle, skin tone, hands and body pose. NEVER use the light-haired woman from image 2. Preserve the ENTIRE IMAGE 1 photograph as closely as possible: same framing, model scale, courtyard wall, window, plants, paving, shadows and white lace-up sneakers. Keep the exact same dress construction and proportions as image 1: collar, short sleeves, gathered horizontal chest yoke, front buttons, fitted upper bodice, waist seam, two gathered skirt sections and above-knee hem length. Do NOT redesign the dress, add tiers, remove buttons or change seams. Dye the fabric and matching buttons only, with realistic colour-dependent highlights and shadows, natural cotton texture and wrinkles. The dress must clearly be Olive Grove; no residual black fabric panels. Full body from head to white shoes, portrait composition matching image 1, entire hem and both shoes visible. No text, collage, extra people, altered face, changed hair, new pose, new background, sandals, or watermark.",
+      "source": "exec-7aaa9541-6f7a-4c77-b8ce-e7cdac6f5f31.png",
+      "savedPath": "public/images/optimized/shirt-dress-matching-model-olive-grove-tiered-cotton-shirt-dress-4d10d6f01965.webp",
+      "width": 1083,
+      "height": 1452
+    },
+    {
+      "id": "earth-clay-tiered-cotton-shirt-dress",
+      "colour": "Earth Clay",
+      "colourReference": "/images/optimized/catalogue-earth-clay-tiered-cotton-shirt-dress-235dffb53657.webp",
+      "prompt": "Use case: precise-object-edit. IMAGE 1 is the EDIT TARGET and identity/composition reference. IMAGE 2 is a GARMENT COLOUR reference ONLY. Create ONE edited version of IMAGE 1. Recolour ONLY the BLACK COTTON SHIRT DRESS in IMAGE 1 to Earth Clay, approximately #A55C3C, matching the dress fabric colour in image 2 under the lighting of image 1. The woman must be EXACTLY THE SAME WOMAN AS IMAGE 1: identical face, dark hair tied in a low bun, smile, gaze, head angle, skin tone, hands and body pose. NEVER use the light-haired woman from image 2. Preserve the ENTIRE IMAGE 1 photograph as closely as possible: same framing, model scale, courtyard wall, window, plants, paving, shadows and white lace-up sneakers. Keep the exact same dress construction and proportions as image 1: collar, short sleeves, gathered horizontal chest yoke, front buttons, fitted upper bodice, waist seam, two gathered skirt sections and above-knee hem length. Do NOT redesign the dress, add tiers, remove buttons or change seams. Dye the fabric and matching buttons only, with realistic colour-dependent highlights and shadows, natural cotton texture and wrinkles. The dress must clearly be Earth Clay; no residual black fabric panels. Full body from head to white shoes, portrait composition matching image 1, entire hem and both shoes visible. No text, collage, extra people, altered face, changed hair, new pose, new background, sandals, or watermark.",
+      "source": "exec-bae216e0-56d8-4b62-a039-4d97c79e963b.png",
+      "savedPath": "public/images/optimized/shirt-dress-matching-model-earth-clay-tiered-cotton-shirt-dress-43e8690caa32.webp",
+      "width": 1083,
+      "height": 1452
+    },
+    {
+      "id": "warm-sand-tiered-cotton-shirt-dress",
+      "colour": "Warm Sand",
+      "colourReference": "/images/optimized/catalogue-warm-sand-tiered-cotton-shirt-dress-fb52cc9cfe62.webp",
+      "prompt": "Use case: precise-object-edit. IMAGE 1 is the EDIT TARGET and identity/composition reference. IMAGE 2 is a GARMENT COLOUR reference ONLY. Create ONE edited version of IMAGE 1. Recolour ONLY the BLACK COTTON SHIRT DRESS in IMAGE 1 to Warm Sand, approximately #C4AC8A, matching the dress fabric colour in image 2 under the lighting of image 1. The woman must be EXACTLY THE SAME WOMAN AS IMAGE 1: identical face, dark hair tied in a low bun, smile, gaze, head angle, skin tone, hands and body pose. NEVER use the light-haired woman from image 2. Preserve the ENTIRE IMAGE 1 photograph as closely as possible: same framing, model scale, courtyard wall, window, plants, paving, shadows and white lace-up sneakers. Keep the exact same dress construction and proportions as image 1: collar, short sleeves, gathered horizontal chest yoke, front buttons, fitted upper bodice, waist seam, two gathered skirt sections and above-knee hem length. Do NOT redesign the dress, add tiers, remove buttons or change seams. Dye the fabric and matching buttons only, with realistic colour-dependent highlights and shadows, natural cotton texture and wrinkles. The dress must clearly be Warm Sand; no residual black fabric panels. Full body from head to white shoes, portrait composition matching image 1, entire hem and both shoes visible. No text, collage, extra people, altered face, changed hair, new pose, new background, sandals, or watermark.",
+      "source": "exec-041688c8-76d3-4454-a4d2-f2bb6de936d7.png",
+      "savedPath": "public/images/optimized/shirt-dress-matching-model-warm-sand-tiered-cotton-shirt-dress-812514539856.webp",
+      "width": 1083,
+      "height": 1452
+    }
+  ]
+}

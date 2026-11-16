@@ -3,11 +3,11 @@ const {seedStore,publicStore}=load('@/lib/server/store-repository'),{quoteCod,cr
 const {groupCatalogueProducts,colourVariants}=load('@/lib/product-variants');
 const state=seedStore();state.settings.acceptingOrders=true;state.settings.cod={enabled:true,testMode:false,demoMultiplier:200,shippingLkr:400};
 const list=publicStore(state).products,grouped=groupCatalogueProducts(list);
-assert.equal(grouped.length,32,'Each garment style has one catalogue card');
+assert.equal(grouped.length,31,'Each garment style has one catalogue card, including one shared crochet card');
 const dress=list.find(p=>p.id==='black-tiered-cotton-shirt-dress'),variants=colourVariants(dress,list);
 assert.equal(variants.length,6);assert.equal(grouped.filter(p=>variants.some(v=>v.id===p.id)).length,1);
 assert.equal(groupCatalogueProducts(variants.filter(p=>p.colorName==='Soft Ivory'))[0].id,'soft-ivory-tiered-shirt-dress','Colour search must keep the matching variant before grouping');
-assert.notEqual(grouped.find(p=>p.id==='ivory-handmade-crochet-halter-top'),undefined);assert.notEqual(grouped.find(p=>p.id==='triangle-crochet-halter-top'),undefined);
+assert.notEqual(grouped.find(p=>p.id==='ivory-handmade-crochet-halter-top'),undefined);assert.equal(grouped.find(p=>p.id==='triangle-crochet-halter-top'),undefined,'No separate triangle-crochet card');
 const ivory=variants.find(p=>p.id==='soft-ivory-tiered-shirt-dress');assert.notEqual(ivory.image,dress.image);assert.equal(ivory.stock,undefined);assert.equal(ivory.inventoryStatus,'in_stock');
 const raw=state.products.find(p=>p.id===ivory.id),size=raw.sizes[0];raw.stock[size]=0;
 const input={requestId:'colour-available-unit-test',acceptedTerms:true,customer:{name:'Local variant test',email:'variant@example.test',phone:'0771234567',street:'Local test only',city:'Colombo',district:'Colombo',postcode:'00100',country:'Sri Lanka'},items:[{productId:ivory.id,size,quantity:2}]};
@@ -17,4 +17,4 @@ raw.trackInventory=true;assert.throws(()=>quoteCod(state,input),/quantity is una
 applyAction(state,'update-order',{id:order.id,fulfillment:'cancelled',payment:'unpaid',tracking:'',carrier:'',notes:''});assert.equal(raw.stock[size],0,'An untracked order must never add fake stock when cancelled after tracking is enabled');
 applyAction(state,'inventory',{id:raw.id,trackInventory:false,stock:raw.stock});assert.equal(raw.trackInventory,false);
 assert(publicStore(state).products.every(p=>p.id===raw.id||p.inventoryStatus==='in_stock'));
-console.log('PASS: 32 unique styles; six selectable dress colours; distinct crochet designs; selected colour pricing/order SKU; available-mode purchase, tracked rejection, safe cancellation and admin switching.');
+console.log('PASS: 31 catalogue cards; one crochet card retains all designs; six selectable dress colours; selected colour pricing/order SKU; available-mode purchase, tracked rejection, safe cancellation and admin switching.');

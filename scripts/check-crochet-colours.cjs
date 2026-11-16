@@ -12,7 +12,7 @@ const variants=colourVariants(white,products);
 assert.deepEqual(variants.map(p=>p.colorName),['White','Rust Red','Warm Brown','Mustard Yellow']);
 assert.equal(new Set(variants.map(p=>p.image)).size,4);
 assert.equal(groupCatalogueProducts(variants).length,1);
-assert.equal(groupCatalogueProducts(products).length,32);
+assert.equal(groupCatalogueProducts(products).length,31);
 assert(!variants.some(p=>p.id==='ivory-handmade-crochet-halter-top'),'Different crochet designs must stay separate');
 const ivory=products.find(p=>p.id==='ivory-handmade-crochet-halter-top');
 for(const root of [ivory,white]){
@@ -20,7 +20,7 @@ for(const root of [ivory,white]){
  assert.deepEqual(options.map(p=>p.colorName),['Ivory','White','Rust Red','Warm Brown','Mustard Yellow'],'Both crochet pages must expose all options');
  assert.equal(options.find(p=>p.id===ivory.id).priceLkr,3800);
  assert.equal(options.find(p=>p.id===white.id).priceLkr,3500);
- assert.equal(groupCatalogueProducts(options).length,2,'Keep the two differently priced designs separate in the catalogue');
+ assert.equal(groupCatalogueProducts(options).length,1,'Show both designs as options on one crochet card');
 }
 for(const p of variants){
  assert.equal(p.priceAud,18);assert.equal(p.priceLkr,3500);
