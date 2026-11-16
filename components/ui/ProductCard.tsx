@@ -14,7 +14,7 @@ import Badge from "./Badge";
 import { purchaseContents } from "@/lib/purchase-contents";
 import { showsFullOutfit } from "@/lib/product-media";
 import { useStorefront } from "@/components/StorefrontProvider";
-import { productDisplayName, colourVariants } from '@/lib/product-variants';
+import { productDisplayName, productOptions, hasCrochetDesignOptions } from '@/lib/product-variants';
 import reviewedHoverPhotos from '@/data/product-card-hover.json';
 import { productPhotoFraming, productPhotoSizes } from '@/lib/product-photo-framing';
 import { isSizeSoldOut, isProductSoldOut, getFirstAvailableSize } from "@/lib/stock";
@@ -47,7 +47,8 @@ export default function ProductCard({
   const selectedId = selection.initialId === initialProduct.id ? selection.colourId : initialProduct.id;
   const product = products.find((p) => p.id === selectedId) ?? initialProduct;
   const displayName=productDisplayName(product);
-  const variants=colourVariants(product,products);
+  const variants=productOptions(product,products);
+  const crochetOptions=hasCrochetDesignOptions(product);
   const [, setWishlistTick] = useState(0);
   const [added, setAdded] = useState(false);
   const [addedSize, setAddedSize] = useState<string | null>(null);
@@ -245,8 +246,8 @@ export default function ProductCard({
             </h3>
           </Link>
 
-          <div className="flex min-h-8 flex-wrap items-center gap-1" role="group" aria-label={variants.length>1?`${variants.length} available colours`:undefined}>
-            {variants.length>1&&<>{variants.map(v=><button key={v.id} type="button" aria-label={`Preview ${v.colorName}`} aria-pressed={v.id===product.id} title={v.colorName} onClick={()=>{setSelection({initialId:initialProduct.id,colourId:v.id});setAdded(false);setAddedSize(null);setHovered(false);setHoverRequested(false);setReadyHoverSrc(null);}} className={`flex h-8 w-8 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-charcoal ${v.id===product.id?'ring-1 ring-charcoal':'hover:ring-1 hover:ring-charcoal/40'}`}><span className="block h-5 w-5 rounded-full border border-black/20" style={{backgroundColor:v.colorHex}}/></button>)}<span className="ml-1 text-[10px] text-charcoal-subtle">{variants.length} colours</span></>}
+          <div className="flex min-h-8 flex-wrap items-center gap-1" role="group" aria-label={variants.length>1?`${variants.length} available ${crochetOptions?'crochet options':'colours'}`:undefined}>
+            {variants.length>1&&<>{variants.map(v=><button key={v.id} type="button" aria-label={`Preview ${v.colorName}`} aria-pressed={v.id===product.id} title={v.colorName} onClick={()=>{setSelection({initialId:initialProduct.id,colourId:v.id});setAdded(false);setAddedSize(null);setHovered(false);setHoverRequested(false);setReadyHoverSrc(null);}} className={`flex h-8 w-8 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-charcoal ${v.id===product.id?'ring-1 ring-charcoal':'hover:ring-1 hover:ring-charcoal/40'}`}><span className="block h-5 w-5 rounded-full border border-black/20" style={{backgroundColor:v.colorHex}}/></button>)}<span className="ml-1 text-[10px] text-charcoal-subtle">{variants.length} {crochetOptions?'options':'colours'}</span></>}
           </div>
 
           {/* Fabric / Material Description */}

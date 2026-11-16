@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict');
 const load=require('./lib/load-project.cjs')({react:{cache:fn=>fn}});
 const {seedStore,publicStore}=load('@/lib/server/store-repository');
-const {colourVariants,groupCatalogueProducts}=load('@/lib/product-variants');
+const {colourVariants,groupCatalogueProducts,productOptions}=load('@/lib/product-variants');
 const {productPhotoFraming,productPhotoSizes}=load('@/lib/product-photo-framing');
 const {createOrder}=load('@/lib/server/store-actions');
 const {quoteCod}=load('@/lib/server/cod-orders');
@@ -14,6 +14,14 @@ assert.equal(new Set(variants.map(p=>p.image)).size,4);
 assert.equal(groupCatalogueProducts(variants).length,1);
 assert.equal(groupCatalogueProducts(products).length,32);
 assert(!variants.some(p=>p.id==='ivory-handmade-crochet-halter-top'),'Different crochet designs must stay separate');
+const ivory=products.find(p=>p.id==='ivory-handmade-crochet-halter-top');
+for(const root of [ivory,white]){
+ const options=productOptions(root,products);
+ assert.deepEqual(options.map(p=>p.colorName),['Ivory','White','Rust Red','Warm Brown','Mustard Yellow'],'Both crochet pages must expose all options');
+ assert.equal(options.find(p=>p.id===ivory.id).priceLkr,3800);
+ assert.equal(options.find(p=>p.id===white.id).priceLkr,3500);
+ assert.equal(groupCatalogueProducts(options).length,2,'Keep the two differently priced designs separate in the catalogue');
+}
 for(const p of variants){
  assert.equal(p.priceAud,18);assert.equal(p.priceLkr,3500);
  const size=p.sizes[0],raw=state.products.find(q=>q.id===p.id),before=structuredClone(raw.stock);

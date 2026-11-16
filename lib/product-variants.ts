@@ -15,6 +15,15 @@ export function productDisplayName(product: Pick<Product,'id'|'name'>) { return 
 export function colourVariants<T extends Pick<Product,'id'>>(product: T, products: T[]): T[] {
  const group=family(product.id)?.[1];return group ? products.filter(p=>group.ids.includes(p.id)) : [product];
 }
+const crochetOptions = ['ivory-handmade-crochet-halter-top', ...families.triangleCrochet.ids];
+export function hasCrochetDesignOptions(product: Pick<Product,'id'>) {
+ return crochetOptions.includes(product.id);
+}
+// Both crochet listings offer the full choice without merging the two designs
+// into one SKU or hiding their different prices in the catalogue.
+export function productOptions<T extends Pick<Product,'id'>>(product: T, products: T[]): T[] {
+ return hasCrochetDesignOptions(product) ? products.filter(p=>crochetOptions.includes(p.id)) : colourVariants(product,products);
+}
 export function groupCatalogueProducts<T extends Pick<Product,'id'>>(products: T[]): T[] {
  const seen=new Set<string>();return products.filter(p=>{const key=family(p.id)?.[0]??p.id;if(seen.has(key))return false;seen.add(key);return true;});
 }
