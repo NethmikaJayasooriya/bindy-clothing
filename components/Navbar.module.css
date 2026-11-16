@@ -306,22 +306,16 @@
   place-items: center;
 }
 
-.flagButton {
+.marketFlag {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   background: transparent;
   border: none;
-  cursor: pointer;
+  cursor: default;
   color: inherit;
-  transition: opacity 0.2s ease, transform 0.2s ease;
   line-height: 1;
-}
-
-.flagButton:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
 }
 
 .flagWrapper {
@@ -342,14 +336,10 @@
   display: block;
 }
 
-.immersive .flagButton {
+.immersive .marketFlag {
   border: none;
   background: transparent;
   backdrop-filter: none;
-}
-
-.immersive .flagButton:hover {
-  opacity: 0.85;
 }
 
 .header a:hover,
@@ -452,7 +442,8 @@
 }
 
 .menuUtilities button,
-.menuUtilities a {
+.menuUtilities a,
+.menuUtilities .marketLabel {
   text-align: left;
   display: flex;
   gap: 7px;
@@ -462,6 +453,10 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
+}
+
+.menuUtilities .marketLabel {
+  cursor: default;
 }
 
 .menuBottom {
