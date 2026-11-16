@@ -403,7 +403,7 @@ export default function FlashArchiveSection({
           <span className="hidden sm:inline text-white/20">•</span>
           <span className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-[#C5A059]" />
-            <span>Complimentary Carbon-Neutral AU Shipping</span>
+            <span>Australian Delivery</span>
           </span>
           <span className="hidden sm:inline text-white/20">•</span>
           <span className="flex items-center gap-2">

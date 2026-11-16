@@ -146,14 +146,14 @@ export async function syncStoreStateToSupabase(state: StoreState) {
         id: 1,
         store_name: state.settings.storeName || "BINDY Clothing",
         order_prefix: state.settings.orderPrefix || "BIN",
-        standard_shipping_aud: state.settings.standardShipping || 12.00,
-        express_shipping_aud: state.settings.expressShipping || 18.00,
+        standard_shipping_aud: state.settings.standardShipping ?? 45.00,
+        express_shipping_aud: state.settings.expressShipping ?? 45.00,
         free_shipping_threshold_aud: state.settings.freeShippingThreshold || 150.00,
         tax_rate_percent: 10.00,
         reservation_minutes: 30,
         returns_window_days: state.settings.returnsDays || 30,
         is_maintenance_mode: !state.settings.acceptingOrders,
-        announcement_banner: state.settings.announcement || "Complimentary Express Shipping on Australian Orders Over $150",
+        announcement_banner: state.settings.announcement || "Australian shipping · AUD 45 per order",
       }, { onConflict: "id" });
     }
 

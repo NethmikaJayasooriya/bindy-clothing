@@ -21,7 +21,7 @@ export const FAQ_DATA: FaqCategory[] = [
     items: [
       {
         q: "What are your shipping rates and delivery timeframes in Australia?",
-        a: "We offer complimentary express carbon-neutral shipping across Australia on all orders over $150 AUD. For orders under $150, a flat rate of $10 AUD applies. Orders dispatched from our Brisbane fulfillment studio arrive in 2 to 4 business days for metro areas.",
+        a: "Australian delivery charges are shown at checkout. See our Shipping & Delivery policy for current rates, and contact our team for delivery estimates.",
       },
       {
         q: "Do you ship internationally?",

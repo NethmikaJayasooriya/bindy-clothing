@@ -9,6 +9,7 @@ import { DEFAULT_CATEGORIES } from "@/lib/store-types";
 import { registerCategorySlug, unregisterCategorySlug } from "@/lib/categories-config";
 import { StoreError } from "./store-repository";
 import { expirePendingOrders } from "./payhere";
+import { audShippingFee } from "@/lib/shipping";
 import { syncCategoryToSupabase, deleteCategoryFromSupabase } from "./supabase-sync";
 type Input = Record<string, unknown>;
 export function object(value: unknown): Input { if (!value || typeof value !== "object" || Array.isArray(value)) throw new StoreError("The submitted data is invalid."); return value as Input; }
@@ -82,11 +83,12 @@ export function saveProduct(state: StoreState, input: Input) {
 
   return p;
 }
-export function discountTotal(state: StoreState, code: string, subtotal: number, shipping: number) {
+export function discountTotal(state: StoreState, code: string, subtotal: number, shipping: number, currency: "AUD" | "LKR" = "AUD") {
   if (!code) return { discount: 0, shipping, coupon: undefined };
   const d = state.discounts.find(d => d.code === code.toUpperCase()); const today = new Date().toISOString().slice(0, 10);
   if (!d || !d.active || (d.startsAt && today < d.startsAt) || (d.endsAt && today > d.endsAt) || (d.usageLimit && d.used >= d.usageLimit)) throw new StoreError("This discount code is invalid or expired.");
   if (subtotal < d.minimum) throw new StoreError(`Spend at least $${d.minimum.toFixed(2)} to use this code.`);
+  if (d.type === "shipping" && currency === "AUD" && state.settings.freeShippingEnabled === false) throw new StoreError("Free-shipping codes are not available for Australian orders.");
   return { discount: Math.round(Math.min(subtotal, d.type === "percentage" ? subtotal * d.value / 100 : d.type === "fixed" ? d.value : 0) * 100) / 100, shipping: d.type === "shipping" ? 0 : shipping, coupon: d };
 }
 export function createOrder(state: StoreState, input: Input): StoreOrder {
@@ -114,8 +116,8 @@ export function createOrder(state: StoreState, input: Input): StoreOrder {
   const isCod = input.currency === "LKR" || input.paymentMethod === "cod";
   const currency = isCod ? "LKR" : "AUD";
   const subtotal = Math.round(items.reduce((s, i) => s + (i.unitPrice ?? i.priceAud) * i.quantity, 0) * 100) / 100;
-  const shipping = isCod ? (state.settings.cod?.shippingLkr ?? 650) : (subtotal >= state.settings.freeShippingThreshold ? 0 : input.shippingMethod === "express" ? state.settings.expressShipping : state.settings.standardShipping);
-  const code = text(input.discountCode, 30).toUpperCase(); const result = discountTotal(state, code, subtotal, shipping);
+  const shipping = isCod ? (state.settings.cod?.shippingLkr ?? 650) : audShippingFee(state.settings, subtotal, input.shippingMethod === "express" ? "express" : "standard");
+  const code = text(input.discountCode, 30).toUpperCase(); const result = discountTotal(state, code, subtotal, shipping, currency);
   let customer = state.customers.find(c => c.email === customerEmail);
   if (!customer) { customer = { id: randomUUID(), name: customerName, email: customerEmail, phone, address, notes: "", createdAt: new Date().toISOString() }; state.customers.push(customer); }
   const now = new Date().toISOString();
@@ -252,6 +254,7 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       if(v.cod!==undefined){const c=object(v.cod);const demoMultiplier=number(c.demoMultiplier,10000);if(demoMultiplier<=0)throw new StoreError("Demo pricing multiplier must be positive.");s.cod={enabled:c.enabled===true,testMode:c.testMode!==false,demoMultiplier,shippingLkr:number(c.shippingLkr,100000)};}
       s.storeName = required(v.storeName, "Store name"); s.email = email(v.email); s.phone = text(v.phone, 60); s.address = text(v.address, 1000); s.announcement = text(v.announcement, 300);
       s.freeShippingThreshold = number(v.freeShippingThreshold); s.standardShipping = number(v.standardShipping); s.expressShipping = number(v.expressShipping); s.returnsDays = integer(v.returnsDays, 365); s.lowStockThreshold = integer(v.lowStockThreshold, 1000); s.acceptingOrders = v.acceptingOrders === true;
+      if (v.freeShippingEnabled !== undefined) s.freeShippingEnabled = v.freeShippingEnabled === true;
       for (const key of ["instagram", "facebook", "tiktok"] as const) {
         const value = v[key] === undefined ? s[key] ?? DEFAULT_SOCIALS[key] : text(v[key], 300);
         if (value && !validSocialUrl(value, key)) throw new StoreError(`Use a full HTTPS ${key === "tiktok" ? "TikTok" : key[0].toUpperCase()+key.slice(1)} profile URL.`);

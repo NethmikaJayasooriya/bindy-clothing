@@ -1,0 +1,24 @@
+const assert=require('node:assert/strict');
+const load=require('./lib/load-project.cjs')({react:{cache:fn=>fn}});
+const {audShippingFee,qualifiesForFreeShipping}=load('@/lib/shipping');
+const {seedStore,publicStore}=load('@/lib/server/store-repository');
+const {createOrder,discountTotal,applyAction}=load('@/lib/server/store-actions');
+const {quoteCod}=load('@/lib/server/cod-orders');
+const {publishedPromotions}=load('@/lib/promotions');
+const state=seedStore();state.settings={...state.settings,acceptingOrders:true,standardShipping:45,expressShipping:45,freeShippingEnabled:false,cod:{enabled:true,testMode:false,demoMultiplier:200,shippingLkr:400}};
+for(const subtotal of [0,24,150,240,100000])for(const method of ['standard','express']){assert.equal(audShippingFee(state.settings,subtotal,method),45);assert.equal(qualifiesForFreeShipping(state.settings,subtotal),false);}
+const p=state.products[0],size=p.sizes[0],stock=structuredClone(p.stock);
+const input={requestId:'shipping-local-1',customer:{name:'Local shipping check',email:'shipping@example.test',address:'Local test only',phone:'0771234567'},items:[{productId:p.id,size,quantity:1}],shippingMethod:'standard',shipping:0};
+const small=createOrder(state,input);assert.equal(small.shipping,45);assert.equal(small.total,small.subtotal+45);
+const large=createOrder(state,{...input,requestId:'shipping-local-2',items:[{productId:p.id,size,quantity:10}],shippingMethod:'express',shipping:0});assert(large.subtotal>=150);assert.equal(large.shipping,45);assert.equal(large.total,large.subtotal+45);
+state.discounts.push({id:'ship-test',code:'SHIPFREE',type:'shipping',value:0,minimum:0,startsAt:'',endsAt:'',usageLimit:0,used:0,active:true});
+assert.throws(()=>discountTotal(state,'SHIPFREE',240,45),/Free-shipping codes are not available/);
+const count=state.orders.length;assert.throws(()=>createOrder(state,{...input,requestId:'shipping-local-rejected',discountCode:'SHIPFREE'}),/Free-shipping codes/);assert.equal(state.orders.length,count);assert.deepEqual(p.stock,stock);
+state.promotions=[{id:'ship-promo',published:true,title:'Free delivery',description:'',code:'SHIPFREE',link:'/collection',startsAt:'',endsAt:''}];assert.equal(publishedPromotions(state).length,0);
+state.discounts.push({id:'percent-test',code:'SAVE10',type:'percentage',value:10,minimum:0,startsAt:'',endsAt:'',usageLimit:0,used:0,active:true});
+const discounted=createOrder(state,{...input,requestId:'shipping-local-discount',discountCode:'SAVE10'});assert.equal(discounted.shipping,45);assert.equal(discounted.total,discounted.subtotal-discounted.discount+45);
+const cod=quoteCod(state,{acceptedTerms:true,customer:{name:'Local COD check',email:'cod@example.test',phone:'0771234567',street:'Local test only',city:'Colombo',district:'Colombo',postcode:'00100',country:'Sri Lanka'},items:[{productId:p.id,size,quantity:1}]});assert.equal(cod.shipping,400);
+applyAction(state,'settings',{...state.settings,freeShippingEnabled:true});assert.equal(audShippingFee(state.settings,240),0);assert.equal(discountTotal(state,'SHIPFREE',24,45).shipping,0);
+const legacy={...state.settings};delete legacy.freeShippingEnabled;assert.equal(audShippingFee(legacy,240),0);
+applyAction(state,'settings',{...state.settings,freeShippingEnabled:false});assert.equal(publicStore(state).settings.freeShippingEnabled,false);assert.equal(audShippingFee(state.settings,240),45);
+console.log('PASS: AUD 45 below/above old threshold for both methods; server totals ignore forged fees; coupons cannot waive shipping; COD unchanged; admin and legacy settings supported.');

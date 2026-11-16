@@ -79,7 +79,7 @@ const CATEGORY_CARDS = [
 ];
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
-  const {products:PRODUCTS}=useStorefront();
+  const {products:PRODUCTS,settings}=useStorefront();
   const { getPrice, isLkr } = useCurrency();
   const [query, setQuery] = useState("");
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>("All");
@@ -834,7 +834,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 <span>
                   {isLkr
                     ? "Islandwide Sri Lanka Courier Delivery & Cash on Delivery Available"
-                    : "Complimentary Carbon-Neutral AU Shipping Over $200"}
+                    : settings.freeShippingEnabled === false ? `AU shipping · $${settings.standardShipping} AUD per order` : `Free AU shipping from $${settings.freeShippingThreshold} AUD`}
                 </span>
               </div>
               <div className="flex items-center gap-3 text-[#786F60]">

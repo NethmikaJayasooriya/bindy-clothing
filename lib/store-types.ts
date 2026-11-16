@@ -43,6 +43,7 @@ export interface StoreSettings {
   tracking?: {ga4Id: string; searchConsoleToken: string};
   storeName: string; email: string; phone: string; address: string; announcement: string;
   freeShippingThreshold: number; standardShipping: number; expressShipping: number; returnsDays: number;
+  freeShippingEnabled?: boolean;
   instagram: string; facebook?: string; tiktok?: string; orderPrefix: string; lowStockThreshold: number; acceptingOrders: boolean;
   cod?: { enabled: boolean; testMode: boolean; demoMultiplier: number; shippingLkr: number };
 }
@@ -85,8 +86,8 @@ export interface PublicStore { products: PublicProduct[]; hero: HeroSlide[]; pag
 
 export const DEFAULT_SETTINGS: StoreSettings = {
   storeName: "BINDY Clothing", email: DEFAULT_CONTACT_EMAIL, phone: "0766655550", address: "Brisbane, Australia · Colombo, Sri Lanka",
-  announcement: "Complimentary AU express shipping on orders $150+", freeShippingThreshold: 150,
-  standardShipping: 12, expressShipping: 18, returnsDays: 30, ...DEFAULT_SOCIALS, orderPrefix: "BIN", lowStockThreshold: 3, acceptingOrders: false,
+  announcement: "Australian shipping · AUD 45 per order", freeShippingThreshold: 150, freeShippingEnabled: false,
+  standardShipping: 45, expressShipping: 45, returnsDays: 30, ...DEFAULT_SOCIALS, orderPrefix: "BIN", lowStockThreshold: 3, acceptingOrders: false,
 };
 export const DEFAULT_HERO: HeroSlide[] = [
   { id: "together", name: "Better together", label: "THE REAL LIFE EDIT / 01", title: "The art of", italic: "being you.", note: "Clothes for the moments that make you, you. Thoughtfully made. Beautifully lived in.", image: "/images/bindi-real/campaign-together.webp", alt: "Two friends laughing in BINDY sage and floral pieces in the city", position: "51% 60%", mobile: "50% 61%", link: "/collection", product: "Discover the real life edit", enabled: true },

@@ -35,7 +35,7 @@ export function seedStore(): StoreState {
     const stock = Object.fromEntries(p.sizes.map((size, n) => [size, Math.floor(units / p.sizes.length) + (n < units % p.sizes.length ? 1 : 0)]));
     return { ...p, sku: `BIN-${String(i + 1).padStart(4, "0")}`, status: "active", stock, lowStockThreshold: 3, compareAtAud: 0, costAud: 0, featured: i < 4, updatedAt: now };
   }), orders: [], customers: [], messages: [], subscribers: [], returns: [], media: [], hero: DEFAULT_HERO, categories: structuredClone(DEFAULT_CATEGORIES), pages: [
-    { slug: "shipping", title: "Shipping & delivery", body: "We ship within Australia. Standard delivery is $12 and express delivery is $18. Orders over $150 receive complimentary express delivery. Delivery estimates are provided when your order is dispatched.", published: true },
+    { slug: "shipping", title: "Shipping & delivery", body: "{{audShipping}} Delivery estimates are provided when your order is dispatched. For Sri Lanka delivery charges and availability, review the LKR checkout quote. Contact {{email}} with delivery enquiries.", published: true },
     { slug: "returns", title: "Returns & exchanges", body: `Contact our team within 30 days of receiving your order to request a return or exchange. Items should be unworn, unwashed and returned with their original tags. Please contact {{email}} before sending a return.\n\n${RETURNS_CONSUMER_RIGHTS}`, published: true },
     ...structuredClone(DEFAULT_POLICY_PAGES),
   ], discounts: [{ id: randomUUID(), code: "WELCOME10", type: "percentage", value: 10, minimum: 0, startsAt: "", endsAt: "", usageLimit: 0, used: 0, active: true }], settings: DEFAULT_SETTINGS, activity: [], updatedAt: now };

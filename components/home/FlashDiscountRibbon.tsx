@@ -90,7 +90,7 @@ export default function FlashDiscountRibbon({
               <span className="text-white/40">✦</span>
 
               <span className="text-white/85">
-                FREE AU COURIER OVER $150
+                AUSTRALIAN DELIVERY
               </span>
 
               <span className="text-white/40">✦</span>

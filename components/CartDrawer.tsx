@@ -163,6 +163,8 @@ export default function CartDrawer({
                       Ship to AU?
                     </button>
                   </div>
+                ) : settings.freeShippingEnabled === false ? (
+                  <p className="text-xs font-sans text-charcoal/80">Australian shipping · <strong>${settings.standardShipping} AUD per order</strong></p>
                 ) : (
                   <>
                     <div className="flex justify-between text-xs font-sans mb-1.5">
@@ -268,7 +270,7 @@ export default function CartDrawer({
                   <p className="text-xs sm:text-sm font-sans text-charcoal-subtle text-center">
                     {isLkr
                       ? "Cash on delivery (COD) available islandwide across Sri Lanka."
-                      : "Taxes and delivery are calculated at checkout. Free-shipping offers apply within Australia."}
+                      : settings.freeShippingEnabled === false ? `Australian shipping is $${settings.standardShipping} AUD per order. Review the final total at checkout.` : "Taxes and delivery are calculated at checkout. Free-shipping offers apply within Australia."}
                   </p>
 
                   <Link

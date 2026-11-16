@@ -471,7 +471,7 @@ export default function StyleMatcherSection({
               Tailored Recommendations ({matchedProducts.length})
             </h3>
             <span className="text-sm font-mono uppercase font-semibold tracking-wider text-charcoal-subtle">
-              Free Carbon-Neutral AU Shipping Over $150
+              Australian Delivery
             </span>
           </div>
 

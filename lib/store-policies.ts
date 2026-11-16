@@ -1,4 +1,5 @@
 import type { ContentPage, StoreSettings } from "@/lib/store-types";
+import { audShippingDescription } from "@/lib/shipping";
 
 export const RETURNS_CONSUMER_RIGHTS = "## Your consumer rights\n\nChange-of-mind return conditions do not limit your rights under the Australian Consumer Law. If an item is faulty, misdescribed or otherwise fails to meet a consumer guarantee, contact us to discuss the remedy required by law. A voluntary return window or requirement for unworn items does not remove those rights.";
 
@@ -143,8 +144,9 @@ We review reported concerns, investigate and take action appropriate to the issu
   },
 ];
 
-export function resolvePolicyContact(body: string, settings: Pick<StoreSettings, "storeName" | "email" | "phone">) {
-  return body.replace(/\{\{(storeName|email|phone)\}\}/g, (_, key: keyof typeof settings) => settings[key]);
+export function resolvePolicyContact(body: string, settings: StoreSettings) {
+  return body.replace(/\{\{(storeName|email|phone)\}\}/g, (_, key: "storeName" | "email" | "phone") => settings[key])
+    .replace(/\{\{audShipping\}\}/g, () => audShippingDescription(settings));
 }
 
 export function policyBlocks(body: string) {

@@ -15,7 +15,7 @@ export default function TrustStrip() {
     {
       icon: Truck,
       iconClass: "text-[#C5A059]",
-      text: "Free AU Shipping $150+",
+      text: "Australian Delivery",
     },
     {
       icon: RefreshCw,

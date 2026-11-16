@@ -1,5 +1,6 @@
 "use client";
 import { purchaseContents } from "@/lib/purchase-contents";
+import { audShippingDescription } from "@/lib/shipping";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import { useStorefront } from "@/components/StorefrontProvider";
 import { useCurrency } from "@/components/CurrencyContext";
@@ -816,7 +817,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-sans text-charcoal-subtle pt-3 border-t border-sand/30">
             <div className="flex items-center gap-1.5 p-2 rounded-xl bg-paper-light border border-sand/30">
               <Truck className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span className="leading-tight">Free AU ${settings.freeShippingThreshold}+</span>
+              <span className="leading-tight">{settings.freeShippingEnabled === false ? `AU shipping $${settings.standardShipping}` : `Free AU $${settings.freeShippingThreshold}+`}</span>
             </div>
             <div className="flex items-center gap-1.5 p-2 rounded-xl bg-paper-light border border-sand/30">
               <RefreshCw className="w-3.5 h-3.5 text-gold shrink-0" />
@@ -938,7 +939,7 @@ export default function ProductDetail({ product: initialProduct }: { product: Pr
                       • <strong>Dispatch:</strong> Same-day dispatch from Melbourne on orders placed before 1 PM AEST.
                     </p>
                     <p>
-                      • <strong>Shipping:</strong> Free delivery on orders from ${settings.freeShippingThreshold} AUD. Delivery details are provided after dispatch.
+                      • <strong>Shipping:</strong> {audShippingDescription(settings)} Delivery details are provided after dispatch.
                     </p>
                     <p>
                       • <strong>Returns:</strong> {settings.returnsDays}-day return or exchange policy in original condition with tags intact.

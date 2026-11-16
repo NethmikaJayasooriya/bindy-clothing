@@ -3,6 +3,7 @@ import ResponsiveImage from "@/components/ResponsiveImage";
 import SriLankaCheckout from "@/components/checkout/SriLankaCheckout";
 import { useStorefront } from "@/components/StorefrontProvider";
 import { useCurrency, type Market } from "@/components/CurrencyContext";
+import { audShippingFee, qualifiesForFreeShipping } from "@/lib/shipping";
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
@@ -291,9 +292,8 @@ function AustraliaCheckout() {
     return items.reduce((sum, i) => sum + i.quantity, 0);
   }, [items]);
 
-  const freeShippingThreshold = settings.freeShippingThreshold;
-  const isFreeShipping = subtotal >= freeShippingThreshold;
-  const shippingFee = isFreeShipping || appliedPromo?.type === "shipping" ? 0 : shipping.method === "express" ? settings.expressShipping : settings.standardShipping;
+  const isFreeShipping = qualifiesForFreeShipping(settings, subtotal);
+  const shippingFee = settings.freeShippingEnabled !== false && appliedPromo?.type === "shipping" ? 0 : audShippingFee(settings, subtotal, shipping.method);
   const discountAmount = appliedPromo ? Math.round(Math.min(subtotal, appliedPromo.type === "percentage" ? subtotal * appliedPromo.value / 100 : appliedPromo.type === "fixed" ? appliedPromo.value : 0) * 100) / 100 : 0;
 
   const total = Math.max(0, subtotal - discountAmount + shippingFee);
@@ -1293,7 +1293,7 @@ function AustraliaCheckout() {
                               </div>
                             </div>
                             <span className="font-serif text-sm font-semibold text-gold">
-                              {isFreeShipping ? "FREE" : "$12 AUD"}
+                              {isFreeShipping ? "FREE" : `$${settings.standardShipping} AUD`}
                             </span>
                           </label>
 
@@ -1319,7 +1319,7 @@ function AustraliaCheckout() {
                                 <p className="text-xs font-sans text-muted">Estimated 1–2 business days</p>
                               </div>
                             </div>
-                            <span className="font-serif text-sm font-semibold text-gold">$18 AUD</span>
+                            <span className="font-serif text-sm font-semibold text-gold">{isFreeShipping ? "FREE" : `$${settings.expressShipping} AUD`}</span>
                           </label>
                         </div>
                       </div>
@@ -1382,7 +1382,7 @@ function AustraliaCheckout() {
                             {shipping.suburb}, {shipping.state} {shipping.postcode}
                           </p>
                           <p className="text-gold font-medium pt-1">
-                            Method: {shipping.method === "express" ? "Express Courier ($18)" : "Standard Tracked"}
+                            Method: {shipping.method === "express" ? "Express Courier" : "Standard Tracked"} · ${shippingFee} AUD
                           </p>
                         </div>
                         <button
