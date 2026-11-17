@@ -1,0 +1,111 @@
+{
+  "date": "2026-11-17",
+  "mode": "Built-in image_gen",
+  "garmentReference": "/images/optimized/client-approved-raspberry-red-textured-maxi-dress-12fe16d0310e.webp",
+  "prompt": "Use case: ads-marketing. Asset type: premium fashion website HERO photograph, composed for both widescreen desktop and a tall mobile crop. Create one exceptionally sharp high-resolution 3072 x 2048 landscape photograph (3:2), with real textile detail suitable for 2K delivery. The supplied image is the exact GARMENT AND MODEL reference. Preserve the same adult woman, dark low-bun hairstyle, natural smile, warm skin tone, and this exact Raspberry Red Textured Maxi Dress. Keep its rich raspberry red colour, deep V-neck gathered bodice, short voluminous gathered puff sleeves, broad defined waistband, flowing three-section maxi skirt with two gathered horizontal joins below the waist, subtle textured fabric and ankle-length hem. Keep clean white low-top lace-up sneakers, both shoes visible below the hem. No redesign, no extra tiers, buttons, belt, different neckline, high slit or altered sleeves.\nScene: a beautifully understated warm stone courtyard with dark timber French doors, softly blurred small golden fairy lights and a little elegant deep green foliage at the right edge; refined festive atmosphere with natural late-afternoon golden light, restrained luxury and realistic shadows. Match the warm editorial mood of the reference, without excessive Christmas props or objects covering the dress.\nCRITICAL HERO COMPOSITION: place the SAME woman full-length near the RIGHT-THIRD, with her body centre at approximately 72% of the image width. Face turned gently toward the left, relaxed smile, one arm down and the other relaxed lightly by the waist; the entire bodice, sleeves, waist and skirt must be clearly readable. Keep her full body and both shoes safely within the frame with generous space above her head and below her feet. Her full silhouette should span about 78% of image height, leaving safe margins for a widescreen hero crop. Her widest skirt silhouette must remain inside the right half. The LEFT 45% of the composition must be calm negative space: a softly defocused deep olive/taupe courtyard wall in shade with subtle light falloff, very few details. This is where the website's white editorial heading will be overlaid later. Do not place any generated lettering, logos, mock user-interface, borders or watermark in the image. Keep the lower left background gently dark and uncluttered for white text. Upper right foliage should not cover the woman's head. The right-hand portion of the photograph must also work as a vertical mobile crop with the full dress still visible. Authentic professional fashion campaign photography, natural human anatomy, realistic detailed face and hands, exquisite raspberry fabric texture, crisp sewing and soft folds. One woman only, one continuous photograph, no collage, no mannequin.",
+  "framingRefinementPrompt": "Refine this exact fashion hero photograph for responsive website use. Preserve the same woman, face, dark low bun, smile, exact Raspberry Red Textured Maxi Dress with its V-neck, puff sleeves, fitted waistband, three skirt sections, rich colour and fabric texture, and the same white lace-up sneakers. Preserve the same elegant warm courtyard, timber doors, fairy lights, shaded empty left wall and overall mood.\nChange ONLY the camera framing: ZOOM OUT by about 25 percent / extend the same scene around her so her complete head-to-shoes silhouette occupies ONLY 72–75 percent of the total image HEIGHT, NOT 90 percent. Put the top of her head at approximately 15% down from the top edge and the bottom of both shoes at approximately 88% down. Keep her body centre at 72% across the width, with the complete hem safely inside the right half. Do not enlarge the subject. Make the empty shaded left wall and foreground paving slightly more spacious. It is crucial that both her hair and shoes remain fully visible when a 3:2 photograph is cropped to a 16:9 hero, and that the right-hand area works as a portrait mobile crop. Keep this a 3:2 landscape composition. Request actual high-resolution 3072 x 2048 pixels with detailed natural fabric, face and hands. The left 45% must remain calm and dark enough for white website text. No text, logo, border, extra people, collage, mannequin, altered dress, sandals, or watermark. This is a framing refinement of the exact supplied photo, not a new design.",
+  "generatedSource": "exec-fa40f42f-b5f8-4c5c-a78e-136d40d84db9.png",
+  "generatedDimensions": {
+    "width": 1536,
+    "height": 1024
+  },
+  "deliveryMaster": {
+    "path": "public/images/campaign/raspberry-red-hero-20261117-1747b5f72c5c.webp",
+    "width": 3072,
+    "height": 2048,
+    "processing": "Lanczos 2K export with mild sharpening; generated source dimensions recorded above."
+  },
+  "desktop": {
+    "width": 3072,
+    "height": 2048,
+    "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-3072.webp",
+    "srcSet": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-480.webp 480w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-768.webp 768w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-1080.webp 1080w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-1440.webp 1440w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-1920.webp 1920w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-2560.webp 2560w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-3072.webp 3072w",
+    "variants": [
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-480.webp",
+        "width": 480,
+        "bytes": 30080
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-768.webp",
+        "width": 768,
+        "bytes": 62682
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-1080.webp",
+        "width": 1080,
+        "bytes": 100730
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-1440.webp",
+        "width": 1440,
+        "bytes": 179890
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-1920.webp",
+        "width": 1920,
+        "bytes": 260274
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-2560.webp",
+        "width": 2560,
+        "bytes": 379338
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-desktop-3072.webp",
+        "width": 3072,
+        "bytes": 542436
+      }
+    ]
+  },
+  "mobile": {
+    "width": 1536,
+    "height": 2048,
+    "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-1536.webp",
+    "srcSet": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-480.webp 480w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-768.webp 768w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-1080.webp 1080w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-1440.webp 1440w, /images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-1536.webp 1536w",
+    "variants": [
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-480.webp",
+        "width": 480,
+        "bytes": 49770
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-768.webp",
+        "width": 768,
+        "bytes": 94184
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-1080.webp",
+        "width": 1080,
+        "bytes": 140220
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-1440.webp",
+        "width": 1440,
+        "bytes": 270932
+      },
+      {
+        "src": "/images/optimized/raspberry-hero-20261117-1747b5f72c5c-mobile-1536.webp",
+        "width": 1536,
+        "bytes": 315210
+      }
+    ],
+    "focalPoint": "75% 50%",
+    "media": "(max-width: 700px) and (max-aspect-ratio: 3/4)"
+  },
+  "slide": {
+    "id": "highlands",
+    "name": "Raspberry moments",
+    "label": "THE RASPBERRY EDIT / 05",
+    "title": "Dressed for",
+    "italic": "the moment.",
+    "note": "Rich raspberry, soft texture and a little reason to celebrate.",
+    "image": "/images/campaign/raspberry-red-hero-20261117-1747b5f72c5c.webp",
+    "alt": "Raspberry Red Textured Maxi Dress in a warm courtyard, styled with white sneakers",
+    "position": "72% 50%",
+    "mobile": "75% 50%",
+    "link": "/product/raspberry-red-textured-maxi-dress",
+    "product": "Shop the Raspberry Red Maxi Dress",
+    "enabled": true
+  }
+}
