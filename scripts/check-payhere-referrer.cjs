@@ -50,6 +50,7 @@ const baseline = process.argv.includes('--expect-suppressed');
     await page.getByRole('button', { name: 'Buy it now', exact: true }).click();
     await page.waitForURL('**/checkout?mode=buynow', { waitUntil: 'domcontentloaded' });
     await page.getByRole('heading', { name: 'Your delivery details', exact: true }).waitFor();
+    if (!baseline) await page.waitForFunction(() => document.querySelector('meta[name="referrer"]')?.content === 'strict-origin-when-cross-origin');
     let clientReferer;
     await page.route('https://www.payhere.lk/pay/checkout', async route => {
       clientReferer = (await route.request().allHeaders()).referer;
