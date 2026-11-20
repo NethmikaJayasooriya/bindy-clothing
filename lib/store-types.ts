@@ -87,8 +87,8 @@ export interface PublicStore { products: PublicProduct[]; hero: HeroSlide[]; pag
 
 export const DEFAULT_SETTINGS: StoreSettings = {
   storeName: "BINDY Clothing", email: DEFAULT_CONTACT_EMAIL, phone: "0766655550", address: "Brisbane, Australia · Colombo, Sri Lanka",
-  announcement: "Australian shipping · AUD 45 per order", freeShippingThreshold: 150, freeShippingEnabled: false,
-  standardShipping: 45, expressShipping: 45, returnsDays: 30, ...DEFAULT_SOCIALS, orderPrefix: "BIN", lowStockThreshold: 3, acceptingOrders: false,
+  announcement: "Australian shipping · AUD 28 per order", freeShippingThreshold: 150, freeShippingEnabled: false,
+  standardShipping: 28, expressShipping: 28, returnsDays: 30, ...DEFAULT_SOCIALS, orderPrefix: "BIN", lowStockThreshold: 3, acceptingOrders: false,
 };
 export const DEFAULT_HERO: HeroSlide[] = [
   { id: "together", name: "Better together", label: "THE REAL LIFE EDIT / 01", title: "The art of", italic: "being you.", note: "Clothes for the moments that make you, you. Thoughtfully made. Beautifully lived in.", image: "/images/bindi-real/campaign-together.webp", alt: "Two friends laughing in BINDY sage and floral pieces in the city", position: "51% 60%", mobile: "50% 61%", link: "/collection", product: "Discover the real life edit", enabled: true },

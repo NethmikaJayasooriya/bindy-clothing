@@ -26,7 +26,7 @@ for(const p of variants){
  assert.equal(p.priceAud,18);assert.equal(p.priceLkr,3500);
  const size=p.sizes[0],raw=state.products.find(q=>q.id===p.id),before=structuredClone(raw.stock);
  const order=createOrder(state,{requestId:`local-crochet-${p.id}`,customer:{name:'Local colour check',email:'colour@example.test',phone:'0771234567',address:'Local test only'},items:[{productId:p.id,size,quantity:1}]});
- assert.equal(order.items[0].productId,p.id);assert.equal(order.items[0].image,p.image);assert.equal(order.items[0].name,p.name);assert.equal(order.shipping,45);
+ assert.equal(order.items[0].productId,p.id);assert.equal(order.items[0].image,p.image);assert.equal(order.items[0].name,p.name);assert.equal(order.shipping,28);
  assert.deepEqual(raw.stock,before,'Untracked colours must not invent stock');
  const quote=quoteCod(state,{acceptedTerms:true,customer:{name:'Local colour check',email:'colour@example.test',phone:'0771234567',street:'Local test only',city:'Colombo',district:'Colombo',postcode:'00100',country:'Sri Lanka'},items:[{productId:p.id,size,quantity:1}]});
  assert.equal(quote.items[0].productId,p.id);assert.equal(quote.items[0].unitPrice,3500);
