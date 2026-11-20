@@ -8,5 +8,11 @@ export function codUnitPrice(product:Pick<Product,"priceAud"|"priceLkr">,setting
   if(settings.testMode) return Math.round(product.priceAud*settings.demoMultiplier);
   return typeof product.priceLkr==="number" && Number.isFinite(product.priceLkr) && product.priceLkr>0 ? product.priceLkr : null;
 }
+export function canCheckoutCodItem(product:Pick<Product,"sizes"|"stock"|"trackInventory"|"priceAud"|"priceLkr">|undefined,size:string,quantity:number,settings:ReturnType<typeof codSettings>):boolean {
+  return !!product && Number.isInteger(quantity) && quantity>=1 && quantity<=99
+    && product.sizes.includes(size)
+    && (product.trackInventory===false || (product.stock?.[size]??0)>=quantity)
+    && codUnitPrice(product,settings)!==null;
+}
 export const lkr = (amount:number) => new Intl.NumberFormat("en-LK",{style:"currency",currency:"LKR",maximumFractionDigits:2}).format(amount);
 export type CodQuote = {items:{productId:string;name:string;image:string;size:string;quantity:number;unitPrice:number}[];subtotal:number;shipping:number;total:number;currency:"LKR";testMode:boolean;token:string};
