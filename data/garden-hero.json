@@ -1,0 +1,32 @@
+[
+  {
+    "id": "city",
+    "name": "Tea mist moments",
+    "label": "THE TEA MIST EDIT / 02",
+    "title": "Everyday,",
+    "italic": "beautifully.",
+    "note": "Soft mint cotton, gathered tiers and a little time to slow down.",
+    "image": "/images/campaign/tea-mist-hero-20261121-14224e464eab.webp",
+    "alt": "The original Tea Mist Shirt Maxi Dress model smiling on a sunlit garden terrace",
+    "position": "72% 50%",
+    "mobile": "68% 50%",
+    "link": "/product/sage-shirt-maxi-dress",
+    "product": "Shop the Tea Mist Shirt Maxi Dress",
+    "enabled": true
+  },
+  {
+    "id": "blue",
+    "name": "Botanic in motion",
+    "label": "THE BOTANIC EDIT / 03",
+    "title": "A moment",
+    "italic": "in bloom.",
+    "note": "Forest green, rose botanicals and a silhouette made to move.",
+    "image": "/images/campaign/botanic-rose-hero-20261121-e02c039f153d.webp",
+    "alt": "Botanic Rose Halter Maxi Dress in a graceful walking turn on a warm garden terrace",
+    "position": "70% 50%",
+    "mobile": "64% 50%",
+    "link": "/product/botanic-rose-halter-maxi-dress",
+    "product": "Shop the Botanic Rose Halter Maxi Dress",
+    "enabled": true
+  }
+]

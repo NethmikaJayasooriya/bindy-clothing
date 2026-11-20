@@ -1,0 +1,220 @@
+[
+  {
+    "key": "tea-mist",
+    "mode": "Built-in image_gen",
+    "reference": "/images/optimized/catalogue-sage-shirt-maxi-dress-1003f9c5370e.webp",
+    "prompt": "Use case: identity-preserve. Asset type: premium photorealistic fashion website hero banner, wide 3:2 landscape composition. Edit target: the attached full original photograph of the smiling adult woman wearing the Tea Mist Shirt Maxi Dress. Preserve this exact woman: face identity, natural smile with closed eyes, light brown shoulder-length hair, sunglasses on head, body proportions, relaxed hands behind her, white wristwatch. Preserve the dress exactly: very pale muted blue-green mint cotton, classic pointed collar, short sleeves, button-front bodice, waist seam, three softly gathered skirt tiers and full maxi length with real cotton crinkles. Do not substitute a different model or redesign/recolour the dress. Replace the everyday stone-wall surroundings with a beautiful premium boutique garden conservatory terrace: warm limestone paving, elegant aged cream architecture, softly out-of-focus olive foliage and graceful distant arches, warm late-afternoon sunlight, refined natural editorial atmosphere. Show the entire woman from head to white low-top sneakers, including complete dress hem. She stands in the right two-thirds, centered at about 72% of canvas width; head at 8% and shoes at 88% of image height, wide quiet uncluttered left 45% for website headline. Real contact shadows, anatomically natural, premium camera quality with detailed fabric and authentic unretouched skin. No text, logos, watermark, borders, graphic design, extra people or collage. Produce one wide landscape photograph only.",
+    "generatedDimensions": {
+      "width": 1536,
+      "height": 1024
+    },
+    "deliveryMaster": {
+      "path": "public/images/campaign/tea-mist-hero-20261121-14224e464eab.webp",
+      "width": 3072,
+      "height": 2048,
+      "processing": "Lanczos export at 2x native generation resolution; no claim of native 2K generation."
+    },
+    "desktop": {
+      "width": 3072,
+      "height": 2048,
+      "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-3072.webp",
+      "srcSet": "/images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-480.webp 480w, /images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-768.webp 768w, /images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-1080.webp 1080w, /images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-1440.webp 1440w, /images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-1920.webp 1920w, /images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-2560.webp 2560w, /images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-3072.webp 3072w",
+      "variants": [
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-480.webp",
+          "width": 480,
+          "bytes": 34206
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-768.webp",
+          "width": 768,
+          "bytes": 71324
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-1080.webp",
+          "width": 1080,
+          "bytes": 114142
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-1440.webp",
+          "width": 1440,
+          "bytes": 221206
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-1920.webp",
+          "width": 1920,
+          "bytes": 323772
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-2560.webp",
+          "width": 2560,
+          "bytes": 450646
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-desktop-3072.webp",
+          "width": 3072,
+          "bytes": 626468
+        }
+      ]
+    },
+    "mobile": {
+      "width": 1536,
+      "height": 2048,
+      "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-1536.webp",
+      "srcSet": "/images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-480.webp 480w, /images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-768.webp 768w, /images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-1080.webp 1080w, /images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-1440.webp 1440w, /images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-1536.webp 1536w",
+      "variants": [
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-480.webp",
+          "width": 480,
+          "bytes": 50014
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-768.webp",
+          "width": 768,
+          "bytes": 100176
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-1080.webp",
+          "width": 1080,
+          "bytes": 141472
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-1440.webp",
+          "width": 1440,
+          "bytes": 244782
+        },
+        {
+          "src": "/images/optimized/tea-mist-hero-20261121-14224e464eab-mobile-1536.webp",
+          "width": 1536,
+          "bytes": 242736
+        }
+      ],
+      "focalPoint": "68% 50%",
+      "media": "(max-width: 700px) and (max-aspect-ratio: 3/4)"
+    },
+    "slide": {
+      "id": "city",
+      "name": "Tea mist moments",
+      "label": "THE TEA MIST EDIT / 02",
+      "title": "Everyday,",
+      "italic": "beautifully.",
+      "note": "Soft mint cotton, gathered tiers and a little time to slow down.",
+      "image": "/images/campaign/tea-mist-hero-20261121-14224e464eab.webp",
+      "alt": "The original Tea Mist Shirt Maxi Dress model smiling on a sunlit garden terrace",
+      "position": "72% 50%",
+      "mobile": "68% 50%",
+      "link": "/product/sage-shirt-maxi-dress",
+      "product": "Shop the Tea Mist Shirt Maxi Dress",
+      "enabled": true
+    }
+  },
+  {
+    "key": "botanic-rose",
+    "mode": "Built-in image_gen",
+    "reference": "/images/optimized/catalogue-botanic-rose-halter-maxi-dress-148e8cd5dbf2.webp",
+    "prompt": "Use case: ads-marketing with garment fidelity. Asset type: premium photorealistic fashion website hero, one wide 3:2 landscape photograph. Input image is the exact garment and adult model reference: Botanic Rose Halter Maxi Dress. Keep this same adult woman's face, warm medium-brown skin, dark loosely pinned hair and natural body proportions. Preserve garment precisely: forest-green ground, dense dusty-peach/coral botanical daisies and leaf motifs of the same scale, deep plunging halter neckline attached around neck, shaped gathered central waist with short tie, flowing ankle-length A-line maxi skirt. Do not change the print, colour, cut or add sleeves or belt. Give her a tasteful lively fashion action: caught mid gentle walking turn along a beautiful sunlit villa garden terrace, torso three-quarter towards camera, looking back with a relaxed happy smile, one hand lightly holding a small edge of skirt so the fabric makes a graceful natural sweep, other arm relaxed. Keep full garment and hem visible, realistic white low-top sneakers. Elegant warm stone terrace, distant ivory arches, flowering pale bougainvillea and olive trees, soft warm late afternoon light with realistic shadows, rich but restrained premium editorial photography, natural skin and beautifully detailed textile. Composition: full body in the right two-thirds, center around 70% horizontal, head 8% from top and sneakers 89% down, generous clear softly shaded left 45% for live website text; do not print any text. Natural anatomy and believable fabric movement, no dramatic lifted skirt, no extra people, no watermark, no graphics, no collage. One photograph only.",
+    "generatedDimensions": {
+      "width": 1536,
+      "height": 1024
+    },
+    "deliveryMaster": {
+      "path": "public/images/campaign/botanic-rose-hero-20261121-e02c039f153d.webp",
+      "width": 3072,
+      "height": 2048,
+      "processing": "Lanczos export at 2x native generation resolution; no claim of native 2K generation."
+    },
+    "desktop": {
+      "width": 3072,
+      "height": 2048,
+      "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-3072.webp",
+      "srcSet": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-480.webp 480w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-768.webp 768w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-1080.webp 1080w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-1440.webp 1440w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-1920.webp 1920w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-2560.webp 2560w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-3072.webp 3072w",
+      "variants": [
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-480.webp",
+          "width": 480,
+          "bytes": 44380
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-768.webp",
+          "width": 768,
+          "bytes": 95166
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-1080.webp",
+          "width": 1080,
+          "bytes": 154528
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-1440.webp",
+          "width": 1440,
+          "bytes": 293578
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-1920.webp",
+          "width": 1920,
+          "bytes": 422564
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-2560.webp",
+          "width": 2560,
+          "bytes": 588106
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-desktop-3072.webp",
+          "width": 3072,
+          "bytes": 795166
+        }
+      ]
+    },
+    "mobile": {
+      "width": 1536,
+      "height": 2048,
+      "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-1536.webp",
+      "srcSet": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-480.webp 480w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-768.webp 768w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-1080.webp 1080w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-1440.webp 1440w, /images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-1536.webp 1536w",
+      "variants": [
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-480.webp",
+          "width": 480,
+          "bytes": 87206
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-768.webp",
+          "width": 768,
+          "bytes": 176218
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-1080.webp",
+          "width": 1080,
+          "bytes": 249266
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-1440.webp",
+          "width": 1440,
+          "bytes": 428150
+        },
+        {
+          "src": "/images/optimized/botanic-rose-hero-20261121-e02c039f153d-mobile-1536.webp",
+          "width": 1536,
+          "bytes": 387600
+        }
+      ],
+      "focalPoint": "64% 50%",
+      "media": "(max-width: 700px) and (max-aspect-ratio: 3/4)"
+    },
+    "slide": {
+      "id": "blue",
+      "name": "Botanic in motion",
+      "label": "THE BOTANIC EDIT / 03",
+      "title": "A moment",
+      "italic": "in bloom.",
+      "note": "Forest green, rose botanicals and a silhouette made to move.",
+      "image": "/images/campaign/botanic-rose-hero-20261121-e02c039f153d.webp",
+      "alt": "Botanic Rose Halter Maxi Dress in a graceful walking turn on a warm garden terrace",
+      "position": "70% 50%",
+      "mobile": "64% 50%",
+      "link": "/product/botanic-rose-halter-maxi-dress",
+      "product": "Shop the Botanic Rose Halter Maxi Dress",
+      "enabled": true
+    }
+  }
+]

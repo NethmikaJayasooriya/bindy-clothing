@@ -2,6 +2,7 @@ import type { EnrichedProduct } from "@/data/products";
 import type { HomeDiscovery } from "./home-discovery";
 import { DEFAULT_SOCIALS, DEFAULT_CONTACT_EMAIL } from "./social-links";
 import raspberryHero from "@/data/raspberry-hero.json";
+import gardenHero from "@/data/garden-hero.json";
 
 export type ProductStatus = "active" | "draft" | "archived";
 export interface StoreProduct extends EnrichedProduct {
@@ -92,8 +93,7 @@ export const DEFAULT_SETTINGS: StoreSettings = {
 };
 export const DEFAULT_HERO: HeroSlide[] = [
   { id: "together", name: "Better together", label: "THE REAL LIFE EDIT / 01", title: "The art of", italic: "being you.", note: "Clothes for the moments that make you, you. Thoughtfully made. Beautifully lived in.", image: "/images/bindi-real/campaign-together.webp", alt: "Two friends laughing in BINDY sage and floral pieces in the city", position: "51% 60%", mobile: "50% 61%", link: "/collection", product: "Discover the real life edit", enabled: true },
-  { id: "city", name: "Everyday stories", label: "THE EVERYDAY EDIT / 02", title: "Everyday,", italic: "beautifully.", note: "Your favourite blouse. An unhurried coffee. A day that feels entirely your own.", image: "/images/bindi-real/campaign-city.webp", alt: "The Pearl Lace-Trim Blouse on a city afternoon", position: "63% 85%", mobile: "51% 85%", link: "/product/pearl-lace-blouse", product: "Shop the Pearl Lace Blouse", enabled: true },
-  { id: "blue", name: "Embraced by blue", label: "THE BLUE EDIT / 03", title: "Days in", italic: "a softer blue.", note: "Easy layers, open skies and a little room to wander.", image: "/images/campaign/blue.webp", alt: "A blue tiered shirt dress beside a sunlit coastal wall", position: "50% 50%", mobile: "50% 50%", link: "/product/ocean-embraced-tiered-dress", product: "Explore the blue edit", enabled: true },
+  ...gardenHero,
   { id: "coast", name: "By the coast", label: "THE COASTAL EDIT / 04", title: "A little", italic: "closer to calm.", note: "Light textures and gentle movement. Made for unhurried days.", image: "/images/campaign/coast.webp", alt: "An ivory crochet top and flowing skirt on a calm beach", position: "60% 50%", mobile: "60% 50%", link: "/collection", product: "Explore the coastal edit", enabled: true },
   raspberryHero,
 ];
