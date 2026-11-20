@@ -55,6 +55,12 @@ const nextConfig = {
           },
         ],
       },
+      // PayHere identifies the registered merchant domain from the browser Referer.
+      // Keep this override after the global policy; payment return tokens stay private.
+      {
+        source: "/checkout/:path*",
+        headers: [{ key: "Referrer-Policy", value: "strict-origin-when-cross-origin" }],
+      },
     ];
   },
 };
