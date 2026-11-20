@@ -5,6 +5,7 @@ import { payhereReady, checkoutForm } from "@/lib/server/payhere";
 import { publicInput, publicError } from "@/lib/server/public-requests";
 import { hasDatabase, productionStorageRequired } from "@/lib/server/durable-storage";
 import { createCodOrder, codReceipt } from "@/lib/server/cod-orders";
+import { createSriLankaPayhereOrder } from "@/lib/server/sri-lanka-payhere";
 
 export const runtime = "nodejs";
 
@@ -30,12 +31,13 @@ export async function POST(request: Request) {
     }
 
     if (!payhereReady() || !hasDatabase()) throw new StoreError("Online checkout is being prepared. Please contact the store for help.", 503);
+    const sriLanka=data.currency==="LKR"||object(data.customer).country==="Sri Lanka";
     let order: ReturnType<typeof createOrder> | undefined;
     for (let attempt = 0; ; attempt++) {
       try {
         const res = await mutateStore(undefined, "Reserved a new PayHere order", state => {
           if (!["privacy", "terms", "shipping", "returns"].every(slug => state.pages.some(p => p.slug === slug && p.published))) throw new StoreError("Checkout will open after the store policies are published.", 503);
-          const o = createOrder(state, data);
+          const o = sriLanka ? createSriLankaPayhereOrder(state, data) : createOrder(state, data);
           if (!o.gateway) o.gateway = { provider: "payhere", currency: "AUD", status: "pending", expiresAt: new Date(Date.now() + 30 * 60000).toISOString() };
           checkoutForm(o, object(data.customer));
           return o;

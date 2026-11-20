@@ -16,13 +16,15 @@ export function checkoutForm(order:StoreOrder,customer:Record<string,unknown>) {
   if(order.gateway?.status!=="pending"||Date.parse(order.gateway.expiresAt)<=Date.now()||order.fulfillment==="cancelled") throw new StoreError("This payment session has expired. Please start a new checkout.",409);
   const origin=new URL(process.env.SITE_URL!); if(origin.protocol!=="https:"&&process.env.NODE_ENV==="production") throw new StoreError("The store payment URL is not configured correctly.",503);
   const base=origin.origin; const token=orderToken(order); const amount=order.total.toFixed(2); const merchant=process.env.PAYHERE_MERCHANT_ID!;
+  const currency=order.gateway.currency;
+  if(!["AUD","LKR"].includes(currency)||(order.currency&&order.currency!==currency))throw new StoreError("The order payment currency is invalid.",409);
   const str=(v:unknown,max=200)=>typeof v==="string"?v.trim().slice(0,max):"";
   return {action:payhereMode()==="live"?"https://www.payhere.lk/pay/checkout":"https://sandbox.payhere.lk/pay/checkout",fields:{
     merchant_id:merchant,return_url:`${base}/payment/return?reference=${order.id}&token=${token}`,cancel_url:`${base}/payment/return?reference=${order.id}&token=${token}&cancelled=1`,notify_url:`${base}/api/payhere/notify`,
-    order_id:order.number,items:order.items.map(i=>i.name).join(", ").slice(0,200),currency:"AUD",amount,
+    order_id:order.number,items:order.items.map(i=>i.name).join(", ").slice(0,200),currency,amount,
     first_name:str(customer.firstName)||order.customerName.split(" ")[0],last_name:str(customer.lastName)||order.customerName.split(" ").slice(1).join(" ")||"-",
-    email:order.email,phone:order.phone,address:str(customer.street,500)||order.address,city:str(customer.city)||"Brisbane",country:"Australia",
-    hash:checkoutHash(merchant,order.number,amount,"AUD",process.env.PAYHERE_MERCHANT_SECRET!),custom_1:order.id,
+    email:order.email,phone:order.phone,address:str(customer.street,500)||order.address,city:str(customer.city)||(currency==="LKR"?"Colombo":"Brisbane"),country:currency==="LKR"?"Sri Lanka":"Australia",
+    hash:checkoutHash(merchant,order.number,amount,currency,process.env.PAYHERE_MERCHANT_SECRET!),custom_1:order.id,
   }};
 }
 export function expirePendingOrders(state:StoreState,now=Date.now()) {
@@ -39,7 +41,7 @@ function releaseStock(state:StoreState,order:StoreOrder) {
 export function applyNotification(state:StoreState,v:Record<string,string>,merchant:string,secret:string) {
   if(v.merchant_id!==merchant||!validSignature(v.md5sig??"",notificationHash(v,secret))) throw new StoreError("Invalid payment signature.",403);
   const order=state.orders.find(o=>o.number===v.order_id&&o.gateway?.provider==="payhere");
-  if(!order||v.payhere_currency!=="AUD"||!/^\d+\.\d{2}$/.test(v.payhere_amount)||v.payhere_amount!==order.total.toFixed(2)) throw new StoreError("Payment details do not match the order.",400);
+  if(!order||!["AUD","LKR"].includes(order.gateway!.currency)||v.payhere_currency!==order.gateway!.currency||!/^\d+\.\d{2}$/.test(v.payhere_amount)||v.payhere_amount!==order.total.toFixed(2)) throw new StoreError("Payment details do not match the order.",400);
   if(!["2","0","-1","-2","-3"].includes(v.status_code))throw new StoreError("Unknown payment status.");
   const gateway=order.gateway!;
   if(gateway.status==="refunded")return order;

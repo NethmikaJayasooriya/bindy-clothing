@@ -8,24 +8,29 @@ import {RequestError as StoreError} from "./request-security";
 const hash=(v:unknown)=>createHash("sha256").update(JSON.stringify(v)).digest("hex");
 const obj=(v:unknown):Record<string,unknown>=>{if(!v||typeof v!=="object"||Array.isArray(v))throw new StoreError("Invalid checkout details.");return v as Record<string,unknown>;};
 function str(v:unknown,label:string,max=200){if(typeof v!=="string"||!v.trim()||v.length>max)throw new StoreError(`Enter a valid ${label}.`);return v.trim();}
-function customer(v:unknown){const p=obj(v);const country=str(p.country,"country");if(country!=="Sri Lanka")throw new StoreError("Cash on delivery is available only within Sri Lanka.");
+export function sriLankaCustomer(v:unknown){const p=obj(v);const country=str(p.country,"country");if(country!=="Sri Lanka")throw new StoreError("Choose Sri Lanka as the delivery country for LKR checkout.");
  const phone=str(p.phone,"Sri Lankan mobile number",30).replace(/[\s()-]/g,"");if(!/^(?:0|\+94)7\d{8}$/.test(phone))throw new StoreError("Enter a Sri Lankan mobile number, e.g. 07XXXXXXXX or +947XXXXXXXX.");
  const email=str(p.email,"email").toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))throw new StoreError("Enter a valid email address.");
  const district=str(p.district,"district");if(!SL_DISTRICTS.includes(district))throw new StoreError("Choose a Sri Lankan district.");const postcode=str(p.postcode,"5-digit postal code",5);if(!/^\d{5}$/.test(postcode))throw new StoreError("Enter a 5-digit Sri Lankan postal code.");
  return {name:str(p.name,"full name"),email,phone,country,district,postcode,street:str(p.street,"street address",500),city:str(p.city,"city",100)};
 }
-function requestedItems(v:unknown){if(!Array.isArray(v)||!v.length||v.length>50)throw new StoreError("Add between 1 and 50 items.");const grouped=new Map<string,{productId:string;size:string;quantity:number}>();
+export function sriLankaRequestedItems(v:unknown){if(!Array.isArray(v)||!v.length||v.length>50)throw new StoreError("Add between 1 and 50 items.");const grouped=new Map<string,{productId:string;size:string;quantity:number}>();
  for(const raw of v){const i=obj(raw),productId=getCanonicalProductId(str(i.productId,"product")),size=str(i.size,"size"),quantity=i.quantity;if(typeof quantity!=="number"||!Number.isInteger(quantity)||quantity<1||quantity>99)throw new StoreError("Choose an item quantity from 1 to 99.");const key=productId+":"+size;const total=(grouped.get(key)?.quantity??0)+quantity;if(total>99)throw new StoreError("Maximum 99 units per size.");grouped.set(key,{productId,size,quantity:total});}return [...grouped.values()].sort((a,b)=>(a.productId+a.size).localeCompare(b.productId+b.size));
 }
 function ready(state:StoreState){const cfg=codSettings(state.settings);if(!state.settings.acceptingOrders||!cfg.enabled)throw new StoreError("Sri Lanka cash on delivery is currently paused.",503);if(!Number.isFinite(cfg.shippingLkr)||cfg.shippingLkr<0||!Number.isFinite(cfg.demoMultiplier)||cfg.demoMultiplier<=0)throw new StoreError("COD prices are not configured.",503);return cfg;}
 export function quoteCod(state:StoreState,input:Record<string,unknown>):CodQuote {
- const cfg=ready(state);customer(input.customer);
- const items=requestedItems(input.items).map(i=>{const p=state.products.find(p=>p.id===i.productId&&p.status==="active"&&!isRetiredProduct(p.id));if(!p||!p.sizes.includes(i.size))throw new StoreError("An item or size is no longer available.");if(p.trackInventory!==false&&(p.stock[i.size]??0)<i.quantity)throw new StoreError(`${p.name}: selected quantity is unavailable in ${i.size}.`,409);const unitPrice=codUnitPrice(p,cfg);if(unitPrice===null)throw new StoreError(`${p.name} does not have a confirmed LKR price yet. Please contact the store.`,409);return {...i,name:p.name,image:p.image,unitPrice};});
+ return quoteSriLanka(state,input,"cod");
+}
+export function quoteSriLanka(state:StoreState,input:Record<string,unknown>,method:"cod"|"payhere"):CodQuote {
+ const cfg=method==="cod"?ready(state):{...codSettings(state.settings),testMode:false};sriLankaCustomer(input.customer);
+ if(!state.settings.acceptingOrders)throw new StoreError("The store is temporarily not accepting new orders.",503);
+ if(!Number.isFinite(cfg.shippingLkr)||cfg.shippingLkr<0)throw new StoreError("Sri Lanka delivery is not configured.",503);
+ const items=sriLankaRequestedItems(input.items).map(i=>{const p=state.products.find(p=>p.id===i.productId&&p.status==="active"&&!isRetiredProduct(p.id));if(!p||!p.sizes.includes(i.size))throw new StoreError("An item or size is no longer available.");if(p.trackInventory!==false&&(p.stock[i.size]??0)<i.quantity)throw new StoreError(`${p.name}: selected quantity is unavailable in ${i.size}.`,409);const unitPrice=codUnitPrice(p,cfg);if(unitPrice===null)throw new StoreError(`${p.name} does not have a confirmed LKR price yet. Please contact the store.`,409);return {...i,name:p.name,image:p.image,unitPrice};});
  const subtotal=Math.round(items.reduce((s,i)=>s+i.unitPrice*i.quantity,0)*100)/100,shipping=cfg.shippingLkr,total=Math.round((subtotal+shipping)*100)/100;
- const quote={items,subtotal,shipping,total,currency:"LKR" as const,testMode:cfg.testMode};return {...quote,token:hash(quote)};
+ const quote={items,subtotal,shipping,total,currency:"LKR" as const,testMode:cfg.testMode};return {...quote,token:hash({...quote,paymentMethod:method})};
 }
 export function createCodOrder(state:StoreState,input:Record<string,unknown>):StoreOrder {
- const person=customer(input.customer),lines=requestedItems(input.items),requestId=str(input.requestId,"order reference",100);
+ const person=sriLankaCustomer(input.customer),lines=sriLankaRequestedItems(input.items),requestId=str(input.requestId,"order reference",100);
  if(input.acceptedTerms!==true)throw new StoreError("Accept the terms before placing your order.");
  const fingerprint=hash({person,lines,method:"cod"}),prior=state.orders.find(o=>o.requestId===requestId);
  if(prior){if(prior.paymentMethod!=="cod"||prior.requestFingerprint!==fingerprint)throw new StoreError("This order reference cannot be reused for different checkout details.",409);return prior;}

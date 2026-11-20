@@ -26,8 +26,8 @@ export interface StoreOrder {
   discountCode: string; payment: "unpaid" | "paid" | "refunded";
   fulfillment: "unfulfilled" | "packed" | "shipped" | "delivered" | "cancelled";
   carrier: string; tracking: string; notes: string; createdAt: string; updatedAt: string; requestId: string;
-  gateway?: { provider: "payhere"; currency: "AUD"; status: "pending" | "paid" | "failed" | "expired" | "refunded"; paymentId?:string; expiresAt:string };
-  paymentMethod?: "cod"; currency?: "AUD" | "LKR"; testMode?: boolean; requestFingerprint?: string;
+  gateway?: { provider: "payhere"; currency: "AUD" | "LKR"; status: "pending" | "paid" | "failed" | "expired" | "refunded"; paymentId?:string; expiresAt:string };
+  paymentMethod?: "cod" | "payhere"; currency?: "AUD" | "LKR"; testMode?: boolean; requestFingerprint?: string;
 }
 export interface Discount {
   id: string; code: string; type: "percentage" | "fixed" | "shipping"; value: number; minimum: number;

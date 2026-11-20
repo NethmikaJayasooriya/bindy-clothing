@@ -4,6 +4,13 @@ The existing server-side Checkout API integration uses Merchant ID `264454`.
 Australian standard and express delivery are both **AUD 28 per order**, including
 orders above the old free-shipping threshold. Sri Lanka COD delivery is unchanged.
 
+PayHere online payment is the default option for Sri Lanka checkout as well as
+Australia checkout. Sri Lanka online orders use confirmed `priceLkr` values and
+the configured Sri Lanka delivery fee; demo conversions are never used for online
+payments. Cash on delivery remains a separate, selectable Sri Lanka option.
+Gateway form hashes, callback validation and the payment return page use the
+saved order's currency (`LKR` or `AUD`). A browser return does not mark an order paid.
+
 Production environment variables in the `bindy-clothing` Vercel project:
 
 | Name | Value | Type |

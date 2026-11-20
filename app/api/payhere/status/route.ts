@@ -8,5 +8,5 @@ export async function POST(request:Request){try{
   const input=await publicInput(request,"payment-status",60);
   const order=(await readStore()).orders.find(o=>o.id===input.reference);
   if(!order||!validOrderToken(order,String(input.token??"")))throw new StoreError("Order not found.",404);
-  return NextResponse.json({number:order.number,payment:order.payment,status:order.gateway?.status,total:order.total,cancelled:order.fulfillment==="cancelled"},{headers:{"Cache-Control":"no-store"}});
+  return NextResponse.json({number:order.number,payment:order.payment,status:order.gateway?.status,total:order.total,currency:order.gateway?.currency??order.currency??"AUD",cancelled:order.fulfillment==="cancelled"},{headers:{"Cache-Control":"no-store"}});
 }catch(e){const error=publicError(e);return NextResponse.json({error:error.message},{status:error.status});}}
