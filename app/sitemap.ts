@@ -91,5 +91,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     images: Array.from(new Set([p.image, ...(p.gallery || [])])).map(absoluteUrl),
   }));
 
-  return [...corePages, ...productPages];
+  return [...corePages.filter(p=>p.url!==`${SITE_URL}/about`||store.editorial?.about),...(store.editorial?.stories?[{url:`${SITE_URL}/stories`,lastModified:now,changeFrequency:"monthly" as const,priority:0.7}]:[]), ...productPages];
 }

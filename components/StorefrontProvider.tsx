@@ -3,7 +3,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { groupCatalogueProducts } from '@/lib/product-variants';
 import { PRODUCTS } from "@/data/products";
 import { DEFAULT_HERO, DEFAULT_SETTINGS, type PublicStore } from "@/lib/store-types";
-const fallback: PublicStore = { products: PRODUCTS, hero: DEFAULT_HERO, settings: DEFAULT_SETTINGS, pages: [], revision: 0 };
+import { publicEditorial } from "@/lib/editorial-content";
+const fallback: PublicStore = { products: PRODUCTS, hero: DEFAULT_HERO, settings: DEFAULT_SETTINGS, pages: [], editorial:publicEditorial(), revision: 0 };
 const StorefrontContext = createContext(fallback);
 export function StorefrontProvider({ children, initial }: { children: React.ReactNode; initial?: PublicStore }) {
   const [store, setStore] = useState(initial ?? fallback);

@@ -1,0 +1,16 @@
+{
+  "pages": ["/stories", "/about"],
+  "admin": "/admin/editorial",
+  "contentSources": {
+    "storiesBrandIntroduction": "User-supplied BINDY welcome, modern-woman and community boards, supplied 2026-11-21",
+    "brandFoundation": "Main (1).png — Simple. Thoughtful. Special.",
+    "brandValues": "Main (2).png — five supplied brand values",
+    "serendipityNarrative": "Main (3).png — Serendib, heritage and modernity, Australian living",
+    "serendipityConcept": "Main (4).png — collection moodboard",
+    "colourPalette": "Main (5) (1).png — eight supplied colour names, hex codes and meanings",
+    "about": "Existing About page's family story, Australia/Sri Lanka creative and production locations, factory establishment in 2012 and production stages retained"
+  },
+  "imageProcessing": "Original supplied boards converted to responsive WebP. Portraits and natural palette images extracted from the same supplied boards. Full boards retained in the studio gallery. No additional generated brand images or invented testimonials, dates, people, statistics or certifications.",
+  "editorFeatures": ["page publish/hide", "navigation labels", "hero headline and image", "intro and links", "SEO title and description", "add sections", "duplicate sections", "reorder sections and items", "remove sections and items", "hide sections", "six section layouts", "three background colours", "image placement", "text and descriptions", "colour hex codes", "media library and image uploads", "unsaved draft preview", "conflict protection", "unsaved-change warning"],
+  "persistence": "The existing authenticated admin store endpoint saves each page independently in the durable store document. Public projection omits hidden sections and unpublished pages. New content falls back to these approved defaults only when the editorial field is absent. Explicitly unpublished pages do not fall back."
+}

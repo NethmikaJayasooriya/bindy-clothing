@@ -11,6 +11,8 @@ import { StoreError } from "./store-repository";
 import { expirePendingOrders } from "./payhere";
 import { audShippingFee } from "@/lib/shipping";
 import { syncCategoryToSupabase, deleteCategoryFromSupabase } from "./supabase-sync";
+import { editorialUpdate } from "./editorial-validation";
+import { DEFAULT_EDITORIAL, editorialEqual } from "@/lib/editorial-content";
 type Input = Record<string, unknown>;
 export function object(value: unknown): Input { if (!value || typeof value !== "object" || Array.isArray(value)) throw new StoreError("The submitted data is invalid."); return value as Input; }
 export function text(value: unknown, max = 2000): string { if (value === undefined || value === null) return ""; if (typeof value !== "string" || value.length > max) throw new StoreError(`Text fields must contain no more than ${max} characters.`); return value.trim(); }
@@ -299,6 +301,12 @@ export function applyAction(state: StoreState, action: string, v: Input): unknow
       }
       state.homepage = homepage;
       return;
+    }
+    case "editorial-page": {
+      if(v.key!=="about"&&v.key!=="stories")throw new StoreError("Choose About or Bindy Stories.");
+      if(!editorialEqual(v.expectedPage,(state.editorial??DEFAULT_EDITORIAL)[v.key]))throw new StoreError("This page was edited elsewhere. Load the latest saved version before saving your draft.",409);
+      editorialUpdate(state,v.key,v.page);
+      return state.editorial![v.key];
     }
     case "content": {
       if (!Array.isArray(v.hero) || !v.hero.length || v.hero.length > 8) throw new StoreError("Use between 1 and 8 hero slides.");

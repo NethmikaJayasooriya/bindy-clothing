@@ -1,5 +1,6 @@
 import type { EnrichedProduct } from "@/data/products";
 import type { HomeDiscovery } from "./home-discovery";
+import type { EditorialContent, PublicEditorial } from "./editorial-content";
 import { DEFAULT_SOCIALS, DEFAULT_CONTACT_EMAIL } from "./social-links";
 import raspberryHero from "@/data/raspberry-hero.json";
 import gardenHero from "@/data/garden-hero.json";
@@ -82,9 +83,10 @@ export interface StoreState {
   promotions?: Promotion[];
   homepage?: HomepageContent;
   discovery?: HomeDiscovery;
+  editorial?: EditorialContent;
 }
 export type PublicProduct = EnrichedProduct & { stock?: Record<string, number>; compareAtAud?: number };
-export interface PublicStore { products: PublicProduct[]; hero: HeroSlide[]; pages: ContentPage[]; settings: StoreSettings; revision: number; categories?: StoreCategory[]; promotions?:Promotion[]; homepage?:HomepageContent; discovery?:HomeDiscovery; payments?:{enabled:boolean;mode:"sandbox"|"live";cod?:StoreSettings["cod"]} }
+export interface PublicStore { products: PublicProduct[]; hero: HeroSlide[]; pages: ContentPage[]; settings: StoreSettings; revision: number; categories?: StoreCategory[]; promotions?:Promotion[]; homepage?:HomepageContent; discovery?:HomeDiscovery; editorial?:PublicEditorial; payments?:{enabled:boolean;mode:"sandbox"|"live";cod?:StoreSettings["cod"]} }
 
 export const DEFAULT_SETTINGS: StoreSettings = {
   storeName: "BINDY Clothing", email: DEFAULT_CONTACT_EMAIL, phone: "0766655550", address: "Brisbane, Australia · Colombo, Sri Lanka",

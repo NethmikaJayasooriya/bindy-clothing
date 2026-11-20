@@ -21,10 +21,11 @@ const categories = [
   ["Tops & blouses", "/collection?parent=Tops"], ["Skirts & pants", "/collection?parent=Bottoms"],
   ["Resort wear", "/collection?parent=Resort%20Wear"], ["New arrivals", "/collection?filter=new"],
 ];
-const stories = [["Style Studio", "/build-your-set"], ["Our story", "/about"], ["The craft", "/craft"], ["Stories", "/stories"], ["Journal", "/journal"]];
+const storyLinks = [["Style Studio", "/build-your-set"], ["Our story", "/about"], ["The craft", "/craft"], ["Bindy Stories", "/stories"], ["Journal", "/journal"]];
 
 export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart, immersive = false }: NavbarProps) {
-  const { settings } = useStorefront();
+  const { settings,editorial } = useStorefront();
+  const stories=storyLinks.filter(([,href])=>href!=="/about"&&href!=="/stories"||editorial?.[href==="/about"?"about":"stories"]!==null).map(([label,href])=>[href==="/about"?editorial?.about?.navLabel||label:href==="/stories"?editorial?.stories?.navLabel||label:label,href]);
   const { market, currency, isLkr } = useCurrency();
   const [overHero, setOverHero] = useState(immersive);
   useEffect(() => {
@@ -86,7 +87,7 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
           </span>
           <span>{isLkr ? "SRI LANKA" : "AUSTRALIA"}</span>
         </span>
-        <Link href="/about">Two islands. One thread. <ArrowUpRight size={11} /></Link>
+        {editorial?.about!==null&&<Link href="/about">Two islands. One thread. <ArrowUpRight size={11} /></Link>}
       </div>
       <nav className={styles.nav} aria-label="Main navigation">
         <div className={styles.navLeft}>
@@ -104,7 +105,8 @@ export default function Navbar({ isMuted, toggleAudio, cartCount = 0, onOpenCart
             </details>
             <Link href="/collection?filter=new">New arrivals</Link>
             <Link href="/build-your-set">Style Studio</Link>
-            <Link href="/about">Our story</Link>
+            {editorial?.about!==null&&<Link href="/about">{editorial?.about?.navLabel||"Our story"}</Link>}
+            {editorial?.stories!==null&&<Link href="/stories">{editorial?.stories?.navLabel||"Bindy Stories"}</Link>}
             <Link href="/craft">The craft</Link>
           </div>
         </div>

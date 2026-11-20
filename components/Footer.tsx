@@ -11,7 +11,7 @@ import {PREFERENCES_EVENT} from "@/lib/analytics";
 import { socialLinks } from "@/lib/social-links";
 
 export default function Footer() {
-  const { settings, pages } = useStorefront();
+  const { settings, pages, editorial } = useStorefront();
   const legalPages = ["privacy", "terms", "security"].flatMap(slug => pages.filter(p => p.slug === slug));
   const socials = socialLinks(settings);
   return (
@@ -95,16 +95,16 @@ export default function Footer() {
               Our World
             </h4>
             <ul className="space-y-2.5 text-[13.5px] font-sans text-charcoal/75">
-              <li>
+              {editorial?.about!==null&&<li>
                 <Link href="/about" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
-                  Our Story
+                  {editorial?.about?.navLabel||"Our Story"}
                 </Link>
-              </li>
-              <li>
+              </li>}
+              {editorial?.stories!==null&&<li>
                 <Link href="/stories" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
-                  Heritage Stories
+                  {editorial?.stories?.navLabel||"Bindy Stories"}
                 </Link>
-              </li>
+              </li>}
               <li>
                 <Link href="/craft" className="hover:text-charcoal-rich hover:translate-x-0.5 transition-all duration-200 inline-block">
                   Fabric &amp; Garment Care
