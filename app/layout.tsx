@@ -79,6 +79,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const token = store.settings.tracking?.searchConsoleToken;
   return {
     metadataBase: new URL(SITE_URL),
+    referrer: "no-referrer",
     title: {
       default: "BINDY Clothing · Official Store | Women's Fashion Australia & Sri Lanka",
       template: "%s | BINDY Clothing",

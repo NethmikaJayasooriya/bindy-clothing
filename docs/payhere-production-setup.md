@@ -43,7 +43,9 @@ Checkout responses use `Referrer-Policy: strict-origin-when-cross-origin` so the
 browser sends only the storefront origin to PayHere. PayHere requires this
 `Referer` to recognize the registered domain; `no-referrer` can cause PH-0014.
 Other pages, including payment returns containing status tokens, retain
-`no-referrer`. Keep the checkout header override after the global header rule.
+`no-referrer`. Route metadata mirrors these policies so client-side Buy Now and
+bag navigation also update the browser policy. Keep the checkout header override
+after the global header rule.
 The browser regression in `scripts/check-payhere-referrer.cjs` intercepts both
 gateway endpoints locally and checks origin-only checkout headers and suppressed
 payment-return headers without creating orders or sending gateway requests.
